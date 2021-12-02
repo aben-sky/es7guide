@@ -12,13 +12,14 @@ $sourcePathLength = mb_strlen($sourcePath);
 $dir = $sourcePath;
 $GetFiles = new GetFiles();
 $arr = $GetFiles->get($dir);
+$dump = false;//是否模拟(空run, 只打印log)
 foreach ($arr AS $filePath) {
     $relativePath = mb_substr($filePath, $sourcePathLength + 1);
-    $relativeFolder = mb_substr($relativePath, 0, mb_strrpos($relativePath, DIRECTORY_SEPARATOR) + 1);//带斜线
-    $newFolder = 'html' . DIRECTORY_SEPARATOR . $relativeFolder;//带斜线
+    $relativeFolder = mb_substr($relativePath, 0, mb_strrpos($relativePath, DIRECTORY_SEPARATOR));//不带斜线
+    $newFolder = 'html' . (strlen($relativeFolder) > 0 ? DIRECTORY_SEPARATOR . $relativeFolder : '');//不带斜线
     $fileName = $GetFiles->getFileName($filePath);
 
-    if (!is_dir($newFolder)) {
+    if (!$dump && !is_dir($newFolder)) {
         mkdir($newFolder, 0777, true);
     }
 
@@ -26,9 +27,10 @@ foreach ($arr AS $filePath) {
     if (mb_strlen($filePath) > 3
         && mb_substr($filePath, mb_strlen($filePath) - 3) === '.md'
     ) {
-        $mdContent = file_get_contents($filePath);
-        $html = $Parsedown->text($mdContent);
-        $html = <<<EOF
+        if (!$dump) {
+            $mdContent = file_get_contents($filePath);
+            $html = $Parsedown->text($mdContent);
+            $html = <<<EOF
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,21 +42,26 @@ $html
 </body>
 </html>
 EOF;
+        }
 
         //修正文件后缀
         //$ix = mb_strrpos($fileName, '.');
         //$fileName = mb_substr($fileName, 0, $ix) . '.html';
         $fileName = $GetFiles->getPureFileName($fileName) . '.html';
-        $newPath = $newFolder . $fileName;
+        $newPath = $newFolder . DIRECTORY_SEPARATOR . $fileName;
 
-        file_put_contents($newPath, $html);
-        echo $filePath . ' => ' . $newPath . PHP_EOL;
+        if (!$dump) {
+            file_put_contents($newPath, $html);
+        }
+        echo $relativePath . ' => ' . $newPath . PHP_EOL;
     } else {
         //直接复制
-        $newPath = $newFolder . $fileName;
+        $newPath = $newFolder . DIRECTORY_SEPARATOR . $fileName;
 
-        copy($filePath, $newPath);
-        echo $filePath . ' 直接拷贝到 ' . $newPath . PHP_EOL;
+        if (!$dump) {
+            copy($filePath, $newPath);
+        }
+        echo $relativePath . ' 直接拷贝到 ' . $newPath . PHP_EOL;
     }
 }
 

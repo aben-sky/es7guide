@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+<meta charset="UTF-8">
+<title>条形图 | Elasticsearch: 权威指南 | Elastic</title>
+<link rel="home" href="index.html" title="Elasticsearch: 权威指南">
+<link rel="up" href="aggregations.html" title="聚合">
+<link rel="prev" href="_one_final_modification.html" title="最后的修改">
+<link rel="next" href="_looking_at_time.html" title="按时间统计">
+<meta name="DC.type" content="Learn/Docs/Elasticsearch/Definitive Guide">
+<meta name="DC.subject" content="Elasticsearch">
+<meta name="DC.identifier" content="2.x">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.optimizely.com/js/18132920325.js"></script>
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-title" content="Elastic">
+    <meta name="application-name" content="Elastic">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="naver-site-verification" content="936882c1853b701b3cef3721758d80535413dbfd">
+    <meta name="yandex-verification" content="d8a47e95d0972434">
+    <meta name="localized" content="true">
+    <meta name="st:robots" content="follow,index">
+    <meta property="og:image" content="https://www.elastic.co/static/images/elastic-logo-200.png">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon-precomposed" sizes="64x64" href="/favicon_64x64_16bit.png">
+    <link rel="apple-touch-icon-precomposed" sizes="32x32" href="/favicon_32x32.png">
+    <link rel="apple-touch-icon-precomposed" sizes="16x16" href="/favicon_16x16.png">
+    <!-- Give IE8 a fighting chance -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/guide/static/styles.css">
+  </head>
+
+  <!--© 2015-2021 Elasticsearch B.V. Copying, publishing and/or distributing without written permission is strictly prohibited.-->
+
+  <body>
+    <!-- Google Tag Manager -->
+    <script>dataLayer = [];</script><noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-58RLH5" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-58RLH5');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-12395217-16"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-12395217-16');
+    </script>
+
+    <!--BEGIN QUALTRICS WEBSITE FEEDBACK SNIPPET-->
+    <script type="text/javascript">
+      (function(){var g=function(e,h,f,g){
+      this.get=function(a){for(var a=a+"=",c=document.cookie.split(";"),b=0,e=c.length;b<e;b++){for(var d=c[b];" "==d.charAt(0);)d=d.substring(1,d.length);if(0==d.indexOf(a))return d.substring(a.length,d.length)}return null};
+      this.set=function(a,c){var b="",b=new Date;b.setTime(b.getTime()+6048E5);b="; expires="+b.toGMTString();document.cookie=a+"="+c+b+"; path=/; "};
+      this.check=function(){var a=this.get(f);if(a)a=a.split(":");else if(100!=e)"v"==h&&(e=Math.random()>=e/100?0:100),a=[h,e,0],this.set(f,a.join(":"));else return!0;var c=a[1];if(100==c)return!0;switch(a[0]){case "v":return!1;case "r":return c=a[2]%Math.floor(100/c),a[2]++,this.set(f,a.join(":")),!c}return!0};
+      this.go=function(){if(this.check()){var a=document.createElement("script");a.type="text/javascript";a.src=g;document.body&&document.body.appendChild(a)}};
+      this.start=function(){var a=this;window.addEventListener?window.addEventListener("load",function(){a.go()},!1):window.attachEvent&&window.attachEvent("onload",function(){a.go()})}};
+      try{(new g(100,"r","QSI_S_ZN_emkP0oSe9Qrn7kF","https://znemkp0ose9qrn7kf-elastic.siteintercept.qualtrics.com/WRSiteInterceptEngine/?Q_ZID=ZN_emkP0oSe9Qrn7kF")).start()}catch(i){}})();
+    </script><div id="ZN_emkP0oSe9Qrn7kF"><!--DO NOT REMOVE-CONTENTS PLACED HERE--></div>
+    <!--END WEBSITE FEEDBACK SNIPPET-->
+
+    <div id="elastic-nav" style="display:none;"></div>
+    <script src="https://www.elastic.co/elastic-nav.js"></script>
+
+    <!-- Subnav -->
+    <div>
+      <div>
+        <div class="tertiary-nav d-none d-md-block">
+          <div class="container">
+            <div class="p-t-b-15 d-flex justify-content-between nav-container">
+              <div class="breadcrum-wrapper"><span><a href="/guide/" style="font-size: 14px; font-weight: 600; color: #000;">Docs</a></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-container">
+      <section id="content">
+        <div class="content-wrapper">
+
+          <section id="guide" lang="zh_cn">
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
+                  <!-- start body -->
+                  <div class="page_header">
+<b>请注意:</b><br>本书基于 Elasticsearch 2.x 版本，有些内容可能已经过时。
+</div>
+<div id="content">
+<div class="breadcrumbs">
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch: 权威指南</a></span>
+»
+<span class="breadcrumb-link"><a href="aggregations.html">聚合</a></span>
+»
+<span class="breadcrumb-node">条形图</span>
+</div>
+<div class="navheader">
+<span class="prev">
+<a href="_one_final_modification.html">« 最后的修改</a>
+</span>
+<span class="next">
+<a href="_looking_at_time.html">按时间统计 »</a>
+</span>
+</div>
+<div class="chapter">
+<div class="titlepage"><div><div>
+<h2 class="title">
+<a id="_building_bar_charts"></a>条形图<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/30_histogram.asciidoc">edit</a>
+</h2>
+</div></div></div>
+<p>聚合还有一个令人激动的特性就是能够十分容易地将它们转换成图表和图形。本章中，
+我们正在通过示例数据来完成各种各样的聚合分析，最终，我们将会发现聚合功能是非常强大的。</p>
+<p>直方图 <code class="literal">histogram</code> 特别有用。 它本质上是一个条形图，如果有创建报表或分析仪表盘的经验，那么我们会毫无疑问的发现里面有一些图表是条形图。
+创建直方图需要指定一个区间，如果我们要为售价创建一个直方图，可以将间隔设为 20,000。这样做将会在每个 $20,000 档创建一个新桶，然后文档会被分到对应的桶中。</p>
+<p>对于仪表盘来说，我们希望知道每个售价区间内汽车的销量。我们还会想知道每个售价区间内汽车所带来的收入，可以通过对每个区间内已售汽车的售价求和得到。</p>
+<p>可以用 <code class="literal">histogram</code> 和一个嵌套的 <code class="literal">sum</code> 度量得到我们想要的答案：</p>
+<div class="pre_wrapper lang-sense">
+<pre class="programlisting prettyprint lang-sense">GET /cars/transactions/_search
+{
+   "size" : 0,
+   "aggs":{
+      "price":{
+         "histogram":{ <a id="CO192-1"></a><i class="conum" data-value="1"></i>
+            "field": "price",
+            "interval": 20000
+         },
+         "aggs":{
+            "revenue": {
+               "sum": { <a id="CO192-2"></a><i class="conum" data-value="2"></i>
+                 "field" : "price"
+               }
+             }
+         }
+      }
+   }
+}</pre>
+</div>
+<div class="sense_widget" data-snippet="snippets/300_Aggregations/30_histogram.json"></div>
+<div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td align="left" valign="top" width="5%">
+<p><a href="#CO192-1"><i class="conum" data-value="1"></i></a></p>
+</td>
+<td align="left" valign="top">
+<p><code class="literal">histogram</code> 桶要求两个参数：一个数值字段以及一个定义桶大小间隔。</p>
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" width="5%">
+<p><a href="#CO192-2"><i class="conum" data-value="2"></i></a></p>
+</td>
+<td align="left" valign="top">
+<p><code class="literal">sum</code> 度量嵌套在每个售价区间内，用来显示每个区间内的总收入。</p>
+</td>
+</tr>
+</table>
+</div>
+<p>如我们所见，查询是围绕 <code class="literal">price</code> 聚合构建的，它包含一个 <code class="literal">histogram</code> 桶。它要求字段的类型必须是数值型的同时需要设定分组的间隔范围。
+间隔设置为 20,000 意味着我们将会得到如  <code class="literal">[0-19999, 20000-39999, ...]</code> 这样的区间。</p>
+<p>接着，我们在直方图内定义嵌套的度量，这个 <code class="literal">sum</code> 度量，它会对落入某一具体售价区间的文档中 <code class="literal">price</code> 字段的值进行求和。
+这可以为我们提供每个售价区间的收入，从而可以发现到底是普通家用车赚钱还是奢侈车赚钱。</p>
+<p>响应结果如下：</p>
+<div class="pre_wrapper lang-js">
+<pre class="programlisting prettyprint lang-js">{
+...
+   "aggregations": {
+      "price": {
+         "buckets": [
+            {
+               "key": 0,
+               "doc_count": 3,
+               "revenue": {
+                  "value": 37000
+               }
+            },
+            {
+               "key": 20000,
+               "doc_count": 4,
+               "revenue": {
+                  "value": 95000
+               }
+            },
+            {
+               "key": 80000,
+               "doc_count": 1,
+               "revenue": {
+                  "value": 80000
+               }
+            }
+         ]
+      }
+   }
+}</pre>
+</div>
+<p>结果很容易理解，不过应该注意到直方图的键值是区间的下限。键 <code class="literal">0</code> 代表区间 <code class="literal">0-19，999</code> ，键 <code class="literal">20000</code> 代表区间 <code class="literal">20，000-39，999</code> ，等等。</p>
+<div class="note admon">
+<div class="icon"></div>
+<div class="admon_content">
+<p>我们可能会注意到空的区间，比如：$40，000-60，000，没有出现在响应中。 <code class="literal">histogram</code> 桶默认会忽略它，因为它有可能会导致不希望的潜在错误输出。</p>
+<p>我们会在下一小节中讨论如何包括空桶。返回空桶 <a class="xref" href="_returning_empty_buckets.html" title="返回空 Buckets">返回空 Buckets</a> 。</p>
+</div>
+</div>
+<p>可以在图 <a class="xref" href="_building_bar_charts.html#barcharts-histo1" title="Sales and Revenue per price bracket">Figure 35, “Sales and Revenue per price bracket”</a> 中看到以上数据直方图的图形化表示。</p>
+<div id="barcharts-histo1" class="imageblock">
+<div class="content">
+<img src="images/elas_28in01.png" alt="Sales and Revenue per price bracket">
+</div>
+<div class="title">Figure 35. Sales and Revenue per price bracket</div>
+</div>
+<p>当然，我们可以为任何聚合输出的分类和统计结果创建条形图，而不只是 <code class="literal">直方图</code> 桶。让我们以最受欢迎 10 种汽车以及它们的平均售价、标准差这些信息创建一个条形图。
+我们会用到 <code class="literal">terms</code> 桶和 <code class="literal">extended_stats</code> 度量：</p>
+<div class="pre_wrapper lang-js">
+<pre class="programlisting prettyprint lang-js">GET /cars/transactions/_search
+{
+  "size" : 0,
+  "aggs": {
+    "makes": {
+      "terms": {
+        "field": "make",
+        "size": 10
+      },
+      "aggs": {
+        "stats": {
+          "extended_stats": {
+            "field": "price"
+          }
+        }
+      }
+    }
+  }
+}</pre>
+</div>
+<p>上述代码会按受欢迎度返回制造商列表以及它们各自的统计信息。我们对其中的 <code class="literal">stats.avg</code> 、 <code class="literal">stats.count</code> 和 <code class="literal">stats.std_deviation</code> 信息特别感兴趣，并用  它们计算出标准差：</p>
+<pre class="literallayout">std_err = std_deviation / count</pre>
+
+<p>创建图表如图 <a class="xref" href="_building_bar_charts.html#barcharts-bar1" title="Average price of all makes, with error bars">Figure 36, “Average price of all makes, with error bars”</a> 。</p>
+<div id="barcharts-bar1" class="imageblock">
+<div class="content">
+<img src="images/elas_28in02.png" alt="Average price of all makes, with error bars">
+</div>
+<div class="title">Figure 36. Average price of all makes, with error bars</div>
+</div>
+<p></p>
+</div>
+<div class="navfooter">
+<span class="prev">
+<a href="_one_final_modification.html">« 最后的修改</a>
+</span>
+<span class="next">
+<a href="_looking_at_time.html">按时间统计 »</a>
+</span>
+</div>
+</div>
+
+                  <!-- end body -->
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4" id="right_col">
+                  <div id="rtpcontainer" style="display: block;">
+                    <div class="mktg-promo">
+                      <h3>Most Popular</h3>
+                      <ul class="icons">
+                        <li class="icon-elasticsearch-white"><a href="https://www.elastic.co/webinars/getting-started-elasticsearch?baymax=default&amp;elektra=docs&amp;storm=top-video">Get Started with Elasticsearch: Video</a></li>
+                        <li class="icon-kibana-white"><a href="https://www.elastic.co/webinars/getting-started-kibana?baymax=default&amp;elektra=docs&amp;storm=top-video">Intro to Kibana: Video</a></li>
+                        <li class="icon-logstash-white"><a href="https://www.elastic.co/webinars/introduction-elk-stack?baymax=default&amp;elektra=docs&amp;storm=top-video">ELK for Logs &amp; Metrics: Video</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+
+<div id="elastic-footer"></div>
+<script src="https://www.elastic.co/elastic-footer.js"></script>
+<!-- Footer Section end-->
+
+      </section>
+    </div>
+
+<script src="/guide/static/jquery.js"></script>
+<script type="text/javascript" src="/guide/static/docs.js"></script>
+<script type="text/javascript">
+  window.initial_state = {}</script>
+  </body>
+</html>

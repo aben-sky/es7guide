@@ -858,6 +858,76 @@ function getOriginalHtml($link) {
     return true;
 }
 
-//抓取原文档
-getOriginalHtmls();
+/**
+ * 把官网的文档转换到本地
+ */
+function convertToLocalFile($link) {
+    $html = file_get_contents('2.x/origin/' . $link);
+    $document = QueryList::getInstance()->setHtml($html);
 
+    //获取title
+    $title = $document->find('title')->text();
+    echo $title . PHP_EOL;
+
+    //获取主要内容
+    $body = $document->find('#guide>.container>.row>.guide-section')
+        ->html();
+    if (empty($body)) {
+        return false;
+    }
+
+    $html = <<<EOF
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>$title</title>
+	<link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+<body>
+<!-- 原文地址: https://www.elastic.co/guide/cn/elasticsearch/guide/current/$link -->
+<div id="guide" lang="zh_cn">
+<div class="col-xs-12 col-sm-8 col-md-8 guide-section">
+$body
+</div>
+</section>
+</body>
+</html>
+EOF;
+
+    //写入
+    file_put_contents('2.x/local/' . $link, $html);
+
+    return true;
+}
+
+function convertToLocalFiles() {
+    $folder = '2.x' . DIRECTORY_SEPARATOR . 'origin';
+    $arr = scandir($folder);
+    $files = [];
+    foreach ($arr as $v) {
+        $temp = $folder . DIRECTORY_SEPARATOR . $v;
+        if (is_dir($temp)) {
+            if ($v == '.' || $v == '..') {
+                //系统文件夹
+                continue;
+            }
+        } else {
+            $files[] = $v;
+        }
+    }
+    foreach ($files AS $file) {
+        $rt = convertToLocalFile($file);
+        if ($rt === true) {
+            echo $file . ' 成功' . PHP_EOL;
+        } else {
+            echo $file . ' 失败' . PHP_EOL;
+        }
+    }
+}
+
+//抓取原文档
+//getOriginalHtmls();
+
+//convertToLocalFile('_full_text_search.html');
+convertToLocalFiles();

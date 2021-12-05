@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+<meta charset="UTF-8">
+<title>通过子文档查询父文档 | Elasticsearch: 权威指南 | Elastic</title>
+<link rel="home" href="index.html" title="Elasticsearch: 权威指南">
+<link rel="up" href="parent-child.html" title="父-子关系文档">
+<link rel="prev" href="indexing-parent-child.html" title="构建父-子文档索引">
+<link rel="next" href="has-parent.html" title="通过父文档查询子文档">
+<meta name="DC.type" content="Learn/Docs/Elasticsearch/Definitive Guide">
+<meta name="DC.subject" content="Elasticsearch">
+<meta name="DC.identifier" content="2.x">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.optimizely.com/js/18132920325.js"></script>
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-title" content="Elastic">
+    <meta name="application-name" content="Elastic">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="naver-site-verification" content="936882c1853b701b3cef3721758d80535413dbfd">
+    <meta name="yandex-verification" content="d8a47e95d0972434">
+    <meta name="localized" content="true">
+    <meta name="st:robots" content="follow,index">
+    <meta property="og:image" content="https://www.elastic.co/static/images/elastic-logo-200.png">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon-precomposed" sizes="64x64" href="/favicon_64x64_16bit.png">
+    <link rel="apple-touch-icon-precomposed" sizes="32x32" href="/favicon_32x32.png">
+    <link rel="apple-touch-icon-precomposed" sizes="16x16" href="/favicon_16x16.png">
+    <!-- Give IE8 a fighting chance -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/guide/static/styles.css">
+  </head>
+
+  <!--© 2015-2021 Elasticsearch B.V. Copying, publishing and/or distributing without written permission is strictly prohibited.-->
+
+  <body>
+    <!-- Google Tag Manager -->
+    <script>dataLayer = [];</script><noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-58RLH5" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-58RLH5');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-12395217-16"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-12395217-16');
+    </script>
+
+    <!--BEGIN QUALTRICS WEBSITE FEEDBACK SNIPPET-->
+    <script type="text/javascript">
+      (function(){var g=function(e,h,f,g){
+      this.get=function(a){for(var a=a+"=",c=document.cookie.split(";"),b=0,e=c.length;b<e;b++){for(var d=c[b];" "==d.charAt(0);)d=d.substring(1,d.length);if(0==d.indexOf(a))return d.substring(a.length,d.length)}return null};
+      this.set=function(a,c){var b="",b=new Date;b.setTime(b.getTime()+6048E5);b="; expires="+b.toGMTString();document.cookie=a+"="+c+b+"; path=/; "};
+      this.check=function(){var a=this.get(f);if(a)a=a.split(":");else if(100!=e)"v"==h&&(e=Math.random()>=e/100?0:100),a=[h,e,0],this.set(f,a.join(":"));else return!0;var c=a[1];if(100==c)return!0;switch(a[0]){case "v":return!1;case "r":return c=a[2]%Math.floor(100/c),a[2]++,this.set(f,a.join(":")),!c}return!0};
+      this.go=function(){if(this.check()){var a=document.createElement("script");a.type="text/javascript";a.src=g;document.body&&document.body.appendChild(a)}};
+      this.start=function(){var a=this;window.addEventListener?window.addEventListener("load",function(){a.go()},!1):window.attachEvent&&window.attachEvent("onload",function(){a.go()})}};
+      try{(new g(100,"r","QSI_S_ZN_emkP0oSe9Qrn7kF","https://znemkp0ose9qrn7kf-elastic.siteintercept.qualtrics.com/WRSiteInterceptEngine/?Q_ZID=ZN_emkP0oSe9Qrn7kF")).start()}catch(i){}})();
+    </script><div id="ZN_emkP0oSe9Qrn7kF"><!--DO NOT REMOVE-CONTENTS PLACED HERE--></div>
+    <!--END WEBSITE FEEDBACK SNIPPET-->
+
+    <div id="elastic-nav" style="display:none;"></div>
+    <script src="https://www.elastic.co/elastic-nav.js"></script>
+
+    <!-- Subnav -->
+    <div>
+      <div>
+        <div class="tertiary-nav d-none d-md-block">
+          <div class="container">
+            <div class="p-t-b-15 d-flex justify-content-between nav-container">
+              <div class="breadcrum-wrapper"><span><a href="/guide/" style="font-size: 14px; font-weight: 600; color: #000;">Docs</a></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-container">
+      <section id="content">
+        <div class="content-wrapper">
+
+          <section id="guide" lang="zh_cn">
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
+                  <!-- start body -->
+                  <div class="page_header">
+<b>请注意:</b><br>本书基于 Elasticsearch 2.x 版本，有些内容可能已经过时。
+</div>
+<div id="content">
+<div class="breadcrumbs">
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch: 权威指南</a></span>
+»
+<span class="breadcrumb-link"><a href="modeling-your-data.html">数据建模</a></span>
+»
+<span class="breadcrumb-link"><a href="parent-child.html">父-子关系文档</a></span>
+»
+<span class="breadcrumb-node">通过子文档查询父文档</span>
+</div>
+<div class="navheader">
+<span class="prev">
+<a href="indexing-parent-child.html">« 构建父-子文档索引</a>
+</span>
+<span class="next">
+<a href="has-parent.html">通过父文档查询子文档 »</a>
+</span>
+</div>
+<div class="section">
+<div class="titlepage"><div><div>
+<h2 class="title">
+<a id="has-child"></a>通过子文档查询父文档<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/404_Parent_Child/50_Has_child.asciidoc">edit</a>
+</h2>
+</div></div></div>
+<p><code class="literal">has_child</code> 的查询和过滤可以通过子文档的内容来查询父文档。例如，我们根据如下查询，可查出所有80后员工所在的分公司：</p>
+<div class="pre_wrapper lang-json">
+<pre class="programlisting prettyprint lang-json">GET /company/branch/_search
+{
+  "query": {
+    "has_child": {
+      "type": "employee",
+      "query": {
+        "range": {
+          "dob": {
+            "gte": "1980-01-01"
+          }
+        }
+      }
+    }
+  }
+}</pre>
+</div>
+<p>类似于 <a class="xref" href="nested-query.html" title="嵌套对象查询"><code class="literal">nested</code> query</a> ，<code class="literal">has_child</code> 查询可以匹配多个子文档，并且每一个子文档的评分都不同。但是由于每一个子文档都带有评分，这些评分如何规约成父文档的总得分取决于 <code class="literal">score_mode</code> 这个参数。该参数有多种取值策略：默认为 <code class="literal">none</code> ，会忽略子文档的评分，并且会给父文档评分设置为 <code class="literal">1.0</code> ；
+除此以外还可以设置成 <code class="literal">avg</code> 、 <code class="literal">min</code> 、 <code class="literal">max</code> 和 <code class="literal">sum</code> 。</p>
+<p>下面的查询将会同时返回 <code class="literal">london</code> 和 <code class="literal">liverpool</code> ，不过由于 <code class="literal">Alice Smith</code> 要比 <code class="literal">Barry Smith</code> 更加匹配查询条件，因此 <code class="literal">london</code> 会得到一个更高的评分。</p>
+<div class="pre_wrapper lang-json">
+<pre class="programlisting prettyprint lang-json">GET /company/branch/_search
+{
+  "query": {
+    "has_child": {
+      "type":       "employee",
+      "score_mode": "max",
+      "query": {
+        "match": {
+          "name": "Alice Smith"
+        }
+      }
+    }
+  }
+}</pre>
+</div>
+<div class="tip admon">
+<div class="icon"></div>
+<div class="admon_content">
+<p><code class="literal">score_mode</code> 为默认的 <code class="literal">none</code> 时，会显著地比其模式要快，这是因为Elasticsearch不需要计算每一个子文档的评分。只有当你真正需要关心评分结果时，才需要为 <code class="literal">score_mode</code> 设值，例如设成 <code class="literal">avg</code> 、 <code class="literal">min</code> 、 <code class="literal">max</code> 或 <code class="literal">sum</code> 。</p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div>
+<h3 class="title">
+<a id="min-max-children"></a>min_children 和 max_children<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/404_Parent_Child/50_Has_child.asciidoc">edit</a>
+</h3>
+</div></div></div>
+<p><code class="literal">has_child</code> 的查询和过滤都可以接受这两个参数：<code class="literal">min_children</code> 和 <code class="literal">max_children</code> 。  使用这两个参数时，只有当子文档数量在指定范围内时，才会返回父文档。</p>
+<p>如下查询只会返回至少有两个雇员的分公司：</p>
+<div class="pre_wrapper lang-json">
+<pre class="programlisting prettyprint lang-json">GET /company/branch/_search
+{
+  "query": {
+    "has_child": {
+      "type":         "employee",
+      "min_children": 2, <a id="CO280-1"></a><i class="conum" data-value="1"></i>
+      "query": {
+        "match_all": {}
+      }
+    }
+  }
+}</pre>
+</div>
+<div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td align="left" valign="top" width="5%">
+<p><a href="#CO280-1"><i class="conum" data-value="1"></i></a></p>
+</td>
+<td align="left" valign="top">
+<p>至少有两个雇员的分公司才会符合查询条件。</p>
+</td>
+</tr>
+</table>
+</div>
+<p>带有 <code class="literal">min_children</code> 和 <code class="literal">max_children</code> 参数的 <code class="literal">has_child</code> 查询或过滤，和允许评分的 <code class="literal">has_child</code> 查询的性能非常接近。</p>
+<div class="sidebar">
+<div class="titlepage"><div><div>
+<p class="title"><strong>has_child Filter</strong></p>
+</div></div></div>
+<p><code class="literal">has_child</code> 查询和过滤在运行机制上类似，区别是 <code class="literal">has_child</code> 过滤不支持 <code class="literal">score_mode</code> 参数。<code class="literal">has_child</code> 过滤仅用于筛选内容—​如内部的一个 <code class="literal">filtered</code> 查询—​和其他过滤行为类似：包含或者排除，但没有进行评分。</p>
+<p><code class="literal">has_child</code> 过滤的结果没有被缓存，但是 <code class="literal">has_child</code> 过滤内部的过滤方法适用于通常的缓存规则。</p>
+</div>
+</div>
+
+</div>
+<div class="navfooter">
+<span class="prev">
+<a href="indexing-parent-child.html">« 构建父-子文档索引</a>
+</span>
+<span class="next">
+<a href="has-parent.html">通过父文档查询子文档 »</a>
+</span>
+</div>
+</div>
+
+                  <!-- end body -->
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4" id="right_col">
+                  <div id="rtpcontainer" style="display: block;">
+                    <div class="mktg-promo">
+                      <h3>Most Popular</h3>
+                      <ul class="icons">
+                        <li class="icon-elasticsearch-white"><a href="https://www.elastic.co/webinars/getting-started-elasticsearch?baymax=default&amp;elektra=docs&amp;storm=top-video">Get Started with Elasticsearch: Video</a></li>
+                        <li class="icon-kibana-white"><a href="https://www.elastic.co/webinars/getting-started-kibana?baymax=default&amp;elektra=docs&amp;storm=top-video">Intro to Kibana: Video</a></li>
+                        <li class="icon-logstash-white"><a href="https://www.elastic.co/webinars/introduction-elk-stack?baymax=default&amp;elektra=docs&amp;storm=top-video">ELK for Logs &amp; Metrics: Video</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+
+<div id="elastic-footer"></div>
+<script src="https://www.elastic.co/elastic-footer.js"></script>
+<!-- Footer Section end-->
+
+      </section>
+    </div>
+
+<script src="/guide/static/jquery.js"></script>
+<script type="text/javascript" src="/guide/static/docs.js"></script>
+<script type="text/javascript">
+  window.initial_state = {}</script>
+  </body>
+</html>

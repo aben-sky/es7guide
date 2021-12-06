@@ -6,12 +6,9 @@ require_once 'vendor/autoload.php';
 
 use QL\QueryList;
 
-/**
- * 从官网抓取文档, 并存入本地
- */
-function getOriginalHtmls() {
+function tepGetDocList() {
     //所有文档列表
-    $strList = <<<EOF
+    $docList = <<<EOF
 <div class="toc">
 <ul class="toc">
 <li><span class="preface"><a href="foreword_id.html">序言</a></span>
@@ -792,8 +789,16 @@ function getOriginalHtmls() {
 </div>
 EOF;
 
+    return $docList;
+}
+
+/**
+ * 从官网抓取文档, 并存入本地
+ */
+function getOriginalHtmls() {
+    $docList = tepGetDocList();
     $arrLink = QueryList::getInstance()
-        ->setHtml($strList)
+        ->setHtml($docList)
         ->find('a')
         ->attrs('href')
         ->toArray();
@@ -876,6 +881,13 @@ function convertToLocalFile($link) {
         return false;
     }
 
+    //if ($link === 'index.html') {
+    //    //首页右边不需要导航
+    //    $docList = '';
+    //} else {
+    //    $docList = tepGetDocList();
+    //}
+    $docList = ''; //由js去渲染
     $html = <<<EOF
 <!DOCTYPE html>
 <html lang="en">
@@ -885,12 +897,20 @@ function convertToLocalFile($link) {
 	<link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
 <body>
-<!-- 原文地址: https://www.elastic.co/guide/cn/elasticsearch/guide/current/$link -->
-<div id="guide" lang="zh_cn">
-<div class="col-xs-12 col-sm-8 col-md-8 guide-section">
-$body
-</div>
+<div style="color:gray;">原文地址: https://www.elastic.co/guide/cn/elasticsearch/guide/current/$link</div>
+<section id="guide" lang="zh_cn">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
+            $body
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4" id="right_col">
+            $docList
+            </div>
+        </div>
+    </div>
 </section>
+<script src="js.js"></script>
 </body>
 </html>
 EOF;
@@ -929,5 +949,6 @@ function convertToLocalFiles() {
 //抓取原文档
 //getOriginalHtmls();
 
-//convertToLocalFile('_full_text_search.html');
+//原文档转换到本地文档
+//convertToLocalFile('_full_text_search.html');//单个转换测试
 convertToLocalFiles();

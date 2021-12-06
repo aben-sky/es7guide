@@ -785,7 +785,8 @@ function renderRightDocList(filename) {
     var filename = url.substr(ix + 1, url.length - ix).toLowerCase();
 
     if (filename == 'index.html') {
-        document.querySelector('#content').innerHTML = strDocList;
+        //注意: id=content的有2个, 上面还有一个section!
+        document.querySelector('div#content').innerHTML = strDocList;
     }else{
         var rightCol = document.querySelector('#right_col');
         rightCol.innerHTML = strDocList;

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>数据建模 | Elasticsearch: 权威指南 | Elastic</title>
+    <!-- Give IE8 a fighting chance -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+<body>
+<div class="main-container">
+    <section id="content">
+        
+        <div class="content-wrapper">
+            <section id="guide" lang="zh_cn">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
+                            <div style="color:gray; word-break: break-all; font-size:12px;">原文地址: https://www.elastic.co/guide/cn/elasticsearch/guide/current/modeling-your-data.html</div>
+                        <!-- start body -->
+                  <div class="page_header">
+<b>请注意:</b><br>本书基于 Elasticsearch 2.x 版本，有些内容可能已经过时。
+</div>
+<div id="content">
+<div class="breadcrumbs">
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch: 权威指南</a></span>
+»
+<span class="breadcrumb-node">数据建模</span>
+</div>
+<div class="navheader">
+<span class="prev">
+<a href="indexed-geo-shapes.html">« 在查询中使用已索引的形状</a>
+</span>
+<span class="next">
+<a href="relations.html">关联关系处理 »</a>
+</span>
+</div>
+<div class="part">
+<div class="titlepage"><div><div>
+<h1 class="title">
+<a id="modeling-your-data"></a>数据建模<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/06_Modeling_your_data.asciidoc">edit</a>
+</h1>
+</div></div></div>
+<div class="openblock partintro">
+<div class="content">
+<p>Elasticsearch 是如此与众不同，特别是如果你来自 SQL 的世界。
+Elasticsearch 有非常多的优点：高性能、可扩展、近实时搜索，并支持大数据量的数据分析。一切都很容易！
+只需下载并开始使用它。</p>
+<p>但它不是魔法。为了充分利用 Elasticsearch，你需要了解它的工作机制，以及如何让它如你所需的进行工作。</p>
+<p>和专用的关系型数据存储有所不同，Elasticsearch 并没有对处理实体之间的关系给出直接的方法。
+一个关系数据库的黄金法则是 --规范化你的数据（范式）-- 但这不适用于 Elasticsearch。
+在 <a class="xref" href="relations.html" title="关联关系处理"><em>关联关系处理</em></a> 、 <a class="xref" href="nested-objects.html" title="嵌套对象"><em>嵌套对象</em></a> 和 <a class="xref" href="parent-child.html" title="父-子关系文档"><em>父-子关系文档</em></a> 我们讨论了这些提供的方法的优点和缺点。</p>
+<p>然后在 <a class="xref" href="scale.html" title="扩容设计"><em>扩容设计</em></a> 我们谈论 Elasticsearch 提供的快速、灵活的扩容能力。
+当然扩容并没有一个放之四海而皆准的方案。你需要考虑这些通过系统产生的数据流的具体特点，
+据此设计你的模型。例如日志事件或者社交网络流这些时间序列数据类型，和静态文档集合在处理模型上有着很大的不同。</p>
+<p>最后，我们聊一下 Elasticsearch 里面不能伸缩的一件事。</p>
+</div>
+</div>
+
+
+
+
+</div>
+<div class="navfooter">
+<span class="prev">
+<a href="indexed-geo-shapes.html">« 在查询中使用已索引的形状</a>
+</span>
+<span class="next">
+<a href="relations.html">关联关系处理 »</a>
+</span>
+</div>
+</div>
+
+                  <!-- end body -->
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4" id="right_col">
+                        
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+</div>
+<script src="js.js"></script>
+</body>
+</html>

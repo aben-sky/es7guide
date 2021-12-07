@@ -912,7 +912,7 @@ function convertToLocalFile($link) {
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
-                            <div style="color:gray; word-break: break-all; font-size:12px;">原文地址: https://www.elastic.co/guide/cn/elasticsearch/guide/current/$link</div>
+                            <div style="color:gray; word-break: break-all; font-size:12px;">原文地址: https://www.elastic.co/guide/cn/elasticsearch/guide/current/$link, 版权归 www.elastic.co 所有</div>
                         $body
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-4" id="right_col">
@@ -930,7 +930,7 @@ function convertToLocalFile($link) {
 EOF;
 
     //写入
-    file_put_contents('2.x/local/' . $link, $html);
+    file_put_contents('html/2.x/' . $link, $html);
 
     return true;
 }

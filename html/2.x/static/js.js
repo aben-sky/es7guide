@@ -320,7 +320,7 @@ function renderRightDocList(filename) {
         '</li>' +
         '<li class="collapsible"><span class="chapter"><a href="partial-matching.html">部分匹配</a></span>' +
         '<ul>' +
-        '<li><span class="section"><a href="_postcodes_and_structured_data.html" class="current_page">邮编与结构化数据</a></span>' +
+        '<li><span class="section"><a href="_postcodes_and_structured_data.html">邮编与结构化数据</a></span>' +
         '</li>' +
         '<li><span class="section"><a href="prefix-query.html">prefix 前缀查询</a></span>' +
         '</li>' +

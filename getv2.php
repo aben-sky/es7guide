@@ -880,6 +880,8 @@ function convertToLocalFile($link) {
     if (empty($body)) {
         return false;
     }
+    
+    //需要把body中的`href="/`这种补充成完整的url TODO
 
     //if ($link === 'index.html') {
     //    //首页右边不需要导航

@@ -1,6 +1,8 @@
 # ES中的术语
 - term: 词, 词项
-- phras: 短语
+- phrase: 短语
+- phrase matching: 短语匹配
+- match_phrase : 短语匹配
 - word stem: 词干
 - Recall: 召回率. 返回所有的相关文档
 - Precision: 精确率. 不返回无关文档
@@ -23,4 +25,12 @@
 - bigrams: 单词对. (前缀bi来自拉丁语bis, 意为twice)
 - trigrams: 三个单词. (前缀tri来自拉丁语tres或tria, 意为three)
 - shingles:  (不翻译)
+- postings list: 倒排表
+- inverted index: 倒排索引
+- instant search: 即时搜索
+- search-as-you-type: 输入即搜索
+- query time: (在)查询时
+- edge n-grams: 边界n-grams, 是一种特殊的n-grams
+- Completion Suggester: 补全提示
+- finite state transducer: 有限状态机
 

@@ -13,7 +13,7 @@
 - cross-fields: 跨字段(查询)
 - field-centric: 字段中心式(查询)
 - term-centric: 词中心式(查询)
-- TF: term frequence, 词频, 一个词在单个文档的某个字段中出现的频率越高，这个文档的相关度就越高。 
+- TF: term frequency, 词频, 一个词在单个文档的某个字段中出现的频率越高，这个文档的相关度就越高。 
 - IDF: Inverse document frequency, 逆向文档频率, 一个词在所有文档某个字段索引中出现的频率越高，这个词的相关度就越低。 
 - match_phrase: 短语匹配(查询)
 - ?? 邻近(查询)
@@ -33,4 +33,16 @@
 - edge n-grams: 边界n-grams, 是一种特殊的n-grams
 - Completion Suggester: 补全提示
 - finite state transducer: 有限状态机
+- shingles: 瓦片(词)
+- similarity algorithms: 相似算法
+- Boolean model: 布尔模型
+- vector space model: 向量空间模型
+- priactical scoring function: 实用评分函数
+- coordination factor: 协调因子
+- filed length normalization: 字段长度归一化
+## Lucene 的实用评分函数(practical-scoring-function)中的几个因子
+- queryNorm: 查询归一(因子). 它试图将查询归一化 ，这样就能将两个不同的查询结果相比较
+- coord: 协调因子,可以为那些查询词包含度高的文档提供奖励，文档里出现的查询词越多，它越有机会成为好的匹配结果
+
+
 

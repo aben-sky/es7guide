@@ -881,7 +881,8 @@ function convertToLocalFile($link) {
         return false;
     }
     
-    //需要把body中的`href="/`这种补充成完整的url TODO
+    //把body中的`href="/`这种补充成完整的url
+    $body = str_replace(['href="/'], ['href="https://www.elastic.co/'], $body);
 
     //if ($link === 'index.html') {
     //    //首页右边不需要导航

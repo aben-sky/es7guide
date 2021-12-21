@@ -1,8 +1,10 @@
 # ES中的术语
 - term: 词, 词项
+- token: 词元, 词语单元
+- token normalization: 词元归一化, 把词汇单元标准化. 比如: 大小写转换,去掉重音等
 - phrase: 短语
 - phrase matching: 短语匹配
-- match_phrase : 短语匹配
+- match_phrase : 短语匹配(查询)
 - word stem: 词干
 - Recall: 召回率. 返回所有的相关文档
 - Precision: 精确率. 不返回无关文档
@@ -15,7 +17,6 @@
 - term-centric: 词中心式(查询)
 - TF: term frequency, 词频, 一个词在单个文档的某个字段中出现的频率越高，这个文档的相关度就越高。 
 - IDF: Inverse document frequency, 逆向文档频率, 一个词在所有文档某个字段索引中出现的频率越高，这个词的相关度就越低。 
-- match_phrase: 短语匹配(查询)
 - ?? 邻近(查询)
 - query family: 查询族
 - slop: 混合?? 目标内容需要移动多少次能匹配
@@ -43,6 +44,12 @@
 ## Lucene 的实用评分函数(practical-scoring-function)中的几个因子
 - queryNorm: 查询归一(因子). 它试图将查询归一化 ，这样就能将两个不同的查询结果相比较
 - coord: 协调因子,可以为那些查询词包含度高的文档提供奖励，文档里出现的查询词越多，它越有机会成为好的匹配结果
+- Pluggable Similarity Algorithms: 可插拔的相似度算法
+
+- probabilistic relevance model: 概率相关模型
+- case folding: 大小写折叠
+- unicode-aware: 支持unicode的
+- stemmer: 词干提取器
 
 
 

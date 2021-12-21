@@ -44,12 +44,12 @@
 ## Lucene 的实用评分函数(practical-scoring-function)中的几个因子
 - queryNorm: 查询归一(因子). 它试图将查询归一化 ，这样就能将两个不同的查询结果相比较
 - coord: 协调因子,可以为那些查询词包含度高的文档提供奖励，文档里出现的查询词越多，它越有机会成为好的匹配结果
-- Pluggable Similarity Algorithms: 可插拔的相似度算法
+- consistently random scoring: 一致随机评分.  (有相同评分的文档随机出现的频率相同, 且单个用户(指定seed参数)在翻页时结果的相对次序始终一致.)
+- decay: 衰减值
 
+- Pluggable Similarity Algorithms: 可插拔的相似度算法
 - probabilistic relevance model: 概率相关模型
 - case folding: 大小写折叠
 - unicode-aware: 支持unicode的
 - stemmer: 词干提取器
-
-
 

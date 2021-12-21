@@ -107,7 +107,16 @@ function convertToLocalFile($link) {
     }
 
     //把body中的`href="/`这种补充成完整的url
-    $body = str_replace(['href="/'], ['href="https://www.elastic.co/'], $body);
+    $body = str_replace(
+        [
+            'href="/',
+            'href="../current/'
+        ]
+        , [
+            'href="https://www.elastic.co/',
+            'href="https://www.elastic.co/guide/en/elasticsearch/reference/current/'
+        ]
+        , $body);
 
     //if ($link === 'index.html') {
     //    //首页右边不需要导航
@@ -140,7 +149,7 @@ function convertToLocalFile($link) {
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
-                            <div style="color:gray; word-break: break-all; font-size:12px;">原文地址: https://www.elastic.co/guide/cn/elasticsearch/guide/current/$link, 版权归 www.elastic.co 所有</div>
+                            <div style="color:gray; word-break: break-all; font-size:12px;">原文地址: https://www.elastic.co/guide/en/elasticsearch/reference/7.7/$link, 版权归 www.elastic.co 所有</div>
                         $body
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-4" id="right_col">
@@ -189,8 +198,8 @@ function convertToLocalFiles() {
 }
 
 //抓取原文档
-getOriginalHtmls();
+//getOriginalHtmls();
 
 //原文档转换到本地文档
-//convertToLocalFile('inverted-index.html');//单个转换测试
-//convertToLocalFiles();
+//convertToLocalFile('action-conditions.html');//单个转换测试
+convertToLocalFiles();

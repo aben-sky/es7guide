@@ -18,5 +18,5 @@ bin-release/
 # information for Eclipse / Flash Builder.
 /.idea
 /vendor
-/2.x/local/*.html
 /html/2.x/*.html
+/html/7.7en/*.html

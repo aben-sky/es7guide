@@ -19,4 +19,4 @@ bin-release/
 /.idea
 /vendor
 /html/2.x/*.html
-/html/7.7en/*.html
+/html/7.7/en/*.html

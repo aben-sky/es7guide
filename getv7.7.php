@@ -143,7 +143,7 @@ function convertToLocalFile($link) {
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-	<link rel="stylesheet" type="text/css" href="static/styles.css" />
+	<link rel="stylesheet" type="text/css" href="../static/styles.css" />
 	<script>
 	var _link = '$link';
     </script>
@@ -168,7 +168,7 @@ function convertToLocalFile($link) {
         </div>
     </section>
 </div>
-<script src="static/js.js"></script>
+<script src="../static/en.js"></script>
 </body>
 </html>
 EOF;
@@ -196,12 +196,14 @@ EOF;
                 break;
             }
             $path = $arr['host'] . $arr['path'];
-            $imgSavePath = __DIR__ . '/html/7.7en/images/' . $path;
+            $imgSavePath = __DIR__ . '/html/7.7/static/images/' . $path;
             //替换html
-            $html = str_replace('src="' . $src . '"', 'src="images/' . $path . '"', $html);
+            $html = str_replace('src="' . $src . '"', 'src="../static/images/' . $path . '"', $html);
         } else {
             $url = 'https://www.elastic.co/guide/en/elasticsearch/reference/7.7/' . $src;
-            $imgSavePath = __DIR__ . '/html/7.7en/' . $src;
+            $imgSavePath = __DIR__ . '/html/7.7/static/' . $src;
+            //替换html
+            $html = str_replace('src="' . $src . '"', 'src="../static/' . $src . '"', $html);
         }
         echo $url . ' => ';
         echo $imgSavePath . ' : ';
@@ -243,7 +245,7 @@ EOF;
     }
 
     //写入html
-    file_put_contents(__DIR__ . '/html/7.7en/' . $link, $html);
+    file_put_contents(__DIR__ . '/html/7.7/en/' . $link, $html);
 
     return true;
 }

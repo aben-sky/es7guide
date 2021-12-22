@@ -144,17 +144,19 @@ function convertToLocalFile($link) {
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 	<link rel="stylesheet" type="text/css" href="static/styles.css" />
+	<script>
+	var _link = '$link';
+    </script>
 </head>
 <body>
 <div class="main-container">
     <section id="content">
-        
         <div class="content-wrapper">
             <section id="guide" lang="zh_cn">
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
-                            <div style="color:gray; word-break: break-all; font-size:12px;">原文地址: https://www.elastic.co/guide/en/elasticsearch/reference/7.7/$link, 版权归 www.elastic.co 所有</div>
+                            <div style="color:gray; word-break: break-all; font-size:12px;">原文地址: <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/$link" rel="nofollow" target="_blank">https://www.elastic.co/guide/en/elasticsearch/reference/7.7/$link</a>, 版权归 www.elastic.co 所有</div>
                         $body
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-4" id="right_col">

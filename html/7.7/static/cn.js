@@ -106,61 +106,61 @@ function renderRightDocList(filename) {
         '<li><span class="section"><a href="error-file-path.html" title="JVM fatal error logs">JVM致命错误日志</a></span></li>' +
         '</ul>' +
         '</li>' +
-        '<li class="collapsible"><span class="chapter"><a href="system-config.html" title="">Important System Configuration</a></span>' +
+        '<li class="collapsible"><span class="chapter"><a href="system-config.html" title="Important System Configuration">重要的系统配置</a></span>' +
         '<ul>' +
-        '<li><span class="section"><a href="setting-system-settings.html">Configuring system settings</a></span></li>' +
-        '<li><span class="section"><a href="setup-configuration-memory.html">Disable swapping</a></span></li>' +
-        '<li><span class="section"><a href="file-descriptors.html">File Descriptors</a></span></li>' +
-        '<li><span class="section"><a href="vm-max-map-count.html">Virtual memory</a></span></li>' +
-        '<li><span class="section"><a href="max-number-of-threads.html">Number of threads</a></span></li>' +
-        '<li><span class="section"><a href="networkaddress-cache-ttl.html">DNS cache settings</a></span></li>' +
-        '<li><span class="section"><a href="executable-jna-tmpdir.html">JNA temporary directory not mounted with <code class="literal">noexec</code></a></span></li>' +
+        '<li><span class="section"><a href="setting-system-settings.html" title="Configuring system settings">配置系统设置</a></span></li>' +
+        '<li><span class="section"><a href="setup-configuration-memory.html" title="Disable swapping">禁止交换(swapping)</a></span></li>' +
+        '<li><span class="section"><a href="file-descriptors.html" title="File Descriptors">文件描述符</a></span></li>' +
+        '<li><span class="section"><a href="vm-max-map-count.html" title="Virtual memory">虚拟内存</a></span></li>' +
+        '<li><span class="section"><a href="max-number-of-threads.html" title="Number of threads">线程数量</a></span></li>' +
+        '<li><span class="section"><a href="networkaddress-cache-ttl.html" title="DNS cache settings">DNS缓存设置</a></span></li>' +
+        '<li><span class="section"><a href="executable-jna-tmpdir.html" title="JNA temporary directory not mounted with `noexec`">JNA临时目录的挂载未使用<code class="literal">noexec</code></a></span></li>' +
         '</ul>' +
         '</li>' +
-        '<li class="collapsible"><span class="chapter"><a href="bootstrap-checks.html">Bootstrap Checks</a></span>' +
+        '<li class="collapsible"><span class="chapter"><a href="bootstrap-checks.html" title="Bootstrap Checks">引导检查(bootstrap checks)</a></span>' +
         '<ul>' +
-        '<li><span class="section"><a href="_heap_size_check.html">Heap size check</a></span></li>' +
-        '<li><span class="section"><a href="_file_descriptor_check.html">File descriptor check</a></span></li>' +
-        '<li><span class="section"><a href="_memory_lock_check.html">Memory lock check</a></span></li>' +
-        '<li><span class="section"><a href="max-number-threads-check.html">Maximum number of threads check</a></span></li>' +
-        '<li><span class="section"><a href="_max_file_size_check.html">Max file size check</a></span></li>' +
-        '<li><span class="section"><a href="max-size-virtual-memory-check.html">Maximum size virtual memory check</a></span></li>' +
-        '<li><span class="section"><a href="_maximum_map_count_check.html">Maximum map count check</a></span></li>' +
-        '<li><span class="section"><a href="_client_jvm_check.html">Client JVM check</a></span></li>' +
-        '<li><span class="section"><a href="_use_serial_collector_check.html">Use serial collector check</a></span></li>' +
-        '<li><span class="section"><a href="_system_call_filter_check.html">System call filter check</a></span></li>' +
-        '<li><span class="section"><a href="_onerror_and_onoutofmemoryerror_checks.html">OnError and OnOutOfMemoryError checks</a></span></li>' +
-        '<li><span class="section"><a href="_early_access_check.html">Early-access check</a></span></li>' +
-        '<li><span class="section"><a href="_g1gc_check.html">G1GC check</a></span></li>' +
-        '<li><span class="section"><a href="_all_permission_check.html">All permission check</a></span></li>' +
-        '<li><span class="section"><a href="_discovery_configuration_check.html">Discovery configuration check</a></span></li>' +
+        '<li><span class="section"><a href="_heap_size_check.html" title="Heap size check">堆大小(heap size)检查</a></span></li>' +
+        '<li><span class="section"><a href="_file_descriptor_check.html" title="File descriptor check">文件描述符检查</a></span></li>' +
+        '<li><span class="section"><a href="_memory_lock_check.html" title="Memory lock check">内存锁定检查</a></span></li>' +
+        '<li><span class="section"><a href="max-number-threads-check.html" title="Maximum number of threads check">最大线程数检查</a></span></li>' +
+        '<li><span class="section"><a href="_max_file_size_check.html" title="Max file size check">文件大小最大值检查</a></span></li>' +
+        '<li><span class="section"><a href="max-size-virtual-memory-check.html" title="Maximum size virtual memory check">虚拟内存最大值检查</a></span></li>' +
+        '<li><span class="section"><a href="_maximum_map_count_check.html" title="Maximum map count check">map数量最大值检查</a></span></li>' +
+        '<li><span class="section"><a href="_client_jvm_check.html" title="Client JVM check">客户端JVM检查</a></span></li>' +
+        '<li><span class="section"><a href="_use_serial_collector_check.html" title="Use serial collector check">使用串行回收器(serial collector)检查</a></span></li>' +
+        '<li><span class="section"><a href="_system_call_filter_check.html" title="System call filter check">系统调用过滤器检查</a></span></li>' +
+        '<li><span class="section"><a href="_onerror_and_onoutofmemoryerror_checks.html" title="OnError and OnOutOfMemoryError checks">OnError和OnOutOfMemoryError检查</a></span></li>' +
+        '<li><span class="section"><a href="_early_access_check.html" title="Early-access check">提前获取(early-access)检查</a></span></li>' +
+        '<li><span class="section"><a href="_g1gc_check.html" title="G1GC check">垃圾优先的垃圾回收器(G1GC)检查</a></span></li>' +
+        '<li><span class="section"><a href="_all_permission_check.html" title="All permission check">全部的权限检查</a></span></li>' +
+        '<li><span class="section"><a href="_discovery_configuration_check.html" title="Discovery configuration check">发现(discovery)配置检查</a></span></li>' +
         '</ul>' +
         '</li>' +
-        '<li><span class="chapter"><a href="bootstrap-checks-xpack.html">Bootstrap Checks for X-Pack</a></span></li>' +
-        '<li><span class="chapter"><a href="starting-elasticsearch.html">Starting Elasticsearch</a></span></li>' +
-        '<li><span class="chapter"><a href="stopping-elasticsearch.html">Stopping Elasticsearch</a></span></li>' +
-        '<li class="collapsible"><span class="chapter"><a href="modules-discovery.html">Discovery and cluster formation</a></span>' +
+        '<li><span class="chapter"><a href="bootstrap-checks-xpack.html" title="Bootstrap Checks for X-Pack">X-Pack的引导检查</a></span></li>' +
+        '<li><span class="chapter"><a href="starting-elasticsearch.html" title="Starting Elasticsearch">启动Elasticsearch</a></span></li>' +
+        '<li><span class="chapter"><a href="stopping-elasticsearch.html" title="Stopping Elasticsearch">停止Elasticsearch</a></span></li>' +
+        '<li class="collapsible"><span class="chapter"><a href="modules-discovery.html" title="Discovery and cluster formation">发现(discovery)及集群信息</a></span>' +
         '<ul>' +
-        '<li><span class="section"><a href="modules-discovery-hosts-providers.html">Discovery</a></span></li>' +
-        '<li><span class="section"><a href="modules-discovery-quorums.html">Quorum-based decision making</a></span></li>' +
-        '<li><span class="section"><a href="modules-discovery-voting.html">Voting configurations</a></span></li>' +
-        '<li><span class="section"><a href="modules-discovery-bootstrap-cluster.html">Bootstrapping a cluster</a></span></li>' +
-        '<li><span class="section"><a href="cluster-state-publishing.html">Publishing the cluster state</a></span></li>' +
-        '<li><span class="section"><a href="cluster-fault-detection.html">Cluster fault detection</a></span></li>' +
+        '<li><span class="section"><a href="modules-discovery-hosts-providers.html" title="Discovery">发现(discovery)</a></span></li>' +
+        '<li><span class="section"><a href="modules-discovery-quorums.html" title="">Quorum-based decision making</a></span></li>' +
+        '<li><span class="section"><a href="modules-discovery-voting.html" title="">Voting configurations</a></span></li>' +
+        '<li><span class="section"><a href="modules-discovery-bootstrap-cluster.html" title="">Bootstrapping a cluster</a></span></li>' +
+        '<li><span class="section"><a href="cluster-state-publishing.html" title="">Publishing the cluster state</a></span></li>' +
+        '<li><span class="section"><a href="cluster-fault-detection.html" title="">Cluster fault detection</a></span></li>' +
         '</ul>' +
         '</li>' +
-        '<li><span class="chapter"><a href="add-elasticsearch-nodes.html">Add and remove nodes in your cluster</a></span></li>' +
-        '<li><span class="chapter"><a href="restart-cluster.html">Full-cluster restart and rolling restart</a></span></li>' +
-        '<li><span class="chapter"><a href="modules-remote-clusters.html">Remote clusters</a></span></li>' +
-        '<li><span class="chapter"><a href="setup-xpack.html">Set up X-Pack</a></span></li>' +
-        '<li><span class="chapter"><a href="setup-xpack-client.html">Configuring X-Pack Java Clients</a></span></li>' +
-        '<li><span class="chapter"><a href="modules-plugins.html">Plugins</a></span></li>' +
+        '<li><span class="chapter"><a href="add-elasticsearch-nodes.html" title="">Add and remove nodes in your cluster</a></span></li>' +
+        '<li><span class="chapter"><a href="restart-cluster.html" title="">Full-cluster restart and rolling restart</a></span></li>' +
+        '<li><span class="chapter"><a href="modules-remote-clusters.html" title="">Remote clusters</a></span></li>' +
+        '<li><span class="chapter"><a href="setup-xpack.html" title="">Set up X-Pack</a></span></li>' +
+        '<li><span class="chapter"><a href="setup-xpack-client.html" title="">Configuring X-Pack Java Clients</a></span></li>' +
+        '<li><span class="chapter"><a href="modules-plugins.html" title="">Plugins</a></span></li>' +
         '</ul>' +
         '</li>' +
-        '<li class="collapsible"><span class="part"><a href="setup-upgrade.html">Upgrade Elasticsearch</a></span>' +
+        '<li class="collapsible"><span class="part"><a href="setup-upgrade.html" title="">Upgrade Elasticsearch</a></span>' +
         '<ul>' +
-        '<li><span class="chapter"><a href="rolling-upgrades.html">Rolling upgrades</a></span></li>' +
-        '<li><span class="chapter"><a href="restart-upgrade.html">Full cluster restart upgrade</a></span></li>' +
+        '<li><span class="chapter"><a href="rolling-upgrades.html" title="">Rolling upgrades</a></span></li>' +
+        '<li><span class="chapter"><a href="restart-upgrade.html" title="">Full cluster restart upgrade</a></span></li>' +
         '<li class="collapsible"><span class="chapter"><a href="reindex-upgrade.html">Reindex before upgrading</a></span>' +
         '<ul>' +
         '<li><span class="section"><a href="reindex-upgrade-inplace.html">Reindex in place</a></span></li>' +

@@ -94,7 +94,7 @@ function renderRightDocList(filename) {
         '</li>' +
         '<li class="collapsible"><span class="chapter"><a href="important-settings.html" title="Important Elasticsearch configuration">Elasticsearch的重要的配置</a></span>' +
         '<ul>' +
-        '<li><span class="section"><a href="path-settings.html" title=""path.data and path.logs><code class="literal">path.data</code>和<code class="literal">path.logs</code></a></span></li>' +
+        '<li><span class="section"><a href="path-settings.html" title="path.data and path.logs"><code class="literal">path.data</code>和<code class="literal">path.logs</code></a></span></li>' +
         '<li><span class="section"><a href="cluster.name.html" title="cluster.name">集群名称(<code class="literal">cluster.name</code>)</a></span></li>' +
         '<li><span class="section"><a href="node.name.html" title="node.name">节点名称(<code class="literal">node.name</code>)</a></span></li>' +
         '<li><span class="section"><a href="network.host.html" title="network.host">网络之宿主绑定(<code class="literal">network.host</code>)</a></span></li>' +
@@ -150,46 +150,46 @@ function renderRightDocList(filename) {
         '</ul>' +
         '</li>' +
         '<li><span class="chapter"><a href="add-elasticsearch-nodes.html" title="Add and remove nodes in your cluster">向集群中添加/移除节点</a></span></li>' +
-        '<li><span class="chapter"><a href="restart-cluster.html" title="Full-cluster restart and rolling restart"></a></span></li>' +
-        '<li><span class="chapter"><a href="modules-remote-clusters.html" title="">Remote clusters</a></span></li>' +
-        '<li><span class="chapter"><a href="setup-xpack.html" title="">Set up X-Pack</a></span></li>' +
-        '<li><span class="chapter"><a href="setup-xpack-client.html" title="">Configuring X-Pack Java Clients</a></span></li>' +
-        '<li><span class="chapter"><a href="modules-plugins.html" title="">Plugins</a></span></li>' +
+        '<li><span class="chapter"><a href="restart-cluster.html" title="Full-cluster restart and rolling restart">Full-cluster重启和rolling重启</a></span></li>' +
+        '<li><span class="chapter"><a href="modules-remote-clusters.html" title="Remote clusters">远程集群</a></span></li>' +
+        '<li><span class="chapter"><a href="setup-xpack.html" title="Set up X-Pack">安装X-Pack</a></span></li>' +
+        '<li><span class="chapter"><a href="setup-xpack-client.html" title="Configuring X-Pack Java Clients">配置X-Pack的Java客户端</a></span></li>' +
+        '<li><span class="chapter"><a href="modules-plugins.html" title="Plugins">插件</a></span></li>' +
         '</ul>' +
         '</li>' +
-        '<li class="collapsible"><span class="part"><a href="setup-upgrade.html" title="">Upgrade Elasticsearch</a></span>' +
+        '<li class="collapsible"><span class="part"><a href="setup-upgrade.html" title="Upgrade Elasticsearch">Elasticsearch升级</a></span>' +
         '<ul>' +
-        '<li><span class="chapter"><a href="rolling-upgrades.html" title="">Rolling upgrades</a></span></li>' +
-        '<li><span class="chapter"><a href="restart-upgrade.html" title="">Full cluster restart upgrade</a></span></li>' +
-        '<li class="collapsible"><span class="chapter"><a href="reindex-upgrade.html">Reindex before upgrading</a></span>' +
+        '<li><span class="chapter"><a href="rolling-upgrades.html" title="Rolling upgrades">滚动升级</a></span></li>' +
+        '<li><span class="chapter"><a href="restart-upgrade.html" title="Full cluster restart upgrade">Full cluster重启升级</a></span></li>' +
+        '<li class="collapsible"><span class="chapter"><a href="reindex-upgrade.html" title="Reindex before upgrading">在升级前重新索引</a></span>' +
         '<ul>' +
-        '<li><span class="section"><a href="reindex-upgrade-inplace.html">Reindex in place</a></span></li>' +
-        '<li><span class="section"><a href="reindex-upgrade-remote.html">Reindex from a remote cluster</a></span></li>' +
+        '<li><span class="section"><a href="reindex-upgrade-inplace.html" title="Reindex in place">无感知重建索引(Reindex in place)</a></span></li>' +
+        '<li><span class="section"><a href="reindex-upgrade-remote.html" title="Reindex from a remote cluster">从一个远程集群重建索引</a></span></li>' +
         '</ul>' +
         '</li>' +
         '</ul>' +
         '</li>' +
-        '<li class="collapsible"><span class="part"><a href="search-your-data.html">Search your data</a></span>' +
+        '<li class="collapsible"><span class="part"><a href="search-your-data.html" title="Search your data">搜索你的数据</a></span>' +
         '<ul>' +
-        '<li><span class="chapter"><a href="run-a-search.html">Run a search</a></span></li>' +
-        '<li><span class="chapter"><a href="near-real-time.html">Near real-time search</a></span></li>' +
-        '<li><span class="chapter"><a href="async-search-intro.html">Long-running searches</a></span></li>' +
-        '<li><span class="chapter"><a href="modules-cross-cluster-search.html">Search across clusters</a></span></li>' +
+        '<li><span class="chapter"><a href="run-a-search.html" title="Run a search">运行搜索</a></span></li>' +
+        '<li><span class="chapter"><a href="near-real-time.html" title="Near real-time search">接近实时的搜索</a></span></li>' +
+        '<li><span class="chapter"><a href="async-search-intro.html" title="Long-running searches">运行耗时的搜索</a></span></li>' +
+        '<li><span class="chapter"><a href="modules-cross-cluster-search.html" title="Search across clusters">跨集群搜索</a></span></li>' +
         '</ul>' +
         '</li>' +
-        '<li class="collapsible"><span class="part"><a href="query-dsl.html">Query DSL</a></span>' +
+        '<li class="collapsible"><span class="part"><a href="query-dsl.html" title="Query DSL">使用领域查询语言(DSL)</a></span>' +
         '<ul>' +
-        '<li><span class="chapter"><a href="query-filter-context.html">Query and filter context</a></span></li>' +
-        '<li class="collapsible"><span class="chapter"><a href="compound-queries.html">Compound queries</a></span>' +
+        '<li><span class="chapter"><a href="query-filter-context.html" title="Query and filter context">查询并过滤内容</a></span></li>' +
+        '<li class="collapsible"><span class="chapter"><a href="compound-queries.html" title="Compound queries">复合查询</a></span>' +
         '<ul>' +
-        '<li><span class="section"><a href="query-dsl-bool-query.html">Boolean</a></span></li>' +
-        '<li><span class="section"><a href="query-dsl-boosting-query.html">Boosting</a></span></li>' +
-        '<li><span class="section"><a href="query-dsl-constant-score-query.html">Constant score</a></span></li>' +
-        '<li><span class="section"><a href="query-dsl-dis-max-query.html">Disjunction max</a></span></li>' +
-        '<li><span class="section"><a href="query-dsl-function-score-query.html">Function score</a></span></li>' +
+        '<li><span class="section"><a href="query-dsl-bool-query.html" title="Boolean">布尔查询(boolean query)</a></span></li>' +
+        '<li><span class="section"><a href="query-dsl-boosting-query.html" title="Boosting">提升权重(boosting)</a></span></li>' +
+        '<li><span class="section"><a href="query-dsl-constant-score-query.html" title="Constant score">固定评分值(Constant score)</a></span></li>' +
+        '<li><span class="section"><a href="query-dsl-dis-max-query.html" title="Disjunction max">分离最大化(Disjunction max)</a></span></li>' +
+        '<li><span class="section"><a href="query-dsl-function-score-query.html" title="Function score">评分函数(Function score)</a></span></li>' +
         '</ul>' +
         '</li>' +
-        '<li class="collapsible"><span class="chapter"><a href="full-text-queries.html">Full text queries</a></span>' +
+        '<li class="collapsible"><span class="chapter"><a href="full-text-queries.html" title="">Full text queries</a></span>' +
         '<ul>' +
         '<li><span class="section"><a href="query-dsl-intervals-query.html">Intervals</a></span></li>' +
         '<li><span class="section"><a href="query-dsl-match-query.html">Match</a></span></li>' +

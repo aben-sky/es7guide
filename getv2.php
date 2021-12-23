@@ -56,7 +56,7 @@ function getOriginalHtmls() {
 
     //记录获取失败的链接
     if (!empty($arrLinkFailed)) {
-        file_put_contents('v2failed.log', date('Y-m-d H:i:s') . PHP_EOL . json_encode($arrLinkFailed) . PHP_EOL);
+        file_put_contents('log_v2_failed.log', date('Y-m-d H:i:s') . PHP_EOL . json_encode($arrLinkFailed) . PHP_EOL);
     }
 }
 
@@ -136,7 +136,7 @@ function convertToLocalFile($link) {
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
-                            <div style="color:gray; word-break: break-all; font-size:12px;">原文地址: https://www.elastic.co/guide/cn/elasticsearch/guide/current/$link, 版权归 www.elastic.co 所有</div>
+                            <div style="color:gray; word-break: break-all; font-size:12px;">原文地址: <a href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/$link" rel="nofollow">https://www.elastic.co/guide/cn/elasticsearch/guide/current/$link</a>, 版权归 www.elastic.co 所有</div>
                         $body
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-4" id="right_col">

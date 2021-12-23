@@ -26,53 +26,53 @@ function renderRightDocList(filename) {
     //region docList
     var strDocList = '<div class="toc">' +
         '<ul class="toc"><li id="book_title" class="collapsible">' +
-        '<span>Elasticsearch Guide: <select id="live_versions" onchange="es7EnGoto(this.value)"><option value="master">master</option><option value="8.0">8.0</option><option value="7.17">7.17</option><option value="7.16">7.16 </option><option value="7.7" selected="">7.7</option><option value="6.8">6.8</option><option value="other">other versions</option></select>' +
-        '<span id="other_versions">other versions: ' +
+        '<span>Elasticsearch权威指南: <select id="live_versions" onchange="es7EnGoto(this.value)"><option value="master">master</option><option value="8.0">8.0</option><option value="7.17">7.17</option><option value="7.16">7.16 </option><option value="7.7" selected="">7.7</option><option value="6.8">6.8</option><option value="other">其他版本</option></select>' +
+        '<span id="other_versions">其他版本: ' +
         '<select onchange="es7EnGoto(this.value)"><option value="master">master</option><option value="8.0">8.0</option><option value="7.17">7.17</option><option value="7.16">7.16 (current)</option><option value="7.15">7.15</option><option value="7.14">7.14</option><option value="7.13">7.13</option><option value="7.12">7.12</option><option value="7.11">7.11</option><option value="7.10">7.10</option><option value="7.9">7.9</option><option value="7.8">7.8</option><option value="7.7" selected="">7.7</option><option value="7.6">7.6</option><option value="7.5">7.5</option><option value="7.4">7.4</option><option value="7.3">7.3</option><option value="7.2">7.2</option><option value="7.1">7.1</option><option value="7.0">7.0</option><option value="6.8">6.8</option><option value="6.7">6.7</option><option value="6.6">6.6</option><option value="6.5">6.5</option><option value="6.4">6.4</option><option value="6.3">6.3</option><option value="6.2">6.2</option><option value="6.1">6.1</option><option value="6.0">6.0</option><option value="5.6">5.6</option><option value="5.5">5.5</option><option value="5.4">5.4</option><option value="5.3">5.3</option><option value="5.2">5.2</option><option value="5.1">5.1</option><option value="5.0">5.0</option><option value="2.4">2.4</option><option value="2.3">2.3</option><option value="2.2">2.2</option><option value="2.1">2.1</option><option value="2.0">2.0</option><option value="1.7">1.7</option><option value="1.6">1.6</option><option value="1.5">1.5</option><option value="1.4">1.4</option><option value="1.3">1.3</option><option value="0.90">0.90</option></select></span></span>' +
         '</li>' +
-        '<li class="collapsible"><span class="chapter"><a href="elasticsearch-intro.html">What is Elasticsearch?</a></span>' +
+        '<li class="collapsible"><span class="chapter"><a href="elasticsearch-intro.html" title="What is Elasticsearch?">Elasticsearch是什么?</a></span>' +
         '<ul>' +
-        '<li><span class="section"><a href="documents-indices.html">Data in: documents and indices</a></span>' +
+        '<li><span class="section"><a href="documents-indices.html" title="Data in: documents and indices">数据输入: 文档和索引</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="search-analyze.html">Information out: search and analyze</a></span>' +
+        '<li><span class="section"><a href="search-analyze.html" title="Information out: search and analyze">信息输出: 搜索和分析</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="scalability.html">Scalability and resilience</a></span>' +
+        '<li><span class="section"><a href="scalability.html" title="Scalability and resilience">可伸缩性和弹性</a></span>' +
         '</li>' +
         '</ul>' +
         '</li>' +
-        '<li><span class="chapter"><a href="release-highlights.html">What’s new in 7.7</a></span>' +
+        '<li><span class="chapter"><a href="release-highlights.html" title="What’s new in 7.7">7.7版本的新特性</a></span>' +
         '</li>' +
-        '<li class="collapsible"><span class="part"><a href="getting-started.html">Getting started with Elasticsearch</a></span>' +
+        '<li class="collapsible"><span class="part"><a href="getting-started.html" title="Getting started with Elasticsearch">开始使用Elasticsearch</a></span>' +
         '<ul>' +
-        '<li><span class="chapter"><a href="getting-started-install.html">Get Elasticsearch up and running</a></span>' +
+        '<li><span class="chapter"><a href="getting-started-install.html" title="Get Elasticsearch up and running">安装并运行</a></span>' +
         '</li>' +
-        '<li><span class="chapter"><a href="getting-started-index.html">Index some documents</a></span>' +
+        '<li><span class="chapter"><a href="getting-started-index.html" title="Index some documents">索引几个文档</a></span>' +
         '</li>' +
-        '<li><span class="chapter"><a href="getting-started-search.html">Start searching</a></span>' +
+        '<li><span class="chapter"><a href="getting-started-search.html" title="Start searching">开始搜索</a></span>' +
         '</li>' +
-        '<li><span class="chapter"><a href="getting-started-aggregations.html">Analyze results with aggregations</a></span>' +
+        '<li><span class="chapter"><a href="getting-started-aggregations.html" title="Analyze results with aggregations">用聚合分析结果</a></span>' +
         '</li>' +
-        '<li><span class="chapter"><a href="getting-started-next-steps.html">Where to go from here</a></span>' +
+        '<li><span class="chapter"><a href="getting-started-next-steps.html" title="Where to go from here">下一步做什么?</a></span>' +
         '</li>' +
         '</ul>' +
         '</li>' +
-        '<li class="collapsible"><span class="part"><a href="setup.html">Set up Elasticsearch</a></span>' +
+        '<li class="collapsible"><span class="part"><a href="setup.html" title="Set up Elasticsearch">安装和设置</a></span>' +
         '<ul>' +
-        '<li class="collapsible"><span class="chapter"><a href="install-elasticsearch.html">Installing Elasticsearch</a></span>' +
+        '<li class="collapsible"><span class="chapter"><a href="install-elasticsearch.html" title="Installing Elasticsearch">安装Elasticsearch</a></span>' +
         '<ul>' +
-        '<li><span class="section"><a href="targz.html">Install Elasticsearch from archive on Linux or MacOS</a></span>' +
+        '<li><span class="section"><a href="targz.html" title="Install Elasticsearch from archive on Linux or MacOS">在Linux/MacOS上安装</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="zip-windows.html">Install Elasticsearch with <code class="literal">.zip</code> on Windows</a></span>' +
+        '<li><span class="section"><a href="zip-windows.html" title="Install Elasticsearch with .zip on Windows">在Windows上使用zip压缩文件安装</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="deb.html">Install Elasticsearch with Debian Package</a></span>' +
+        '<li><span class="section"><a href="deb.html" title="Install Elasticsearch with Debian Package">使用Debian安装包安装</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="rpm.html">Install Elasticsearch with RPM</a></span>' +
+        '<li><span class="section"><a href="rpm.html" title="Install Elasticsearch with RPM">使用RPM安装包工具安装</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="windows.html">Install Elasticsearch with Windows MSI Installer</a></span>' +
+        '<li><span class="section"><a href="windows.html" title="Install Elasticsearch with Windows MSI Installer">使用windows安装包安装</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="docker.html">Install Elasticsearch with Docker</a></span>' +
+        '<li><span class="section"><a href="docker.html" title="Install Elasticsearch with Docker">用Docker安装</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="brew.html">Install Elasticsearch on macOS with Homebrew</a></span>' +
+        '<li><span class="section"><a href="brew.html" title="Install Elasticsearch on macOS with Homebrew">在MacOS上用Homebrew安装</a></span>' +
         '</li>' +
         '</ul>' +
         '</li>' +

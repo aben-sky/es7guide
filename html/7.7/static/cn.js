@@ -142,15 +142,15 @@ function renderRightDocList(filename) {
         '<li class="collapsible"><span class="chapter"><a href="modules-discovery.html" title="Discovery and cluster formation">发现(discovery)及集群信息</a></span>' +
         '<ul>' +
         '<li><span class="section"><a href="modules-discovery-hosts-providers.html" title="Discovery">发现(discovery)</a></span></li>' +
-        '<li><span class="section"><a href="modules-discovery-quorums.html" title="">Quorum-based decision making</a></span></li>' +
-        '<li><span class="section"><a href="modules-discovery-voting.html" title="">Voting configurations</a></span></li>' +
-        '<li><span class="section"><a href="modules-discovery-bootstrap-cluster.html" title="">Bootstrapping a cluster</a></span></li>' +
-        '<li><span class="section"><a href="cluster-state-publishing.html" title="">Publishing the cluster state</a></span></li>' +
-        '<li><span class="section"><a href="cluster-fault-detection.html" title="">Cluster fault detection</a></span></li>' +
+        '<li><span class="section"><a href="modules-discovery-quorums.html" title="Quorum-based decision making">基于多数(quorum-based)的选举机制</a></span></li>' +
+        '<li><span class="section"><a href="modules-discovery-voting.html" title="Voting configurations">选举机制配置</a></span></li>' +
+        '<li><span class="section"><a href="modules-discovery-bootstrap-cluster.html" title="Bootstrapping a cluster">启动一个集群</a></span></li>' +
+        '<li><span class="section"><a href="cluster-state-publishing.html" title="Publishing the cluster state">发布集群状态</a></span></li>' +
+        '<li><span class="section"><a href="cluster-fault-detection.html" title="Cluster fault detection">集群故障检测</a></span></li>' +
         '</ul>' +
         '</li>' +
-        '<li><span class="chapter"><a href="add-elasticsearch-nodes.html" title="">Add and remove nodes in your cluster</a></span></li>' +
-        '<li><span class="chapter"><a href="restart-cluster.html" title="">Full-cluster restart and rolling restart</a></span></li>' +
+        '<li><span class="chapter"><a href="add-elasticsearch-nodes.html" title="Add and remove nodes in your cluster">向集群中添加/移除节点</a></span></li>' +
+        '<li><span class="chapter"><a href="restart-cluster.html" title="Full-cluster restart and rolling restart"></a></span></li>' +
         '<li><span class="chapter"><a href="modules-remote-clusters.html" title="">Remote clusters</a></span></li>' +
         '<li><span class="chapter"><a href="setup-xpack.html" title="">Set up X-Pack</a></span></li>' +
         '<li><span class="chapter"><a href="setup-xpack-client.html" title="">Configuring X-Pack Java Clients</a></span></li>' +

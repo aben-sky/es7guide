@@ -59,7 +59,7 @@ will be released for this version. For the latest information, see the
 <p>You can add more nodes to your cluster and optionally designate specific
 purposes for each node. For example, you can allocate master nodes, data nodes,
 ingest nodes, machine learning nodes, and dedicated coordinating nodes. For
-details about each node type, see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/modules-node.html" class="ulink" target="_top">Nodes</a>.</p>
+details about each node type, see <a href="modules-node.html" class="ulink" target="_top">Nodes</a>.</p>
 <p>Let’s add two nodes to our cluster!</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
@@ -159,7 +159,7 @@ file:</p>
 actually required in this tutorial. When you want to form a cluster with nodes
 on other hosts, however, you must use this setting to provide a list of
 master-eligible nodes to seed the discovery process. For more information, see
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/modules-discovery-hosts-providers.html" class="ulink" target="_top">Discovery</a>.</p>
+<a href="modules-discovery-hosts-providers.html" class="ulink" target="_top">Discovery</a>.</p>
 </li>
 <li class="listitem">
 <p>On each node, enable TLS for transport communications. You must also configure
@@ -218,20 +218,20 @@ package, run the following command from each Elasticsearch directory:</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">./bin/elasticsearch</pre>
 </div>
-<p>See <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/starting-elasticsearch.html" class="ulink" target="_top">Starting Elasticsearch</a>.</p>
+<p>See <a href="starting-elasticsearch.html" class="ulink" target="_top">Starting Elasticsearch</a>.</p>
 <p>If you encounter errors, you can see some common problems and solutions in
 <a class="xref" href="trb-security-ssl.html" title="Common SSL/TLS exceptions">Common SSL/TLS exceptions</a>.</p>
 </li>
 <li class="listitem">
 <p>Verify that your cluster now contains three nodes.</p>
 <p>For example, log into Kibana with the <code class="literal">elastic</code> built-in user. Go to
-<span class="strong strong"><strong>Dev Tools &gt; Console</strong></span> and run the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/cluster-health.html" class="ulink" target="_top">cluster health API</a>:</p>
+<span class="strong strong"><strong>Dev Tools &gt; Console</strong></span> and run the <a href="cluster-health.html" class="ulink" target="_top">cluster health API</a>:</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET _cluster/health</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/1270.console"></div>
 <p>Confirm the <code class="literal">number_of_nodes</code> in the response from this API.</p>
-<p>You can also use the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/cat-nodes.html" class="ulink" target="_top">cat nodes API</a> to identify the master
+<p>You can also use the <a href="cat-nodes.html" class="ulink" target="_top">cat nodes API</a> to identify the master
 node:</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET _cat/nodes?v</pre>
@@ -245,13 +245,13 @@ node.</p>
 <p>Now that you have multiple nodes, your data can be distributed across the
 cluster in multiple primary and replica shards. For more information about the
 concepts of clusters, nodes, and shards, see
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/getting-started.html" class="ulink" target="_top">Getting started with Elasticsearch</a>.</p>
+<a href="getting-started.html" class="ulink" target="_top">Getting started with Elasticsearch</a>.</p>
 <h3>
 <a id="encrypting-internode-nextsteps"></a>What’s next?<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/x-pack/docs/en/security/securing-communications/tutorial-tls-addnodes.asciidoc">edit</a>
 </h3>
 <p>Congratulations! You’ve encrypted communications between the nodes in your
 cluster and can pass the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/bootstrap-checks-xpack.html#bootstrap-checks-tls" class="ulink" target="_top">TLS bootstrap check</a>.</p>
+<a href="bootstrap-checks-xpack.html#bootstrap-checks-tls" class="ulink" target="_top">TLS bootstrap check</a>.</p>
 <p>If you want to encrypt communications between other products in the Elastic Stack, see
 <a class="xref" href="encrypting-communications.html" title="Encrypting communications"><em>Encrypting communications</em></a>.</p>
 </div>

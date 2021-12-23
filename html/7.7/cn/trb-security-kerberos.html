@@ -148,13 +148,13 @@ module use following Kerberos realm setting:</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">xpack.security.authc.realms.kerberos.&lt;realm-name&gt;.krb.debug: true</pre>
 </div>
-<p>For detailed information, see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/security-settings.html#ref-kerberos-settings" class="ulink" target="_top">Kerberos realm settings</a>.</p>
+<p>For detailed information, see <a href="security-settings.html#ref-kerberos-settings" class="ulink" target="_top">Kerberos realm settings</a>.</p>
 <p>Sometimes you may need to go deeper to understand the problem during SPNEGO
 GSS context negotiation or look at the Kerberos message exchange. To enable
 Kerberos/SPNEGO debug logging on JVM, add following JVM system properties:</p>
 <p><code class="literal">-Dsun.security.krb5.debug=true</code></p>
 <p><code class="literal">-Dsun.security.spnego.debug=true</code></p>
-<p>For more information about JVM system properties, see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/jvm-options.html" class="ulink" target="_top">configuring JVM options</a>.</p>
+<p>For more information about JVM system properties, see <a href="jvm-options.html" class="ulink" target="_top">configuring JVM options</a>.</p>
 </div>
 <div class="navfooter">
 <span class="prev">

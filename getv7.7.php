@@ -66,6 +66,8 @@ function getOriginalHtmls() {
     file_put_contents('log_v7.7_en.log', date('Y-m-d H:i:s') . ' finished' . PHP_EOL, FILE_APPEND);
 }
 
+$OriDocUriPrefix = 'https://www.elastic.co/guide/en/elasticsearch/reference/7.7/';
+
 /**
  * 获取原始html内容并保存
  * @param string $link
@@ -115,15 +117,20 @@ function convertToLocalFile($link, $language = 'en') {
         return false;
     }
 
-    //把body中的`href="/`这种补充成完整的url
+    //把body中的`href="/`这种补充成完整的url, 并修正绝对路径为相对路径
+    global $OriDocUriPrefix;
     $body = str_replace(
         [
             'href="/',
-            'href="../current/'
+            'href="../current/',
+            'href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7//', //修正绝对路径为相对路径
+            'href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/', //修正绝对路径为相对路径
         ]
         , [
             'href="https://www.elastic.co/',
-            'href="https://www.elastic.co/guide/en/elasticsearch/reference/current/'
+            'href="https://www.elastic.co/guide/en/elasticsearch/reference/current/',
+            'href="',
+            'href="',
         ]
         , $body);
 
@@ -222,6 +229,7 @@ EOF;
             $html = str_replace('src="' . $src . '"', 'src="../static/images/' . $path . '"', $html);
         } else {
             $url = 'https://www.elastic.co/guide/en/elasticsearch/reference/7.7/' . $src;
+            //https://www.elastic.co/guide/en/elasticsearch/reference/7.7/
             $imgSavePath = __DIR__ . '/html/7.7/static/' . $src;
             //替换html
             $html = str_replace('src="' . $src . '"', 'src="../static/' . $src . '"', $html);
@@ -266,7 +274,11 @@ EOF;
     }
 
     //写入html
-    file_put_contents(__DIR__ . '/html/7.7/' . $language . '/' . $link, $html);
+    $dir = __DIR__ . '/html/7.7/' . $language . '/';
+    if (!is_dir($dir)) {
+        mkdir($dir, 0777, true);
+    }
+    file_put_contents($dir . $link, $html);
 
     return true;
 }
@@ -305,7 +317,7 @@ function convertToLocalFiles($language = 'en') {
 //原文档转换到本地文档
 //convertToLocalFile('actions-pagerduty.html');//单个转换测试
 //convertToLocalFile('query-dsl-function-score-query.html', 'en');//单个转换测试: 带完整地址的图片
-//convertToLocalFiles('en');//生成本地英文版本
+convertToLocalFiles('en');//生成本地英文版本
 
 //生成中文版(后续会以英文版为基础进行翻译)
 convertToLocalFiles('cn');

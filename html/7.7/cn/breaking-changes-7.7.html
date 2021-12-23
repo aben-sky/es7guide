@@ -82,7 +82,7 @@ Discontinue use of other <code class="literal">xpack.security.transport.ssl</cod
 </ul>
 </div>
 <p>If you want to enable SSL, follow the instructions to
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/configuring-tls.html#tls-transport" class="ulink" target="_top">encrypt communications between nodes</a>. As part of this configuration, explicitly set
+<a href="configuring-tls.html#tls-transport" class="ulink" target="_top">encrypt communications between nodes</a>. As part of this configuration, explicitly set
 <code class="literal">xpack.security.transport.ssl.enabled</code> as <code class="literal">true</code>.</p>
 <p>For example:</p>
 <div class="pre_wrapper lang-yaml">
@@ -124,7 +124,7 @@ Discontinue use of other <code class="literal">xpack.security.http.ssl</code> se
 </ul>
 </div>
 <p>If you want to enable SSL, follow the instructions to
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/configuring-tls.html#tls-http" class="ulink" target="_top">encrypt HTTP client communications for Elasticsearch</a>. As part
+<a href="configuring-tls.html#tls-http" class="ulink" target="_top">encrypt HTTP client communications for Elasticsearch</a>. As part
 of this configuration, explicitly set <code class="literal">xpack.security.http.ssl.enabled</code>
 as <code class="literal">true</code>.</p>
 <p>For example:</p>
@@ -190,7 +190,7 @@ provided, Elasticsearch will generate warnings in the deprecation log.</p>
 </h4>
 <p>The <code class="literal">index.translog.retention.age</code> and <code class="literal">index.translog.retention.size</code> index
 settings are now deprecated. These settings have been ignored since 7.4 in favor
-of <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/index-modules-history-retention.html" class="ulink" target="_top">soft deletes</a>.</p>
+of <a href="index-modules-history-retention.html" class="ulink" target="_top">soft deletes</a>.</p>
 <p>To avoid deprecation warnings, discontinue use of the settings.</p>
 <h3>
 <a id="breaking_77_logging_changes"></a>Logging changes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/migration/migrate_7_7.asciidoc">edit</a>
@@ -203,7 +203,7 @@ loggers in the <code class="literal">org.elasticsearch.action.*</code> hierarchy
 <code class="literal">DEBUG</code> level by default. This sometimes resulted in a good deal of unnecessary
 log noise. From 7.7 onwards the default log level for logger in this hierarchy
 is now <code class="literal">INFO</code>, in line with most other loggers. If needed, you can recover the
-pre-7.7 default behaviour by adjusting your <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/logging.html" class="ulink" target="_top">logging</a>.</p>
+pre-7.7 default behaviour by adjusting your <a href="logging.html" class="ulink" target="_top">logging</a>.</p>
 <h3>
 <a id="breaking_77_mapping_changes"></a>Mapping changes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/migration/migrate_7_7.asciidoc">edit</a>
 </h3>
@@ -286,7 +286,7 @@ happen when using date math or dates that don’t specify up to the last
 millisecond. While queries on <code class="literal">date</code> field round up to the latest millisecond
 for <code class="literal">gt</code> and <code class="literal">lte</code> boundaries, the same queries on <code class="literal">date_range</code> fields didn’t
 do this. The behavior is now the same for both field types like documented in
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/query-dsl-range-query.html#range-query-date-math-rounding" class="ulink" target="_top">Date math and rounding</a>.</p>
+<a href="query-dsl-range-query.html#range-query-date-math-rounding" class="ulink" target="_top">Date math and rounding</a>.</p>
 <h4>
 <a id="_pipeline_aggregation_validation_errors"></a>Pipeline aggregation validation errors<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/migration/migrate_7_7.asciidoc">edit</a>
 </h4>

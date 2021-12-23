@@ -119,7 +119,7 @@ signed by the same CA and the node is automatically allowed to join the cluster.
 Additionally, it is recommended that the certificates contain subject alternative
 names (SAN) that correspond to the node’s IP address and DNS name so that
 hostname verification can be performed.</p>
-<p>The <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/certutil.html" class="ulink" target="_top"><code class="literal">elasticsearch-certutil</code></a> command simplifies the process
+<p>The <a href="certutil.html" class="ulink" target="_top"><code class="literal">elasticsearch-certutil</code></a> command simplifies the process
 of generating certificates for the Elastic Stack. It takes care of generating a CA and
 signing certificates with the CA. It can be used interactively or in a silent
 mode through the use of an input file. It also supports generation of
@@ -266,7 +266,7 @@ also be used as a truststore. In this case, the path value should match
 the <code class="literal">keystore.path</code> value.
 Note, however, that this is not the general rule. There are keystores that cannot be
 used as truststores, only
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/security-settings.html#pkcs12-truststore-note" class="ulink" target="_top">specifically crafted ones can</a></p>
+<a href="security-settings.html#pkcs12-truststore-note" class="ulink" target="_top">specifically crafted ones can</a></p>
 </td>
 </tr>
 </table>
@@ -366,7 +366,7 @@ communication across the cluster.</p>
 <li class="listitem">
 All TLS-related node settings are considered to be highly sensitive and
 therefore are not exposed via the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/cluster-nodes-info.html#cluster-nodes-info" class="ulink" target="_top">nodes info API</a> For more
+<a href="cluster-nodes-info.html#cluster-nodes-info" class="ulink" target="_top">nodes info API</a> For more
 information about any of these settings, see <a class="xref" href="security-settings.html" title="Security settings in Elasticsearch">Security settings</a>.
 </li>
 <li class="listitem">
@@ -506,7 +506,7 @@ Restart Elasticsearch.
 <li class="listitem">
 All TLS-related node settings are considered to be highly sensitive and
 therefore are not exposed via the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/cluster-nodes-info.html#cluster-nodes-info" class="ulink" target="_top">nodes info API</a> For more
+<a href="cluster-nodes-info.html#cluster-nodes-info" class="ulink" target="_top">nodes info API</a> For more
 information about any of these settings, see <a class="xref" href="security-settings.html" title="Security settings in Elasticsearch">Security settings</a>.
 </li>
 <li class="listitem">

@@ -56,7 +56,7 @@ will be released for this version. For the latest information, see the
 <a id="cross-cluster-configuring"></a>Cross cluster search and security<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/x-pack/docs/en/security/ccs-clients-integrations/cross-cluster.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/modules-cross-cluster-search.html" class="ulink" target="_top">Cross cluster search</a> enables
+<p><a href="modules-cross-cluster-search.html" class="ulink" target="_top">Cross cluster search</a> enables
 federated search across multiple clusters. When using cross cluster search
 with secured clusters, all clusters must have the Elasticsearch security features
 enabled.</p>
@@ -81,7 +81,7 @@ is allowed to access.</p>
 <li class="listitem">
 Enable the Elasticsearch security features on every node in each connected cluster.
 For more information about the <code class="literal">xpack.security.enabled</code> setting, see
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/security-settings.html" class="ulink" target="_top">Security Settings in Elasticsearch</a>.
+<a href="security-settings.html" class="ulink" target="_top">Security Settings in Elasticsearch</a>.
 </li>
 <li class="listitem">
 Enable encryption globally. To encrypt communications, you must enable
@@ -99,7 +99,7 @@ connected clusters, or
 </li>
 <li class="listitem">
 Adding the CA certificate from the local cluster as a trusted CA in
-each remote cluster (see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/security-settings.html#transport-tls-ssl-settings" class="ulink" target="_top">Transport TLS settings</a>).
+each remote cluster (see <a href="security-settings.html#transport-tls-ssl-settings" class="ulink" target="_top">Transport TLS settings</a>).
 </li>
 </ul>
 </div>
@@ -111,7 +111,7 @@ to define which indices the user may access.  (See <a class="xref" href="authori
 </li>
 <li class="listitem">
 <p>Configure the local cluster to connect to remote clusters as described
-in <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/modules-remote-clusters.html#configuring-remote-clusters" class="ulink" target="_top">Configuring Remote Clusters</a>.
+in <a href="modules-remote-clusters.html#configuring-remote-clusters" class="ulink" target="_top">Configuring Remote Clusters</a>.
 For example, the following configuration adds two remote clusters
 to the local cluster:</p>
 <div class="pre_wrapper lang-console">

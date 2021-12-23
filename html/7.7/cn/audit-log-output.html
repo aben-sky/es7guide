@@ -70,7 +70,7 @@ analytics it is strongly recommended to keep only the newer format.</p>
 logger.xpack_security_audit_deprecated_logfile.level = off</pre>
 </div>
 <p>Alternatively, use the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/cluster-update-settings.html" class="ulink" target="_top">cluster update settings API</a> to dynamically
+<a href="cluster-update-settings.html" class="ulink" target="_top">cluster update settings API</a> to dynamically
 configure the logger:</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /_cluster/settings
@@ -146,7 +146,7 @@ timestamp format in <code class="literal">log4j2.properties</code>.
 Information about the local node that generated
 the log entry. You can control what node information
 is included by configuring the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/auditing-settings.html#node-audit-settings" class="ulink" target="_top">local node info settings</a>.
+<a href="auditing-settings.html#node-audit-settings" class="ulink" target="_top">local node info settings</a>.
 </dd>
 <dt>
 <span class="term">
@@ -185,8 +185,8 @@ for each type of event.
 </h3>
 <p>The events and some other information about what gets logged can be
 controlled using settings in the <code class="literal">elasticsearch.yml</code> file. See
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/auditing-settings.html#event-audit-settings" class="ulink" target="_top">Audited Event Settings</a> and
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/auditing-settings.html#node-audit-settings" class="ulink" target="_top">Local Node Info Settings</a>.</p>
+<a href="auditing-settings.html#event-audit-settings" class="ulink" target="_top">Audited Event Settings</a> and
+<a href="auditing-settings.html#node-audit-settings" class="ulink" target="_top">Local Node Info Settings</a>.</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
@@ -227,7 +227,7 @@ Please take time to review these policies whenever your system architecture chan
 </div>
 <p>A policy is a named set of filter rules. Each filter rule applies to a single event attribute,
 one of the <code class="literal">users</code>, <code class="literal">realms</code>, <code class="literal">roles</code> or <code class="literal">indices</code> attributes. The filter rule defines
-a list of <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/regexp-syntax.html" class="ulink" target="_top">Lucene regexp</a>, <span class="strong strong"><strong>any</strong></span> of which has to match the value of the audit
+a list of <a href="regexp-syntax.html" class="ulink" target="_top">Lucene regexp</a>, <span class="strong strong"><strong>any</strong></span> of which has to match the value of the audit
 event attribute for the rule to match.
 A policy matches an event if <span class="strong strong"><strong>all</strong></span> the rules comprising it match the event.
 An audit event is ignored, therefore not printed, if it matches <span class="strong strong"><strong>any</strong></span> policy. All other

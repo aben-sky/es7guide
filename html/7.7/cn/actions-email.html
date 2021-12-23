@@ -597,7 +597,7 @@ account or specify which account the email should be sent with in the
             user: &lt;username&gt;</pre>
 </div>
 <p>To store the account SMTP password, use the keystore command
-(see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/secure-settings.html" class="ulink" target="_top">secure settings</a>)</p>
+(see <a href="secure-settings.html" class="ulink" target="_top">secure settings</a>)</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">bin/elasticsearch-keystore add xpack.notification.email.account.gmail_account.smtp.secure_password</pre>
 </div>
@@ -626,7 +626,7 @@ for more information.</p>
             user: &lt;email.address&gt;</pre>
 </div>
 <p>To store the account SMTP password, use the keystore command
-(see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/secure-settings.html" class="ulink" target="_top">secure settings</a>)</p>
+(see <a href="secure-settings.html" class="ulink" target="_top">secure settings</a>)</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">bin/elasticsearch-keystore add xpack.notification.email.account.outlook_account.smtp.secure_password</pre>
 </div>
@@ -669,7 +669,7 @@ in your account configuration or as part of the email action in the watch.</p>
 </table>
 </div>
 <p>To store the account SMTP password, use the keystore command
-(see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/secure-settings.html" class="ulink" target="_top">secure settings</a>)</p>
+(see <a href="secure-settings.html" class="ulink" target="_top">secure settings</a>)</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">bin/elasticsearch-keystore add xpack.notification.email.account.ses_account.smtp.secure_password</pre>
 </div>
@@ -727,7 +727,7 @@ authentication-related failures.</p>
 </table>
 </div>
 <p>To store the account SMTP password, use the keystore command
-(see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/secure-settings.html" class="ulink" target="_top">secure settings</a>)</p>
+(see <a href="secure-settings.html" class="ulink" target="_top">secure settings</a>)</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">bin/elasticsearch-keystore add xpack.notification.email.account.exchange_account.smtp.secure_password</pre>
 </div>
@@ -741,7 +741,7 @@ the HTML.</p>
 <code class="literal">xpack.notification.email.html.sanitization.allow</code> and
 <code class="literal">xpack.notification.email.html.sanitization.disallow</code> settings in
 <code class="literal">elasticsearch.yml</code>. You can specify individual HTML elements and
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/notification-settings.html#html-feature-groups" class="ulink" target="_top">HTML feature groups</a>. By default, Watcher allows the following
+<a href="notification-settings.html#html-feature-groups" class="ulink" target="_top">HTML feature groups</a>. By default, Watcher allows the following
 features: <code class="literal">body</code>, <code class="literal">head</code>, <code class="literal">_tables</code>, <code class="literal">_links</code>, <code class="literal">_blocks</code>, <code class="literal">_formatting</code> and
 <code class="literal">img:embedded</code>.</p>
 <p>For example, the following settings allow the HTML to contain tables and block

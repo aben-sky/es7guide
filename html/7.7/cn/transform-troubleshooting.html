@@ -73,12 +73,12 @@ by your <code class="literal">transform_id</code>.
 </li>
 <li class="listitem">
 The
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/get-transform-stats.html" class="ulink" target="_top">get transform statistics API</a>
+<a href="get-transform-stats.html" class="ulink" target="_top">get transform statistics API</a>
 provides information about the transform status and failures.
 </li>
 <li class="listitem">
 If the transform exists as a task, you can use the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/tasks.html" class="ulink" target="_top">task management API</a> to gather task information. For example:
+<a href="tasks.html" class="ulink" target="_top">task management API</a> to gather task information. For example:
 <code class="literal">GET _tasks?actions=data_frame/transforms*&amp;detailed</code>. Typically, the task exists
 when the transform is in a started or failed state.
 </li>
@@ -87,7 +87,7 @@ The Elasticsearch logs from the node that was running the transform might
 also contain useful information. You can identify the node from the notification
 messages. Alternatively, if the task still exists, you can get that information
 from the get transform statistics API. For more information, see
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/logging.html" class="ulink" target="_top">Logging configuration</a>.
+<a href="logging.html" class="ulink" target="_top">Logging configuration</a>.
 </li>
 </ul>
 </div>

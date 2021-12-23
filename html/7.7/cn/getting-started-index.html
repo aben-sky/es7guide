@@ -114,7 +114,7 @@ and shows the original source fields that were indexed.</p>
 <a id="getting-started-batch-processing"></a>Indexing documents in bulk<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/getting-started.asciidoc">edit</a>
 </h3>
 <p>If you have a lot of documents to index, you can submit them in batches with
-the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/docs-bulk.html" class="ulink" target="_top">bulk API</a>. Using bulk to batch document
+the <a href="docs-bulk.html" class="ulink" target="_top">bulk API</a>. Using bulk to batch document
 operations is significantly faster than submitting requests individually as it minimizes network roundtrips.</p>
 <p>The optimal batch size depends on a number of factors: the document size and complexity, the indexing and search load, and the resources available to your cluster. A good place to start is with batches of 1,000 to 5,000 documents
 and a total payload between 5MB and 15MB. From there, you can experiment

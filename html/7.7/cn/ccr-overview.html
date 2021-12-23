@@ -195,11 +195,11 @@ in the following matrix.
 <ul class="itemizedlist">
 <li class="listitem">
 Manually creating specific follower indices (in Kibana or by using the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/ccr-put-follow.html" class="ulink" target="_top">create follower API</a>)
+<a href="ccr-put-follow.html" class="ulink" target="_top">create follower API</a>)
 </li>
 <li class="listitem">
 Automatically creating follower indices from auto-follow patterns (in Kibana or
-by using the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/ccr-put-auto-follow-pattern.html" class="ulink" target="_top">create auto-follow pattern API</a>)
+by using the <a href="ccr-put-auto-follow-pattern.html" class="ulink" target="_top">create auto-follow pattern API</a>)
 </li>
 </ul>
 </div>
@@ -217,7 +217,7 @@ the <a class="xref" href="remote-recovery.html" title="Remote recovery">remote r
 files from the remote cluster to the local cluster.</p>
 <p>By default, if you initiate following manually (by using Kibana or the create follower API),
 the recovery process is asynchronous in relationship to the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/ccr-put-follow.html" class="ulink" target="_top">create follower request</a>. The request returns before
+<a href="ccr-put-follow.html" class="ulink" target="_top">create follower request</a>. The request returns before
 the <a class="xref" href="remote-recovery.html" title="Remote recovery">remote recovery</a> process completes. If you would like to wait on
 the process to complete, you can use the <code class="literal">wait_for_active_shards</code> parameter.</p>
 </div>
@@ -251,7 +251,7 @@ cause of the failure is deemed to be a failure that can be recovered from (for
 example, a network failure), the follower shard task enters into a retry
 loop. Otherwise, the follower shard task is paused and requires user
 intervention before it can be resumed with the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/ccr-post-resume-follow.html" class="ulink" target="_top">resume follower API</a>.</p>
+<a href="ccr-post-resume-follow.html" class="ulink" target="_top">resume follower API</a>.</p>
 <p>When operations are received by the follower shard task, they are placed in a
 write buffer. The follower shard task manages this write buffer and submits
 bulk write requests from this write buffer to the follower shard.  The write
@@ -266,7 +266,7 @@ longer exceeds its configured limits.</p>
 <div class="admon_content">
 <p>The intricacies of how operations are replicated from the leader are
 governed by settings that you can configure when you create the follower index
-in Kibana or by using the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/ccr-put-follow.html" class="ulink" target="_top">create follower API</a>.</p>
+in Kibana or by using the <a href="ccr-put-follow.html" class="ulink" target="_top">create follower API</a>.</p>
 </div>
 </div>
 <p>Mapping updates applied to the leader index are automatically retrieved
@@ -298,7 +298,7 @@ during this cycle.</p>
 </h3>
 </div></div></div>
 <p>You can inspect the progress of replication at the shard level with the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/ccr-get-follow-stats.html" class="ulink" target="_top">get follower stats API</a>. This API gives you
+<a href="ccr-get-follow-stats.html" class="ulink" target="_top">get follower stats API</a>. This API gives you
 insight into the read and writes managed by the follower shard task. It also
 reports read exceptions that can be retried and fatal exceptions that require
 user intervention.</p>
@@ -311,8 +311,8 @@ user intervention.</p>
 </h3>
 </div></div></div>
 <p>You can pause replication with the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/ccr-post-pause-follow.html" class="ulink" target="_top">pause follower API</a> and then later resume
-replication with the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/ccr-post-resume-follow.html" class="ulink" target="_top">resume follower API</a>.
+<a href="ccr-post-pause-follow.html" class="ulink" target="_top">pause follower API</a> and then later resume
+replication with the <a href="ccr-post-resume-follow.html" class="ulink" target="_top">resume follower API</a>.
 Using these APIs in tandem enables you to adjust the read and write parameters
 on the follower shard task if your initial configuration is not suitable for
 your use case.</p>
@@ -357,7 +357,7 @@ before the follower falls fatally behind.</p>
 </div></div></div>
 <p>If a follower falls sufficiently behind a leader that it can no longer replicate
 operations this can be detected in Kibana or by using the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/ccr-get-follow-stats.html" class="ulink" target="_top">get follow stats API</a>. It will be reported as a
+<a href="ccr-get-follow-stats.html" class="ulink" target="_top">get follow stats API</a>. It will be reported as a
 <code class="literal">indices[].fatal_exception</code>.</p>
 <p>In order to restart the follower, you must pause the following process, close the
 index, and the create follower index again. For example:</p>
@@ -387,7 +387,7 @@ following process starts again.</p>
 </h3>
 </div></div></div>
 <p>You can terminate replication with the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/ccr-post-unfollow.html" class="ulink" target="_top">unfollow API</a>. This API converts a follower index
+<a href="ccr-post-unfollow.html" class="ulink" target="_top">unfollow API</a>. This API converts a follower index
 to a regular (non-follower) index.</p>
 </div>
 

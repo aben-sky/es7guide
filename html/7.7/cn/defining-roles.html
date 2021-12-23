@@ -321,12 +321,12 @@ have any special meaning to the Elasticsearch security features.</p>
 </table>
 </div>
 <p>For details about the validation rules for these fields, see the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/security-api-put-privileges.html" class="ulink" target="_top">add application privileges API</a>.</p>
+<a href="security-api-put-privileges.html" class="ulink" target="_top">add application privileges API</a>.</p>
 <p>A role may refer to application privileges that do not exist - that is, they
 have not yet been defined through the add application privileges API (or they
 were defined, but have since been deleted). In this case, the privilege has
 no effect, and will not grant any actions in the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/security-api-has-privileges.html" class="ulink" target="_top">has privileges API</a>.</p>
+<a href="security-api-has-privileges.html" class="ulink" target="_top">has privileges API</a>.</p>
 </div>
 
 <div class="section">
@@ -397,7 +397,7 @@ manage roles, log in to Kibana and go to <span class="strong strong"><strong>Man
 <p>The <em>Role Management APIs</em> enable you to add, update, remove and retrieve roles
 dynamically. When you use the APIs to manage roles in the <code class="literal">native</code> realm, the
 roles are stored in an internal Elasticsearch index. For more information and examples,
-see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/security-api.html#security-role-apis" class="ulink" target="_top">role management APIs</a>.</p>
+see <a href="security-api.html#security-role-apis" class="ulink" target="_top">role management APIs</a>.</p>
 <h3>
 <a id="roles-management-file"></a>File-based role management<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/x-pack/docs/en/security/authorization/managing-roles.asciidoc">edit</a>
 </h3>

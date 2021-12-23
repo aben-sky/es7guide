@@ -65,14 +65,14 @@ the cluster to use these files.</p>
 license, you must use Transport Layer Security (TLS) to encrypt internode
 communication. By following the steps in this tutorial tutorial, you learn how
 to meet the minimum requirements to pass the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/bootstrap-checks-xpack.html#bootstrap-checks-tls" class="ulink" target="_top">TLS bootstrap check</a>.</p>
+<a href="bootstrap-checks-xpack.html#bootstrap-checks-tls" class="ulink" target="_top">TLS bootstrap check</a>.</p>
 </div>
 </div>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
 <p>(Optional) Name the cluster.</p>
-<p>For example, add the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/cluster.name.html" class="ulink" target="_top">cluster.name</a> setting in the
+<p>For example, add the <a href="cluster.name.html" class="ulink" target="_top">cluster.name</a> setting in the
 <code class="literal">ES_PATH_CONF/elasticsearch.yml</code> file:</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">cluster.name: test-cluster</pre>
@@ -84,7 +84,7 @@ to meet the minimum requirements to pass the
 configuration files. If you installed Elasticsearch using archive distributions (<code class="literal">zip</code> or
 <code class="literal">tar.gz</code>), it defaults to <code class="literal">ES_HOME/config</code>. If you used package distributions
 (Debian or RPM), it defaults to <code class="literal">/etc/elasticsearch</code>. For more information, see
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/settings.html" class="ulink" target="_top">Configuring Elasticsearch</a>.</p>
+<a href="settings.html" class="ulink" target="_top">Configuring Elasticsearch</a>.</p>
 </div>
 </div>
 <p>The default cluster name is <code class="literal">elasticsearch</code>. You should choose a unique name,
@@ -92,7 +92,7 @@ however, to ensure that your nodes join the right cluster.</p>
 </li>
 <li class="listitem">
 <p>(Optional) Name the Elasticsearch node.</p>
-<p>For example, add the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/node.name.html" class="ulink" target="_top">node.name</a> setting in the
+<p>For example, add the <a href="node.name.html" class="ulink" target="_top">node.name</a> setting in the
 <code class="literal">ES_PATH_CONF/elasticsearch.yml</code> file:</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">node.name: node-1</pre>
@@ -128,8 +128,8 @@ first time, add all of those node names to the <code class="literal">cluster.ini
 setting.</p>
 </div>
 </div>
-<p>See <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/modules-discovery-bootstrap-cluster.html" class="ulink" target="_top">Bootstrapping a cluster</a> and
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/discovery-settings.html" class="ulink" target="_top">Important discovery and cluster formation settings</a>.</p>
+<p>See <a href="modules-discovery-bootstrap-cluster.html" class="ulink" target="_top">Bootstrapping a cluster</a> and
+<a href="discovery-settings.html" class="ulink" target="_top">Important discovery and cluster formation settings</a>.</p>
 </li>
 <li class="listitem">
 <p>Enable Transport Layer Security (TLS/SSL) for transport (internode)
@@ -165,7 +165,7 @@ but that scenario is not covered in this tutorial.</p>
 </div>
 </div>
 <p>For more information, see <a class="xref" href="get-started-enable-security.html" title="Enable Elasticsearch security features">Enable Elasticsearch security features</a> and
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/security-settings.html#transport-tls-ssl-settings" class="ulink" target="_top">Transport TLS settings</a>.</p>
+<a href="security-settings.html#transport-tls-ssl-settings" class="ulink" target="_top">Transport TLS settings</a>.</p>
 </li>
 <li class="listitem">
 <p>Store the password for the PKCS#12 file in the Elasticsearch keystore.</p>
@@ -194,7 +194,7 @@ file. We are using this file for both the transport TLS keystore and truststore,
 therefore supply the same password for both of these settings.</p>
 </li>
 <li class="listitem">
-<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/starting-elasticsearch.html" class="ulink" target="_top">Start Elasticsearch</a>.</p>
+<p><a href="starting-elasticsearch.html" class="ulink" target="_top">Start Elasticsearch</a>.</p>
 <p>For example, if you installed Elasticsearch with a <code class="literal">.tar.gz</code> package, run the following
 command from the Elasticsearch directory:</p>
 <div class="pre_wrapper lang-sh">

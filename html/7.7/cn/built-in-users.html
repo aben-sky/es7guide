@@ -135,7 +135,7 @@ changes you have applied are lost.</p>
 from users managed by the <a class="xref" href="native-realm.html" title="Native user authentication">native realm</a>. Disabling the native
 realm will not have any effect on the built-in users. The built-in users can
 be disabled individually, using the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/security-api-disable-user.html" class="ulink" target="_top">disable users API</a>.</p>
+<a href="security-api-disable-user.html" class="ulink" target="_top">disable users API</a>.</p>
 <h4>
 <a id="bootstrap-elastic-passwords"></a>The Elastic bootstrap password<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/x-pack/docs/en/security/authentication/built-in-users.asciidoc">edit</a>
 </h4>
@@ -147,7 +147,7 @@ setting, which is added to the keystore during installation. You do not need
 to know or change this bootstrap password. If you have defined a
 <code class="literal">bootstrap.password</code> setting in the keystore, however, that value is used instead.
 For more information about interacting with the keystore, see
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/secure-settings.html" class="ulink" target="_top">Secure Settings</a>.</p>
+<a href="secure-settings.html" class="ulink" target="_top">Secure Settings</a>.</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
@@ -170,7 +170,7 @@ and <code class="literal">remote_monitoring_user</code> users:</p>
 <pre class="programlisting prettyprint lang-shell">bin/elasticsearch-setup-passwords interactive</pre>
 </div>
 <p>For more information about the command options, see
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/setup-passwords.html" class="ulink" target="_top">elasticsearch-setup-passwords</a>.</p>
+<a href="setup-passwords.html" class="ulink" target="_top">elasticsearch-setup-passwords</a>.</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
@@ -181,7 +181,7 @@ command a second time.</p>
 </div>
 <p>Alternatively, you can set the initial passwords for the built-in users by using
 the <span class="strong strong"><strong>Management &gt; Users</strong></span> page in Kibana or the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/security-api-change-password.html" class="ulink" target="_top">Change Password API</a>. These methods are
+<a href="security-api-change-password.html" class="ulink" target="_top">Change Password API</a>. These methods are
 more complex. You must supply the <code class="literal">elastic</code> user and its bootstrap password to
 log into Kibana or run the API. This requirement means that you cannot use the
 default bootstrap password that is derived from the <code class="literal">keystore.seed</code> setting.
@@ -242,7 +242,7 @@ monitoring data for the Elastic Stack. See <a class="xref" href="monitoring-prod
 <p>If you have upgraded from an older version of Elasticsearch, then you may not have set a
 password for the <code class="literal">beats_system</code> or <code class="literal">remote_monitoring_user</code> users. If this is
 the case, then you should use the <span class="strong strong"><strong>Management &gt; Users</strong></span> page in Kibana or the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/security-api-change-password.html" class="ulink" target="_top">Change Password API</a> to set a password
+<a href="security-api-change-password.html" class="ulink" target="_top">Change Password API</a> to set a password
 for these users.</p>
 <h4>
 <a id="add-built-in-user-apm"></a>Adding built-in user passwords to APM<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/x-pack/docs/en/security/authentication/built-in-users.asciidoc">edit</a>
@@ -259,7 +259,7 @@ xpack.monitoring.elasticsearch.password: apmserverpassword</pre>
 <p>If you have upgraded from an older version of Elasticsearch, then you may not have set a
 password for the <code class="literal">apm_system</code> user. If this is the case,
 then you should use the <span class="strong strong"><strong>Management &gt; Users</strong></span> page in Kibana or the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/security-api-change-password.html" class="ulink" target="_top">Change Password API</a> to set a password
+<a href="security-api-change-password.html" class="ulink" target="_top">Change Password API</a> to set a password
 for these users.</p>
 <h4>
 <a id="disabling-default-password"></a>Disabling default password functionality<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/x-pack/docs/en/security/authentication/built-in-users.asciidoc">edit</a>

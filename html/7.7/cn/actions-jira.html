@@ -272,7 +272,7 @@ always required to create an issue in Jira.</p>
 <p>You configure the accounts Watcher can use to communicate with Jira in the
 <code class="literal">xpack.notification.jira</code> namespace in <code class="literal">elasticsearch.yml</code>.</p>
 <p>Watcher supports Basic Authentication for Jira Software. To configure a
-Jira account you need to specify (see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/secure-settings.html" class="ulink" target="_top">secure settings</a>):</p>
+Jira account you need to specify (see <a href="secure-settings.html" class="ulink" target="_top">secure settings</a>):</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">bin/elasticsearch-keystore add xpack.notification.jira.account.monitoring.secure_url
 bin/elasticsearch-keystore add xpack.notification.jira.account.monitoring.secure_user
@@ -281,7 +281,7 @@ bin/elasticsearch-keystore add xpack.notification.jira.account.monitoring.secure
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Storing sensitive data (<code class="literal">url</code>, <code class="literal">user</code> and <code class="literal">password</code>) in the configuration file or the cluster settings is insecure and has been deprecated. Please use Elasticsearch’s secure <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/secure-settings.html" class="ulink" target="_top">keystore</a> method instead.</p>
+<p>Storing sensitive data (<code class="literal">url</code>, <code class="literal">user</code> and <code class="literal">password</code>) in the configuration file or the cluster settings is insecure and has been deprecated. Please use Elasticsearch’s secure <a href="secure-settings.html" class="ulink" target="_top">keystore</a> method instead.</p>
 </div>
 </div>
 <p>To avoid credentials that transit in clear text over the network, Watcher will

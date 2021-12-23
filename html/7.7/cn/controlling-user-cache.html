@@ -70,14 +70,14 @@ object to avoid unnecessarily needing to perform role mapping on each request.</
 <p>The cached user credentials are hashed in memory. By default, the Elasticsearch
 security features use a salted <code class="literal">sha-256</code> hash algorithm. You can use a
 different hashing algorithm by setting the <code class="literal">cache.hash_algo</code> realm settings. See
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/security-settings.html#hashing-settings" class="ulink" target="_top">User cache and password hash algorithms</a>.</p>
+<a href="security-settings.html#hashing-settings" class="ulink" target="_top">User cache and password hash algorithms</a>.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
 <a id="cache-eviction-api"></a>Evicting users from the cache<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/x-pack/docs/en/security/authentication/user-cache.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>You can use the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/security-api-clear-cache.html" class="ulink" target="_top">clear cache API</a> to force
+<p>You can use the <a href="security-api-clear-cache.html" class="ulink" target="_top">clear cache API</a> to force
 the eviction of cached users . For example, the following request evicts all
 users from the <code class="literal">ad1</code> realm:</p>
 <div class="pre_wrapper lang-js">

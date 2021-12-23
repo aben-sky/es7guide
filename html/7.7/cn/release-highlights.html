@@ -88,7 +88,7 @@ hitting memory limits.</p>
 <a id="_transforms_now_in_ga"></a>Transforms – now in GA!<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/release-notes/highlights.asciidoc">edit</a>
 </h3>
 <p>In 7.7, we move transforms from beta to general availability.</p>
-<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/transforms.html" class="ulink" target="_top">Transforms</a> enable you to pivot existing Elasticsearch
+<p><a href="transforms.html" class="ulink" target="_top">Transforms</a> enable you to pivot existing Elasticsearch
 indices using group-by and aggregations into a destination feature index, which
 provides opportunities for new insights and analytics. For example, you can use
 transforms to pivot your data into entity-centric indices that summarize the
@@ -97,11 +97,11 @@ behavior of users or sessions or other entities in your data.</p>
 create your destination feature index on a separate cluster from the source
 indices.</p>
 <p>Aggregation support has been expanded within transforms to include support for
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/search-aggregations-metrics-percentile-aggregation.html" class="ulink" target="_top">multi-value (percentiles)</a>
+<a href="search-aggregations-metrics-percentile-aggregation.html" class="ulink" target="_top">multi-value (percentiles)</a>
 and
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/search-aggregations-bucket-filter-aggregation.html" class="ulink" target="_top">filter aggregations</a>.
+<a href="search-aggregations-bucket-filter-aggregation.html" class="ulink" target="_top">filter aggregations</a>.
 We also optimized the performance of the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/search-aggregations-bucket-datehistogram-aggregation.html" class="ulink" target="_top">date histogram aggregations</a>.</p>
+<a href="search-aggregations-bucket-datehistogram-aggregation.html" class="ulink" target="_top">date histogram aggregations</a>.</p>
 <h3>
 <a id="_introducing_multiclass_classification"></a>Introducing multiclass classification<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/release-notes/highlights.asciidoc">edit</a>
 </h3>
@@ -126,9 +126,9 @@ situations due to allocating more buckets than the node can handle.</p>
 <h3>
 <a id="_a_new_way_of_searching_asynchronously"></a>A new way of searching: asynchronously<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/release-notes/highlights.asciidoc">edit</a>
 </h3>
-<p>You can now submit <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/async-search-intro.html" class="ulink" target="_top">long-running searches</a> using
-the new <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/async-search.html" class="ulink" target="_top"><code class="literal">_async_search</code> API</a>. The new API accepts the
-same parameters and request body as the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/search-search.html" class="ulink" target="_top">Search API</a>.
+<p>You can now submit <a href="async-search-intro.html" class="ulink" target="_top">long-running searches</a> using
+the new <a href="async-search.html" class="ulink" target="_top"><code class="literal">_async_search</code> API</a>. The new API accepts the
+same parameters and request body as the <a href="search-search.html" class="ulink" target="_top">Search API</a>.
 However, instead of blocking and returning the final response only when it’s
 entirely finished, you can retrieve results from an async search as they become
 available.</p>
@@ -147,9 +147,9 @@ request parameter, <code class="literal">keep_alive</code>.</p>
 <h3>
 <a id="_password_protection_for_the_keystore"></a>Password protection for the keystore<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/release-notes/highlights.asciidoc">edit</a>
 </h3>
-<p>Elasticsearch uses a custom on-disk <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/secure-settings.html" class="ulink" target="_top">keystore</a> for secure settings such as
+<p>Elasticsearch uses a custom on-disk <a href="secure-settings.html" class="ulink" target="_top">keystore</a> for secure settings such as
 passwords and SSL certificates. Up until now, this prevented users with
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/elasticsearch-keystore.html" class="ulink" target="_top">command-line access</a> from viewing secure files by listing commands, but nothing
+<a href="elasticsearch-keystore.html" class="ulink" target="_top">command-line access</a> from viewing secure files by listing commands, but nothing
 prevented such users from changing values in the keystore, or removing values
 from it. Furthermore, the values were only obfuscated by a hash; no
 user-specific secret protected the secure settings.</p>
@@ -160,7 +160,7 @@ keystore in order to benefit from the new behavior.</p>
 <h3>
 <a id="_a_new_aggregation_top_metrics"></a>A new aggregation: <code class="literal">top_metrics</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/release-notes/highlights.asciidoc">edit</a>
 </h3>
-<p>The new <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7//search-aggregations-metrics-top-metrics.html" class="ulink" target="_top"><code class="literal">top_metrics</code> aggregation</a> "selects" a metric from a document according
+<p>The new <a href="search-aggregations-metrics-top-metrics.html" class="ulink" target="_top"><code class="literal">top_metrics</code> aggregation</a> "selects" a metric from a document according
 to a criteria on a given, different field. That criteria is currently the
 largest or smallest "sort" value. It is fairly similar to <code class="literal">top_hits</code> in spirit,
 but because it is more limited, <code class="literal">top_metrics</code> uses less memory and
@@ -184,7 +184,7 @@ Compared to the standard deviation, the IQR is less sensitive to outliers in
 the data, with a breakdown point of 0.25. Along with the median, it is often
 used in creating a box plot, a simple yet common way to summarize data and
 identify potential outliers.</p>
-<p>The new <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/search-aggregations-metrics-boxplot-aggregation.html" class="ulink" target="_top"><code class="literal">boxplot</code>
+<p>The new <a href="search-aggregations-metrics-boxplot-aggregation.html" class="ulink" target="_top"><code class="literal">boxplot</code>
 aggregation</a> calculates the min, max, and medium as well as the first and third
 quartiles of a given data set.</p>
 <h3>

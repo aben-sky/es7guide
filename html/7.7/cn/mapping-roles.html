@@ -58,7 +58,7 @@ will be released for this version. For the latest information, see the
 </div></div></div>
 <p>If you authenticate users with the <code class="literal">native</code> or <code class="literal">file</code> realms, you can manage
 role assignment by using the <a class="xref" href="native-realm.html#managing-native-users" title="Managing native users">User Management APIs</a> or
-the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/users-command.html" class="ulink" target="_top">users</a> command-line tool respectively.</p>
+the <a href="users-command.html" class="ulink" target="_top">users</a> command-line tool respectively.</p>
 <p>For other types of realms, you must create <em>role-mappings</em> that define which
 roles should be assigned to each user based on their username, groups, or
 other metadata.</p>
@@ -70,7 +70,7 @@ possible for a single user to have some roles that have been mapped through
 the API, and other roles that are mapped through files.</p>
 <p>When you use role-mappings, you assign existing roles to users.
 The available roles should either be added using the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/security-api.html#security-role-apis" class="ulink" target="_top">role management APIs</a> or defined in the
+<a href="security-api.html#security-role-apis" class="ulink" target="_top">role management APIs</a> or defined in the
 <a class="xref" href="defining-roles.html#roles-management-file" title="File-based role management">roles file</a>. Either role-mapping method can use
 either role management method. For example, when you use the role mapping API,
 you are able to map users to both API-managed roles and file-managed roles
@@ -102,7 +102,7 @@ of the anonymous user are assigned to all the other users as well.</p>
 </h3>
 </div></div></div>
 <p>You can define role-mappings through the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/security-api-put-role-mapping.html" class="ulink" target="_top">add role mapping API</a>.</p>
+<a href="security-api-put-role-mapping.html" class="ulink" target="_top">add role mapping API</a>.</p>
 </div>
 
 <div class="section">
@@ -118,9 +118,9 @@ this.</p>
 where <code class="literal">ES_PATH_CONF</code> is <code class="literal">ES_HOME/config</code> (zip/tar installations) or
 <code class="literal">/etc/elasticsearch</code> (package installations). To specify a different location,
 you configure the <code class="literal">files.role_mapping</code> setting in the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/security-settings.html#ref-ad-settings" class="ulink" target="_top">Active Directory</a>,
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/security-settings.html#ref-ldap-settings" class="ulink" target="_top">LDAP</a>, and
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/security-settings.html#ref-pki-settings" class="ulink" target="_top">PKI</a> realm settings in
+<a href="security-settings.html#ref-ad-settings" class="ulink" target="_top">Active Directory</a>,
+<a href="security-settings.html#ref-ldap-settings" class="ulink" target="_top">LDAP</a>, and
+<a href="security-settings.html#ref-pki-settings" class="ulink" target="_top">PKI</a> realm settings in
 <code class="literal">elasticsearch.yml</code>.</p>
 <p>Within the role mapping file, the security roles are keys and groups and users
 are values. The mappings can have a many-to-many relationship. When you map roles

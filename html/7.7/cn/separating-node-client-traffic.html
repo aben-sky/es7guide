@@ -64,7 +64,7 @@ will be released for this version. For the latest information, see the
 </div>
 </div>
 <p>Elasticsearch has the feature of so called
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/modules-transport.html" class="ulink" target="_top">TCP transport profiles</a>
+<a href="modules-transport.html" class="ulink" target="_top">TCP transport profiles</a>
 that allows it to bind to several ports and addresses. The Elasticsearch
 security features extend on this functionality to enhance the security of the
 cluster by enabling the separation of node-to-node transport traffic from client
@@ -136,7 +136,7 @@ transport.profiles.client.bind_host: 1.1.1.1 <a id="CO465-2"></a><i class="conum
 </table>
 </div>
 <p>If separate networks are not available, then
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/ip-filtering.html" class="ulink" target="_top">IP Filtering</a> can
+<a href="ip-filtering.html" class="ulink" target="_top">IP Filtering</a> can
 be enabled to limit access to the profiles.</p>
 <p>When using SSL for transport, a different set of certificates can also be used
 for the client traffic by adding the following to <code class="literal">elasticsearch.yml</code>:</p>
@@ -157,7 +157,7 @@ set the following value in the <code class="literal">elasticsearch.yml</code> fi
 <p>This setting keeps certificate authentication active for node-to-node traffic,
 but removes the requirement to distribute a signed certificate to transport
 clients. For more information, see
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.7/java-clients.html#transport-client" class="ulink" target="_top">Configuring the Transport Client to work with a Secured Cluster</a>.</p>
+<a href="java-clients.html#transport-client" class="ulink" target="_top">Configuring the Transport Client to work with a Secured Cluster</a>.</p>
 </div>
 <div class="navfooter">
 <span class="prev">

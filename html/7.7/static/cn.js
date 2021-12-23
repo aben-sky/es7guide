@@ -76,93 +76,93 @@ function renderRightDocList(filename) {
         '</li>' +
         '</ul>' +
         '</li>' +
-        '<li class="collapsible"><span class="chapter"><a href="settings.html">Configuring Elasticsearch</a></span>' +
+        '<li class="collapsible"><span class="chapter"><a href="settings.html" title="Configuring Elasticsearch">配置Elasticsearch</a></span>' +
         '<ul>' +
-        '<li><span class="section"><a href="jvm-options.html">Setting JVM options</a></span>' +
+        '<li><span class="section"><a href="jvm-options.html" title="Setting JVM options">设置JVM</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="secure-settings.html">Secure settings</a></span>' +
+        '<li><span class="section"><a href="secure-settings.html" title="Secure settings">安全设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="auditing-settings.html">Auditing settings</a></span>' +
+        '<li><span class="section"><a href="auditing-settings.html" title="Auditing settings">审计设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="circuit-breaker.html">Circuit breaker settings</a></span>' +
+        '<li><span class="section"><a href="circuit-breaker.html" title="Circuit breaker settings">熔断机制设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="modules-cluster.html">Cluster-level shard allocation and routing settings</a></span>' +
+        '<li><span class="section"><a href="modules-cluster.html" title="Cluster-level shard allocation and routing settings">集群级分片分配和路由设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="ccr-settings.html">Cross-cluster replication settings</a></span>' +
+        '<li><span class="section"><a href="ccr-settings.html" title="Cross-cluster replication settings">跨集群复制设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="modules-discovery-settings.html">Discovery and cluster formation settings</a></span>' +
+        '<li><span class="section"><a href="modules-discovery-settings.html" title="Discovery and cluster formation settings">发现和集群信息设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="modules-fielddata.html">Field data cache settings</a></span>' +
+        '<li><span class="section"><a href="modules-fielddata.html" title="Field data cache settings">字段信息缓存设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="modules-http.html">HTTP</a></span>' +
+        '<li><span class="section"><a href="modules-http.html" title="HTTP">HTTP</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="ilm-settings.html">Index lifecycle management settings</a></span>' +
+        '<li><span class="section"><a href="ilm-settings.html" title="Index lifecycle management settings">索引生命周期管理的设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="recovery.html">Index recovery settings</a></span>' +
+        '<li><span class="section"><a href="recovery.html" title="Index recovery settings">索引恢复的设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="indexing-buffer.html">Indexing buffer settings</a></span>' +
+        '<li><span class="section"><a href="indexing-buffer.html" title="Indexing buffer settings">索引时的缓存设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="license-settings.html">License settings</a></span>' +
+        '<li><span class="section"><a href="license-settings.html" title="License settings">许可证设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="modules-gateway.html">Local gateway settings</a></span>' +
+        '<li><span class="section"><a href="modules-gateway.html" title="Local gateway settings">本地网关设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="logging.html">Logging configuration</a></span>' +
+        '<li><span class="section"><a href="logging.html" title="Logging configuration">日志设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="ml-settings.html">Machine learning settings</a></span>' +
+        '<li><span class="section"><a href="ml-settings.html" title="Machine learning settings">机器学习设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="monitoring-settings.html">Monitoring settings</a></span>' +
+        '<li><span class="section"><a href="monitoring-settings.html" title="Monitoring settings">监控设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="modules-node.html">Node</a></span>' +
+        '<li><span class="section"><a href="modules-node.html" title="Node">节点</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="modules-network.html">Network settings</a></span>' +
+        '<li><span class="section"><a href="modules-network.html" title="Network settings">网络设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="query-cache.html">Node query cache settings</a></span>' +
+        '<li><span class="section"><a href="query-cache.html" title="Node query cache settings">节点的查询缓存设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="search-settings.html">Search settings</a></span>' +
+        '<li><span class="section"><a href="search-settings.html" title="Search settings">搜索设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="security-settings.html">Security settings</a></span>' +
+        '<li><span class="section"><a href="security-settings.html" title="Security settings">安全设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="shard-request-cache.html">Shard request cache settings</a></span>' +
+        '<li><span class="section"><a href="shard-request-cache.html" title="Shard request cache settings">分片上的请求的缓存设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="slm-settings.html">Snapshot lifecycle management settings</a></span>' +
+        '<li><span class="section"><a href="slm-settings.html" title="Snapshot lifecycle management settings">快照的生命周期管理设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="sql-settings.html">SQL access settings</a></span>' +
+        '<li><span class="section"><a href="sql-settings.html" title="SQL access settings">SQL查询支持的设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="transform-settings.html">Transforms settings</a></span>' +
+        '<li><span class="section"><a href="transform-settings.html" title="Transforms settings">转换(Transforms)设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="modules-transport.html">Transport</a></span>' +
+        '<li><span class="section"><a href="modules-transport.html" title="Transport">Transport</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="modules-threadpool.html">Thread pools</a></span>' +
+        '<li><span class="section"><a href="modules-threadpool.html" title="Thread pools">线程池</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="notification-settings.html">Watcher settings</a></span>' +
+        '<li><span class="section"><a href="notification-settings.html" title="Watcher settings">预警(watcher)设置</a></span>' +
         '</li>' +
         '</ul>' +
         '</li>' +
-        '<li class="collapsible"><span class="chapter"><a href="important-settings.html">Important Elasticsearch configuration</a></span>' +
+        '<li class="collapsible"><span class="chapter"><a href="important-settings.html" title="Important Elasticsearch configuration">Elasticsearch的重要的配置</a></span>' +
         '<ul>' +
-        '<li><span class="section"><a href="path-settings.html"><code class="literal">path.data</code> and <code class="literal">path.logs</code></a></span>' +
+        '<li><span class="section"><a href="path-settings.html" title=""path.data and path.logs><code class="literal">path.data</code>和<code class="literal">path.logs</code></a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="cluster.name.html"><code class="literal">cluster.name</code></a></span>' +
+        '<li><span class="section"><a href="cluster.name.html" title="cluster.name">集群名称(<code class="literal">cluster.name</code>)</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="node.name.html"><code class="literal">node.name</code></a></span>' +
+        '<li><span class="section"><a href="node.name.html" title="node.name">节点名称(<code class="literal">node.name</code>)</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="network.host.html"><code class="literal">network.host</code></a></span>' +
+        '<li><span class="section"><a href="network.host.html" title="network.host">网络之宿主绑定(<code class="literal">network.host</code>)</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="discovery-settings.html">Discovery and cluster formation settings</a></span>' +
+        '<li><span class="section"><a href="discovery-settings.html" title="Discovery and cluster formation settings">发现(discovery)和集群信息设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="heap-size.html">Setting the heap size</a></span>' +
+        '<li><span class="section"><a href="heap-size.html" title="Setting the heap size">堆大小(heap size)设置</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="heap-dump-path.html">JVM heap dump path</a></span>' +
+        '<li><span class="section"><a href="heap-dump-path.html" title="JVM heap dump path">JVM堆的转储路径(JVM heap dump path)</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="gc-logging.html">GC logging</a></span>' +
+        '<li><span class="section"><a href="gc-logging.html" title="GC logging">垃圾回收(GC)日志</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="es-tmpdir.html">Temp directory</a></span>' +
+        '<li><span class="section"><a href="es-tmpdir.html" title="Temp directory">临时文件目录</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="error-file-path.html">JVM fatal error logs</a></span>' +
+        '<li><span class="section"><a href="error-file-path.html" title="JVM fatal error logs">JVM致命错误日志</a></span>' +
         '</li>' +
         '</ul>' +
         '</li>' +
-        '<li class="collapsible"><span class="chapter"><a href="system-config.html">Important System Configuration</a></span>' +
+        '<li class="collapsible"><span class="chapter"><a href="system-config.html" title="">Important System Configuration</a></span>' +
         '<ul>' +
         '<li><span class="section"><a href="setting-system-settings.html">Configuring system settings</a></span>' +
         '</li>' +

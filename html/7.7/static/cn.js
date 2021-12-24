@@ -663,105 +663,105 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-common-terms-query.html",
-                        "text": "<code class=\"literal\">common</code>terms query (7.3.0废弃)",
+                        "text": "common 查询 (7.3.0废弃)",
                         "title": "Common Terms Query"
                     },
                     {
                         "url": "query-dsl-query-string-query.html",
-                        "text": "Query string",
+                        "text": "query_string 查询",
                         "title": "Query string"
                     },
                     {
                         "url": "query-dsl-simple-query-string-query.html",
-                        "text": "Simple query string",
+                        "text": "simple_query_string 查询",
                         "title": "Simple query string"
                     }
                 ]
             },
             {
                 "url": "geo-queries.html",
-                "text": "Geo queries",
+                "text": "Geo查询",
                 "title": "Geo queries",
                 "sub": [
                     {
                         "url": "query-dsl-geo-bounding-box-query.html",
-                        "text": "Geo-bounding box",
+                        "text": "Geo-边界框(bounding box)",
                         "title": "Geo-bounding box"
                     },
                     {
                         "url": "query-dsl-geo-distance-query.html",
-                        "text": "Geo-distance",
+                        "text": "Geo-距离",
                         "title": "Geo-distance"
                     },
                     {
                         "url": "query-dsl-geo-polygon-query.html",
-                        "text": "Geo-polygon",
+                        "text": "Geo-多边形(polygon)",
                         "title": "Geo-polygon"
                     },
                     {
                         "url": "query-dsl-geo-shape-query.html",
-                        "text": "Geo-shape",
+                        "text": "Geo-形状(shape)",
                         "title": "Geo-shape"
                     }
                 ]
             },
             {
                 "url": "shape-queries.html",
-                "text": "Shape queries",
+                "text": "形状(shape)查询",
                 "title": "Shape queries",
                 "sub": [
                     {
                         "url": "query-dsl-shape-query.html",
-                        "text": "Shape",
+                        "text": "形状(shape)",
                         "title": "Shape"
                     }
                 ]
             },
             {
                 "url": "joining-queries.html",
-                "text": "Joining queries",
+                "text": "联结(joining)查询",
                 "title": "Joining queries",
                 "sub": [
                     {
                         "url": "query-dsl-nested-query.html",
-                        "text": "Nested",
+                        "text": "嵌套(nested)",
                         "title": "Nested"
                     },
                     {
                         "url": "query-dsl-has-child-query.html",
-                        "text": "Has child",
+                        "text": "子文档匹配的父文档查询(has child)",
                         "title": "Has child"
                     },
                     {
                         "url": "query-dsl-has-parent-query.html",
-                        "text": "Has parent",
+                        "text": "父文档匹配的子文档查询(has parent)",
                         "title": "Has parent"
                     },
                     {
                         "url": "query-dsl-parent-id-query.html",
-                        "text": "Parent ID",
+                        "text": "parent_id 查询",
                         "title": "Parent ID"
                     },
                     {
                         "url": "_notes_3.html",
-                        "text": "Notes",
+                        "text": "说明",
                         "title": "Notes"
                     }
                 ]
             },
             {
                 "url": "query-dsl-match-all-query.html",
-                "text": "Match all",
+                "text": "匹配所有(match_all)",
                 "title": "Match all"
             },
             {
                 "url": "span-queries.html",
-                "text": "Span queries",
+                "text": "跨度(span)查询",
                 "title": "Span queries",
                 "sub": [
                     {
                         "url": "query-dsl-span-containing-query.html",
-                        "text": "Span containing",
+                        "text": "包含另一个span查询(span_containing)",
                         "title": "Span containing"
                     },
                     {

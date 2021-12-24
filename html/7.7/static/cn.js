@@ -586,7 +586,7 @@ var esNavLinks = [
     },
     {
         "url": "query-dsl.html",
-        "text": "使用领域查询语言(DSL)",
+        "text": "使用领域专用语言(DSL)进行查询",
         "title": "Query DSL",
         "sub": [
             {
@@ -611,59 +611,59 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-constant-score-query.html",
-                        "text": "固定评分值(Constant score)",
+                        "text": "固定评分值(constant score)",
                         "title": "Constant score"
                     },
                     {
                         "url": "query-dsl-dis-max-query.html",
-                        "text": "分离最大化(Disjunction max)",
+                        "text": "分离最大化(disjunction max)",
                         "title": "Disjunction max"
                     },
                     {
                         "url": "query-dsl-function-score-query.html",
-                        "text": "评分函数(Function score)",
+                        "text": "评分函数(function score)",
                         "title": "Function score"
                     }
                 ]
             },
             {
                 "url": "full-text-queries.html",
-                "text": "Full text queries",
-                "title": "",
+                "text": "全文查询",
+                "title": "Full text queries",
                 "sub": [
                     {
                         "url": "query-dsl-intervals-query.html",
-                        "text": "Intervals",
+                        "text": "间隔查询(intervals)",
                         "title": "Intervals"
                     },
                     {
                         "url": "query-dsl-match-query.html",
-                        "text": "Match",
+                        "text": "匹配查询(match)",
                         "title": "Match"
                     },
                     {
                         "url": "query-dsl-match-bool-prefix-query.html",
-                        "text": "Match boolean prefix",
+                        "text": "前缀匹配查询(match_boolean_prefix)",
                         "title": "Match boolean prefix"
                     },
                     {
                         "url": "query-dsl-match-query-phrase.html",
-                        "text": "Match phrase",
+                        "text": "短语匹配(match_phrase)",
                         "title": "Match phrase"
                     },
                     {
                         "url": "query-dsl-match-query-phrase-prefix.html",
-                        "text": "Match phrase prefix",
+                        "text": "短语前缀匹配(match_phrase_prefix)",
                         "title": "Match phrase prefix"
                     },
                     {
                         "url": "query-dsl-multi-match-query.html",
-                        "text": "Multi-match",
+                        "text": "多字段匹配(multi_match)",
                         "title": "Multi-match"
                     },
                     {
                         "url": "query-dsl-common-terms-query.html",
-                        "text": "Common Terms Query",
+                        "text": "<code class=\"literal\">common</code>terms query (7.3.0废弃)",
                         "title": "Common Terms Query"
                     },
                     {

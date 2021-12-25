@@ -214,5 +214,30 @@ pre{
     white-space:pre-wrap; white-space:-moz-pre-wrap; white-space:-pre-wrap; white-space:-o-pre-wrap; word-wrap:break-word; /*pre自动换行*/
     padding-left: 10px;  background-color: #f6f6f6; border-left: 6px solid #e6e6e6;
 }
-
+#guide code{
+    color: #E83E8C;
+}
+#guide a code {
+    color: #E83E8C;
+    border-bottom: 1px solid #00a9e552;
+}
+#guide code.term {
+    /*中文对应的单词, 术语, 专有名词*/
+    font-style: italic;
+    color: #666;
+    font-weight: 600;
+}
+#guide code.word {
+    /*普通的单词, 要查询的文本*/
+    font-style: italic;
+    color: #666;
+    background-color: #fff;
+    /*border-left: 1px solid #ccc;*/
+    /*border-right: 1px solid #ccc;*/
+    /*border-radius: 4px;*/
+    /*padding: 0 4px;*/
+}
+#guide .calloutlist a {
+    text-decoration: none;/*不知道原网站为什么要加下划线!!*/
+}
 

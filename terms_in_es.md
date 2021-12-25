@@ -20,7 +20,8 @@
 - ?? 邻近(查询)
 - query family: 查询族
 - slop: 混合?? 目标内容需要移动多少次能匹配
-- ?? 长尾
+- long tail: 长尾
+- less-relevant: 次相关的
 
 - unigram: 每一个单词
 - bigrams: 单词对. (前缀bi来自拉丁语bis, 意为twice)

@@ -214,5 +214,11 @@ pre{
     white-space:pre-wrap; white-space:-moz-pre-wrap; white-space:-pre-wrap; white-space:-o-pre-wrap; word-wrap:break-word; /*pre自动换行*/
     padding-left: 10px;  background-color: #f6f6f6; border-left: 6px solid #e6e6e6;
 }
+em {
+    /* font-style: normal; */
+    background: #f1f3db;
+    color: #333;
+    padding: 0 3px;
+}
 
 

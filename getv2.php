@@ -66,9 +66,23 @@ function getOriginalHtmls() {
  * @return bool
  */
 function getOriginalHtml($link) {
-    $prefix = 'https://www.elastic.co/guide/cn/elasticsearch/guide/current/';
+    if (preg_match('/^http(s)?:\/\//', $link)) {
+        //完整的url
+        $url = $link;
 
-    $url = $prefix . $link;
+        //解析文件名
+        $link = substr($url, strrpos($url, '/') + 1);
+        if(strpos($link, '?') !== false){
+            $link = substr($link, 0, strpos($link, '?'));
+        }
+        if(strpos($link, '#') !== false){
+            $link = substr($link, 0, strpos($link, '#'));
+        }
+    } else {
+        $prefix = 'https://www.elastic.co/guide/cn/elasticsearch/guide/current/';
+        $url = $prefix . $link;
+    }
+
     try {
         $originHtml = QueryList::getInstance()
             ->get($url, [], ['timeout' => 10])
@@ -101,7 +115,7 @@ function convertToLocalFile($link) {
     if (empty($body)) {
         return false;
     }
-    
+
     //把body中的`href="/`这种补充成完整的url
     $body = str_replace(['href="/'], ['href="https://www.elastic.co/'], $body);
 
@@ -136,7 +150,9 @@ function convertToLocalFile($link) {
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
-                            <div style="color:gray; word-break: break-all; font-size:12px;">原文地址: <a href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/$link" rel="nofollow">https://www.elastic.co/guide/cn/elasticsearch/guide/current/$link</a>, 版权归 www.elastic.co 所有</div>
+                            <div style="color:gray; word-break: break-all; font-size:12px;">原文地址: <a href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/$link" rel="nofollow">https://www.elastic.co/guide/cn/elasticsearch/guide/current/$link</a>, 版权归 www.elastic.co 所有<br/>
+                            英文版地址: <a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/$link" rel="nofollow">https://www.elastic.co/guide/en/elasticsearch/guide/current/$link</a>
+                            </div>
                         $body
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-4" id="right_col">
@@ -189,4 +205,10 @@ function convertToLocalFiles() {
 
 //原文档转换到本地文档
 //convertToLocalFile('inverted-index.html');//单个转换测试
-convertToLocalFiles();
+//convertToLocalFiles();
+
+
+//获取指定的文件:
+//$rt = getOriginalHtml('https://www.elastic.co/guide/en/elasticsearch/reference/2.4/analysis-stop-tokenfilter.html');
+//var_dump($rt);
+//convertToLocalFile('analysis-stop-tokenfilter.html');

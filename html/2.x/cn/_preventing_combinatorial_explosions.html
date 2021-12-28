@@ -92,7 +92,7 @@
  <code class="literal">actors</code> 聚合会构建树的第一层，每个演员都有一个桶。然后，内套在第一层的每个节点之下， <code class="literal">costar</code> 聚合会构建第二层，每个联合出演一个桶，请参见 <a class="xref" href="_preventing_combinatorial_explosions.html#depth-first-1" title="Build full depth tree">Figure 42, “Build full depth tree”</a> 所示。这意味着每部影片会生成 n<sup>2</sup> 个桶！</p>
 <div id="depth-first-1" class="imageblock">
 <div class="content">
-<img src="images/300_120_depth_first_1.svg" alt="Build full depth tree">
+<img src="../images/300_120_depth_first_1.svg" alt="Build full depth tree">
 </div>
 <div class="title">Figure 42. Build full depth tree</div>
 </div>
@@ -101,13 +101,13 @@
 图 <a class="xref" href="_preventing_combinatorial_explosions.html#depth-first-2" title="Sort tree">Figure 43, “Sort tree”</a> 和图 <a class="xref" href="_preventing_combinatorial_explosions.html#depth-first-3" title="Prune tree">Figure 44, “Prune tree”</a> 对这个过程进行了阐述。</p>
 <div id="depth-first-2" class="imageblock">
 <div class="content">
-<img src="images/300_120_depth_first_2.svg" alt="Sort tree">
+<img src="../images/300_120_depth_first_2.svg" alt="Sort tree">
 </div>
 <div class="title">Figure 43. Sort tree</div>
 </div>
 <div id="depth-first-3" class="imageblock">
 <div class="content">
-<img src="images/300_120_depth_first_3.svg" alt="Prune tree">
+<img src="../images/300_120_depth_first_3.svg" alt="Prune tree">
 </div>
 <div class="title">Figure 44. Prune tree</div>
 </div>
@@ -126,19 +126,19 @@
 <p>在我们的示例中， <code class="literal">actors</code> 聚合会首先执行，在这个时候，我们的树只有一层，但我们已经知道了前 10 位的演员！这就没有必要保留其他的演员信息，因为它们无论如何都不会出现在前十位中。</p>
 <div id="breadth-first-1" class="imageblock">
 <div class="content">
-<img src="images/300_120_breadth_first_1.svg" alt="Build first level">
+<img src="../images/300_120_breadth_first_1.svg" alt="Build first level">
 </div>
 <div class="title">Figure 45. Build first level</div>
 </div>
 <div id="breadth-first-2" class="imageblock">
 <div class="content">
-<img src="images/300_120_breadth_first_2.svg" alt="Sort first level">
+<img src="../images/300_120_breadth_first_2.svg" alt="Sort first level">
 </div>
 <div class="title">Figure 46. Sort first level</div>
 </div>
 <div id="breadth-first-3" class="imageblock">
 <div class="content">
-<img src="images/300_120_breadth_first_3.svg" alt="Prune first level">
+<img src="../images/300_120_breadth_first_3.svg" alt="Prune first level">
 </div>
 <div class="title">Figure 47. Prune first level</div>
 </div>
@@ -146,7 +146,7 @@
 这种场景下，广度优先可以大幅度节省内存。</p>
 <div id="breadth-first-4" class="imageblock">
 <div class="content">
-<img src="images/300_120_breadth_first_4.svg" alt="Step 4: populate full depth for remaining nodes">
+<img src="../images/300_120_breadth_first_4.svg" alt="Step 4: populate full depth for remaining nodes">
 </div>
 <div class="title">Figure 48. Populate full depth for remaining nodes</div>
 </div>

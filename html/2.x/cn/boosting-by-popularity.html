@@ -123,7 +123,7 @@
 <p>然而这并不会带来出人意料的好结果，全文评分 <code class="literal">_score</code> 通常处于 0 到 10 之间，如下图 <a class="xref" href="boosting-by-popularity.html#img-popularity-linear" title="受欢迎度的线性关系基于 _score 的原始值 2.0">Figure 29, “受欢迎度的线性关系基于 <code class="literal">_score</code> 的原始值 <code class="literal">2.0</code>”</a> 中，有 10 个赞的博客会掩盖掉全文评分，而 0 个赞的博客的评分会被置为 0 。</p>
 <div id="img-popularity-linear" class="imageblock">
 <div class="content">
-<img src="images/elas_1701.png" alt="Linear popularity based on an original `_score` of `2.0`">
+<img src="../images/elas_1701.png" alt="Linear popularity based on an original `_score` of `2.0`">
 </div>
 <div class="title">Figure 29. 受欢迎度的线性关系基于 <code class="literal">_score</code> 的原始值 <code class="literal">2.0</code>
 </div>
@@ -141,7 +141,7 @@
 <p><code class="literal">log</code> 对数函数使 <code class="literal">votes</code> 赞字段的评分曲线更平滑，如图 <a class="xref" href="boosting-by-popularity.html#img-popularity-log" title="受欢迎度的对数关系基于 _score 的原始值 2.0">Figure 30, “受欢迎度的对数关系基于 <code class="literal">_score</code> 的原始值 <code class="literal">2.0</code>”</a> ：</p>
 <div id="img-popularity-log" class="imageblock">
 <div class="content">
-<img src="images/elas_1702.png" alt="Logarithmic popularity based on an original `_score` of `2.0`">
+<img src="../images/elas_1702.png" alt="Logarithmic popularity based on an original `_score` of `2.0`">
 </div>
 <div class="title">Figure 30. 受欢迎度的对数关系基于 <code class="literal">_score</code> 的原始值 <code class="literal">2.0</code>
 </div>
@@ -227,7 +227,7 @@
 <p><code class="literal">factor</code> 值大于 <code class="literal">1</code> 会提升效果， <code class="literal">factor</code> 值小于 <code class="literal">1</code> 会降低效果，如图 <a class="xref" href="boosting-by-popularity.html#img-popularity-factor" title="受欢迎度的对数关系基于多个不同因子">Figure 31, “受欢迎度的对数关系基于多个不同因子”</a> 。</p>
 <div id="img-popularity-factor" class="imageblock">
 <div class="content">
-<img src="images/elas_1703.png" alt="Logarithmic popularity with different factors">
+<img src="../images/elas_1703.png" alt="Logarithmic popularity with different factors">
 </div>
 <div class="title">Figure 31. 受欢迎度的对数关系基于多个不同因子</div>
 </div>
@@ -323,7 +323,7 @@
 
 <div id="img-popularity-sum" class="imageblock">
 <div class="content">
-<img src="images/elas_1704.png" alt="Combining popularity with `sum`">
+<img src="../images/elas_1704.png" alt="Combining popularity with `sum`">
 </div>
 <div class="title">Figure 32. 使用 <code class="literal">sum</code> 结合受欢迎程度</div>
 </div>

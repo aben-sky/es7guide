@@ -62,7 +62,7 @@
 <p>一个文档被索引之后，就会被添加到内存缓冲区，<em>并且</em> 追加到了 translog ，正如 <a class="xref" href="translog.html#img-xlog-pre-refresh" title="新的文档被添加到内存缓冲区并且被追加到了事务日志">Figure 21, “新的文档被添加到内存缓冲区并且被追加到了事务日志”</a> 描述的一样。</p>
 <div id="img-xlog-pre-refresh" class="imageblock">
 <div class="content">
-<img src="images/elas_1106.png" alt="New documents are added to the in-memory buffer and appended to the transaction log">
+<img src="../images/elas_1106.png" alt="New documents are added to the in-memory buffer and appended to the transaction log">
 </div>
 <div class="title">Figure 21. 新的文档被添加到内存缓冲区并且被追加到了事务日志</div>
 </div>
@@ -84,7 +84,7 @@
 </div>
 <div id="img-xlog-post-refresh" class="imageblock">
 <div class="content">
-<img src="images/elas_1107.png" alt="After a refresh, the buffer is cleared but the transaction log is not">
+<img src="../images/elas_1107.png" alt="After a refresh, the buffer is cleared but the transaction log is not">
 </div>
 <div class="title">Figure 22. 刷新（refresh）完成后, 缓存被清空但是事务日志不会</div>
 </div>
@@ -93,7 +93,7 @@
 <p>这个进程继续工作，更多的文档被添加到内存缓冲区和追加到事务日志（见 <a class="xref" href="translog.html#img-xlog-pre-flush" title="事务日志不断积累文档">Figure 23, “事务日志不断积累文档”</a> ）。</p>
 <div id="img-xlog-pre-flush" class="imageblock">
 <div class="content">
-<img src="images/elas_1108.png" alt="The transaction log keeps accumulating documents">
+<img src="../images/elas_1108.png" alt="The transaction log keeps accumulating documents">
 </div>
 <div class="title">Figure 23. 事务日志不断积累文档</div>
 </div>
@@ -128,7 +128,7 @@
 首先检查 translog 任何最近的变更。这意味着它总是能够实时地获取到文档的最新版本。</p>
 <div id="img-xlog-post-flush" class="imageblock">
 <div class="content">
-<img src="images/elas_1109.png" alt="After a flush, the segments are fully commited and the transaction log is cleared">
+<img src="../images/elas_1109.png" alt="After a flush, the segments are fully commited and the transaction log is cleared">
 </div>
 <div class="title">Figure 24. 在刷新（flush）之后，段被全量提交，并且事务日志被清空</div>
 </div>

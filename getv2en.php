@@ -117,7 +117,18 @@ function convertToLocalFile($link) {
     }
 
     //把body中的`href="/`这种补充成完整的url
-    $body = str_replace(['href="/'], ['href="https://www.elastic.co/'], $body);
+    $body = str_replace(
+        [
+            'href="/',
+            '<img src="images/',//修正图片路径
+        ],
+        [
+            'href="https://www.elastic.co/',
+            '<img src="../images/',//修正图片路径
+        ],
+        $body
+    );
+
 
     //if ($link === 'index.html') {
     //    //首页右边不需要导航

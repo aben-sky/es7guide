@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>多桶排序 | Elasticsearch: 权威指南 | Elastic</title>
+    <!-- Give IE8 a fighting chance -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<link rel="stylesheet" type="text/css" href="../static/styles.css" />
+</head>
+<body>
+<div class="main-container">
+    <section id="content">
+        
+        <div class="content-wrapper">
+            <section id="guide" lang="zh_cn">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
+                            <div style="color:gray; word-break: break-all; font-size:12px;">原文地址: <a href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/_sorting_multivalue_buckets.html" rel="nofollow">https://www.elastic.co/guide/cn/elasticsearch/guide/current/_sorting_multivalue_buckets.html</a>, 版权归 www.elastic.co 所有<br/>
+                            英文版地址: <a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/_sorting_multivalue_buckets.html" rel="nofollow">https://www.elastic.co/guide/en/elasticsearch/guide/current/_sorting_multivalue_buckets.html</a>
+                            </div>
+                        <!-- start body -->
+                  <div class="page_header">
+<b>请注意:</b><br>本书基于 Elasticsearch 2.x 版本，有些内容可能已经过时。
+</div>
+<div id="content">
+<div class="breadcrumbs">
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch: 权威指南</a></span>
+»
+<span class="breadcrumb-link"><a href="aggregations.html">聚合</a></span>
+»
+<span class="breadcrumb-node">多桶排序</span>
+</div>
+<div class="navheader">
+<span class="prev">
+<a href="_recap.html">« 小结</a>
+</span>
+<span class="next">
+<a href="_intrinsic_sorts.html">内置排序 »</a>
+</span>
+</div>
+<div class="chapter">
+<div class="titlepage"><div><div>
+<h2 class="title">
+<a id="_sorting_multivalue_buckets"></a>多桶排序<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/50_sorting_ordering.asciidoc">edit</a>
+</h2>
+</div></div></div>
+<p>多值桶（ <code class="literal">terms</code> 、 <code class="literal">histogram</code> 和 <code class="literal">date_histogram</code> ）动态生成很多桶。 Elasticsearch 是如何决定这些桶展示给用户的顺序呢？</p>
+<p>默认的，桶会根据 <code class="literal">doc_count</code>  降序排列。这是一个好的默认行为，因为通常我们想要找到文档中与查询条件相关的最大值：售价、人口数量、频率。但有些时候我们希望能修改这个顺序，不同的桶有着不同的处理方式。</p>
+
+
+
+</div>
+<div class="navfooter">
+<span class="prev">
+<a href="_recap.html">« 小结</a>
+</span>
+<span class="next">
+<a href="_intrinsic_sorts.html">内置排序 »</a>
+</span>
+</div>
+</div>
+
+                  <!-- end body -->
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4" id="right_col">
+                        
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+</div>
+<script src="../static/cn.js"></script>
+</body>
+</html>

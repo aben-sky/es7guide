@@ -8,8 +8,8 @@
 - word stem: 词干
 - Recall: 召回率. 返回所有的相关文档
 - Precision: 精确率. 不返回无关文档
-- stemmed: 已提取, unstemmed: 未提取
-- ?? 词干模式, ?? 非词干模式
+- stemmed: 词干(已提取)的xx, unstemmed: 非词干(未提取)的xx
+- stemmed form: 词干模式, unstemmed foem: 非词干模式
 - ?? 广度匹配
 - multi query string: 多字符串查询
 - cross-fields: 跨字段(查询)
@@ -17,7 +17,7 @@
 - term-centric: 词中心式(查询)
 - TF: term frequency, 词频, 一个词在单个文档的某个字段中出现的频率越高，这个文档的相关度就越高。 
 - IDF: Inverse document frequency, 逆向文档频率, 一个词在所有文档某个字段索引中出现的频率越高，这个词的相关度就越低。 
-- ?? 邻近(查询)
+- proximity query: 近似
 - query family: 查询族
 - slop: 混合?? 目标内容需要移动多少次能匹配
 - long tail: 长尾

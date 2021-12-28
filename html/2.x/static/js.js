@@ -448,7 +448,7 @@ function renderRightDocList(filename) {
         '</li>' +
         '<li><span class="section"><a href="stopwords-performance.html">停用词与性能</a></span>' +
         '</li>' +
-        '<li><span class="section"><a href="common-terms.html" title="原翻译: 词项的分别管理">高低频停用词: 分而治之</a></span>' +
+        '<li><span class="section"><a href="common-terms.html" title="原翻译: 词项的分别管理">高低频词: 分而治之</a></span>' +
         '</li>' +
         '<li><span class="section"><a href="stopwords-phrases.html">停用词与短语查询</a></span>' +
         '</li>' +

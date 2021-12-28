@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+<meta charset="UTF-8">
+<title>Installing and Running Elasticsearch | Elasticsearch: The Definitive Guide [2.x] | Elastic</title>
+<link rel="home" href="index.html" title="Elasticsearch: The Definitive Guide [2.x]">
+<link rel="up" href="intro.html" title="You Know, for Search…​">
+<link rel="prev" href="intro.html" title="You Know, for Search…​">
+<link rel="next" href="_talking_to_elasticsearch.html" title="Talking to Elasticsearch">
+<meta name="DC.type" content="Learn/Docs/Legacy/Elasticsearch/Definitive Guide/2.x">
+<meta name="DC.subject" content="Elasticsearch">
+<meta name="DC.identifier" content="2.x">
+<meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.optimizely.com/js/18132920325.js"></script>
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-title" content="Elastic">
+    <meta name="application-name" content="Elastic">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="naver-site-verification" content="936882c1853b701b3cef3721758d80535413dbfd">
+    <meta name="yandex-verification" content="d8a47e95d0972434">
+    <meta name="localized" content="true">
+    <meta name="st:robots" content="follow,index">
+    <meta property="og:image" content="https://www.elastic.co/static/images/elastic-logo-200.png">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon-precomposed" sizes="64x64" href="/favicon_64x64_16bit.png">
+    <link rel="apple-touch-icon-precomposed" sizes="32x32" href="/favicon_32x32.png">
+    <link rel="apple-touch-icon-precomposed" sizes="16x16" href="/favicon_16x16.png">
+    <!-- Give IE8 a fighting chance -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/guide/static/styles.css">
+  </head>
+
+  <!--© 2015-2021 Elasticsearch B.V. Copying, publishing and/or distributing without written permission is strictly prohibited.-->
+
+  <body>
+    <!-- Google Tag Manager -->
+    <script>dataLayer = [];</script><noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-58RLH5" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-58RLH5');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-12395217-16"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-12395217-16');
+    </script>
+
+    <!--BEGIN QUALTRICS WEBSITE FEEDBACK SNIPPET-->
+    <script type="text/javascript">
+      (function(){var g=function(e,h,f,g){
+      this.get=function(a){for(var a=a+"=",c=document.cookie.split(";"),b=0,e=c.length;b<e;b++){for(var d=c[b];" "==d.charAt(0);)d=d.substring(1,d.length);if(0==d.indexOf(a))return d.substring(a.length,d.length)}return null};
+      this.set=function(a,c){var b="",b=new Date;b.setTime(b.getTime()+6048E5);b="; expires="+b.toGMTString();document.cookie=a+"="+c+b+"; path=/; "};
+      this.check=function(){var a=this.get(f);if(a)a=a.split(":");else if(100!=e)"v"==h&&(e=Math.random()>=e/100?0:100),a=[h,e,0],this.set(f,a.join(":"));else return!0;var c=a[1];if(100==c)return!0;switch(a[0]){case "v":return!1;case "r":return c=a[2]%Math.floor(100/c),a[2]++,this.set(f,a.join(":")),!c}return!0};
+      this.go=function(){if(this.check()){var a=document.createElement("script");a.type="text/javascript";a.src=g;document.body&&document.body.appendChild(a)}};
+      this.start=function(){var a=this;window.addEventListener?window.addEventListener("load",function(){a.go()},!1):window.attachEvent&&window.attachEvent("onload",function(){a.go()})}};
+      try{(new g(100,"r","QSI_S_ZN_emkP0oSe9Qrn7kF","https://znemkp0ose9qrn7kf-elastic.siteintercept.qualtrics.com/WRSiteInterceptEngine/?Q_ZID=ZN_emkP0oSe9Qrn7kF")).start()}catch(i){}})();
+    </script><div id="ZN_emkP0oSe9Qrn7kF"><!--DO NOT REMOVE-CONTENTS PLACED HERE--></div>
+    <!--END WEBSITE FEEDBACK SNIPPET-->
+
+    <div id="elastic-nav" style="display:none;"></div>
+    <script src="https://www.elastic.co/elastic-nav.js"></script>
+
+    <!-- Subnav -->
+    <div>
+      <div>
+        <div class="tertiary-nav d-none d-md-block">
+          <div class="container">
+            <div class="p-t-b-15 d-flex justify-content-between nav-container">
+              <div class="breadcrum-wrapper"><span><a href="/guide/" style="font-size: 14px; font-weight: 600; color: #000;">Docs</a></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-container">
+      <section id="content">
+        <div class="content-wrapper">
+
+          <section id="guide" lang="en">
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
+                  <!-- start body -->
+                  <div class="page_header">
+<p>
+  <strong>WARNING</strong>: The 2.x versions of Elasticsearch have passed their
+  <a href="https://www.elastic.co/support/eol">EOL dates</a>. If you are running
+  a 2.x version, we strongly advise you to upgrade.
+</p>
+<p>
+  This documentation is no longer maintained and may be removed. For the latest
+  information, see the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html">current
+  Elasticsearch documentation</a>.
+</p>
+</div>
+<div id="content">
+<div class="breadcrumbs">
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch: The Definitive Guide [2.x]</a></span>
+»
+<span class="breadcrumb-link"><a href="getting-started.html">Getting Started</a></span>
+»
+<span class="breadcrumb-link"><a href="intro.html">You Know, for Search…​</a></span>
+»
+<span class="breadcrumb-node">Installing and Running Elasticsearch</span>
+</div>
+<div class="navheader">
+<span class="prev">
+<a href="intro.html">« You Know, for Search…​</a>
+</span>
+<span class="next">
+<a href="_talking_to_elasticsearch.html">Talking to Elasticsearch »</a>
+</span>
+</div>
+<div class="section">
+<div class="titlepage"><div><div>
+<h2 class="title">
+<a id="running-elasticsearch"></a>Installing and Running Elasticsearch<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/010_Intro/10_Installing_ES.asciidoc">edit</a>
+</h2>
+</div></div></div>
+<p>The easiest way to understand what Elasticsearch can do for you is to
+play with it, so let’s get started!</p>
+<p>The only requirement for installing Elasticsearch is a recent version of Java.
+Preferably, you should install the latest version of the official Java
+from <a href="http://www.java.com" class="ulink" target="_top"><em>www.java.com</em></a>.</p>
+<p>You can get the latest version of Elasticsearch from
+<a href="/downloads/elasticsearch" class="ulink" target="_top"><em>elastic.co/downloads/elasticsearch</em></a>.</p>
+<p>To install Elasticsearch, download and extract the archive file for your platform. For
+more information, see the <a href="/guide/en/elasticsearch/reference/2.4/_installation.html" class="ulink" target="_top">Installation</a> topic in the Elasticsearch
+Reference.</p>
+<div class="tip admon">
+<div class="icon"></div>
+<div class="admon_content">
+<p>When installing Elasticsearch in production, you can choose to use
+the Debian or RPM packages provided on the
+<a href="http://www.elastic.co/downloads/elasticsearch" class="ulink" target="_top">downloads page</a>. You can also use
+the officially supported
+<a href="https://github.com/elasticsearch/puppet-elasticsearch" class="ulink" target="_top">Puppet module</a> or
+<a href="https://github.com/elasticsearch/cookbook-elasticsearch" class="ulink" target="_top">Chef cookbook</a>.</p>
+</div>
+</div>
+<p>Once you’ve extracted the archive file, Elasticsearch is ready to run.  To start it up in the foreground:</p>
+<div class="pre_wrapper lang-sh">
+<pre class="programlisting prettyprint lang-sh">cd elasticsearch-&lt;version&gt;
+./bin/elasticsearch <a id="CO1-1"></a><i class="conum" data-value="1"></i> <a id="CO1-2"></a><i class="conum" data-value="2"></i></pre>
+</div>
+<div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td align="left" valign="top" width="5%">
+<p><a href="#CO1-1"><i class="conum" data-value="1"></i></a></p>
+</td>
+<td align="left" valign="top">
+<p>Add <code class="literal">-d</code> if you want to run it in the background as a daemon.</p>
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" width="5%">
+<p><a href="#CO1-2"><i class="conum" data-value="2"></i></a></p>
+</td>
+<td align="left" valign="top">
+<p>If you’re running Elasticsearch on Windows, simply run <code class="literal">bin\elasticsearch.bat</code> instead.</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Test it out by opening another terminal window and running the following:</p>
+<div class="pre_wrapper lang-sh">
+<pre class="programlisting prettyprint lang-sh">curl 'http://localhost:9200/?pretty'</pre>
+</div>
+<div class="tip admon">
+<div class="icon"></div>
+<div class="admon_content">
+<p>If you’re running Elasticsearch on Windows, you can download cURL from
+<a href="http://curl.haxx.se/download.html" class="ulink" target="_top"><code class="literal">http://curl.haxx.se/download.html</code></a>. cURL
+provides a convenient way to submit requests to Elasticsearch and
+installing cURL enables you to copy and paste many of the examples in this
+book to try them out.</p>
+</div>
+</div>
+<p>You should see a response like this:</p>
+<div class="pre_wrapper lang-sense">
+<pre class="programlisting prettyprint lang-sense">{
+  "name" : "Tom Foster",
+  "cluster_name" : "elasticsearch",
+  "version" : {
+    "number" : "2.1.0",
+    "build_hash" : "72cd1f1a3eee09505e036106146dc1949dc5dc87",
+    "build_timestamp" : "2015-11-18T22:40:03Z",
+    "build_snapshot" : false,
+    "lucene_version" : "5.3.1"
+  },
+  "tagline" : "You Know, for Search"
+}</pre>
+</div>
+<div class="sense_widget" data-snippet="snippets/010_Intro/10_Info.json"></div>
+<p>This means that you have an Elasticsearch node up and running, and you can
+start experimenting with it. A <em>node</em> is a running instance of Elasticsearch.
+ A <em>cluster</em> is a group of
+nodes with the same <code class="literal">cluster.name</code> that are working together to share data
+and to provide failover and scale. (A single node, however, can form a cluster
+all by itself.) You can change the <code class="literal">cluster.name</code> in the <code class="literal">elasticsearch.yml</code> configuration
+file that’s loaded when you start a node. More information about this and other
+<a class="xref" href="important-configuration-changes.html" title="Important Configuration Changes">Important Configuration Changes</a> is provided
+in the Production Deployment section at the end of this book.</p>
+<div class="tip admon">
+<div class="icon"></div>
+<div class="admon_content">
+<p>See that View in Sense link at the bottom of the example? <a class="xref" href="running-elasticsearch.html#sense" title="Installing Sense">Install the Sense console</a>
+to run the examples in this book against your own Elasticsearch cluster and view the results.</p>
+</div>
+</div>
+<p>When Elasticsearch is running in the foreground, you can stop it by pressing Ctrl-C.</p>
+<div class="section">
+<div class="titlepage"><div><div>
+<h3 class="title">
+<a id="sense"></a>Installing Sense<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/010_Intro/10_Installing_ES.asciidoc">edit</a>
+</h3>
+</div></div></div>
+<p>Sense is a <a href="/guide/en/kibana/current/index.html" class="ulink" target="_top">Kibana</a>
+app  that provides an interactive
+console for submitting requests to Elasticsearch directly from your browser.
+Many of the code examples in the online version of this book include a View in Sense link. When
+clicked, it opens up a working example of the code in the Sense console.
+You do not have to install Sense, but it will make this book much more
+interactive by allowing you to  experiment with the code samples on your local
+Elasticsearch cluster.</p>
+<p> To install and run Sense:</p>
+<div class="olist orderedlist">
+<ol class="orderedlist">
+<li class="listitem">
+<p>Run the following command in the Kibana directory to download and install the Sense app:</p>
+<div class="pre_wrapper lang-sh">
+<pre class="programlisting prettyprint lang-sh">./bin/kibana plugin --install elastic/sense <a id="CO2-1"></a><i class="conum" data-value="1"></i></pre>
+</div>
+<div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td align="left" valign="top" width="5%">
+<p><a href="#CO2-1"><i class="conum" data-value="1"></i></a></p>
+</td>
+<td align="left" valign="top">
+<p>Windows: <code class="literal">bin\kibana.bat plugin --install elastic/sense</code>.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="note admon">
+<div class="icon"></div>
+<div class="admon_content">
+<p>You can download Sense from <a href="https://download.elastic.co/elastic/sense/sense-latest.tar.gz" class="ulink" target="_top">https://download.elastic.co/elastic/sense/sense-latest.tar.gz</a>
+to <a href="/guide/en/sense/current/installing.html#manual_download" class="ulink" target="_top">install it on an offline machine</a>.</p>
+</div>
+</div>
+</li>
+<li class="listitem">
+<p>Start Kibana.</p>
+<div class="pre_wrapper lang-sh">
+<pre class="programlisting prettyprint lang-sh">./bin/kibana <a id="CO3-1"></a><i class="conum" data-value="1"></i></pre>
+</div>
+<div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td align="left" valign="top" width="5%">
+<p><a href="#CO3-1"><i class="conum" data-value="1"></i></a></p>
+</td>
+<td align="left" valign="top">
+<p>Windows: <code class="literal">bin\kibana.bat</code>.</p>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li class="listitem">
+Open Sense your web browser by going to <code class="literal">http://localhost:5601/app/sense</code>.
+</li>
+</ol>
+</div>
+</div>
+
+</div>
+<div class="navfooter">
+<span class="prev">
+<a href="intro.html">« You Know, for Search…​</a>
+</span>
+<span class="next">
+<a href="_talking_to_elasticsearch.html">Talking to Elasticsearch »</a>
+</span>
+</div>
+</div>
+
+                  <!-- end body -->
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4" id="right_col">
+                  <div id="rtpcontainer" style="display: block;">
+                    <div class="mktg-promo">
+                      <h3>Most Popular</h3>
+                      <ul class="icons">
+                        <li class="icon-elasticsearch-white"><a href="https://www.elastic.co/webinars/getting-started-elasticsearch?baymax=default&amp;elektra=docs&amp;storm=top-video">Get Started with Elasticsearch: Video</a></li>
+                        <li class="icon-kibana-white"><a href="https://www.elastic.co/webinars/getting-started-kibana?baymax=default&amp;elektra=docs&amp;storm=top-video">Intro to Kibana: Video</a></li>
+                        <li class="icon-logstash-white"><a href="https://www.elastic.co/webinars/introduction-elk-stack?baymax=default&amp;elektra=docs&amp;storm=top-video">ELK for Logs &amp; Metrics: Video</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+
+<div id="elastic-footer"></div>
+<script src="https://www.elastic.co/elastic-footer.js"></script>
+<!-- Footer Section end-->
+
+      </section>
+    </div>
+
+<script src="/guide/static/jquery.js"></script>
+<script type="text/javascript" src="/guide/static/docs.js"></script>
+<script type="text/javascript">
+  window.initial_state = {}</script>
+  </body>
+</html>

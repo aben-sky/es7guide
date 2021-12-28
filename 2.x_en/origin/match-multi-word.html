@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+<meta charset="UTF-8">
+<title>Multiword Queries | Elasticsearch: The Definitive Guide [2.x] | Elastic</title>
+<link rel="home" href="index.html" title="Elasticsearch: The Definitive Guide [2.x]">
+<link rel="up" href="full-text-search.html" title="Full-Text Search">
+<link rel="prev" href="match-query.html" title="The match Query">
+<link rel="next" href="bool-query.html" title="Combining Queries">
+<meta name="DC.type" content="Learn/Docs/Legacy/Elasticsearch/Definitive Guide/2.x">
+<meta name="DC.subject" content="Elasticsearch">
+<meta name="DC.identifier" content="2.x">
+<meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.optimizely.com/js/18132920325.js"></script>
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-title" content="Elastic">
+    <meta name="application-name" content="Elastic">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="naver-site-verification" content="936882c1853b701b3cef3721758d80535413dbfd">
+    <meta name="yandex-verification" content="d8a47e95d0972434">
+    <meta name="localized" content="true">
+    <meta name="st:robots" content="follow,index">
+    <meta property="og:image" content="https://www.elastic.co/static/images/elastic-logo-200.png">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon-precomposed" sizes="64x64" href="/favicon_64x64_16bit.png">
+    <link rel="apple-touch-icon-precomposed" sizes="32x32" href="/favicon_32x32.png">
+    <link rel="apple-touch-icon-precomposed" sizes="16x16" href="/favicon_16x16.png">
+    <!-- Give IE8 a fighting chance -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/guide/static/styles.css">
+  </head>
+
+  <!--© 2015-2021 Elasticsearch B.V. Copying, publishing and/or distributing without written permission is strictly prohibited.-->
+
+  <body>
+    <!-- Google Tag Manager -->
+    <script>dataLayer = [];</script><noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-58RLH5" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-58RLH5');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-12395217-16"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-12395217-16');
+    </script>
+
+    <!--BEGIN QUALTRICS WEBSITE FEEDBACK SNIPPET-->
+    <script type="text/javascript">
+      (function(){var g=function(e,h,f,g){
+      this.get=function(a){for(var a=a+"=",c=document.cookie.split(";"),b=0,e=c.length;b<e;b++){for(var d=c[b];" "==d.charAt(0);)d=d.substring(1,d.length);if(0==d.indexOf(a))return d.substring(a.length,d.length)}return null};
+      this.set=function(a,c){var b="",b=new Date;b.setTime(b.getTime()+6048E5);b="; expires="+b.toGMTString();document.cookie=a+"="+c+b+"; path=/; "};
+      this.check=function(){var a=this.get(f);if(a)a=a.split(":");else if(100!=e)"v"==h&&(e=Math.random()>=e/100?0:100),a=[h,e,0],this.set(f,a.join(":"));else return!0;var c=a[1];if(100==c)return!0;switch(a[0]){case "v":return!1;case "r":return c=a[2]%Math.floor(100/c),a[2]++,this.set(f,a.join(":")),!c}return!0};
+      this.go=function(){if(this.check()){var a=document.createElement("script");a.type="text/javascript";a.src=g;document.body&&document.body.appendChild(a)}};
+      this.start=function(){var a=this;window.addEventListener?window.addEventListener("load",function(){a.go()},!1):window.attachEvent&&window.attachEvent("onload",function(){a.go()})}};
+      try{(new g(100,"r","QSI_S_ZN_emkP0oSe9Qrn7kF","https://znemkp0ose9qrn7kf-elastic.siteintercept.qualtrics.com/WRSiteInterceptEngine/?Q_ZID=ZN_emkP0oSe9Qrn7kF")).start()}catch(i){}})();
+    </script><div id="ZN_emkP0oSe9Qrn7kF"><!--DO NOT REMOVE-CONTENTS PLACED HERE--></div>
+    <!--END WEBSITE FEEDBACK SNIPPET-->
+
+    <div id="elastic-nav" style="display:none;"></div>
+    <script src="https://www.elastic.co/elastic-nav.js"></script>
+
+    <!-- Subnav -->
+    <div>
+      <div>
+        <div class="tertiary-nav d-none d-md-block">
+          <div class="container">
+            <div class="p-t-b-15 d-flex justify-content-between nav-container">
+              <div class="breadcrum-wrapper"><span><a href="/guide/" style="font-size: 14px; font-weight: 600; color: #000;">Docs</a></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-container">
+      <section id="content">
+        <div class="content-wrapper">
+
+          <section id="guide" lang="en">
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
+                  <!-- start body -->
+                  <div class="page_header">
+<p>
+  <strong>WARNING</strong>: The 2.x versions of Elasticsearch have passed their
+  <a href="https://www.elastic.co/support/eol">EOL dates</a>. If you are running
+  a 2.x version, we strongly advise you to upgrade.
+</p>
+<p>
+  This documentation is no longer maintained and may be removed. For the latest
+  information, see the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html">current
+  Elasticsearch documentation</a>.
+</p>
+</div>
+<div id="content">
+<div class="breadcrumbs">
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch: The Definitive Guide [2.x]</a></span>
+»
+<span class="breadcrumb-link"><a href="search-in-depth.html">Search in Depth</a></span>
+»
+<span class="breadcrumb-link"><a href="full-text-search.html">Full-Text Search</a></span>
+»
+<span class="breadcrumb-node">Multiword Queries</span>
+</div>
+<div class="navheader">
+<span class="prev">
+<a href="match-query.html">« The match Query</a>
+</span>
+<span class="next">
+<a href="bool-query.html">Combining Queries »</a>
+</span>
+</div>
+<div class="section">
+<div class="titlepage"><div><div>
+<h2 class="title">
+<a id="match-multi-word"></a>Multiword Queries<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/100_Full_Text_Search/10_Multi_word_queries.asciidoc">edit</a>
+</h2>
+</div></div></div>
+<p>If we could search for only one word at a time, full-text search would be
+pretty inflexible. Fortunately, the <code class="literal">match</code> query makes multiword queries
+just as simple:</p>
+<div class="pre_wrapper lang-sense">
+<pre class="programlisting prettyprint lang-sense">GET /my_index/my_type/_search
+{
+    "query": {
+        "match": {
+            "title": "BROWN DOG!"
+        }
+    }
+}</pre>
+</div>
+<div class="sense_widget" data-snippet="snippets/100_Full_Text_Search/05_Match_query.json"></div>
+<p>The preceding query returns all four documents in the results list:</p>
+<div class="pre_wrapper lang-js">
+<pre class="programlisting prettyprint lang-js">{
+  "hits": [
+     {
+        "_id":      "4",
+        "_score":   0.73185337, <a id="CO58-1"></a><i class="conum" data-value="1"></i>
+        "_source": {
+           "title": "Brown fox brown dog"
+        }
+     },
+     {
+        "_id":      "2",
+        "_score":   0.47486103, <a id="CO58-2"></a><i class="conum" data-value="2"></i>
+        "_source": {
+           "title": "The quick brown fox jumps over the lazy dog"
+        }
+     },
+     {
+        "_id":      "3",
+        "_score":   0.47486103, <a id="CO58-3"></a><i class="conum" data-value="2"></i>
+        "_source": {
+           "title": "The quick brown fox jumps over the quick dog"
+        }
+     },
+     {
+        "_id":      "1",
+        "_score":   0.11914785, <a id="CO58-4"></a><i class="conum" data-value="3"></i>
+        "_source": {
+           "title": "The quick brown fox"
+        }
+     }
+  ]
+}</pre>
+</div>
+<div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td align="left" valign="top" width="5%">
+<p><a href="#CO58-1"><i class="conum" data-value="1"></i></a></p>
+</td>
+<td align="left" valign="top">
+<p>Document 4 is the most relevant because it contains <code class="literal">"brown"</code> twice and <code class="literal">"dog"</code>
+once.</p>
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" width="5%">
+<p><a href="#CO58-2"><i class="conum" data-value="2"></i></a><a href="#CO58-3"></a></p>
+</td>
+<td align="left" valign="top">
+<p>Documents 2 and 3 both contain <code class="literal">brown</code> and <code class="literal">dog</code> once each, and the <code class="literal">title</code>
+field is the same length in both docs, so they have the same score.</p>
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" width="5%">
+<p><a href="#CO58-4"><i class="conum" data-value="3"></i></a></p>
+</td>
+<td align="left" valign="top">
+<p>Document 1 matches even though it contains only <code class="literal">brown</code>, not <code class="literal">dog</code>.</p>
+</td>
+</tr>
+</table>
+</div>
+<p>Because the <code class="literal">match</code> query has to look for two terms—<code class="literal">["brown","dog"]</code>—internally it has to execute two <code class="literal">term</code> queries and combine their individual
+results into the overall result. To do this, it wraps the two <code class="literal">term</code> queries
+in a <code class="literal">bool</code> query, which we examine in detail in <a class="xref" href="bool-query.html" title="Combining Queries">Combining Queries</a>.</p>
+<p>The important thing to take away from this is that any document whose
+<code class="literal">title</code> field contains <em>at least one of the specified terms</em> will match the
+query.  The more terms that match, the more relevant the document.</p>
+<div class="section">
+<div class="titlepage"><div><div>
+<h3 class="title">
+<a id="match-improving-precision"></a>Improving Precision<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/100_Full_Text_Search/10_Multi_word_queries.asciidoc">edit</a>
+</h3>
+</div></div></div>
+<p>Matching any document that contains <em>any</em> of the query terms may result in  a
+long tail of seemingly irrelevant results.  It’s a shotgun approach to search.
+Perhaps we want to show only documents that contain <em>all</em> of the query terms.
+In other words, instead of <code class="literal">brown OR dog</code>, we want to return only documents
+that match <code class="literal">brown AND dog</code>.</p>
+<p>The <code class="literal">match</code> query accepts an <code class="literal">operator</code> parameter that defaults to <code class="literal">or</code>.
+You can change it to <code class="literal">and</code> to require that all specified terms must match:</p>
+<div class="pre_wrapper lang-sense">
+<pre class="programlisting prettyprint lang-sense">GET /my_index/my_type/_search
+{
+    "query": {
+        "match": {
+            "title": {      <a id="CO59-1"></a><i class="conum" data-value="1"></i>
+                "query":    "BROWN DOG!",
+                "operator": "and"
+            }
+        }
+    }
+}</pre>
+</div>
+<div class="sense_widget" data-snippet="snippets/100_Full_Text_Search/05_Match_query.json"></div>
+<div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td align="left" valign="top" width="5%">
+<p><a href="#CO59-1"><i class="conum" data-value="1"></i></a></p>
+</td>
+<td align="left" valign="top">
+<p>The structure of the <code class="literal">match</code> query has to change slightly in order to
+accommodate the <code class="literal">operator</code> parameter.</p>
+</td>
+</tr>
+</table>
+</div>
+<p>This query would exclude document 1, which contains only one of the two terms.</p>
+</div>
+
+<div class="section">
+<div class="titlepage"><div><div>
+<h3 class="title">
+<a id="match-precision"></a>Controlling Precision<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/100_Full_Text_Search/10_Multi_word_queries.asciidoc">edit</a>
+</h3>
+</div></div></div>
+<p>The choice between <em>all</em> and <em>any</em> is a bit too black-or-white. What if the
+user specified five query terms, and a document contains only four of them?
+Setting <code class="literal">operator</code> to <code class="literal">and</code> would exclude this document.</p>
+<p>Sometimes that is exactly what you want, but for most full-text search use
+cases, you want to include documents that may be relevant but exclude those
+that are unlikely to be relevant.  In other words, we need something
+in-between.</p>
+<p>The <code class="literal">match</code> query supports the <code class="literal">minimum_should_match</code> parameter, which allows
+you to specify the number of terms that must match for a document to be considered
+relevant.  While you can specify an absolute number of terms, it usually makes
+sense to specify a percentage instead, as you have no control over the number of words the user may enter:</p>
+<div class="pre_wrapper lang-sense">
+<pre class="programlisting prettyprint lang-sense">GET /my_index/my_type/_search
+{
+  "query": {
+    "match": {
+      "title": {
+        "query":                "quick brown dog",
+        "minimum_should_match": "75%"
+      }
+    }
+  }
+}</pre>
+</div>
+<div class="sense_widget" data-snippet="snippets/100_Full_Text_Search/05_Match_query.json"></div>
+<p>When specified as a percentage, <code class="literal">minimum_should_match</code> does the right thing:
+in the preceding example with three terms, <code class="literal">75%</code> would be rounded down to <code class="literal">66.6%</code>,
+or two out of the three terms. No matter what you set it to, at least one term
+must match for a document to be considered a match.</p>
+<div class="note admon">
+<div class="icon"></div>
+<div class="admon_content">
+<p>The <code class="literal">minimum_should_match</code> parameter is flexible, and different rules can
+be applied depending on the number of terms the user enters.  For the full
+documentation see the
+<a href="/guide/en/elasticsearch/reference/2.4/query-dsl-minimum-should-match.html#query-dsl-minimum-should-match" class="ulink" target="_top">https://www.elastic.co/guide/en/elasticsearch/reference/2.4/query-dsl-minimum-should-match.html#query-dsl-minimum-should-match</a></p>
+</div>
+</div>
+<p>To fully understand how the <code class="literal">match</code> query handles multiword queries, we need
+to look at how to combine multiple queries with the <code class="literal">bool</code> query.</p>
+</div>
+
+</div>
+<div class="navfooter">
+<span class="prev">
+<a href="match-query.html">« The match Query</a>
+</span>
+<span class="next">
+<a href="bool-query.html">Combining Queries »</a>
+</span>
+</div>
+</div>
+
+                  <!-- end body -->
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4" id="right_col">
+                  <div id="rtpcontainer" style="display: block;">
+                    <div class="mktg-promo">
+                      <h3>Most Popular</h3>
+                      <ul class="icons">
+                        <li class="icon-elasticsearch-white"><a href="https://www.elastic.co/webinars/getting-started-elasticsearch?baymax=default&amp;elektra=docs&amp;storm=top-video">Get Started with Elasticsearch: Video</a></li>
+                        <li class="icon-kibana-white"><a href="https://www.elastic.co/webinars/getting-started-kibana?baymax=default&amp;elektra=docs&amp;storm=top-video">Intro to Kibana: Video</a></li>
+                        <li class="icon-logstash-white"><a href="https://www.elastic.co/webinars/introduction-elk-stack?baymax=default&amp;elektra=docs&amp;storm=top-video">ELK for Logs &amp; Metrics: Video</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+
+<div id="elastic-footer"></div>
+<script src="https://www.elastic.co/elastic-footer.js"></script>
+<!-- Footer Section end-->
+
+      </section>
+    </div>
+
+<script src="/guide/static/jquery.js"></script>
+<script type="text/javascript" src="/guide/static/docs.js"></script>
+<script type="text/javascript">
+  window.initial_state = {}</script>
+  </body>
+</html>

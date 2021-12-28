@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+<meta charset="UTF-8">
+<title>Pitfalls of Mixing Languages | Elasticsearch: The Definitive Guide [2.x] | Elastic</title>
+<link rel="home" href="index.html" title="Elasticsearch: The Definitive Guide [2.x]">
+<link rel="up" href="language-intro.html" title="Getting Started with Languages">
+<link rel="prev" href="configuring-language-analyzers.html" title="Configuring Language Analyzers">
+<link rel="next" href="one-lang-docs.html" title="One Language per Document">
+<meta name="DC.type" content="Learn/Docs/Legacy/Elasticsearch/Definitive Guide/2.x">
+<meta name="DC.subject" content="Elasticsearch">
+<meta name="DC.identifier" content="2.x">
+<meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.optimizely.com/js/18132920325.js"></script>
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-title" content="Elastic">
+    <meta name="application-name" content="Elastic">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="naver-site-verification" content="936882c1853b701b3cef3721758d80535413dbfd">
+    <meta name="yandex-verification" content="d8a47e95d0972434">
+    <meta name="localized" content="true">
+    <meta name="st:robots" content="follow,index">
+    <meta property="og:image" content="https://www.elastic.co/static/images/elastic-logo-200.png">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon-precomposed" sizes="64x64" href="/favicon_64x64_16bit.png">
+    <link rel="apple-touch-icon-precomposed" sizes="32x32" href="/favicon_32x32.png">
+    <link rel="apple-touch-icon-precomposed" sizes="16x16" href="/favicon_16x16.png">
+    <!-- Give IE8 a fighting chance -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/guide/static/styles.css">
+  </head>
+
+  <!--© 2015-2021 Elasticsearch B.V. Copying, publishing and/or distributing without written permission is strictly prohibited.-->
+
+  <body>
+    <!-- Google Tag Manager -->
+    <script>dataLayer = [];</script><noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-58RLH5" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-58RLH5');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-12395217-16"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-12395217-16');
+    </script>
+
+    <!--BEGIN QUALTRICS WEBSITE FEEDBACK SNIPPET-->
+    <script type="text/javascript">
+      (function(){var g=function(e,h,f,g){
+      this.get=function(a){for(var a=a+"=",c=document.cookie.split(";"),b=0,e=c.length;b<e;b++){for(var d=c[b];" "==d.charAt(0);)d=d.substring(1,d.length);if(0==d.indexOf(a))return d.substring(a.length,d.length)}return null};
+      this.set=function(a,c){var b="",b=new Date;b.setTime(b.getTime()+6048E5);b="; expires="+b.toGMTString();document.cookie=a+"="+c+b+"; path=/; "};
+      this.check=function(){var a=this.get(f);if(a)a=a.split(":");else if(100!=e)"v"==h&&(e=Math.random()>=e/100?0:100),a=[h,e,0],this.set(f,a.join(":"));else return!0;var c=a[1];if(100==c)return!0;switch(a[0]){case "v":return!1;case "r":return c=a[2]%Math.floor(100/c),a[2]++,this.set(f,a.join(":")),!c}return!0};
+      this.go=function(){if(this.check()){var a=document.createElement("script");a.type="text/javascript";a.src=g;document.body&&document.body.appendChild(a)}};
+      this.start=function(){var a=this;window.addEventListener?window.addEventListener("load",function(){a.go()},!1):window.attachEvent&&window.attachEvent("onload",function(){a.go()})}};
+      try{(new g(100,"r","QSI_S_ZN_emkP0oSe9Qrn7kF","https://znemkp0ose9qrn7kf-elastic.siteintercept.qualtrics.com/WRSiteInterceptEngine/?Q_ZID=ZN_emkP0oSe9Qrn7kF")).start()}catch(i){}})();
+    </script><div id="ZN_emkP0oSe9Qrn7kF"><!--DO NOT REMOVE-CONTENTS PLACED HERE--></div>
+    <!--END WEBSITE FEEDBACK SNIPPET-->
+
+    <div id="elastic-nav" style="display:none;"></div>
+    <script src="https://www.elastic.co/elastic-nav.js"></script>
+
+    <!-- Subnav -->
+    <div>
+      <div>
+        <div class="tertiary-nav d-none d-md-block">
+          <div class="container">
+            <div class="p-t-b-15 d-flex justify-content-between nav-container">
+              <div class="breadcrum-wrapper"><span><a href="/guide/" style="font-size: 14px; font-weight: 600; color: #000;">Docs</a></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-container">
+      <section id="content">
+        <div class="content-wrapper">
+
+          <section id="guide" lang="en">
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
+                  <!-- start body -->
+                  <div class="page_header">
+<p>
+  <strong>WARNING</strong>: The 2.x versions of Elasticsearch have passed their
+  <a href="https://www.elastic.co/support/eol">EOL dates</a>. If you are running
+  a 2.x version, we strongly advise you to upgrade.
+</p>
+<p>
+  This documentation is no longer maintained and may be removed. For the latest
+  information, see the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html">current
+  Elasticsearch documentation</a>.
+</p>
+</div>
+<div id="content">
+<div class="breadcrumbs">
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch: The Definitive Guide [2.x]</a></span>
+»
+<span class="breadcrumb-link"><a href="languages.html">Dealing with Human Language</a></span>
+»
+<span class="breadcrumb-link"><a href="language-intro.html">Getting Started with Languages</a></span>
+»
+<span class="breadcrumb-node">Pitfalls of Mixing Languages</span>
+</div>
+<div class="navheader">
+<span class="prev">
+<a href="configuring-language-analyzers.html">« Configuring Language Analyzers</a>
+</span>
+<span class="next">
+<a href="one-lang-docs.html">One Language per Document »</a>
+</span>
+</div>
+<div class="section">
+<div class="titlepage"><div><div>
+<h2 class="title">
+<a id="language-pitfalls"></a>Pitfalls of Mixing Languages<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/200_Language_intro/30_Language_pitfalls.asciidoc">edit</a>
+</h2>
+</div></div></div>
+<p>If you have to deal with only a single language, count yourself lucky.
+Finding the right strategy for handling documents written in several languages
+can be challenging.</p>
+<div class="section">
+<div class="titlepage"><div><div>
+<h3 class="title">
+<a id="_at_index_time"></a>At Index Time<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/200_Language_intro/30_Language_pitfalls.asciidoc">edit</a>
+</h3>
+</div></div></div>
+<p>Multilingual documents come in three main varieties:</p>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+One predominant language per <em>document</em>, which may contain snippets from
+other languages (See <a class="xref" href="one-lang-docs.html" title="One Language per Document">One Language per Document</a>.)
+</li>
+<li class="listitem">
+One predominant language per <em>field</em>, which may contain snippets from
+other languages (See <a class="xref" href="one-lang-fields.html" title="One Language per Field">One Language per Field</a>.)
+</li>
+<li class="listitem">
+A mixture of languages per field (See <a class="xref" href="mixed-lang-fields.html" title="Mixed-Language Fields">Mixed-Language Fields</a>.)
+</li>
+</ul>
+</div>
+<p>The goal, although not always achievable, should be to keep languages
+separate.  Mixing languages in the same inverted index can be problematic.</p>
+<div class="section">
+<div class="titlepage"><div><div>
+<h4 class="title">
+<a id="_incorrect_stemming"></a>Incorrect stemming<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/200_Language_intro/30_Language_pitfalls.asciidoc">edit</a>
+</h4>
+</div></div></div>
+<p>The stemming rules for German are different from those for English, French,
+Swedish, and so on. Applying the same stemming rules to different languages
+will result in some words being stemmed correctly, some  incorrectly, and some
+not being stemmed at all. It may even result in words from different languages with different meanings
+being stemmed to the same root word, conflating their meanings and producing
+confusing search results for the user.</p>
+<p>Applying multiple stemmers in turn to the same text is likely to result in
+rubbish, as the next stemmer may try to stem an already stemmed word,
+compounding the problem.</p>
+<div class="sidebar">
+<a id="different-scripts"></a>
+<div class="titlepage"><div><div>
+<p class="title"><strong>Stemmer per Script</strong></p>
+</div></div></div>
+<p>The one exception to the <em>only-one-stemmer</em> rule occurs when each language
+is written in a different script.  For instance, in Israel it is quite
+possible that a single document may contain Hebrew, Arabic, Russian (Cyrillic),
+and English:</p>
+<pre class="literallayout">אזהרה - Предупреждение - تحذير - Warning</pre>
+
+<p>Each language uses a different script, so the stemmer for one language will not
+interfere with another, allowing multiple stemmers to be applied to the same
+text.</p>
+</div>
+</div>
+
+<div class="section">
+<div class="titlepage"><div><div>
+<h4 class="title">
+<a id="_incorrect_inverse_document_frequencies"></a>Incorrect inverse document frequencies<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/200_Language_intro/30_Language_pitfalls.asciidoc">edit</a>
+</h4>
+</div></div></div>
+<p>In <a class="xref" href="relevance-intro.html" title="What Is Relevance?">What Is Relevance?</a>, we explained that the more frequently a term appears
+in a collection of documents, the less weight that term has.  For accurate
+relevance calculations, you need accurate term-frequency statistics.</p>
+<p>A short snippet of German appearing in predominantly English text would give
+more weight to the German words, given that they are relatively uncommon. But
+mix those with documents that are predominantly German, and the short German
+snippets now have much less weight.</p>
+</div>
+
+</div>
+
+<div class="section">
+<div class="titlepage"><div><div>
+<h3 class="title">
+<a id="_at_query_time"></a>At Query Time<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/200_Language_intro/30_Language_pitfalls.asciidoc">edit</a>
+</h3>
+</div></div></div>
+<p>It is not sufficient just to think about your documents, though.  You also need
+to think about how your users will query those documents.  Often you will be able
+to identify the main language of the user either from the language of that user’s chosen
+interface (for example, <code class="literal">mysite.de</code> versus <code class="literal">mysite.fr</code>) or from the
+<a href="http://www.w3.org/International/questions/qa-lang-priorities.en.php" class="ulink" target="_top"><code class="literal">accept-language</code></a>
+HTTP header from the user’s browser.</p>
+<p>User searches also come in three main varieties:</p>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+Users search for words in their main language.
+</li>
+<li class="listitem">
+Users search for words in a different language, but expect results in
+their main language.
+</li>
+<li class="listitem">
+Users search for words in a different language, and expect results in
+that language (for example, a bilingual person, or a foreign visitor in a web cafe).
+</li>
+</ul>
+</div>
+<p>Depending on the type of data that you are searching, it may be appropriate to
+return results in a single language (for example, a user searching for products on
+the Spanish version of the website) or to combine results in the identified
+main language of the user with results from other languages.</p>
+<p>Usually, it makes sense to give preference to the user’s language.  An English-speaking
+user searching the Web for “deja vu” would probably prefer to see
+the English Wikipedia page rather than the French Wikipedia page.</p>
+</div>
+
+<div class="section">
+<div class="titlepage"><div><div>
+<h3 class="title">
+<a id="identifying-language"></a>Identifying Language<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/200_Language_intro/30_Language_pitfalls.asciidoc">edit</a>
+</h3>
+</div></div></div>
+<p>You may already know the language of your documents.  Perhaps your documents
+are created within your organization and translated into a list of predefined
+languages.  Human pre-identification is probably the most reliable method of
+classifying language correctly.</p>
+<p>Perhaps, though, your documents come from an external source without any
+language classification, or possibly with incorrect classification. In these
+cases, you need to use a heuristic to identify the predominant language.
+Fortunately, libraries are available in several languages to help with this problem.</p>
+<p>Of particular note is the
+<a href="https://github.com/mikemccand/chromium-compact-language-detector" class="ulink" target="_top">chromium-compact-language-detector</a>
+library from
+<a href="http://blog.mikemccandless.com/2013/08/a-new-version-of-compact-language.html" class="ulink" target="_top">Mike McCandless</a>,
+which uses the open source (<a href="http://www.apache.org/licenses/LICENSE-2.0" class="ulink" target="_top">Apache License 2.0</a>)
+<a href="https://code.google.com/p/cld2/" class="ulink" target="_top">Compact Language Detector</a> (CLD) from Google.  It is
+small, fast, and accurate, and can detect 160+ languages from as little as two
+sentences. It can even detect multiple languages within a single block of
+text. Bindings exist for several languages including Python, Perl, JavaScript,
+PHP, C#/.NET, and R.</p>
+<p>Identifying the language of the user’s search request is not quite as simple.
+The CLD is designed for text that is at least 200 characters in length.
+Shorter amounts of text, such as search keywords, produce much less accurate
+results. In these cases, it may be preferable to take simple heuristics into
+account such as the country of origin, the user’s selected language, and the
+HTTP <code class="literal">accept-language</code> headers.</p>
+</div>
+
+</div>
+<div class="navfooter">
+<span class="prev">
+<a href="configuring-language-analyzers.html">« Configuring Language Analyzers</a>
+</span>
+<span class="next">
+<a href="one-lang-docs.html">One Language per Document »</a>
+</span>
+</div>
+</div>
+
+                  <!-- end body -->
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4" id="right_col">
+                  <div id="rtpcontainer" style="display: block;">
+                    <div class="mktg-promo">
+                      <h3>Most Popular</h3>
+                      <ul class="icons">
+                        <li class="icon-elasticsearch-white"><a href="https://www.elastic.co/webinars/getting-started-elasticsearch?baymax=default&amp;elektra=docs&amp;storm=top-video">Get Started with Elasticsearch: Video</a></li>
+                        <li class="icon-kibana-white"><a href="https://www.elastic.co/webinars/getting-started-kibana?baymax=default&amp;elektra=docs&amp;storm=top-video">Intro to Kibana: Video</a></li>
+                        <li class="icon-logstash-white"><a href="https://www.elastic.co/webinars/introduction-elk-stack?baymax=default&amp;elektra=docs&amp;storm=top-video">ELK for Logs &amp; Metrics: Video</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+
+<div id="elastic-footer"></div>
+<script src="https://www.elastic.co/elastic-footer.js"></script>
+<!-- Footer Section end-->
+
+      </section>
+    </div>
+
+<script src="/guide/static/jquery.js"></script>
+<script type="text/javascript" src="/guide/static/docs.js"></script>
+<script type="text/javascript">
+  window.initial_state = {}</script>
+  </body>
+</html>

@@ -8,7 +8,7 @@ use QL\QueryList;
 
 function tepGetDocList() {
     //所有文档列表
-    $docList = file_get_contents('doc_list_2.x_cn.txt');
+    $docList = file_get_contents('doc_list_2.x_en.txt');
 
     return $docList;
 }
@@ -29,7 +29,7 @@ function getOriginalHtmls() {
     $retry = 10;//最多尝试10次
     $arrLinkFailed = [];
     foreach ($arrLink AS $link) {
-        if (is_file('2.xcn/origin/' . $link)) {
+        if (is_file('2.x_en/origin/' . $link)) {
             echo $link . '已存在, 忽略' . PHP_EOL;
             continue;
         }
@@ -94,7 +94,7 @@ function getOriginalHtml($link) {
         return false;
     }
     //写入
-    file_put_contents('2.xcn/origin/' . $link, $originHtml);
+    file_put_contents('2.x_en/origin/' . $link, $originHtml);
     return true;
 }
 
@@ -102,7 +102,7 @@ function getOriginalHtml($link) {
  * 把官网的文档转换到本地
  */
 function convertToLocalFile($link) {
-    $html = file_get_contents('2.xcn/origin/' . $link);
+    $html = file_get_contents('2.x_en/origin/' . $link);
     $document = QueryList::getInstance()->setHtml($html);
 
     //获取title
@@ -150,8 +150,7 @@ function convertToLocalFile($link) {
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
-                            <div style="color:gray; word-break: break-all; font-size:12px;">原文地址: <a href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/$link" rel="nofollow">https://www.elastic.co/guide/cn/elasticsearch/guide/current/$link</a>, 版权归 www.elastic.co 所有<br/>
-                            英文版地址: <a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/$link" rel="nofollow">https://www.elastic.co/guide/en/elasticsearch/guide/current/$link</a>
+                            <div style="color:gray; word-break: break-all; font-size:12px;">原文地址: <a href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/$link" rel="nofollow">https://www.elastic.co/guide/en/elasticsearch/guide/current/$link</a>, 版权归 www.elastic.co 所有<br/>
                             </div>
                         $body
                         </div>
@@ -164,19 +163,19 @@ function convertToLocalFile($link) {
         </div>
     </section>
 </div>
-<script src="../static/cn.js"></script>
+<script src="../static/en.js"></script>
 </body>
 </html>
 EOF;
 
     //写入
-    file_put_contents('html/2.x/cn/' . $link, $html);
+    file_put_contents('html/2.x/en/' . $link, $html);
 
     return true;
 }
 
 function convertToLocalFiles() {
-    $folder = '2.xcn' . DIRECTORY_SEPARATOR . 'origin';
+    $folder = '2.x_en' . DIRECTORY_SEPARATOR . 'origin';
     $arr = scandir($folder);
     $files = [];
     foreach ($arr as $v) {
@@ -205,7 +204,7 @@ function convertToLocalFiles() {
 
 //原文档转换到本地文档
 //convertToLocalFile('inverted-index.html');//单个转换测试
-//convertToLocalFiles();
+convertToLocalFiles();
 
 
 //获取指定的文件:

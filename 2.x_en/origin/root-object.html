@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+<meta charset="UTF-8">
+<title>The Root Object | Elasticsearch: The Definitive Guide [2.x] | Elastic</title>
+<link rel="home" href="index.html" title="Elasticsearch: The Definitive Guide [2.x]">
+<link rel="up" href="index-management.html" title="Index Management">
+<link rel="prev" href="mapping.html" title="Types and Mappings">
+<link rel="next" href="dynamic-mapping.html" title="Dynamic Mapping">
+<meta name="DC.type" content="Learn/Docs/Legacy/Elasticsearch/Definitive Guide/2.x">
+<meta name="DC.subject" content="Elasticsearch">
+<meta name="DC.identifier" content="2.x">
+<meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.optimizely.com/js/18132920325.js"></script>
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-title" content="Elastic">
+    <meta name="application-name" content="Elastic">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="naver-site-verification" content="936882c1853b701b3cef3721758d80535413dbfd">
+    <meta name="yandex-verification" content="d8a47e95d0972434">
+    <meta name="localized" content="true">
+    <meta name="st:robots" content="follow,index">
+    <meta property="og:image" content="https://www.elastic.co/static/images/elastic-logo-200.png">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon-precomposed" sizes="64x64" href="/favicon_64x64_16bit.png">
+    <link rel="apple-touch-icon-precomposed" sizes="32x32" href="/favicon_32x32.png">
+    <link rel="apple-touch-icon-precomposed" sizes="16x16" href="/favicon_16x16.png">
+    <!-- Give IE8 a fighting chance -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/guide/static/styles.css">
+  </head>
+
+  <!--© 2015-2021 Elasticsearch B.V. Copying, publishing and/or distributing without written permission is strictly prohibited.-->
+
+  <body>
+    <!-- Google Tag Manager -->
+    <script>dataLayer = [];</script><noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-58RLH5" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-58RLH5');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-12395217-16"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-12395217-16');
+    </script>
+
+    <!--BEGIN QUALTRICS WEBSITE FEEDBACK SNIPPET-->
+    <script type="text/javascript">
+      (function(){var g=function(e,h,f,g){
+      this.get=function(a){for(var a=a+"=",c=document.cookie.split(";"),b=0,e=c.length;b<e;b++){for(var d=c[b];" "==d.charAt(0);)d=d.substring(1,d.length);if(0==d.indexOf(a))return d.substring(a.length,d.length)}return null};
+      this.set=function(a,c){var b="",b=new Date;b.setTime(b.getTime()+6048E5);b="; expires="+b.toGMTString();document.cookie=a+"="+c+b+"; path=/; "};
+      this.check=function(){var a=this.get(f);if(a)a=a.split(":");else if(100!=e)"v"==h&&(e=Math.random()>=e/100?0:100),a=[h,e,0],this.set(f,a.join(":"));else return!0;var c=a[1];if(100==c)return!0;switch(a[0]){case "v":return!1;case "r":return c=a[2]%Math.floor(100/c),a[2]++,this.set(f,a.join(":")),!c}return!0};
+      this.go=function(){if(this.check()){var a=document.createElement("script");a.type="text/javascript";a.src=g;document.body&&document.body.appendChild(a)}};
+      this.start=function(){var a=this;window.addEventListener?window.addEventListener("load",function(){a.go()},!1):window.attachEvent&&window.attachEvent("onload",function(){a.go()})}};
+      try{(new g(100,"r","QSI_S_ZN_emkP0oSe9Qrn7kF","https://znemkp0ose9qrn7kf-elastic.siteintercept.qualtrics.com/WRSiteInterceptEngine/?Q_ZID=ZN_emkP0oSe9Qrn7kF")).start()}catch(i){}})();
+    </script><div id="ZN_emkP0oSe9Qrn7kF"><!--DO NOT REMOVE-CONTENTS PLACED HERE--></div>
+    <!--END WEBSITE FEEDBACK SNIPPET-->
+
+    <div id="elastic-nav" style="display:none;"></div>
+    <script src="https://www.elastic.co/elastic-nav.js"></script>
+
+    <!-- Subnav -->
+    <div>
+      <div>
+        <div class="tertiary-nav d-none d-md-block">
+          <div class="container">
+            <div class="p-t-b-15 d-flex justify-content-between nav-container">
+              <div class="breadcrum-wrapper"><span><a href="/guide/" style="font-size: 14px; font-weight: 600; color: #000;">Docs</a></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-container">
+      <section id="content">
+        <div class="content-wrapper">
+
+          <section id="guide" lang="en">
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
+                  <!-- start body -->
+                  <div class="page_header">
+<p>
+  <strong>WARNING</strong>: The 2.x versions of Elasticsearch have passed their
+  <a href="https://www.elastic.co/support/eol">EOL dates</a>. If you are running
+  a 2.x version, we strongly advise you to upgrade.
+</p>
+<p>
+  This documentation is no longer maintained and may be removed. For the latest
+  information, see the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html">current
+  Elasticsearch documentation</a>.
+</p>
+</div>
+<div id="content">
+<div class="breadcrumbs">
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch: The Definitive Guide [2.x]</a></span>
+»
+<span class="breadcrumb-link"><a href="getting-started.html">Getting Started</a></span>
+»
+<span class="breadcrumb-link"><a href="index-management.html">Index Management</a></span>
+»
+<span class="breadcrumb-node">The Root Object</span>
+</div>
+<div class="navheader">
+<span class="prev">
+<a href="mapping.html">« Types and Mappings</a>
+</span>
+<span class="next">
+<a href="dynamic-mapping.html">Dynamic Mapping »</a>
+</span>
+</div>
+<div class="section">
+<div class="titlepage"><div><div>
+<h2 class="title">
+<a id="root-object"></a>The Root Object<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/070_Index_Mgmt/30_Root_Object.asciidoc">edit</a>
+</h2>
+</div></div></div>
+<p>The uppermost level of a mapping is known as the <em>root object</em>. It may
+contain the following:</p>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+A <em>properties</em> section, which lists the mapping for each field that a
+document may contain
+</li>
+<li class="listitem">
+Various metadata fields, all of which start with an underscore, such
+as <code class="literal">_type</code>, <code class="literal">_id</code>, and <code class="literal">_source</code>
+</li>
+<li class="listitem">
+Settings, which control how the dynamic detection of new fields
+is handled, such as <code class="literal">analyzer</code>, <code class="literal">dynamic_date_formats</code>, and
+<code class="literal">dynamic_templates</code>
+</li>
+<li class="listitem">
+Other settings, which can be applied both to the root object and to fields
+of type <code class="literal">object</code>, such as <code class="literal">enabled</code>, <code class="literal">dynamic</code>, and <code class="literal">include_in_all</code>
+</li>
+</ul>
+</div>
+<div class="section">
+<div class="titlepage"><div><div>
+<h3 class="title">
+<a id="_properties"></a>Properties<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/070_Index_Mgmt/30_Root_Object.asciidoc">edit</a>
+</h3>
+</div></div></div>
+<p>We have already discussed the three most important settings for document
+fields or properties in <a class="xref" href="mapping-intro.html#core-fields" title="Core Simple Field Types">Core Simple Field Types</a> and <a class="xref" href="complex-core-fields.html" title="Complex Core Field Types">Complex Core Field Types</a>:</p>
+<div class="variablelist">
+<dl class="variablelist">
+<dt>
+<span class="term">
+<code class="literal">type</code>
+</span>
+</dt>
+<dd>
+The datatype that the field contains, such as <code class="literal">string</code> or <code class="literal">date</code>
+</dd>
+<dt>
+<span class="term">
+<code class="literal">index</code>
+</span>
+</dt>
+<dd>
+Whether a field should be searchable as full text (<code class="literal">analyzed</code>), searchable as an exact value (<code class="literal">not_analyzed</code>), or not searchable at all (<code class="literal">no</code>)
+</dd>
+<dt>
+<span class="term">
+<code class="literal">analyzer</code>
+</span>
+</dt>
+<dd>
+Which <code class="literal">analyzer</code> to use for a full-text field, both at index time and at search time
+</dd>
+</dl>
+</div>
+<p>We will discuss other field types such as <code class="literal">ip</code>, <code class="literal">geo_point</code>, and <code class="literal">geo_shape</code> in
+the appropriate sections later in the book.</p>
+</div>
+
+<div class="section">
+<div class="titlepage"><div><div>
+<h3 class="title">
+<a id="source-field"></a>Metadata: _source Field<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/070_Index_Mgmt/31_Metadata_source.asciidoc">edit</a>
+</h3>
+</div></div></div>
+<p>By default, Elasticsearch stores the JSON string representing the
+document body in the <code class="literal">_source</code> field. Like all stored fields, the <code class="literal">_source</code>
+field is compressed before being written to disk.</p>
+<p>This is almost always desired functionality because it means the following:</p>
+<div class="ulist itemizedlist">
+<ul class="itemizedlist">
+<li class="listitem">
+The full document is available directly from the search results—​no need
+for a separate round-trip to fetch the document from another data store.
+</li>
+<li class="listitem">
+Partial <code class="literal">update</code> requests will not function without the <code class="literal">_source</code> field.
+</li>
+<li class="listitem">
+When your mapping changes and you need to reindex your data, you can
+do so directly from Elasticsearch instead of having to retrieve all of your
+documents from another (usually slower) data store.
+</li>
+<li class="listitem">
+Individual fields can be extracted from the <code class="literal">_source</code> field and returned
+in <code class="literal">get</code> or <code class="literal">search</code> requests when you don’t need to see the whole document.
+</li>
+<li class="listitem">
+It is easier to debug queries, because you can see exactly what each document
+contains, rather than having to guess their contents from a list of IDs.
+</li>
+</ul>
+</div>
+<p>That said, storing the <code class="literal">_source</code> field does use disk space.  If none of the
+preceding reasons is important to you, you can disable the <code class="literal">_source</code> field with
+the following mapping:</p>
+<div class="pre_wrapper lang-js">
+<pre class="programlisting prettyprint lang-js">PUT /my_index
+{
+    "mappings": {
+        "my_type": {
+            "_source": {
+                "enabled":  false
+            }
+        }
+    }
+}</pre>
+</div>
+<p>In a search request, you can ask for only certain fields by specifying the
+<code class="literal">_source</code> parameter in the request body:</p>
+<div class="pre_wrapper lang-sense">
+<pre class="programlisting prettyprint lang-sense">GET /_search
+{
+    "query":   { "match_all": {}},
+    "_source": [ "title", "created" ]
+}</pre>
+</div>
+<div class="sense_widget" data-snippet="snippets/070_Index_Mgmt/31_Source_field.json"></div>
+<p>Values for these fields will be extracted from the <code class="literal">_source</code> field and
+returned instead of the full <code class="literal">_source</code>.</p>
+<div class="sidebar">
+<div class="titlepage"><div><div>
+<p class="title"><strong>Stored Fields</strong></p>
+</div></div></div>
+<p>Besides indexing the values of a field, you can also choose to <code class="literal">store</code> the
+original field value for later retrieval. Users with a Lucene background use
+stored fields to choose which fields they would like to be able to return in
+their search results. In fact, the <code class="literal">_source</code> field is a stored field.</p>
+<p>In Elasticsearch, setting individual document fields to be stored is usually a
+false optimization. The whole document is already stored as the <code class="literal">_source</code>
+field. It is almost always better to just extract the fields that you need
+by using the <code class="literal">_source</code> parameter.</p>
+</div>
+</div>
+
+<div class="section">
+<div class="titlepage"><div><div>
+<h3 class="title">
+<a id="all-field"></a>Metadata: _all Field<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/070_Index_Mgmt/32_Metadata_all.asciidoc">edit</a>
+</h3>
+</div></div></div>
+<p>In <a class="xref" href="search-lite.html" title="Search Lite">Search <em>Lite</em></a>, we introduced the <code class="literal">_all</code> field: a special field that
+indexes the values from all other fields as one big string. The <code class="literal">query_string</code>
+query clause (and searches performed as <code class="literal">?q=john</code>) defaults to searching in
+the <code class="literal">_all</code> field if no other field is specified.</p>
+<p>The <code class="literal">_all</code> field is useful during the exploratory phase of a new application,
+while you are still unsure about the final structure that your documents will
+have. You can throw any query string at it and you have a good chance of
+finding the document you’re after:</p>
+<div class="pre_wrapper lang-js">
+<pre class="programlisting prettyprint lang-js">GET /_search
+{
+    "match": {
+        "_all": "john smith marketing"
+    }
+}</pre>
+</div>
+<p>As your application evolves and your search requirements become more exacting,
+you will find yourself using the <code class="literal">_all</code> field less and less. The <code class="literal">_all</code> field
+is a shotgun approach to search. By querying individual fields, you have more
+flexbility, power, and fine-grained control over which results are considered
+to be most relevant.</p>
+<div class="note admon">
+<div class="icon"></div>
+<div class="admon_content">
+<p>One of the important factors taken into account by the
+<a class="xref" href="relevance-intro.html" title="What Is Relevance?">relevance algorithm</a>
+is the length of the field: the shorter the field, the more important. A term
+that appears in a short <code class="literal">title</code> field is likely to be more important than the
+same term that appears somewhere in a long <code class="literal">content</code> field. This distinction
+between field lengths disappears in the <code class="literal">_all</code> field.</p>
+</div>
+</div>
+<p>If you decide that you no longer need the <code class="literal">_all</code> field, you can disable it
+with this mapping:</p>
+<div class="pre_wrapper lang-js">
+<pre class="programlisting prettyprint lang-js">PUT /my_index/_mapping/my_type
+{
+    "my_type": {
+        "_all": { "enabled": false }
+    }
+}</pre>
+</div>
+<p>Inclusion in the <code class="literal">_all</code> field can be controlled on a field-by-field basis
+by using the <code class="literal">include_in_all</code> setting, which defaults to <code class="literal">true</code>.  Setting
+<code class="literal">include_in_all</code> on an object (or on the root object) changes the
+default for all fields within that object.</p>
+<p>You may find that you want to keep the <code class="literal">_all</code> field around to use
+as a catchall full-text field just for specific fields, such as
+<code class="literal">title</code>, <code class="literal">overview</code>, <code class="literal">summary</code>, and <code class="literal">tags</code>. Instead of disabling the <code class="literal">_all</code>
+field completely, disable <code class="literal">include_in_all</code> for all fields by default,
+and enable it only on the fields you choose:</p>
+<div class="pre_wrapper lang-js">
+<pre class="programlisting prettyprint lang-js">PUT /my_index/my_type/_mapping
+{
+    "my_type": {
+        "include_in_all": false,
+        "properties": {
+            "title": {
+                "type":           "string",
+                "include_in_all": true
+            },
+            ...
+        }
+    }
+}</pre>
+</div>
+<p>Remember that the <code class="literal">_all</code> field is just an analyzed <code class="literal">string</code> field.  It
+uses the default analyzer to analyze its values, regardless of which
+analyzer has been set on the fields where the values originate.  And
+like any <code class="literal">string</code> field, you can configure which analyzer the <code class="literal">_all</code>
+field should use:</p>
+<div class="pre_wrapper lang-js">
+<pre class="programlisting prettyprint lang-js">PUT /my_index/my_type/_mapping
+{
+    "my_type": {
+        "_all": { "analyzer": "whitespace" }
+    }
+}</pre>
+</div>
+</div>
+
+<div class="section">
+<div class="titlepage"><div><div>
+<h3 class="title">
+<a id="_metadata_document_identity"></a>Metadata: Document Identity<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/070_Index_Mgmt/33_Metadata_ID.asciidoc">edit</a>
+</h3>
+</div></div></div>
+<p>There are four metadata fields associated with document identity:</p>
+<div class="variablelist">
+<dl class="variablelist">
+<dt>
+<span class="term">
+<code class="literal">_id</code>
+</span>
+</dt>
+<dd>
+The string ID of the document
+</dd>
+<dt>
+<span class="term">
+<code class="literal">_type</code>
+</span>
+</dt>
+<dd>
+The type name of the document
+</dd>
+<dt>
+<span class="term">
+<code class="literal">_index</code>
+</span>
+</dt>
+<dd>
+The index where the document lives
+</dd>
+<dt>
+<span class="term">
+<code class="literal">_uid</code>
+</span>
+</dt>
+<dd>
+The <code class="literal">_type</code> and <code class="literal">_id</code> concatenated together as <code class="literal">type#id</code>
+</dd>
+</dl>
+</div>
+<p>By default, the <code class="literal">_uid</code> field is stored (can be retrieved) and
+indexed (searchable).  The <code class="literal">_type</code> field is indexed but not stored,
+and the <code class="literal">_id</code> and <code class="literal">_index</code> fields are neither indexed nor stored, meaning
+they don’t really exist.</p>
+<p>In spite of this, you can query the <code class="literal">_id</code> field as though it were a real
+field.  Elasticsearch uses the <code class="literal">_uid</code> field to derive the <code class="literal">_id</code>. Although you
+can change the <code class="literal">index</code> and <code class="literal">store</code> settings for these fields, you almost
+never need to do so.</p>
+</div>
+
+</div>
+<div class="navfooter">
+<span class="prev">
+<a href="mapping.html">« Types and Mappings</a>
+</span>
+<span class="next">
+<a href="dynamic-mapping.html">Dynamic Mapping »</a>
+</span>
+</div>
+</div>
+
+                  <!-- end body -->
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4" id="right_col">
+                  <div id="rtpcontainer" style="display: block;">
+                    <div class="mktg-promo">
+                      <h3>Most Popular</h3>
+                      <ul class="icons">
+                        <li class="icon-elasticsearch-white"><a href="https://www.elastic.co/webinars/getting-started-elasticsearch?baymax=default&amp;elektra=docs&amp;storm=top-video">Get Started with Elasticsearch: Video</a></li>
+                        <li class="icon-kibana-white"><a href="https://www.elastic.co/webinars/getting-started-kibana?baymax=default&amp;elektra=docs&amp;storm=top-video">Intro to Kibana: Video</a></li>
+                        <li class="icon-logstash-white"><a href="https://www.elastic.co/webinars/introduction-elk-stack?baymax=default&amp;elektra=docs&amp;storm=top-video">ELK for Logs &amp; Metrics: Video</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+
+<div id="elastic-footer"></div>
+<script src="https://www.elastic.co/elastic-footer.js"></script>
+<!-- Footer Section end-->
+
+      </section>
+    </div>
+
+<script src="/guide/static/jquery.js"></script>
+<script type="text/javascript" src="/guide/static/docs.js"></script>
+<script type="text/javascript">
+  window.initial_state = {}</script>
+  </body>
+</html>

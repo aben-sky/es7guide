@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+<meta charset="UTF-8">
+<title>Partial Updates to Documents | Elasticsearch: The Definitive Guide [2.x] | Elastic</title>
+<link rel="home" href="index.html" title="Elasticsearch: The Definitive Guide [2.x]">
+<link rel="up" href="data-in-data-out.html" title="Data In, Data Out">
+<link rel="prev" href="optimistic-concurrency-control.html" title="Optimistic Concurrency Control">
+<link rel="next" href="_retrieving_multiple_documents.html" title="Retrieving Multiple Documents">
+<meta name="DC.type" content="Learn/Docs/Legacy/Elasticsearch/Definitive Guide/2.x">
+<meta name="DC.subject" content="Elasticsearch">
+<meta name="DC.identifier" content="2.x">
+<meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.optimizely.com/js/18132920325.js"></script>
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-title" content="Elastic">
+    <meta name="application-name" content="Elastic">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="naver-site-verification" content="936882c1853b701b3cef3721758d80535413dbfd">
+    <meta name="yandex-verification" content="d8a47e95d0972434">
+    <meta name="localized" content="true">
+    <meta name="st:robots" content="follow,index">
+    <meta property="og:image" content="https://www.elastic.co/static/images/elastic-logo-200.png">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon-precomposed" sizes="64x64" href="/favicon_64x64_16bit.png">
+    <link rel="apple-touch-icon-precomposed" sizes="32x32" href="/favicon_32x32.png">
+    <link rel="apple-touch-icon-precomposed" sizes="16x16" href="/favicon_16x16.png">
+    <!-- Give IE8 a fighting chance -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/guide/static/styles.css">
+  </head>
+
+  <!--© 2015-2021 Elasticsearch B.V. Copying, publishing and/or distributing without written permission is strictly prohibited.-->
+
+  <body>
+    <!-- Google Tag Manager -->
+    <script>dataLayer = [];</script><noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-58RLH5" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-58RLH5');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-12395217-16"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-12395217-16');
+    </script>
+
+    <!--BEGIN QUALTRICS WEBSITE FEEDBACK SNIPPET-->
+    <script type="text/javascript">
+      (function(){var g=function(e,h,f,g){
+      this.get=function(a){for(var a=a+"=",c=document.cookie.split(";"),b=0,e=c.length;b<e;b++){for(var d=c[b];" "==d.charAt(0);)d=d.substring(1,d.length);if(0==d.indexOf(a))return d.substring(a.length,d.length)}return null};
+      this.set=function(a,c){var b="",b=new Date;b.setTime(b.getTime()+6048E5);b="; expires="+b.toGMTString();document.cookie=a+"="+c+b+"; path=/; "};
+      this.check=function(){var a=this.get(f);if(a)a=a.split(":");else if(100!=e)"v"==h&&(e=Math.random()>=e/100?0:100),a=[h,e,0],this.set(f,a.join(":"));else return!0;var c=a[1];if(100==c)return!0;switch(a[0]){case "v":return!1;case "r":return c=a[2]%Math.floor(100/c),a[2]++,this.set(f,a.join(":")),!c}return!0};
+      this.go=function(){if(this.check()){var a=document.createElement("script");a.type="text/javascript";a.src=g;document.body&&document.body.appendChild(a)}};
+      this.start=function(){var a=this;window.addEventListener?window.addEventListener("load",function(){a.go()},!1):window.attachEvent&&window.attachEvent("onload",function(){a.go()})}};
+      try{(new g(100,"r","QSI_S_ZN_emkP0oSe9Qrn7kF","https://znemkp0ose9qrn7kf-elastic.siteintercept.qualtrics.com/WRSiteInterceptEngine/?Q_ZID=ZN_emkP0oSe9Qrn7kF")).start()}catch(i){}})();
+    </script><div id="ZN_emkP0oSe9Qrn7kF"><!--DO NOT REMOVE-CONTENTS PLACED HERE--></div>
+    <!--END WEBSITE FEEDBACK SNIPPET-->
+
+    <div id="elastic-nav" style="display:none;"></div>
+    <script src="https://www.elastic.co/elastic-nav.js"></script>
+
+    <!-- Subnav -->
+    <div>
+      <div>
+        <div class="tertiary-nav d-none d-md-block">
+          <div class="container">
+            <div class="p-t-b-15 d-flex justify-content-between nav-container">
+              <div class="breadcrum-wrapper"><span><a href="/guide/" style="font-size: 14px; font-weight: 600; color: #000;">Docs</a></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-container">
+      <section id="content">
+        <div class="content-wrapper">
+
+          <section id="guide" lang="en">
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
+                  <!-- start body -->
+                  <div class="page_header">
+<p>
+  <strong>WARNING</strong>: The 2.x versions of Elasticsearch have passed their
+  <a href="https://www.elastic.co/support/eol">EOL dates</a>. If you are running
+  a 2.x version, we strongly advise you to upgrade.
+</p>
+<p>
+  This documentation is no longer maintained and may be removed. For the latest
+  information, see the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html">current
+  Elasticsearch documentation</a>.
+</p>
+</div>
+<div id="content">
+<div class="breadcrumbs">
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch: The Definitive Guide [2.x]</a></span>
+»
+<span class="breadcrumb-link"><a href="getting-started.html">Getting Started</a></span>
+»
+<span class="breadcrumb-link"><a href="data-in-data-out.html">Data In, Data Out</a></span>
+»
+<span class="breadcrumb-node">Partial Updates to Documents</span>
+</div>
+<div class="navheader">
+<span class="prev">
+<a href="optimistic-concurrency-control.html">« Optimistic Concurrency Control</a>
+</span>
+<span class="next">
+<a href="_retrieving_multiple_documents.html">Retrieving Multiple Documents »</a>
+</span>
+</div>
+<div class="section">
+<div class="titlepage"><div><div>
+<h2 class="title">
+<a id="partial-updates"></a>Partial Updates to Documents<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/030_Data/45_Partial_update.asciidoc">edit</a>
+</h2>
+</div></div></div>
+<p>In <a class="xref" href="update-doc.html" title="Updating a Whole Document">Updating a Whole Document</a>, we said that the way to update a document is to retrieve
+it, change it, and then reindex the whole document. This is true. However, using
+the <code class="literal">update</code> API, we can make partial updates like incrementing a counter in a
+single request.</p>
+<p>We also said that documents are immutable: they cannot be changed, only
+replaced.  The <code class="literal">update</code> API <em>must</em> obey the same rules.  Externally, it
+appears as though we are partially updating a document in place. Internally,
+however, the <code class="literal">update</code> API simply manages the same <em>retrieve-change-reindex</em>
+process that we have already described. The difference is that this process
+happens within a shard, thus avoiding the network overhead of multiple
+requests. By reducing the time between the <em>retrieve</em> and <em>reindex</em> steps, we
+also reduce the likelihood of there being conflicting changes from other
+processes.</p>
+<p>The simplest form of the <code class="literal">update</code> request accepts a partial document as the
+<code class="literal">doc</code> parameter, which just gets merged with the existing document. Objects
+are merged together, existing scalar fields are overwritten, and new fields are
+added. For instance, we could add a <code class="literal">tags</code> field and a <code class="literal">views</code> field to our
+blog post as follows:</p>
+<div class="pre_wrapper lang-sense">
+<pre class="programlisting prettyprint lang-sense">POST /website/blog/1/_update
+{
+   "doc" : {
+      "tags" : [ "testing" ],
+      "views": 0
+   }
+}</pre>
+</div>
+<div class="sense_widget" data-snippet="snippets/030_Data/45_Partial_update.json"></div>
+<p>If the request succeeds, we see a response similar to that
+of the <code class="literal">index</code> request:</p>
+<div class="pre_wrapper lang-js">
+<pre class="programlisting prettyprint lang-js">{
+   "_index" :   "website",
+   "_id" :      "1",
+   "_type" :    "blog",
+   "_version" : 3
+}</pre>
+</div>
+<p>Retrieving the document shows the updated <code class="literal">_source</code> field:</p>
+<div class="pre_wrapper lang-sense">
+<pre class="programlisting prettyprint lang-sense">{
+   "_index":    "website",
+   "_type":     "blog",
+   "_id":       "1",
+   "_version":  3,
+   "found":     true,
+   "_source": {
+      "title":  "My first blog entry",
+      "text":   "Starting to get the hang of this...",
+      "tags": [ "testing" ], <a id="CO12-1"></a><i class="conum" data-value="1"></i>
+      "views":  0 <a id="CO12-2"></a><i class="conum" data-value="1"></i>
+   }
+}</pre>
+</div>
+<div class="sense_widget" data-snippet="snippets/030_Data/45_Partial_update.json"></div>
+<div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td align="left" valign="top" width="5%">
+<p><a href="#CO12-1"><i class="conum" data-value="1"></i></a><a href="#CO12-2"></a></p>
+</td>
+<td align="left" valign="top">
+<p>Our new fields have been added to the <code class="literal">_source</code>.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="section">
+<div class="titlepage"><div><div>
+<h3 class="title">
+<a id="_using_scripts_to_make_partial_updates"></a>Using Scripts to Make Partial Updates<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/030_Data/45_Partial_update.asciidoc">edit</a>
+</h3>
+</div></div></div>
+<p>Scripts can be used in the <code class="literal">update</code> API to change the contents of the <code class="literal">_source</code>
+field, which is referred to inside an update script as <code class="literal">ctx._source</code>. For
+instance, we could use a script to increment the number of <code class="literal">views</code> that our
+blog post has had:</p>
+<div class="pre_wrapper lang-sense">
+<pre class="programlisting prettyprint lang-sense">POST /website/blog/1/_update
+{
+   "script" : "ctx._source.views+=1"
+}</pre>
+</div>
+<div class="sense_widget" data-snippet="snippets/030_Data/45_Partial_update.json"></div>
+<div class="sidebar">
+<div class="titlepage"><div><div>
+<p class="title"><strong>Scripting with Groovy</strong></p>
+</div></div></div>
+<p>For those moments when the API just isn’t enough, Elasticsearch allows you to
+write your own custom logic in a script. Scripting is supported in many APIs
+including search, sorting, aggregations, and document updates. Scripts can be passed in as part of the request,
+retrieved from the special .scripts index, or loaded from disk.</p>
+<p>The default scripting language is <a href="http://groovy.codehaus.org/" class="ulink" target="_top">Groovy</a>, a
+fast and expressive scripting language, similar in syntax to JavaScript. It was first introduced
+in Elasticsearch version v1.3.0 and it runs in a <em>sandbox</em>, however there is vulnerability
+in the Groovy scripting engine that allows an attacker to construct
+Groovy scripts that escape the sandbox and execute shell commands as the user
+running the Elasticsearch Java VM.</p>
+<p>Therefore in versions v1.3.8, v1.4.3, and version v1.5.0 and newer it has been disabled by default.
+Alternatively you can disable dynamic Groovy scripts by
+adding this setting to the <code class="literal">config/elasticsearch.yml</code> file in all nodes in the
+cluster:</p>
+<div class="pre_wrapper lang-yaml">
+<pre class="programlisting prettyprint lang-yaml">script.groovy.sandbox.enabled: false</pre>
+</div>
+<p>This will turn off the Groovy sandbox, thus preventing dynamic Groovy scripts
+from being accepted as part of a request or retrieved from the special
+<code class="literal">.scripts</code> index. You will still be able to use Groovy scripts stored in files
+in the <code class="literal">config/scripts/</code> directory on every node.</p>
+<p>If your architecture and security is one that does not need worry about the vulnerability,
+for example your Elasticsearch endpoints are only exposed and available to trusted applications,
+then you can choose to re-enable the dynamic scripting if it is a feature your application needs.</p>
+<p>You can read more about scripting in the
+<a href="/guide/en/elasticsearch/reference/2.4/modules-scripting.html" class="ulink" target="_top">scripting reference documentation</a>.</p>
+</div>
+<p>We can also use a script to add a new tag to the <code class="literal">tags</code> array.  In this
+example we specify the new tag as a parameter rather than hardcoding it in
+the script itself. This allows Elasticsearch to reuse the script in the
+future, without having to compile a new script every time we want to add
+another tag:</p>
+<div class="pre_wrapper lang-sense">
+<pre class="programlisting prettyprint lang-sense">POST website/blog/1/_update
+{
+  "script": {
+    "lang": "painless",
+    "inline": "ctx._source.tags.add(params.tags)",
+    "params": {
+      "tags": "search"
+    }
+  }
+}</pre>
+</div>
+<div class="sense_widget" data-snippet="snippets/030_Data/45_Partial_update.json"></div>
+<p>Fetching the document shows the effect of the last two requests:</p>
+<div class="pre_wrapper lang-js">
+<pre class="programlisting prettyprint lang-js">{
+   "_index":    "website",
+   "_type":     "blog",
+   "_id":       "1",
+   "_version":  5,
+   "found":     true,
+   "_source": {
+      "title":  "My first blog entry",
+      "text":   "Starting to get the hang of this...",
+      "tags":  ["testing", "search"], <a id="CO13-1"></a><i class="conum" data-value="1"></i>
+      "views":  1 <a id="CO13-2"></a><i class="conum" data-value="2"></i>
+   }
+}</pre>
+</div>
+<div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td align="left" valign="top" width="5%">
+<p><a href="#CO13-1"><i class="conum" data-value="1"></i></a></p>
+</td>
+<td align="left" valign="top">
+<p>The <code class="literal">search</code> tag has been appended to the <code class="literal">tags</code> array.</p>
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" width="5%">
+<p><a href="#CO13-2"><i class="conum" data-value="2"></i></a></p>
+</td>
+<td align="left" valign="top">
+<p>The <code class="literal">views</code> field has been incremented.</p>
+</td>
+</tr>
+</table>
+</div>
+<p>We can even choose to delete a document based on its contents,
+by setting <code class="literal">ctx.op</code> to <code class="literal">delete</code>:</p>
+<div class="pre_wrapper lang-sense">
+<pre class="programlisting prettyprint lang-sense">POST /website/blog/1/_update
+{
+   "script" : "ctx.op = ctx._source.views == count ? 'delete' : 'none'",
+    "params" : {
+        "count": 1
+    }
+}</pre>
+</div>
+<div class="sense_widget" data-snippet="snippets/030_Data/45_Partial_update.json"></div>
+</div>
+
+<div class="section">
+<div class="titlepage"><div><div>
+<h3 class="title">
+<a id="_updating_a_document_that_may_not_yet_exist"></a>Updating a Document That May Not Yet Exist<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/030_Data/45_Partial_update.asciidoc">edit</a>
+</h3>
+</div></div></div>
+<p>Imagine that we need to store a page view counter in Elasticsearch. Every time
+that a user views a page, we increment the counter for that page.  But if it
+is a new page, we can’t be sure that the counter already exists. If we try to
+update a nonexistent document, the update will fail.</p>
+<p>In cases like these, we can use the <code class="literal">upsert</code> parameter to specify the
+document that should be created if it doesn’t already exist:</p>
+<div class="pre_wrapper lang-sense">
+<pre class="programlisting prettyprint lang-sense">POST /website/pageviews/1/_update
+{
+   "script" : "ctx._source.views+=1",
+   "upsert": {
+       "views": 1
+   }
+}</pre>
+</div>
+<div class="sense_widget" data-snippet="snippets/030_Data/45_Upsert.json"></div>
+<p>The first time we run this request, the <code class="literal">upsert</code> value is indexed as a new
+document, which  initializes the <code class="literal">views</code> field to <code class="literal">1</code>. On subsequent runs, the
+document already exists, so the <code class="literal">script</code> update is applied instead,
+incrementing the <code class="literal">views</code> counter.</p>
+</div>
+
+<div class="section">
+<div class="titlepage"><div><div>
+<h3 class="title">
+<a id="_updates_and_conflicts"></a>Updates and Conflicts<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/030_Data/45_Partial_update.asciidoc">edit</a>
+</h3>
+</div></div></div>
+<p>In the introduction to this section, we said that the smaller the window between
+the <em>retrieve</em> and <em>reindex</em> steps, the smaller the opportunity for
+conflicting changes. But it doesn’t eliminate the possibility completely. It
+is still possible that a request from another process could change the
+document before <code class="literal">update</code> has managed to reindex it.</p>
+<p>To avoid losing data, the <code class="literal">update</code> API retrieves the current <code class="literal">_version</code>
+of the document in the <em>retrieve</em> step, and passes that to the <code class="literal">index</code> request
+during the <em>reindex</em> step.
+If another process has changed the document between retrieve and reindex,
+then the <code class="literal">_version</code> number won’t match and the update request will fail.</p>
+<p>For many uses of partial update, it doesn’t matter that a document has been
+changed.  For instance, if two processes are both incrementing the page-view counter, it doesn’t matter in which order it happens; if a conflict
+occurs, the only thing we need to do is reattempt the update.</p>
+<p>This can be done automatically by setting the <code class="literal">retry_on_conflict</code> parameter to
+the number of times that <code class="literal">update</code> should retry before failing; it defaults
+to <code class="literal">0</code>.</p>
+<div class="pre_wrapper lang-sense">
+<pre class="programlisting prettyprint lang-sense">POST /website/pageviews/1/_update?retry_on_conflict=5 <a id="CO14-1"></a><i class="conum" data-value="1"></i>
+{
+   "script" : "ctx._source.views+=1",
+   "upsert": {
+       "views": 0
+   }
+}</pre>
+</div>
+<div class="sense_widget" data-snippet="snippets/030_Data/45_Upsert.json"></div>
+<div class="calloutlist">
+<table border="0" summary="Callout list">
+<tr>
+<td align="left" valign="top" width="5%">
+<p><a href="#CO14-1"><i class="conum" data-value="1"></i></a></p>
+</td>
+<td align="left" valign="top">
+<p>Retry this update five times before failing.</p>
+</td>
+</tr>
+</table>
+</div>
+<p>This works well for operations such as incrementing a counter, where the order of
+increments does not matter, but in other situations the order of
+changes <em>is</em> important. Like the <a class="xref" href="index-doc.html" title="Indexing a Document"><code class="literal">index</code> API</a>, the <code class="literal">update</code> API
+adopts a <em>last-write-wins</em> approach by default, but it also accepts a
+<code class="literal">version</code> parameter that allows you to use
+<a class="xref" href="optimistic-concurrency-control.html" title="Optimistic Concurrency Control">optimistic concurrency control</a> to specify
+which version of the document you intend to update.</p>
+</div>
+
+</div>
+<div class="navfooter">
+<span class="prev">
+<a href="optimistic-concurrency-control.html">« Optimistic Concurrency Control</a>
+</span>
+<span class="next">
+<a href="_retrieving_multiple_documents.html">Retrieving Multiple Documents »</a>
+</span>
+</div>
+</div>
+
+                  <!-- end body -->
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4" id="right_col">
+                  <div id="rtpcontainer" style="display: block;">
+                    <div class="mktg-promo">
+                      <h3>Most Popular</h3>
+                      <ul class="icons">
+                        <li class="icon-elasticsearch-white"><a href="https://www.elastic.co/webinars/getting-started-elasticsearch?baymax=default&amp;elektra=docs&amp;storm=top-video">Get Started with Elasticsearch: Video</a></li>
+                        <li class="icon-kibana-white"><a href="https://www.elastic.co/webinars/getting-started-kibana?baymax=default&amp;elektra=docs&amp;storm=top-video">Intro to Kibana: Video</a></li>
+                        <li class="icon-logstash-white"><a href="https://www.elastic.co/webinars/introduction-elk-stack?baymax=default&amp;elektra=docs&amp;storm=top-video">ELK for Logs &amp; Metrics: Video</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+
+<div id="elastic-footer"></div>
+<script src="https://www.elastic.co/elastic-footer.js"></script>
+<!-- Footer Section end-->
+
+      </section>
+    </div>
+
+<script src="/guide/static/jquery.js"></script>
+<script type="text/javascript" src="/guide/static/docs.js"></script>
+<script type="text/javascript">
+  window.initial_state = {}</script>
+  </body>
+</html>

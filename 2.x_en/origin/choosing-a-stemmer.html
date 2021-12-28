@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+<meta charset="UTF-8">
+<title>Choosing a Stemmer | Elasticsearch: The Definitive Guide [2.x] | Elastic</title>
+<link rel="home" href="index.html" title="Elasticsearch: The Definitive Guide [2.x]">
+<link rel="up" href="stemming.html" title="Reducing Words to Their Root Form">
+<link rel="prev" href="hunspell.html" title="Hunspell Stemmer">
+<link rel="next" href="controlling-stemming.html" title="Controlling Stemming">
+<meta name="DC.type" content="Learn/Docs/Legacy/Elasticsearch/Definitive Guide/2.x">
+<meta name="DC.subject" content="Elasticsearch">
+<meta name="DC.identifier" content="2.x">
+<meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.optimizely.com/js/18132920325.js"></script>
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-title" content="Elastic">
+    <meta name="application-name" content="Elastic">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="naver-site-verification" content="936882c1853b701b3cef3721758d80535413dbfd">
+    <meta name="yandex-verification" content="d8a47e95d0972434">
+    <meta name="localized" content="true">
+    <meta name="st:robots" content="follow,index">
+    <meta property="og:image" content="https://www.elastic.co/static/images/elastic-logo-200.png">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon-precomposed" sizes="64x64" href="/favicon_64x64_16bit.png">
+    <link rel="apple-touch-icon-precomposed" sizes="32x32" href="/favicon_32x32.png">
+    <link rel="apple-touch-icon-precomposed" sizes="16x16" href="/favicon_16x16.png">
+    <!-- Give IE8 a fighting chance -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/guide/static/styles.css">
+  </head>
+
+  <!--© 2015-2021 Elasticsearch B.V. Copying, publishing and/or distributing without written permission is strictly prohibited.-->
+
+  <body>
+    <!-- Google Tag Manager -->
+    <script>dataLayer = [];</script><noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-58RLH5" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-58RLH5');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-12395217-16"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-12395217-16');
+    </script>
+
+    <!--BEGIN QUALTRICS WEBSITE FEEDBACK SNIPPET-->
+    <script type="text/javascript">
+      (function(){var g=function(e,h,f,g){
+      this.get=function(a){for(var a=a+"=",c=document.cookie.split(";"),b=0,e=c.length;b<e;b++){for(var d=c[b];" "==d.charAt(0);)d=d.substring(1,d.length);if(0==d.indexOf(a))return d.substring(a.length,d.length)}return null};
+      this.set=function(a,c){var b="",b=new Date;b.setTime(b.getTime()+6048E5);b="; expires="+b.toGMTString();document.cookie=a+"="+c+b+"; path=/; "};
+      this.check=function(){var a=this.get(f);if(a)a=a.split(":");else if(100!=e)"v"==h&&(e=Math.random()>=e/100?0:100),a=[h,e,0],this.set(f,a.join(":"));else return!0;var c=a[1];if(100==c)return!0;switch(a[0]){case "v":return!1;case "r":return c=a[2]%Math.floor(100/c),a[2]++,this.set(f,a.join(":")),!c}return!0};
+      this.go=function(){if(this.check()){var a=document.createElement("script");a.type="text/javascript";a.src=g;document.body&&document.body.appendChild(a)}};
+      this.start=function(){var a=this;window.addEventListener?window.addEventListener("load",function(){a.go()},!1):window.attachEvent&&window.attachEvent("onload",function(){a.go()})}};
+      try{(new g(100,"r","QSI_S_ZN_emkP0oSe9Qrn7kF","https://znemkp0ose9qrn7kf-elastic.siteintercept.qualtrics.com/WRSiteInterceptEngine/?Q_ZID=ZN_emkP0oSe9Qrn7kF")).start()}catch(i){}})();
+    </script><div id="ZN_emkP0oSe9Qrn7kF"><!--DO NOT REMOVE-CONTENTS PLACED HERE--></div>
+    <!--END WEBSITE FEEDBACK SNIPPET-->
+
+    <div id="elastic-nav" style="display:none;"></div>
+    <script src="https://www.elastic.co/elastic-nav.js"></script>
+
+    <!-- Subnav -->
+    <div>
+      <div>
+        <div class="tertiary-nav d-none d-md-block">
+          <div class="container">
+            <div class="p-t-b-15 d-flex justify-content-between nav-container">
+              <div class="breadcrum-wrapper"><span><a href="/guide/" style="font-size: 14px; font-weight: 600; color: #000;">Docs</a></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-container">
+      <section id="content">
+        <div class="content-wrapper">
+
+          <section id="guide" lang="en">
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
+                  <!-- start body -->
+                  <div class="page_header">
+<p>
+  <strong>WARNING</strong>: The 2.x versions of Elasticsearch have passed their
+  <a href="https://www.elastic.co/support/eol">EOL dates</a>. If you are running
+  a 2.x version, we strongly advise you to upgrade.
+</p>
+<p>
+  This documentation is no longer maintained and may be removed. For the latest
+  information, see the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html">current
+  Elasticsearch documentation</a>.
+</p>
+</div>
+<div id="content">
+<div class="breadcrumbs">
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch: The Definitive Guide [2.x]</a></span>
+»
+<span class="breadcrumb-link"><a href="languages.html">Dealing with Human Language</a></span>
+»
+<span class="breadcrumb-link"><a href="stemming.html">Reducing Words to Their Root Form</a></span>
+»
+<span class="breadcrumb-node">Choosing a Stemmer</span>
+</div>
+<div class="navheader">
+<span class="prev">
+<a href="hunspell.html">« Hunspell Stemmer</a>
+</span>
+<span class="next">
+<a href="controlling-stemming.html">Controlling Stemming »</a>
+</span>
+</div>
+<div class="section">
+<div class="titlepage"><div><div>
+<h2 class="title">
+<a id="choosing-a-stemmer"></a>Choosing a Stemmer<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/230_Stemming/40_Choosing_a_stemmer.asciidoc">edit</a>
+</h2>
+</div></div></div>
+<p>The documentation for the
+<a href="/guide/en/elasticsearch/reference/2.4/analysis-stemmer-tokenfilter.html" class="ulink" target="_top"><code class="literal">stemmer</code></a> token filter
+lists multiple stemmers for some languages.  For English we have the following:</p>
+<div class="variablelist">
+<dl class="variablelist">
+<dt>
+<span class="term">
+<code class="literal">english</code>
+</span>
+</dt>
+<dd>
+The <a href="/guide/en/elasticsearch/reference/2.4/analysis-porterstem-tokenfilter.html" class="ulink" target="_top"><code class="literal">porter_stem</code></a> token filter.
+</dd>
+<dt>
+<span class="term">
+<code class="literal">light_english</code>
+</span>
+</dt>
+<dd>
+The <a href="/guide/en/elasticsearch/reference/2.4/analysis-kstem-tokenfilter.html" class="ulink" target="_top"><code class="literal">kstem</code></a> token filter.
+</dd>
+<dt>
+<span class="term">
+<code class="literal">minimal_english</code>
+</span>
+</dt>
+<dd>
+The <code class="literal">EnglishMinimalStemmer</code> in Lucene, which removes plurals
+</dd>
+<dt>
+<span class="term">
+<code class="literal">lovins</code>
+</span>
+</dt>
+<dd>
+The <a href="/guide/en/elasticsearch/reference/2.4/analysis-snowball-tokenfilter.html" class="ulink" target="_top">Snowball</a> based
+<a href="http://snowball.tartarus.org/algorithms/lovins/stemmer.html" class="ulink" target="_top">Lovins</a>
+stemmer, the first stemmer ever produced.
+</dd>
+<dt>
+<span class="term">
+<code class="literal">porter</code>
+</span>
+</dt>
+<dd>
+The <a href="/guide/en/elasticsearch/reference/2.4/analysis-snowball-tokenfilter.html" class="ulink" target="_top">Snowball</a> based
+<a href="http://snowball.tartarus.org/algorithms/porter/stemmer.html" class="ulink" target="_top">Porter</a> stemmer
+</dd>
+<dt>
+<span class="term">
+<code class="literal">porter2</code>
+</span>
+</dt>
+<dd>
+The <a href="/guide/en/elasticsearch/reference/2.4/analysis-snowball-tokenfilter.html" class="ulink" target="_top">Snowball</a> based
+<a href="http://snowball.tartarus.org/algorithms/english/stemmer.html" class="ulink" target="_top">Porter2</a> stemmer
+</dd>
+<dt>
+<span class="term">
+<code class="literal">possessive_english</code>
+</span>
+</dt>
+<dd>
+The <code class="literal">EnglishPossessiveFilter</code> in Lucene which removes <code class="literal">'s</code>
+</dd>
+</dl>
+</div>
+<p>Add to that list the Hunspell stemmer with the various English dictionaries
+that are available.</p>
+<p>One thing is for sure: whenever more than one solution exists for a problem,
+it means that none of the solutions solves the problem adequately. This
+certainly applies to stemming — each stemmer uses a different approach that
+overstems and understems words to a different degree.</p>
+<p>The <code class="literal">stemmer</code> documentation page highlights the recommended stemmer for
+each language in bold, usually because it offers a reasonable compromise
+between performance and quality. That said, the recommended stemmer may not be
+appropriate for all use cases. There is no single right answer to the question
+of which is the best stemmer — it depends very much on your requirements.
+There are three factors to take into account when making a choice:
+performance, quality, and degree.</p>
+<div class="section">
+<div class="titlepage"><div><div>
+<h3 class="title">
+<a id="stemmer-performance"></a>Stemmer Performance<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/230_Stemming/40_Choosing_a_stemmer.asciidoc">edit</a>
+</h3>
+</div></div></div>
+<p>Algorithmic stemmers are typically four or five times faster than Hunspell
+stemmers. “Handcrafted” algorithmic stemmers are usually, but not always,
+faster than their Snowball equivalents.  For instance, the <code class="literal">porter_stem</code> token
+filter is significantly faster than the Snowball implementation of the Porter
+stemmer.</p>
+<p>Hunspell stemmers have to load all words, prefixes, and suffixes into memory,
+which can consume a few megabytes of RAM.  Algorithmic stemmers, on the other
+hand, consist of a small amount of code and consume very little memory.</p>
+</div>
+
+<div class="section">
+<div class="titlepage"><div><div>
+<h3 class="title">
+<a id="stemmer-quality"></a>Stemmer Quality<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/230_Stemming/40_Choosing_a_stemmer.asciidoc">edit</a>
+</h3>
+</div></div></div>
+<p>All languages, except Esperanto, are irregular. While more-formal words tend
+to follow a regular pattern, the most commonly used words often have irregular rules. Some stemming algorithms have been developed over years of
+research and produce reasonably high-quality results. Others have been
+assembled more quickly with less research and deal only with the most common
+cases.</p>
+<p>While Hunspell offers the promise of dealing precisely with irregular words,
+it often falls short in practice. A dictionary stemmer is only as good as its
+dictionary.   If Hunspell comes across a word that isn’t in its dictionary, it
+can do nothing with it. Hunspell requires an extensive, high-quality, up-to-date dictionary in order to produce good results; dictionaries of this
+caliber are few and far between. An algorithmic stemmer, on the other hand,
+will happily deal with new words that didn’t exist when the designer created
+the algorithm.</p>
+<p>If a good algorithmic stemmer is available for your language, it makes sense
+to use it rather than Hunspell.  It will be faster, will consume less memory, and
+will generally be as good or better than the Hunspell equivalent.</p>
+<p>If accuracy and customizability is important to you, and you need (and
+have the resources) to maintain a custom dictionary, then Hunspell gives you
+greater flexibility than the algorithmic stemmers. (See
+<a class="xref" href="controlling-stemming.html" title="Controlling Stemming">Controlling Stemming</a> for customization techniques that can be used with
+any stemmer.)</p>
+</div>
+
+<div class="section">
+<div class="titlepage"><div><div>
+<h3 class="title">
+<a id="stemmer-degree"></a>Stemmer Degree<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/230_Stemming/40_Choosing_a_stemmer.asciidoc">edit</a>
+</h3>
+</div></div></div>
+<p>Different stemmers overstem and understem to a different degree.  The <code class="literal">light_</code>
+stemmers stem less aggressively than the standard stemmers, and the <code class="literal">minimal_</code>
+stemmers less aggressively still.  Hunspell stems aggressively.</p>
+<p>Whether you want aggressive or light stemming depends on your use case.  If
+your search results are being consumed by a clustering algorithm, you may
+prefer to match more widely (and, thus, stem more aggressively).  If your
+search results are intended for human consumption, lighter stemming usually
+produces better results.  Stemming nouns and adjectives is more important for
+search than stemming verbs, but this also depends on the language.</p>
+<p>The other factor to take into account is the size of your document collection.
+With a small collection such as a catalog of 10,000 products, you probably want to
+stem more aggressively to ensure that you match at least some documents.  If
+your collection is large, you likely will get good matches with lighter
+stemming.</p>
+</div>
+
+<div class="section">
+<div class="titlepage"><div><div>
+<h3 class="title">
+<a id="_making_a_choice"></a>Making a Choice<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch-definitive-guide/edit/2.x/230_Stemming/40_Choosing_a_stemmer.asciidoc">edit</a>
+</h3>
+</div></div></div>
+<p>Start out with a recommended stemmer.  If it works well enough, there is
+no need to change it.  If it doesn’t, you will need to spend some time
+investigating and comparing the stemmers available for language in order to
+find the one that best suits your purposes.</p>
+</div>
+
+</div>
+<div class="navfooter">
+<span class="prev">
+<a href="hunspell.html">« Hunspell Stemmer</a>
+</span>
+<span class="next">
+<a href="controlling-stemming.html">Controlling Stemming »</a>
+</span>
+</div>
+</div>
+
+                  <!-- end body -->
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4" id="right_col">
+                  <div id="rtpcontainer" style="display: block;">
+                    <div class="mktg-promo">
+                      <h3>Most Popular</h3>
+                      <ul class="icons">
+                        <li class="icon-elasticsearch-white"><a href="https://www.elastic.co/webinars/getting-started-elasticsearch?baymax=default&amp;elektra=docs&amp;storm=top-video">Get Started with Elasticsearch: Video</a></li>
+                        <li class="icon-kibana-white"><a href="https://www.elastic.co/webinars/getting-started-kibana?baymax=default&amp;elektra=docs&amp;storm=top-video">Intro to Kibana: Video</a></li>
+                        <li class="icon-logstash-white"><a href="https://www.elastic.co/webinars/introduction-elk-stack?baymax=default&amp;elektra=docs&amp;storm=top-video">ELK for Logs &amp; Metrics: Video</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+
+<div id="elastic-footer"></div>
+<script src="https://www.elastic.co/elastic-footer.js"></script>
+<!-- Footer Section end-->
+
+      </section>
+    </div>
+
+<script src="/guide/static/jquery.js"></script>
+<script type="text/javascript" src="/guide/static/docs.js"></script>
+<script type="text/javascript">
+  window.initial_state = {}</script>
+  </body>
+</html>

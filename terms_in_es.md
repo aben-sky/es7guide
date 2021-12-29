@@ -23,6 +23,7 @@
 - long tail: 长尾
 - less-relevant: 次相关的
 - bigram phrase: 二元语法短语
+- most filds: 多数字段
 
 - unigram: 每一个单词
 - bigrams: 单词对. (前缀bi来自拉丁语bis, 意为twice)

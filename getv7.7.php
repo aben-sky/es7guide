@@ -311,6 +311,13 @@ function convertToLocalFiles($language = 'en') {
     }
 }
 
+//补充单个文件
+//getOriginalHtml('modules-snapshots.html');//抓取单个文档
+//convertToLocalFile('modules-snapshots.html', 'en');
+//convertToLocalFile('modules-snapshots.html', 'cn');
+//exit;
+
+
 //抓取原文档
 //getOriginalHtmls();
 

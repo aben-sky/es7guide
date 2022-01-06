@@ -52,7 +52,7 @@
 <a id="common-grams"></a>common_grams 过滤器<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/240_Stopwords/60_Common_grams.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p><code class="literal">common_grams</code> 过滤器是针对短语查询能更高效的使用停用词而设计的。 它与 shingles 过滤器类似（参见 查找相关词（<a class="xref" href="shingles.html" title="寻找相关词">寻找相关词</a>)), 为每个相邻词对生成 ，用示例解释更为容易。</p>
+<p><code class="literal">common_grams</code> 过滤器是针对短语查询能更高效的使用停用词而设计的。 它与 <code class="literal">shingles</code> 过滤器（参见 <a class="xref" href="shingles.html" title="寻找相关词">寻找相关词</a>) 类似, 为每个相邻词对生成 ，用示例解释更为容易。</p>
 <p><code class="literal">common_grams</code> 过滤器根据 <code class="literal">query_mode</code> 设置的不同而生成不同输出结果：<code class="literal">false</code> （为索引使用） 或 <code class="literal">true</code> （为搜索使用），所以我们必须创建两个独立的分析器：</p>
 <div class="pre_wrapper lang-json">
 <pre class="programlisting prettyprint lang-json">PUT /my_index
@@ -100,7 +100,7 @@
 <p><a href="#CO175-2"><i class="conum" data-value="2"></i></a><a href="#CO175-4"></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">common_words</code> 参数可以接受与 <code class="literal">stopwords</code> 参数同样的选项（参见 指定停用词 <a class="xref" href="using-stopwords.html#specifying-stopwords" title="指定停用词（Specifying Stopwords）">指定停用词（Specifying Stopwords）</a> ）。这个过滤器还可以接受参数 <code class="literal">common_words_path</code> ，使用存于文件里的常用词。</p>
+<p><code class="literal">common_words</code> 参数可以接受与 <code class="literal">stopwords</code> 参数同样的选项（见 <a class="xref" href="using-stopwords.html#specifying-stopwords" title="指定停用词（Specifying Stopwords）">指定停用词（Specifying Stopwords）</a> ）。这个过滤器还可以接受参数 <code class="literal">common_words_path</code> ，使用存于文件里的常用词。</p>
 </td>
 </tr>
 <tr>
@@ -144,7 +144,7 @@
 <a id="_索引时at_index_time"></a>索引时（At Index Time）<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/240_Stopwords/60_Common_grams.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>如果我们对短语  <em>The quick and brown fox</em> 进行拆分，它生成如下词项：</p>
+<p>如果我们对短语 <code class="word">The quick and brown fox</code> 进行拆分，它生成如下词项：</p>
 <div class="pre_wrapper lang-text">
 <pre class="programlisting prettyprint lang-text">Pos 1: the_quick
 Pos 2: quick_and
@@ -159,7 +159,7 @@ Pos 3: and, and_brown
 Pos 4: brown
 Pos 5: fox</pre>
 </div>
-<p>所有的词项都是以 <code class="literal">unigrams</code> 形式输出的（the、quick 等等），但是如果一个词本身是常用词或者跟随着常用词，那么它同时还会在 <code class="literal">unigram</code> 同样的位置以 <code class="literal">bigram</code> 形式输出：<code class="literal">the_quick</code> ， <code class="literal">quick_and</code> ， <code class="literal">and_brown</code> 。</p>
+<p>所有的词项都是以 <code class="literal">unigrams</code> 形式输出的（the、quick 等等），但是如果一个词本身是常用词或者跟随着常用词，那么它同时还会在 <code class="literal">unigram</code> 同样的位置以 <code class="literal">bigram</code> 形式输出：<code class="word">the_quick</code> ， <code class="word">quick_and</code> ， <code class="word">and_brown</code> 。</p>
 </div>
 
 <div class="section">
@@ -182,7 +182,7 @@ Pos 5: fox</pre>
   }
 }</pre>
 </div>
-<p>上面这个查询字符串是通过为文本字段配置的 <code class="literal">search_analyzer</code>  分析器 --本例中使用的是 <code class="literal">standard</code> 分析器-- 进行分析的， 它生成的词项为： <code class="literal">the</code> ， <code class="literal">quick</code> ， <code class="literal">and</code> ， <code class="literal">brown</code> ， <code class="literal">fox</code> 。</p>
+<p>上面这个查询字符串是通过为文本字段配置的 <code class="literal">search_analyzer</code>  分析器 --本例中使用的是 <code class="literal">standard</code> 分析器-- 进行分析的， 它生成的词项为： <code class="word">the</code> ， <code class="word">quick</code> ， <code class="word">and</code> ， <code class="word">brown</code> ， <code class="word">fox</code> 。</p>
 <p>因为 <code class="literal">text</code> 字段的索引中包含与 <code class="literal">standard</code> 分析去生成的一样的 <code class="literal">unigrams</code> ，搜索对于任何普通字段都能正常工作。</p>
 </div>
 
@@ -226,14 +226,14 @@ Pos 3: and_brown
 Pos 4: brown
 Pos 5: fox</pre>
 </div>
-<p>分析器排除了所有常用词的 <code class="literal">unigrams</code>，只留下常用词的 <code class="literal">bigrams</code> 以及低频的 <code class="literal">unigrams</code>。如 <code class="literal">the_quick</code> 这样的 <code class="literal">bigrams</code> 比单个词项 <code class="literal">the</code> 更为少见，这样有两个好处：</p>
+<p>分析器排除了所有常用词的 <code class="literal">unigrams</code>，只留下常用词的 <code class="literal">bigrams</code> 以及低频的 <code class="literal">unigrams</code>。如 <code class="word">the_quick</code> 这样的 <code class="literal">bigrams</code> 比单个词项 <code class="word">the</code> 更为少见，这样有两个好处：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">the_quick</code> 的位置信息要比 <code class="literal">the</code> 的小得多，所以它读取磁盘更快，对系统缓存的影响也更小。
+<code class="word">the_quick</code> 的位置信息要比 <code class="word">the</code> 的小得多，所以它读取磁盘更快，对系统缓存的影响也更小。
 </li>
 <li class="listitem">
-词项 <code class="literal">the_quick</code> 没有 <code class="literal">the</code> 那么常见，所以它可以大量减少需要计算的文档。
+词项 <code class="word">the_quick</code> 没有 <code class="word">the</code> 那么常见，所以它可以大量减少需要计算的文档。
 </li>
 </ul>
 </div>
@@ -259,7 +259,7 @@ Pos 5: fox</pre>
   }
 }</pre>
 </div>
-<p>那么 <code class="literal">search_grams</code> 分析器会输出单个语汇单元：<code class="literal">the_quick</code> 。这将原来昂贵的查询（查询 <code class="literal">the</code> 和 <code class="literal">quick</code> ）转换成了对单个词项的高效查找。</p>
+<p>那么 <code class="literal">search_grams</code> 分析器会输出单个语汇单元：<code class="word">the_quick</code> 。这将原来昂贵的查询（查询 <code class="word">the</code> 和 <code class="word">quick</code> ）转换成了对单个词项的高效查找。</p>
 </div>
 
 </div>

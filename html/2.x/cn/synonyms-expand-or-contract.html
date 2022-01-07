@@ -52,7 +52,7 @@
 <a id="synonyms-expand-or-contract"></a>扩展或收缩<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/260_Synonyms/40_Expand_contract.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>在 <a class="xref" href="synonym-formats.html" title="同义词格式">同义词格式</a> 中，我们看到了可以通过 <em>简单扩展</em> 、 <em>简单收缩</em> 、或_类型扩展_ 来指明同义词规则。
+<p>在 <a class="xref" href="synonym-formats.html" title="同义词格式">同义词格式</a> 中，我们看到了可以通过 <em>简单扩展(simple expansion)</em> 、 <em>简单收缩(simple contraction)</em> 、或 <em>通用扩展(generic expansion)</em> 来指明同义词规则。
 本章节我们将在这三者间做个权衡比较。</p>
 <div class="tip admon">
 <div class="icon"></div>
@@ -154,13 +154,13 @@
 </span>
 </dt>
 <dd>
-<p>⬆︎ 新同义词可以添加到规则的左侧并在查询阶段使用。例如，我们想添加 <code class="literal">bound</code> 到先前指定的同义词规则中。那么下面的规则将作用于包含 <code class="literal">bound</code> 的查询或包含 <code class="literal">bound</code> 的文档索引：</p>
+<p>⬆︎ 新同义词可以添加到规则的左侧并在查询阶段使用。例如，我们想添加 <code class="word">bound</code> 到先前指定的同义词规则中。那么下面的规则将作用于包含 <code class="word">bound</code> 的查询或包含 <code class="word">bound</code> 的文档索引：</p>
 <pre class="literallayout">"leap,hop,bound =&gt; jump"</pre>
 
 <p>似乎对旧有的文档不起作用是么？其实我们可以把上面这个同义词规则改写下，以便对旧有文档同样起作用：</p>
 <pre class="literallayout">"leap,hop,bound =&gt; jump,bound"</pre>
 
-<p>当你重建索引文件，你可以恢复到上面的规则（注： <code class="literal">leap,hop,bound =&gt; jump</code> ）来获得查询单个词项的性能优势（注：因为上面那个规则相比这个而言，查询阶段就只要查询一个词了）。</p>
+<p>当你重建索引文件，你可以恢复到上面的规则（注： <code class="word">leap,hop,bound =&gt; jump</code> ）来获得查询单个词项的性能优势（注：因为上面那个规则相比这个而言，查询阶段就只要查询一个词了）。</p>
 </dd>
 </dl>
 </div>
@@ -169,7 +169,7 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="synonyms-genres"></a>类型扩展<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/260_Synonyms/40_Expand_contract.asciidoc">edit</a>
+<a id="synonyms-genres"></a>通用扩展<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/260_Synonyms/40_Expand_contract.asciidoc">edit</a>
 </h3>
 </div></div></div>
 <p>类型扩展是完全不同于简单收缩  或扩张，
@@ -183,20 +183,20 @@
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-一个关于 <code class="literal">kitten</code> 的查询会发现关于 kittens 的文档。
+一个关于 <code class="word">kitten</code> 的查询会发现关于 kittens 的文档。
 </li>
 <li class="listitem">
-查询一个 <code class="literal">cat</code> 会找到关于 kittens 和 cats 的文档。
+查询一个 <code class="word">cat</code> 会找到关于 kittens 和 cats 的文档。
 </li>
 <li class="listitem">
-一个 <code class="literal">pet</code> 的查询将发现有关的 kittens、cats、puppies、dogs 或者 pets 的文档。
+一个 <code class="word">pet</code> 的查询将发现有关的 kittens、cats、puppies、dogs 或者 pets 的文档。
 </li>
 </ul>
 </div>
-<p>或者在查询阶段使用类型扩展， <code class="literal">kitten</code> 的查询结果就会被拓展成涉及到 kittens、cats、dogs。</p>
+<p>或者在查询阶段使用类型扩展， <code class="word">kitten</code> 的查询结果就会被拓展成涉及到 kittens、cats、dogs。</p>
 <p>您也可以有两全其美的办法，通过在索引阶段应用类型扩展同义词规则，以确保类型在索引中存在。然后，在查询阶段，
-你可以选择不采用同义词（使 <code class="literal">kitten</code> 查询只返回 kittens 的文件）或采用同义词， <code class="literal">kitten</code> 的查询操作就会返回包括 kittens、cats、pets（也包括 dogs 和 puppies）的相关结果。</p>
-<p>前面的示例规则，对 <code class="literal">kitten</code> 的 IDF 将是正确的，而 <code class="literal">cat</code> 和 <code class="literal">pet</code> 的 IDF 将会被 Elasticsearch 降权。然而, 这是对你有利的，当一个针对 <code class="literal">kitten</code> 的查询被拓展成了针对 <code class="literal">kitten OR cat OR pet</code> 的查询， 那么 <code class="literal">kitten</code> 相关的文档就应该排在最上方，其次是 <code class="literal">cat</code> 的文件， <code class="literal">pet</code> 的文件将被排在最底部。</p>
+你可以选择不采用同义词（使 <code class="word">kitten</code> 查询只返回 kittens 的文件）或采用同义词， <code class="word">kitten</code> 的查询操作就会返回包括 kittens、cats、pets（也包括 dogs 和 puppies）的相关结果。</p>
+<p>前面的示例规则，对 <code class="word">kitten</code> 的 IDF 将是正确的，而 <code class="word">cat</code> 和 <code class="word">pet</code> 的 IDF 将会被 Elasticsearch 降权。然而, 这是对你有利的，当一个针对 <code class="word">kitten</code> 的查询被拓展成了针对 <code class="word">kitten OR cat OR pet</code> 的查询， 那么 <code class="word">kitten</code> 相关的文档就应该排在最上方，其次是 <code class="word">cat</code> 的文件， <code class="word">pet</code> 的文件将被排在最底部。</p>
 </div>
 
 </div>

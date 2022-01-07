@@ -112,7 +112,7 @@
 <div class="icon"></div>
 <div class="admon_content">
 <p>同义词可以使用 <code class="literal">synonym</code> 参数来内嵌指定，或者必须  存在于集群每一个节点上的同义词文件中。
-同义词文件路径由 <code class="literal">synonyms_path</code> 参数指定，应绝对或相对于 Elasticsearch <code class="literal">config</code> 目录。参照 <a class="xref" href="using-stopwords.html#updating-stopwords" title="更新停用词（Updating Stopwords）">更新停用词（Updating Stopwords）</a> 的技巧，可以用来刷新的同义词列表。</p>
+同义词文件路径由 <code class="literal">synonyms_path</code> 参数指定，应绝对或相对于 Elasticsearch <code class="literal">config</code> 目录。参照 <a class="xref" href="using-stopwords.html#updating-stopwords" title="更新停用词（Updating Stopwords）">更新停用词（Updating Stopwords）</a>, 提供了可以用来刷新同义词列表的技巧。</p>
 </div>
 </div>
 <p>通过 <code class="literal">analyze</code> API 来测试我们的分析器，显示如下：</p>
@@ -139,13 +139,13 @@ Pos 5: (queen,monarch) <a id="CO179-2"></a><i class="conum" data-value="1"></i><
 </tr>
 </table>
 </div>
-<p>这样的一个文件将匹配任何以下的查询： <code class="literal">English queen</code> 、<code class="literal">British queen</code> 、 <code class="literal">English monarch</code> 或 <code class="literal">British monarch</code> 。
+<p>这样的一个文件将匹配任何以下的查询： <code class="word">English queen</code> 、<code class="word">British queen</code> 、 <code class="word">English monarch</code> 或 <code class="word">British monarch</code> 。
 即使是一个短语查询也将会工作，因为每个词项的位置已被保存。</p>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>在索引和搜索中使用相同的同义词语汇单元过滤器是多余的。  如果在索引的时候，我们用 <code class="literal">english</code> 和 <code class="literal">british</code> 这两个术语代替 <code class="literal">English</code> ，
-然后在搜索的时候，我们只需要搜索这些词项中的一个。或者，如果在索引的时候我们不使用同义词，然后在搜索的时候，我们将需要把对 <code class="literal">English</code> 的查询转换为 <code class="literal">english</code> 或者 <code class="literal">british</code> 的查询。</p>
+<p>在索引和搜索中使用相同的同义词语汇单元过滤器是多余的。  如果在索引的时候，我们用 <code class="word">english</code> 和 <code class="word">british</code> 这两个术语代替 <code class="word">English</code> ，
+然后在搜索的时候，我们只需要搜索这些词项中的一个。或者，如果在索引的时候我们不使用同义词，然后在搜索的时候，我们将需要把对 <code class="word">English</code> 的查询转换为 <code class="word">english</code> 或者 <code class="word">british</code> 的查询。</p>
 <p>是否在搜索或索引的时候做同义词扩展可能是一个困难的选择。我们将探索更多的选择 <a class="xref" href="synonyms-expand-or-contract.html" title="扩展或收缩">扩展或收缩</a>。</p>
 </div>
 </div>

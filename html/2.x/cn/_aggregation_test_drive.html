@@ -47,7 +47,7 @@
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="_aggregation_test_drive"></a>尝试聚合<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/20_basic_example.asciidoc">edit</a>
+<a id="_aggregation_test_drive"></a>尝试聚合 (Aggregation Test-Drive)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/20_basic_example.asciidoc">edit</a>
 </h2>
 </div></div></div>
 <p>我们可以用以下几页定义不同的聚合和它们的语法， 但学习聚合的最佳途径就是用实例来说明。
@@ -118,12 +118,12 @@
 <p><a href="#CO184-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>最后，定义单个桶的类型 <code class="literal">terms</code> 。</p>
+<p>最后，定义单个桶的类型 <code class="word">terms</code> 。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>聚合是在特定搜索结果背景下执行的， 这也就是说它只是查询请求的另外一个顶层参数（例如，使用 <code class="literal">/_search</code> 端点）。
+<p>聚合是在特定搜索结果的上下文中执行的， 这也就是说它只是查询请求的另外一个顶级参数（例如，使用 <code class="literal">/_search</code> 终端）。
 聚合可以与查询结对，但我们会晚些在 <a class="xref" href="_scoping_aggregations.html" title="范围限定的聚合">限定聚合的范围（Scoping Aggregations）</a> 中来解决这个问题。</p>
 <div class="note admon">
 <div class="icon"></div>
@@ -133,8 +133,8 @@
 </div>
 </div>
 <p>然后我们为聚合定义一个名字，名字的选择取决于使用者，响应的结果会以我们定义的名字为标签，这样应用就可以解析得到的结果。</p>
-<p>随后我们定义聚合本身，在本例中，我们定义了一个单 <code class="literal">terms</code> 桶。  这个 <code class="literal">terms</code> 桶会为每个碰到的唯一词项动态创建新的桶。
-因为我们告诉它使用 <code class="literal">color</code> 字段，所以 <code class="literal">terms</code> 桶会为每个颜色动态创建新桶。</p>
+<p>随后我们定义聚合本身，在本例中，我们定义了一个 <code class="word">terms</code> 桶。  这个 <code class="literal">terms</code> 桶会为每个碰到的唯一词项动态创建新的桶。
+因为我们告诉它使用 <code class="word">color</code> 字段，所以 <code class="word">terms</code> 桶会为每个颜色动态创建新桶。</p>
 <p>让我们运行聚合并查看结果：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
@@ -169,7 +169,7 @@
 <p><a href="#CO185-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>因为我们设置了 <code class="literal">size</code> 参数，所以不会有 hits 搜索结果返回。</p>
+<p>因为前面设置了参数<code class="literal">size</code>为0，所以不会有匹配的搜索结果(<code class="literal">hits</code>)返回。</p>
 </td>
 </tr>
 <tr>
@@ -177,7 +177,7 @@
 <p><a href="#CO185-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">popular_colors</code> 聚合是作为 <code class="literal">aggregations</code> 字段的一部分被返回的。</p>
+<p><code class="word">popular_colors</code> 聚合是作为 <code class="literal">aggregations</code> 字段的一部分被返回的。</p>
 </td>
 </tr>
 <tr>
@@ -185,7 +185,7 @@
 <p><a href="#CO185-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>每个桶的 <code class="literal">key</code> 都与 <code class="literal">color</code> 字段里找到的唯一词对应。它总会包含 <code class="literal">doc_count</code> 字段，告诉我们包含该词项的文档数量。</p>
+<p>每个桶的 <code class="literal">key</code> 都与 <code class="word">color</code> 字段里找到的唯一词对应。它总会包含 <code class="literal">doc_count</code> 字段，告诉我们包含该词项的文档数量。</p>
 </td>
 </tr>
 <tr>
@@ -198,7 +198,7 @@
 </tr>
 </table>
 </div>
-<p>响应包含多个桶，每个对应一个唯一颜色（例如：红 或 绿）。每个桶也包括 <code class="literal">聚合进</code> 该桶的所有文档的数量。例如，有四辆红色的车。</p>
+<p>响应包含多个桶，每个对应一个唯一颜色（例如：红 或 绿）。每个桶也包括 <code class="literal">扔进</code> 该桶的所有文档的数量。例如，有四辆红色的车。</p>
 <p>前面的这个例子完全是实时执行的：一旦文档可以被搜到，它就能被聚合。这也就意味着我们可以直接将聚合的结果源源不断的传入图形库，然后生成实时的仪表盘。
 不久，你又销售了一辆银色的车，我们的图形就会立即动态更新银色车的统计信息。</p>
 <p>瞧！这就是我们的第一个聚合！

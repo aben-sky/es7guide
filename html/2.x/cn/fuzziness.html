@@ -49,12 +49,12 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="fuzziness"></a>模糊性<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/270_Fuzzy_matching/20_Fuzziness.asciidoc">edit</a>
+<a id="fuzziness"></a>模糊性 (Fuzziness)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/270_Fuzzy_matching/20_Fuzziness.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p><em>模糊匹配</em> 对待 “模糊” 相似的两个词似乎是同一个词。首先，我们需要对我们所说的  <em>模糊性</em> 进行定义。</p>
-<p>在1965年，Vladimir Levenshtein 开发出了 <a href="http://en.wikipedia.org/wiki/Levenshtein_distance" class="ulink" target="_top">Levenshtein distance</a>，
-用来度量从一个单词转换到另一个单词需要多少次单字符编辑。他提出了三种类型的单字符编辑：</p>
+<p><em>模糊匹配</em> 认为 “模糊” 相似的两个词是同一个词。首先，我们需要对我们所说的  <em>模糊性</em> 进行定义。</p>
+<p>在1965年，Vladimir Levenshtein 开发出了 <a href="http://en.wikipedia.org/wiki/Levenshtein_distance" class="ulink" target="_top">莱温斯坦距离(Levenshtein distance)</a>， 通常叫"编辑距离"，
+用来度量从一个单词转换到另一个单词需要多少次单个字符编辑。他提出了三种类型的单字符编辑操作：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
@@ -77,25 +77,28 @@
 </li>
 </ul>
 </div>
-<p>举个例子，将单词 <code class="literal">bieber</code> 转换成 <code class="literal">beaver</code> 需要下面几个步骤：</p>
+<p>举个例子，将单词 <code class="word">bieber</code> 转换成 <code class="word">beaver</code> 需要下面几个步骤：</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-把 <code class="literal">b</code> 替换成 <code class="literal">v</code> ：bie_b_er → bie_v_er
+把 <code class="word">b</code> 替换成 <code class="word">v</code> ：bie_b_er → bie_v_er
 </li>
 <li class="listitem">
-把 <code class="literal">i</code> 替换成 <code class="literal">a</code> ：b_i_ever → b_a_ ever
+把 <code class="word">i</code> 替换成 <code class="word">a</code> ：b_i_ever → b_a_ ever
 </li>
 <li class="listitem">
-把 <code class="literal">e</code> 和 <code class="literal">a</code> 进行换位：b_ae_ver → b_ea_ver
+把 <code class="word">e</code> 和 <code class="word">a</code> 进行换位：b_ae_ver → b_ea_ver
 </li>
 </ol>
 </div>
 <p>这三个步骤表示 <a href="https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance" class="ulink" target="_top">Damerau-Levenshtein edit distance</a> 编辑距离为 3 。</p>
-<p>显然，从 <code class="literal">beaver</code> 转换成 <code class="literal">bieber</code> 是一个很长的过程—他们相距甚远而不能视为一个简单的拼写错误。
+
+<p>显然，从 <code class="word">beaver</code> 转换成 <code class="word">bieber</code> 是一个很长的过程—他们相距甚远而不能视为一个简单的拼写错误。
 Damerau 发现 80% 的拼写错误编辑距离为 1 。换句话说， 80% 的拼写错误可以对原始字符串用 <em>单次编辑</em> 进行修正。</p>
+
 <p>Elasticsearch 指定了 <code class="literal">fuzziness</code> 参数支持对最大编辑距离的配置，默认为 ２ 。</p>
-<p>当然，单次编辑对字符串的影响取决于字符串的长度。对单词 <code class="literal">hat</code> 两次编辑能够产生  <code class="literal">mad</code> ，
+
+<p>当然，单次编辑对字符串的影响取决于字符串的长度。对单词 <code class="word">hat</code> 两次编辑能够产生  <code class="word">mad</code> ，
 所以对一个只有 3 个字符长度的字符串允许两次编辑显然太多了。
  <code class="literal">fuzziness</code> 参数可以被设置为 <code class="literal">AUTO</code> ，这将导致以下的最大编辑距离：</p>
 <div class="ulist itemizedlist">

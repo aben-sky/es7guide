@@ -214,8 +214,15 @@ pre{
     white-space:pre-wrap; white-space:-moz-pre-wrap; white-space:-pre-wrap; white-space:-o-pre-wrap; word-wrap:break-word; /*pre自动换行*/
     padding-left: 10px;  background-color: #f6f6f6; border-left: 6px solid #e6e6e6;
 }
+em {
+    /* font-style: normal; */
+    background: #f1f3db;
+    color: #333;
+    padding: 0 3px;
+}
 #guide code{
     color: #E83E8C;
+    font-size: 100%;
 }
 #guide a code {
     color: #E83E8C;
@@ -230,14 +237,18 @@ pre{
 #guide code.word {
     /*普通的单词, 要查询的文本*/
     font-style: italic;
-    color: #666;
+    color: #19b33a;
     background-color: #fff;
     /*border-left: 1px solid #ccc;*/
     /*border-right: 1px solid #ccc;*/
     /*border-radius: 4px;*/
     /*padding: 0 4px;*/
 }
+#guide code.remark {
+    /*备注*/
+    font-style: italic;
+    color: #666;
+}
 #guide .calloutlist a {
     text-decoration: none;/*不知道原网站为什么要加下划线!!*/
 }
-

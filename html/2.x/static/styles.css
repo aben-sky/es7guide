@@ -237,12 +237,17 @@ em {
 #guide code.word {
     /*普通的单词, 要查询的文本*/
     font-style: italic;
-    color: #666;
+    color: #19b33a;
     background-color: #fff;
     /*border-left: 1px solid #ccc;*/
     /*border-right: 1px solid #ccc;*/
     /*border-radius: 4px;*/
     /*padding: 0 4px;*/
+}
+#guide code.remark {
+    /*备注*/
+    font-style: italic;
+    color: #666;
 }
 #guide .calloutlist a {
     text-decoration: none;/*不知道原网站为什么要加下划线!!*/

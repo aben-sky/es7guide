@@ -161,7 +161,7 @@ function convertToLocalFile($link) {
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-12 col-sm-8 col-md-8 guide-section">
-                            <div style="color:gray; word-break: break-all; font-size:12px;">原文地址: <a href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/$link" rel="nofollow">https://www.elastic.co/guide/en/elasticsearch/guide/current/$link</a>, 版权归 www.elastic.co 所有<br/>
+                            <div style="color:gray; word-break: break-all; font-size:12px;">原文地址: <a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/$link" rel="nofollow">https://www.elastic.co/guide/en/elasticsearch/guide/current/$link</a>, 版权归 www.elastic.co 所有<br/>
                             </div>
                         $body
                         </div>

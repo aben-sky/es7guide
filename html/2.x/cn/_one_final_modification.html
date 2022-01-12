@@ -52,7 +52,7 @@
 <a id="_one_final_modification"></a>最后的修改<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/23_extra_metrics.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>让我们回到话题的原点，在进入新话题之前，对我们的示例做最后一个修改， 为每个汽车生成商计算最低和最高的价格：</p>
+<p>让我们回到话题的原点，在进入新话题之前，对我们的示例做最后一个修改， 为每个汽车生产商计算最低和最高的价格：</p>
 <div class="pre_wrapper lang-sense">
 <pre class="programlisting prettyprint lang-sense">GET /cars/transactions/_search
 {
@@ -155,7 +155,7 @@
 <p><a href="#CO191-1"><i class="conum" data-value="1"></i></a><a href="#CO191-2"></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">min</code> 和 <code class="literal">max</code>  度量现在出现在每个汽车制造商（ <code class="literal">make</code> ）下面。</p>
+<p><code class="literal">min</code> 和 <code class="literal">max</code>  度量现在出现在每个汽车制造商（ <code class="word">make</code> ）下面。</p>
 </td>
 </tr>
 </table>
@@ -170,7 +170,7 @@
 红色车的平均售价是 $32，500 美元。
 </li>
 <li class="listitem">
-其中三辆红色车是 Honda 本田制造，一辆是 BMW 宝马制造。
+其中三辆红色车是 honda (本田制造)，一辆是 bmw (宝马制造)。
 </li>
 <li class="listitem">
 最便宜的红色本田售价为 $10，000 美元。

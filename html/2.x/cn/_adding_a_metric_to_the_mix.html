@@ -49,12 +49,12 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="_adding_a_metric_to_the_mix"></a>添加度量指标<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/21_add_metric.asciidoc">edit</a>
+<a id="_adding_a_metric_to_the_mix"></a>添加度量指标(Metric)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/21_add_metric.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>前面的例子告诉我们每个桶里面的文档数量，这很有用。但通常，我们的应用需要提供更复杂的文档度量。
-例如，每种颜色汽车的平均价格是多少？</p>
-<p>为了获取更多信息，我们需要告诉 Elasticsearch 使用哪个字段，计算何种度量。 这需要将度量 <em>嵌套</em> 在桶内，
+<p>前面的例子告诉我们每个桶里面的文档数量，这很有用。但通常，我们的应用需要提供更复杂的关于文档的度量。
+例如，每种颜色(color)汽车的平均价格是多少？</p>
+<p>为了获取更多信息，我们需要告诉 Elasticsearch 使用哪个字段(field)，计算何种度量。 这需要将度量 <em>嵌套(nesting)</em> 在桶内，
 度量会基于桶内的文档计算统计结果。</p>
 <p>让我们继续为汽车的例子加入  <code class="literal">average</code> 平均度量：</p>
 <div class="pre_wrapper lang-sense">
@@ -85,7 +85,7 @@
 <p><a href="#CO186-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>为度量新增 <code class="literal">aggs</code> 层。</p>
+<p>为度量新增 <code class="literal">aggs</code> 层: 嵌套了一层<code class="word">price</code>的统计。</p>
 </td>
 </tr>
 <tr>
@@ -93,7 +93,7 @@
 <p><a href="#CO186-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>为度量指定名字： <code class="literal">avg_price</code> 。</p>
+<p>为嵌套的度量指定名字： <code class="word">avg_price</code> 。</p>
 </td>
 </tr>
 <tr>
@@ -101,13 +101,13 @@
 <p><a href="#CO186-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>最后，为 <code class="literal">price</code> 字段定义 <code class="literal">avg</code> 度量。</p>
+<p>最后，为 <code class="word">price</code> 字段定义 <code class="literal">avg</code> 度量。</p>
 </td>
 </tr>
 </table>
 </div>
 <p>正如所见，我们用前面的例子加入了新的 <code class="literal">aggs</code> 层。这个新的聚合层让我们可以将 <code class="literal">avg</code> 度量嵌套置于 <code class="literal">terms</code> 桶内。实际上，这就为每个颜色生成了平均价格。</p>
-<p>正如 <code class="literal">颜色</code> 的例子，我们需要给度量起一个名字（ <code class="literal">avg_price</code> ）这样可以稍后根据名字获取它的值。最后，我们指定度量本身（ <code class="literal">avg</code> ）以及我们想要计算平均值的字段（ <code class="literal">price</code> ）：</p>
+<p>正如 <code class="word">颜色</code> 的例子，我们需要给度量起一个名字（ <code class="word">avg_price</code> ）这样可以稍后根据名字获取它的值。最后，我们指定度量本身（ <code class="literal">avg</code> ）以及我们想要计算平均值的字段（ <code class="word">price</code> ）：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
 ...
@@ -148,12 +148,12 @@
 <p><a href="#CO187-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>响应中的新字段 <code class="literal">avg_price</code> 。</p>
+<p>响应中的新字段 <code class="word">avg_price</code> 。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>尽管响应只发生很小改变，实际上我们获得的数据是增长了。之前，我们知道有四辆红色的车，现在，红色车的平均价格是 $32，500 美元。这个信息可以直接显示在报表或者图形中。</p>
+<p>尽管响应只发生很小改变，实际上我们获得的数据更多了。之前，我们知道有四辆红色的车，现在，红色车的平均价格是 $32，500 美元。这个信息可以直接显示在报表或者图形中。</p>
 </div>
 <div class="navfooter">
 <span class="prev">

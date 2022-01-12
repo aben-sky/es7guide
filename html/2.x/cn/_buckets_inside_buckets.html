@@ -49,7 +49,7 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="_buckets_inside_buckets"></a>嵌套桶<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/22_nested_bucket.asciidoc">edit</a>
+<a id="_buckets_inside_buckets"></a>嵌套桶 (Buckets Inside Buckets)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/22_nested_bucket.asciidoc">edit</a>
 </h2>
 </div></div></div>
 <p>在我们使用不同的嵌套方案时，聚合的力量才能真正得以显现。 在前例中，我们已经看到如何将一个度量嵌入桶中，它的功能已经十分强大了。</p>
@@ -88,7 +88,7 @@
 <p><a href="#CO188-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>注意前例中的 <code class="literal">avg_price</code> 度量仍然保持原位。</p>
+<p>注意前例中的 <code class="word">avg_price</code> 度量仍然保留。</p>
 </td>
 </tr>
 <tr>
@@ -96,7 +96,7 @@
 <p><a href="#CO188-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>另一个聚合 <code class="literal">make</code> 被加入到了 <code class="literal">color</code> 颜色桶中。</p>
+<p>另一个聚合 <code class="word">make</code> 被加入到了 <code class="word">color(颜色)</code> 桶中。</p>
 </td>
 </tr>
 <tr>
@@ -109,10 +109,12 @@
 </tr>
 </table>
 </div>
-<p>这里发生了一些有趣的事。  首先，我们可能会观察到之前例子中的 <code class="literal">avg_price</code> 度量完全没有变化，还在原来的位置。
-一个聚合的每个 <em>层级</em> 都可以有多个度量或桶， <code class="literal">avg_price</code> 度量告诉我们每种颜色汽车的平均价格。它与其他的桶和度量相互独立。</p>
+<p>这里发生了一些有趣的事。  首先，我们可能会观察到之前例子中的 <code class="word">avg_price</code> 度量完全没有变化，还在原来的位置。
+一个聚合的每个 <em>层级</em> 都可以有多个度量或桶， <code class="word">avg_price</code> 度量告诉我们每种颜色汽车的平均价格。它与其他的桶和度量相互独立。</p>
+
 <p>这对我们的应用非常重要，因为这里面有很多相互关联，但又完全不同的度量需要收集。聚合使我们能够用一次数据请求获得所有的这些信息。</p>
-<p>另外一件值得注意的重要事情是我们新增的这个 <code class="literal">make</code> 聚合，它是一个 <code class="literal">terms</code> 桶（嵌套在 <code class="literal">colors</code> 、 <code class="literal">terms</code> 桶内）。这意味着它会为数据集中的每个唯一组合生成（ <code class="literal">color</code> 、 <code class="literal">make</code> ）元组。</p>
+
+<p>另外一件值得注意的重要事情是我们新增的这个 <code class="word">make</code> 聚合，它是一个 <code class="literal">terms</code> 桶（嵌套在 <code class="word">colors</code>.<code class="literal">terms</code> 桶内）。这意味着它会为数据集中的每个唯一组合生成（ <code class="word">color</code>,<code class="literal">make</code> ）元组。</p>
 <p>让我们看看返回的响应（为了简单我们只显示部分结果）：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
@@ -166,7 +168,7 @@
 <p><a href="#CO189-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>最终，我们看到前例中的 <code class="literal">avg_price</code> 度量仍然维持不变。</p>
+<p>最终，我们看到前例中的 <code class="word">avg_price</code> 度量仍然维持不变。</p>
 </td>
 </tr>
 </table>
@@ -181,7 +183,7 @@
 红色车的平均售价是 $32，500 美元。
 </li>
 <li class="listitem">
-其中三辆是 Honda 本田制造，一辆是 BMW 宝马制造。
+其中三辆是 honda (本田制造)，一辆是 bmw (宝马制造)。
 </li>
 </ul>
 </div>

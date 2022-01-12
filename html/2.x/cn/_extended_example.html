@@ -52,8 +52,8 @@
 <a id="_extended_example"></a>扩展例子<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/35_date_histogram.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>正如我们已经见过很多次，buckets 可以嵌套进 buckets 中从而得到更复杂的分析。
-作为例子，我们构建聚合以便按季度展示所有汽车品牌总销售额。同时按季度、按每个汽车品牌计算销售总额，以便可以找出哪种品牌最赚钱：</p>
+<p>正如我们已经见过很多次的，buckets 可以嵌套进 buckets 中从而得到更复杂的分析。
+比如，我们构建聚合以便按季度展示所有汽车品牌总销售额。同时按季度、按汽车品牌计算销售总额，以便可以找出哪种品牌最赚钱：</p>
 <div class="pre_wrapper lang-sense">
 <pre class="programlisting prettyprint lang-sense">GET /cars/transactions/_search
 {
@@ -97,7 +97,7 @@
 <p><a href="#CO195-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>注意我们把时间间隔从 <code class="literal">month</code> 改成了 <code class="literal">quarter</code> 。</p>
+<p>注意我们把时间间隔(<code class="literal">interval</code>)从 <code class="literal">month</code> 改成了 <code class="literal">quarter</code> 。</p>
 </td>
 </tr>
 <tr>
@@ -105,7 +105,7 @@
 <p><a href="#CO195-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>计算每种品牌的总销售金额。</p>
+<p>计算每个品牌的总销售额。</p>
 </td>
 </tr>
 <tr>
@@ -113,7 +113,7 @@
 <p><a href="#CO195-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>也计算所有全部品牌的汇总销售金额。</p>
+<p>也计算所有品牌的总销售额。</p>
 </td>
 </tr>
 </table>

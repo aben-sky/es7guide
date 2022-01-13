@@ -47,7 +47,7 @@
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="_approximate_aggregations"></a>近似聚合<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/55_approx_intro.asciidoc">edit</a>
+<a id="_approximate_aggregations"></a>近似聚合 (Approximate Aggregations)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/55_approx_intro.asciidoc">edit</a>
 </h2>
 </div></div></div>
 <p>如果所有的数据都在一台机器上，那么生活会容易许多。 CS201 课上教的经典算法就足够应付这些问题。如果所有的数据都在一台机器上，那么也就不需要像 Elasticsearch 这样的分布式软件了。不过一旦我们开始分布式存储数据，就需要小心地选择算法。</p>
@@ -58,18 +58,18 @@
 把请求广播到所有分片。
 </li>
 <li class="listitem">
-查看每个文档的 <code class="literal">price</code> 字段。如果 <code class="literal">price &gt; current_max</code> ，将 <code class="literal">current_max</code> 替换成 <code class="literal">price</code> 。
+查看每个文档的 <code class="word">price</code> 字段。如果 <code class="word">price &gt; current_max</code> ，将 <code class="word">current_max</code> 替换成 <code class="word">price</code> 。
 </li>
 <li class="listitem">
-返回所有分片的最大 <code class="literal">price</code> 并传给协调节点。
+返回所有分片的最大 <code class="word">price</code> 并传给 协调节点(coordinating node)。
 </li>
 <li class="listitem">
-找到从所有分片返回的最大 <code class="literal">price</code> 。这是最终的最大值。
+找到从所有分片返回的最大 <code class="word">price</code> 。这是最终的最大值。
 </li>
 </ol>
 </div>
 <p>这个算法可以随着机器数的线性增长而横向扩展，无须任何协调操作（机器之间不需要讨论中间结果），而且内存消耗很小（一个整型就能代表最大值）。</p>
-<p>不幸的是，不是所有的算法都像获取最大值这样简单。更加复杂的操作则需要在算法的性能和内存使用上做出权衡。对于这个问题，我们有个三角因子模型：大数据、精确性和实时性。</p>
+<p>不幸的是，不是所有的算法都像获取最大值这样简单。更加复杂的操作则需要在算法的性能和内存使用上做出权衡。对于这个问题，我们有个三角因子模型：大数据(big data)、精确性(exact)和实时性(real time)。</p>
 <p>我们需要选择其中两项：</p>
 <div class="variablelist">
 <dl class="variablelist">
@@ -101,7 +101,11 @@
 </div>
 <p>Elasticsearch 目前支持两种近似算法（ <code class="literal">cardinality</code> 和 <code class="literal">percentiles</code> ）。 它们会提供准确但不是 100% 精确的结果。
 以牺牲一点小小的估算错误为代价，这些算法可以为我们换来高速的执行效率和极小的内存消耗。</p>
+<p style="color:#666;">
+&gt;译者注: 这个 cardinality 有点类似MySQL索引的基数(cardinality, 并不会实时更新). MySQL在制定执行计划时, 会参考这个基数, 并随机的取出几个page然后评估(还有其他各种条件).
+</p>
 <p>对于 <em>大多数</em> 应用领域，能够 <em>实时</em> 返回高度准确的结果要比 100% 精确结果重要得多。乍一看这可能是天方夜谭。有人会叫 <em>“我们需要精确的答案！”</em> 。但仔细考虑 0.5% 误差所带来的影响：</p>
+
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">

@@ -49,11 +49,11 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="_sorting_by_a_metric"></a>按度量排序<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/50_sorting_ordering.asciidoc">edit</a>
+<a id="_sorting_by_a_metric"></a>按度量排序 (Sorting by a Metric)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/50_sorting_ordering.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>有时，我们会想基于度量计算的结果值进行排序。
-在我们的汽车销售分析仪表盘中，我们可能想按照汽车颜色创建一个销售条状图表，但按照汽车平均售价的升序进行排序。</p>
+<p>有时，我们会想基于度量(mertic)计算的结果进行排序。
+在我们的汽车销售分析仪表盘中，我们可能想按照汽车颜色创建一个销售条形图，但按照汽车平均售价的升序进行排序。</p>
 <p>我们可以增加一个度量，再指定 <code class="literal">order</code> 参数引用这个度量即可：</p>
 <div class="pre_wrapper lang-sense">
 <pre class="programlisting prettyprint lang-sense">GET /cars/transactions/_search
@@ -98,7 +98,8 @@
 </table>
 </div>
 <p>我们可以采用这种方式用任何度量排序，只需简单的引用度量的名字。不过有些度量会输出多个值。 <code class="literal">extended_stats</code> 度量是一个很好的例子：它输出好几个度量值。</p>
-<p>如果我们想使用多值度量进行排序， 我们只需以关心的度量为关键词使用点式路径：</p>
+
+<p>如果我们想使用 多值度量(multivalue metric) 进行排序， 我们只需以关心的度量为关键词使用点式路径：</p>
 <div class="pre_wrapper lang-sense">
 <pre class="programlisting prettyprint lang-sense">GET /cars/transactions/_search
 {
@@ -133,7 +134,7 @@
 </tr>
 </table>
 </div>
-<p>在上面这个例子中，我们按每个桶的方差来排序，所以这种颜色售价方差最小的会排在结果集最前面。</p>
+<p>在上面这个例子中，我们按每个桶的方差(variance)来排序，所以那个售价的方差最小的颜色的桶 会排在其他的颜色前面。</p>
 </div>
 <div class="navfooter">
 <span class="prev">

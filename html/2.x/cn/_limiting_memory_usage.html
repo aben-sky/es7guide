@@ -52,14 +52,18 @@
 <a id="_limiting_memory_usage"></a>限制内存使用<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/100_circuit_breaker_fd_settings.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>一旦分析字符串被加载到 fielddata ，他们会一直在那里，直到被驱逐（或者节点崩溃）。由于这个原因，留意内存的使用情况，了解它是如何以及何时加载的，怎样限制对集群的影响是很重要的。</p>
-<p>Fielddata 是 <em>延迟</em> 加载。如果你从来没有聚合一个分析字符串，就不会加载 fielddata 到内存中。此外，fielddata 是基于字段加载的，
+<p>一旦analyzed字符串被加载到 fielddata ，他们会一直在那里，直到被驱逐（或者节点崩溃）。由于这个原因，留意内存的使用情况，了解它是如何以及何时加载的，怎样限制对集群的影响是很重要的。</p>
+
+<p>fielddata 是 <em>延迟</em> 加载。如果你从来没有聚合一个analyzed字符串，就不会加载 fielddata 到内存中。此外，fielddata 是基于字段加载的，
 这意味着只有很活跃地使用字段才会增加 fielddata 的负担。</p>
+
 <p>然而，这里有一个令人惊讶的地方。假设你的查询是高度选择性和只返回命中的 100 个结果。大多数人认为 fielddata 只加载 100 个文档。</p>
+
 <p>实际情况是，fielddata 会加载索引中（针对该特定字段的） <span class="strong strong"><strong>所有的</strong></span> 文档，而不管查询的特异性。逻辑是这样：如果查询会访问文档 X、Y 和 Z，那很有可能会在下一个查询中访问其他文档。</p>
-<p>与 doc values 不同，fielddata 结构不会在索引时创建。相反，它是在查询运行时，动态填充。这可能是一个比较复杂的操作，可能需要一些时间。
-将所有的信息一次加载，再将其维持在内存中的方式要比反复只加载一个 fielddata 的部分代价要低。</p>
-<p>JVM 堆  是有限资源的，应该被合理利用。
+
+<p>与 doc values 不同，fielddata 结构不会在索引时创建。相反，它<b>是在查询请求被执行时动态填充的</b>。这可能是一个比较复杂的操作，可能需要一些时间。
+将所有的信息一次加载，再将其维持在内存中的方式要比反复只加载一部分 fielddata 的代价要低。</p>
+<p>JVM 堆 资源有限，应该被合理利用。
 限制 fielddata 对堆使用的影响有多套机制，这些限制方式非常重要，因为堆栈的乱用会导致节点不稳定（感谢缓慢的垃圾回收机制），甚至导致节点宕机（通常伴随 OutOfMemory 异常）。</p>
 <div class="sidebar">
 <div class="titlepage"><div><div>

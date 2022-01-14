@@ -49,11 +49,16 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="percentiles"></a>百分位计算<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/65_percentiles.asciidoc">edit</a>
+<a id="percentiles"></a>百分位计算 (Calculating Percentiles)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/65_percentiles.asciidoc">edit</a>
 </h2>
 </div></div></div>
 <p>Elasticsearch 提供的另外一个近似度量就是 <code class="literal">percentiles</code> 百分位数度量。
 百分位数展现某以具体百分比下观察到的数值。例如，第95个百分位上的数值，是高于 95% 的数据总和。</p>
+
+<p style="color:#666;">
+&gt; 译者注:  percentile, 统计学术语，如果将一组数据从小到大排序，并计算相应的累计百分位，则某一百分位所对应数据的值就称为这一百分位的百分位数。
+</p>
+
 <p>百分位数通常用来找出异常。在（统计学）的正态分布下，第 0.13 和 第 99.87 的百分位数代表与均值距离三倍标准差的值。任何处于三倍标准差之外的数据通常被认为是不寻常的，因为它与平均值相差太大。</p>
 <p>更具体的说，假设我们正运行一个庞大的网站，一个很重要的工作是保证用户请求能得到快速响应，因此我们就需要监控网站的延时来判断响应是否能保证良好的用户体验。</p>
 <p>在此场景下，一个常用的度量方法就是平均响应延时。 但这并不是一个好的选择（尽管很常用），因为平均数通常会隐藏那些异常值，
@@ -82,7 +87,7 @@
 <a id="_百分位度量"></a>百分位度量<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/65_percentiles.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>让我加载一个新的数据集（汽车的数据不太适用于百分位）。我们要索引一系列网站延时数据然后运行一些百分位操作进行查看：</p>
+<p>让我们加载一个新的数据集（汽车的数据不太适用于百分位）。我们要索引一系列网站延时数据然后运行一些百分位操作进行查看：</p>
 <div class="pre_wrapper lang-sense">
 <pre class="programlisting prettyprint lang-sense">POST /website/logs/_bulk
 { "index": {}}
@@ -138,7 +143,7 @@
 <p><a href="#CO206-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">percentiles</code> 度量被应用到 <code class="literal">latency</code> 延时字段。</p>
+<p><code class="literal">percentiles</code> 度量被应用到 <code class="word">latency</code> 延时字段。</p>
 </td>
 </tr>
 <tr>
@@ -208,7 +213,7 @@
 <p><a href="#CO207-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>首先根据区域我们将延时分到不同的桶中。</p>
+<p>首先根据 区域(<code class="word">zone</code>) 将延时划分到不同的桶中。</p>
 </td>
 </tr>
 <tr>
@@ -216,7 +221,7 @@
 <p><a href="#CO207-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>再计算每个区域的百分位数值。</p>
+<p>再计算每个区域的 延时(<code class="word">latency</code>) 字段的百分位数值。</p>
 </td>
 </tr>
 <tr>
@@ -274,7 +279,7 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_百分位等级"></a>百分位等级<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/65_percentiles.asciidoc">edit</a>
+<a id="_百分位等级"></a>百分位等级 (Percentile Ranks)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/65_percentiles.asciidoc">edit</a>
 </h3>
 </div></div></div>
 <p>这里有另外一个紧密相关的度量叫  <code class="literal">percentile_ranks</code> 。
@@ -376,11 +381,11 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_学会权衡_2"></a>学会权衡<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/65_percentiles.asciidoc">edit</a>
+<a id="_理解权衡_2"></a>理解 "权衡(Trade-offs)"<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/65_percentiles.asciidoc">edit</a>
 </h3>
 </div></div></div>
 <p>和基数一样，计算百分位需要一个近似算法。
-朴素的  实现会维护一个所有值的有序列表，
+在简单的实现方式中会去维护一个所有值的有序列表，
 但当我们有几十亿数据分布在几十个节点时，这几乎是不可能的。</p>
 <p>取而代之的是 <code class="literal">percentiles</code> 使用一个 TDigest 算法，（由 Ted Dunning 在 <a href="https://github.com/tdunning/t-digest/blob/master/docs/t-digest-paper/histo.pdf" class="ulink" target="_top">Computing Extremely Accurate Quantiles Using T-Digests</a> 里面提出的）。
 与 HyperLogLog 一样，不需要理解完整的技术细节，但有必要了解算法的特性：</p>

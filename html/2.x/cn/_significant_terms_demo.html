@@ -108,7 +108,7 @@ GET /mlmovies,mlratings/_recovery <a id="CO209-4"></a><i class="conum" data-valu
 <p><a href="#CO209-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>开始还原过程。会在集群中创建两个索引： <code class="literal">mlmovies</code> 和 <code class="literal">mlratings</code> 。</p>
+<p>开始还原过程。会在集群中创建两个索引： <code class="word">mlmovies</code> 和 <code class="word">mlratings</code> 。</p>
 </td>
 </tr>
 <tr>
@@ -132,7 +132,7 @@ GET /mlmovies,mlratings/_recovery <a id="CO209-4"></a><i class="conum" data-valu
 </div>
 <p>在本演示中，会看看 MovieLens 里面用户对电影的评分。在 MovieLens 里，用户可以推荐电影并评分，这样其他用户也可以找到新的电影。
 为了演示，会基于输入的电影采用 <code class="literal">significant_terms</code> 对电影进行推荐。</p>
-<p>让我们看看示例中的数据，感受一下要处理的内容。本数据集有两个索引， <code class="literal">mlmovies</code> 和 <code class="literal">mlratings</code> 。首先查看 <code class="literal">mlmovies</code> ：</p>
+<p>让我们看看示例中的数据，感受一下要处理的内容。本数据集有两个索引， <code class="word">mlmovies</code> 和 <code class="word">mlratings</code> 。先看一下索引 <code class="word">mlmovies</code> ：</p>
 <div class="pre_wrapper lang-sense">
 <pre class="programlisting prettyprint lang-sense">GET mlmovies/_search <a id="CO210-1"></a><i class="conum" data-value="1"></i>
 
@@ -170,9 +170,9 @@ GET /mlmovies,mlratings/_recovery <a id="CO209-4"></a><i class="conum" data-valu
 </tr>
 </table>
 </div>
-<p><code class="literal">mlmovies</code> 里的每个文档表示一个电影，数据有两个重要字段：电影ID <code class="literal">_id</code> 和电影名 <code class="literal">title</code> 。可以忽略
-<code class="literal">offset</code> 和 <code class="literal">bytes</code> 。它们是从原始 CSV 文件抽取数据的过程中产生的中间属性。数据集中有 10，681 部影片。</p>
-<p>现在来看看 <code class="literal">mlratings</code> ：</p>
+<p>索引 <code class="word">mlmovies</code> 里的每个文档表示一个电影，数据有两个重要字段：电影文档的ID <code class="literal">_id</code> 和电影名 <code class="word">title</code> 。可以忽略
+<code class="word">offset</code> 和 <code class="word">bytes</code> 。它们是从原始 CSV 文件抽取数据的过程中产生的中间属性。数据集中有 10,681 部影片。</p>
+<p>现在来看看索引 <code class="word">mlratings</code> ：</p>
 <div class="pre_wrapper lang-sense">
 <pre class="programlisting prettyprint lang-sense">GET mlratings/_search
 
@@ -202,7 +202,7 @@ GET /mlmovies,mlratings/_recovery <a id="CO209-4"></a><i class="conum" data-valu
          ...</pre>
 </div>
 <div class="sense_widget" data-snippet="snippets/300_Aggregations/75_sigterms.json"></div>
-<p>这里可以看到每个用户的推荐信息。每个文档表示一个用户，用 ID 字段 <code class="literal">user</code> 来表示， <code class="literal">movie</code> 字段维护一个用户观看和推荐过的影片列表。</p>
+<p>这里可以看到每个用户的推荐信息。每个文档表示一个用户，用 字段 <code class="word">user</code> 来表示，字段 <code class="word">movie</code> 维护一个用户观看和推荐过的影片列表。</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
@@ -247,7 +247,7 @@ GET /mlmovies,mlratings/_recovery <a id="CO209-4"></a><i class="conum" data-valu
 <p><a href="#CO211-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><em>Talladega Nights</em> 的 ID 是 <code class="literal">46970</code> 。</p>
+<p><em>Talladega Nights</em> 的 ID 是 <code class="word">46970</code> 。</p>
 </td>
 </tr>
 </table>
@@ -284,7 +284,7 @@ GET /mlmovies,mlratings/_recovery <a id="CO209-4"></a><i class="conum" data-valu
 <p><a href="#CO212-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>这次查询 <code class="literal">mlratings</code> ， 将结果内容 <code class="literal">大小设置</code> 为 0 因为我们只对聚合的结果感兴趣。</p>
+<p>将<code class="literal">size</code>设置0, 不返回命中的文档(hits), 只看聚合的结果。</p>
 </td>
 </tr>
 <tr>
@@ -305,7 +305,7 @@ GET /mlmovies,mlratings/_recovery <a id="CO209-4"></a><i class="conum" data-valu
 </tr>
 </table>
 </div>
-<p>在 <code class="literal">mlratings</code>  索引下搜索，然后对影片 <em>Talladega Nights</em> 的 ID 使用过滤器。由于聚合是针对查询范围进行操作的，它可以有效的过滤聚合结果从而得到那些只推荐 <em>Talladega Nights</em> 的用户。
+<p>在 <code class="word">mlratings</code>  索引下搜索，然后对影片 <em>Talladega Nights</em> 的 ID 使用过滤器。由于聚合是针对查询范围进行操作的，它可以有效的过滤聚合结果从而得到那些只推荐 <em>Talladega Nights</em> 的用户。
 最后，执行  <code class="literal">terms</code> 聚合得到最流行的影片。
 请求排名最前的六个结果，因为 <em>Talladega Nights</em> 本身很有可能就是其中一个结果（并不想重复推荐它）。</p>
 <p>返回结果就像这样：</p>
@@ -433,8 +433,8 @@ Star Wars Episode IV: A New Hope（星球大战 IV：曙光乍现）
 <a id="_基于统计的推荐recommending_based_on_statistics"></a>基于统计的推荐（Recommending Based on Statistics）<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/75_sigterms.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>现在场景已经设定好，使用 <code class="literal">significant_terms</code> 。 <code class="literal">significant_terms</code> 会分析喜欢影片 <em>Talladega Nights</em> 的用户组（ <em>前端</em> 用户组），并且确定最流行的电影。
- 然后为每个用户（ <em>后端</em> 用户）构造一个流行影片列表，最后将两者进行比较。</p>
+<p>场景已经设定好了，那我们试试 <code class="literal">significant_terms</code> 吧。 <code class="literal">significant_terms</code> 会分析喜欢影片 <em>Talladega Nights</em> 的（ <em>前端</em>, foreground）用户组，并且确定最流行的电影。
+ 然后为每个（ <em>后端</em>, background）用户构造一个流行影片列表，最后将两者进行比较。</p>
 <p>统计异常就是与统计背景相比在前景特征组中过度展现的那些影片。理论上讲，它应该是一组喜剧，因为喜欢 Will Ferrell 喜剧的人给这些影片的评分会比一般人高。</p>
 <p>让我们试一下：</p>
 <div class="pre_wrapper lang-sense">
@@ -567,7 +567,7 @@ Star Wars Episode IV: A New Hope（星球大战 IV：曙光乍现）
 <p>这个 ID 对应影片 <em>Blades of Glory（荣誉之刃）</em> ，它是一部关于男子学习滑冰的喜剧，也是由 Will Ferrell 主演。可以看到喜欢 <em>Talladega Nights</em> 的用户对它的推荐是 59 次。
 这也意味着 21% 的前景特征用户组推荐了影片 <em>Blades of Glory</em> （ <code class="literal">59 / 271 = 0.2177</code> ）。</p>
 <p>形成对比的是， <em>Blades of Glory</em> 在整个数据集合中仅被推荐了 185 次，
-只占 0.26% （ <code class="literal">185 / 69796 = 0.00265</code> ）。因此 <em>Blades of Glory</em> 是一个统计异常：它在喜欢 <em>Talladega Nights</em> 的用户中是显著的共性（注：uncommonly common）。这样就找到了一个好的推荐！</p>
+只占 0.26% （ <code class="literal">185 / 69796 = 0.00265</code> ）。因此 <em>Blades of Glory</em> 是一个统计异常：它在喜欢 <em>Talladega Nights</em> 的用户中是极其普通的(uncommonly common)。这样就找到了一个好的推荐！</p>
 <p>如果看完整的列表，它们都是好的喜剧推荐（其中很多也是由 Will Ferrell 主演）：</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
@@ -588,7 +588,7 @@ Knocked Up（一夜大肚）
 </li>
 </ol>
 </div>
-<p>这只是 <code class="literal">significant_terms</code> 它强大的一个示例，一旦开始使用 <code class="literal">significant_terms</code> ，可能碰到这样的情况，我们不想要最流行的，而想要显著的共性（注：uncommonly common）。这个简单的聚合可以揭示出一些数据里出人意料的复杂趋势。</p>
+<p>这只是 <code class="literal">significant_terms</code> 它强大的一个示例，一旦开始使用 <code class="literal">significant_terms</code> ，可能碰到这样的情况，我们不想要最流行的，而想要极其普通的(uncommonly common)。这个简单的聚合可以揭示出一些数据里出人意料的复杂趋势。</p>
 </div>
 
 </div>

@@ -4,6 +4,7 @@
 - token: 词元, 词语单元
     > Token: 是一个在分词过程中产生的对象。对于词语“Token ”,对应的Token对象就包含了这个词语的自身内容,在这句话中的开始位置、结束位置一级一个可以存储其他信息的payload对象
 - token normalization: 词元归一化, 把词汇单元标准化. 比如: 大小写转换,去掉重音等
+- segment: 分段
 - phrase: 短语
 - phrase matching: 短语匹配
 - match_phrase : 短语匹配(查询)

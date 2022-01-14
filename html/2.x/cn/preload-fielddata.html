@@ -53,20 +53,21 @@
 </h2>
 </div></div></div>
 <p>Elasticsearch 加载内存 fielddata 的默认行为是 <em>延迟</em> 加载 。
-当 Elasticsearch 第一次查询某个字段时，它将会完整加载这个字段所有 Segment 中的倒排索引到内存中，以便于以后的查询能够获取更好的性能。</p>
-<p>对于小索引段来说，这个过程的需要的时间可以忽略。但如果我们有一些 5 GB 的索引段，并希望加载 10 GB 的 fielddata 到内存中，这个过程可能会要数十秒。
+当 Elasticsearch 第一次查询某个字段时，它将会完整加载索引中所有分段(segment)中的这个字段到内存中，以便于以后的查询能够获取更好的性能。</p>
+
+<p>对于小 分段(segment)来说，这个过程需要的时间可以忽略。但如果我们有几个 5GB 大小的分段，并需要加载 10 GB 的 fielddata 到内存中，这个过程可能会要数十秒。
 已经习惯亚秒响应的用户很难会接受停顿数秒卡着没反应的网站。</p>
 <p>有三种方式可以解决这个延时高峰：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-预加载 fielddata
+预加载 fielddata (<code class="literal">Eagerly load fielddata</code>)
 </li>
 <li class="listitem">
-预加载全局序号
+预加载 全局序号(<code class="literal">Eagerly load global ordinals</code>)
 </li>
 <li class="listitem">
-缓存预热
+缓存预热 (<code class="literal">Prepopulate caches with warmers</code>)
 </li>
 </ul>
 </div>
@@ -74,7 +75,7 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="eager-fielddata"></a>预加载 fielddata（Eagerly Loading Fielddata）<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/115_eager.asciidoc">edit</a>
+<a id="eager-fielddata"></a>预加载 fielddata (<code class="literal">Eagerly Loading Fielddata</code>)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/115_eager.asciidoc">edit</a>
 </h3>
 </div></div></div>
 <p>第一个工具称为 <em>预加载</em> （与默认的  延迟加载相对）。随着新分段的创建（通过刷新、写入或合并等方式），
@@ -109,7 +110,7 @@
 <div class="icon"></div>
 <div class="admon_content">
 <p>预加载只是简单的将载入 fielddata 的代价转移到索引刷新的时候，而不是查询时，从而大大提高了搜索体验。</p>
-<p>体积大的索引段会比体积小的索引段需要更长的刷新时间。通常，体积大的索引段是由那些已经对查询可见的小分段合并而成的，所以较慢的刷新时间也不是很重要。</p>
+<p>大分段会小分段需要更长的刷新时间。通常，大分段是由那些已经对查询可见的小分段合并而成的，所以较慢的刷新时间也不是很重要。</p>
 </div>
 </div>
 </div>
@@ -120,8 +121,9 @@
 <a id="global-ordinals"></a>全局序号（Global Ordinals）<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/115_eager.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>有种可以用来降低字符串 fielddata 内存使用的技术叫做 <em>序号</em> 。</p>
-<p>设想我们有十亿文档，每个文档都有自己的 <code class="literal">status</code>  状态字段，状态总共有三种： <code class="literal">status_pending</code> 、 <code class="literal">status_published</code> 、 <code class="literal">status_deleted</code> 。如果我们为每个文档都保留其状态的完整字符串形式，那么每个文档就需要使用 14 到 16 字节，或总共 15 GB。</p>
+<p>有种可以用来降低字符串 fielddata 内存使用的技术叫做 <em>序号(ordinals)</em> 。</p>
+
+<p>设想我们有十亿文档，每个文档都有自己的 <code class="word">status</code>  状态字段，状态总共有三种： <code class="word">status_pending</code> 、 <code class="word">status_published</code> 、 <code class="word">status_deleted</code> 。如果我们为每个文档都保留其状态的完整字符串形式，那么每个文档就需要使用 14 到 16 字节，大约 15 GB。</p>
 <p>取而代之的是我们可以指定三个不同的字符串，对其排序、编号：0，1，2。</p>
 <pre class="literallayout">Ordinal | Term
 -------------------

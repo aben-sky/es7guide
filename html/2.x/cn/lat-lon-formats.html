@@ -49,10 +49,10 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="lat-lon-formats"></a>经纬度坐标格式<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/310_Geopoints/20_Geopoints.asciidoc">edit</a>
+<a id="lat-lon-formats"></a>经纬度坐标格式 (Lat/Lon Formats)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/310_Geopoints/20_Geopoints.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>如上例，<code class="literal">location</code> 字段被声明为 <code class="literal">geo_point</code> 后，我们就可以索引包含了经纬度信息的文档了。经纬度信息的形式可以是字符串、数组或者对象：</p>
+<p>如上例，<code class="word">location</code> 字段被声明为 <code class="literal">geo_point</code> 后，我们就可以索引包含了经纬度信息的文档了。经纬度信息的形式可以是字符串、数组或者对象：</p>
 <div class="pre_wrapper lang-json pagebreak-before">
 <pre class="programlisting prettyprint lang-json pagebreak-before">PUT /attractions/restaurant/1
 {
@@ -106,7 +106,7 @@ PUT /attractions/restaurant/3
 <div class="caution admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>可能所有人都至少一次踩过这个坑：地理坐标点用字符串形式表示时是纬度在前，经度在后（ <code class="literal">"latitude,longitude"</code> ），而数组形式表示时是经度在前，纬度在后（ <code class="literal">[longitude,latitude]</code> ）—顺序刚好相反。</p>
+<p>可能所有人都至少踩过一次这个坑：地理坐标点用字符串形式表示时是纬度在前，经度在后(<code class="literal">"latitude,longitude"</code>)，而数组形式表示时是经度在前，纬度在后(<code class="literal">[longitude,latitude]</code>) — 顺序刚好相反。</p>
 <p>其实，在 Elasticesearch 内部，不管字符串形式还是数组形式，都是经度在前，纬度在后。不过早期为了适配 GeoJSON 的格式规范，调整了数组形式的表示方式。</p>
 <p>因此，在使用地理位置的路上就出现了这么一个“捕熊器”，专坑那些不了解这个陷阱的使用者。</p>
 </div>

@@ -61,13 +61,13 @@
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-预加载 fielddata (<code class="literal">Eagerly load fielddata</code>)
+预加载 fielddata ( Eagerly load fielddata )
 </li>
 <li class="listitem">
-预加载 全局序号(<code class="literal">Eagerly load global ordinals</code>)
+预加载 全局序号( Eagerly load global ordinals )
 </li>
 <li class="listitem">
-缓存预热 (<code class="literal">Prepopulate caches with warmers</code>)
+缓存预热 ( Prepopulate caches with warmers )
 </li>
 </ul>
 </div>
@@ -75,7 +75,7 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="eager-fielddata"></a>预加载 fielddata (<code class="literal">Eagerly Loading Fielddata</code>)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/115_eager.asciidoc">edit</a>
+<a id="eager-fielddata"></a>预加载 fielddata ( Eagerly Loading Fielddata )<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/115_eager.asciidoc">edit</a>
 </h3>
 </div></div></div>
 <p>第一个工具称为 <em>预加载</em> （与默认的  延迟加载相对）。随着新分段的创建（通过刷新、写入或合并等方式），
@@ -140,11 +140,12 @@
 3       | 0  # deleted</pre>
 
 <p>这样可以将内存使用从 15 GB 降到 1 GB 以下！</p>
-<p>但这里有个问题，记得 fielddata 是按分 <em>段</em> 来缓存的。如果一个分段只包含两个状态（ <code class="literal">status_deleted</code> 和 <code class="literal">status_published</code> ）。那么结果中的序号（0 和 1）就会与包含所有三个状态的分段不一样。</p>
-<p>如果我们尝试对 <code class="literal">status</code> 字段运行 <code class="literal">terms</code> 聚合，我们需要对实际字符串的值进行聚合，也就是说我们需要识别所有分段中相同的值。一个简单粗暴的方式就是对每个分段执行聚合操作，返回每个分段的字符串值，再将它们归纳得出完整的结果。
+<p>但这里有个问题，记得 fielddata 是按分 <em>段</em> 来缓存的。如果一个分段只包含两个状态（ <code class="word">status_deleted</code> 和 <code class="word">status_published</code> ）。那么结果中的序号（0 和 1）就会与包含所有三个状态的分段不一样。</p>
+<p>如果我们尝试对 <code class="word">status</code> 字段运行 <code class="literal">terms</code> 聚合，我们需要对实际字符串的值进行聚合，也就是说我们需要识别所有分段中相同的值。一个简单粗暴的方式就是对每个分段执行聚合操作，返回每个分段的字符串值，再将它们归纳得出完整的结果。
 尽管这样做可行，但会很慢而且大量消耗 CPU。</p>
 <p>取而代之的是使用一个被称为 <em>全局序号</em> 的结构。 全局序号是一个构建在 fielddata 之上的数据结构，它只占用少量内存。唯一值是 <em>跨所有分段</em> 识别的，然后将它们存入一个序号列表中，正如我们描述过的那样。</p>
 <p>现在， <code class="literal">terms</code> 聚合可以对全局序号进行聚合操作，将序号转换成真实字符串值的过程只会在聚合结束时发生一次。这会将聚合（和排序）的性能提高三到四倍。</p>
+
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
@@ -153,8 +154,10 @@
 </div></div></div>
 <p>当然，天下没有免费的晚餐。  全局序号分布在索引的所有段中，所以如果新增或删除一个分段时，需要对全局序号进行重建。
 重建需要读取每个分段的每个唯一项，基数越高（即存在更多的唯一项）这个过程会越长。</p>
-<p>全局序号是构建在内存 fielddata 和 doc values 之上的。实际上，它们正是 doc values 性能表现不错的一个主要原因。</p>
-<p>和 fielddata 加载一样，全局序号默认也是延迟构建的。首个需要访问索引内 fielddata 的请求会促发全局序号的构建。由于字段的基数不同，这会导致给用户带来显著延迟这一糟糕结果。一旦全局序号发生重建，仍会使用旧的全局序号，直到索引中的分段产生变化：在刷新、写入或合并之后。</p>
+
+<p>全局序号是构建在内存型的 fielddata 和 doc values 之上的。实际上，它们正是 doc values 性能表现不错的一个主要原因。</p>
+
+<p>和 fielddata 加载一样，<b>全局序号默认也是延迟构建</b>的。首个需要访问索引内 fielddata 的请求会触发全局序号的构建。由于字段的基数不同，这会导致给用户带来显著延迟这一糟糕结果。一旦全局序号重建完成，它们就会被重复使用，直到索引中的分段产生变化：在刷新(refresh)、写入(flush)或合并(merge)之后。</p>
 </div>
 
 <div class="section">
@@ -163,7 +166,7 @@
 <a id="eager-global-ordinals"></a>预构建全局序号（Eager global ordinals）<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/115_eager.asciidoc">edit</a>
 </h4>
 </div></div></div>
-<p>单个字符串字段 可以通过配置预先构建全局序号：</p>
+<p>单个字符串字段 可以通过配置来预先构建全局序号：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">PUT /music/_mapping/_song
 {
@@ -191,11 +194,11 @@
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>序号的构建只被应用于字符串。数值信息（integers（整数）、geopoints（地理经纬度）、dates（日期）等等）不需要使用序号映射，因为这些值自己本质上就是序号映射。</p>
+<p>序号的构建只被应用于字符串。数值型数据（integers/整数、geopoints/地理经纬度、dates/日期 等等）不需要使用序号映射，因为这些值本身就是序号映射。</p>
 <p>因此，我们只能为字符串字段预构建其全局序号。</p>
 </div>
 </div>
-<p>也可以对 Doc values 进行全局序号预构建：</p>
+<p>也可以对 doc values 进行全局序号预构建：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">PUT /music/_mapping/_song
 {
@@ -221,11 +224,11 @@
 </table>
 </div>
 <p>与 fielddata 预加载不一样，预建全局序号会对数据的 <em>实时性</em> 产生影响，构建一个高基数的全局序号会使一个刷新延时数秒。
-选择在于是每次刷新时付出代价，还是在刷新后的第一次查询时。如果经常索引而查询较少，那么在查询时付出代价要比每次刷新时要好。如果写大于读，那么在选择在查询时重建全局序号将会是一个更好的选择。</p>
+选择在于这个代价是在每次 刷新(refresh) 时付出，还是在 刷新(refresh) 后的第一次查询时付出。 如果经常索引而查询较少(写多读少)，那么在查询时付出代价要比每次刷新时要好。</p>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>针对实际场景优化全局序号的重建频次。如果我们有高基数字段需要花数秒钟重建，增加 <code class="literal">refresh_interval</code> 的刷新的时间从而可以使我们的全局序号保留更长的有效期，这也会节省 CPU 资源，因为我们重建的频次下降了。</p>
+<p>针对实际场景优化全局序号的重建频率。如果我们有高基数字段需要花数秒钟重建，增加 刷新间隔(<code class="literal">refresh_interval</code>) 从而可以使我们的全局序号保留更长的有效期，这也会节省 CPU 资源，因为我们重建的频率下降了。</p>
 </div>
 </div>
 </div>
@@ -238,9 +241,20 @@
 <a id="index-warmers"></a>索引预热器（Index Warmers）<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/300_Aggregations/115_eager.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>最后我们谈谈 <em>索引预热器</em> 。预热器早于  fielddata 预加载和全局序号预加载之前出现，它们仍然有其存在的理由。一个索引预热器允许我们指定一个查询和聚合须要在新分片对于搜索可见之前执行。
+
+<div class="warning admon">
+<div class="icon"></div>
+<div class="admon_content">
+<h3>在 2.3.0 版本中废弃</h3>
+<p>得益于基于磁盘的归一化和doc values, 预热器不再有使用场景.</p>
+</div>
+</div>
+
+<p>最后我们谈谈 <em>索引预热器</em> 。预热器早于 fielddata 预加载和全局序号预加载之前出现，它们仍然有其存在的理由。一个索引预热器允许在新分片对于搜索可见之前执行一个查询和聚合。
 这个想法是通过预先填充或 <em>预热缓存</em> 让用户永远无法遇到延迟的波峰。</p>
-<p>原来，预热器最重要的用法是确保 fielddata 被预先加载，因为这通常是最耗时的一步。现在可以通过前面讨论的那些技术来更好的控制它，但是预热器还是可以用来预建过滤器缓存，当然我们也还是能选择用它来预加载 fielddata。</p>
+
+<p>起初，预热器最重要的用法是确保 fielddata 被预先加载，因为这通常是最耗时的一步。现在可以通过前面讨论的那些技术来更好的控制它，但是预热器还是可以用来预建过滤器缓存，当然我们也还是能选择用它来预加载 fielddata。</p>
+
 <p>让我们注册一个预热器然后解释发生了什么：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">PUT /music/_warmer/warmer_1 <a id="CO224-1"></a><i class="conum" data-value="1"></i>
@@ -275,7 +289,7 @@
 <p><a href="#CO224-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>预热器被关联到索引（ <code class="literal">music</code> ）上，使用接入口 <code class="literal">_warmer</code> 以及 ID （ <code class="literal">warmer_1</code> ）。</p>
+<p>预热器被关联到索引（ <code class="word">music</code> ）上，使用接入口 <code class="word">_warmer</code> 以及 ID （ <code class="word">warmer_1</code> ）。</p>
 </td>
 </tr>
 <tr>
@@ -305,7 +319,7 @@
 <div class="admon_content">
 <p>与预加载类似，预热器只是将冷缓存的代价转移到刷新的时候。当注册预热器时，做出明智的决定十分重要。
 为了确保每个缓存都被读入，我们 <em>可以</em> 加入上千的预热器，但这也会使新分段对于搜索可见的时间急剧上升。</p>
-<p>实际中，我们会选择少量代表大多数用户的查询，然后注册它们。</p>
+<p>实际应用中，我们会选择少量代表大多数用户的查询，然后注册它们。</p>
 </div>
 </div>
 <p>有些管理的细节（比如获得已有预热器和删除预热器）没有在本小节提到，剩下的详细内容可以参考 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/indices-warmers.html" class="ulink" target="_top">预热器文档（warmers documentation）</a> 。</p>

@@ -103,7 +103,7 @@
 <p><a href="#CO233-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>计算每个文档中 <code class="literal">location</code> 字段与指定的 <code class="literal">lat/lon</code> 点间的距离。</p>
+<p>计算每个文档中 <code class="word">location</code> 字段与指定的 <code class="literal">lat/lon</code> 点间的距离。</p>
 </td>
 </tr>
 <tr>
@@ -111,7 +111,7 @@
 <p><a href="#CO233-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>将距离以 <code class="literal">km</code> 为单位写入到每个返回结果的 <code class="literal">sort</code> 键中。</p>
+<p>将距离以 <code class="word">km</code> 为单位写入到每个返回结果的 <code class="word">sort</code> 键中。</p>
 </td>
 </tr>
 <tr>
@@ -124,7 +124,7 @@
 </tr>
 </table>
 </div>
-<p>你可能想问：为什么要制定距离的 <code class="literal">单位</code> 呢？用于排序的话，我们并不关心比较距离的尺度是英里、公里还是光年。 原因是，这个用于排序的值会设置在每个返回结果的 <code class="literal">sort</code> 元素中。</p>
+<p>你可能想问：为什么要制定距离的 <code class="word">单位</code> 呢？用于排序的话，我们并不关心比较距离的尺度是英里、公里还是光年。 原因是，这个用于排序的值会设置在每个返回结果的 <code class="word">sort</code> 元素中。</p>
 <div class="pre_wrapper lang-json">
 <pre class="programlisting prettyprint lang-json">...
   "hits": [
@@ -158,11 +158,11 @@
 </tr>
 </table>
 </div>
-<p>你可以通过设置 <code class="literal">单位</code> （ <code class="literal">unit</code> ）来让返回值的形式，匹配你应用中需要的。</p>
+<p>你可以通过设置 <code class="literal">单位</code>(<code class="literal">unit</code>) 来让返回的值符合应用程序的要求。</p>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>地理距离排序可以对多个坐标点来使用，不管（这些坐标点）是在文档中还是排序参数中。使用 <code class="literal">sort_mode</code> 来指定是否需要使用位置集合的 <code class="literal">最小</code> （ <code class="literal">min</code> ） <code class="literal">最大</code> （ <code class="literal">max</code> ）或者 <code class="literal">平均</code> （ <code class="literal">avg</code> ）距离。
+<p>地理距离排序可以对多个坐标点来使用，不管（这些坐标点）是在文档中还是排序参数中。使用 <code class="literal">sort_mode</code> 来指定是否需要使用位置集合的 <code class="literal">最小(min)</code> <code class="literal">最大(max)</code> 或者 <code class="literal">平均(avg)</code> 距离。
 如此就可以返回 “离我的工作地和家最近的朋友” 这样的结果了。</p>
 </div>
 </div>
@@ -173,8 +173,9 @@
 </h3>
 </div></div></div>
 <p>有可能距离是决定返回结果排序的唯一重要因素，不过更常见的情况是距离会和其它因素，比如全文检索匹配度、流行程度或者价格一起决定排序结果。</p>
-<p>遇到这种场景你需要在 <a class="xref" href="function-score-query.html" title="function_score 查询">功能评分查询</a> 中指定方式让我们把这些因子处理后得到一个综合分。 <a class="xref" href="decay-functions.html" title="越近越好">越近越好</a> 中有个一个例子就是介绍地理距离影响排序得分的。</p>
-<p>另外按距离排序还有个缺点就是性能：需要对每一个匹配到的文档都进行距离计算。而 <code class="literal">function_score</code> 查询，在 <a class="xref" href="_Improving_Performance.html#rescore-api" title="结果集重新评分"><code class="literal">rescore</code> 语句</a> 中可以限制只对前 <em>n</em> 个结果进行计算。</p>
+<p>遇到这种场景你需要在 <a class="xref" href="function-score-query.html" title="function_score 查询">功能评分查询(function_score query)</a> 中指定方式让我们把这些因子处理后得到一个综合分。 <a class="xref" href="decay-functions.html" title="越近越好">越近越好</a> 中有个一个例子就是介绍地理距离影响排序得分的。</p>
+
+<p>另外按距离排序还有个缺点就是<b>性能</b>：需要对每一个匹配到的文档都进行距离计算。而 <code class="literal">功能评分(function_score)</code>查询，在 <a class="xref" href="_Improving_Performance.html#rescore-api" title="结果集重新评分"><code class="literal">rescore</code> 语句</a> 中可以限制只对前 <em>n</em> 个结果进行计算。</p>
 </div>
 
 </div>

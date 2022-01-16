@@ -140,7 +140,7 @@
 3       | 0  # deleted</pre>
 
 <p>这样可以将内存使用从 15 GB 降到 1 GB 以下！</p>
-<p>但这里有个问题，记得 fielddata 是按分 <em>段</em> 来缓存的。如果一个分段只包含两个状态（ <code class="word">status_deleted</code> 和 <code class="word">status_published</code> ）。那么结果中的序号（0 和 1）就会与包含所有三个状态的分段不一样。</p>
+<p>但这里有个问题，记得 fielddata 是按 <em>分段(segment)</em> 来缓存的。如果一个分段只包含两个状态（ <code class="word">status_deleted</code> 和 <code class="word">status_published</code> ）。那么结果中的序号（0 和 1）就会与包含所有三个状态的分段不一样。</p>
 <p>如果我们尝试对 <code class="word">status</code> 字段运行 <code class="literal">terms</code> 聚合，我们需要对实际字符串的值进行聚合，也就是说我们需要识别所有分段中相同的值。一个简单粗暴的方式就是对每个分段执行聚合操作，返回每个分段的字符串值，再将它们归纳得出完整的结果。
 尽管这样做可行，但会很慢而且大量消耗 CPU。</p>
 <p>取而代之的是使用一个被称为 <em>全局序号</em> 的结构。 全局序号是一个构建在 fielddata 之上的数据结构，它只占用少量内存。唯一值是 <em>跨所有分段</em> 识别的，然后将它们存入一个序号列表中，正如我们描述过的那样。</p>

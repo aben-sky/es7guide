@@ -54,11 +54,10 @@
 Elasticsearch 有非常多的优点：高性能、可扩展、近实时搜索，并支持大数据量的数据分析。一切都很容易！
 只需下载并开始使用它。</p>
 <p>但它不是魔法。为了充分利用 Elasticsearch，你需要了解它的工作机制，以及如何让它如你所需的进行工作。</p>
-<p>和专用的关系型数据存储有所不同，Elasticsearch 并没有对处理实体之间的关系给出直接的方法。
-一个关系数据库的黄金法则是 --规范化你的数据（范式）-- 但这不适用于 Elasticsearch。
-在 <a class="xref" href="relations.html" title="关联关系处理"><em>关联关系处理</em></a> 、 <a class="xref" href="nested-objects.html" title="嵌套对象"><em>嵌套对象</em></a> 和 <a class="xref" href="parent-child.html" title="父-子关系文档"><em>父-子关系文档</em></a> 我们讨论了这些提供的方法的优点和缺点。</p>
-<p>然后在 <a class="xref" href="scale.html" title="扩容设计"><em>扩容设计</em></a> 我们谈论 Elasticsearch 提供的快速、灵活的扩容能力。
-当然扩容并没有一个放之四海而皆准的方案。你需要考虑这些通过系统产生的数据流的具体特点，
+
+<p>ES处理实体之间的关系不像专用的关系数据库(RDB)那样明显。 关系数据库的黄金法则 —— 数据规范化(三大范式) ——  并不适用于Elasticsearch。我们将在 <a class="xref" href="relations.html" title="关联关系处理"><em>关联关系处理</em></a> 、 <a class="xref" href="nested-objects.html" title="嵌套对象"><em>嵌套对象</em></a> 和 <a class="xref" href="parent-child.html" title="父-子关系"><em>父-子关系</em></a> 讨论可用方法的优点和缺点。</p>
+
+<p>然后在 <a class="xref" href="scale.html" title="扩容设计"><em>扩容(scale)设计</em></a> 我们将讨论Elasticsearch提供的使您能够快速、灵活地向外扩展的特性。当然扩容并没有一个放之四海而皆准的方案。你需要考虑这些通过系统产生的数据流的具体特点，
 据此设计你的模型。例如日志事件或者社交网络流这些时间序列数据类型，和静态文档集合在处理模型上有着很大的不同。</p>
 <p>最后，我们聊一下 Elasticsearch 里面不能伸缩的一件事。</p>
 </div>

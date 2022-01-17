@@ -88,7 +88,7 @@
 <p><a href="#CO245-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>查询中的形状是由 <code class="literal">shape</code> 键对应的内容表示。</p>
+<p>查询中的形状是由 <code class="literal">shape</code> 键对应的内容表示的。</p>
 </td>
 </tr>
 <tr>
@@ -109,7 +109,7 @@
 </tr>
 </table>
 </div>
-<p>默认的，查询（或者过滤器 —— 工作方式相同）会从已索引的形状中寻找与指定形状有交集的部分。此外，可以把 <code class="literal">relation</code> 字段设置为 <code class="literal">disjoint</code> 来查找与指定形状不相交的部分，或者设置为 <code class="literal">within</code> 来查找完全落在查询形状中的。</p>
+<p>默认情况下，查询（或者过滤器 —— 做同样的工作）会从已索引的形状中寻找与指定形状有交集的部分。此外，可以把 <code class="literal">relation</code> 字段设置为 <code class="literal">disjoint</code> 来查找与指定形状不相交的部分，或者设置为 <code class="literal">within</code> 来查找完全落在查询形状中的。</p>
 <p>举个例子，我们可以查找阿姆斯特丹中心区域所有的地标：</p>
 <div class="pre_wrapper lang-json">
 <pre class="programlisting prettyprint lang-json">GET /attractions/landmark/_search

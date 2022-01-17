@@ -49,18 +49,18 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="indexing-geo-shapes"></a>索引地理形状<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/340_Geoshapes/74_Indexing_geo_shapes.asciidoc">edit</a>
+<a id="indexing-geo-shapes"></a>索引地理形状 (Indexing Geo Shapes)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/340_Geoshapes/74_Indexing_geo_shapes.asciidoc">edit</a>
 </h2>
 </div></div></div>
 <p>地理形状通过 <a href="http://geojson.org/" class="ulink" target="_top">GeoJSON</a> 来表示，这是一种开放的使用 JSON 实现的二维形状编码方式。
-每个形状都包含了形状类型— <code class="literal">point</code>, <code class="literal">line</code>, <code class="literal">polygon</code>, <code class="literal">envelope</code> —和一个或多个经纬度点集合的数组。</p>
+每个形状都包含了形状类型: <code class="literal">点(point)</code>, <code class="literal">线(line)</code>, <code class="literal">多边形(polygon)</code>, <code class="literal">包络面(envelope)</code>, 以及一个或多个经纬度坐标集合的数组。</p>
 <div class="caution admon">
 <div class="icon"></div>
 <div class="admon_content">
 <p>在 GeoJSON 里，经纬度表示方式通常是 <em>纬度</em> 在前， <em>经度</em> 在后。</p>
 </div>
 </div>
-<p>如，我们用一个多边形来索引阿姆斯特丹达姆广场：</p>
+<p>如，我们用一个多边形(polygon )来索引阿姆斯特丹的达姆广场：</p>
 <div class="pre_wrapper lang-json">
 <pre class="programlisting prettyprint lang-json">PUT /attractions/landmark/dam_square
 {
@@ -87,7 +87,7 @@
 <p><a href="#CO244-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">type</code> 参数指明了经纬度坐标集表示的形状类型。</p>
+<p><code class="literal">type</code> 参数指明了经纬度坐标集表示的形状类型: 多边形(polygon)。</p>
 </td>
 </tr>
 <tr>
@@ -114,7 +114,7 @@
 
 </li>
 <li class="listitem">
-<p>一个多边形（ <code class="literal">polygon</code> ）形状可以包含多个多边形；第一个表示多边形的外轮廓，后续的多边形表示第一个多边形内部的空洞：</p>
+<p>一个多边形(<code class="literal">polygon</code>)可以包含多个多边形；第一个表示多边形的外轮廓，后续的多边形表示第一个多边形内部的空洞：</p>
 <pre class="literallayout">[
   [[lon,lat],[lon,lat], ... ],  # main polygon
   [[lon,lat],[lon,lat], ... ],  # hole in main polygon

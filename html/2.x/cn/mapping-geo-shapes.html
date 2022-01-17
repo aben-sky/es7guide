@@ -52,7 +52,7 @@
 <a id="mapping-geo-shapes"></a>映射地理形状 (Mapping Geo Shapes)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/340_Geoshapes/72_Mapping_geo_shapes.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>与 <code class="literal">geo_point</code> 类型的字段相似， 地理形状也必须在使用前明确映射：</p>
+<p>与 <code class="literal">geo_point</code> 类型的字段相似， 地理形状(geo-shapes)也必须在使用前显式定义映射：</p>
 <div class="pre_wrapper lang-json">
 <pre class="programlisting prettyprint lang-json">PUT /attractions
 {
@@ -74,7 +74,7 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_精度"></a>精度<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/340_Geoshapes/72_Mapping_geo_shapes.asciidoc">edit</a>
+<a id="_精度"></a>精度 (precision)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/340_Geoshapes/72_Mapping_geo_shapes.asciidoc">edit</a>
 </h3>
 </div></div></div>
 <p><code class="literal">精度(precision)</code> 参数用来控制生成的 geohash 的最大长度。默认精度为 <code class="literal">9</code> ，等同于尺寸在 5m x 5m 的<a class="xref" href="geohashes.html" title="Geohashes">geohash</a> 。这个精度可能比你需要的精确得多。</p>

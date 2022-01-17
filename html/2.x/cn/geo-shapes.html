@@ -47,19 +47,19 @@
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="geo-shapes"></a>地理形状<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/340_Geoshapes/70_Geoshapes.asciidoc">edit</a>
+<a id="geo-shapes"></a>地理形状 (Geo Shapes)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/340_Geoshapes/70_Geoshapes.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>地理形状（ Geo-shapes ）使用一种与地理坐标点完全不同的方法。我们在计算机屏幕上看到的圆形并不是由完美的连续的线组成的。而是用一个个连续的着色像素点画出的一个近似圆。地理形状的工作方式就与此相似。</p>
-<p>复杂的形状——比如点集、线、多边形、多多边形、中空多边形——都是通过 geohash 单元 “画出来” 的，这些形状会转化为一个被它所覆盖到的 geohash 的集合。</p>
+<p>地理形状(Geo-shapes)使用一种与地理坐标点完全不同的方法。我们在计算机屏幕上看到的圆形并不是由完美的连续的线组成的，而是通过将相邻的像素点着色画出来的一个近似的圆。地理形状的工作方式大致如此。</p>
+<p>复杂的形状, 比如点、线、多边形、多多边形、中空多边形, 都是通过 geohash 单元格 “画出来” 的，这些形状会转化为一个被它所覆盖到的 geohash 的集合。</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>实际上，两种类型的网格可以被用于 geo-shapes：默认使用我们之前讨论过的 geohash ，另外还有一种是 <em>四叉树</em> 。四叉树与 geohash 类似，除了四叉树每个层级只有 4 个单元，而不是 32 。这种不同取决于编码方式的选择。</p>
+<p>实际上，有两种类型的网格可以被用于 geo-shapes：默认使用的 geohash, 之前已经讨论过，另外一种是 <em>四叉树(quad trees)</em> 。四叉树与 geohash 类似，除了四叉树每个层级只有 4 个单元格，而不是 32 。这个差异取决于选择的编码方式。</p>
 </div>
 </div>
-<p>组成一个形状的 geohash 都作为一个单元被索引在一起。有了这些信息，通过查看是否有相同的 geohash 单元，就可以很轻易地检查两个形状是否有交集。</p>
-<p>geo-shapes 有以下作用：判断查询的形状与索引的形状的关系；这些 <code class="literal">关系</code> 可能是以下之一：</p>
+<p>组成形状的 geohash 都会被索引, 就好像它们是 词项(term) 一样。有了这些信息，通过查看是否有相同的 geohash 词项(term)，就可以很轻易地检查两个形状是否有交集。</p>
+<p>geo-shapes 有以下作用：判断查询的形状与索引中的形状的关系。这些 <code class="literal">关系</code> 可能是下列之一：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -88,7 +88,7 @@
 </dd>
 </dl>
 </div>
-<p>Geo-shapes 不能用于计算距离、排序、打分以及聚合。</p>
+<p>Geo-shapes 不能用于计算距离、排序、打分或者聚合。</p>
 
 
 

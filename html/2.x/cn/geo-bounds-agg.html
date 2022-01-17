@@ -49,11 +49,11 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="geo-bounds-agg"></a>地理边界聚合<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/330_Geo_aggs/66_Geo_bounds_agg.asciidoc">edit</a>
+<a id="geo-bounds-agg"></a>地理边界聚合 (Geo Bounds Aggregation)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/330_Geo_aggs/66_Geo_bounds_agg.asciidoc">edit</a>
 </h2>
 </div></div></div>
 <p>在我们<a class="xref" href="geohash-grid-agg.html" title="Geohash 网格聚合">之前的例子</a>中，我们通过一个覆盖大纽约区的边框来过滤结果。 然而，我们的结果全部都位于曼哈顿市中心。当为我们的用户显示一个地图的时候，放大包含数据的区域是有意义的；展示大量的空白空间是没有任何意义的。</p>
-<p><code class="literal">geo_bounds</code> 正好是这样的：它计算封装所有地理位置点需要的最小边界框：</p>
+<p><code class="literal">geo_bounds</code> 正好是这样的：它计算封装所有地理位置点所需要的最小边界框：</p>
 <div class="pre_wrapper lang-json">
 <pre class="programlisting prettyprint lang-json">GET /attractions/restaurant/_search
 {
@@ -103,7 +103,7 @@
 </tr>
 </table>
 </div>
-<p>响应现在包括了一个可以用来缩放地图的边界框。</p>
+<p>响应数据现在已经包含了一个可以用来缩放地图的边界框：</p>
 <div class="pre_wrapper lang-json">
 <pre class="programlisting prettyprint lang-json">...
 "aggregations": {
@@ -121,7 +121,7 @@
   },
 ...</pre>
 </div>
-<p>事实上，我们甚至可以在每一个 geohash 单元内部使用 <code class="literal">geo_bounds</code> 聚合， 以免一个单元内的地理位置点仅集中在单元的一部分上：</p>
+<p>事实上，我们甚至可以在每一个 geohash 单元格内部使用 <code class="literal">geo_bounds</code> 聚合， 以免一个单元格内的地理位置点仅集中在单元格的某一块：</p>
 <div class="pre_wrapper lang-json">
 <pre class="programlisting prettyprint lang-json">GET /attractions/restaurant/_search
 {
@@ -173,7 +173,7 @@
 </tr>
 </table>
 </div>
-<p>现在在每个单元里的点有一个边界框。</p>
+<p>现在, 每个单元格里的点都有一个边界框：</p>
 <div class="pre_wrapper lang-json">
 <pre class="programlisting prettyprint lang-json">...
 "aggregations": {

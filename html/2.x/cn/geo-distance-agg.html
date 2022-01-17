@@ -113,7 +113,7 @@
 <p><a href="#CO238-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>主查询查找名称中含有 <code class="literal">pizza</code> 的饭店。</p>
+<p>主查询查找名称中含有 <code class="word">pizza</code> 的饭店。</p>
 </td>
 </tr>
 <tr>
@@ -137,7 +137,7 @@
 <p><a href="#CO238-4"><i class="conum" data-value="4"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>最后，<code class="literal">post_filter</code> 将结果缩小至那些在用户 1km 范围内的饭店。</p>
+<p>最后，后置过滤器 <code class="literal">post_filter</code> 将结果缩小至那些在用户 1km 范围内的饭店。</p>
 </td>
 </tr>
 </table>
@@ -189,7 +189,7 @@
 <p><a href="#CO239-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">post_filter</code> 已经将搜索结果缩小至仅在用户 1km 范围以内的披萨店。</p>
+<p>后置过滤器 <code class="literal">post_filter</code> 已经将搜索结果缩小至仅在用户 1km 范围内的披萨店。</p>
 </td>
 </tr>
 <tr>
@@ -197,12 +197,16 @@
 <p><a href="#CO239-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>聚合包括搜索结果加上其他在用户 2km 范围以内的披萨店。</p>
+<p>聚合包含了搜索结果，以及另外一家在用户 2km 范围内的披萨店。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>在这个例子中，我们计算了落在每个同心环内的饭店数量。当然，我们可以在 <code class="literal">per_rings</code> 聚合下面嵌套子聚合来计算每个环的平均价格、最受欢迎程度，等等。</p>
+<p>在这个例子中，我们计算了落在每个同心环内的饭店数量。当然，我们可以在 <code class="word">per_ring</code> 聚合下 嵌套子聚合来计算每个环的平均价格、最受欢迎程度等。</p>
+<p style="color:#666;">
+&gt;译者注: 本来只需要查询1km以内的数据, 但是在外面又套了一层1km~2km的数据, 所以就组成了同心环。
+</p>
+
 </div>
 <div class="navfooter">
 <span class="prev">

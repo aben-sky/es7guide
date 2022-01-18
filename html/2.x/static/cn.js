@@ -453,9 +453,9 @@ var esNavLinks = [
                 "url": "relations.html", "text": "关联关系处理", "title": "关联关系处理",
                 "sub": [
                     {"url": "application-joins.html", "text": "应用层联接", "title": "应用层联接"},
-                    {"url": "denormalization.html", "text": "非规范化你的数据", "title": "非规范化你的数据"},
+                    {"url": "denormalization.html", "text": "去规范化你的数据", "title": "去规范化你的数据"},
                     {"url": "top-hits.html", "text": "字段折叠", "title": "字段折叠"},
-                    {"url": "denormalization-concurrency.html", "text": "非规范化和并发", "title": "非规范化和并发"},
+                    {"url": "denormalization-concurrency.html", "text": "去规范化和并发", "title": "去规范化和并发"},
                     {"url": "concurrency-solutions.html", "text": "解决并发问题", "title": "解决并发问题"}
                 ]
             },

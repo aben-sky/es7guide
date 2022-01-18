@@ -40,21 +40,21 @@
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="denormalization.html">« 非规范化你的数据</a>
+<a href="denormalization.html">« 去规范化你的数据</a>
 </span>
 <span class="next">
-<a href="denormalization-concurrency.html">非规范化和并发 »</a>
+<a href="denormalization-concurrency.html">去规范化和并发 »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="top-hits"></a>字段折叠<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/400_Relationships/22_Top_hits.asciidoc">edit</a>
+<a id="top-hits"></a>字段折叠 (Field Collapsing)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/400_Relationships/22_Top_hits.asciidoc">edit</a>
 </h2>
 </div></div></div>
 <p>一个普遍的需求是需要通过特定字段进行分组。例如我们需要按照用户名称 <em>分组</em> 返回最相关的博客文章。
 按照用户名分组意味着进行 <code class="literal">terms</code> 聚合。
-为能够按照用户 <em>整体</em> 名称进行分组，名称字段应保持 <code class="literal">not_analyzed</code> 的形式，
+为能够按照用户 <em>整体</em> 名称进行分组，名称字段应保持 <code class="literal">not_analyzed</code> 的形式<span style="color:#666;">(不做分词处理)</span>，
 具体说明参考 <a class="xref" href="aggregations-and-analysis.html" title="聚合与分析">聚合与分析</a>：</p>
 <div class="pre_wrapper lang-json">
 <pre class="programlisting prettyprint lang-json">PUT /my_index/_mapping/blogpost
@@ -83,7 +83,7 @@
 <p><a href="#CO251-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">user.name</code> 字段将用来进行全文检索。</p>
+<p><code class="word">user.name</code> 字段将用来进行全文检索 <span style="color:#666;">(默认会进行分析/分词)</span>。</p>
 </td>
 </tr>
 <tr>
@@ -91,7 +91,7 @@
 <p><a href="#CO251-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">user.name.raw</code> 字段将用来通过 <code class="literal">terms</code> 聚合进行分组。</p>
+<p><code class="word">user.name.raw</code> 字段将用来通过 <code class="word">terms</code> 聚合进行分组。</p>
 </td>
 </tr>
 </table>
@@ -132,7 +132,7 @@ PUT /my_index/blogpost/4
   }
 }</pre>
 </div>
-<p>现在我们来查询标题包含 <code class="literal">relationships</code> 并且作者名包含 <code class="literal">John</code> 的博客，查询结果再按作者名分组，感谢 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-top-hits-aggregation.html" class="ulink" target="_top"><code class="literal">top_hits</code> aggregation</a>
+<p>现在我们来查询标题包含 <code class="word">relationships</code> 并且作者名包含 <code class="word">John</code> 的博客，查询结果再按作者名分组，感谢 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-top-hits-aggregation.html" class="ulink" target="_top"><code class="literal">top_hits</code> 聚合</a>
 提供了按照用户进行分组的功能：</p>
 <div class="pre_wrapper lang-json">
 <pre class="programlisting prettyprint lang-json">GET /my_index/blogpost/_search
@@ -167,7 +167,7 @@ PUT /my_index/blogpost/4
 <p><a href="#CO252-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>我们感兴趣的博客文章是通过 <code class="literal">blogposts</code> 聚合返回的，所以我们可以通过将 <code class="literal">size</code> 设置成 0 来禁止 <code class="literal">hits</code> 常规搜索。</p>
+<p>我们感兴趣的博客文章是通过 <code class="word">blogposts</code> 聚合返回的，所以我们可以通过将 <code class="literal">size</code> 设置成 0 来禁止 <code class="literal">hits</code> 常规搜索<span style="color:#666;">(不返回匹配的文档)</span>。</p>
 </td>
 </tr>
 <tr>
@@ -175,7 +175,7 @@ PUT /my_index/blogpost/4
 <p><a href="#CO252-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">query</code> 返回通过 <code class="literal">relationships</code> 查找名称为 <code class="literal">John</code> 的用户的博客文章。</p>
+<p><code class="literal">query</code> 返回通过 <code class="word">relationships</code> 查找名称为 <code class="word">John</code> 的用户的博客文章。</p>
 </td>
 </tr>
 <tr>
@@ -183,7 +183,7 @@ PUT /my_index/blogpost/4
 <p><a href="#CO252-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">terms</code> 聚合为每一个 <code class="literal">user.name.raw</code> 创建一个桶。</p>
+<p><code class="literal">terms</code> 聚合为每一个 <code class="word">user.name.raw</code> 创建一个桶。</p>
 </td>
 </tr>
 <tr>
@@ -191,7 +191,7 @@ PUT /my_index/blogpost/4
 <p><a href="#CO252-4"><i class="conum" data-value="4"></i></a><a href="#CO252-5"></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">top_score</code> 聚合对通过 <code class="literal">users</code> 聚合得到的每一个桶按照文档评分对词项进行排序。</p>
+<p><code class="literal">top_score</code> 聚合对通过 <code class="word">users</code> 聚合得到的每一个桶按照文档评分对词项进行排序。</p>
 </td>
 </tr>
 <tr>
@@ -199,7 +199,7 @@ PUT /my_index/blogpost/4
 <p><a href="#CO252-6"><i class="conum" data-value="5"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">top_hits</code> 聚合仅为每个用户返回五个最相关的博客文章的 <code class="literal">title</code> 字段。</p>
+<p><code class="literal">top_hits</code> 聚合仅为每个用户返回五个最相关的博客文章的 <code class="word">title</code> 字段。</p>
 </td>
 </tr>
 </table>
@@ -256,7 +256,9 @@ PUT /my_index/blogpost/4
 <p><a href="#CO253-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>在顶层查询结果中出现的每一个用户都会有一个对应的桶。</p>
+<p>查询结果中的每一个用户都会有一个对应的桶。
+    <span style="color:#666;">(aben注: 原文"There is a bucket for each user who appeared in the top results."中的"top"类似SQLSERVER的TOP关键字, 就是前几个结果)</span>
+</p>
 </td>
 </tr>
 <tr>
@@ -264,7 +266,9 @@ PUT /my_index/blogpost/4
 <p><a href="#CO253-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>在每个用户桶下面都会有一个 <code class="literal">blogposts.hits</code> 数组包含针对这个用户的顶层查询结果。</p>
+<p>在每个用户桶下面都会有一个<code class="literal">blogposts.hits</code>数组, 这个数组包含该用户的前几个查询结果。
+    <span style="color:#666;">(aben注: 原文"Under each user bucket there is a blogposts.hits array containing the top results for that user."中的"the top results"就是该用户匹配到的结果中的前几个)</span>
+</p>
 </td>
 </tr>
 <tr>
@@ -272,20 +276,21 @@ PUT /my_index/blogpost/4
 <p><a href="#CO253-4"><i class="conum" data-value="4"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>用户桶按照每个用户最相关的博客文章进行排序。</p>
+<p>用户桶中的博客文章, 按照相关性从高到底进行排序。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>使用 <code class="literal">top_hits</code> 聚合等效执行一个查询返回这些用户的名字和他们最相关的博客文章，然后为每一个用户执行相同的查询，以获得最好的博客。但前者的效率要好很多。</p>
-<p>每一个桶返回的顶层查询命中结果是基于最初主查询进行的一个轻量 <em>迷你查询</em> 结果集。这个迷你查询提供了一些你期望的常用特性，例如高亮显示以及分页功能。</p>
+<p>使用 <code class="literal">top_hits</code> 聚合 相当于: 执行一个查询返回这些用户的名字和他们最相关的博客文章，然后为每一个用户执行相同的查询，以获得最好的博客。但前者的效率要好很多。</p>
+
+<p>每一个桶返回的前几个查询命中结果是基于最初主查询进行的一个轻量 <em>迷你查询(mini-query)</em> 结果集。这个迷你查询提供了一些你期望的常用特性，例如高亮显示以及分页功能。</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="denormalization.html">« 非规范化你的数据</a>
+<a href="denormalization.html">« 去规范化你的数据</a>
 </span>
 <span class="next">
-<a href="denormalization-concurrency.html">非规范化和并发 »</a>
+<a href="denormalization-concurrency.html">去规范化和并发 »</a>
 </span>
 </div>
 </div>

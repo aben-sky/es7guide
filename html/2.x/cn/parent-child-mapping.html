@@ -52,9 +52,16 @@
 <a id="parent-child-mapping"></a>父-子关系文档映射<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/404_Parent_Child/40_Parent_child.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>建立父-子文档映射关系时只需要指定某一个文档 type 是另一个文档 type 的父亲。   该关系可以在如下两个时间点设置：1）创建索引时；2）在子文档 type 创建之前更新父文档的 mapping。</p>
-<p>举例说明，有一个公司在多个城市有分公司，并且每一个分公司下面都有很多员工。有这样的需求：按照分公司、员工的维度去搜索，并且把员工和他们工作的分公司联系起来。针对该需求，用嵌套模型是无法实现的。当然，如果使用 <a class="xref" href="application-joins.html" title="应用层联接">application-side-joins</a> 或者 <a class="xref" href="denormalization.html" title="去规范化你的数据">data denormalization</a> 也是可以实现的，但是为了演示的目的，在这里我们使用父-子文档。</p>
-<p>我们需要告诉Elasticsearch，在创建员工 <code class="literal">employee</code> 文档 type 时，指定分公司 <code class="literal">branch</code> 的文档 type 为其父亲。</p>
+<p>建立父-子文档映射关系时只需要指定某一个文档类型(type)是另一个文档类型(type)的父亲。   
+这个关系必须在创建索引时完成，或者在创建子类型之前使用<code class="literal">update-mapping</code>API完成。  
+</p>
+<p>
+比如，假设我们有一家公司在许多城市都有分公司。 我们希望雇员与他们工作的分公司相关联。 我们需要能够搜索分公司、单个员工以及为特定分公司工作的员工，此时嵌套模型就无能无力了。 
+当然，我们可以在这里使用<a class="xref" href="application-joins.html" title="应用层联接">应用层联接(application-side-joins)</a>或<a class="xref" href="denormalization.html" title="去规范化数据">去规范化数据(data denormalization)</a>，但出于演示目的，我们将使用父-子关系。 
+</p>
+
+<p>我们需要告诉Elasticsearch，在创建员工<code class="word">employee</code>文档类型<code class="literal">type</code>时，指定分公司<code class="literal">branch</code>的文档类型<code class="literal">type</code>为其父亲。
+</p>
 <div class="pre_wrapper lang-json">
 <pre class="programlisting prettyprint lang-json">PUT /company
 {
@@ -75,7 +82,7 @@
 <p><a href="#CO278-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">employee</code> 文档 是 <code class="literal">branch</code> 文档的子文档。</p>
+<p><code class="word">employee</code>文档是<code class="word">branch</code>文档的子文档。</p>
 </td>
 </tr>
 </table>

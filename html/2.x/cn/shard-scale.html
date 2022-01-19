@@ -49,14 +49,15 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="shard-scale"></a>扩容的单元<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/410_Scaling/15_Shard.asciidoc">edit</a>
+<a id="shard-scale"></a>扩容的单元(The Unit of Scale)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/410_Scaling/15_Shard.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>在 <a class="xref" href="dynamic-indices.html" title="动态更新索引">动态更新索引</a>，我们介绍了一个分片即一个 <em>Lucene 索引</em> ，一个 Elasticsearch 索引即一系列分片的集合。
+<p>在 <a class="xref" href="dynamic-indices.html" title="动态更新索引">动态更新索引</a>中，我们介绍了一个分片即一个<em>Lucene 索引</em>，一个 Elasticsearch 索引即一系列分片的集合。
 你的应用程序与索引进行交互，Elasticsearch 帮助你将请求路由至相应的分片。</p>
-<p>一个分片即为 <em>扩容的单元</em> 。一个最小的索引拥有一个分片。
-这可能已经完全满足你的需求了 — 单个分片即可存储大量的数据 — 但这限制了你的可扩展性。</p>
-<p>想象一下我们的集群由一个节点组成，在集群内我们拥有一个索引，这个索引只含一个分片：</p>
+
+<p>一个分片即为 <em>扩容的单元(unit of scale)</em> 。最小的一个索引可以只有一个分片。
+这可能已经完全满足你的需求了 — 单个分片即可存储大量的数据 — 但这限制了你的可扩展性。</p>
+<p>想象一下我们的集群由一个节点组成，在集群内有一个索引，这个索引只含一个分片：</p>
 <div class="pre_wrapper lang-json">
 <pre class="programlisting prettyprint lang-json">PUT /my_index
 {
@@ -73,32 +74,34 @@
 <p><a href="#CO286-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>创建一个拥有 1 主分片 0 个副本分片的索引.</p>
+<p>创建一个拥有 1 个主分片 0 个副本分片的索引.</p>
 </td>
 </tr>
 </table>
 </div>
-<p>这个设置值也许很小，但它满足我们当前的需求而且运行代价低。</p>
+<p>这个设置也许很小，但它满足我们当前的需求而且成本很低。</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>当前我们只讨论 <em>主</em> 分片。我们将在 <a class="xref" href="replica-shards.html" title="副本分片">副本分片</a> 讨论 <em>副本</em> 分片。</p>
+<p>当前我们只讨论<em>主 (primary)</em>分片(shard)。我们将在 <a class="xref" href="replica-shards.html" title="副本分片">副本分片</a> 讨论 <em>副本 (replica)</em>分片(shard)。</p>
 </div>
 </div>
 <p>在美好的一天，互联网发现了我们，一个节点再也承受不了我们的流量。
 我们决定根据 <a class="xref" href="shard-scale.html#img-one-shard" title="一个只有一个分片的索引无扩容因子">Figure 49, “一个只有一个分片的索引无扩容因子”</a> 添加一个节点。这将会发生什么呢？</p>
+
 <div id="img-one-shard" class="imageblock">
 <div class="content">
 <img src="../images/elas_4401.png" alt="一个只有一个分片的索引无扩容因子">
 </div>
-<div class="title">Figure 49. 一个只有一个分片的索引无扩容因子</div>
+<div class="title">Figure 49. 一个只有一个分片的索引无扩容因子 (An index with one shard has no scale factor)</div>
 </div>
+
 <p>答案是：什么都不会发生。因为我们只有一个分片，已经没有什么可以放在第二个节点上的了。
-我们不能增加索引的分片数因为它是 <a class="xref" href="routing-value.html" title="路由一个文档到一个分片中">route documents to shards</a> 算法中的重要元素：</p>
+我们不能增加索引的分片数因为它是 <a class="xref" href="routing-value.html" title="路由文档到分片">路由文档到分片(route documents to shards)</a> 算法中的重要元素：</p>
 <pre class="literallayout">shard = hash(routing) % number_of_primary_shards</pre>
 
-<p>我们当前的选择只有一个就是将数据重新索引至一个拥有更多分片的一个更大的索引，但这样做将消耗的时间是我们无法提供的。
-通过事先规划，我们可以使用 <em>预分配</em> 的方式来完全避免这个问题。</p>
+<p>我们当前的选择只有一个，就是将数据重新索引至一个拥有更多分片的一个更大的索引，但这样做将消耗的时间是我们无法承受的。
+通过事先规划，我们可以使用<em>预分配(overallocating)</em>的方式来完全避免这个问题。</p>
 </div>
 <div class="navfooter">
 <span class="prev">

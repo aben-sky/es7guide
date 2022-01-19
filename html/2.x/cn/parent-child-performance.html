@@ -59,9 +59,9 @@
 <a id="_全局序号和延迟"></a>全局序号和延迟 (Global Ordinals and Latency)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/404_Parent_Child/70_Practical_considerations.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>父子关系使用了<a class="xref" href="preload-fielddata.html#global-ordinals" title="全局序号（Global Ordinals）">全局序数</a>  来加速文档间的联合。不管父子关系映射是否使用了内存缓存或基于硬盘的 doc values，当索引变更时，全局序数要重建。</p>
-<p>一个分片中父文档越多，那么全局序数的重建就需要更多的时间。父子关系更适合于父文档少、子文档多的情况。</p>
-<p>全局序数默认情况下是延迟构建的：在refresh后的第一个父子查询会触发全局序数的构建。而这个构建会导致用户使用时感受到明显的迟缓。你可以使用<a class="xref" href="preload-fielddata.html#eager-global-ordinals" title="预构建全局序号（Eager global ordinals）">全局序数预加载</a>  来将全局序数构建的开销由query阶段转移到refresh阶段，设置如下：</p>
+<p>父子关系使用了<a class="xref" href="preload-fielddata.html#global-ordinals" title="全局序号（Global Ordinals）">全局序号</a>来加速文档间的联合。不管父子关系映射是否使用了内存缓存或基于硬盘的<code class="literal">doc values</code>，当索引变更时，全局序号要重建。</p>
+<p>一个分片中父文档越多，那么全局序号的重建就需要更多的时间。父子关系更适合于父文档少、子文档多的情况。</p>
+<p>全局序号默认情况下是延迟构建的：在<code class="literal">refresh</code>后的第一个父子查询会触发全局序号的构建。而这个构建会导致用户使用时感受到明显的延迟。你可以使用<a class="xref" href="preload-fielddata.html#eager-global-ordinals" title="全局序号预加载（Eager global ordinals）">全局序号预加载(Eager global ordinals)</a>来将全局序号构建的开销由<b>查询</b>阶段转移到<code class="literal">refresh</code>阶段，通过如下方式映射<code class="literal">_parent</code>字段：</p>
 <div class="pre_wrapper lang-json">
 <pre class="programlisting prettyprint lang-json">PUT /company
 {
@@ -85,28 +85,28 @@
 <p><a href="#CO285-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>在一个新的段可搜索前，<code class="literal">_parent</code> 字段的全局序数会被构建。</p>
+<p>在一个新的段(segment)可搜索前，<code class="literal">_parent</code>字段的全局序号会被构建。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>当父文档过多时，全局序数的构建会耗费很多时间。此时可以通过增加 <code class="literal">refresh_interval</code>  来减少 refresh 的次数，延长全局序数的有效时间，这也很大程度上减小了全局序数每秒重建的cpu消耗。</p>
+<p>当父文档过多时，全局序号的构建可能需要几秒钟时间。在这种情况下，增加<code class="literal">refresh_interval</code>是有意义的，这样刷新(refresh)的次数就少了，全局序号的有效期也就更长了。这将大大降低每秒重建全局序号的cpu消耗。</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_多代使用和结语"></a>多代使用和结语<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/404_Parent_Child/70_Practical_considerations.asciidoc">edit</a>
+<a id="_多代使用和结语"></a>多代(Multigenerations)和结束语<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/404_Parent_Child/70_Practical_considerations.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>多代文档的联合查询(查看 <a class="xref" href="grandparents.html" title="祖辈与孙辈关系">祖辈与孙辈关系</a>)虽然看起来很吸引人，但必须考虑如下的代价：</p>
+<p>多代文档的关联查询(查看<a class="xref" href="grandparents.html" title="祖辈与孙辈关系">祖辈与孙辈关系</a>)虽然看起来很吸引人，但必须考虑如下的代价：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-联合越多，性能越差。
+关联越多，性能越差。
 </li>
 <li class="listitem">
-每一代的父文档都要将其字符串类型的 <code class="literal">_id</code> 字段存储在内存中，这会占用大量内存。
+每一代的父文档都要将其字符串类型的<code class="literal">_id</code>字段存储在内存中，这会占用大量内存。
 </li>
 </ul>
 </div>
@@ -117,17 +117,18 @@
 尽量少地使用父子关系，仅在子文档远多于父文档时使用。
 </li>
 <li class="listitem">
-避免在一个查询中使用多个父子联合语句。
+避免在单个查询中使用多个父子关联语句。
 </li>
 <li class="listitem">
-在 has_child 查询中使用 filter 上下文，或者设置 score_mode 为 none 来避免计算文档得分。
+避免在<code class="literal">has_child</code>过滤中计算得分，通过设置<code class="literal">has_child</code>查询的<code class="literal">score_mode</code>为<code class="literal">none</code>不再计算得分。
+<br/><span style="color:#666;">(原文: Avoid scoring by using the has_child filter, or the has_child query with score_mode set to none.</span>)
 </li>
 <li class="listitem">
-保证父 IDs 尽量短，以便在 doc values 中更好地压缩，被临时载入时占用更少的内存。
+保证父 ID 尽量短，以便在 doc values 中更好地压缩，被临时载入时占用更少的内存。
 </li>
 </ul>
 </div>
-<p><em>最重要的是:</em> 先考虑下我们之前讨论过的其他方式来达到父子关系的效果。</p>
+<p><em>最重要的是:</em> 考虑一下我们在接触父-子关系之前讨论过的其他关系。</p>
 </div>
 
 </div>

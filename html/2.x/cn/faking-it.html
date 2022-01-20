@@ -49,12 +49,13 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="faking-it"></a>利用别名实现一个用户一个索引<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/410_Scaling/70_Faking_it.asciidoc">edit</a>
+<a id="faking-it"></a>利用别名实现一个用户一个索引 (Faking Index per User with Aliases)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/410_Scaling/70_Faking_it.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>为了保持设计的简洁，我们想让我们的应用认为我们为每个用户都有一个专门的索引——或者按照我们的例子每个论坛一个——尽管实际上我们用的是一个大的<a class="xref" href="shared-index.html" title="共享索引">shared index</a>。
+<p>为了保持设计的简洁，我们想让我们的应用认为我们为每个用户都有一个专门的索引 —— 或者例子中的每个论坛一个 —— 尽管实际上我们用的是一个大的<a class="xref" href="shared-index.html" title="共享索引">共享索引(shared index)</a>。
 因此，我们需要一种方式将 <code class="literal">routing</code> 值及过滤器隐含于 <code class="literal">forum_id</code> 中。</p>
-<p>索引别名可以帮你做到这些。当你将一个别名与一个索引关联起来，你可以指定一个过滤器和一个路由值：</p>
+
+<p>索引别名允许我们这样做。当你将一个别名与一个索引关联时，可以指定一个过滤器和一个路由值：</p>
 <div class="pre_wrapper lang-json">
 <pre class="programlisting prettyprint lang-json">PUT /forums/_alias/baking
 {
@@ -66,7 +67,7 @@
   }
 }</pre>
 </div>
-<p>现在我们可以将 <code class="literal">baking</code> 别名视为一个单独的索引。索引至 <code class="literal">baking</code> 别名的文档会自动地应用我们自定义的路由值：</p>
+<p>现在我们可以将别名<code class="word">baking</code>视为一个单独的索引。索引至别名<code class="word">baking</code>的文档会自动地应用我们自定义的路由值：</p>
 <div class="pre_wrapper lang-json">
 <pre class="programlisting prettyprint lang-json">PUT /baking/post/1 <a id="CO296-1"></a><i class="conum" data-value="1"></i>
 {
@@ -82,12 +83,12 @@
 <p><a href="#CO296-1"><i class="conum" data-value="1"></i></a><a href="#CO296-2"></a></p>
 </td>
 <td align="left" valign="top">
-<p>我们还是需要为过滤器指定 <code class="literal">forumn_id</code> 字段，但自定义路由值已经是隐含的了。</p>
+<p>我们还是需要为过滤器指定 <code class="word">forumn_id</code> 字段，但自定义路由值已经是隐含的了。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>对 <code class="literal">baking</code> 别名上的查询只会在自定义路由值关联的分片上运行，并且结果也自动按照我们指定的过滤器进行了过滤：</p>
+<p>对别名<code class="word">baking</code>的查询只会在自定义路由关联的分片上运行，并且结果也自动按照我们指定的过滤器进行了过滤：</p>
 <div class="pre_wrapper lang-json">
 <pre class="programlisting prettyprint lang-json">GET /baking/post/_search
 {
@@ -116,7 +117,7 @@
 <p><a href="#CO297-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>两个 <code class="literal">routing</code> 的值都会应用，返回对结果会匹配任意一个过滤器。</p>
+<p>两个 <code class="literal">routing</code> 的值都会应用，结果会匹配任意一个过滤器。</p>
 </td>
 </tr>
 </table>

@@ -52,8 +52,8 @@
 <a id="multiple-indices"></a>多索引<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/410_Scaling/40_Multiple_indices.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>最后，记住没有任何规则限制你的应用程序只使用一个索引。
-当我们发起一个搜索请求时，它被转发至索引中每个分片的一份拷贝（一个主分片或一个副本分片），如果我们向多个索引发出同样的请求，会发生完全相同的事情——只不过会涉及更多的分片。</p>
+<p>最后，记住没有任何规则限制你的应用程序只能使用一个索引。
+当我们发起一个搜索请求时，它被转发至索引中每个分片的一份拷贝（一个主分片或一个副本分片），如果我们向多个索引发出同样的请求，会发生完全相同的事情 -- 只不过会涉及更多的分片。</p>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
@@ -71,11 +71,13 @@
 </li>
 </ul>
 </div>
-<p>实际上，通过一点预先计划，添加一个新索引可以通过一种完全透明的方式完成，你的应用程序根本不会察觉到任何的改变。</p>
+<p>
+事实上，只需要事先考虑一点点，添加一个新的索引就可以完全透明地完成，而你的应用程序根本不会察觉到任何的改变。
+
 <p>在 <a class="xref" href="index-aliases.html" title="索引别名和零停机">索引别名和零停机</a>，我们提到过使用索引别名来指向当前版本的索引。
-举例来说，给你的索引命名为 <code class="literal">tweets_v1</code> 而不是 <code class="literal">tweets</code> 。你的应用程序会与 <code class="literal">tweets</code> 进行交互，但事实上它是一个指向 <code class="literal">tweets_v1</code> 的别名。
-这允许你将别名切换至一个更新版本的索引而保持服务运转。</p>
-<p>我们可以使用一个类似的技术通过增加一个新索引来扩展容量。这需要一点点规划，因为你需要两个别名：一个用于搜索另一个用于索引数据：</p>
+举例来说，给你的索引命名为 <code class="word">tweets_v1</code> 而不是 <code class="word">tweets</code> 。你的应用程序会与 <code class="word">tweets</code> 进行交互，但事实上它是一个指向 <code class="word">tweets_v1</code> 的别名。
+这允许你随时将别名切换至新的索引(不需要停止服务)。</p>
+<p>我们可以使用一个类似的技术通过增加一个新索引来扩容。这需要一点点规划，因为你需要<b>两个</b>别名：一个用于搜索另一个用于索引数据：</p>
 <div class="pre_wrapper lang-json">
 <pre class="programlisting prettyprint lang-json">PUT /tweets_1/_alias/tweets_search <a id="CO288-1"></a><i class="conum" data-value="1"></i>
 PUT /tweets_1/_alias/tweets_index <a id="CO288-2"></a><i class="conum" data-value="1"></i></pre>
@@ -87,13 +89,13 @@ PUT /tweets_1/_alias/tweets_index <a id="CO288-2"></a><i class="conum" data-valu
 <p><a href="#CO288-1"><i class="conum" data-value="1"></i></a><a href="#CO288-2"></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">tweets_search</code> 与 <code class="literal">tweets_index</code> 这两个别名都指向索引 <code class="literal">tweets_1</code> 。</p>
+<p><code class="word">tweets_search</code>与<code class="word">tweets_index</code>这两个别名都指向索引<code class="word">tweets_1</code>。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>新文档应当索引至 <code class="literal">tweets_index</code> ，同时，搜索请求应当对别名 <code class="literal">tweets_search</code> 发出。目前，这两个别名指向同一个索引。</p>
-<p>当我们需要额外容量时，我们可以创建一个名为 <code class="literal">tweets_2</code> 的索引，并且像这样更新别名：</p>
+<p>新文档应当索引至<code class="word">tweets_index</code>，同时，搜索请求应当对别名<code class="word">tweets_search</code>发出。目前，这两个别名指向同一个索引。</p>
+<p>当我们需要额外容量时，我们可以创建一个名为<code class="word">tweets_2</code>的索引，并且像这样更新别名：</p>
 <div class="pre_wrapper lang-json">
 <pre class="programlisting prettyprint lang-json">POST /_aliases
 {
@@ -111,7 +113,7 @@ PUT /tweets_1/_alias/tweets_index <a id="CO288-2"></a><i class="conum" data-valu
 <p><a href="#CO289-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>添加索引 <code class="literal">tweets_2</code> 到别名 <code class="literal">tweets_search</code> 。</p>
+<p>添加索引 <code class="word">tweets_2</code> 到别名 <code class="word">tweets_search</code> 。</p>
 </td>
 </tr>
 <tr>
@@ -119,22 +121,23 @@ PUT /tweets_1/_alias/tweets_index <a id="CO288-2"></a><i class="conum" data-valu
 <p><a href="#CO289-2"><i class="conum" data-value="2"></i></a><a href="#CO289-3"></a></p>
 </td>
 <td align="left" valign="top">
-<p>将别名 <code class="literal">tweets_index</code> 由 <code class="literal">tweets_1</code> 切换至 <code class="literal">tweets_2</code> 。</p>
+<p>将别名 <code class="word">tweets_index</code> 由 <code class="word">tweets_1</code> 切换至 <code class="word">tweets_2</code> 。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>一个搜索请求可以以多个索引为目标，所以将搜索别名指向 <code class="literal">tweets_1</code> 以及 <code class="literal">tweets_2</code> 是完全有效的。
-然而，索引写入请求只能以单个索引为目标。因此，我们必须将索引写入的别名只指向新的索引。</p>
+<p><em>一个搜索请求(search request)可以以多个索引为目标</em>，所以将搜索别名指向 <code class="word">tweets_1</code> 以及 <code class="word">tweets_2</code> 是完全有效的。
+然而，<em>索引写入请求(indexing request)只能以单个索引为目标</em>。因此，我们必须将索引写入的别名只指向新的索引。</p>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
 <p>一个文档 <code class="literal">GET</code> 请求，像一个索引写入请求那样，只能以单个索引为目标。
-这导致在通过ID获取文档这样的场景下有一点复杂。作为代替，你可以对 <code class="literal">tweets_1</code> 以及 <code class="literal">tweets_2</code> 运行一个 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-ids-query.html" class="ulink" target="_top"><code class="literal">ids</code> 查询</a> 搜索请求，
+这导致在通过ID获取文档这样的场景下有一点复杂。作为代替，你可以对 <code class="word">tweets_1</code> 以及 <code class="word">tweets_2</code> 运行一个 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-ids-query.html" class="ulink" target="_top"><code class="literal">ids</code> 查询</a> 搜索请求，
 或者 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/docs-multi-get.html" class="ulink" target="_top"><code class="literal">multi-get</code></a> 请求。</p>
 </div>
 </div>
-<p>在服务运行中使用多索引来扩展索引容量对于一些使用场景有着特别的好处，像我们将在下一节中讨论的基于时间的数据例如日志或社交事件流。</p>
+<p>在处理基于时间的数据(如日志或社交事件流)时，使用多个索引来实现动态扩容是非常有利的，我们将在下一节中讨论。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">

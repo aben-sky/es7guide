@@ -49,7 +49,7 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="kagillion-shards"></a>海量分片<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/410_Scaling/25_Kagillion_shards.asciidoc">edit</a>
+<a id="kagillion-shards"></a>海量分片 (<span title="一个很大的数值, a very large number">Kagillion</span> Shards)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/410_Scaling/25_Kagillion_shards.asciidoc">edit</a>
 </h2>
 </div></div></div>
 <p>当新手们在了解过 <a class="xref" href="overallocation.html" title="分片预分配">分片预分配</a> 之后做的第一件事就是对自己说：</p>
@@ -75,23 +75,23 @@
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-一个分片的底层即为一个 Lucene 索引，会消耗一定文件句柄、内存、以及 CPU 运转。
+一个分片的底层即为一个 Lucene 索引，会消耗一定文件句柄、内存、以及 CPU 周期。
 </li>
 <li class="listitem">
-每一个搜索请求都需要命中索引中的每一个分片，如果每一个分片都处于不同的节点还好，
-但如果多个分片都需要在同一个节点上竞争使用相同的资源就有些糟糕了。
+每一个搜索请求都需要命中索引的每一个分片的副本，如果每一个分片都处于不同的节点还好，
+但如果多个分片都需要在同一个节点上竞争相同的资源就有些糟糕了。
 </li>
 <li class="listitem">
-用于计算相关度的词项统计信息是基于分片的。如果有许多分片，每一个都只有很少的数据会导致很低的相关度。
+用于计算相关度的词项统计信息是基于分片的。如果有许多分片，但每一个分片中都只有很少的数据，会导致相关度变得很低。
 </li>
 </ul>
 </div>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>适当的预分配是好的。但上千个分片就有些糟糕。我们很难去定义分片是否过多了，这取决于它们的大小以及如何去使用它们。
-一百个分片但很少使用还好，两个分片但非常频繁地使用有可能就有点多了。
-监控你的节点保证它们留有足够的空闲资源来处理一些特殊情况。</p>
+<p>稍微做一点预分配是好的。但大量分片(比如上千个分片)就有些糟糕。我们很难去定义多少个分片算是过多，这取决于它们的大小以及如何去使用它们。
+一百个分片但很少使用也还好，两个分片但非常频繁地使用有可能就有点多了。
+监控你的节点保证它们留有足够的空闲资源来处理一些异常的情景。</p>
 </div>
 </div>
 <p>横向扩展应当分阶段进行。为下一阶段准备好足够的资源。

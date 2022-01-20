@@ -49,16 +49,19 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="index-templates"></a>索引模板<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/410_Scaling/50_Index_templates.asciidoc">edit</a>
+<a id="index-templates"></a>索引模板 (Index Templates)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/410_Scaling/50_Index_templates.asciidoc">edit</a>
 </h2>
 </div></div></div>
 <p>Elasticsearch 不要求你在使用一个索引前创建它。
 对于日志记录类应用，依赖于自动创建索引比手动创建要更加方便。</p>
+
 <p>Logstash 使用事件中的时间戳来生成索引名。
-默认每天被索引至不同的索引中，因此一个 <code class="literal">@timestamp</code> 为 <code class="literal">2014-10-01 00:00:01</code> 的事件将被发送至索引 <code class="literal">logstash-2014.10.01</code> 中。
+默认每天的数据被索引至不同的索引中，因此一个 <code class="literal">@timestamp</code>为<code class="word">2014-10-01 00:00:01</code>的事件将被发送至索引 <code class="word">logstash-2014.10.01</code>中。
 如果那个索引不存在，它将被自动创建。</p>
-<p>通常我们想要控制一些新建索引的设置（settings）和映射（mappings）。也许我们想要限制分片数为 <code class="literal">1</code> ，并且禁用 <code class="literal">_all</code> 域。
-索引模板可以用于控制何种设置（settings）应当被应用于新创建的索引：</p>
+
+<p>通常我们想要控制一些新建索引的设置(settings)和映射(mappings)。也许我们想要限制分片数为<code class="literal">1</code>，并且禁用<code class="literal">_all</code>域。
+索引模板可用来控制何种设置(settings)应当被应用于新建的索引：</p>
+
 <div class="pre_wrapper lang-json">
 <pre class="programlisting prettyprint lang-json">PUT /_template/my_logs <a id="CO291-1"></a><i class="conum" data-value="1"></i>
 {
@@ -86,7 +89,7 @@
 <p><a href="#CO291-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>创建一个名为 <code class="literal">my_logs</code> 的模板。</p>
+<p>创建一个名为 <code class="word">my_logs</code> 的模板。</p>
 </td>
 </tr>
 <tr>
@@ -94,7 +97,7 @@
 <p><a href="#CO291-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>将这个模板应用于所有以 <code class="literal">logstash-</code> 为起始的索引。</p>
+<p>将这个模板应用于所有以 <code class="word">logstash-</code> 开头的索引。</p>
 </td>
 </tr>
 <tr>
@@ -102,7 +105,7 @@
 <p><a href="#CO291-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>这个模板将会覆盖默认的 <code class="literal">logstash</code> 模板，因为默认模板的 <code class="literal">order</code> 更低。</p>
+<p>这个模板将会覆盖默认的 <code class="word">logstash</code> 模板，因为默认模板的 <code class="literal">order</code>(排序) 更低。</p>
 </td>
 </tr>
 <tr>
@@ -126,14 +129,15 @@
 <p><a href="#CO291-6"><i class="conum" data-value="6"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>添加这个索引至 <code class="literal">last_3_months</code> 别名中。</p>
+<p>添加这个索引到别名 <code class="word">last_3_months</code> 中。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>这个模板指定了所有名字以 <code class="literal">logstash-</code> 为起始的索引的默认设置，不论它是手动还是自动创建的。
+<p>这个模板指定了所有名字以 <code class="word">logstash-</code> 开头的索引的默认设置，不论它是手动还是自动创建的。
 如果我们认为明天的索引需要比今天更大的容量，我们可以更新这个索引以使用更多的分片。</p>
-<p>这个模板还将新建索引添加至了 <code class="literal">last_3_months</code> 别名中，然而从那个别名中删除旧的索引则需要手动执行。</p>
+
+<p>这个模板还将新建的索引添加到了别名 <code class="word">last_3_months</code> 中，不过从那个别名中删除旧的索引则需要手动执行。</p>
 </div>
 <div class="navfooter">
 <span class="prev">

@@ -42,7 +42,7 @@ var esNavLinks = [
                 ]
             },
             {
-                "url": "distributed-cluster.html", "text": "集群内的原理", "title": "集群内的原理",
+                "url": "distributed-cluster.html", "text": "分布式集群", "title": "分布式集群",
                 "sub": [
                     {"url": "_an-empty-cluster.html", "text": "空集群", "title": "空集群"},
                     {"url": "cluster-health.html", "text": "集群健康", "title": "集群健康"},

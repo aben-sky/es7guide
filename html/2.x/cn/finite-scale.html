@@ -81,14 +81,14 @@
 <p>只有主节点被允许更新集群状态。想象一下一个索引写入请求引入了一个之前未知的字段。持有那个文档的主分片所在的节点必须将新的映射转发到主节点上。
 主节点把更改合并到集群状态中，然后向所有集群中的所有节点发布一个新的版本。</p>
 
-<p>搜索请求 <em>使用</em> 集群状态，但它们不会产生修改。同样，文档级别的增删改查请求也不会对集群状态产生修改。当然，除非它们引入了一个需要更新映射的新的字段了。
-总的来说，集群状态是静态的不会成为瓶颈。</p>
+<p>搜索请求<em>使用</em> 集群状态，但不会修改状态。同样的，文档级别的CRUD(增删改查)请求也不会修改集群状态，当然，除非它们引入了一个新字段而需要更新映射(mapping)。
+总的来说，集群状态是静态的，不是瓶颈。</p>
 
-<p>然而，需要记住的是相同的数据结构需要在每个节点的内存中保存，并且当它发生更改时必须发布到每一个节点。
-集群状态的数据量越大，这个操作就会越久。</p>
+<p>但是，请记住，这个相同的数据结构必须存在于每个节点的内存中，并且必须在更新时发布到每个节点。数据量越大，这个过程就越长。
+</p>
 
-<p>我们见过最常见的集群状态问题就是引入了太多的字段。一个用户可能会决定为每一个 IP 地址或者每个 referer URL 使用一个单独的字段。
-下面这个例子通过为每一个唯一的 referer 使用一个不同的字段名来保持对页面浏览量的计数：</p>
+<p>我们见过的集群状态中最常见的问题就是引入了太多的字段。一个用户可能会决定为每一个 IP 地址或者每个 来源地址(referer URL) 使用一个单独的字段。
+下面这个例子通过为每一个唯一的 来源(referer)  使用一个不同的字段名来保持对页面浏览量的计数：</p>
 <div class="pre_wrapper lang-json pagebreak-before">
 <pre class="programlisting prettyprint lang-json pagebreak-before">POST /counters/pageview/home_page/_update
 {
@@ -100,8 +100,9 @@
 </div>
 <p>这种方式十分的糟糕！它会生成数百万个字段，这些都需要被存储在集群状态中。
 每当见到一个新的 referer ，都有一个新的字段需要加入那个已经膨胀的集群状态中，这都需要被发布到集群的每个节点中去。</p>
-<p>更好的方式是使用<a class="xref" href="nested-objects.html" title="嵌套对象">nested objects</a>，
-它使用一个字段作为参数名—<code class="literal">referer</code>—另一个字段作为关联的值—<code class="literal">count</code> ：</p>
+
+<p>更好的方式是使用<a class="xref" href="nested-objects.html" title="嵌套对象">嵌套对象(nested objects)</a>，
+它使用一个字段作为参数名<code class="word">referer</code>，另一个字段作为关联的值<code class="word">count</code> ：</p>
 <div class="pre_wrapper lang-json">
 <pre class="programlisting prettyprint lang-json">    "counters": [
       { "referer": "http://www.foo.com/links?bar=baz",  "count": 2 },
@@ -109,10 +110,10 @@
       ...
     ]</pre>
 </div>
-<p>这种嵌套的方式有可能会增加文档数量，但 Elasticsearch 生来就是为了解决它的。重要的是保持集群状态小而敏捷。</p>
+<p>这种嵌套的方式有可能会增加文档数量，但 Elasticsearch 生来就是为了解决它的。重要的是它能保持集群状态小而敏捷。</p>
 <p>最终，不管你的初衷有多好，你可能会发现集群节点数量、索引、映射对于一个集群来说还是太大了。
-此时，可能有必要将这个问题拆分到多个集群中了。感谢​<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/modules-tribe.html" class="ulink" target="_top"><code class="literal">tribe</code> nodes</a>​，
-你甚至可以向多个集群发出搜索请求，就好像我们有一个巨大的集群那样。</p>
+在这个阶段，将问题拆分到多个集群中可能是值得的。得益于​<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/modules-tribe.html" class="ulink" target="_top"><code class="literal">tribe</code>节点</a>​，
+你甚至可以跨多个集群进行搜索，就好像它们是一个巨大的集群。</p>
 </div>
 <div class="navfooter">
 <span class="prev">

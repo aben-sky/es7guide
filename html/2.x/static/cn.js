@@ -524,7 +524,7 @@ var esNavLinks = [
                     {"url": "_transport_client_versus_node_client.html", "text": "传输客户端 与 节点客户端", "title": "传输客户端 与 节点客户端"},
                     {"url": "_configuration_management.html", "text": "配置管理", "title": "配置管理"},
                     {"url": "important-configuration-changes.html", "text": "重要配置的修改", "title": "重要配置的修改"},
-                    {"url": "dont-touch-these-settings.html", "text": "不要触碰这些配置！", "title": "不要触碰这些配置！"},
+                    {"url": "dont-touch-these-settings.html", "text": "不要碰这些配置！", "title": "不要碰这些配置！"},
                     {"url": "heap-sizing.html", "text": "堆内存:大小和交换", "title": "堆内存:大小和交换"},
                     {"url": "_file_descriptors_and_mmap.html", "text": "文件描述符和 MMap", "title": "文件描述符和 MMap"},
                     {"url": "_revisit_this_list_before_production.html", "text": "在生产之前，重温这个列表", "title": "在生产之前，重温这个列表"}

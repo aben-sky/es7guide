@@ -521,7 +521,7 @@ var esNavLinks = [
                 "sub": [
                     {"url": "hardware.html", "text": "硬件", "title": "硬件"},
                     {"url": "_java_virtual_machine.html", "text": "Java 虚拟机", "title": "Java 虚拟机"},
-                    {"url": "_transport_client_versus_node_client.html", "text": "Transport Client 与 Node Client", "title": "Transport Client 与 Node Client"},
+                    {"url": "_transport_client_versus_node_client.html", "text": "传输客户端 与 节点客户端", "title": "传输客户端 与 节点客户端"},
                     {"url": "_configuration_management.html", "text": "配置管理", "title": "配置管理"},
                     {"url": "important-configuration-changes.html", "text": "重要配置的修改", "title": "重要配置的修改"},
                     {"url": "dont-touch-these-settings.html", "text": "不要触碰这些配置！", "title": "不要触碰这些配置！"},

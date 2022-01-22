@@ -49,22 +49,37 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="_transport_client_versus_node_client"></a>Transport Client 与 Node Client<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/510_Deployment/30_other.asciidoc">edit</a>
+<a id="_transport_client_versus_node_client"></a>传输客户端 与 节点客户端 (Transport Client Versus Node Client)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/510_Deployment/30_other.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>如果你使用的是 Java，你可能想知道何时使用传输客户端（注：Transport Client，下同）与节点客户端（注：Node Client，下同）。 在书的开头所述，
-传输客户端作为一个集群和应用程序之间的通信层。它知道 API 并能自动帮你在节点之间轮询，帮你嗅探集群等等。但它是集群 <em>外部的</em> ，和 REST 客户端类似。</p>
-<p>另一方面，节点客户端，实际上是一个集群中的节点（但不保存数据，不能成为主节点）。因为它是一个节点，它知道整个集群状态（所有节点驻留，分片分布在哪些节点，等等）。
-这意味着它可以执行 APIs 但少了一个网络跃点。</p>
-<p>这里有两个客户端案例的使用情况：</p>
+<p>如果你使用的是 Java，你可能想知道何时使用传输客户端(transport client)与节点客户端(node client)。 
+
+如本书的开头所述，传输客户端是一个集群和应用程序之间的通信层。
+
+它知道 API，能在节点之间自动轮询(round-robin)，帮你嗅探集群等等。
+
+但它是集群 <em>外部的</em> ，和 REST 客户端类似。</p>
+
+<p>另一方面，节点客户端，实际上是集群中的一个节点（但不保存数据，不能成为主节点）。
+
+因为它是一个节点，它知道整个集群状态（所有节点的信息，哪些分片分布在哪些节点，等等）。
+
+这意味着它可以在少一个网络跃点的情况下执行 API <span style="color:#666;">(译者注: 网络开销更小)</span>。</p>
+
+<p>这里有两种客户端的使用用例：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<p>如果要将应用程序和 Elasticsearch 集群进行解耦，传输客户端是一个理想的选择。例如，如果您的应用程序需要快速的创建和销毁到集群的连接，传输客户端比节点客户端”轻”，因为它不是一个集群的一部分。</p>
-<p>类似地，如果您需要创建成千上万的连接，你不想有成千上万节点加入集群。传输客户端（ TC ）将是一个更好的选择。</p>
+<p>如果要将应用程序与集群解耦，<b>传输客户端</b>是一个理想的选择。
+
+例如，如果您的应用程序需要快速的创建和销毁与集群的连接，传输客户端比节点客户端更”轻量”，因为它不是集群的一部分<span style="color:#666;">(译者注: 不需要保存集群的状态信息)</span>。</p>
+
+<p>类似地，如果您需要创建成千上万个连接，你不想有成千上万节点加入集群。传输客户端(transport node, 简称 TC)将是一个更好的选择。</p>
 </li>
 <li class="listitem">
-另一方面，如果你只需要有少数的、长期持久的对象连接到集群，客户端节点可以更高效，因为它知道集群的布局。但是它会使你的应用程序和集群耦合在一起，所以从防火墙的角度，它可能会构成问题。
+另一方面，如果你只需要少数到集群的长时间的、持久的连接对象，<b>客户端节点</b>可以更高效，因为它知道集群的布局。
+
+但是它会将你的应用程序与集群绑定，所以从防火墙的角度来看可能会出现问题。
 </li>
 </ul>
 </div>

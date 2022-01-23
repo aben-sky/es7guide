@@ -52,25 +52,31 @@
 <a id="_changing_settings_dynamically"></a>动态变更设置<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/520_Post_Deployment/10_dynamic_settings.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>Elasticsearch 里很多设置都是动态的，可以通过 API 修改。需要强制重启节点（或者集群）的配置修改都要极力避免。而且虽然通过静态配置项也可以完成这些变更，我们建议你还是用 API 来实现。</p>
-<p><code class="literal">集群更新</code> API 有两种工作模式：</p>
+<p>Elasticsearch 里很多设置都是动态的，可以通过 API 修改。
+
+需要强制重启节点（或者集群）的配置修改都要极力避免。
+
+虽然也可以通过静态配置项完成变更，但仍然推荐使用 API。</p>
+
+<p><code class="literal">cluster-update</code> API 有两种工作模式：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-临时（Transient）
+临时的（Transient）
 </span>
 </dt>
 <dd>
-这些变更在集群重启之前一直会生效。一旦整个集群重启，这些配置就被清除。
+这些变更在集群重启之前一直会生效。一旦整个集群重启，这些配置就会被清除。
 </dd>
 <dt>
 <span class="term">
-永久（Persistent）
+永久的（Persistent）
 </span>
 </dt>
 <dd>
-这些变更会永久存在直到被显式修改。即使全集群重启它们也会存活下来并覆盖掉静态配置文件里的选项。
+这些变更会永久存在直到被显式修改。
+即使整个集群重启它们也会保留下来，并覆盖掉静态配置文件里的选项。
 </dd>
 </dl>
 </div>
@@ -93,7 +99,7 @@
 <p><a href="#CO304-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>这个永久设置会在全集群重启时存活下来。</p>
+<p>这个永久设置会在整个集群重启时保留下来。</p>
 </td>
 </tr>
 <tr>
@@ -101,12 +107,12 @@
 <p><a href="#CO304-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>这个临时设置会在第一次全集群重启后被移除。</p>
+<p>这个临时设置会在整个集群第一次重启后被移除。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>可以动态更新的设置的完整清单，请阅读 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/cluster-update-settings.html" class="ulink" target="_top">online reference docs</a>。</p>
+<p>可以动态更新的设置的完整清单，请阅读 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/2.4/cluster-update-settings.html" class="ulink" target="_top">在线参考文档</a>。</p>
 </div>
 <div class="navfooter">
 <span class="prev">

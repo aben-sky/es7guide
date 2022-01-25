@@ -52,7 +52,7 @@
 <a id="_talking_to_elasticsearch"></a>和 Elasticsearch 交互<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/010_Intro/15_API.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>和 Elasticsearch 的交互方式取决于你是否使用 Java</p>
+<p>和 Elasticsearch 的交互方式取决于你是否使用 Java。</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
@@ -68,7 +68,7 @@
 </span>
 </dt>
 <dd>
-节点客户端作为一个非数据节点加入到本地集群中。换句话说，它本身不保存任何数据，但是它知道数据在集群中的哪个节点中，并且可以把请求转发到正确的节点。
+节点客户端作为一个<em>非数据节点</em>加入到本地集群中。换句话说，它本身不保存任何数据，但是它知道数据在集群中的哪个节点中，并且可以把请求转发到正确的节点。
 </dd>
 <dt>
 <span class="term">
@@ -93,14 +93,14 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_restful_api_with_json_over_http"></a>RESTful API with JSON over HTTP<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/010_Intro/15_API.asciidoc">edit</a>
+<a id="_restful_api_with_json_over_http"></a>基于HTTP协议的JSON格式的 RESTful API<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/010_Intro/15_API.asciidoc">edit</a>
 </h3>
 </div></div></div>
 <p>所有其他语言可以使用 RESTful API 通过端口 <em>9200</em> 和 Elasticsearch 进行通信，你可以用你最喜爱的 web 客户端访问 Elasticsearch 。事实上，正如你所看到的，你甚至可以使用 <code class="literal">curl</code> 命令来和 Elasticsearch 交互。</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Elasticsearch 为以下语言提供了官方客户端--Groovy、JavaScript、.NET、 PHP、 Perl、 Python 和 Ruby—​还有很多社区提供的客户端和插件，所有这些都可以在 <a href="https://www.elastic.co/guide/en/elasticsearch/client/index.html" class="ulink" target="_top">Elasticsearch Clients</a> 中找到。</p>
+<p>Elasticsearch 为以下语言提供了官方客户端 —​ Groovy、JavaScript、.NET、 PHP、 Perl、 Python 和 Ruby —​ 还有很多社区提供的客户端和插件，所有这些都可以在 <a href="https://www.elastic.co/guide/en/elasticsearch/client/index.html" class="ulink" target="_top">Elasticsearch Clients</a> 中找到。</p>
 </div>
 </div>
 <p>一个 Elasticsearch 请求和任何 HTTP 请求一样由若干相同的部件组成：</p>
@@ -123,7 +123,7 @@
 </td>
 <td valign="top">
 <p>
-适当的 HTTP <em>方法</em> 或 <em>谓词</em> : <code class="literal">GET</code>、 <code class="literal">POST</code>、 <code class="literal">PUT</code>、 <code class="literal">HEAD</code> 或者 <code class="literal">DELETE</code>。
+HTTP 相关的<em>方法</em>或<em>谓词</em>: <code class="literal">GET</code>、 <code class="literal">POST</code>、 <code class="literal">PUT</code>、 <code class="literal">HEAD</code> 或者 <code class="literal">DELETE</code>。
 </p>
 </td>
 </tr>
@@ -183,7 +183,7 @@ API 的终端路径（例如 <code class="literal">_count</code> 将返回集群
 </td>
 <td valign="top">
 <p>
-任意可选的查询字符串参数 (例如 <code class="literal">?pretty</code> 将格式化地输出 JSON 返回值，使其更容易阅读)
+任意可选的查询字符串参数 (例如 <code class="literal">?pretty</code> 将<em>格式化输出</em> JSON格式的返回信息，使其更容易阅读)
 </p>
 </td>
 </tr>
@@ -212,7 +212,7 @@ API 的终端路径（例如 <code class="literal">_count</code> 将返回集群
 }
 '</pre>
 </div>
-<p>Elasticsearch 返回一个 HTTP 状态码（例如：<code class="literal">200 OK</code>）和（除`HEAD`请求）一个 JSON 格式的返回值。前面的 <code class="literal">curl</code> 请求将返回一个像下面一样的 JSON 体：</p>
+<p>Elasticsearch 返回一个 HTTP 状态码（例如：<code class="literal">200 OK</code>）和（除`HEAD`请求）一个 JSON 格式的返回值。前面的 <code class="literal">curl</code> 请求将返回一个像下面这样的 JSON 体：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
     "count" : 0,
@@ -223,11 +223,11 @@ API 的终端路径（例如 <code class="literal">_count</code> 将返回集群
     }
 }</pre>
 </div>
-<p>在返回结果中没有看到 HTTP 头信息是因为我们没有要求`curl`显示它们。想要看到头信息，需要结合 <code class="literal">-i</code> 参数来使用 <code class="literal">curl</code> 命令：</p>
+<p>在返回结果中没有看到 HTTP 头信息，是因为我们没有要求<code class="literal">curl</code>显示它们。想要看到头信息，需要结合 <code class="literal">-i</code> 参数来使用 <code class="literal">curl</code> 命令：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">curl -i -XGET 'localhost:9200/'</pre>
 </div>
-<p>在书中剩余的部分，我们将用缩写格式来展示这些 <code class="literal">curl</code> 示例，所谓的缩写格式就是省略请求中所有相同的部分，例如主机名、端口号以及 <code class="literal">curl</code> 命令本身。而不是像下面显示的那样用一个完整的请求：</p>
+<p>在书中剩余的部分，我们将用简写格式来展示这些 <code class="literal">curl</code> 示例，它省略了请求中所有相同的部分，例如主机名、端口号以及 <code class="literal">curl</code> 命令本身。而不是显示一个完整的请求，比如：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">curl -XGET 'localhost:9200/_count?pretty' -d '
 {
@@ -236,7 +236,7 @@ API 的终端路径（例如 <code class="literal">_count</code> 将返回集群
     }
 }'</pre>
 </div>
-<p>我们将用缩写格式显示：</p>
+<p>我们将用简写格式显示：</p>
 <div class="pre_wrapper lang-sense">
 <pre class="programlisting prettyprint lang-sense">GET /_count
 {
@@ -246,7 +246,9 @@ API 的终端路径（例如 <code class="literal">_count</code> 将返回集群
 }</pre>
 </div>
 <div class="sense_widget" data-snippet="snippets/010_Intro/15_Count.json"></div>
-<p>事实上， <a class="xref" href="running-elasticsearch.html#sense" title="安装 Sense">Sense 控制台</a> 也使用这样相同的格式。如果你正在阅读这本书的在线版本,可以通过点击 Sense 链接视图在 Sense 上打开和运行示例代码。</p>
+<p>事实上， <a class="xref" href="running-elasticsearch.html#sense" title="安装 Sense">Sense 控制台</a> 也使用相同的格式。如果你正在阅读这本书的在线版本,可以通过点击 Sense 链接视图在 Sense 上打开和运行示例代码。
+<span style="color:#666; font-size:80%;">(译者注: 本地版本中没有导入完整的js, 所以在示例代码块下面都没有 "Copy as curl" 和 "View in Sense"按钮)</span>
+</p>
 </div>
 
 </div>

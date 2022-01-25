@@ -30,7 +30,7 @@ var esNavLinks = [
                     {"url": "_indexing_employee_documents.html", "text": "索引员工文档", "title": "索引员工文档"},
                     {"url": "_retrieving_a_document.html", "text": "检索文档", "title": "检索文档"},
                     {"url": "_search_lite.html", "text": "轻量搜索", "title": "轻量搜索"},
-                    {"url": "_search_with_query_dsl.html", "text": "使用查询表达式搜索", "title": "使用查询表达式搜索"},
+                    {"url": "_search_with_query_dsl.html", "text": "使用查询领域专属语言搜索", "title": "使用查询领域专属语言搜索"},
                     {"url": "_more_complicated_searches.html", "text": "更复杂的搜索", "title": "更复杂的搜索"},
                     {"url": "_full_text_search.html", "text": "全文搜索", "title": "全文搜索"},
                     {"url": "_phrase_search.html", "text": "短语搜索", "title": "短语搜索"},

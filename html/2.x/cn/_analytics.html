@@ -52,8 +52,9 @@
 <a id="_analytics"></a>分析<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/010_Intro/35_Tutorial_Aggregations.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>终于到了最后一个业务需求：支持管理者对员工目录做分析。 Elasticsearch 有一个功能叫聚合（aggregations），允许我们基于数据生成一些精细的分析结果。聚合与 SQL 中的 <code class="literal">GROUP BY</code> 类似但更强大。</p>
-<p>举个例子，挖掘出员工中最受欢迎的兴趣爱好：</p>
+<p>终于到了最后一个业务需求：允许管理者对员工目录做分析。 Elasticsearch 有一个功能叫 <em>聚合 (aggregations)</em>，允许我们基于数据生成一些精细的分析结果。它与 SQL 中的 <code class="literal">GROUP BY</code> 类似但更强大。</p>
+
+<p>举个例子，找出员工中最受欢迎的兴趣爱好：</p>
 <div class="pre_wrapper lang-sense">
 <pre class="programlisting prettyprint lang-sense">GET /megacorp/employee/_search
 {
@@ -65,7 +66,7 @@
 }</pre>
 </div>
 <div class="sense_widget" data-snippet="snippets/010_Intro/35_Aggregations.json"></div>
-<p>暂时忽略掉语法，直接看看结果：</p>
+<p>暂时忽略掉语法，直接看结果：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
    ...
@@ -90,7 +91,11 @@
    }
 }</pre>
 </div>
-<p>可以看到，两位员工对音乐感兴趣，一位对林业感兴趣，一位对运动感兴趣。这些聚合的结果数据并非预先统计，而是根据匹配当前查询的文档即时生成的。如果想知道叫 Smith 的员工中最受欢迎的兴趣爱好，可以直接构造一个组合查询：</p>
+<p>可以看到，两位员工对音乐感兴趣，一位对林业感兴趣，一位对运动感兴趣。
+
+这些聚合数据并非预先统计的，而是根据当前查询匹配的文档实时生成的。
+
+如果想知道叫 Smith 的员工中最受欢迎的兴趣爱好，只需向混合查询中添加合适的查询：</p>
 <div class="pre_wrapper lang-sense">
 <pre class="programlisting prettyprint lang-sense">GET /megacorp/employee/_search
 {
@@ -109,7 +114,7 @@
 }</pre>
 </div>
 <div class="sense_widget" data-snippet="snippets/010_Intro/35_Aggregations.json"></div>
-<p><code class="literal">all_interests</code> 聚合已经变为只包含匹配查询的文档：</p>
+<p><code class="word">all_interests</code> 聚合已经变为只包含匹配查询的文档：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">  ...
   "all_interests": {
@@ -125,7 +130,7 @@
      ]
   }</pre>
 </div>
-<p>聚合还支持分级汇总  。比如，查询特定兴趣爱好员工的平均年龄：</p>
+<p>聚合还支持分级汇总。比如，查询特定兴趣爱好员工的平均年龄：</p>
 <div class="pre_wrapper lang-sense">
 <pre class="programlisting prettyprint lang-sense">GET /megacorp/employee/_search
 {
@@ -171,8 +176,11 @@
      ]
   }</pre>
 </div>
-<p>输出基本是第一次聚合的加强版。依然有一个兴趣及数量的列表，只不过每个兴趣都有了一个附加的 <code class="literal">avg_age</code> 属性，代表有这个兴趣爱好的所有员工的平均年龄。</p>
-<p>即使现在不太理解这些语法也没有关系，依然很容易了解到复杂聚合及分组通过 Elasticsearch 特性实现得很完美，能够提取的数据类型也没有任何限制。</p>
+<p>输出基本是第一次聚合的加强版。依然有一个兴趣及数量的列表，只不过每个兴趣都有了一个附加的 <code class="word">avg_age</code>，代表有这个兴趣爱好的所有员工的平均年龄。</p>
+<p>
+即使你现在还不理解这些语法，但还是可以很容易的看到如何使用这个特性来实现复杂的聚合和分组。
+
+能够提取的数据类型也没有任何限制。</p>
 </div>
 <div class="navfooter">
 <span class="prev">

@@ -52,30 +52,32 @@
 <a id="_distributed_nature"></a>分布式特性<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/010_Intro/45_Distributed.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>在本章开头，我们提到过 Elasticsearch 可以横向扩展至数百（甚至数千）的服务器节点，同时可以处理PB级数据。我们的教程给出了一些使用 Elasticsearch 的示例，但并不涉及任何内部机制。Elasticsearch 天生就是分布式的，并且在设计时屏蔽了分布式的复杂性。</p>
-<p>Elasticsearch 在分布式方面几乎是透明的。教程中并不要求了解分布式系统、分片、集群发现或其他的各种分布式概念。可以使用笔记本上的单节点轻松地运行教程里的程序，但如果你想要在 100 个节点的集群上运行程序，一切依然顺畅。</p>
+<p>在本章开头，我们提到过 Elasticsearch 可以横向扩展至数百个（甚至数千个）服务器节点，同时可以处理PB级数据。我们的教程给出了一些使用 Elasticsearch 的示例，但并未涉及任何内部机制。Elasticsearch 天生就是分布式的，并且在设计时屏蔽了分布式的复杂性。</p>
+<p>Elasticsearch 在分布式方面几乎是透明的。教程中并不要求了解分布式系统、分片、集群发现或其他的各种分布式概念。可以使用笔记本上的单节点轻松地运行教程里的程序，但如果你想要在 100 个节点的集群上运行程序，一切都将完全以相同的方式工作。</p>
+
 <p>Elasticsearch 尽可能地屏蔽了分布式系统的复杂性。这里列举了一些在后台自动执行的操作：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-分配文档到不同的容器 或 <em>分片</em> 中，文档可以储存在一个或多个节点中
+分配文档到不同的容器 或 <em>分片(shard)</em> 中，这些容器或分片可以储存在一个节点上, 也可以存储在多个节点上
 </li>
 <li class="listitem">
-按集群节点来均衡分配这些分片，从而对索引和搜索过程进行负载均衡
+在集群的节点中均衡分配这些分片，以分散索引和搜索负载
 </li>
 <li class="listitem">
-复制每个分片以支持数据冗余，从而防止硬件故障导致的数据丢失
+复制每个分片以提供数据的冗余副本，从而防止硬件故障导致的数据丢失
 </li>
 <li class="listitem">
 将集群中任一节点的请求路由到存有相关数据的节点
 </li>
 <li class="listitem">
-集群扩容时无缝整合新节点，重新分配分片以便从离群节点恢复
+集群扩容时无缝整合新节点，节点丢失时重新分配节点以恢复集群状态
 </li>
 </ul>
 </div>
-<p>当阅读本书时，将会遇到有关 Elasticsearch 分布式特性的补充章节。这些章节将介绍有关集群扩容、故障转移(<a class="xref" href="distributed-cluster.html" title="分布式集群"><em>分布式集群</em></a>) 、应对文档存储(<a class="xref" href="distributed-docs.html" title="分布式文档存储"><em>分布式文档存储</em></a>) 、执行分布式搜索(<a class="xref" href="distributed-search.html" title="执行分布式检索"><em>执行分布式检索</em></a>) ，以及分区（shard）及其工作原理(<a class="xref" href="inside-a-shard.html" title="分片内部原理"><em>分片内部原理</em></a>) 。</p>
-<p>这些章节并非必读，完全可以无需了解内部机制就使用 Elasticsearch，但是它们将从另一个角度帮助你了解更完整的 Elasticsearch 知识。可以根据需要跳过它们，或者想更完整地理解时再回头阅读也无妨。</p>
+<p>当阅读本书时，将会遇到有关 Elasticsearch 分布式特性的补充章节。这些章节将介绍有关集群扩容、故障转移(<a class="xref" href="distributed-cluster.html" title="分布式集群"><em>分布式集群</em></a>) 、应对文档存储(<a class="xref" href="distributed-docs.html" title="分布式文档存储"><em>分布式文档存储</em></a>) 、执行分布式搜索(<a class="xref" href="distributed-search.html" title="执行分布式检索"><em>执行分布式检索</em></a>)，分片(shard)及其工作原理(<a class="xref" href="inside-a-shard.html" title="分片内部原理"><em>分片内部原理</em></a>) 。</p>
+
+<p>这些章节并非必读，无需了解内部机制就可以使用 Elasticsearch，但是它们将从另一个角度帮助你了解更完整的 Elasticsearch 知识。可以根据需要跳过它们，或者想更完整地理解时再回头阅读也无妨。</p>
 </div>
 <div class="navfooter">
 <span class="prev">

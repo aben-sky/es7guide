@@ -52,7 +52,7 @@
 <a id="_full_text_search"></a>全文搜索<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/010_Intro/30_Tutorial_Search.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>截止目前的搜索相对都很简单：单个姓名，通过年龄过滤。现在尝试下稍微高级点儿的全文搜索——一项 传统数据库确实很难搞定的任务。</p>
+<p>到目前为止，搜索都很简单：单个姓名，通过年龄过滤。现在尝试下稍微高级点儿的全文搜索 —— 一项传统数据库确实很难搞定的任务。</p>
 <p>搜索下所有喜欢攀岩（rock climbing）的员工：</p>
 <div class="pre_wrapper lang-sense">
 <pre class="programlisting prettyprint lang-sense">GET /megacorp/employee/_search
@@ -65,7 +65,7 @@
 }</pre>
 </div>
 <div class="sense_widget" data-snippet="snippets/010_Intro/30_Query_DSL.json"></div>
-<p>显然我们依旧使用之前的 <code class="literal">match</code> 查询在`about` 属性上搜索 “rock climbing” 。得到两个匹配的文档：</p>
+<p>显然我们依旧使用之前的 <code class="literal">match</code> 查询在<code class="word">about</code>字段上搜索“rock climbing”。得到两个匹配的文档：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
    ...
@@ -106,15 +106,16 @@
 <p><a href="#CO5-1"><i class="conum" data-value="1"></i></a><a href="#CO5-2"></a></p>
 </td>
 <td align="left" valign="top">
-<p>相关性得分</p>
+<p>相关性得分(relevance scores)</p>
 </td>
 </tr>
 </table>
 </div>
-<p>Elasticsearch  默认按照相关性得分排序，即每个文档跟查询的匹配程度。第一个最高得分的结果很明显：John Smith 的 <code class="literal">about</code> 属性清楚地写着 “rock
-climbing” 。</p>
-<p>但为什么 Jane Smith 也作为结果返回了呢？原因是她的 <code class="literal">about</code> 属性里提到了 “rock” 。因为只有 “rock” 而没有 “climbing” ，所以她的相关性得分低于 John 的。</p>
-<p>这是一个很好的案例，阐明了 Elasticsearch 如何 <em>在</em> 全文属性上搜索并返回相关性最强的结果。Elasticsearch中的 <em>相关性</em>  概念非常重要，也是完全区别于传统关系型数据库的一个概念，数据库中的一条记录要么匹配要么不匹配。</p>
+<p>Elasticsearch 默认按照相关性得分排序，即按照每个文档与查询的匹配程度进行排序。第一个最高得分的结果很明显：John Smith 的 <code class="word">about</code> 字段清楚地写着 “rock climbing” 。</p>
+
+<p>但为什么 Jane Smith 也作为结果返回了呢？原因是她的 <code class="word">about</code> 字段里提到了“rock” 。因为只有“rock”而没有“climbing”，所以她的 <code class="word">_score</code>(相关性得分) 低于 John 的。</p>
+
+<p>这是一个很好的案例，阐明了 Elasticsearch 如何<em>在 (within)</em>全文字段上搜索并首先返回相关性最强的结果。Elasticsearch中的<em>相关性(relevance)</em>概念非常重要，也是完全区别于传统关系型数据库的一个概念，传统关系型数据库中的一条记录要么匹配要么不匹配。</p>
 </div>
 <div class="navfooter">
 <span class="prev">

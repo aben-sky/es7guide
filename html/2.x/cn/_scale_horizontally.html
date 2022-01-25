@@ -52,22 +52,24 @@
 <a id="_scale_horizontally"></a>水平扩容<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/020_Distributed_Cluster/25_Scale_horizontally.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>怎样为我们的正在增长中的应用程序按需扩容呢？
-当启动了第三个节点，我们的集群将会看起来如<a class="xref" href="_scale_horizontally.html#cluster-three-nodes" title="拥有三个节点的集群——为了分散负载而对分片进行重新分配">Figure 4, “拥有三个节点的集群——为了分散负载而对分片进行重新分配”</a>所示。</p>
+<p>怎样为增长中的应用程序按需扩容呢？
+
+当启动了第三个节点，集群将会看起来如<a class="xref" href="_scale_horizontally.html#cluster-three-nodes" title="拥有三个节点的集群——为了分散负载而对分片进行重新分配">图 4, “拥有三个节点的集群——为了分散负载而对分片进行重新分配”</a>所示。</p>
 <div id="cluster-three-nodes" class="imageblock">
 <div class="content">
 <img src="../images/elas_0204.png" alt="拥有三个节点的集群">
 </div>
-<div class="title">Figure 4. 拥有三个节点的集群——为了分散负载而对分片进行重新分配</div>
+<div class="title">图 4. 拥有三个节点的集群——为了分散负载而对分片进行重新分配</div>
 </div>
-<p><code class="literal">Node 1</code> 和 <code class="literal">Node 2</code> 上各有一个分片被迁移到了新的 <code class="literal">Node 3</code> 节点，现在每个节点上都拥有2个分片，而不是之前的3个。
+<p><code class="word">Node 1</code> 和 <code class="word">Node 2</code> 上各有一个分片被迁移到了新的 <code class="word">Node 3</code> 节点，现在每个节点上都拥有2个分片，而不是之前的3个。
 这表示每个节点的硬件资源（CPU, RAM, I/O）将被更少的分片所共享，每个分片的性能将会得到提升。</p>
-<p>分片是一个功能完整的搜索引擎，它拥有使用一个节点上的所有资源的能力。
+
+<p>分片本身就是一个功能完整的搜索引擎，它拥有使用一个节点上的所有资源的能力。
 我们这个拥有6个分片（3个主分片和3个副本分片）的索引可以最大扩容到6个节点，每个节点上存在一个分片，并且每个分片拥有所在节点的全部资源。</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_更多的扩容"></a>更多的扩容<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/020_Distributed_Cluster/30_Scale_more.asciidoc">edit</a>
+<a id="_更多的扩容"></a>扩展更多节点<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide/edit/cn/020_Distributed_Cluster/30_Scale_more.asciidoc">edit</a>
 </h3>
 </div></div></div>
 <p>但是如果我们想要扩容超过6个节点怎么办呢？</p>

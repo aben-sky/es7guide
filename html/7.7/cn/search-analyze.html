@@ -66,7 +66,7 @@ ElasticSearch 提供了一个简单、易于理解的 REST API，用于管理集
 对于应用程序，你可以使用你所使用的语言的 <a href="https://www.elastic.co/guide/en/elasticsearch/client/index.html" class="ulink" target="_top">Elasticsearch 客户端</a>：Java、JavaScript、Go、.NET、PHP、Perl、Python 或 Ruby。
 </p>
 <h4>
-<a id="search-data"></a>数据搜索<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/intro.asciidoc">edit</a>
+<a id="search-data"></a>搜索数据<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/intro.asciidoc">edit</a>
 </h4>
 <p>
 Elasticsearch REST API支持结构化查询、全文查询以及二者皆有的复杂查询。
@@ -75,90 +75,103 @@ Elasticsearch REST API支持结构化查询、全文查询以及二者皆有的�
 
 比如，你可能会在索引<code class="word">employee</code>中搜索<code class="word">gender</code>和<code class="word">age</code>字段，并将匹配的结果按<code class="word">hire_date</code>字段排序。
 
-Full-text queries find all documents that match the query string and return them sorted by <em>relevance</em>—how good a match they are for your search terms.
-</p>
-
-<p>In addition to searching for individual terms, you can perform phrase searches, similarity searches, and prefix searches, and get autocomplete suggestions.
+全文搜索查找与查询字符串匹配的所有文档，并按<em>相关性</em> - 文档与搜索词的匹配程度 - 排序。
 </p>
 
 <p>
-Have geospatial or other numerical data that you want to search? Elasticsearch indexes non-textual data in optimized data structures that support high-performance geo and numerical queries.
+除了搜索单个词之外，还可以执行短语(phrase)搜索、相似(similarity)搜索和前缀(prefix)搜索，以及获取自动完成(autocomplete)的建议。
 </p>
 
 <p>
-You can access all of these search capabilities using Elasticsearch’s comprehensive JSON-style query language (<a class="xref" href="query-dsl.html" title="Query DSL">Query DSL</a>). 
+想要搜索地理空间或其他数值数据？
 
-You can also construct <a class="xref" href="sql-overview.html" title="Overview">SQL-style queries</a> to search and aggregate data natively inside Elasticsearch, and JDBC and ODBC drivers enable a broad range of third-party applications to interact with Elasticsearch via SQL.</p>
+Elasticsearch 以优化的数据结构对非文本数据进行索引，支持高性能的地理和数值查询。
+</p>
+
+<p>
+你可以使用 Elasticsearch 提供的功能全面的 JSON 风格的查询语言<a class="xref" href="query-dsl.html" title="Query DSL">Query DSL</a>来访问所有这些搜索功能。
+
+你还可以构造<a class="xref" href="sql-overview.html" title="Overview">SQL风格的查询</a>来搜索和聚合数据, 这是 Elasticsearch 内部原生支持的；JDBC 和 ODBC 驱动程序允许广泛的第三方应用程序通过 SQL 与 Elasticsearch 进行交互。 
+</p>
 <h4>
-<a id="analyze-data"></a>Analyzing your data<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/intro.asciidoc">edit</a>
+<a id="analyze-data"></a>分析数据<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/intro.asciidoc">edit</a>
 </h4>
 <p>
-Elasticsearch aggregations enable you to build complex summaries of your data and gain insight into key metrics, patterns, and trends. Instead of just finding the proverbial “needle in a haystack”, aggregations enable you to answer questions like:
+Elasticsearch 聚合使你能够构建复杂的数据摘要，并深入了解关键指标、模式和趋势。
+
+不仅能“大海捞针”，聚合还能回答以下问题：
 </p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-How many needles are in the haystack?
+干草堆(也可以说"大海")里有多少根针?
 </li>
 <li class="listitem">
-What is the average length of the needles?
+针的平均长度是多少?
 </li>
 <li class="listitem">
-What is the median length of the needles, broken down by manufacturer?
+每个供应商的针的长度的中位数是多少?
 </li>
 <li class="listitem">
-How many needles were added to the haystack in each of the last six months?
+在过去的六个月里，每个月有多少根针被加到干草堆里?  
 </li>
 </ul>
 </div>
-<p>You can also use aggregations to answer more subtle questions, such as:</p>
+<p>
+你还可以使用聚合来回答更微妙的问题，例如：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-What are your most popular needle manufacturers?
+最受欢迎的针的制造商是哪几家？
 </li>
 <li class="listitem">
-Are there any unusual or anomalous clumps of needles?
+有无异常或反常的针团？
 </li>
 </ul>
 </div>
 <p>
-Because aggregations leverage the same data-structures used for search, they are also very fast. 
+因为聚合使用了与搜索相同的数据结构，所以它们也非常快。
 
-This enables you to analyze and visualize your data in real time.
+这使你能够实时分析和可视化数据。
 
-Your reports and dashboards update as your data changes so you can take action based on the latest information.
+你的报表和仪表板会随着数据的变化而更新，这样你就可以根据最新的信息采取行动。
 </p>
 <p>
-What’s more, aggregations operate alongside search requests. 
+此外，聚合是与搜索请求一起运行的。
 
-You can search documents, filter results, and perform analytics at the same time, on the same data, in a single request. 
+你可以在单个请求中对相同的数据同时搜索文档、过滤结果和执行分析。
 
-And because aggregations are calculated in the context of a particular search, you’re not just displaying a count of all size 70 needles, you’re displaying a count of the size 70 needles that match your users' search criteria—​for example, all size 70 <em>non-stick embroidery</em> needles.
+因为 聚合是在特定搜索的上下文中计算出来的，所以不仅显示了所有70号大小的针的数量，还显示了符合用户搜索条件的70号大小的针的数量 —— 例如，所有70号大小的<em>non-stick embroidery</em>针。
 </p>
 <h5>
-<a id="more-features"></a>But wait, there’s more<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/intro.asciidoc">edit</a>
+<a id="more-features"></a>等等，还有更多<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/intro.asciidoc">edit</a>
 </h5>
 <p>
-Want to automate the analysis of your time-series data? You can use <a href="https://www.elastic.co/guide/en/machine-learning/7.7/ml-overview.html" class="ulink" target="_top">machine learning</a> features to create accurate baselines of normal behavior in your data and identify anomalous patterns. 
+想要自动分析 时间序列(time-series) 数据吗？
 
-With machine learning, you can detect:
+你可以使用<a href="https://www.elastic.co/guide/en/machine-learning/7.7/ml-overview.html" class="ulink" target="_top">机器学习(machine learning)</a>功能在数据中创建正常行为的精确基线，并识别异常模式。
+
+通过机器学习，可以检测到：
 </p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Anomalies related to temporal deviations in values, counts, or frequencies
+与数值、计数或频率的时间偏差有关的异常
 </li>
 <li class="listitem">
-Statistical rarity
+统计稀有性
 </li>
 <li class="listitem">
-Unusual behaviors for a member of a population
+群体成员中的不寻常行为
 </li>
 </ul>
 </div>
-<p>And the best part? You can do this without having to specify algorithms, models,
-or other data science-related configurations.</p>
+<p>
+最好的部分是什么? 
+
+你不必指定算法、模型或其他与数据科学相关的配置就可以做到这一点。  
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">

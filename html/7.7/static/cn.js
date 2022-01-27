@@ -6035,6 +6035,14 @@ function tep_renderRightDocList() {
             event.stopPropagation();
         });
     });
+    //没有href的a不触发父级菜单操作
+    document.querySelectorAll('.toc li.collapsible a').forEach(function (item) {
+        item.addEventListener('click', function (event) {
+            if(!item.hasAttribute('href')){
+                event.stopPropagation();
+            }
+        });
+    });
 
     //高亮
     var objList = document.querySelectorAll('#'+listObjId+' a');

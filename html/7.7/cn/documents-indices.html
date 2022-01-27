@@ -34,7 +34,7 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
 <span class="breadcrumb-link"><a href="elasticsearch-intro.html">Elasticsearch是什么?</a></span>
 »
@@ -45,7 +45,7 @@ will be released for this version. For the latest information, see the
 <a href="elasticsearch-intro.html">« Elasticsearch是什么?</a>
 </span>
 <span class="next">
-<a href="search-analyze.html">Information out: search and analyze »</a>
+<!-- <a href="search-analyze.html">Information out: search and analyze »</a> -->
 </span>
 </div>
 <div class="section">
@@ -54,68 +54,87 @@ will be released for this version. For the latest information, see the
 <a id="documents-indices"></a>数据输入: 文档和索引<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/intro.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>Elasticsearch is a distributed document store. Instead of storing information as rows of
-columnar data, Elasticsearch stores complex data structures that have been serialized
-as JSON documents. When you have multiple Elasticsearch nodes in a cluster, stored
-documents are distributed across the cluster and can be accessed immediately
-from any node.</p>
-<p>When a document is stored, it is indexed and fully searchable in <a class="xref" href="near-real-time.html" title="Near real-time search">near real-time</a>--within 1 second. Elasticsearch uses a data structure called an
-inverted index that supports very fast full-text searches. An inverted index
-lists every unique word that appears in any document and identifies all of the
-documents each word occurs in.</p>
-<p>An index can be thought of as an optimized collection of documents and each
-document is a collection of fields, which are the key-value pairs that contain
-your data. By default, Elasticsearch indexes all data in every field and each indexed
-field has a dedicated, optimized data structure. For example, text fields are
-stored in inverted indices, and numeric and geo fields are stored in BKD trees.
-The ability to use the per-field data structures to assemble and return search
-results is what makes Elasticsearch so fast.</p>
-<p>Elasticsearch also has the ability to be schema-less, which means that documents can be
-indexed without explicitly specifying how to handle each of the different fields
-that might occur in a document. When dynamic mapping is enabled, Elasticsearch
-automatically detects and adds new fields to the index. This default
-behavior makes it easy to index and explore your data—​just start
-indexing documents and Elasticsearch will detect and map booleans, floating point and
-integer values, dates, and strings to the appropriate Elasticsearch datatypes.</p>
-<p>Ultimately, however, you know more about your data and how you want to use it
-than Elasticsearch can. You can define rules to control dynamic mapping and explicitly
-define mappings to take full control of how fields are stored and indexed.</p>
-<p>Defining your own mappings enables you to:</p>
+<p> 
+ElasticSearch是一个分布式文档存储。
+
+Elasticearch 没有将信息存储为一行一行的列数据，而是存储为已序列化为JSON文档的复杂的数据结构。
+
+当一个集群中有多个 Elasticsearch 节点时，存储的文档分布在整个集群中，可以立即从任何节点访问。
+</p>
+<p>
+当文档被存储时，会被索引，并完全有<a class="xref" href="near-real-time.html" title="Near real-time search">近实时(near real-time)</a>搜索的能力 - 延迟在1秒以内。
+
+Elasticsearch 使用一个叫做 倒置索引(inverted index) 的数据结构，它支持非常快速的全文搜索。
+
+倒排索引列出文档中的每一个唯一的单词，并标识每个单词出现在哪些文档中。  
+</p>
+<p>
+
+索引可以看作是一个优化过的文档(document)的集合，每个文档是字段(field, 包含数据的键值对)的集合。
+
+默认情况下，Elasticsearch 索引每个字段中的所有数据，每一个被索引的字段都有一个专用的、优化的数据结构。
+
+比如, 文本(text)字段存储在倒排索引中, 数值(numeric)和地理位置(geo)字段存储在 BKD 树中。
+
+Elasticsearch 之所以这么快, 得益于它能使用每个字段的数据结构来组装数据并返回搜索结果的能力。
+</p>
+
+<p>
+ElasticSearch 还具有无模式(schema-less)的能力，这意味着可以直接对文档进行索引，而不必显式地指定如何处理文档中可能出现的每个不同的字段。
+
+当启用了 动态映射(dynamic mapping) 时, Elasticsearch 会自动侦测并添加新的字段到索引中。
+
+这种默认行为使得索引和浏览数据变得容易 --​ 只是开始索引文档，ElasticSearch将检测布尔值、浮点值和整数值、日期和字符串，并将其映射到适当的Elasticsearch数据类型。
+
+这种默认行为使得索引和探索数据变得很容易 —— 你只需开始去索引文档，Elasticsearch 会检测并将布尔值、浮点值和整数值、日期和字符串映射到相应的 Elasticsearch 数据类型。
+</p>
+
+<p>
+但是，归根结底，你比 Elasticsearch 更了解数据以及你想如何使用数据。  
+
+你可以定义规则来控制 动态映射，并显式地定义映射来完全控制字段的存储和索引方式。  
+</p>
+<p>定义自己的映射使你能够：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Distinguish between full-text string fields and exact value string fields
+区分要全文索引的字符串字段和精确匹配的字符串字段
 </li>
 <li class="listitem">
-Perform language-specific text analysis
+执行特定语言的文本分析
 </li>
 <li class="listitem">
-Optimize fields for partial matching
+为部分匹配去优化字段
 </li>
 <li class="listitem">
-Use custom date formats
+使用自定义的日期格式
 </li>
 <li class="listitem">
-Use data types such as <code class="literal">geo_point</code> and <code class="literal">geo_shape</code> that cannot be automatically
-detected
+使用无法自动检测的数据类型，如<code class="literal">geo_point</code>和<code class="literal">geo_shape</code>
 </li>
 </ul>
 </div>
-<p>It’s often useful to index the same field in different ways for different
-purposes. For example, you might want to index a string field as both a text
-field for full-text search and as a keyword field for sorting or aggregating
-your data. Or, you might choose to use more than one language analyzer to
-process the contents of a string field that contains user input.</p>
-<p>The analysis chain that is applied to a full-text field during indexing is also
-used at search time. When you query a full-text field, the query text undergoes
-the same analysis before the terms are looked up in the index.</p>
+<p>
+为了不同的目的，以不同的方式去索引同一个字段，通常很有用。
+
+例如，您可能希望将字符串字段作为全文搜索的文本字段和用于排序或聚合数据的关键字字段进行索引。
+
+比如，你想将一个字符串字段索引成既可以用于全文搜索的<code class="literal">text</code>(文本)字段，又可以索引成用于排序和聚合的<code class="literal">keyword</code>(关键字)字段。
+
+或者，您可以选择使用多个语言 分析器(analyzer) 来处理包含用户输入的字符串字段的内容。
+</p>
+<p>
+全文搜索字段在索引期间使用的分析链，也在搜索时使用。
+
+查询全文搜索字段时，会对查询文本进行相同的分析，把文本拆分成词项(<code class="literal">term</code>)，然后去索引中查找这些词项(<code class="literal">term</code>)。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
 <a href="elasticsearch-intro.html">« Elasticsearch是什么?</a>
 </span>
 <span class="next">
-<a href="search-analyze.html">Information out: search and analyze »</a>
+<!-- <a href="search-analyze.html">Information out: search and analyze »</a> -->
 </span>
 </div>
 </div>

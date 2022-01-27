@@ -923,12 +923,12 @@ var esNavLinks = [
             {
                 "url": "query-dsl-minimum-should-match.html",
                 "text": "<code class=\"literal\">minimum_should_match</code> parameter",
-                "title": "<code class=\"literal\">minimum_should_match</code> parameter"
+                "title": "minimum_should_matchparameter"
             },
             {
                 "url": "query-dsl-multi-term-rewrite.html",
                 "text": "<code class=\"literal\">rewrite</code> parameter",
-                "title": "<code class=\"literal\">rewrite</code> parameter"
+                "title": "rewrite parameter"
             },
             {
                 "url": "regexp-syntax.html",
@@ -1825,42 +1825,42 @@ var esNavLinks = [
                     {
                         "url": "mapping-field-names-field.html",
                         "text": "<code class=\"literal\">_field_names</code> field",
-                        "title": "<code class=\"literal\">_field_names</code> field"
+                        "title": "_field_names field"
                     },
                     {
                         "url": "mapping-ignored-field.html",
                         "text": "<code class=\"literal\">_ignored</code> field",
-                        "title": "<code class=\"literal\">_ignored</code> field"
+                        "title": "_ignored field"
                     },
                     {
                         "url": "mapping-id-field.html",
                         "text": "<code class=\"literal\">_id</code> field",
-                        "title": "<code class=\"literal\">_id</code> field"
+                        "title": "_id field"
                     },
                     {
                         "url": "mapping-index-field.html",
                         "text": "<code class=\"literal\">_index</code> field",
-                        "title": "<code class=\"literal\">_index</code> field"
+                        "title": "_index field"
                     },
                     {
                         "url": "mapping-meta-field.html",
                         "text": "<code class=\"literal\">_meta</code> field",
-                        "title": "<code class=\"literal\">_meta</code> field"
+                        "title": "_meta field"
                     },
                     {
                         "url": "mapping-routing-field.html",
                         "text": "<code class=\"literal\">_routing</code> field",
-                        "title": "<code class=\"literal\">_routing</code> field"
+                        "title": "_routing field"
                     },
                     {
                         "url": "mapping-source-field.html",
                         "text": "<code class=\"literal\">_source</code> field",
-                        "title": "<code class=\"literal\">_source</code> field"
+                        "title": "_source field"
                     },
                     {
                         "url": "mapping-type-field.html",
                         "text": "<code class=\"literal\">_type</code> field",
-                        "title": "<code class=\"literal\">_type</code> field"
+                        "title": "_type field"
                     }
                 ]
             },
@@ -1872,137 +1872,137 @@ var esNavLinks = [
                     {
                         "url": "analyzer.html",
                         "text": "<code class=\"literal\">analyzer</code>",
-                        "title": "<code class=\"literal\">analyzer</code>"
+                        "title": "analyzer"
                     },
                     {
                         "url": "mapping-boost.html",
                         "text": "<code class=\"literal\">boost</code>",
-                        "title": "<code class=\"literal\">boost</code>"
+                        "title": "boost"
                     },
                     {
                         "url": "coerce.html",
                         "text": "<code class=\"literal\">coerce</code>",
-                        "title": "<code class=\"literal\">coerce</code>"
+                        "title": "coerce"
                     },
                     {
                         "url": "copy-to.html",
                         "text": "<code class=\"literal\">copy_to</code>",
-                        "title": "<code class=\"literal\">copy_to</code>"
+                        "title": "copy_to"
                     },
                     {
                         "url": "doc-values.html",
                         "text": "<code class=\"literal\">doc_values</code>",
-                        "title": "<code class=\"literal\">doc_values</code>"
+                        "title": "doc_values"
                     },
                     {
                         "url": "dynamic.html",
                         "text": "<code class=\"literal\">dynamic</code>",
-                        "title": "<code class=\"literal\">dynamic</code>"
+                        "title": "dynamic"
                     },
                     {
                         "url": "eager-global-ordinals.html",
                         "text": "<code class=\"literal\">eager_global_ordinals</code>",
-                        "title": "<code class=\"literal\">eager_global_ordinals</code>"
+                        "title": "eager_global_ordinals"
                     },
                     {
                         "url": "enabled.html",
                         "text": "<code class=\"literal\">enabled</code>",
-                        "title": "<code class=\"literal\">enabled</code>"
+                        "title": "enabled"
                     },
                     {
                         "url": "fielddata.html",
                         "text": "<code class=\"literal\">fielddata</code>",
-                        "title": "<code class=\"literal\">fielddata</code>"
+                        "title": "fielddata"
                     },
                     {
                         "url": "mapping-date-format.html",
                         "text": "<code class=\"literal\">format</code>",
-                        "title": "<code class=\"literal\">format</code>"
+                        "title": "format"
                     },
                     {
                         "url": "ignore-above.html",
                         "text": "<code class=\"literal\">ignore_above</code>",
-                        "title": "<code class=\"literal\">ignore_above</code>"
+                        "title": "ignore_above"
                     },
                     {
                         "url": "ignore-malformed.html",
                         "text": "<code class=\"literal\">ignore_malformed</code>",
-                        "title": "<code class=\"literal\">ignore_malformed</code>"
+                        "title": "ignore_malformed"
                     },
                     {
                         "url": "mapping-index.html",
                         "text": "<code class=\"literal\">index</code>",
-                        "title": "<code class=\"literal\">index</code>"
+                        "title": "index"
                     },
                     {
                         "url": "index-options.html",
                         "text": "<code class=\"literal\">index_options</code>",
-                        "title": "<code class=\"literal\">index_options</code>"
+                        "title": "index_options"
                     },
                     {
                         "url": "index-phrases.html",
                         "text": "<code class=\"literal\">index_phrases</code>",
-                        "title": "<code class=\"literal\">index_phrases</code>"
+                        "title": "index_phrases"
                     },
                     {
                         "url": "index-prefixes.html",
                         "text": "<code class=\"literal\">index_prefixes</code>",
-                        "title": "<code class=\"literal\">index_prefixes</code>"
+                        "title": "index_prefixes"
                     },
                     {
                         "url": "mapping-field-meta.html",
                         "text": "<code class=\"literal\">meta</code>",
-                        "title": "<code class=\"literal\">meta</code>"
+                        "title": "meta"
                     },
                     {
                         "url": "multi-fields.html",
                         "text": "<code class=\"literal\">fields</code>",
-                        "title": "<code class=\"literal\">fields</code>"
+                        "title": "fields"
                     },
                     {
                         "url": "normalizer.html",
                         "text": "<code class=\"literal\">normalizer</code>",
-                        "title": "<code class=\"literal\">normalizer</code>"
+                        "title": "normalizer"
                     },
                     {
                         "url": "norms.html",
                         "text": "<code class=\"literal\">norms</code>",
-                        "title": "<code class=\"literal\">norms</code>"
+                        "title": "norms"
                     },
                     {
                         "url": "null-value.html",
                         "text": "<code class=\"literal\">null_value</code>",
-                        "title": "<code class=\"literal\">null_value</code>"
+                        "title": "null_value"
                     },
                     {
                         "url": "position-increment-gap.html",
                         "text": "<code class=\"literal\">position_increment_gap</code>",
-                        "title": "<code class=\"literal\">position_increment_gap</code>"
+                        "title": "position_increment_gap"
                     },
                     {
                         "url": "properties.html",
                         "text": "<code class=\"literal\">properties</code>",
-                        "title": "<code class=\"literal\">properties</code>"
+                        "title": "properties"
                     },
                     {
                         "url": "search-analyzer.html",
                         "text": "<code class=\"literal\">search_analyzer</code>",
-                        "title": "<code class=\"literal\">search_analyzer</code>"
+                        "title": "search_analyzer"
                     },
                     {
                         "url": "similarity.html",
                         "text": "<code class=\"literal\">similarity</code>",
-                        "title": "<code class=\"literal\">similarity</code>"
+                        "title": "similarity"
                     },
                     {
                         "url": "mapping-store.html",
                         "text": "<code class=\"literal\">store</code>",
-                        "title": "<code class=\"literal\">store</code>"
+                        "title": "store"
                     },
                     {
                         "url": "term-vector.html",
                         "text": "<code class=\"literal\">term_vector</code>",
-                        "title": "<code class=\"literal\">term_vector</code>"
+                        "title": "term_vector"
                     }
                 ]
             },
@@ -4549,7 +4549,7 @@ var esNavLinks = [
                     {
                         "url": "docs-refresh.html",
                         "text": "<code class=\"literal\">?refresh</code>",
-                        "title": "<code class=\"literal\">?refresh</code>"
+                        "title": "?refresh"
                     },
                     {
                         "url": "optimistic-concurrency-control.html",
@@ -5989,7 +5989,7 @@ function tep_esRenderNavList(data) {
     return rt;
 }
 
-function tep_renderRightDocList(filename) {
+function tep_renderRightDocList() {
     var strDocList = '<div class="toc">\n' +
         '<ul class="toc">\n<li id="book_title" class="collapsible">' +
         '<span>Elasticsearch权威指南: \n' +
@@ -6010,11 +6010,13 @@ function tep_renderRightDocList(filename) {
     var ix = url.lastIndexOf('/');
     var filename = url.substr(ix + 1, url.length - ix).toLowerCase();
 
+    var listObjId = 'content';
     if (filename == 'index.html') {
         //注意: id=content的有2个, 上面还有一个section!
-        document.querySelector('div#content').innerHTML = strDocList;
+        //document.querySelector('div#content').innerHTML = strDocList;
     } else {
-        var rightCol = document.querySelector('#right_col');
+        listObjId = 'right_col';
+        var rightCol = document.querySelector('#'+listObjId);
         rightCol.innerHTML = strDocList;
     }
 
@@ -6035,9 +6037,9 @@ function tep_renderRightDocList(filename) {
     });
 
     //高亮
-    var objList = document.querySelectorAll('#right_col a');
+    var objList = document.querySelectorAll('#'+listObjId+' a');
     objList.forEach(function (item) { //不要用"for(var i in objList){ objList[i]}", 否则会出意外的
-        if (item.getAttribute('href').toLowerCase() == filename) {
+        if (item.getAttribute('href') && item.getAttribute('href').toLowerCase() == filename) {
             //当前加粗
             item.setAttribute('class', 'current_page');
 

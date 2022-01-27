@@ -1505,6 +1505,14 @@
     obj.innerHTML = str;
     // console.log(obj.outerHTML);
 
+    /**
+     * title格式化,去掉html标签
+     * @param value
+     * @returns {string}
+     */
+    function tiddyTitle(value){
+        return value.replace(/<[^>]+>/g,' ')
+    }
 
     function parseObj(obj) {
         var nodes = obj.childNodes;
@@ -1533,11 +1541,11 @@
                         if(language == 'en'){
                             //en版本: 如果没有title则不添加节点
                             if(a.hasAttribute('title') !== undefined){
-                                nodeData.title = a.getAttribute('title');
+                                nodeData.title = tiddyTitle(a.getAttribute('title'));
                             }
                         } else {
                             //cn版本: title节点必须有. 之前已经翻译了部分
-                            nodeData.title = a.hasAttribute('title') ? a.getAttribute('title') : a.innerHTML;
+                            nodeData.title = tiddyTitle(a.hasAttribute('title') ? a.getAttribute('title') : a.innerHTML);
                         }
 
                         nodeData.text = a.innerHTML;

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Get Elasticsearch up and running | ElasticSearch 7.7 权威指南中文版</title>
+	<title>安装并运行 Elasticsearch | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -34,76 +34,85 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="getting-started.html">Getting started with Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="getting-started.html">开始使用 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Get Elasticsearch up and running</span>
+<span class="breadcrumb-node">安装并运行 Elasticsearch</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="getting-started.html">« Getting started with Elasticsearch</a>
+<a href="getting-started.html">« 开始使用 Elasticsearch</a>
 </span>
 <span class="next">
-<a href="getting-started-index.html">Index some documents »</a>
+<a href2="getting-started-index.html">Index some documents »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="getting-started-install"></a>Get Elasticsearch up and running<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/getting-started.asciidoc">edit</a>
+<a id="getting-started-install"></a>安装并运行 Elasticsearch<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/getting-started.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>To take Elasticsearch for a test drive, you can create a
-<a href="https://www.elastic.co/cloud/elasticsearch-service/signup?baymax=docs-body&amp;elektra=docs" class="ulink" target="_top">hosted deployment</a>  on
-the Elasticsearch Service or set up a multi-node Elasticsearch cluster on your own
-Linux, macOS, or Windows machine.</p>
+<p>
+要用 Elasticearch 做测试，你可以在 ElasticSearch Service 上创建一个 <a href="https://www.elastic.co/cloud/elasticsearch-service/signup?baymax=docs-body&amp;elektra=docs" class="ulink" target="_top">托管的部署</a> ，或者在你自己的 Linux、MacOS 或 Windows 机器上设置一个多节点 Elasticearch 集群。
+</p>
 <h3>
-<a id="run-elasticsearch-hosted"></a>Run Elasticsearch on Elastic Cloud<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/getting-started.asciidoc">edit</a>
+<a id="run-elasticsearch-hosted"></a>在 Elastic 云上运行 Elasticsearch<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/getting-started.asciidoc">edit</a>
 </h3>
-<p>When you create a deployment on the Elasticsearch Service, the service provisions
-a three-node Elasticsearch cluster along with Kibana and APM.</p>
-<p>To create a deployment:</p>
+<p>
+当你在 ElasticSearch Service 上创建部署时，该服务提供了一个三节点的 Elasticearch 集群以及 Kibana 和 APM。
+</p>
+<p>要创建部署，执行以下操作：</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-Sign up for a <a href="https://www.elastic.co/cloud/elasticsearch-service/signup?baymax=docs-body&amp;elektra=docs" class="ulink" target="_top">free trial</a>
-and verify your email address.
+注册 <a href="https://www.elastic.co/cloud/elasticsearch-service/signup?baymax=docs-body&amp;elektra=docs" class="ulink" target="_top">免费试用</a> 并验证你的 email 地址。
 </li>
 <li class="listitem">
-Set a password for your account.
+给你的账号设置密码。
 </li>
 <li class="listitem">
-Click <span class="strong strong"><strong>Create Deployment</strong></span>.
+点击 <span class="strong strong"><strong>创建部署 (Create Deployment)</strong></span>.
 </li>
 </ol>
 </div>
-<p>Once you’ve created a deployment, you’re ready to <a class="xref" href="getting-started-index.html" title="Index some documents"><em>Index some documents</em></a>.</p>
+<p>
+一旦创建好了部署, 就可以去 <a class="xref" href="getting-started-index.html" title="Index some documents"><em>索引文档</em></a>。
+</p>
 <h3>
-<a id="run-elasticsearch-local"></a>Run Elasticsearch locally on Linux, macOS, or Windows<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/getting-started.asciidoc">edit</a>
+<a id="run-elasticsearch-local"></a>在本地 Linux, macOS, 或 Windows 上运行 Elasticsearch<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/getting-started.asciidoc">edit</a>
 </h3>
-<p>When you create a deployment on the Elasticsearch Service, a master node and
-two data nodes are provisioned automatically. By installing from the tar or zip
-archive, you can start multiple instances of Elasticsearch locally to see how a multi-node
-cluster behaves.</p>
-<p>To run a three-node Elasticsearch cluster locally:</p>
+<p>
+在 ElasticSearch Service 上创建部署时，将自动预分配一个主节点和两个数据节点。
+
+通过从 tar 或 zip 归档文件安装，你可以在本地启动多个 Elasticsearch 实例，以查看多节点集群的行为。
+</p>
+<p>
+要本地安装一个 3 个节点的 Elasticsearch 集群，执行以下操作：
+</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-<p>Download the Elasticsearch archive for your OS:</p>
-<p>Linux: <a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.7.1-linux-x86_64.tar.gz" class="ulink" target="_top">elasticsearch-7.7.1-linux-x86_64.tar.gz</a></p>
+<p>下载你的操作系统对应的 Elasticsearch 归档文件：</p>
+<p>
+Linux: <a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.7.1-linux-x86_64.tar.gz" class="ulink" target="_top">elasticsearch-7.7.1-linux-x86_64.tar.gz</a>
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.7.1-linux-x86_64.tar.gz</pre>
 </div>
-<p>macOS: <a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.7.1-darwin-x86_64.tar.gz" class="ulink" target="_top">elasticsearch-7.7.1-darwin-x86_64.tar.gz</a></p>
+<p>
+macOS: <a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.7.1-darwin-x86_64.tar.gz" class="ulink" target="_top">elasticsearch-7.7.1-darwin-x86_64.tar.gz</a>
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.7.1-darwin-x86_64.tar.gz</pre>
 </div>
-<p>Windows:
-<a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.7.1-windows-x86_64.zip" class="ulink" target="_top">elasticsearch-7.7.1-windows-x86_64.zip</a></p>
+<p>
+Windows: <a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.7.1-windows-x86_64.zip" class="ulink" target="_top">elasticsearch-7.7.1-windows-x86_64.zip</a>
+</p>
 </li>
 <li class="listitem">
-<p>Extract the archive:</p>
+<p>解压文件:</p>
 <p>Linux:</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">tar -xvf elasticsearch-7.7.1-linux-x86_64.tar.gz</pre>
@@ -118,7 +127,9 @@ cluster behaves.</p>
 </div>
 </li>
 <li class="listitem">
-<p>Start Elasticsearch from the <code class="literal">bin</code> directory:</p>
+<p>
+从 <code class="literal">bin</code> 目录启动 Elasticsearch ：
+</p>
 <p>Linux and macOS:</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">cd elasticsearch-7.7.1/bin
@@ -129,13 +140,16 @@ cluster behaves.</p>
 <pre class="programlisting prettyprint lang-powershell">cd elasticsearch-7.7.1\bin
 .\elasticsearch.bat</pre>
 </div>
-<p>You now have a single-node Elasticsearch cluster up and running!</p>
+<p>
+现在你有了一个单节点的 Elasticearch 集群启动并运行！
+</p>
 </li>
 <li class="listitem">
-<p>Start two more instances of Elasticsearch so you can see how a typical multi-node
-cluster behaves. You need to specify unique data and log paths
-for each node.</p>
-<p>Linux and macOS:</p>
+<p>
+再启动两个 Elasticearch 实例，这样就可以看到一个典型的多节点集群是如何工作的。
+你需要为每个节点指定唯一的数据和日志路径。
+</p>
+<p>Linux 和 macOS:</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">./elasticsearch -Epath.data=data2 -Epath.logs=log2
 ./elasticsearch -Epath.data=data3 -Epath.logs=log3</pre>
@@ -145,30 +159,36 @@ for each node.</p>
 <pre class="programlisting prettyprint lang-powershell">.\elasticsearch.bat -E path.data=data2 -E path.logs=log2
 .\elasticsearch.bat -E path.data=data3 -E path.logs=log3</pre>
 </div>
-<p>The additional nodes are assigned unique IDs. Because you’re running all three
-nodes locally, they automatically join the cluster with the first node.</p>
+<p>
+额外的节点被分配唯一的 ID。 因为你是在本地运行所有三个节点，所以它们将自动与第一个节点连接到集群中。  
+</p>
 </li>
 <li class="listitem">
-<p>Use the cat health API to verify that your three-node cluster is up running.
-The cat APIs return information about your cluster and indices in a
-format that’s easier to read than raw JSON.</p>
-<p>You can interact directly with your cluster by submitting HTTP requests to
-the Elasticsearch REST API. If you have Kibana installed and running, you can also
-open Kibana and submit requests through the Dev Console.</p>
+<p>
+使用 cat health API 验证三节点集群是否正在运行。
+
+cat API 以一种比原始JSON更容易阅读的格式返回关于集群和索引的信息。  
+</p>
+<p>
+你可以通过向 Elasticsearch REST API 发送 HTTP 请求来直接与集群交互。
+
+如果你安装并运行了 Kibana ，还可以打开 Kibana 并通过 开发控制台(Dev Console) 发送请求。
+</p>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>You’ll want to check out the
-<a href="https://www.elastic.co/guide/en/elasticsearch/client/index.html" class="ulink" target="_top">Elasticsearch language
-clients</a> when you’re ready to start using Elasticsearch in your own applications.</p>
+<p>
+当你准备在自己的应用程序中开始使用 Elasticearch 时，你会想要查看 <a href="https://www.elastic.co/guide/en/elasticsearch/client/index.html" class="ulink" target="_top">ElasticSearch 语言客户端</a>。
+</p>
 </div>
 </div>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_cat/health?v</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/1.console"></div>
-<p>The response should indicate that the status of the <code class="literal">elasticsearch</code> cluster
-is <code class="literal">green</code> and it has three nodes:</p>
+<p>
+响应应该表明 <code class="literal">elasticsearch</code> 集群的状态是 <code class="literal">elasticsearch</code> 的，它有三个节点：
+</p>
 <div class="pre_wrapper lang-txt">
 <pre class="programlisting prettyprint lang-txt">epoch      timestamp cluster       status node.total node.data shards pri relo init unassign pending_tasks max_task_wait_time active_shards_percent
 1565052807 00:53:27  elasticsearch green           3         3      6   3    0    0        0             0                  -                100.0%</pre>
@@ -176,26 +196,37 @@ is <code class="literal">green</code> and it has three nodes:</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The cluster status will remain yellow if you are only running a single
-instance of Elasticsearch. A single node cluster is fully functional, but data
-cannot be replicated to another node to provide resiliency. Replica shards must
-be available for the cluster status to be green. If the cluster status is red,
-some data is unavailable.</p>
+<p>
+如果只运行了一个 Elasticearch 实例，则集群状态将保持为 yellow。
+
+单节点的群集功能是齐全的，但不能将数据复制到另一个节点以提供弹性。
+
+必须有副本碎片，才能使群集状态变为 green。
+
+如果集群的状态时 red, 表示部分数据不可用。
+</p>
 </div>
 </div>
 </li>
 </ol>
 </div>
 <h3>
-<a id="gs-curl"></a>Talking to Elasticsearch with cURL commands<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/getting-started.asciidoc">edit</a>
+<a id="gs-curl"></a>
+用 cURL 命令与 Elasticearch 对话
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/getting-started.asciidoc">edit</a>
 </h3>
-<p>Most of the examples in this guide enable you to copy the appropriate cURL
-command and submit the request to your local Elasticsearch instance from the command line.</p>
-<p>A request to Elasticsearch consists of the same parts as any HTTP request:</p>
+<p>
+本指南中的大多数示例都允许你复制适当的 cURL 命令，并从命令行将请求提交到本地的 Elasticsearch 实例。  
+</p>
+<p>
+一个对 Elasticsearch 的请求包含与任何HTTP请求相同的部分：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">curl -X&lt;VERB&gt; '&lt;PROTOCOL&gt;://&lt;HOST&gt;:&lt;PORT&gt;/&lt;PATH&gt;?&lt;QUERY_STRING&gt;' -d '&lt;BODY&gt;'</pre>
 </div>
-<p>This example uses the following variables:</p>
+<p>
+这个示例中使用了如下的几个变量：
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -204,8 +235,7 @@ command and submit the request to your local Elasticsearch instance from the com
 </span>
 </dt>
 <dd>
-The appropriate HTTP method or verb. For example, <code class="literal">GET</code>, <code class="literal">POST</code>,
-<code class="literal">PUT</code>, <code class="literal">HEAD</code>, or <code class="literal">DELETE</code>.
+适当的HTTP方法或动词。比如，<code class="literal">GET</code>, <code class="literal">POST</code>, <code class="literal">PUT</code>, <code class="literal">HEAD</code>, 或 <code class="literal">DELETE</code>.
 </dd>
 <dt>
 <span class="term">
@@ -213,9 +243,9 @@ The appropriate HTTP method or verb. For example, <code class="literal">GET</cod
 </span>
 </dt>
 <dd>
-Either <code class="literal">http</code> or <code class="literal">https</code>. Use the latter if you have an HTTPS
-proxy in front of Elasticsearch or you use Elasticsearch security features to encrypt HTTP
-communications.
+<code class="literal">http</code> 或者 <code class="literal">https</code>。
+
+如果在 Elasticearch 前面有 HTTPS 代理，或者使用 Elasticsearch 安全特性加密 HTTP 通信，则使用后者。
 </dd>
 <dt>
 <span class="term">
@@ -223,8 +253,9 @@ communications.
 </span>
 </dt>
 <dd>
-The hostname of any node in your Elasticsearch cluster. Alternatively, use
-<code class="literal">localhost</code> for a node on your local machine.
+Elasticsearch 集群中任何一个节点的主机名(hostname)。
+
+本地计算机上的节点也可以使用 <code class="literal">localhost</code>。
 </dd>
 <dt>
 <span class="term">
@@ -232,7 +263,7 @@ The hostname of any node in your Elasticsearch cluster. Alternatively, use
 </span>
 </dt>
 <dd>
-The port running the Elasticsearch HTTP service, which defaults to <code class="literal">9200</code>.
+运行 ElasticSearch HTTP 服务的端口，默认为 <code class="literal">9200</code>。
 </dd>
 <dt>
 <span class="term">
@@ -240,8 +271,7 @@ The port running the Elasticsearch HTTP service, which defaults to <code class="
 </span>
 </dt>
 <dd>
-The API endpoint, which can contain multiple components, such as
-<code class="literal">_cluster/stats</code> or <code class="literal">_nodes/stats/jvm</code>.
+API 终端，可以包含多个组件，如 <code class="literal">_cluster/stats</code> 或 <code class="literal">_nodes/stats/jvm</code>.
 </dd>
 <dt>
 <span class="term">
@@ -249,8 +279,9 @@ The API endpoint, which can contain multiple components, such as
 </span>
 </dt>
 <dd>
-Any optional query-string parameters. For example, <code class="literal">?pretty</code>
-will <em>pretty-print</em>  the JSON response to make it easier to read.
+任何可选的查询-字符串参数。
+
+例如，<code class="literal">?pretty</code> 将 <em>美观的打印 (pretty-print)</em> JSON 响应以使其更易于阅读。
 </dd>
 <dt>
 <span class="term">
@@ -258,31 +289,39 @@ will <em>pretty-print</em>  the JSON response to make it easier to read.
 </span>
 </dt>
 <dd>
-A JSON-encoded request body (if necessary).
+一个 JSON 编码的请求体(如果需要)。
 </dd>
 </dl>
 </div>
-<p>If the Elasticsearch security features are enabled, you must also provide a valid user
-name (and password) that has authority to run the API. For example, use the
-<code class="literal">-u</code> or <code class="literal">--u</code> cURL command parameter. For details about which security
-privileges are required to run each API, see <a class="xref" href="rest-apis.html" title="REST APIs">REST APIs</a>.</p>
-<p>Elasticsearch responds to each API request with an HTTP status code like <code class="literal">200 OK</code>. With
-the exception of <code class="literal">HEAD</code> requests, it also returns a JSON-encoded response body.</p>
+<p>
+如果启用了 Elasticsearch 安全特性，则还必须提供一个具有运行 API 权限的有效用户名(和密码)。
+
+例如，使用 cURL 命令的 <code class="literal">-u</code> 或 <code class="literal">--u</code> 参数。
+
+有关运行每个 API 需要哪些安全权限的详细信息，请参阅 <a class="xref" href="rest-apis.html" title="REST APIs">REST APIs</a>。
+</p>
+<p>
+ElasticSearch 使用 HTTP 状态代码响应每个 API 请求，比如 <code class="literal">200 OK</code>。
+
+除了 HEAD 请求之外，它还返回一个 JSON 编码的响应体。
+</p>
 <h3>
-<a id="gs-other-install"></a>Other installation options<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/getting-started.asciidoc">edit</a>
+<a id="gs-other-install"></a>其他安装选项<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/getting-started.asciidoc">edit</a>
 </h3>
-<p>Installing Elasticsearch from an archive file enables you to easily install and run
-multiple instances locally so you can try things out. To run a single instance,
-you can  run Elasticsearch in a Docker container, install Elasticsearch using the DEB or RPM
-packages on Linux, install using Homebrew on macOS, or install using the MSI
-package installer on Windows. See <a class="xref" href="install-elasticsearch.html" title="Installing Elasticsearch"><em>Installing Elasticsearch</em></a> for more information.</p>
+<p>
+从归档文件安装 Elasticsearch 使你能够轻松地在本地安装并运行多个实例，以便进行尝试。  
+
+要运行单个实例，你可以在 Docker 容器中运行 Elasticearch，在 Linux 上使用 DEB 或 RPM 包安装 Elasticearch，在 MacOS 上使用 Homebreer 安装，或者在 Windows 上使用 MSI 包安装程序安装。
+
+更多信息参考 <a class="xref" href="install-elasticsearch.html" title="Installing Elasticsearch"><em>安装 Elasticsearch</em></a>。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="getting-started.html">« Getting started with Elasticsearch</a>
+<a href="getting-started.html">« 开始使用 Elasticsearch</a>
 </span>
 <span class="next">
-<a href="getting-started-index.html">Index some documents »</a>
+<a href2="getting-started-index.html">Index some documents »</a>
 </span>
 </div>
 </div>

@@ -3,44 +3,44 @@ var esNavLinks = [
     {
         "url": "elasticsearch-intro.html",
         "text": "Elasticsearch是什么?",
-        "title": "What is Elasticsearch?",
+        "title": "Elasticsearch是什么?",
         "sub": [
             {
                 "url": "documents-indices.html",
                 "text": "数据输入: 文档和索引",
-                "title": "Data in: documents and indices"
+                "title": "数据输入: 文档和索引"
             },
             {
                 "url": "search-analyze.html",
                 "text": "信息输出: 搜索和分析",
-                "title": "Information out: search and analyze"
+                "title": "信息输出: 搜索和分析"
             },
             {
                 "url": "scalability.html",
                 "text": "可伸缩性和弹性",
-                "title": "Scalability and resilience"
+                "title": "可伸缩性和弹性"
             }
         ]
     },
     {
         "url": "release-highlights.html",
         "text": "7.7版本的新特性",
-        "title": "What’s new in 7.7"
+        "title": "7.7版本的新特性"
     },
     {
         "url": "getting-started.html",
         "text": "开始使用Elasticsearch",
-        "title": "Getting started with Elasticsearch",
+        "title": "开始使用Elasticsearch",
         "sub": [
             {
                 "url": "getting-started-install.html",
                 "text": "安装并运行",
-                "title": "Get Elasticsearch up and running"
+                "title": "安装并运行"
             },
             {
                 "url": "getting-started-index.html",
-                "text": "索引几个文档",
-                "title": "Index some documents"
+                "text": "索引一些文档",
+                "title": "索引一些文档"
             },
             {
                 "url": "getting-started-search.html",

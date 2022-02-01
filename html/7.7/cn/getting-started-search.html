@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Start searching | ElasticSearch 7.7 权威指南中文版</title>
+	<title>开始搜索 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -34,33 +34,37 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
 <span class="breadcrumb-link"><a href="getting-started.html">开始使用 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Start searching</span>
+<span class="breadcrumb-node">开始搜索</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="getting-started-index.html">« Index some documents</a>
+<a href="getting-started-index.html">« 索引一些文档</a>
 </span>
 <span class="next">
-<a href="getting-started-aggregations.html">Analyze results with aggregations »</a>
+<a href2="getting-started-aggregations.html">Analyze results with aggregations »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="getting-started-search"></a>Start searching<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/getting-started.asciidoc">edit</a>
+<a id="getting-started-search"></a>开始搜索<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/getting-started.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>Once you have ingested some data into an Elasticsearch index, you can search it
-by sending requests to the <code class="literal">_search</code> endpoint. To access the full suite of
-search capabilities, you use the Elasticsearch Query DSL to specify the
-search criteria in the request body. You specify the name of the index you
-want to search in the request URI.</p>
-<p>For example, the following request retrieves all documents in the <code class="literal">bank</code>
-index sorted by account number:</p>
+<p>
+一旦你往一个 Elasticsearch 索引中导入了一些数据，你就可以发送请求到终端 <code class="literal">_search</code> 来搜索数据。
+
+要访问完整的搜索功能套件，要使用 ElasticSearch 的 QUERY DSL 在请求体中指定搜索条件。
+
+在请求 URI 中指定要搜索的索引的名称。
+</p>
+
+<p>
+比如，下面这个请求获取索引 <code class="literal">bank</code> 中的所有文档，并按 账号(account number) 排序：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /bank/_search
 {
@@ -71,8 +75,9 @@ index sorted by account number:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/4.console"></div>
-<p>By default, the <code class="literal">hits</code> section of the response includes the first 10 documents
-that match the search criteria:</p>
+<p>
+默认情况下，响应的 <code class="literal">hits</code> 部分包含匹配搜索条件的前 10 个文档。
+</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   "took" : 63,
@@ -108,37 +113,42 @@ that match the search criteria:</p>
   }
 }</pre>
 </div>
-<p>The response also provides the following information about the search request:</p>
+<p>
+响应还提供了关于搜索请求的如下信息：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">took</code> – how long it took Elasticsearch to run the query, in milliseconds
+<code class="literal">took</code> – Elasticsearch花费了多少时间去执行查询，单位 毫秒
 </li>
 <li class="listitem">
-<code class="literal">timed_out</code> – whether or not the search request timed out
+<code class="literal">timed_out</code> – 搜索请求是否超时
 </li>
 <li class="listitem">
-<code class="literal">_shards</code> – how many shards were searched and a breakdown of how many shards
-succeeded, failed, or were skipped.
+<code class="literal">_shards</code> – 搜索了多少个分片，以及有多少个分片成功、失败或被跳过。
 </li>
 <li class="listitem">
-<code class="literal">max_score</code> – the score of the most relevant document found
+<code class="literal">max_score</code> – 找到的最相关的文档的评分
 </li>
 <li class="listitem">
-<code class="literal">hits.total.value</code> - how many matching documents were found
+<code class="literal">hits.total.value</code> - 找到了多少个匹配的文档
 </li>
 <li class="listitem">
-<code class="literal">hits.sort</code> - the document’s sort position (when not sorting by relevance score)
+<code class="literal">hits.sort</code> - 文档的排序位置(当不按相关性得分排序时)
 </li>
 <li class="listitem">
-<code class="literal">hits._score</code> - the document’s relevance score (not applicable when using <code class="literal">match_all</code>)
+<code class="literal">hits._score</code> - 文档的相关性评分(在使用 <code class="literal">match_all</code> 时不适用)
 </li>
 </ul>
 </div>
-<p>Each search request is self-contained: Elasticsearch does not maintain any
-state information across requests. To page through the search hits, specify
-the <code class="literal">from</code> and <code class="literal">size</code> parameters in your request.</p>
-<p>For example, the following request gets hits 10 through 19:</p>
+<p>
+每个搜索请求都是独立的(self-contained)：ElasticSearch不会在请求之间维护任何状态信息。
+
+要按页浏览搜索命中，在请求参数中指定 <code class="literal">from</code> and <code class="literal">size</code> 参数。
+</p>
+<p>
+比如，下面的请求得到命中的 10 到 19 个结果：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /bank/_search
 {
@@ -151,11 +161,14 @@ the <code class="literal">from</code> and <code class="literal">size</code> para
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/5.console"></div>
-<p>Now that you’ve seen how to submit a basic search request, you can start to
-construct queries that are a bit more interesting than <code class="literal">match_all</code>.</p>
-<p>To search for specific terms within a field, you can use a <code class="literal">match</code> query.
-For example, the following request searches the <code class="literal">address</code> field to find
-customers whose addresses contain <code class="literal">mill</code> or <code class="literal">lane</code>:</p>
+<p>
+既然你已经了解了如何提交基本的搜索请求，就可以开始构建比 <code class="literal">match_all</code> 更有趣的查询了。
+</p>
+<p>
+若要在字段中搜索特定的词项，可以使用 <code class="literal">match</code> 查询。
+
+例如，以下请求在字段 <code class="literal">address</code> 中搜索地址包含  <code class="literal">mill</code> 或 <code class="literal">lane</code> 的客户：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /bank/_search
 {
@@ -163,9 +176,11 @@ customers whose addresses contain <code class="literal">mill</code> or <code cla
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/6.console"></div>
-<p>To perform a phrase search rather than matching individual terms, you use
-<code class="literal">match_phrase</code> instead of <code class="literal">match</code>. For example, the following request only
-matches addresses that contain the phrase <code class="literal">mill lane</code>:</p>
+<p>
+若要执行 <em>短语搜索 (phrase search)</em> 而不是匹配单个词项，请使用 <code class="literal">match_phrase</code> 而不是 <code class="literal">match</code>。
+
+比如，下面这个搜索只匹配地址包含短语 <code class="literal">mill lane</code> 的：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /bank/_search
 {
@@ -173,12 +188,13 @@ matches addresses that contain the phrase <code class="literal">mill lane</code>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/7.console"></div>
-<p>To construct more complex queries, you can use a <code class="literal">bool</code> query to combine
-multiple query criteria. You can designate criteria as required (must match),
-desirable (should match), or undesirable (must not match).</p>
-<p>For example, the following request searches the <code class="literal">bank</code> index for accounts that
-belong to customers who are 40 years old, but excludes anyone who lives in
-Idaho (ID):</p>
+<p>
+要构建更复杂的查询，可以使用 <code class="literal">bool</code> 查询去合并多个查询条件。
+
+你可以根据 需要(必须匹配, must match)、期望(应该匹配, should match)或不希望(必须不匹配, must not match) 指定条件。
+</p>
+<p>
+比如，以下请求在索引 <code class="literal">bank</code>  中搜索 客户年龄是 40 岁，但不包括居住在 Idaho(ID) 的客户的帐户：
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /bank/_search
 {
@@ -195,17 +211,25 @@ Idaho (ID):</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/8.console"></div>
-<p>Each <code class="literal">must</code>, <code class="literal">should</code>, and <code class="literal">must_not</code> element in a Boolean query is referred
-to as a query clause. How well a document meets the criteria in each <code class="literal">must</code> or
-<code class="literal">should</code> clause contributes to the document’s <em>relevance score</em>. The higher the
-score, the better the document matches your search criteria. By default, Elasticsearch
-returns documents ranked by these relevance scores.</p>
-<p>The criteria in a <code class="literal">must_not</code> clause is treated as a <em>filter</em>. It affects whether
-or not the document is included in the results, but does not contribute to
-how documents are scored. You can also explicitly specify arbitrary filters to
-include or exclude documents based on structured data.</p>
-<p>For example, the following request uses a range filter to limit the results to
-accounts with a balance between $20,000 and $30,000 (inclusive).</p>
+<p>
+布尔查询中的每个 <code class="literal">must</code>、<code class="literal">should</code> 和 <code class="literal">must_not</code> 元素都称为查询子句。
+
+文档在每个 <code class="literal">must</code> 或 <code class="literal">should</code> 子句中满足条件的程度，决定了文档的 <em>相关性评分(relevance score)</em>。
+
+得分越高，文档与条件的匹配度越高。
+
+默认情况下，Elasticsearch 返回的文档按这些相关性得分排序。
+</p>
+<p>
+条件中的 <code class="literal">must_not</code> 字句被看成是一个 <em>过滤器(filter)</em> 。
+
+它影响文档是否包含在结果中，但不参与文档的评分。
+
+还可以显式指定任意过滤器，以包含或排除基于结构化数据的文档。
+</p>
+<p>
+例如，下面的请求使用一个范围过滤器去将结果限制在 余额在$20,000 到 $30,000(含) 之间的账户。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /bank/_search
 {
@@ -228,10 +252,10 @@ accounts with a balance between $20,000 and $30,000 (inclusive).</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="getting-started-index.html">« Index some documents</a>
+<a href="getting-started-index.html">« 索引一些文档</a>
 </span>
 <span class="next">
-<a href="getting-started-aggregations.html">Analyze results with aggregations »</a>
+<a href2="getting-started-aggregations.html">Analyze results with aggregations »</a>
 </span>
 </div>
 </div>

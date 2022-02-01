@@ -252,3 +252,6 @@ em {
 #guide .calloutlist a {
     text-decoration: none;/*不知道原网站为什么要加下划线!!*/
 }
+/*修正链接的a的样式*/
+#content a, #guide a{color:#333; text-decoration:none}
+#content a:link, #guide a:link{color:#00a9e5;}

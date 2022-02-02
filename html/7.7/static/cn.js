@@ -62,12 +62,12 @@ var esNavLinks = [
     {
         "url": "setup.html",
         "text": "安装和设置",
-        "title": "Set up Elasticsearch",
+        "title": "安装和设置",
         "sub": [
             {
                 "url": "install-elasticsearch.html",
                 "text": "安装Elasticsearch",
-                "title": "Installing Elasticsearch",
+                "title": "安装Elasticsearch",
                 "sub": [
                     {
                         "url": "targz.html",

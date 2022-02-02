@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Installing Elasticsearch | ElasticSearch 7.7 权威指南中文版</title>
+	<title>安装Elasticsearch | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -34,38 +34,43 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-node">Installing Elasticsearch</span>
+<span class="breadcrumb-node">安装Elasticsearch</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="setup.html">« Set up Elasticsearch</a>
+<a href="setup.html">« 安装和设置</a>
 </span>
 <span class="next">
-<a href="targz.html">Install Elasticsearch from archive on Linux or MacOS »</a>
+<a href2="targz.html">Install Elasticsearch from archive on Linux or MacOS »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="install-elasticsearch"></a>Installing Elasticsearch<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install.asciidoc">edit</a>
+<a id="install-elasticsearch"></a>安装Elasticsearch<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install.asciidoc">edit</a>
 </h2>
 </div></div></div>
 <h3>
-<a id="_hosted_elasticsearch"></a>Hosted Elasticsearch<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install.asciidoc">edit</a>
+<a id="_hosted_elasticsearch"></a>托管的Elasticsearch<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install.asciidoc">edit</a>
 </h3>
-<p>You can run Elasticsearch on your own hardware, or use our
-<a href="https://www.elastic.co/cloud/elasticsearch-service" class="ulink" target="_top">hosted Elasticsearch Service</a>
-on Elastic Cloud. The Elasticsearch Service is available on both AWS and GCP.
-<a href="https://www.elastic.co/cloud/elasticsearch-service/signup?baymax=docs-body&amp;elektra=docs" class="ulink" target="_top">Try out the
-Elasticsearch Service for free</a>.</p>
+<p>
+你可以在自己的硬件上运行 Elasticsearch，也可以使用我们在 Elastic Cloud 上的 <a href="https://www.elastic.co/cloud/elasticsearch-service" class="ulink" target="_top">Elasticsearch 托管服务</a>。
+
+在AWS和GCP上都可以使用 Elasticsearch 服务。
+
+<a href="https://www.elastic.co/cloud/elasticsearch-service/signup?baymax=docs-body&amp;elektra=docs" class="ulink" target="_top">免费试用 Elasticsearch 服务</a>。
+
+</p>
 <h3>
-<a id="_installing_elasticsearch_yourself"></a>Installing Elasticsearch Yourself<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install.asciidoc">edit</a>
+<a id="_installing_elasticsearch_yourself"></a>自行安装Elasticsearch<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install.asciidoc">edit</a>
 </h3>
-<p>Elasticsearch is provided in the following package formats:</p>
+<p>
+Elasticsearch 有以下几种格式的安装包：
+</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -76,32 +81,32 @@ Elasticsearch Service for free</a>.</p>
 <tr>
 <td valign="top">
 <p>
-Linux and MacOS <code class="literal">tar.gz</code> archives
+Linux 和 MacOS <code class="literal">tar.gz</code> 归档
 </p>
 </td>
 <td valign="top">
 <p>
 </p>
 <p>
-The <code class="literal">tar.gz</code> archives are available for installation on any Linux distribution and MacOS.
+<code class="literal">tar.gz</code> 归档格式可以在任意一个 Linux 发行版和 MacOS 上安装。
 </p>
-<p><a class="xref" href="targz.html" title="Install Elasticsearch from archive on Linux or MacOS">Install Elasticsearch from archive on Linux or MacOS</a></p>
+<p><a class="xref" href="targz.html" title="Install Elasticsearch from archive on Linux or MacOS">在 Linux 或 MacOS 上使用归档文件安装 Elasticsearch</a></p>
 
 </td>
 </tr>
 <tr>
 <td valign="top">
 <p>
-Windows <code class="literal">.zip</code> archive
+Windows <code class="literal">.zip</code> 归档
 </p>
 </td>
 <td valign="top">
 <p>
 </p>
 <p>
-The <code class="literal">zip</code> archive is suitable for installation on Windows.
+<code class="literal">zip</code> 归档适合在 Windows 上安装。
 </p>
-<p><a class="xref" href="zip-windows.html" title="Install Elasticsearch with .zip on Windows">Install Elasticsearch with <code class="literal">.zip</code> on Windows</a></p>
+<p><a class="xref" href="zip-windows.html" title="Install Elasticsearch with .zip on Windows">在 Windows 上从 <code class="literal">.zip</code> 安装 Elasticsearch</a></p>
 
 </td>
 </tr>
@@ -115,12 +120,13 @@ The <code class="literal">zip</code> archive is suitable for installation on Win
 <p>
 </p>
 <p>
-The <code class="literal">deb</code> package is suitable for Debian, Ubuntu, and other Debian-based
-systems.  Debian packages may be downloaded from the Elasticsearch website or
-from our Debian repository.
-</p>
-<p><a class="xref" href="deb.html" title="Install Elasticsearch with Debian Package">Install Elasticsearch with Debian Package</a></p>
+<code class="literal">deb</code> 安装包适合 Debian、Ubuntu以及其他基于Debian的系统。
 
+Debian 安装包可以从 Elasticsearch 网站或 Debian 我们的存储库下载。
+</p>
+<p>
+<a class="xref" href="deb.html" title="Install Elasticsearch with Debian Package">从 Debian 安装包安装 Elasticsearch</a>
+</p>
 </td>
 </tr>
 <tr>
@@ -133,11 +139,11 @@ from our Debian repository.
 <p>
 </p>
 <p>
-The <code class="literal">rpm</code> package is suitable for installation on Red Hat, Centos, SLES,
-OpenSuSE and other RPM-based systems.  RPMs may be downloaded from the
-Elasticsearch website or from our RPM repository.
+<code class="literal">rpm</code>安装包适合在 Red Hat、Centos、SLES、OpenSuSE以及其他基于 RPM 的系统上安装。
+
+RPM包可以从 Elasticsearch 网站或我们的 RPM 存储库下载。
 </p>
-<p><a class="xref" href="rpm.html" title="Install Elasticsearch with RPM">Install Elasticsearch with RPM</a></p>
+<p><a class="xref" href="rpm.html" title="Install Elasticsearch with RPM">从 RPM 安装 Elasticsearch</a></p>
 
 </td>
 </tr>
@@ -154,13 +160,19 @@ Elasticsearch website or from our RPM repository.
 <span class="Admonishment Admonishment--beta">
 [<span class="Admonishment-title u-mono">beta</span>]
 <span class="Admonishment-detail">
-This functionality is in beta and is subject to change. The design and code is less mature than official GA features and is being provided as-is with no warranties. Beta features are not subject to the support SLA of official GA features.
+此功能目前处于 beta 测试阶段，可能会有变化。  
+
+设计和代码不如官方的 GA 功能成熟，而且是按原样提供的，没有保障。  
+
+Beta版特性不受官方 GA 特性的 SLA 支持。  
 </span>
-</span> The <code class="literal">msi</code> package is suitable for installation on Windows 64-bit systems with at least
-.NET 4.5 framework installed, and is the easiest choice for getting started with
-Elasticsearch on Windows. MSIs may be downloaded from the Elasticsearch website.
+
+</span>
+<code class="literal">msi</code> 安装包适合在Windows 64位系统上安装，且要求至少已安装 .NET 4.5 framework，这是在 Windows 上开始使用 Elasticsearch 的最简单的方式。
+
+MSI 可以从 Elasticsearch 网站下载。
 </p>
-<p><a class="xref" href="windows.html" title="Install Elasticsearch with Windows MSI Installer">Install Elasticsearch with Windows MSI Installer</a></p>
+<p><a class="xref" href="windows.html" title="Install Elasticsearch with Windows MSI Installer">使用 Windows MSI Installer 安装 Elasticsearch </a></p>
 
 </td>
 </tr>
@@ -174,10 +186,11 @@ Elasticsearch on Windows. MSIs may be downloaded from the Elasticsearch website.
 <p>
 </p>
 <p>
-Images are available for running Elasticsearch as Docker containers. They may be
-downloaded from the Elastic Docker Registry.
+镜像可以作为 Docker 容器运行 Elasticsearch。
+
+他们可以从 Elastic Docker Registry 下载。
 </p>
-<p><a href="docker.html" class="ulink" target="_top">Install Elasticsearch with Docker</a></p>
+<p><a href="docker.html" class="ulink" target="_top">使用 Docker 安装 Elasticsearch</a></p>
 
 </td>
 </tr>
@@ -191,10 +204,9 @@ downloaded from the Elastic Docker Registry.
 <p>
 </p>
 <p>
-Formulae are available from the Elastic Homebrew tap for installing
-Elasticsearch on macOS with the Homebrew package manager.
+Formulae 可以从在 macOS 上使用 Homebrew 包管理器安装 Elasticsearch 的Elastic Homebrew tap中获得。  
 </p>
-<p><a href="brew.html" class="ulink" target="_top">Install Elasticsearch on macOS with Homebrew</a></p>
+<p><a href="brew.html" class="ulink" target="_top">在 macOS 上使用 Homebrew 安装 Elasticsearch</a></p>
 
 </td>
 </tr>
@@ -202,10 +214,13 @@ Elasticsearch on macOS with the Homebrew package manager.
 </table>
 </div>
 <h3>
-<a id="config-mgmt-tools"></a>Configuration Management Tools<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install.asciidoc">edit</a>
+<a id="config-mgmt-tools"></a>
+配置管理工具
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install.asciidoc">edit</a>
 </h3>
-<p>We also provide the following configuration management tools to help with
-large deployments:</p>
+<p>
+我们还提供了以下配置管理工具来帮助进行大型部署：
+</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -262,10 +277,10 @@ Ansible
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="setup.html">« Set up Elasticsearch</a>
+<a href="setup.html">« 安装和设置</a>
 </span>
 <span class="next">
-<a href="targz.html">Install Elasticsearch from archive on Linux or MacOS »</a>
+<a href2="targz.html">Install Elasticsearch from archive on Linux or MacOS »</a>
 </span>
 </div>
 </div>

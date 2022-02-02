@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Set up Elasticsearch | ElasticSearch 7.7 权威指南中文版</title>
+	<title>安装和设置 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -34,63 +34,72 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-node">Set up Elasticsearch</span>
+<span class="breadcrumb-node">安装和设置</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="getting-started-next-steps.html">« Where to go from here</a>
+<a href="getting-started-next-steps.html">« 下一步做什么</a>
 </span>
 <span class="next">
-<a href="install-elasticsearch.html">Installing Elasticsearch »</a>
+<a href="install-elasticsearch.html">安装Elasticsearch »</a>
 </span>
 </div>
 <div class="part">
 <div class="titlepage"><div><div>
 <h1 class="title">
-<a id="setup"></a>Set up Elasticsearch<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup.asciidoc">edit</a>
+<a id="setup"></a>安装和设置<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup.asciidoc">edit</a>
 </h1>
 </div></div></div>
 <div class="openblock partintro">
 <div class="content">
-<p>This section includes information on how to setup Elasticsearch and get it
-running, including:</p>
+<p>
+本节包含有关如何安装 Elasticearch 并使其运行的信息，包括：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Downloading
+下载
 </li>
 <li class="listitem">
-Installing
+安装
 </li>
 <li class="listitem">
-Starting
+启动
 </li>
 <li class="listitem">
-Configuring
+配置
 </li>
 </ul>
 </div>
 <h2>
-<a id="supported-platforms"></a>Supported platforms<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup.asciidoc">edit</a>
+<a id="supported-platforms"></a>
+支持的平台
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup.asciidoc">edit</a>
 </h2>
-<p>The matrix of officially supported operating systems and JVMs is available here:
-<a href="https://www.elastic.co/support/matrix" class="ulink" target="_top">Support Matrix</a>. Elasticsearch is tested on the listed
-platforms, but it is possible that it will work on other platforms too.</p>
+<p>
+这里提供了官方支持的操作系统和 JVM 的矩阵：<a href="https://www.elastic.co/support/matrix" class="ulink" target="_top">支持矩阵</a>。
+
+ElasticSearch 在列出的平台上进行了测试，但也有可能在其他平台上运行。
+</p>
 <h2>
-<a id="jvm-version"></a>Java (JVM) Version<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup.asciidoc">edit</a>
+<a id="jvm-version"></a>Java (JVM) 版本<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup.asciidoc">edit</a>
 </h2>
-<p>Elasticsearch is built using Java, and includes a bundled version of
-<a href="http://openjdk.java.net" class="ulink" target="_top">OpenJDK</a> from the JDK maintainers (GPLv2+CE)
-within each distribution. The bundled JVM is the recommended JVM and
-is located within the <code class="literal">jdk</code> directory of the Elasticsearch home directory.</p>
-<p>To use your own version of Java, set the <code class="literal">JAVA_HOME</code> environment variable.
-If you must use a version of Java that is different from the bundled JVM,
-we recommend using a <a href="https://www.elastic.co/support/matrix" class="ulink" target="_top">supported</a>
-<a href="http://www.oracle.com/technetwork/java/eol-135779.html" class="ulink" target="_top">LTS version of Java</a>.
-Elasticsearch will refuse to start if a known-bad version of Java is used.
-The bundled JVM directory may be removed when using your own JVM.</p>
+<p>
+ElasticSearch 使用 Java 构建，并在每个发行版中包含来自 JDK 维护者(GPLv 2+CE)的 <a href="http://openjdk.java.net" class="ulink" target="_top">OpenJDK</a> 捆绑版本。
+
+捆绑的 JVM 是推荐的 JVM 版本，位于 ElasticSearch 安装根目录的 <code class="literal">jdk</code> 目录中。
+</p>
+<p>
+如果要使用你自己的 Java 版本, 设置环境变量 <code class="literal">JAVA_HOME</code>。
+
+如果你必须要使用与绑定的 JVM 不同的版本，推荐使用 <a href="https://www.elastic.co/support/matrix" class="ulink" target="_top">支持的</a> <a href="http://www.oracle.com/technetwork/java/eol-135779.html" class="ulink" target="_top">Java LTS 版本</a>。
+
+如果使用了已知的有问题版本的 Java，ElasticSearch 将拒绝启动。
+
+在使用你自己的 JVM 时，可能会删除绑定的 JVM 目录。  
+</p>
 </div>
 </div>
 
@@ -111,10 +120,10 @@ The bundled JVM directory may be removed when using your own JVM.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="getting-started-next-steps.html">« Where to go from here</a>
+<a href="getting-started-next-steps.html">« 下一步做什么</a>
 </span>
 <span class="next">
-<a href="install-elasticsearch.html">Installing Elasticsearch »</a>
+<a href="install-elasticsearch.html">安装Elasticsearch »</a>
 </span>
 </div>
 </div>

@@ -55,7 +55,7 @@ var esNavLinks = [
             {
                 "url": "getting-started-next-steps.html",
                 "text": "下一步做什么?",
-                "title": "Where to go from here"
+                "title": "下一步做什么"
             }
         ]
     },

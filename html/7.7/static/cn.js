@@ -45,12 +45,12 @@ var esNavLinks = [
             {
                 "url": "getting-started-search.html",
                 "text": "开始搜索",
-                "title": "Start searching"
+                "title": "开始搜索"
             },
             {
                 "url": "getting-started-aggregations.html",
                 "text": "用聚合分析结果",
-                "title": "Analyze results with aggregations"
+                "title": "用聚合分析结果"
             },
             {
                 "url": "getting-started-next-steps.html",

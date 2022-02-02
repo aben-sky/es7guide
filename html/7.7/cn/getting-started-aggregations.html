@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Analyze results with aggregations | ElasticSearch 7.7 权威指南中文版</title>
+	<title>用聚合分析结果 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -34,34 +34,34 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
 <span class="breadcrumb-link"><a href="getting-started.html">开始使用 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Analyze results with aggregations</span>
+<span class="breadcrumb-node">用聚合分析结果</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="getting-started-search.html">« Start searching</a>
+<a href="getting-started-search.html">« 开始搜索</a>
 </span>
 <span class="next">
-<a href="getting-started-next-steps.html">Where to go from here »</a>
+<a href2="getting-started-next-steps.html">Where to go from here »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="getting-started-aggregations"></a>Analyze results with aggregations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/getting-started.asciidoc">edit</a>
+<a id="getting-started-aggregations"></a>用聚合分析结果<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/getting-started.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>Elasticsearch aggregations enable you to get meta-information about your search results
-and answer questions like, "How many account holders are in Texas?" or
-"What’s the average balance of accounts in Tennessee?" You can search
-documents, filter hits, and use aggregations to analyze the results all in one
-request.</p>
-<p>For example, the following request uses a <code class="literal">terms</code> aggregation to group
-all of the accounts in the <code class="literal">bank</code> index by state, and returns the ten states
-with the most accounts in descending order:</p>
+<p>
+Elasticsearch 聚合使你能够获取有关搜索结果的元信息，并能回答诸如“德克萨斯州有多少帐户持有人”或“纳西州的平均帐户余额是多少？”这样的问题。
+
+你可以在一个请求中搜索文档、过滤命中并能使用聚合分析结果。
+</p>
+<p>
+比如，下面这个请求使用一个 <code class="literal">terms</code> 聚合将索引 <code class="literal">bank</code> 中的所有账户按州分组，并按降序返回账户最多的前 10 个州。 
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /bank/_search
 {
@@ -76,10 +76,15 @@ with the most accounts in descending order:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/10.console"></div>
-<p>The <code class="literal">buckets</code> in the response are the values of the <code class="literal">state</code> field. The
-<code class="literal">doc_count</code> shows the number of accounts in each state. For example, you
-can see that there are 27 accounts in <code class="literal">ID</code> (Idaho). Because the request
-set <code class="literal">size=0</code>, the response only contains the aggregation results.</p>
+<p>
+响应中的 <code class="literal">桶 (buckets)</code> 是字段 <code class="literal">state</code> 的值。
+
+<code class="literal">doc_count</code> 显示每个州的账户数量。
+
+比如，你可以看到在 <code class="literal">ID</code> (Idaho) 州有 27 个账户。
+
+因为请求中设置了 <code class="literal">size=0</code>，所以响应中只包含聚合的结果<span style="color:#666;">(译者注: aggregations部分有数据，而hits.hits为空)</span>。
+</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   "took": 29,
@@ -137,10 +142,11 @@ set <code class="literal">size=0</code>, the response only contains the aggregat
   }
 }</pre>
 </div>
-<p>You can combine aggregations to build more complex summaries of your data. For
-example, the following request nests an <code class="literal">avg</code> aggregation within the previous
-<code class="literal">group_by_state</code> aggregation to calculate the average account balances for
-each state.</p>
+<p>
+你可以组合聚合以构建更复杂的数据摘要。
+
+比如，下面这个请求在前一个 <code class="word">group_by_state</code> 聚合中嵌套一个 <code class="literal">avg</code> 聚合，以计算每个状态的平均账户余额。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /bank/_search
 {
@@ -162,8 +168,9 @@ each state.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/11.console"></div>
-<p>Instead of sorting the results by count, you could sort using the result of
-the nested aggregation by specifying the order within the <code class="literal">terms</code> aggregation:</p>
+<p>
+与按结果的计数排序不同，你可以使用嵌套聚合的结果进行排序，方法是在 <code class="literal">terms</code> 聚合中指定顺序：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /bank/_search
 {
@@ -188,20 +195,21 @@ the nested aggregation by specifying the order within the <code class="literal">
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/12.console"></div>
-<p>In addition to basic bucketing and metrics aggregations like these, Elasticsearch
-provides specialized aggregations for operating on multiple fields and
-analyzing particular types of data such as dates, IP addresses, and geo
-data. You can also feed the results of individual aggregations into pipeline
-aggregations for further analysis.</p>
-<p>The core analysis capabilities provided by aggregations enable advanced
-features such as using machine learning to detect anomalies.</p>
+<p>
+除了这些基本的<em>桶(bucket)</em> 和 <em>度量聚合(metrics aggregation) </em> 之外，Elasticsearch 还提供了专门的聚合，用于操作 <em>多字段(multiple fields)</em> 和分析特定类型的数据，如日期、IP地址和地理数据。
+
+你还可以将单个聚合的结果输入管道聚合以进行进一步分析。
+</p>
+<p>
+聚合提供的核心分析功能支持高级特性，比如使用机器学习来检测异常。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="getting-started-search.html">« Start searching</a>
+<a href="getting-started-search.html">« 开始搜索</a>
 </span>
 <span class="next">
-<a href="getting-started-next-steps.html">Where to go from here »</a>
+<a href2="getting-started-next-steps.html">Where to go from here »</a>
 </span>
 </div>
 </div>

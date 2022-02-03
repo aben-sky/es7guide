@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Install Elasticsearch from archive on Linux or MacOS | ElasticSearch 7.7 权威指南中文版</title>
+	<title>在Linux/MacOS上安装Elasticsearch | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -34,54 +34,66 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="install-elasticsearch.html">Installing Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="install-elasticsearch.html">安装Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Install Elasticsearch from archive on Linux or MacOS</span>
+<span class="breadcrumb-node">在Linux/MacOS上安装Elasticsearch</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="install-elasticsearch.html">« Installing Elasticsearch</a>
+<a href="install-elasticsearch.html">« 安装Elasticsearch</a>
 </span>
 <span class="next">
-<a href="zip-windows.html">Install Elasticsearch with <code class="literal">.zip</code> on Windows »</a>
+<a href2="zip-windows.html">Install Elasticsearch with <code class="literal">.zip</code> on Windows »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="targz"></a>Install Elasticsearch from archive on Linux or MacOS<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/targz.asciidoc">edit</a>
+<a id="targz"></a>在Linux/MacOS上安装Elasticsearch<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/targz.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>Elasticsearch is as a <code class="literal">.tar.gz</code> archive for Linux and MacOS.</p>
-<p>This package is free to use under the Elastic license. It contains open source
-and free commercial features and access to paid commercial features.
-<a href="https://www.elastic.co/guide/en/kibana/7.7/managing-licenses.html" class="ulink" target="_top">Start a 30-day trial</a> to try out all of the
-paid commercial features. See the
-<a href="https://www.elastic.co/subscriptions" class="ulink" target="_top">Subscriptions</a> page for information about
-Elastic license levels.</p>
-<p>The latest stable version of Elasticsearch can be found on the
-<a href="https://www.elastic.co/downloads/elasticsearch" class="ulink" target="_top">Download Elasticsearch</a> page.
-Other versions can be found on the
-<a href="https://www.elastic.co/downloads/past-releases" class="ulink" target="_top">Past Releases page</a>.</p>
+<p>
+在Linux和MacOS上使用一个 <code class="literal">.tar.gz</code> 归档文件来安装Elasticsearch。
+</p>
+<p>
+此软件包可在 Elastic 许可下免费使用。
+
+它包含开放源码和免费的商业特性，并能访问付费商业特性。
+
+<a href="https://www.elastic.co/guide/en/kibana/7.7/managing-licenses.html" class="ulink" target="_top">开始为期30天的试用</a> 尝试使用付费的商业特性。
+
+有关 Elastic 许可等级的更多信息，请参考 <a href="https://www.elastic.co/subscriptions" class="ulink" target="_top">订阅（Subscriptions）</a> 页面。
+</p>
+<p>
+Elasticsearch 最新的稳定版本可以在 <a href="https://www.elastic.co/downloads/elasticsearch" class="ulink" target="_top">下载 Elasticsearch</a> 页面找到。
+
+其他版本可以在 <a href="https://www.elastic.co/downloads/past-releases" class="ulink" target="_top">过去发布的版本(Past Releases)</a> 页面上找到。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Elasticsearch includes a bundled version of <a href="http://openjdk.java.net" class="ulink" target="_top">OpenJDK</a>
-from the JDK maintainers (GPLv2+CE). To use your own version of Java,
-see the <a class="xref" href="setup.html#jvm-version" title="Java (JVM) Version">JVM version requirements</a></p>
+<p>
+Elasticsearch 包含了一个绑定版本的 <a href="http://openjdk.java.net" class="ulink" target="_top">OpenJDK</a>，它来自 JDK 维护者(GPLv2+CE)。
+
+要使用你自己的Java版本，参考 <a class="xref" href="setup.html#jvm-version" title="Java (JVM) Version">JVM 版本要求</a>。
+</p>
 </div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="install-linux"></a>Download and install archive for Linux<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/targz.asciidoc">edit</a>
+<a id="install-linux"></a>
+下载并安装Linux版本的归档
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/targz.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>The Linux archive for Elasticsearch v7.7.1 can be downloaded and installed as follows:</p>
+<p>
+Elasticsearch v7.7.1的 Linux 归档可以下载并安装如下：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.7.1-linux-x86_64.tar.gz
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.7.1-linux-x86_64.tar.gz.sha512
@@ -96,8 +108,9 @@ cd elasticsearch-7.7.1/ <a id="CO1-2"></a><i class="conum" data-value="2"></i></
 <p><a href="#CO1-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Compares the SHA of the downloaded <code class="literal">.tar.gz</code> archive and the published checksum, which should output
-<code class="literal">elasticsearch-{version}-linux-x86_64.tar.gz: OK</code>.</p>
+<p>
+比较已经下载的 <code class="literal">.tar.gz</code> 归档文件和发布的 校验和(checksum)的 SHA，应该输出 <code class="literal">elasticsearch-{version}-linux-x86_64.tar.gz: OK</code> 这样的内容。
+</p>
 </td>
 </tr>
 <tr>
@@ -105,23 +118,27 @@ cd elasticsearch-7.7.1/ <a id="CO1-2"></a><i class="conum" data-value="2"></i></
 <p><a href="#CO1-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>This directory is known as <code class="literal">$ES_HOME</code>.</p>
+<p>这个目录被称为 <code class="literal">$ES_HOME</code>。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>Alternatively, you can download the following package, which includes only
-Apache 2.0 licensed code:
-<a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.7.1-linux-x86_64.tar.gz" class="ulink" target="_top">https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.7.1-linux-x86_64.tar.gz</a></p>
+<p>
+或者，你也可以下载这个安装包，其中只包含Apache2.0许可代码：<a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.7.1-linux-x86_64.tar.gz" class="ulink" target="_top">https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.7.1-linux-x86_64.tar.gz</a>
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="install-macos"></a>Download and install archive for MacOS<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/targz.asciidoc">edit</a>
+<a id="install-macos"></a>
+下载并安装 MacOS 版本的归档文件
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/targz.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>The MacOS archive for Elasticsearch v7.7.1 can be downloaded and installed as follows:</p>
+<p>
+Elasticsearch v7.7.1的 MacOS 归档可以下载并安装如下：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.7.1-darwin-x86_64.tar.gz
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.7.1-darwin-x86_64.tar.gz.sha512
@@ -136,8 +153,9 @@ cd elasticsearch-7.7.1/ <a id="CO2-2"></a><i class="conum" data-value="2"></i></
 <p><a href="#CO2-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Compares the SHA of the downloaded <code class="literal">.tar.gz</code> archive and the published checksum, which should output
-<code class="literal">elasticsearch-{version}-darwin-x86_64.tar.gz: OK</code>.</p>
+<p>
+比较已经下载的 <code class="literal">.tar.gz</code> 归档文件和发布的 校验和(checksum)的 SHA，应该输出 <code class="literal">elasticsearch-{version}-darwin-x86_64.tar.gz: OK</code> 这样的内容。
+</p>
 </td>
 </tr>
 <tr>
@@ -145,40 +163,42 @@ cd elasticsearch-7.7.1/ <a id="CO2-2"></a><i class="conum" data-value="2"></i></
 <p><a href="#CO2-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>This directory is known as <code class="literal">$ES_HOME</code>.</p>
+<p>这个目录被称为 <code class="literal">$ES_HOME</code>。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>Alternatively, you can download the following package, which includes only
-Apache 2.0 licensed code:
-<a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.7.1-darwin-x86_64.tar.gz" class="ulink" target="_top">https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.7.1-darwin-x86_64.tar.gz</a></p>
+<p>
+或者，你也可以下载这个安装包，其中只包含Apache2.0许可代码：<a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.7.1-darwin-x86_64.tar.gz" class="ulink" target="_top">https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.7.1-darwin-x86_64.tar.gz</a>
+</p>
 </div>
 
 <div class="section xpack">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="targz-enable-indices"></a>Enable automatic creation of system indices<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/targz.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
+<a id="targz-enable-indices"></a>
+开启自动创建系统索引
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/targz.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
 </h3>
 </div></div></div>
-<p>Some commercial features automatically create indices within Elasticsearch.
-By default, Elasticsearch is configured to allow automatic index creation, and no
-additional steps are required. However, if you have disabled automatic index
-creation in Elasticsearch, you must configure
-<a class="xref" href="docs-index_.html#index-creation" title="Create indices automatically"><code class="literal">action.auto_create_index</code></a> in <code class="literal">elasticsearch.yml</code> to allow
-the commercial features to create the following indices:</p>
+<p>
+一些商业特性会自动在 Elasticearch 中创建索引。
+
+默认情况下，Elasticsearch 被配置为允许自动创建索引，并且不需要其他步骤。
+
+但是，如果在 Elasticsearch 中禁用了自动索引创建，则必须在 <code class="literal">elasticsearch.yml</code> 文件中配置 <a class="xref" href="docs-index_.html#index-creation" title="Create indices automatically"><code class="literal">action.auto_create_index</code></a>，以允许商业特性创建以下索引：
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">action.auto_create_index: .monitoring*,.watches,.triggered_watches,.watcher-history*,.ml*</pre>
 </div>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If you are using <a href="https://www.elastic.co/products/logstash" class="ulink" target="_top">Logstash</a>
-or <a href="https://www.elastic.co/products/beats" class="ulink" target="_top">Beats</a> then you will most likely
-require additional index names in your <code class="literal">action.auto_create_index</code> setting, and
-the exact value will depend on your local configuration. If you are unsure of
-the correct value for your environment, you may consider setting the value to
- <code class="literal">*</code> which will allow automatic creation of all indices.</p>
+<p>
+如果你正在使用 <a href="https://www.elastic.co/products/logstash" class="ulink" target="_top">Logstash</a> 或 <a href="https://www.elastic.co/products/beats" class="ulink" target="_top">Beats</a>，那么你很可能在 <code class="literal">action.auto_create_index</code> 设置中需要额外的索引名，并且这个确切的值将取决于你的本地配置。
+
+如果不确定环境的正确值，可以考虑将值设置为<code class="literal">*</code>，这将允许自动创建所有索引。
+</p>
 </div>
 </div>
 </div>
@@ -186,25 +206,32 @@ the correct value for your environment, you may consider setting the value to
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="targz-running"></a>Running Elasticsearch from the command line<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/targz-start.asciidoc">edit</a>
+<a id="targz-running"></a>
+从命令行运行 Elasticsearch
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/targz-start.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>Elasticsearch can be started from the command line as follows:</p>
+<p>
+Elasticsearch 可以像下面这样从命令行启动：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">./bin/elasticsearch</pre>
 </div>
-<p>If you have password-protected the Elasticsearch keystore, you will be prompted
-to enter the keystore’s password. See <a class="xref" href="secure-settings.html" title="Secure settings">Secure settings</a> for more
-details.</p>
-<p>By default, Elasticsearch runs in the foreground, prints its logs to the
-standard output (<code class="literal">stdout</code>), and can be stopped by pressing <code class="literal">Ctrl-C</code>.</p>
+<p>
+如果你有密码保护的 ElasticSearch 密钥存储库，系统将提示你输入密钥存储库的密码。
+更多信息参考 <a class="xref" href="secure-settings.html" title="Secure settings">安全设置</a>。
+</p>
+<p>
+默认情况下，Elasticsearch 在前台运行，日志是打印到标准输出(<code class="literal">stdout</code>)的，并且可以通过按 <code class="literal">Ctrl-C</code>来停止运行。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>All scripts packaged with Elasticsearch require a version of Bash
-that supports arrays and assume that Bash is available at <code class="literal">/bin/bash</code>.
-As such, Bash should be available at this path either directly or via a
-symbolic link.</p>
+<p>
+与 Elasticsearch 一起打包的所有脚本都需要一个支持数组的 Bash 版本，并假设 Bash 在 <code class="literal">/bin/bash</code> 上可用。
+
+因此，Bash 应该可以直接使用，或通过符号链接在此路径上可用。
+</p>
 </div>
 </div>
 </div>
@@ -212,16 +239,21 @@ symbolic link.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_checking_that_elasticsearch_is_running"></a>Checking that Elasticsearch is running<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/check-running.asciidoc">edit</a>
+<a id="_checking_that_elasticsearch_is_running"></a>
+检查 Elasticearch 是否正在运行
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/check-running.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>You can test that your Elasticsearch node is running by sending an HTTP
-request to port <code class="literal">9200</code> on <code class="literal">localhost</code>:</p>
+<p>
+您可以通过向 <code class="literal">localhost</code> 上的端口 <code class="literal">9200</code> 发送一个 HTTP 请求来测试 Elasticsearch 节点是否正在运行：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/13.console"></div>
-<p>which should give you a response something like this:</p>
+<p>
+应该会给你一个类似下面这样的响应：
+</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
   "name" : "Cp8oag6",
@@ -241,34 +273,44 @@ request to port <code class="literal">9200</code> on <code class="literal">local
   "tagline" : "You Know, for Search"
 }</pre>
 </div>
-<p>Log printing to <code class="literal">stdout</code> can be disabled using the <code class="literal">-q</code> or <code class="literal">--quiet</code>
-option on the command line.</p>
+<p>
+打印到 <code class="literal">stdout</code> 的日志，可以通过命令行参数 <code class="literal">-q</code> 或 <code class="literal">--quiet</code> 来禁用。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="setup-installation-daemon"></a>Running as a daemon<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/targz-daemon.asciidoc">edit</a>
+<a id="setup-installation-daemon"></a>
+以守护进程方式运行
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/targz-daemon.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>To run Elasticsearch as a daemon, specify <code class="literal">-d</code> on the command line, and record
-the process ID in a file using the <code class="literal">-p</code> option:</p>
+<p>
+要以守护进程方式运行 Elasticsearch，需要在命令行指定 <code class="literal">-d</code>，并使用 <code class="literal">-p</code> 选项将进程ID记录到一个文件中。
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">./bin/elasticsearch -d -p pid</pre>
 </div>
-<p>If you have password-protected the Elasticsearch keystore, you will be prompted
-to enter the keystore’s password. See <a class="xref" href="secure-settings.html" title="Secure settings">Secure settings</a> for more
-details.</p>
-<p>Log messages can be found in the <code class="literal">$ES_HOME/logs/</code> directory.</p>
-<p>To shut down Elasticsearch, kill the process ID recorded in the <code class="literal">pid</code> file:</p>
+<p>
+如果你有密码保护的 ElasticSearch 密钥存储库，系统将提示你输入密钥存储库的密码。
+更多信息参考 <a class="xref" href="secure-settings.html" title="Secure settings">安全设置</a>。
+</p>
+<p>
+日志信息可以在 <code class="literal">$ES_HOME/logs/</code> 目录中找到。
+</p>
+<p>
+要关闭 Elasticsearch，杀掉(kill)文件<code class="literal">pid</code>中记录的进程ID:
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">pkill -F pid</pre>
 </div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The startup scripts provided in the <a class="xref" href="rpm.html" title="Install Elasticsearch with RPM">RPM</a> and <a class="xref" href="deb.html" title="Install Elasticsearch with Debian Package">Debian</a>
-packages take care of starting and stopping the Elasticsearch process for you.</p>
+<p>
+<a class="xref" href="rpm.html" title="Install Elasticsearch with RPM">RPM</a> 和 <a class="xref" href="deb.html" title="Install Elasticsearch with Debian Package">Debian</a> 包中提供的启动脚本负责为你启动和停止 Elasticearch 进程。
+</p>
 </div>
 </div>
 </div>
@@ -276,23 +318,28 @@ packages take care of starting and stopping the Elasticsearch process for you.</
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="targz-configuring"></a>Configuring Elasticsearch on the command line<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/targz.asciidoc">edit</a>
+<a id="targz-configuring"></a>
+使用命令行配置 Elasticsearch
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/targz.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>Elasticsearch loads its configuration from the <code class="literal">$ES_HOME/config/elasticsearch.yml</code>
-file by default.  The format of this config file is explained in
-<a class="xref" href="settings.html" title="Configuring Elasticsearch"><em>Configuring Elasticsearch</em></a>.</p>
-<p>Any settings that can be specified in the config file can also be specified on
-the command line, using the <code class="literal">-E</code> syntax as follows:</p>
+<p>
+Elasticsearch 默认从 <code class="literal">$ES_HOME/config/elasticsearch.yml</code> 文件加载配置。
+
+<a class="xref" href="settings.html" title="Configuring Elasticsearch"><em>配置 Elasticsearch</em></a> 中解释了此配置文件的格式。
+</p>
+<p>
+任何一个可以在配置文件中指定的设置，都可以在命令行中使用<code class="literal">-E</code>语法指定，如下所示：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">./bin/elasticsearch -d -Ecluster.name=my_cluster -Enode.name=node_1</pre>
 </div>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Typically, any cluster-wide settings (like <code class="literal">cluster.name</code>) should be
-added to the <code class="literal">elasticsearch.yml</code> config file, while any node-specific settings
-such as <code class="literal">node.name</code> could be specified on the command line.</p>
+<p>
+通常，任何集群范围的设置(如<code class="literal">cluster.name</code>)都应该添加到 <code class="literal">elasticsearch.yml</code> 配置文件中，而任何特定于节点的设置(如<code class="literal">node.name</code>)都可以在命令行中指定。
+</p>
 </div>
 </div>
 </div>
@@ -300,17 +347,21 @@ such as <code class="literal">node.name</code> could be specified on the command
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="targz-layout"></a>Directory layout of archives<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/targz.asciidoc">edit</a>
+<a id="targz-layout"></a>
+归档文件的目录结构
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/targz.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>The archive distributions are entirely self-contained. All files and
-directories are, by default, contained within <code class="literal">$ES_HOME</code> — the directory
-created when unpacking the archive.</p>
-<p>This is very convenient because you don’t have to create any directories to
-start using Elasticsearch, and uninstalling Elasticsearch is as easy as
-removing the <code class="literal">$ES_HOME</code> directory.  However, it is advisable to change the
-default locations of the config directory, the data directory, and the logs
-directory so that you do not delete important data later on.</p>
+<p>
+归档的发行版是完全独立的。
+
+默认情况下，所有的文件和目录，都包含在解压归档文件时创建的 <code class="literal">$ES_HOME</code> 目录中。
+</p>
+<p>
+这是很方便的，因为你不需要创建任何目录就可以开始使用 Elasticsearch，而卸载 Elasticsearch 就像删除 <code class="literal">$ES_HOME</code> 目录一样简单。
+
+但是，建议更改配置目录、数据目录和日志目录的默认位置，以便以后不会因为不小心而删除了重要数据。
+</p>
 <div class="informaltable">
 <table border="1" cellpadding="4px">
 <colgroup>
@@ -321,55 +372,66 @@ directory so that you do not delete important data later on.</p>
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Type</th>
-<th align="left" valign="top">Description</th>
-<th align="left" valign="top">Default Location</th>
-<th align="left" valign="top">Setting</th>
+<th align="left" valign="top">类型</th>
+<th align="left" valign="top">描述</th>
+<th align="left" valign="top">默认位置</th>
+<th align="left" valign="top">设置</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><span class="strong strong"><strong>home</strong></span></p></td>
-<td align="left" valign="top"><p>Elasticsearch home directory or <code class="literal">$ES_HOME</code></p></td>
-<td align="left" valign="top"><p>Directory created by unpacking the archive</p></td>
+<td align="left" valign="top"><p>Elasticsearch的主目录或 <code class="literal">$ES_HOME</code></p></td>
+<td align="left" valign="top"><p>解压归档文件时创建的目录</p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><span class="strong strong"><strong>bin</strong></span></p></td>
-<td align="left" valign="top"><p>Binary scripts including <code class="literal">elasticsearch</code> to start a node
-    and <code class="literal">elasticsearch-plugin</code> to install plugins</p></td>
+<td align="left" valign="top">
+<p>
+二进制脚本，包含启动一个节点的<code class="literal">elasticsearch</code>，以及安装插件的<code class="literal">elasticsearch-plugin</code>
+</p>
+</td>
 <td align="left" valign="top"><p><code class="literal">$ES_HOME/bin</code></p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><span class="strong strong"><strong>conf</strong></span></p></td>
-<td align="left" valign="top"><p>Configuration files including <code class="literal">elasticsearch.yml</code></p></td>
+<td align="left" valign="top"><p>包含<code class="literal">elasticsearch.yml</code>的配置文件</p></td>
 <td align="left" valign="top"><p><code class="literal">$ES_HOME/config</code></p></td>
 <td align="left" valign="top"><p><code class="literal"><a class="xref" href="settings.html#config-files-location" title="Config files location">ES_PATH_CONF</a></code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><span class="strong strong"><strong>data</strong></span></p></td>
-<td align="left" valign="top"><p>The location of the data files of each index / shard allocated
-    on the node. Can hold multiple locations.</p></td>
+<td align="left" valign="top"><p>
+节点上的每个索引/分片的数据文件的位置。
+可以设置多个位置。
+</p></td>
 <td align="left" valign="top"><p><code class="literal">$ES_HOME/data</code></p></td>
 <td align="left" valign="top"><p><code class="literal">path.data</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><span class="strong strong"><strong>logs</strong></span></p></td>
-<td align="left" valign="top"><p>Log files location.</p></td>
+<td align="left" valign="top"><p>日志文件的存放位置</p></td>
 <td align="left" valign="top"><p><code class="literal">$ES_HOME/logs</code></p></td>
 <td align="left" valign="top"><p><code class="literal">path.logs</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><span class="strong strong"><strong>plugins</strong></span></p></td>
-<td align="left" valign="top"><p>Plugin files location. Each plugin will be contained in a subdirectory.</p></td>
+<td align="left" valign="top"><p>插件文件的存放位置。每个插件都包含在一个子文件夹中。</p></td>
 <td align="left" valign="top"><p><code class="literal">$ES_HOME/plugins</code></p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><span class="strong strong"><strong>repo</strong></span></p></td>
-<td align="left" valign="top"><p>Shared file system repository locations. Can hold multiple locations. A file system repository can be placed in to any subdirectory of any directory specified here.</p></td>
-<td align="left" valign="top"><p>Not configured</p></td>
+<td align="left" valign="top"><p>
+共享的文件系统存储库的位置。
+
+可以设置多个位置。
+
+可以将文件系统存储库放置到此处指定的任何目录的任何子目录中。
+</p></td>
+<td align="left" valign="top"><p>未配置</p></td>
 <td align="left" valign="top"><p><code class="literal">path.repo</code></p></td>
 </tr>
 </tbody>
@@ -380,22 +442,24 @@ directory so that you do not delete important data later on.</p>
 <div class="section exclude">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_next_steps"></a>Next steps<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/next-steps.asciidoc">edit</a>
+<a id="_next_steps"></a>下一步<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/next-steps.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>You now have a test Elasticsearch environment set up.  Before you start
-serious development or go into production with Elasticsearch, you must do some additional
-setup:</p>
+<p>
+你现在已经设置了一个 Elasticsearch 测试环境。
+
+在开始正式开发或开始使用 Elasticsearch 进行生产之前，你还必须做一些额外的设置：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Learn how to <a class="xref" href="settings.html" title="Configuring Elasticsearch">configure Elasticsearch</a>.
+学习如何 <a class="xref" href="settings.html" title="Configuring Elasticsearch">配置 Elasticsearch</a>.
 </li>
 <li class="listitem">
-Configure <a class="xref" href="important-settings.html" title="Important Elasticsearch configuration">important Elasticsearch settings</a>.
+配置 <a class="xref" href="important-settings.html" title="Important Elasticsearch configuration">重要的 Elasticsearch 设置</a>.
 </li>
 <li class="listitem">
-Configure <a class="xref" href="system-config.html" title="Important System Configuration">important system settings</a>.
+配置 <a class="xref" href="system-config.html" title="Important System Configuration">重要的系统设置</a>.
 </li>
 </ul>
 </div>
@@ -404,10 +468,10 @@ Configure <a class="xref" href="system-config.html" title="Important System Conf
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="install-elasticsearch.html">« Installing Elasticsearch</a>
+<a href="install-elasticsearch.html">« 安装Elasticsearch</a>
 </span>
 <span class="next">
-<a href="zip-windows.html">Install Elasticsearch with <code class="literal">.zip</code> on Windows »</a>
+<a href2="zip-windows.html">Install Elasticsearch with <code class="literal">.zip</code> on Windows »</a>
 </span>
 </div>
 </div>

@@ -71,8 +71,8 @@ var esNavLinks = [
                 "sub": [
                     {
                         "url": "targz.html",
-                        "text": "在Linux/MacOS上安装",
-                        "title": "Install Elasticsearch from archive on Linux or MacOS"
+                        "text": "在Linux/MacOS上安装Elasticsearch",
+                        "title": "在Linux/MacOS上安装Elasticsearch"
                     },
                     {
                         "url": "zip-windows.html",

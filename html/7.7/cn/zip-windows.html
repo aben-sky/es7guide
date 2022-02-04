@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Install Elasticsearch with .zip on Windows | ElasticSearch 7.7 权威指南中文版</title>
+	<title>在Windows上使用 .zip 安装 ElasticSearch | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -34,82 +34,102 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装设置</a></span>
 »
-<span class="breadcrumb-link"><a href="install-elasticsearch.html">Installing Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="install-elasticsearch.html">安装 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Install Elasticsearch with <code class="literal">.zip</code> on Windows</span>
+<span class="breadcrumb-node">在Windows上使用<code class="literal">.zip</code>安装 Elasticsearch</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="targz.html">« Install Elasticsearch from archive on Linux or MacOS</a>
+<a href="targz.html">« 在Linux/MacOS上安装Elasticsearch</a>
 </span>
 <span class="next">
-<a href="deb.html">Install Elasticsearch with Debian Package »</a>
+<a href2="deb.html">Install Elasticsearch with Debian Package »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="zip-windows"></a>Install Elasticsearch with <code class="literal">.zip</code> on Windows<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/zip-windows.asciidoc">edit</a>
+<a id="zip-windows"></a>在Windows上使用<code class="literal">.zip</code>安装 Elasticsearch <a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/zip-windows.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>Elasticsearch can be installed on Windows using the Windows <code class="literal">.zip</code> archive.  This
-comes with a <code class="literal">elasticsearch-service.bat</code> command which will setup Elasticsearch to run as a
-service.</p>
+<p>
+在Windows上可以使用 Windows 的 <code class="literal">.zip</code> 归档来安装 Elasticsearch。
+
+这带有一个 <code class="literal">elasticsearch-service.bat</code> 命令，该命令将设置 Elasticsearch 作为服务运行。
+</p>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Elasticsearch has historically been installed on Windows using the <code class="literal">.zip</code> archive.
-An <a class="xref" href="windows.html" title="Install Elasticsearch with Windows MSI Installer">MSI installer package</a> is available that provides the easiest getting started
-experience for Windows. You can continue using the <code class="literal">.zip</code> approach if you prefer.</p>
+<p>
+在Windows上，Elasticsearch 一直使用 <code class="literal">.zip</code> 归档来安装。
+
+一个 <a class="xref" href="windows.html" title="Install Elasticsearch with Windows MSI Installer">MSI安装包</a> 为Windows提供了最简单的上入门体验。
+
+如果你愿意，你可以继续使用 <code class="literal">.zip</code> 方法。
+</p>
 </div>
 </div>
-<p>This package is free to use under the Elastic license. It contains open source
-and free commercial features and access to paid commercial features.
-<a href="https://www.elastic.co/guide/en/kibana/7.7/managing-licenses.html" class="ulink" target="_top">Start a 30-day trial</a> to try out all of the
-paid commercial features. See the
-<a href="https://www.elastic.co/subscriptions" class="ulink" target="_top">Subscriptions</a> page for information about
-Elastic license levels.</p>
+<p>
+此软件包可在 Elastic 许可下免费使用。
+
+它包含开放源码和免费的商业特性，并能访问付费商业特性。
+
+<a href="https://www.elastic.co/guide/en/kibana/7.7/managing-licenses.html" class="ulink" target="_top">开始为期30天的试用</a> 尝试使用付费的商业特性。
+
+有关 Elastic 许可等级的更多信息，请参考 <a href="https://www.elastic.co/subscriptions" class="ulink" target="_top">订阅（Subscriptions）</a> 页面。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>On Windows the Elasticsearch machine learning feature requires the Microsoft Universal
-C Runtime library. This is built into Windows 10, Windows Server 2016 and more
-recent versions of Windows. For older versions of Windows it can be installed
-via Windows Update, or from a
-<a href="https://support.microsoft.com/en-us/help/2999226/update-for-universal-c-runtime-in-windows" class="ulink" target="_top">separate download</a>.
-If you cannot install the Microsoft Universal C Runtime library you can still
-use the rest of Elasticsearch if you disable the machine learning feature.</p>
+<p>
+在Windows上，Elasticsearch 的机器学习特性需要 Microsoft Universal C Runtime 库。
+
+这个库内置在 Windows10， Windows Server 2016 以及更近期的Windows版本。
+
+对于更老版本的Windows，可以通过 Windows Update安装，或者 <a href="https://support.microsoft.com/en-us/help/2999226/update-for-universal-c-runtime-in-windows" class="ulink" target="_top">单独下载</a> 页面。
+
+如果你无法安装 Microsoft Universal C Runtime 库，只要你停用机器学习特性，你仍然可以使用Elasticsearch的其他功能。
+</p>
 </div>
 </div>
-<p>The latest stable version of Elasticsearch can be found on the
-<a href="https://www.elastic.co/downloads/elasticsearch" class="ulink" target="_top">Download Elasticsearch</a> page.
-Other versions can be found on the
-<a href="https://www.elastic.co/downloads/past-releases" class="ulink" target="_top">Past Releases page</a>.</p>
+<p>
+Elasticsearch 最新的稳定版本可以在 <a href="https://www.elastic.co/downloads/elasticsearch" class="ulink" target="_top">下载 Elasticsearch</a> 页面找到。
+
+其他版本可以在 <a href="https://www.elastic.co/downloads/past-releases" class="ulink" target="_top">过去发布的版本(Past Releases)</a> 页面上找到。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Elasticsearch includes a bundled version of <a href="http://openjdk.java.net" class="ulink" target="_top">OpenJDK</a>
-from the JDK maintainers (GPLv2+CE). To use your own version of Java,
-see the <a class="xref" href="setup.html#jvm-version" title="Java (JVM) Version">JVM version requirements</a></p>
+<p>
+Elasticsearch 包含了一个绑定版本的 <a href="http://openjdk.java.net" class="ulink" target="_top">OpenJDK</a>，它来自 JDK 维护者(GPLv2+CE)。
+
+要使用你自己的Java版本，参考 <a class="xref" href="setup.html#jvm-version" title="Java (JVM) Version">JVM 版本要求</a>。
+</p>
 </div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="install-windows"></a>Download and install the <code class="literal">.zip</code> package<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/zip-windows.asciidoc">edit</a>
+<a id="install-windows"></a>下载并安装<code class="literal">.zip</code>包 <a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/zip-windows.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>Download the <code class="literal">.zip</code> archive for Elasticsearch v7.7.1 from: <a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.7.1-windows-x86_64.zip" class="ulink" target="_top">https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.7.1-windows-x86_64.zip</a></p>
-<p>Alternatively, you can download the following package, which contains only
-features that are available under the Apache 2.0 license:
-<a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.7.1-windows-x86_64.zip" class="ulink" target="_top">https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.7.1-windows-x86_64.zip</a></p>
-<p>Unzip it with your favourite unzip tool.  This will create a folder called
-<code class="literal">elasticsearch-7.7.1</code>, which we will refer to as <code class="literal">%ES_HOME%</code>. In a terminal
-window, <code class="literal">cd</code> to the <code class="literal">%ES_HOME%</code> directory, for instance:</p>
+<p>
+从 <a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.7.1-windows-x86_64.zip" class="ulink" target="_top">https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.7.1-windows-x86_64.zip</a> 下载 lasticsearch v7.7.1 版本的 <code class="literal">.zip</code> 归档。
+</p>
+<p>
+或者，你也可以下载这个安装包，其中只包含Apache2.0许可代码：<a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.7.1-windows-x86_64.zip" class="ulink" target="_top">https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.7.1-windows-x86_64.zip</a>
+</p>
+<p>
+使用你喜欢的解压工具解压它。
+
+这会建立一个名为 <code class="literal">elasticsearch-7.7.1</code> 的文件夹，并称其为 <code class="literal">%ES_HOME%</code>。
+
+在终端窗口中，<code class="literal">cd</code> 到 <code class="literal">%ES_HOME%</code> 目录，比如：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">cd c:\elasticsearch-7.7.1</pre>
 </div>
@@ -118,27 +138,29 @@ window, <code class="literal">cd</code> to the <code class="literal">%ES_HOME%</
 <div class="section xpack">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="windows-enable-indices"></a>Enable automatic creation of system indices<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/zip-windows.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
+<a id="windows-enable-indices"></a>
+开启自动创建系统索引
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/zip-windows.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
 </h3>
 </div></div></div>
-<p>Some commercial features automatically create indices within Elasticsearch.
-By default, Elasticsearch is configured to allow automatic index creation, and no
-additional steps are required. However, if you have disabled automatic index
-creation in Elasticsearch, you must configure
-<a class="xref" href="docs-index_.html#index-creation" title="Create indices automatically"><code class="literal">action.auto_create_index</code></a> in <code class="literal">elasticsearch.yml</code> to allow
-the commercial features to create the following indices:</p>
+<p>
+一些商业特性会自动在 Elasticearch 中创建索引。
+
+默认情况下，Elasticsearch 被配置为允许自动创建索引，并且不需要其他步骤。
+
+但是，如果在 Elasticsearch 中禁用了自动索引创建，则必须在 <code class="literal">elasticsearch.yml</code> 文件中配置 <a class="xref" href="docs-index_.html#index-creation" title="Create indices automatically"><code class="literal">action.auto_create_index</code></a>，以允许商业特性创建以下索引：
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">action.auto_create_index: .monitoring*,.watches,.triggered_watches,.watcher-history*,.ml*</pre>
 </div>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If you are using <a href="https://www.elastic.co/products/logstash" class="ulink" target="_top">Logstash</a>
-or <a href="https://www.elastic.co/products/beats" class="ulink" target="_top">Beats</a> then you will most likely
-require additional index names in your <code class="literal">action.auto_create_index</code> setting, and
-the exact value will depend on your local configuration. If you are unsure of
-the correct value for your environment, you may consider setting the value to
- <code class="literal">*</code> which will allow automatic creation of all indices.</p>
+<p>
+如果你正在使用 <a href="https://www.elastic.co/products/logstash" class="ulink" target="_top">Logstash</a> 或 <a href="https://www.elastic.co/products/beats" class="ulink" target="_top">Beats</a>，那么你很可能在 <code class="literal">action.auto_create_index</code> 设置中需要额外的索引名，并且这个确切的值将取决于你的本地配置。
+
+如果不确定环境的正确值，可以考虑将值设置为<code class="literal">*</code>，这将允许自动创建所有索引。
+</p>
 </div>
 </div>
 </div>
@@ -146,45 +168,59 @@ the correct value for your environment, you may consider setting the value to
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="windows-running"></a>Running Elasticsearch from the command line<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/zip-windows-start.asciidoc">edit</a>
+<a id="windows-running"></a>
+从命令行运行 Elasticsearch
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/zip-windows-start.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>Elasticsearch can be started from the command line as follows:</p>
+<p>
+Elasticsearch 可以像下面这样从命令行启动：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">.\bin\elasticsearch.bat</pre>
 </div>
-<p>If you have password-protected the Elasticsearch keystore, you will be prompted to
-enter the keystore’s password. See <a class="xref" href="secure-settings.html" title="Secure settings">Secure settings</a> for more details.</p>
-<p>By default, Elasticsearch runs in the foreground, prints its logs to <code class="literal">STDOUT</code>,
-and can be stopped by pressing <code class="literal">Ctrl-C</code>.</p>
+<p>
+如果你有密码保护的 ElasticSearch 密钥存储库，系统将提示你输入密钥存储库的密码。
+更多信息参考 <a class="xref" href="secure-settings.html" title="Secure settings">安全设置</a>。
+</p>
+<p>
+默认情况下，Elasticsearch 在前台运行，日志是打印到标准输出(<code class="literal">stdout</code>)的，并且可以通过按 <code class="literal">Ctrl-C</code>来停止运行。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="windows-configuring"></a>Configuring Elasticsearch on the command line<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/zip-windows.asciidoc">edit</a>
+<a id="windows-configuring"></a>
+用命令行配置 Elasticsearch
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/zip-windows.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>Elasticsearch loads its configuration from the <code class="literal">%ES_HOME%\config\elasticsearch.yml</code>
-file by default.  The format of this config file is explained in
-<a class="xref" href="settings.html" title="Configuring Elasticsearch"><em>Configuring Elasticsearch</em></a>.</p>
-<p>Any settings that can be specified in the config file can also be specified on
-the command line, using the <code class="literal">-E</code> syntax as follows:</p>
+<p>
+Elasticsearch 默认从 <code class="literal">$ES_HOME/config/elasticsearch.yml</code> 文件加载配置。
+
+<a class="xref" href="settings.html" title="Configuring Elasticsearch"><em>配置 Elasticsearch</em></a> 中解释了此配置文件的格式。
+</p>
+<p>
+任何一个可以在配置文件中指定的设置，都可以在命令行中使用<code class="literal">-E</code>语法指定，如下所示：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">.\bin\elasticsearch.bat -Ecluster.name=my_cluster -Enode.name=node_1</pre>
 </div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Values that contain spaces must be surrounded with quotes.  For instance <code class="literal">-Epath.logs="C:\My Logs\logs"</code>.</p>
+<p>
+包含空格的值必须用引号括起来。比如 <code class="literal">-Epath.logs="C:\My Logs\logs"</code> 。
+</p>
 </div>
 </div>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Typically, any cluster-wide settings (like <code class="literal">cluster.name</code>) should be
-added to the <code class="literal">elasticsearch.yml</code> config file, while any node-specific settings
-such as <code class="literal">node.name</code> could be specified on the command line.</p>
+<p>
+通常，任何集群范围的设置(如<code class="literal">cluster.name</code>)都应该添加到 <code class="literal">elasticsearch.yml</code> 配置文件中，而任何特定于节点的设置(如<code class="literal">node.name</code>)都可以在命令行中指定。
+</p>
 </div>
 </div>
 </div>
@@ -192,16 +228,21 @@ such as <code class="literal">node.name</code> could be specified on the command
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_checking_that_elasticsearch_is_running_2"></a>Checking that Elasticsearch is running<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/check-running.asciidoc">edit</a>
+<a id="_checking_that_elasticsearch_is_running_2"></a>
+检查 Elasticearch 是否正在运行
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/check-running.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>You can test that your Elasticsearch node is running by sending an HTTP
-request to port <code class="literal">9200</code> on <code class="literal">localhost</code>:</p>
+<p>
+你可以通过向 <code class="literal">localhost</code> 上的端口 <code class="literal">9200</code> 发送一个 HTTP 请求来测试 Elasticsearch 节点是否正在运行：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/14.console"></div>
-<p>which should give you a response something like this:</p>
+<p>
+应该会给你一个类似下面这样的响应：
+</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
   "name" : "Cp8oag6",
@@ -226,23 +267,25 @@ request to port <code class="literal">9200</code> on <code class="literal">local
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="windows-service"></a>Installing Elasticsearch as a Service on Windows<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/zip-windows.asciidoc">edit</a>
+<a id="windows-service"></a>
+在 Windows 上将 Elasticsearch 作为服务安装
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/zip-windows.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>Elasticsearch can be installed as a service to run in the background or start
-automatically at boot time without any user interaction. This can be achieved
-through the <code class="literal">elasticsearch-service.bat</code> script in the <code class="literal">bin\</code> folder which allows one to
-install, remove, manage or configure the service and potentially start and
-stop the service, all from the command-line.</p>
+<p>
+Elasticsearch可以作为服务安装在后台运行，也可以在启动时自动启动，无需任何用户交互。
+
+这可以通过<code class="literal">bin\</code>文件夹中的<code class="literal">elasticsearch-service.bat</code>脚本来实现，该脚本允许用户安装、删除、管理或配置服务，并可能启动和停止服务，所有这些都可以从命令行完成。
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">c:\elasticsearch-7.7.1\bin&gt;elasticsearch-service.bat
 
 Usage: elasticsearch-service.bat install|remove|start|stop|manager [SERVICE_ID]</pre>
 </div>
-<p>The script requires one parameter (the command to execute) followed by an
-optional one indicating the service id (useful when installing multiple
-Elasticsearch services).</p>
-<p>The commands available are:</p>
+<p>
+该脚本需要一个参数（要执行的命令），后跟一个指示服务id的可选参数(在安装多个 Elasticsearch 服务时很有用)。
+</p>
+<p>可用的命令如下：</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -258,7 +301,7 @@ Elasticsearch services).</p>
 </td>
 <td valign="top">
 <p>
-Install Elasticsearch as a service
+安装Elasticsearch为服务
 </p>
 </td>
 </tr>
@@ -270,7 +313,7 @@ Install Elasticsearch as a service
 </td>
 <td valign="top">
 <p>
-Remove the installed Elasticsearch service (and stop the service if started)
+移除已安装的 Elasticsearch 服务（如果已经启动了则停止服务）
 </p>
 </td>
 </tr>
@@ -282,7 +325,7 @@ Remove the installed Elasticsearch service (and stop the service if started)
 </td>
 <td valign="top">
 <p>
-Start the Elasticsearch service (if installed)
+启动 Elasticsearch 服务(如果已安装)
 </p>
 </td>
 </tr>
@@ -294,7 +337,7 @@ Start the Elasticsearch service (if installed)
 </td>
 <td valign="top">
 <p>
-Stop the Elasticsearch service (if started)
+停止 Elasticsearch 服务(如果已启动)
 </p>
 </td>
 </tr>
@@ -306,14 +349,16 @@ Stop the Elasticsearch service (if started)
 </td>
 <td valign="top">
 <p>
-Start a GUI for managing the installed service
+启动一个管理已安装服务的GUI
 </p>
 </td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>The name of the service and the value of <code class="literal">JAVA_HOME</code> will be made available during install:</p>
+<p>
+服务名称及 <code class="literal">JAVA_HOME</code> 的值会在安装过程中给出：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">c:\elasticsearch-7.7.1\bin&gt;elasticsearch-service.bat install
 Installing service      :  "elasticsearch-service-x64"
@@ -323,24 +368,31 @@ The service 'elasticsearch-service-x64' has been installed.</pre>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>While a JRE can be used for the Elasticsearch service, due to its use of a client VM (as opposed to a server JVM which offers better performance for long-running applications) its usage is discouraged and a warning will be issued.</p>
+<p>
+虽然 JRE 可以用于 Elasticsearch 服务，但由于它使用客户端虚拟机(而不是为长时间运行的应用程序提供更好性能的服务端 JVM)，因此不鼓励使用它，并将发出警告。
+</p>
 </div>
 </div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The system environment variable <code class="literal">JAVA_HOME</code> should be set to the path to
-the JDK installation that you want the service to use. If you upgrade the JDK,
-you are not required to the reinstall the service but you must set the value of
-the system environment variable <code class="literal">JAVA_HOME</code> to the path to the new JDK
-installation. However, upgrading across JVM types (e.g. JRE versus SE) is not
-supported, and does require the service to be reinstalled.</p>
+<p>
+系统环境变量 <code class="literal">JAVA_HOME</code> 应该设置为你希望服务使用的 JDK 安装的路径。
+
+如果升级了 JDK，不需要重新安装服务，但是你必须设置系统环境变量 <code class="literal">JAVA_HOME</code> 的路径为新的 JDK 的安装路径。
+
+但是，不支持跨 JVM 类型升级(例如，JRE 与 SE)，并且确实需要重新安装服务。
+</p>
 </div>
 </div>
 <h3>
-<a id="windows-service-settings"></a>Customizing service settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/zip-windows.asciidoc">edit</a>
+<a id="windows-service-settings"></a>
+自定义服务设置
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/zip-windows.asciidoc">edit</a>
 </h3>
-<p>The Elasticsearch service can be configured prior to installation by setting the following environment variables (either using the <a href="https://technet.microsoft.com/en-us/library/cc754250(v=ws.10).aspx" class="ulink" target="_top">set command</a> from the command line, or through the <code class="literal">System Properties-&gt;Environment Variables</code> GUI).</p>
+<p>
+Elasticsearch 服务可以在安装前通过设置以下环境变量进行配置(使用命令行中的<a href="https://technet.microsoft.com/en-us/library/cc754250(v=ws.10).aspx" class="ulink" target="_top">set 命令</a>，或通过 <code class="literal">系统属性-&gt环境变量</code> 图形用户界面)。
+</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -356,8 +408,9 @@ supported, and does require the service to be reinstalled.</p>
 </td>
 <td valign="top">
 <p>
-A unique identifier for the service. Useful if installing multiple instances
-on the same machine. Defaults to <code class="literal">elasticsearch-service-x64</code>.
+服务的唯一标识符。
+如果在一个机器上安装多个实例，则非常有用。
+默认值为 <code class="literal">elasticsearch-service-x64</code>。
 </p>
 </td>
 </tr>
@@ -369,7 +422,7 @@ on the same machine. Defaults to <code class="literal">elasticsearch-service-x64
 </td>
 <td valign="top">
 <p>
-The user to run as, defaults to the local system account.
+运行时使用的用户，默认为本地系统账号。
 </p>
 </td>
 </tr>
@@ -381,7 +434,7 @@ The user to run as, defaults to the local system account.
 </td>
 <td valign="top">
 <p>
-The password for the user specified in <code class="literal">%SERVICE_USERNAME%</code>.
+用户 <code class="literal">%SERVICE_USERNAME%</code> 的密码。
 </p>
 </td>
 </tr>
@@ -393,7 +446,7 @@ The password for the user specified in <code class="literal">%SERVICE_USERNAME%<
 </td>
 <td valign="top">
 <p>
-The name of the service.  Defaults to <code class="literal">Elasticsearch &lt;version&gt; %SERVICE_ID%</code>.
+服务名称。默认值为 <code class="literal">Elasticsearch &lt;version&gt; %SERVICE_ID%</code>。
 </p>
 </td>
 </tr>
@@ -405,7 +458,7 @@ The name of the service.  Defaults to <code class="literal">Elasticsearch &lt;ve
 </td>
 <td valign="top">
 <p>
-The description of the service.  Defaults to <code class="literal">Elasticsearch &lt;version&gt; Windows Service - https://elastic.co</code>.
+服务描述。默认为 <code class="literal">Elasticsearch &lt;version&gt; Windows Service - https://elastic.co</code>。
 </p>
 </td>
 </tr>
@@ -417,7 +470,7 @@ The description of the service.  Defaults to <code class="literal">Elasticsearch
 </td>
 <td valign="top">
 <p>
-The installation directory of the desired JVM to run the service under.
+运行服务所需的JVM的安装目录。
 </p>
 </td>
 </tr>
@@ -429,10 +482,10 @@ The installation directory of the desired JVM to run the service under.
 </td>
 <td valign="top">
 <p>
-Service log directory, defaults to <code class="literal">%ES_HOME%\logs</code>. Note that this does
-not control the path for the Elasticsearch logs; the path for these is set
-via the setting <code class="literal">path.logs</code> in the <code class="literal">elasticsearch.yml</code> configuration file,
-or on the command line.
+服务日志的目录，默认为 <code class="literal">%ES_HOME%\logs</code>。
+
+请注意，它并不控制 Elasticsearch 日志的路径；
+这些路径的设置是通过配置文件 <code class="literal">elasticsearch.yml</code> 中的 <code class="literal">path.logs</code>，或通过命令行。
 </p>
 </td>
 </tr>
@@ -444,9 +497,7 @@ or on the command line.
 </td>
 <td valign="top">
 <p>
-Configuration file directory (which needs to include <code class="literal">elasticsearch.yml</code>,
-<code class="literal">jvm.options</code>, and <code class="literal">log4j2.properties</code> files), defaults to
-<code class="literal">%ES_HOME%\config</code>.
+配置文件的目录（它必须包含 <code class="literal">elasticsearch.yml</code>, <code class="literal">jvm.options</code>, 和 <code class="literal">log4j2.properties</code> 文件），默认为 <code class="literal">%ES_HOME%\config</code>。
 </p>
 </td>
 </tr>
@@ -458,7 +509,7 @@ Configuration file directory (which needs to include <code class="literal">elast
 </td>
 <td valign="top">
 <p>
-Any additional JVM system properties you may want to apply.
+你可能希望应用的任何其他 JVM 系统属性。
 </p>
 </td>
 </tr>
@@ -470,7 +521,7 @@ Any additional JVM system properties you may want to apply.
 </td>
 <td valign="top">
 <p>
-Startup mode for the service.  Can be either <code class="literal">auto</code> or <code class="literal">manual</code> (default).
+服务的启动模式。可以是 <code class="literal">auto</code> 或 <code class="literal">manual</code> (默认)。
 </p>
 </td>
 </tr>
@@ -482,7 +533,7 @@ Startup mode for the service.  Can be either <code class="literal">auto</code> o
 </td>
 <td valign="top">
 <p>
-The timeout in seconds that procrun waits for service to exit gracefully.  Defaults to <code class="literal">0</code>.
+procrun 等待服务正常退出的超时时间（单位：秒）。默认值为 <code class="literal">0</code>。
 </p>
 </td>
 </tr>
@@ -492,41 +543,50 @@ The timeout in seconds that procrun waits for service to exit gracefully.  Defau
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>At its core, <code class="literal">elasticsearch-service.bat</code> relies on <a href="http://commons.apache.org/proper/commons-daemon/" class="ulink" target="_top">Apache Commons Daemon</a> project
-to install the service. Environment variables set prior to the service installation are copied and will be used during the service lifecycle. This means any changes made to them after the installation will not be picked up unless the service is reinstalled.</p>
+<p>
+At its core, <code class="literal">elasticsearch-service.bat</code> relies on <a href="http://commons.apache.org/proper/commons-daemon/" class="ulink" target="_top">Apache Commons Daemon</a> project to install the service.
+
+作为它的核心，<code class="literal">elasticsearch-service.bat</code> 依赖 <a href="http://commons.apache.org/proper/commons-daemon/" class="ulink" target="_top">Apache Commons Daemon</a> 项目来安装该服务。
+
+服务安装前设置的环境变量将被复制，并将应用在服务的生命周期中。
+
+这意味着，除非重新安装服务，否则安装后对它们所做的任何更改都不会被接受。
+</p>
 </div>
 </div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>On Windows, the <a class="xref" href="heap-size.html" title="Setting the heap size">heap size</a> can be configured as for
-any other Elasticsearch installation when running Elasticsearch from the
-command line, or when installing Elasticsearch as a service for the
-first time. To adjust the heap size for an already installed service,
-use the service manager: <code class="literal">bin\elasticsearch-service.bat manager</code>.</p>
+<p>
+在Windows上，当从命令行运行 Elasticsearch，或者第一次将 Elasticsearch 作为服务安装时，<a class="xref" href="heap-size.html" title="Setting the heap size">堆内存大小</a>可以像任何其他 Elasticsearch 安装一样进行配置。
+
+要调整已安装服务的堆内存大小，请使用服务管理器：<code class="literal">bin\elasticsearch-service.bat manager</code>.
+</p>
 </div>
 </div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The service automatically configures a private temporary directory for use
-by Elasticsearch when it is running. This private temporary directory is
-configured as a sub-directory of the private temporary directory for the user
-running the installation. If the service will run under a different user, you
-can configure the location of the temporary directory that the service should
-use by setting the environment variable <code class="literal">ES_TMPDIR</code> to the preferred location
-before you execute the service installation.</p>
+<p>
+该服务会自动配置一个私有临时目录，供 Elasticsearch 运行时使用。
+
+该私有临时目录被配置为运行安装的用户的私有临时目录的子目录。
+
+如果服务将在不同的用户下运行，你可以在执行服务安装之前将环境变量<code class="literal">ES_TMPDIR</code>设置为首选位置来配置服务应该使用的临时目录的位置。
+</p>
 </div>
 </div>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-Using the Manager GUI
+使用管理器的图形用户界面
 </span>
 </dt>
 <dd>
-It is also possible to configure the service after it’s been installed using the manager GUI (<code class="literal">elasticsearch-service-mgr.exe</code>), which offers insight into the installed service, including its status, startup type, JVM, start and stop settings amongst other things.  Simply invoking <code class="literal">elasticsearch-service.bat manager</code> from the command-line will open up the manager window:
+你还可以使用管理器的图形用户界面(<code class="literal">elasticsearch-service-mgr.exe</code>)在服务安装后去配置服务，这个界面提供了对已安装服务的详细信息，包括服务的状态、启动类型、JVM、启动和停止设置等。
+
+只需从命令行调用<code class="literal">elasticsearch-service.bat manager</code> 就能打开管理器窗口：
 </dd>
 </dl>
 </div>
@@ -535,23 +595,29 @@ It is also possible to configure the service after it’s been installed using t
 <img src="../static/images/service-manager-win.png" alt="Windows Service Manager GUI">
 </div>
 </div>
-<p>Most changes (like JVM settings) made through the manager GUI will require a restart of the service in order to take affect.</p>
+<p>
+使用管理器的图形用户界面进行的大多数修改（比如 JVM设置）需要重启服务才能生效。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="windows-layout"></a>Directory layout of <code class="literal">.zip</code> archive<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/zip-windows.asciidoc">edit</a>
+<a id="windows-layout"></a>
+<code class="literal">.zip</code> 归档文件的目录结构
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/zip-windows.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>The <code class="literal">.zip</code> package is entirely self-contained. All files and directories are,
-by default, contained within <code class="literal">%ES_HOME%</code> — the directory created when
-unpacking the archive.</p>
-<p>This is very convenient because you don’t have to create any directories to
-start using Elasticsearch, and uninstalling Elasticsearch is as easy as
-removing the <code class="literal">%ES_HOME%</code> directory.  However, it is advisable to change the
-default locations of the config directory, the data directory, and the logs
-directory so that you do not delete important data later on.</p>
+<p>
+<code class="literal">.zip</code> 安装包是完全独立的。 
+
+默认情况下，所有的文件和目录，都包含在解压归档文件时创建的 <code class="literal">$ES_HOME</code> 目录中。
+</p>
+<p>
+这是很方便的，因为你不需要创建任何目录就可以开始使用 Elasticsearch，而卸载 Elasticsearch 就像删除 <code class="literal">$ES_HOME</code> 目录一样简单。
+
+但是，建议更改配置目录、数据目录和日志目录的默认位置，以便以后不会因为不小心而删除了重要数据。
+</p>
 <div class="informaltable">
 <table border="1" cellpadding="4px">
 <colgroup>
@@ -562,55 +628,64 @@ directory so that you do not delete important data later on.</p>
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Type</th>
-<th align="left" valign="top">Description</th>
-<th align="left" valign="top">Default Location</th>
-<th align="left" valign="top">Setting</th>
+<th align="left" valign="top">类型</th>
+<th align="left" valign="top">描述</th>
+<th align="left" valign="top">默认位置</th>
+<th align="left" valign="top">设置</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><span class="strong strong"><strong>home</strong></span></p></td>
-<td align="left" valign="top"><p>Elasticsearch home directory or <code class="literal">%ES_HOME%</code></p></td>
-<td align="left" valign="top"><p>Directory created by unpacking the archive</p></td>
+<td align="left" valign="top"><p>Elasticsearch的主目录或 <code class="literal">$ES_HOME</code></p></td>
+<td align="left" valign="top"><p>解压归档文件时创建的目录</p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><span class="strong strong"><strong>bin</strong></span></p></td>
-<td align="left" valign="top"><p>Binary scripts including <code class="literal">elasticsearch</code> to start a node
-    and <code class="literal">elasticsearch-plugin</code> to install plugins</p></td>
+<td align="left" valign="top"><p>
+二进制脚本，包含启动一个节点的<code class="literal">elasticsearch</code>，以及安装插件的<code class="literal">elasticsearch-plugin</code>
+</p></td>
 <td align="left" valign="top"><p><code class="literal">%ES_HOME%\bin</code></p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><span class="strong strong"><strong>conf</strong></span></p></td>
-<td align="left" valign="top"><p>Configuration files including <code class="literal">elasticsearch.yml</code></p></td>
+<td align="left" valign="top"><p>包含<code class="literal">elasticsearch.yml</code>的配置文件</p></td>
 <td align="left" valign="top"><p><code class="literal">%ES_HOME%\config</code></p></td>
 <td align="left" valign="top"><p><code class="literal"><a class="xref" href="settings.html#config-files-location" title="Config files location">ES_PATH_CONF</a></code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><span class="strong strong"><strong>data</strong></span></p></td>
-<td align="left" valign="top"><p>The location of the data files of each index / shard allocated
-    on the node. Can hold multiple locations.</p></td>
+<td align="left" valign="top"><p>
+节点上的每个索引/分片的数据文件的位置。
+可以设置多个位置。
+</p></td>
 <td align="left" valign="top"><p><code class="literal">%ES_HOME%\data</code></p></td>
 <td align="left" valign="top"><p><code class="literal">path.data</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><span class="strong strong"><strong>logs</strong></span></p></td>
-<td align="left" valign="top"><p>Log files location.</p></td>
+<td align="left" valign="top"><p>日志文件的存放位置</p></td>
 <td align="left" valign="top"><p><code class="literal">%ES_HOME%\logs</code></p></td>
 <td align="left" valign="top"><p><code class="literal">path.logs</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><span class="strong strong"><strong>plugins</strong></span></p></td>
-<td align="left" valign="top"><p>Plugin files location. Each plugin will be contained in a subdirectory.</p></td>
+<td align="left" valign="top"><p>插件文件的存放位置。每个插件都放在一个子文件夹中。</p></td>
 <td align="left" valign="top"><p><code class="literal">%ES_HOME%\plugins</code></p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><span class="strong strong"><strong>repo</strong></span></p></td>
-<td align="left" valign="top"><p>Shared file system repository locations. Can hold multiple locations. A file system repository can be placed in to any subdirectory of any directory specified here.</p></td>
-<td align="left" valign="top"><p>Not configured</p></td>
+<td align="left" valign="top"><p>
+共享的文件系统存储库的位置。
+
+可以设置多个位置。
+
+可以将文件系统存储库放置到此处指定的任何目录的任何子目录中。
+</p></td>
+<td align="left" valign="top"><p>未配置</p></td>
 <td align="left" valign="top"><p><code class="literal">path.repo</code></p></td>
 </tr>
 </tbody>
@@ -624,19 +699,21 @@ directory so that you do not delete important data later on.</p>
 <a id="_next_steps_2"></a>Next steps<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/next-steps.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>You now have a test Elasticsearch environment set up.  Before you start
-serious development or go into production with Elasticsearch, you must do some additional
-setup:</p>
+<p>
+你现在已经设置了一个 Elasticsearch 测试环境。
+
+在开始正式开发或开始使用 Elasticsearch 进行生产之前，你还必须做一些额外的设置：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Learn how to <a class="xref" href="settings.html" title="Configuring Elasticsearch">configure Elasticsearch</a>.
+学习如何 <a class="xref" href="settings.html" title="Configuring Elasticsearch">配置 Elasticsearch</a>.
 </li>
 <li class="listitem">
-Configure <a class="xref" href="important-settings.html" title="Important Elasticsearch configuration">important Elasticsearch settings</a>.
+配置 <a class="xref" href="important-settings.html" title="Important Elasticsearch configuration">重要的 Elasticsearch 设置</a>.
 </li>
 <li class="listitem">
-Configure <a class="xref" href="system-config.html" title="Important System Configuration">important system settings</a>.
+配置 <a class="xref" href="system-config.html" title="Important System Configuration">重要的系统设置</a>.
 </li>
 </ul>
 </div>
@@ -645,10 +722,10 @@ Configure <a class="xref" href="system-config.html" title="Important System Conf
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="targz.html">« Install Elasticsearch from archive on Linux or MacOS</a>
+<a href="targz.html">« 在Linux/MacOS上安装Elasticsearch</a>
 </span>
 <span class="next">
-<a href="deb.html">Install Elasticsearch with Debian Package »</a>
+<a href2="deb.html">Install Elasticsearch with Debian Package »</a>
 </span>
 </div>
 </div>

@@ -76,8 +76,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "zip-windows.html",
-                        "text": "在Windows上使用zip压缩文件安装",
-                        "title": "Install Elasticsearch with .zip on Windows"
+                        "text": "在Windows上使用 .zip 安装",
+                        "title": "在Windows上使用 .zip 安装"
                     },
                     {
                         "url": "deb.html",

@@ -82,7 +82,7 @@ var esNavLinks = [
                     {
                         "url": "deb.html",
                         "text": "使用Debian安装包安装",
-                        "title": "Install Elasticsearch with Debian Package"
+                        "title": "使用Debian安装包安装"
                     },
                     {
                         "url": "rpm.html",

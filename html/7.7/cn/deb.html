@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Install Elasticsearch with Debian Package | ElasticSearch 7.7 权威指南中文版</title>
+	<title>使用Debian安装包安装Elasticsearch | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -34,60 +34,73 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="install-elasticsearch.html">Installing Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="install-elasticsearch.html">安装 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Install Elasticsearch with Debian Package</span>
+<span class="breadcrumb-node">使用Debian安装包安装 Elasticsearch</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="zip-windows.html">« Install Elasticsearch with <code class="literal">.zip</code> on Windows</a>
+<a href="zip-windows.html">« 在Windows上使用 <code class="literal">.zip</code> 安装 Elasticsearch</a>
 </span>
 <span class="next">
-<a href="rpm.html">Install Elasticsearch with RPM »</a>
+<a href2="rpm.html">Install Elasticsearch with RPM »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="deb"></a>Install Elasticsearch with Debian Package<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/deb.asciidoc">edit</a>
+<a id="deb"></a>
+使用Debian安装包安装 Elasticsearch
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/deb.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>The Debian package for Elasticsearch can be <a class="xref" href="deb.html#install-deb" title="Download and install the Debian package manually">downloaded from our website</a>
-or from our <a class="xref" href="deb.html#deb-repo" title="Installing from the APT repository">APT repository</a>. It can be used to install
-Elasticsearch on any Debian-based system such as Debian and Ubuntu.</p>
-<p>This package is free to use under the Elastic license. It contains open source
-and free commercial features and access to paid commercial features.
-<a href="https://www.elastic.co/guide/en/kibana/7.7/managing-licenses.html" class="ulink" target="_top">Start a 30-day trial</a> to try out all of the
-paid commercial features. See the
-<a href="https://www.elastic.co/subscriptions" class="ulink" target="_top">Subscriptions</a> page for information about
-Elastic license levels.</p>
-<p>The latest stable version of Elasticsearch can be found on the
-<a href="https://www.elastic.co/downloads/elasticsearch" class="ulink" target="_top">Download Elasticsearch</a> page. Other versions can
-be found on the <a href="https://www.elastic.co/downloads/past-releases" class="ulink" target="_top">Past Releases page</a>.</p>
+<p>
+Elasticsearch 的 Debian 安装包可以 <a class="xref" href="deb.html#install-deb" title="Download and install the Debian package manually">从我们的站点下载</a> 或 <a class="xref" href="deb.html#deb-repo" title="Installing from the APT repository">APT 存储库</a>。
+
+它可以用来在任何基于Debian的系统上安装 Elasticsearch，比如 Debian 和 Ubuntu。
+</p>
+<p>
+此软件包可在 Elastic 许可下免费使用。
+
+它包含开放源码和免费的商业特性，并能访问付费商业特性。
+
+<a href="https://www.elastic.co/guide/en/kibana/7.7/managing-licenses.html" class="ulink" target="_top">开始为期30天的试用</a> 尝试使用付费的商业特性。
+
+有关 Elastic 许可等级的更多信息，请参考 <a href="https://www.elastic.co/subscriptions" class="ulink" target="_top">订阅（Subscriptions）</a> 页面。
+</p>
+<p>
+Elasticsearch 最新的稳定版本可以在 <a href="https://www.elastic.co/downloads/elasticsearch" class="ulink" target="_top">下载 Elasticsearch</a> 页面找到。
+
+其他版本可以在 <a href="https://www.elastic.co/downloads/past-releases" class="ulink" target="_top">过去发布的版本(Past Releases)</a> 页面上找到。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Elasticsearch includes a bundled version of <a href="http://openjdk.java.net" class="ulink" target="_top">OpenJDK</a>
-from the JDK maintainers (GPLv2+CE). To use your own version of Java,
-see the <a class="xref" href="setup.html#jvm-version" title="Java (JVM) Version">JVM version requirements</a></p>
+<p>
+Elasticsearch 包含了一个绑定版本的 <a href="http://openjdk.java.net" class="ulink" target="_top">OpenJDK</a>，它来自 JDK 维护者(GPLv2+CE)。
+
+要使用你自己的Java版本，参考 <a class="xref" href="setup.html#jvm-version" title="Java (JVM) Version">JVM 版本要求</a>。
+</p>
 </div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="deb-key"></a>Import the Elasticsearch PGP Key<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/deb.asciidoc">edit</a>
+<a id="deb-key"></a>导入 Elasticsearch 的 PGP 秘钥<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/deb.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>We sign all of our packages with the Elasticsearch Signing Key (PGP key
-<a href="https://pgp.mit.edu/pks/lookup?op=vindex&amp;search=0xD27D666CD88E42B4" class="ulink" target="_top">D88E42B4</a>,
-available from <a href="https://pgp.mit.edu" class="ulink" target="_top">https://pgp.mit.edu</a>) with fingerprint:</p>
+<p>
+我们使用Elasticsearch 签名秘钥(PGP 秘钥 <a href="https://pgp.mit.edu/pks/lookup?op=vindex&amp;search=0xD27D666CD88E42B4" class="ulink" target="_top">D88E42B4</a>, 可以从 <a href="https://pgp.mit.edu" class="ulink" target="_top">https://pgp.mit.edu</a> 获得) 对所有的安装包都进行了签名，指纹是：
+</p>
 <pre class="literallayout">4609 5ACC 8548 582C 1A26 99A9 D27D 666C D88E 42B4</pre>
 
-<p>Download and install the public signing key:</p>
+<p>
+下载并安装签名用的公钥：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -</pre>
 </div>
@@ -96,36 +109,43 @@ available from <a href="https://pgp.mit.edu" class="ulink" target="_top">https:/
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="deb-repo"></a>Installing from the APT repository<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/deb.asciidoc">edit</a>
+<a id="deb-repo"></a>
+从APT存储库安装
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/deb.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>You may need to install the <code class="literal">apt-transport-https</code> package on Debian before proceeding:</p>
+<p>
+在继续之前，你可能需要在Debian上安装 <code class="literal">apt-transport-https</code> 包：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo apt-get install apt-transport-https</pre>
 </div>
-<p>Save the repository definition to  <code class="literal">/etc/apt/sources.list.d/elastic-7.x.list</code>:</p>
+<p>
+把存储库的定义保存到<code class="literal">/etc/apt/sources.list.d/elastic-7.x.list</code>：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list</pre>
 </div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>These instructions do not use <code class="literal">add-apt-repository</code> for several reasons:</p>
+<p>
+这些使用教程没有使用 <code class="literal">add-apt-repository</code>，有以下几个原因：
+</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-<code class="literal">add-apt-repository</code> adds entries to the system <code class="literal">/etc/apt/sources.list</code> file
-rather than a clean per-repository file in <code class="literal">/etc/apt/sources.list.d</code>
+<code class="literal">add-apt-repository</code>向系统文件 <code class="literal">/etc/apt/sources.list</code> 中添加记录，而不是向 <code class="literal">/etc/apt/sources.list.d</code> 中为每个存储库添加一个干净的文件
 </li>
 <li class="listitem">
-<code class="literal">add-apt-repository</code> is not part of the default install on many distributions
-and requires a number of non-default dependencies.
+<code class="literal">add-apt-repository</code> 不是许多发行版上默认安装的一部分，并且需要许多非默认的依赖项。
 </li>
 <li class="listitem">
-<p>Older versions of <code class="literal">add-apt-repository</code> always add a <code class="literal">deb-src</code> entry which
-will cause errors because we do not provide a source package. If you have added
-the <code class="literal">deb-src</code> entry, you will see an error like the following until you delete
-the <code class="literal">deb-src</code> line:</p>
+<p>
+老版本的 <code class="literal">add-apt-repository</code> 总是会添加一个 <code class="literal">deb-src</code> 记录，而这个文件会因为缺少源安装包而引起错误。
+
+如果你已经添加了 <code class="literal">deb-src</code> 记录，你会看到类似如下的错误直到你删除了 <code class="literal">deb-src</code> 行：
+</p>
 <pre class="literallayout">Unable to find expected entry 'main/source/Sources' in Release file
 (Wrong sources.list entry or malformed file)</pre>
 
@@ -134,31 +154,40 @@ the <code class="literal">deb-src</code> line:</p>
 </div>
 </div>
 </div>
-<p>You can install the Elasticsearch Debian package with:</p>
+<p>
+你可以这样安装Elasticsearch的Debian包：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo apt-get update &amp;&amp; sudo apt-get install elasticsearch</pre>
 </div>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If two entries exist for the same Elasticsearch repository, you will see an error like this during <code class="literal">apt-get update</code>:</p>
+<p>
+如果同一个Elasticsearch存储库有两笔记录，你会在 <code class="literal">apt-get update</code> 升级期间看到一个类似这样的错误：
+</p>
 <pre class="literallayout">Duplicate sources.list entry https://artifacts.elastic.co/packages/7.x/apt/ ...`</pre>
 
-<p>Examine <code class="literal">/etc/apt/sources.list.d/elasticsearch-7.x.list</code> for the duplicate entry or locate the duplicate entry amongst the files in <code class="literal">/etc/apt/sources.list.d/</code> and the <code class="literal">/etc/apt/sources.list</code> file.</p>
+<p>
+检查 <code class="literal">/etc/apt/sources.list.d/elasticsearch-7.x.list</code> 中的重复记录，或者在 <code class="literal">/etc/apt/sources.list.d/</code> 和 <code class="literal">/etc/apt/sources.list</code> 文件中找到重复记录。
+</p>
 </div>
 </div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>On systemd-based distributions, the installation scripts will attempt to set kernel parameters (e.g.,
-<code class="literal">vm.max_map_count</code>); you can skip this by masking the systemd-sysctl.service unit.</p>
+<p>
+
+在基于 systemd 的发行版上，安装脚本将尝试设置内核参数(例如，<code class="literal">vm.max_map_count</code>)；你可以通过屏蔽 systemd-sysctl.service 单元来跳过这一步。
+</p>
 </div>
 </div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>An alternative package which contains only features that are available under the
-Apache 2.0 license is also available. To install it, use the following sources list:</p>
+<p>
+还提供了一个替代包，其中仅包含在 Apache 2.0许可证下可用的功能。要安装它，请使用以下源列表:
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">echo "deb https://artifacts.elastic.co/packages/oss-7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list</pre>
 </div>
@@ -169,10 +198,14 @@ Apache 2.0 license is also available. To install it, use the following sources l
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="install-deb"></a>Download and install the Debian package manually<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/deb.asciidoc">edit</a>
+<a id="install-deb"></a>
+手动下载并安装 Debian 安装包
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/deb.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>The Debian package for Elasticsearch v7.7.1 can be downloaded from the website and installed as follows:</p>
+<p>
+Elasticsearch v7.7.1 的 Debian 安装包可以从这个网站下载并安装如下：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.7.1-amd64.deb
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.7.1-amd64.deb.sha512
@@ -186,41 +219,44 @@ sudo dpkg -i elasticsearch-7.7.1-amd64.deb</pre>
 <p><a href="#CO3-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Compares the SHA of the downloaded Debian package and the published checksum, which should output
-<code class="literal">elasticsearch-{version}-amd64.deb: OK</code>.</p>
+<p>
+比较已经下载的 Debian 安装包和发布的 校验和(checksum)的 SHA，应该输出 <code class="literal">elasticsearch-{version}-amd64.deb: OK</code> 这样的内容。
+</p>
 </td>
 </tr>
 </table>
 </div>
-<p>Alternatively, you can download the following package, which contains only
-features that are available under the Apache 2.0 license:
-<a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.7.1-amd64.deb" class="ulink" target="_top">https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.7.1-amd64.deb</a></p>
+<p>
+或者，你也可以下载这个安装包，其中只包含Apache2.0许可代码：<a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.7.1-amd64.deb" class="ulink" target="_top">https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.7.1-amd64.deb</a>
+</p>
 </div>
 
 <div class="section xpack">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="deb-enable-indices"></a>Enable automatic creation of system indices<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/deb.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
+<a id="deb-enable-indices"></a>
+开启自动创建系统索引
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/deb.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
 </h3>
 </div></div></div>
-<p>Some commercial features automatically create indices within Elasticsearch.
-By default, Elasticsearch is configured to allow automatic index creation, and no
-additional steps are required. However, if you have disabled automatic index
-creation in Elasticsearch, you must configure
-<a class="xref" href="docs-index_.html#index-creation" title="Create indices automatically"><code class="literal">action.auto_create_index</code></a> in <code class="literal">elasticsearch.yml</code> to allow
-the commercial features to create the following indices:</p>
+<p>
+一些商业特性会自动在 Elasticearch 中创建索引。
+
+默认情况下，Elasticsearch 被配置为允许自动创建索引，并且不需要其他步骤。
+
+但是，如果在 Elasticsearch 中禁用了自动索引创建，则必须在 <code class="literal">elasticsearch.yml</code> 文件中配置 <a class="xref" href="docs-index_.html#index-creation" title="Create indices automatically"><code class="literal">action.auto_create_index</code></a>，以允许商业特性创建以下索引：
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">action.auto_create_index: .monitoring*,.watches,.triggered_watches,.watcher-history*,.ml*</pre>
 </div>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If you are using <a href="https://www.elastic.co/products/logstash" class="ulink" target="_top">Logstash</a>
-or <a href="https://www.elastic.co/products/beats" class="ulink" target="_top">Beats</a> then you will most likely
-require additional index names in your <code class="literal">action.auto_create_index</code> setting, and
-the exact value will depend on your local configuration. If you are unsure of
-the correct value for your environment, you may consider setting the value to
- <code class="literal">*</code> which will allow automatic creation of all indices.</p>
+<p>
+如果你正在使用 <a href="https://www.elastic.co/products/logstash" class="ulink" target="_top">Logstash</a> 或 <a href="https://www.elastic.co/products/beats" class="ulink" target="_top">Beats</a>，那么你很可能在 <code class="literal">action.auto_create_index</code> 设置中需要额外的索引名，并且这个确切的值将取决于你的本地配置。
+
+如果不确定环境的正确值，可以考虑将值设置为<code class="literal">*</code>，这将允许自动创建所有索引。
+</p>
 </div>
 </div>
 </div>
@@ -228,13 +264,16 @@ the correct value for your environment, you may consider setting the value to
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="deb-sysv-init-vs-systemd"></a>SysV <code class="literal">init</code> vs <code class="literal">systemd</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/deb.asciidoc">edit</a>
+<a id="deb-sysv-init-vs-systemd"></a>SysV <code class="literal">init</code> 与 <code class="literal">systemd</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/deb.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>Elasticsearch is not started automatically after installation. How to start
-and stop Elasticsearch depends on whether your system uses SysV <code class="literal">init</code> or
-<code class="literal">systemd</code> (used by newer distributions).  You can tell which is being used by
-running this command:</p>
+<p>
+Elasticsearch安装后并不会自动启动。
+
+如何启动和停止 Elasticsearch 依赖于 你的系统使用的 SysV 是 <code class="literal">init</code> 还是 <code class="literal">systemd</code> (较新发布的系统中使用)
+
+通过运行以下命令，就能知道你的系统使用的是哪个:
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">ps -p 1</pre>
 </div>
@@ -243,87 +282,112 @@ running this command:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="deb-running-init"></a>Running Elasticsearch with SysV <code class="literal">init</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/deb-init.asciidoc">edit</a>
+<a id="deb-running-init"></a>
+在 SysV <code class="literal">init</code> 环境下运行 Elasticsearch
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/deb-init.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>Use the <code class="literal">update-rc.d</code> command to configure Elasticsearch to start automatically
-when the system boots up:</p>
+<p>
+使用 <code class="literal">update-rc.d</code> 命令配置 Elasticsearch，以便其可以在系统启动时自动启动。
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo update-rc.d elasticsearch defaults 95 10</pre>
 </div>
-<p>Elasticsearch can be started and stopped using the <code class="literal">service</code> command:</p>
+<p>
+可以使用 <code class="literal">service</code> 命令来启动和停止 Elasticsearch ：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo -i service elasticsearch start
 sudo -i service elasticsearch stop</pre>
 </div>
-<p>If Elasticsearch fails to start for any reason, it will print the reason for
-failure to STDOUT. Log files can be found in <code class="literal">/var/log/elasticsearch/</code>.</p>
+<p>
+如果 Elasticsearch 因为某些原因启动失败，会打印失败的原因到 标准输出(STDOUT)。日志记录文件在 <code class="literal">/var/log/elasticsearch/</code>。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="deb-running-systemd"></a>Running Elasticsearch with <code class="literal">systemd</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/systemd.asciidoc">edit</a>
+<a id="deb-running-systemd"></a>
+在 <code class="literal">systemd</code> 环境下运行 Elasticsearch
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/systemd.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>To configure Elasticsearch to start automatically when the system boots up,
-run the following commands:</p>
+<p>
+执行以下命令，配置 Elasticsearch 以便其可以在系统启动时自动启动：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo /bin/systemctl daemon-reload
 sudo /bin/systemctl enable elasticsearch.service</pre>
 </div>
-<p>Elasticsearch can be started and stopped as follows:</p>
+<p>
+可以这样启动和停止 Elasticsearch：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo systemctl start elasticsearch.service
 sudo systemctl stop elasticsearch.service</pre>
 </div>
-<p>These commands provide no feedback as to whether Elasticsearch was started
-successfully or not. Instead, this information will be written in the log
-files located in <code class="literal">/var/log/elasticsearch/</code>.</p>
-<p>If you have password-protected your Elasticsearch keystore, you will need to provide
-<code class="literal">systemd</code> with the keystore password using a local file and systemd environment
-variables. This local file should be protected while it exists and may be
-safely deleted once Elasticsearch is up and running.</p>
+<p>
+这些命令不返回 Elasticsearch 启动状态，你无法判断它是否启动成功。相反，这些信息将被写入日志文件 <code class="literal">/var/log/elasticsearch/</code> 里去。
+</p>
+<p>
+如果你有密码保护的 ElasticSearch 密钥存储库，则需要使用本地文件和系统环境变量向 <code class="literal">systemd</code> 提供存储库密码。
+
+如果该本地文件存在则应该受到保护，一旦 Elasticsearch 启动并运行，就可以安全删除。
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">echo "keystore_password" &gt; /path/to/my_pwd_file.tmp
 chmod 600 /path/to/my_pwd_file.tmp
 sudo systemctl set-environment ES_KEYSTORE_PASSPHRASE_FILE=/path/to/my_pwd_file.tmp
 sudo systemctl start elasticsearch.service</pre>
 </div>
-<p>By default the Elasticsearch service doesn’t log information in the <code class="literal">systemd</code>
-journal. To enable <code class="literal">journalctl</code> logging, the <code class="literal">--quiet</code> option must be removed
- from the <code class="literal">ExecStart</code> command line in the <code class="literal">elasticsearch.service</code> file.</p>
-<p>When <code class="literal">systemd</code> logging is enabled, the logging information are available using
-the <code class="literal">journalctl</code> commands:</p>
-<p>To tail the journal:</p>
+<p>
+默认情况下，Elasticsearch 服务不记录 <code class="literal">systemd</code> 操作的日志。
+
+要开启 <code class="literal">journalctl</code> 日志，必须从 <code class="literal">elasticsearch.service</code> 文件的命令行 <code class="literal">ExecStart</code> 中移除 <code class="literal">--quiet</code> 选项。
+</p>
+<p>
+一旦启动 <code class="literal">systemd</code> 的日志功能，就可以使用 <code class="literal">journalctl</code> 命令获得日志记录信息。
+</p>
+<p>要跟踪日志:</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo journalctl -f</pre>
 </div>
-<p>To list journal entries for the elasticsearch service:</p>
+<p>
+要列出 Elasticsearch 服务的日志条目，请执行以下操作:
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo journalctl --unit elasticsearch</pre>
 </div>
-<p>To list journal entries for the elasticsearch service starting from a given time:</p>
+<p>
+要列出从给定时间开始的 Elasticsearch 服务的日志条目，请执行以下操作:
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo journalctl --unit elasticsearch --since  "2016-10-30 18:17:16"</pre>
 </div>
-<p>Check <code class="literal">man journalctl</code> or <a href="https://www.freedesktop.org/software/systemd/man/journalctl.html" class="ulink" target="_top">https://www.freedesktop.org/software/systemd/man/journalctl.html</a> for
-more command line options.</p>
+<p>
+查看 <code class="literal">man journalctl</code> 提供的信息 或访问 <a href="https://www.freedesktop.org/software/systemd/man/journalctl.html" class="ulink" target="_top">https://www.freedesktop.org/software/systemd/man/journalctl.html</a> 来获取更多的命令行选项。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="deb-check-running"></a>Checking that Elasticsearch is running<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/check-running.asciidoc">edit</a>
+<a id="deb-check-running"></a>
+检查 Elasticearch 是否正在运行
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/check-running.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>You can test that your Elasticsearch node is running by sending an HTTP
-request to port <code class="literal">9200</code> on <code class="literal">localhost</code>:</p>
+<p>
+你可以通过向 <code class="literal">localhost</code> 上的端口 <code class="literal">9200</code> 发送一个 HTTP 请求来测试 Elasticsearch 节点是否正在运行：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/15.console"></div>
-<p>which should give you a response something like this:</p>
+<p>
+应该会给你一个类似下面这样的响应：
+</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
   "name" : "Cp8oag6",
@@ -348,22 +412,26 @@ request to port <code class="literal">9200</code> on <code class="literal">local
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="deb-configuring"></a>Configuring Elasticsearch<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/deb.asciidoc">edit</a>
+<a id="deb-configuring"></a>
+配置 Elasticsearch
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/deb.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>Elasticsearch defaults to using <code class="literal">/etc/elasticsearch</code> for runtime configuration.
-The ownership of this directory and all files in this directory are set to
-<code class="literal">root:elasticsearch</code> on package installation and the directory has the <code class="literal">setgid</code>
-flag set so that any files and subdirectories created under <code class="literal">/etc/elasticsearch</code>
-are created with this ownership as well (e.g., if a keystore is created using
-the <a class="xref" href="secure-settings.html" title="Secure settings">keystore tool</a>). It is expected that this be maintained so
-that the Elasticsearch process can read the files under this directory via the
-group permissions.</p>
-<p>Elasticsearch loads its configuration from the
-<code class="literal">/etc/elasticsearch/elasticsearch.yml</code> file by default.  The format of this
-config file is explained in <a class="xref" href="settings.html" title="Configuring Elasticsearch"><em>Configuring Elasticsearch</em></a>.</p>
-<p>The Debian package also has a system configuration file (<code class="literal">/etc/default/elasticsearch</code>),
-which allows you to set the following parameters:</p>
+<p>
+Elasticsearch 默认使用 <code class="literal">/etc/elasticsearch</code> 作为在运行时配置的工具。
+
+该文件夹及其下所有文件的拥有者(owner)都在包安装时被设置为 <code class="literal">root:elasticsearch</code>，该文件夹还有一个 <code class="literal">setgid</code> 标识以保证在 <code class="literal">/etc/elasticsearch</code> 下创建的文件及子目录都有相同的拥有者（比如，使用 <a class="xref" href="secure-settings.html" title="Secure settings">秘钥库工具</a>创建秘钥库）。
+
+我们希望保持这个权限设置，以便 Elasticsearch 进程可以通过组权限读取这个目录下的文件。 
+</p>
+<p>
+Elasticsearch 默认从 <code class="literal">/etc/elasticsearch/elasticsearch.yml</code> 文件加载配置。
+
+<a class="xref" href="settings.html" title="Configuring Elasticsearch"><em>配置 Elasticsearch</em></a> 中解释了此配置文件的格式。
+</p>
+<p>
+Debian 的安装包还有一个系统配置文件(<code class="literal">/etc/default/elasticsearch</code>)，这使得你可以设置以下参数：
+</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -379,7 +447,7 @@ which allows you to set the following parameters:</p>
 </td>
 <td valign="top">
 <p>
-Set a custom Java path to be used.
+设置一个自定义的 Java 路径。
 </p>
 </td>
 </tr>
@@ -391,7 +459,7 @@ Set a custom Java path to be used.
 </td>
 <td valign="top">
 <p>
-Maximum number of open files, defaults to <code class="literal">65535</code>.
+最大的可开启文件数，默认为 <code class="literal">65535</code>。
 </p>
 </td>
 </tr>
@@ -403,8 +471,8 @@ Maximum number of open files, defaults to <code class="literal">65535</code>.
 </td>
 <td valign="top">
 <p>
-Maximum locked memory size. Set to <code class="literal">unlimited</code> if you use the
-<code class="literal">bootstrap.memory_lock</code> option in elasticsearch.yml.
+最大的可锁定内存大小。
+如果在配置文件 elasticsearch.yml 中使用 <code class="literal">bootstrap.memory_lock</code> 选项，请设置为 <code class="literal">unlimited</code>
 </p>
 </td>
 </tr>
@@ -416,12 +484,15 @@ Maximum locked memory size. Set to <code class="literal">unlimited</code> if you
 </td>
 <td valign="top">
 <p>
-Maximum number of memory map areas a process may have. If you use <code class="literal">mmapfs</code>
-as index store type, make sure this is set to a high value. For more
-information, check the
-<a href="https://github.com/torvalds/linux/blob/master/Documentation/sysctl/vm.txt" class="ulink" target="_top">linux kernel documentation</a>
-about <code class="literal">max_map_count</code>. This is set via <code class="literal">sysctl</code> before starting
-Elasticsearch. Defaults to <code class="literal">262144</code>.
+一个进程可以拥有的最大内存映射区域数。
+
+如果你使用 <code class="literal">mmapfs</code> 作为索引存储类型，请确保这个值设置得很大。
+
+更多关于 <code class="literal">max_map_count</code> 的信息，请参看 <a href="https://github.com/torvalds/linux/blob/master/Documentation/sysctl/vm.txt" class="ulink" target="_top">linux 内核文档</a>。
+
+这个参数是在启动 Elasticsearch 前通过 <code class="literal">sysctl</code> 来设置的。
+
+默认值为 <code class="literal">262144</code>。
 </p>
 </td>
 </tr>
@@ -433,9 +504,7 @@ Elasticsearch. Defaults to <code class="literal">262144</code>.
 </td>
 <td valign="top">
 <p>
-Configuration file directory (which needs to include <code class="literal">elasticsearch.yml</code>,
-<code class="literal">jvm.options</code>, and <code class="literal">log4j2.properties</code> files); defaults to
-<code class="literal">/etc/elasticsearch</code>.
+配置文件的目录（必须包含<code class="literal">elasticsearch.yml</code>, <code class="literal">jvm.options</code> 以及 <code class="literal">log4j2.properties</code> 文件）；默认为 <code class="literal">/etc/elasticsearch</code>。
 </p>
 </td>
 </tr>
@@ -447,7 +516,7 @@ Configuration file directory (which needs to include <code class="literal">elast
 </td>
 <td valign="top">
 <p>
-Any additional JVM system properties you may want to apply.
+你可能希望应用的任何其他 JVM 系统属性。
 </p>
 </td>
 </tr>
@@ -459,11 +528,15 @@ Any additional JVM system properties you may want to apply.
 </td>
 <td valign="top">
 <p>
-Configure restart on package upgrade, defaults to <code class="literal">false</code>. This means you
-will have to restart your Elasticsearch instance after installing a
-package manually. The reason for this is to ensure, that upgrades in a
-cluster do not result in a continuous shard reallocation resulting in high
-network traffic and reducing the response times of your cluster.
+配置包升级时是否重启，默认为 <code class="literal">false</code>。
+
+这意味着你需要在安装包后手动重启 Elasticsearch 实例。
+
+这样做的原因是，确保集群中的升级不会导致持续的分片重新分配，从而导致高网络流量和减少集群的响应时间。  
+
+<span style="color:#666">
+(原文“ The reason for this is to ensure, that upgrades in a cluster do not result in a continuous shard reallocation resulting in high network traffic and reducing the response times of your cluster.”有点歧义)
+</span>
 </p>
 </td>
 </tr>
@@ -473,9 +546,11 @@ network traffic and reducing the response times of your cluster.
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Distributions that use <code class="literal">systemd</code> require that system resource limits be
-configured via <code class="literal">systemd</code> rather than via the <code class="literal">/etc/sysconfig/elasticsearch</code>
-file.  See <a class="xref" href="setting-system-settings.html#systemd" title="Systemd configuration">Systemd configuration</a> for more information.</p>
+<p>
+使用 <code class="literal">systemd</code> 的发行版要求通过 <code class="literal">systemd</code> 配置系统资源限制，而不是通过 <code class="literal">/etc/sysconfig/elasticsearch</code> 文件。
+
+更多信息参考 <a class="xref" href="setting-system-settings.html#systemd" title="Systemd configuration">Systemd 配置</a>。
+</p>
 </div>
 </div>
 </div>
@@ -483,11 +558,14 @@ file.  See <a class="xref" href="setting-system-settings.html#systemd" title="Sy
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="deb-layout"></a>Directory layout of Debian package<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/deb.asciidoc">edit</a>
+<a id="deb-layout"></a>
+Debian 安装包的目录结构
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/deb.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>The Debian package places config files, logs, and the data directory in the appropriate
-locations for a Debian-based system:</p>
+<p>
+对于基于 Debian 的系统，Debian 安装包将配置文件、日志和数据目录放在适当的位置:
+</p>
 <div class="informaltable">
 <table border="1" cellpadding="4px">
 <colgroup>
@@ -507,60 +585,70 @@ locations for a Debian-based system:</p>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><span class="strong strong"><strong>home</strong></span></p></td>
-<td align="left" valign="top"><p>Elasticsearch home directory or <code class="literal">$ES_HOME</code></p></td>
+<td align="left" valign="top"><p>Elasticsearch 主目录 或 <code class="literal">$ES_HOME</code></p></td>
 <td align="left" valign="top"><p><code class="literal">/usr/share/elasticsearch</code></p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><span class="strong strong"><strong>bin</strong></span></p></td>
-<td align="left" valign="top"><p>Binary scripts including <code class="literal">elasticsearch</code> to start a node
-    and <code class="literal">elasticsearch-plugin</code> to install plugins</p></td>
+<td align="left" valign="top"><p>
+二进制脚本，包含启动一个节点的<code class="literal">elasticsearch</code>，以及安装插件的<code class="literal">elasticsearch-plugin</code>
+</p></td>
 <td align="left" valign="top"><p><code class="literal">/usr/share/elasticsearch/bin</code></p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><span class="strong strong"><strong>conf</strong></span></p></td>
-<td align="left" valign="top"><p>Configuration files including <code class="literal">elasticsearch.yml</code></p></td>
+<td align="left" valign="top"><p>包含<code class="literal">elasticsearch.yml</code>的配置文件</p></td>
 <td align="left" valign="top"><p><code class="literal">/etc/elasticsearch</code></p></td>
 <td align="left" valign="top"><p><code class="literal"><a class="xref" href="settings.html#config-files-location" title="Config files location">ES_PATH_CONF</a></code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><span class="strong strong"><strong>conf</strong></span></p></td>
-<td align="left" valign="top"><p>Environment variables including heap size, file descriptors.</p></td>
+<td align="left" valign="top"><p>环境变量，包括堆内存大小、文件描述符</p></td>
 <td align="left" valign="top"><p><code class="literal">/etc/default/elasticsearch</code></p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><span class="strong strong"><strong>data</strong></span></p></td>
-<td align="left" valign="top"><p>The location of the data files of each index / shard allocated
-    on the node. Can hold multiple locations.</p></td>
+<td align="left" valign="top"><p>
+节点上的每个索引/分片的数据文件的位置。
+可以设置多个位置。
+</p></td>
 <td align="left" valign="top"><p><code class="literal">/var/lib/elasticsearch</code></p></td>
 <td align="left" valign="top"><p><code class="literal">path.data</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><span class="strong strong"><strong>jdk</strong></span></p></td>
-<td align="left" valign="top"><p>The bundled Java Development Kit used to run Elasticsearch. Can
-    be overridden by setting the <code class="literal">JAVA_HOME</code> environment variable
-    in <code class="literal">/etc/default/elasticsearch</code>.</p></td>
+<td align="left" valign="top"><p>
+捆绑的Java开发套件，用于运行Elasticsearch。
+可以通过在 <code class="literal">/etc/default/elasticsearch</code> 中设置环境变量 <code class="literal">JAVA_HOME</code> 来覆盖这个设置。
+</p></td>
 <td align="left" valign="top"><p><code class="literal">/usr/share/elasticsearch/jdk</code></p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><span class="strong strong"><strong>logs</strong></span></p></td>
-<td align="left" valign="top"><p>Log files location.</p></td>
+<td align="left" valign="top"><p>日志文件的存放位置</p></td>
 <td align="left" valign="top"><p><code class="literal">/var/log/elasticsearch</code></p></td>
 <td align="left" valign="top"><p><code class="literal">path.logs</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><span class="strong strong"><strong>plugins</strong></span></p></td>
-<td align="left" valign="top"><p>Plugin files location. Each plugin will be contained in a subdirectory.</p></td>
+<td align="left" valign="top"><p>插件文件的存放位置。每个插件都放在一个子文件夹中。</p></td>
 <td align="left" valign="top"><p><code class="literal">/usr/share/elasticsearch/plugins</code></p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><span class="strong strong"><strong>repo</strong></span></p></td>
-<td align="left" valign="top"><p>Shared file system repository locations. Can hold multiple locations. A file system repository can be placed in to any subdirectory of any directory specified here.</p></td>
-<td align="left" valign="top"><p>Not configured</p></td>
+<td align="left" valign="top"><p>
+共享的文件系统存储库的位置。
+
+可以设置多个位置。
+
+可以将文件系统存储库放置到此处指定的任何目录的任何子目录中。
+</p></td>
+<td align="left" valign="top"><p>未配置</p></td>
 <td align="left" valign="top"><p><code class="literal">path.repo</code></p></td>
 </tr>
 </tbody>
@@ -571,22 +659,24 @@ locations for a Debian-based system:</p>
 <div class="section exclude">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_next_steps_3"></a>Next steps<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/next-steps.asciidoc">edit</a>
+<a id="_next_steps_3"></a>下一步<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/next-steps.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>You now have a test Elasticsearch environment set up.  Before you start
-serious development or go into production with Elasticsearch, you must do some additional
-setup:</p>
+<p>
+你现在已经设置了一个 Elasticsearch 测试环境。
+
+在开始正式开发或开始使用 Elasticsearch 进行生产之前，你还必须做一些额外的设置：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Learn how to <a class="xref" href="settings.html" title="Configuring Elasticsearch">configure Elasticsearch</a>.
+学习如何 <a class="xref" href="settings.html" title="Configuring Elasticsearch">配置 Elasticsearch</a>.
 </li>
 <li class="listitem">
-Configure <a class="xref" href="important-settings.html" title="Important Elasticsearch configuration">important Elasticsearch settings</a>.
+配置 <a class="xref" href="important-settings.html" title="Important Elasticsearch configuration">重要的 Elasticsearch 设置</a>.
 </li>
 <li class="listitem">
-Configure <a class="xref" href="system-config.html" title="Important System Configuration">important system settings</a>.
+配置 <a class="xref" href="system-config.html" title="Important System Configuration">重要的系统设置</a>.
 </li>
 </ul>
 </div>
@@ -595,10 +685,10 @@ Configure <a class="xref" href="system-config.html" title="Important System Conf
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="zip-windows.html">« Install Elasticsearch with <code class="literal">.zip</code> on Windows</a>
+<a href="zip-windows.html">« 在Windows上使用 <code class="literal">.zip</code> 安装 Elasticsearch</a>
 </span>
 <span class="next">
-<a href="rpm.html">Install Elasticsearch with RPM »</a>
+<a href2="rpm.html">Install Elasticsearch with RPM »</a>
 </span>
 </div>
 </div>

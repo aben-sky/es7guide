@@ -86,8 +86,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "rpm.html",
-                        "text": "使用RPM安装包工具安装",
-                        "title": "Install Elasticsearch with RPM"
+                        "text": "使用RPM安装包安装",
+                        "title": "使用RPM安装包安装"
                     },
                     {
                         "url": "windows.html",

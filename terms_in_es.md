@@ -58,4 +58,4 @@
 - case folding: 大小写折叠
 - unicode-aware: 支持unicode的
 - stemmer: 词干提取器
-
+- ingest node: 预处理节点

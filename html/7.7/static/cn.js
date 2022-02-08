@@ -92,7 +92,7 @@ var esNavLinks = [
                     {
                         "url": "windows.html",
                         "text": "使用windows安装包安装",
-                        "title": "Install Elasticsearch with Windows MSI Installer"
+                        "title": "使用windows安装包安装"
                     },
                     {
                         "url": "docker.html",

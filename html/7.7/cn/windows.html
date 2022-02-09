@@ -320,7 +320,7 @@ GUI 中显示的所有设置也可以作为命令行参数(在Windows Installer�
 <td valign="top">
 <p>
 安装目录。
-路径中最终的目录 <span class="strong strong"><strong>必须</strong></span> 是 Elasticsearch 的版本。
+路径中最后一个目录 <span class="strong strong"><strong>必须</strong></span> 是 Elasticsearch 的版本。
 
 默认为 <code class="literal">%ProgramW6432%\Elastic\Elasticsearch\7.7.1</code>
 </p>
@@ -838,22 +838,24 @@ Elasticsearch 是否被配置为 预处理节点(ingest node)。
 <pre class="programlisting prettyprint lang-sh">start /wait msiexec.exe /i elasticsearch-7.7.1.msi /qn INSTALLDIR="C:\Custom Install Directory{version}"</pre>
 </div>
 <p>
-Consult the <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa367988(v=vs.85).aspx" class="ulink" target="_top">Windows Installer SDK Command-Line Options</a> for additional rules related to values containing quotation marks.
+有关包含引号的值的其他规则，参考 <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa367988(v=vs.85).aspx" class="ulink" target="_top">Windows Installer SDK 命令行选项</a>。
 </p>
 </div>
 
 <div class="section xpack">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="msi-installer-enable-indices"></a>Enable automatic creation of system indices<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/windows.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
+<a id="msi-installer-enable-indices"></a>
+开启自动创建系统索引
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/windows.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
 </h3>
 </div></div></div>
 <p>
-Some commercial features automatically create indices within Elasticsearch.
+一些商业特性会自动在 Elasticearch 中创建索引。
 
-By default, Elasticsearch is configured to allow automatic index creation, and no additional steps are required.
+默认情况下，Elasticsearch 被配置为允许自动创建索引，并且不需要其他步骤。
 
-However, if you have disabled automatic index creation in Elasticsearch, you must configure <a class="xref" href="docs-index_.html#index-creation" title="Create indices automatically"><code class="literal">action.auto_create_index</code></a> in <code class="literal">elasticsearch.yml</code> to allow the commercial features to create the following indices:
+但是，如果在 Elasticsearch 中禁用了自动索引创建，则必须在 <code class="literal">elasticsearch.yml</code> 文件中配置 <a class="xref" href="docs-index_.html#index-creation" title="Create indices automatically"><code class="literal">action.auto_create_index</code></a>，以允许商业特性创建以下索引：
 </p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">action.auto_create_index: .monitoring*,.watches,.triggered_watches,.watcher-history*,.ml*</pre>
@@ -862,9 +864,9 @@ However, if you have disabled automatic index creation in Elasticsearch, you mus
 <div class="icon"></div>
 <div class="admon_content">
 <p>
-If you are using <a href="https://www.elastic.co/products/logstash" class="ulink" target="_top">Logstash</a> or <a href="https://www.elastic.co/products/beats" class="ulink" target="_top">Beats</a> then you will most likely
-require additional index names in your <code class="literal">action.auto_create_index</code> setting, and the exact value will depend on your local configuration.
-If you are unsure of the correct value for your environment, you may consider setting the value to <code class="literal">*</code> which will allow automatic creation of all indices.
+如果你正在使用 <a href="https://www.elastic.co/products/logstash" class="ulink" target="_top">Logstash</a> 或 <a href="https://www.elastic.co/products/beats" class="ulink" target="_top">Beats</a>，那么你很可能在 <code class="literal">action.auto_create_index</code> 设置中需要额外的索引名，并且这个确切的值将取决于你的本地配置。
+
+如果不确定环境的正确值，可以考虑将值设置为<code class="literal">*</code>，这将允许自动创建所有索引。
  </p>
 </div>
 </div>
@@ -873,17 +875,19 @@ If you are unsure of the correct value for your environment, you may consider se
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="msi-installer-command-line-running"></a>Running Elasticsearch from the command line<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/msi-windows-start.asciidoc">edit</a>
+<a id="msi-installer-command-line-running"></a>
+从命令行运行 Elasticsearch
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/msi-windows-start.asciidoc">edit</a>
 </h3>
 </div></div></div>
 <p>
-Once installed, Elasticsearch can be started from the command line, if not installed as a service and configured to start when installation completes, as follows:
+安装好后，就可以从命令行启动 Elasticsearch；如果不是作为服务安装或未配置为安装完成时启动，可以这样操作：
 </p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">.\bin\elasticsearch.exe</pre>
 </div>
 <p>
-The command line terminal will display output similar to the following:
+命令行终端会显示类似下面这样的信息：
 </p>
 <div class="imageblock">
 <div class="content">
@@ -891,23 +895,25 @@ The command line terminal will display output similar to the following:
 </div>
 </div>
 <p>
-By default, Elasticsearch runs in the foreground, prints its logs to <code class="literal">STDOUT</code> in addition to the <code class="literal">&lt;cluster name&gt;.log</code> file within <code class="literal">LOGSDIRECTORY</code>, and can be stopped by pressing <code class="literal">Ctrl-C</code>.
+默认情况下，Elasticsearch 在前台运行，日志是打印到<code class="literal">LOGSDIRECTORY</code>目录下的文件名为 <code class="literal">&lt;cluster name&gt;.log</code> 的标准输出(<code class="literal">STDOUT</code>)，并且可以通过按 <code class="literal">Ctrl-C</code>来停止运行。
 </p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="msi-installer-command-line-configuration"></a>Configuring Elasticsearch on the command line<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/windows.asciidoc">edit</a>
+<a id="msi-installer-command-line-configuration"></a>
+用命令行配置 Elasticsearch
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/windows.asciidoc">edit</a>
 </h3>
 </div></div></div>
 <p>
-Elasticsearch loads its configuration from the <code class="literal">%ES_PATH_CONF%\elasticsearch.yml</code> file by default.
+Elasticsearch 默认从 <code class="literal">%ES_PATH_CONF%\elasticsearch.yml</code> 文件加载配置。
 
-The format of this config file is explained in <a class="xref" href="settings.html" title="Configuring Elasticsearch"><em>Configuring Elasticsearch</em></a>.
+<a class="xref" href="settings.html" title="Configuring Elasticsearch"><em>配置 Elasticsearch</em></a> 中解释了此配置文件的格式。
 </p>
 <p>
-Any settings that can be specified in the config file can also be specified on the command line, using the <code class="literal">-E</code> syntax as follows:
+任何一个可以在配置文件中指定的设置，都可以在命令行中使用<code class="literal">-E</code>语法指定，如下所示：
 </p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">.\bin\elasticsearch.exe -E cluster.name=my_cluster -E node.name=node_1</pre>
@@ -915,14 +921,16 @@ Any settings that can be specified in the config file can also be specified on t
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Values that contain spaces must be surrounded with quotes.  For instance <code class="literal">-E path.logs="C:\My Logs\logs"</code>.</p>
+<p>
+包含空格的值必须用引号括起来。比如 <code class="literal">-E path.logs="C:\My Logs\logs"</code> 。
+</p>
 </div>
 </div>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
 <p>
-Typically, any cluster-wide settings (like <code class="literal">cluster.name</code>) should be added to the <code class="literal">elasticsearch.yml</code> config file, while any node-specific settings such as <code class="literal">node.name</code> could be specified on the command line.
+通常，任何集群范围的设置(如<code class="literal">cluster.name</code>)都应该添加到 <code class="literal">elasticsearch.yml</code> 配置文件中，而任何特定于节点的设置(如<code class="literal">node.name</code>)都可以在命令行中指定。
 </p>
 </div>
 </div>
@@ -932,20 +940,19 @@ Typically, any cluster-wide settings (like <code class="literal">cluster.name</c
 <div class="titlepage"><div><div>
 <h3 class="title">
 <a id="_checking_that_elasticsearch_is_running_3"></a>
-Checking that Elasticsearch is running
+检查 Elasticearch 是否正在运行
 <a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/check-running.asciidoc">edit</a>
 </h3>
 </div></div></div>
 <p>
-You can test that your Elasticsearch node is running by sending an HTTP
-request to port <code class="literal">9200</code> on <code class="literal">localhost</code>:
+你可以通过向 <code class="literal">localhost</code> 上的端口 <code class="literal">9200</code> 发送一个 HTTP 请求来测试 Elasticsearch 节点是否正在运行：
 </p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/17.console"></div>
 <p>
-which should give you a response something like this:
+应该会给你一个类似下面这样的响应：
 </p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
@@ -971,13 +978,15 @@ which should give you a response something like this:
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="msi-installer-windows-service"></a>Installing Elasticsearch as a Service on Windows<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/windows.asciidoc">edit</a>
+<a id="msi-installer-windows-service"></a>
+在 Windows 上将 Elasticsearch 作为服务安装
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/windows.asciidoc">edit</a>
 </h3>
 </div></div></div>
 <p>
-Elasticsearch can be installed as a service to run in the background or start automatically at boot time without any user interaction.
+Elasticsearch可以作为服务安装在后台运行，也可以在启动时自动启动，无需任何用户交互。
 
-This can be achieved upon installation using the following command line options
+这可以通过在安装时使用以下命令行选项来实现:
 </p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
@@ -993,7 +1002,7 @@ This can be achieved upon installation using the following command line options
 </ul>
 </div>
 <p>
-Once installed, Elasticsearch will appear within the Services control panel:
+安装好后，Elasticsearch 就会出现的服务控制面板中：
 </p>
 <div id="msi-installer-installed-service" class="imageblock">
 <div class="content">
@@ -1001,41 +1010,46 @@ Once installed, Elasticsearch will appear within the Services control panel:
 </div>
 </div>
 <p>
-and can be stopped and restarted from within the control panel, or from the command line using:
+且可以通过控制面板来停止和重启，或者像下面这样从命令行操作：
 </p>
-<p>with Command Prompt:</p>
+<p>
+使用命令行提示符：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sc.exe stop Elasticsearch
 sc.exe start Elasticsearch</pre>
 </div>
-<p>with PowerShell:</p>
+<p>
+使用 PowerShell：
+</p>
 <div class="pre_wrapper lang-powershell">
 <pre class="programlisting prettyprint lang-powershell">Get-Service Elasticsearch | Stop-Service
 Get-Service Elasticsearch | Start-Service</pre>
 </div>
 <p>
-Changes can be made to <code class="literal">jvm.options</code> and <code class="literal">elasticsearch.yml</code> configuration files to configure the service after installation.
+在服务安装后，可以通过<code class="literal">jvm.options</code> 和 配置文件 <code class="literal">elasticsearch.yml</code> 来修改设置。
 
-Most changes (like JVM settings) will require a restart of the
-service in order to take effect.
+大多数修改（比如 JVM 设置）需要重启服务才能生效。
 </p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="upgrade-msi-gui"></a>Upgrade using the graphical user interface (GUI)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/windows.asciidoc">edit</a>
+<a id="upgrade-msi-gui"></a>
+使用 图形用户界面(GUI) 升级
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/windows.asciidoc">edit</a>
 </h3>
 </div></div></div>
 <p>
-The <code class="literal">.msi</code> package supports upgrading an installed version of Elasticsearch to a newer version.
+<code class="literal">.msi</code> 安装包支持升级一个已安装的版本到新的版本。
 
-The upgrade process through the GUI handles upgrading all installed plugins as well as retaining both your data and configuration.
+在通过 GUI 升级的过程中，它会处理所有已安装插件的升级，并保留你的数据和配置。
 </p>
 <p>
-Downloading and double-clicking on a newer version of the <code class="literal">.msi</code> package will launch the GUI wizard.
+下载并双击新版本的 <code class="literal">.msi</code> 安装包，就会启动 GUI 安装向导。
 
-The first step will list the read-only properties from the previous installation:
+第一步会列出之前已安装版本的只读选项：
 </p>
 <div id="msi-installer-upgrade-notice" class="imageblock">
 <div class="content">
@@ -1043,7 +1057,7 @@ The first step will list the read-only properties from the previous installation
 </div>
 </div>
 <p>
-The next step allows certain configuration options to be changed:
+下一步会允许你修改部分配置选项：
 </p>
 <div id="msi-installer-upgrade-configuration" class="imageblock">
 <div class="content">
@@ -1051,7 +1065,7 @@ The next step allows certain configuration options to be changed:
 </div>
 </div>
 <p>
-Finally, the plugins step allows currently installed plugins to be upgraded or removed, and for plugins not currently installed, to be downloaded and installed:
+最后，插件操作步骤中允许你将已安装的插件升级或者移除，对于尚未安装的插件，可以下载并安装：
 </p>
 <div id="msi-installer-upgrade-plugins" class="imageblock">
 <div class="content">
@@ -1063,37 +1077,39 @@ Finally, the plugins step allows currently installed plugins to be upgraded or r
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="upgrade-msi-command-line"></a>Upgrade using the command line<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/windows.asciidoc">edit</a>
+<a id="upgrade-msi-command-line"></a>
+通过命令行升级
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/windows.asciidoc">edit</a>
 </h3>
 </div></div></div>
 <p>
-The <code class="literal">.msi</code> can also upgrade Elasticsearch using the command line.
+<code class="literal">.msi</code> 安装包还可以使用命令行来升级 Elasticsearch。
 </p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
 <p>
-A command line upgrade requires passing the <span class="strong strong"><strong>same</strong></span> command line properties as used at first install time; the Windows Installer does not remember these properties.
+命令行升级需要传递与首次安装时 <span class="strong strong"><strong>相同的</strong></span> 命令行属性；Windows 安装程序不会记住这些属性。
 </p>
 <p>
-For example, if you originally installed with the command line options <code class="literal">PLUGINS="ingest-geoip"</code> and <code class="literal">LOCKMEMORY="true"</code>, then you must pass these same values when performing an upgrade from the command line.
+比如，如果你之前是以命令行选项 <code class="literal">PLUGINS="ingest-geoip"</code> 和 <code class="literal">LOCKMEMORY="true"</code> 来安装的，那么你从命令行执行升级时必须传递相同的值。
 </p>
 <p>
-The <span class="strong strong"><strong>exception</strong></span> to this is the <code class="literal">INSTALLDIR</code> parameter (if originally specified), which must be a different directory to the current installation.
+参数 <code class="literal">INSTALLDIR</code>（如果原来指定了） 是一个<span class="strong strong"><strong>例外</strong></span>，这各值必须使用与当前安装版本不同的目录。
 
-If setting <code class="literal">INSTALLDIR</code>, the final directory in the path <span class="strong strong"><strong>must</strong></span> be the version of Elasticsearch e.g.
+如果指定了 <code class="literal">INSTALLDIR</code>，路径的最后一个目录 <span class="strong strong"><strong>必须</strong></span> 包含必须是版本号，比如：
 </p>
 <p><code class="literal">C:\Program Files\Elastic\Elasticsearch\7.7.1</code></p>
 </div>
 </div>
 <p>
-The simplest upgrade, assuming Elasticsearch was installed using all defaults, is achieved by first navigating to the download directory, then running:
+最简单的升级方式是，假设 Elasticsearch 是使用所有的默认值安装的，首先导航到下载目录，然后运行:
 </p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">start /wait msiexec.exe /i elasticsearch-7.7.1.msi /qn</pre>
 </div>
 <p>
-Similar to the install process, a path to a log file for the upgrade process can be passed using the <code class="literal">/l</code> command line argument
+与安装过程类似，可以通过命令行参数 <code class="literal">/l</code> 来指定升级过程的日志存放的路径：
 </p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">start /wait msiexec.exe /i elasticsearch-7.7.1.msi /qn /l upgrade.log</pre>
@@ -1103,51 +1119,59 @@ Similar to the install process, a path to a log file for the upgrade process can
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="uninstall-msi-gui"></a>Uninstall using Add/Remove Programs<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/windows.asciidoc">edit</a>
+<a id="uninstall-msi-gui"></a>
+使用 添加/删除 程序卸载 Elasticsearch
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/windows.asciidoc">edit</a>
 </h3>
 </div></div></div>
 <p>
-The <code class="literal">.msi</code> package handles uninstallation of all directories and files added as part of installation.
+<code class="literal">.msi</code> 安装包处理安装时建立的所有文件夹和文件夹的卸载工作。
 </p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
 <p>
-Uninstallation will remove <span class="strong strong"><strong>all</strong></span> contents created as part of installation, <span class="strong strong"><strong>except for data, config or logs directories</strong></span>.
+卸载程序会移除安装时建立的 <span class="strong strong"><strong>所有</strong></span> 内容， <span class="strong strong"><strong>除了 数据、配置和日志目录</strong></span>。
 
-It is recommended that you make a copy of your data directory before upgrading or consider using the snapshot API.
+建议在升级前给数据目录做个备份，或者使用 快照(snapshot) API。
 </p>
 </div>
 </div>
 <p>
-MSI installer packages do not provide a GUI for uninstallation.
+MSI 安装包没有提供卸载的 GUI。
 
-An installed program can be uninstalled by pressing the Windows key and typing <code class="literal">add or remove programs</code> to open the system settings.
+已安装的程序，可以通过按 Windows 徽标键然后输入 <code class="literal">添加或删除程序</code> 来打开设置管理。
 </p>
 <p>
-Once opened, find the Elasticsearch installation within the list of installed applications, click and choose <code class="literal">Uninstall</code>:
+打开后，在已安装应用的列表中找到 Elasticsearch，点击并选择 <code class="literal">卸载</code>：
 </p>
 <div id="msi-installer-uninstall" class="imageblock">
 <div class="content">
 <img src="../static/images/msi_installer/msi_installer_uninstall.png" alt="msi installer uninstall">
 </div>
 </div>
-<p>This will launch the uninstallation process.</p>
+<p>
+这将启动卸载程序。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="uninstall-msi-command-line"></a>Uninstall using the command line<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/windows.asciidoc">edit</a>
+<a id="uninstall-msi-command-line"></a>
+使用命令行卸载 ElasticSearch
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/windows.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>Uninstallation can also be performed from the command line by navigating to the directory
-containing the <code class="literal">.msi</code> package and running:</p>
+<p>
+卸载 ElasticSearch 还可以使用命令, 先切换到包含 <code class="literal">.msi</code> 安装包的目录，然后执行：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">start /wait msiexec.exe /x elasticsearch-7.7.1.msi /qn</pre>
 </div>
-<p>Similar to the install process, a path to a log file for the uninstallation process can
-be passed using the <code class="literal">/l</code> command line argument</p>
+<p>
+与安装过程类似，可以通过命令行参数 <code class="literal">/l</code> 来指定卸载过程的日志存放的路径：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">start /wait msiexec.exe /x elasticsearch-7.7.1.msi /qn /l uninstall.log</pre>
 </div>
@@ -1156,7 +1180,7 @@ be passed using the <code class="literal">/l</code> command line argument</p>
 <div class="section exclude">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_next_steps_5"></a>Next steps<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/next-steps.asciidoc">edit</a>
+<a id="_next_steps_5"></a>下一步<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/next-steps.asciidoc">edit</a>
 </h3>
 </div></div></div>
 <p>

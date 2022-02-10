@@ -97,7 +97,7 @@ var esNavLinks = [
                     {
                         "url": "docker.html",
                         "text": "用Docker安装",
-                        "title": "Install Elasticsearch with Docker"
+                        "title": "用Docker安装"
                     },
                     {
                         "url": "brew.html",

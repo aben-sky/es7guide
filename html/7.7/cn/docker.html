@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Install Elasticsearch with Docker | ElasticSearch 7.7 权威指南中文版</title>
+	<title>用Docker安装 Elasticsearch | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -34,64 +34,81 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装设置</a></span>
 »
-<span class="breadcrumb-link"><a href="install-elasticsearch.html">Installing Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="install-elasticsearch.html">安装 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Install Elasticsearch with Docker</span>
+<span class="breadcrumb-node">用Docker安装 Elasticsearch</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="windows.html">« Install Elasticsearch with Windows MSI Installer</a>
+<a href="windows.html">« 使用windows安装包安装 Elasticsearch</a>
 </span>
 <span class="next">
-<a href="brew.html">Install Elasticsearch on macOS with Homebrew »</a>
+<a href2="brew.html">Install Elasticsearch on macOS with Homebrew »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="docker"></a>Install Elasticsearch with Docker<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
+<a id="docker"></a>
+用Docker安装 Elasticsearch
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>Elasticsearch is also available as Docker images.
-The images use <a href="https://hub.docker.com/_/centos/" class="ulink" target="_top">centos:7</a> as the base image.</p>
-<p>A list of all published Docker images and tags is available at
-<a href="https://www.docker.elastic.co" class="ulink" target="_top">www.docker.elastic.co</a>. The source files
-are in
-<a href="https://github.com/elastic/elasticsearch/blob/7.7/distribution/docker" class="ulink" target="_top">Github</a>.</p>
-<p>These images are free to use under the Elastic license. They contain open source
-and free commercial features and access to paid commercial features.
-<a href="https://www.elastic.co/guide/en/kibana/7.7/managing-licenses.html" class="ulink" target="_top">Start a 30-day trial</a> to try out all of the
-paid commercial features. See the
-<a href="https://www.elastic.co/subscriptions" class="ulink" target="_top">Subscriptions</a> page for information about
-Elastic license levels.</p>
+<p>
+还可以使用 Docker 镜像安装 Elasticsearch。
+
+镜像以 <a href="https://hub.docker.com/_/centos/" class="ulink" target="_top">centos:7</a> 为基础。
+</p>
+<p>
+所有已发布的 Docker 镜像和 tag 的列表可以在 <a href="https://www.docker.elastic.co" class="ulink" target="_top">www.docker.elastic.co</a> 获得。
+
+源文件位于 <a href="https://github.com/elastic/elasticsearch/blob/7.7/distribution/docker" class="ulink" target="_top">Github</a>。
+</p>
+<p>
+此软件包可在 Elastic 许可下免费使用。
+
+它包含开放源码和免费的商业特性，并能访问付费商业特性。
+
+<a href="https://www.elastic.co/guide/en/kibana/7.7/managing-licenses.html" class="ulink" target="_top">开始为期30天的试用</a> 尝试使用付费的商业特性。
+
+有关 Elastic 许可等级的更多信息，请参考 <a href="https://www.elastic.co/subscriptions" class="ulink" target="_top">订阅（Subscriptions）</a> 页面。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_pulling_the_image"></a>Pulling the image<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
+<a id="_pulling_the_image"></a>
+拉取镜像
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>Obtaining Elasticsearch for Docker is as simple as issuing a <code class="literal">docker pull</code> command
-against the Elastic Docker registry.</p>
+<p>
+获取 Docker 的 Elasticsearch 就像对 Elastic Docker 注册发出 <code class="literal">docker pull</code> 命令一样简单。
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">docker pull docker.elastic.co/elasticsearch/elasticsearch:7.7.1</pre>
 </div>
-<p>Alternatively, you can download other Docker images that contain only features
-available under the Apache 2.0 license. To download the images, go to
-<a href="https://www.docker.elastic.co" class="ulink" target="_top">www.docker.elastic.co</a>.</p>
+<p>
+或者，您可以下载仅包含 Apache 2.0 许可证下可用功能的其他 Docker 映像。
+
+要下载镜像，请访问 <a href="https://www.docker.elastic.co" class="ulink" target="_top">www.docker.elastic.co</a>。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="docker-cli-run-dev-mode"></a>Starting a single node cluster with Docker<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
+<a id="docker-cli-run-dev-mode"></a>
+用 Docker 启动一个单节点集群
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>To start a single-node Elasticsearch cluster for development or testing, specify
-<a class="xref" href="bootstrap-checks.html#single-node-discovery" title="Single-node discovery">single-node discovery</a> to bypass the <a class="xref" href="bootstrap-checks.html" title="Bootstrap Checks">bootstrap checks</a>:</p>
+<p>
+要为开发或测试启动一个单节点的 Elasticsearch 集群，请指定 <a class="xref" href="bootstrap-checks.html#single-node-discovery" title="Single-node discovery">单节点发现</a> 以跳过 <a class="xref" href="bootstrap-checks.html" title="Bootstrap Checks">引导检查</a> 。
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">docker run -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.7.1</pre>
 </div>
@@ -100,15 +117,18 @@ available under the Apache 2.0 license. To download the images, go to
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="docker-compose-file"></a>Starting a multi-node cluster with Docker Compose<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
+<a id="docker-compose-file"></a>
+使用 Docker Compose 启动一个多节点集群
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>To get a three-node Elasticsearch cluster up and running in Docker,
-you can use Docker Compose:</p>
+<p>
+要在 Docker 中启动并运行一个三个节点的 Elasticsearch 集群，可以使用 Docker Compose：
+</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-Create a <code class="literal">docker-compose.yml</code> file:
+创建 <code class="literal">docker-compose.yml</code> 文件：
 </li>
 </ol>
 </div>
@@ -184,60 +204,83 @@ networks:
   elastic:
     driver: bridge</pre>
 </div>
-<p>This sample Docker Compose file brings up a three-node Elasticsearch cluster.
-Node <code class="literal">es01</code> listens on <code class="literal">localhost:9200</code> and <code class="literal">es02</code> and <code class="literal">es03</code> talk to <code class="literal">es01</code> over a Docker network.</p>
-<p>Please note that this configuration exposes port 9200 on all network interfaces, and given how
-Docker manipulates <code class="literal">iptables</code> on Linux, this means that your Elasticsearch cluster is publically accessible,
-potentially ignoring any firewall settings. If you don’t want to expose port 9200 and instead use
-a reverse proxy, replace <code class="literal">9200:9200</code> with <code class="literal">127.0.0.1:9200:9200</code> in the docker-compose.yml file.
-Elasticsearch will then only be accessible from the host machine itself.</p>
-<p>The  <a href="https://docs.docker.com/storage/volumes" class="ulink" target="_top">Docker named volumes</a>
-<code class="literal">data01</code>, <code class="literal">data02</code>, and <code class="literal">data03</code> store the node data directories so the data persists across restarts.
-If they don’t already exist, <code class="literal">docker-compose</code> creates them when you bring up the cluster.</p>
+<p>
+这个 Docker Compose 演示文件创建了一个三个节点的 Elasticsearch 集群。
+
+节点 <code class="literal">es01</code> 监听 <code class="literal">localhost:9200</code>，<code class="literal">es02</code> 和 <code class="literal">es03</code> 通过网络与 <code class="literal">es01</code> 进行通信。
+</p>
+<p>
+请注意，这个配置会暴露所有的网络接口上的9200 端口，并给出了 Docker 如何在 Linux 上操作 <code class="literal">iptables</code> ，这意味着你的 Elasticsearch 集群是可公开访问的，可能会忽略任何防火墙设置。
+
+如果你不想公开 9200 端口，而是使用反向代理，请在 docker-compose.yml 文件中将<code class="literal">9200:9200</code>替换为<code class="literal">127.0.0.1:9200:9200</code>。
+
+这样只有在 Elasticsearch 的宿主机上才能访问。
+</p>
+<p>
+<a href="https://docs.docker.com/storage/volumes" class="ulink" target="_top">Docker命名的卷</a> <code class="literal">data01</code>、<code class="literal">data02</code> 和 <code class="literal">data03</code> 存储节点数据目录，以便数据在重启时保持不变。
+
+如果它们尚不存在，<code class="literal">docker-compose</code> 会在创建集群时建立之。
+</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-<p>Make sure Docker Engine is allotted at least 4GiB of memory.
-In Docker Desktop, you configure resource usage on the Advanced tab in Preference (macOS)
-or Settings (Windows).</p>
+<p>
+确保给 Docker 引擎 至少分配了 4 GiB的内存。
+
+在 Docker Desktop 中，你可以在 首选项(Preference, macOS系统) 或 设置(Settings, Windows系统)中的 高级(Advanced) 选项卡上配置资源使用。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Docker Compose is not pre-installed with Docker on Linux.
-See docs.docker.com for installation instructions:
-<a href="https://docs.docker.com/compose/install" class="ulink" target="_top">Install Compose on Linux</a></p>
+<p>
+Linux上的 Docker Compose 并未随 Docker 预装。
+
+安装向导请参考 docs.docker.com ：<a href="https://docs.docker.com/compose/install" class="ulink" target="_top">在 Linux 上安装 Compose</a>
+</p>
 </div>
 </div>
 </li>
 <li class="listitem">
-<p>Run <code class="literal">docker-compose</code> to bring up the cluster:</p>
+<p>
+运行 <code class="literal">docker-compose</code> 来创建集群:
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">docker-compose up</pre>
 </div>
 </li>
 <li class="listitem">
-<p>Submit a <code class="literal">_cat/nodes</code> request to see that the nodes are up and running:</p>
+<p>
+发送一个 <code class="literal">_cat/nodes</code> 请求去看看节点是否已启动并运行：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">curl -X GET "localhost:9200/_cat/nodes?v&amp;pretty"</pre>
 </div>
 </li>
 </ol>
 </div>
-<p>Log messages go to the console and are handled by the configured Docker logging driver.
-By default you can access logs with <code class="literal">docker logs</code>.</p>
-<p>To stop the cluster, run <code class="literal">docker-compose down</code>.
-The data in the Docker volumes is preserved and loaded
-when you restart the cluster with <code class="literal">docker-compose up</code>.
-To <span class="strong strong"><strong>delete the data volumes</strong></span> when you bring down the cluster,
-specify the <code class="literal">-v</code> option: <code class="literal">docker-compose down -v</code>.</p>
+<p>
+日志消息转到控制台，由配置的 Docker 日志记录驱动程序处理。
+
+默认情况下，你可以使用 <code class="literal">docker logs</code>来获取日志。
+</p>
+<p>
+要停止集群，执行 <code class="literal">docker-compose down</code>。
+
+当你使用 <code class="literal">docker-compose up</code>重新启动群集时，Docker 卷中的数据将被保留并加载。
+
+要在关闭集群时 <span class="strong strong"><strong>删除数据卷</strong></span> ，请指定 <code class="literal">-v</code> 选项： <code class="literal">docker-compose down -v</code>。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="next-getting-started-tls-docker"></a>Start a multi-node cluster with TLS enabled<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
+<a id="next-getting-started-tls-docker"></a>
+启动一个多节点集群并开启 TLS 支持
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
-<p>See <a class="xref" href="configuring-tls-docker.html" title="Encrypting communications in an Elasticsearch Docker Container">Encrypting communications in an Elasticsearch Docker Container</a> and
-<a href="https://www.elastic.co/guide/en/elastic-stack-get-started/7.7/get-started-docker.html#get-started-docker-tls" class="ulink" target="_top">Run the Elastic Stack in Docker with TLS enabled</a>.</p>
+<p>
+参考 <a class="xref" href="configuring-tls-docker.html" title="Encrypting communications in an Elasticsearch Docker Container">在 Elasticsearch Docker 容器中加密通信</a> 和 <a href="https://www.elastic.co/guide/en/elastic-stack-get-started/7.7/get-started-docker.html#get-started-docker-tls" class="ulink" target="_top">在 Docker 中运行 Elastic Stack 并开启 TLS 支持</a>.
+</p>
 </div>
 
 </div>
@@ -245,58 +288,84 @@ specify the <code class="literal">-v</code> option: <code class="literal">docker
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="docker-prod-prerequisites"></a>Using the Docker images in production<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
+<a id="docker-prod-prerequisites"></a>
+在生产环境中使用 Docker 镜像
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>The following requirements and recommendations apply when running Elasticsearch in Docker in production.</p>
+<p>
+以下要求和建议适用于在生产环境的 Docker 中运行 Elasticsearch。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_set_vm_max_map_count_to_at_least_262144"></a>Set <code class="literal">vm.max_map_count</code> to at least <code class="literal">262144</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
+<a id="_set_vm_max_map_count_to_at_least_262144"></a>
+<code class="literal">vm.max_map_count</code> 至少设置为 <code class="literal">262144</code>
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
-<p>The <code class="literal">vm.max_map_count</code> kernel setting must be set to at least <code class="literal">262144</code> for production use.</p>
-<p>How you set <code class="literal">vm.max_map_count</code> depends on your platform:</p>
+<p>
+在生产环境中使用时，内核设置 <code class="literal">vm.max_map_count</code> 必须至少设置为 <code class="literal">262144</code>。
+</p>
+<p>
+如何设置 <code class="literal">vm.max_map_count</code> 取决于你使用的平台：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
 <p>Linux</p>
-<p>The <code class="literal">vm.max_map_count</code> setting should be set permanently in <code class="literal">/etc/sysctl.conf</code>:</p>
+<p>
+<code class="literal">vm.max_map_count</code> 应该在 <code class="literal">/etc/sysctl.conf</code> 中永久设置。
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">grep vm.max_map_count /etc/sysctl.conf
 vm.max_map_count=262144</pre>
 </div>
-<p>To apply the setting on a live system, run:</p>
+<p>
+要在运行中的系统上应用设置，执行：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sysctl -w vm.max_map_count=262144</pre>
 </div>
 </li>
 <li class="listitem">
-<p>macOS with  <a href="https://docs.docker.com/docker-for-mac" class="ulink" target="_top">Docker for Mac</a></p>
-<p>The <code class="literal">vm.max_map_count</code> setting must be set within the xhyve virtual machine:</p>
+<p>
+有<a href="https://docs.docker.com/docker-for-mac" class="ulink" target="_top">Mac版Docker</a>的macOS
+</p>
+<p>
+<code class="literal">vm.max_map_count</code>必须在 xhyve 虚拟机中设置：
+</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-<p>From the command line, run:</p>
+<p>
+从命令行执行：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty</pre>
 </div>
 </li>
 <li class="listitem">
-<p>Press enter and use`sysctl` to configure <code class="literal">vm.max_map_count</code>:</p>
+<p>
+按回车，并使用<code class="literal">sysctl</code>来配置<code class="literal">vm.max_map_count</code>：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sysctl -w vm.max_map_count=262144</pre>
 </div>
 </li>
 <li class="listitem">
-To exit the <code class="literal">screen</code> session, type <code class="literal">Ctrl a d</code>.
+要退出<code class="literal">screen</code>会话，输入<code class="literal">Ctrl a d</code>。
 </li>
 </ol>
 </div>
 </li>
 <li class="listitem">
-<p>Windows and macOS with <a href="https://www.docker.com/products/docker-desktop" class="ulink" target="_top">Docker Desktop</a></p>
-<p>The <code class="literal">vm.max_map_count</code> setting must be set via docker-machine:</p>
+<p>
+Windows 和 安装了<a href="https://www.docker.com/products/docker-desktop" class="ulink" target="_top">Docker Desktop</a>的macOS
+</p>
+<p>
+<code class="literal">vm.max_map_count</code>的设置必须使用<code class="literal">docker-machine</code>:
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">docker-machine ssh
 sudo sysctl -w vm.max_map_count=262144</pre>
@@ -309,50 +378,70 @@ sudo sysctl -w vm.max_map_count=262144</pre>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_configuration_files_must_be_readable_by_the_elasticsearch_user"></a>Configuration files must be readable by the <code class="literal">elasticsearch</code> user<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
+<a id="_configuration_files_must_be_readable_by_the_elasticsearch_user"></a>
+配置文件必须对用户<code class="literal">elasticsearch</code>可读
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
-<p>By default, Elasticsearch runs inside the container as user <code class="literal">elasticsearch</code> using
-uid:gid <code class="literal">1000:0</code>.</p>
+<p>
+默认情况下，Elasticsearch 以用户 <code class="literal">elasticsearch</code>在容器内运行，使用的 uid:gid 为<code class="literal">1000:0</code>。
+</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>One exception is <a href="https://docs.openshift.com/container-platform/3.6/creating_images/guidelines.html#openshift-specific-guidelines" class="ulink" target="_top">Openshift</a>,
-which runs containers using an arbitrarily assigned user ID.
-Openshift presents persistent volumes with the gid set to <code class="literal">0</code>, which works without any adjustments.</p>
+<p>
+<a href="https://docs.openshift.com/container-platform/3.6/creating_images/guidelines.html#openshift-specific-guidelines" class="ulink" target="_top">Openshift</a>是一个例外，它使用任意分配的用户ID运行容器。
+
+Openshift呈现 gid 设置为<code class="literal">0</code>的持久卷，无需任何调整即可工作。
+</p>
 </div>
 </div>
-<p>If you are bind-mounting a local directory or file, it must be readable by the <code class="literal">elasticsearch</code> user.
-In addition, this user must have write access to the <a class="xref" href="path-settings.html" title="path.data and path.logs">data and log dirs</a>.
-A good strategy is to grant group access to gid <code class="literal">0</code> for the local directory.</p>
-<p>For example, to prepare a local directory for storing data through a bind-mount:</p>
+<p>
+如果要 绑定挂载(bind-mounting) 本地目录或文件，用户<code class="literal">elasticsearch</code>必须能够读取该目录或文件。
+
+此外，该用户必须对<a class="xref" href="path-settings.html" title="path.data and path.logs">数据和日志目录</a>有写权限。
+
+一个好的策略是为本地目录授予对 gid 为 <code class="literal">0</code> 的组的访问权限。
+</p>
+<p>
+例如，要准备一个通过 绑定挂载(bind-mount) 的本地目录来存储数据:
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">mkdir esdatadir
 chmod g+rwx esdatadir
 chgrp 0 esdatadir</pre>
 </div>
-<p>As a last resort, you can force the container to mutate the ownership of
-any bind-mounts used for the <a class="xref" href="path-settings.html" title="path.data and path.logs">data and log dirs</a> through the
-environment variable <code class="literal">TAKE_FILE_OWNERSHIP</code>. When you do this, they will be owned by
-uid:gid <code class="literal">1000:0</code>, which provides the required read/write access to the Elasticsearch process.</p>
+<p>
+最后，可以通过环境变量 <code class="literal">TAKE_FILE_OWNERSHIP</code> 强制容器改变用于任何 绑定挂载(bind-mount) 的<a class="xref" href="path-settings.html" title="path.data and path.logs">数据和日志目录</a>的所有权。
+
+当你这样做时，它们的所有者是 对 Elasticsearch 进程有读/写访问权限的 uid:gid <code class="literal">1000:0</code>。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_increase_ulimits_for_nofile_and_nproc"></a>Increase ulimits for nofile and nproc<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
+<a id="_increase_ulimits_for_nofile_and_nproc"></a>
+给 nofile 和 nproc 增加 ulimits
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
-<p>Increased ulimits for <a class="xref" href="setting-system-settings.html" title="Configuring system settings">nofile</a> and <a class="xref" href="max-number-threads-check.html" title="Maximum number of threads check">nproc</a>
-must be available for the Elasticsearch containers.
-Verify the <a href="https://github.com/moby/moby/tree/ea4d1243953e6b652082305a9c3cda8656edab26/contrib/init" class="ulink" target="_top">init system</a>
-for the Docker daemon sets them to acceptable values.</p>
-<p>To check the Docker daemon defaults for ulimits, run:</p>
+<p>
+Elasticsearch 容器必须增加 <a class="xref" href="setting-system-settings.html" title="Configuring system settings">nofile</a> 和 <a class="xref" href="max-number-threads-check.html" title="Maximum number of threads check">nproc</a> 的 ulimits。
+
+验证 Docker 守护程序的<a href="https://github.com/moby/moby/tree/ea4d1243953e6b652082305a9c3cda8656edab26/contrib/init" class="ulink" target="_top">初始化系统(init system)</a>是否将它们设置为可接受的值。
+</p>
+<p>
+要检查 Docker 守护程序的 ulimits 默认值，运行：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">docker run --rm centos:7 /bin/bash -c 'ulimit -Hn &amp;&amp; ulimit -Sn &amp;&amp; ulimit -Hu &amp;&amp; ulimit -Su'</pre>
 </div>
-<p>If needed, adjust them in the Daemon or override them per container.
-For example, when using <code class="literal">docker run</code>, set:</p>
+<p>
+如果需要，在守护程序中调整它们，或者覆盖每个容器中的设置。
+
+例如，当使用<code class="literal">docker run</code>时，设置:
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">--ulimit nofile=65535:65535</pre>
 </div>
@@ -361,16 +450,21 @@ For example, when using <code class="literal">docker run</code>, set:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_disable_swapping"></a>Disable swapping<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
+<a id="_disable_swapping"></a>
+禁用 swapping
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
-<p>Swapping needs to be disabled for performance and node stability.
-For information about ways to do this, see <a class="xref" href="setup-configuration-memory.html" title="Disable swapping">Disable swapping</a>.</p>
-<p>If you opt for the <code class="literal">bootstrap.memory_lock: true</code> approach,
-you also need to define the <code class="literal">memlock: true</code> ulimit in the
-<a href="https://docs.docker.com/engine/reference/commandline/dockerd/#default-ulimits" class="ulink" target="_top">Docker Daemon</a>,
-or explicitly set for the container as shown in the  <a class="xref" href="docker.html#docker-compose-file" title="Starting a multi-node cluster with Docker Compose">sample compose file</a>.
-When using <code class="literal">docker run</code>, you can specify:</p>
+<p>
+为了性能和节点的稳定性，需要禁用swapping。
+
+关于如何做到这一点，请参考<a class="xref" href="setup-configuration-memory.html" title="Disable swapping">禁用 swapping</a>.
+</p>
+<p>
+如果你选择使用<code class="literal">bootstrap.memory_lock: true</code>，还需要在<a href="https://docs.docker.com/engine/reference/commandline/dockerd/#default-ulimits" class="ulink" target="_top">Docker Daemon</a>中定义<code class="literal">memlock: true</code> ulimit，或者像<a class="xref" href="docker.html#docker-compose-file" title="Starting a multi-node cluster with Docker Compose">compose 示例文件</a>那样显式的设置容器。
+
+当使用<code class="literal">docker run</code>时，可以指定：
+</p>
 <pre class="literallayout">-e "bootstrap.memory_lock=true" --ulimit memlock=-1:-1</pre>
 
 </div>
@@ -378,38 +472,46 @@ When using <code class="literal">docker run</code>, you can specify:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_randomize_published_ports"></a>Randomize published ports<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
+<a id="_randomize_published_ports"></a>
+随机化发布的端口 (Randomize published ports)
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
-<p>The image <a href="https://docs.docker.com/engine/reference/builder/#/expose" class="ulink" target="_top">exposes</a>
-TCP ports 9200 and 9300. For production clusters, randomizing the
-published ports with <code class="literal">--publish-all</code> is recommended,
-unless you are pinning one container per host.</p>
+<p>
+该镜像<a href="https://docs.docker.com/engine/reference/builder/#/expose" class="ulink" target="_top">暴露(exposes)</a>了 TCP 端口 9200 和 9300。
+
+对于生产环境的集群，建议使用<code class="literal">--publish-all</code>对发布的端口进行随机化，除非为每个主机固定一个容器。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="docker-set-heap-size"></a>Set the heap size<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
+<a id="docker-set-heap-size"></a>
+设置堆内存大小(heap size)
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
-<p>To configure the heap size, you can bind mount a <a class="xref" href="jvm-options.html" title="Setting JVM options">JVM options</a>
-file under <code class="literal">/usr/share/elasticsearch/config/jvm.options.d</code> that includes your
-desired <a class="xref" href="heap-size.html" title="Setting the heap size">heap size</a> settings. Note that while the default root
-<code class="literal">jvm.options</code> file sets a default heap of 1 GB, any value you set in a
-bind-mounted JVM options file will override it.</p>
-<p>While setting the heap size via bind-mounted JVM options is the recommended
-method, you can also configure this by using the <code class="literal">ES_JAVA_OPTS</code> environment
-variable to set the heap size. For example, to use 16 GB, specify
-<code class="literal">-e ES_JAVA_OPTS="-Xms16g -Xmx16g"</code> with <code class="literal">docker run</code>. Note that while the
-default root <code class="literal">jvm.options</code> file sets a default heap of 1 GB, any value you set
-in <code class="literal">ES_JAVA_OPTS</code> will override it. The <code class="literal">docker-compose.yml</code> file above sets the heap size to 512 MB.</p>
+<p>
+要配置堆内存大小, 可以在<code class="literal">/usr/share/elasticsearch/config/jvm.options.d</code>下 绑定挂载 一个包含所需<a class="xref" href="heap-size.html" title="Setting the heap size">堆内存大小</a>设置的<a class="xref" href="jvm-options.html" title="Setting JVM options">JVM 选项</a>文件。
+
+请注意，虽然默认的根<code class="literal">jvm.options</code>文件设置了 1 GB 的默认堆大小，但是你在 绑定挂载 的<a class="xref" href="jvm-options.html" title="Setting JVM options">JVM 选项</a>文件中设置的任何值都将覆盖它。
+</p>
+<p>
+虽然通过 绑定挂载 的 JVM选项 设置堆大小是推荐的方法，但是你也可以通过使用环境变量<code class="literal">ES_JAVA_OPTS</code>来设置堆大小来配置它。
+
+比如，要想设置为 16GB，使用<code class="literal">docker run</code>指定<code class="literal">-e ES_JAVA_OPTS="-Xms16g -Xmx16g"</code>。
+
+请注意，虽然默认的根<code class="literal">jvm.options</code>文件设置了1 GB的默认堆大小，但你在<code class="literal">ES_JAVA_OPTS</code>设置的任何值都将覆盖它。
+
+上面的<code class="literal">docker-compose.yml</code>文件将堆大小设置为 512 MB。
+</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>You must <a class="xref" href="heap-size.html" title="Setting the heap size">configure the heap size</a> even if you are
-<a href="https://docs.docker.com/config/containers/resource_constraints/#limit-a-containers-access-to-memory" class="ulink" target="_top">limiting
-memory access</a> to the container.</p>
+<p>
+即使你<a href="https://docs.docker.com/config/containers/resource_constraints/#limit-a-containers-access-to-memory" class="ulink" target="_top">限制容器的内存使用</a>，你也必须<a class="xref" href="heap-size.html" title="Setting the heap size">设置堆大小</a>。
+</p>
 </div>
 </div>
 </div>
@@ -417,31 +519,38 @@ memory access</a> to the container.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_pin_deployments_to_a_specific_image_version"></a>Pin deployments to a specific image version<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
+<a id="_pin_deployments_to_a_specific_image_version"></a>
+将部署固定到指定版本的镜像
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
-<p>Pin your deployments to a specific version of the Elasticsearch Docker image. For
-example <code class="literal">docker.elastic.co/elasticsearch/elasticsearch:7.7.1</code>.</p>
+<p>
+将部署固定到指定版本的Elasticsearch Docker镜像
+比如 <code class="literal">docker.elastic.co/elasticsearch/elasticsearch:7.7.1</code>。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_always_bind_data_volumes"></a>Always bind data volumes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
+<a id="_always_bind_data_volumes"></a>
+总是绑定数据卷 (Always bind data volumes)
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
-<p>You should use a volume bound on <code class="literal">/usr/share/elasticsearch/data</code> for the following reasons:</p>
+<p>
+由于以下几个原因, 你应该使用一个绑定在<code class="literal">/usr/share/elasticsearch/data</code>上的卷：
+</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-The data of your Elasticsearch node won’t be lost if the container is killed
+即使容器被杀掉，你的Elasticsearch节点的数据也不会丢失
 </li>
 <li class="listitem">
-Elasticsearch is I/O sensitive and the Docker storage driver is not ideal for fast I/O
+Elasticsearch 对 I/O 敏感，而Docker存储器不能提供快速 I/O
 </li>
 <li class="listitem">
-It allows the use of advanced
-<a href="https://docs.docker.com/engine/extend/plugins/#volume-plugins" class="ulink" target="_top">Docker volume plugins</a>
+它允许使用高级的<a href="https://docs.docker.com/engine/extend/plugins/#volume-plugins" class="ulink" target="_top">Docker卷插件</a>
 </li>
 </ol>
 </div>
@@ -450,24 +559,30 @@ It allows the use of advanced
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_avoid_using_loop_lvm_mode"></a>Avoid using <code class="literal">loop-lvm</code> mode<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
+<a id="_avoid_using_loop_lvm_mode"></a>
+避免使用 <code class="literal">loop-lvm</code> 模式
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
-<p>If you are using the devicemapper storage driver, do not use the default <code class="literal">loop-lvm</code> mode.
-Configure docker-engine to use
-<a href="https://docs.docker.com/engine/userguide/storagedriver/device-mapper-driver/#configure-docker-with-devicemapper" class="ulink" target="_top">direct-lvm</a>.</p>
+<p>
+如果你正在使用设备映射存储驱动，请不要使用默认的<code class="literal">loop-lvm</code>模式。
+
+将 docker-engine 配置为使用<a href="https://docs.docker.com/engine/userguide/storagedriver/device-mapper-driver/#configure-docker-with-devicemapper" class="ulink" target="_top">direct-lvm</a>。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_centralize_your_logs"></a>Centralize your logs<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
+<a id="_centralize_your_logs"></a>
+日志中心化
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
-<p>Consider centralizing your logs by using a different
-<a href="https://docs.docker.com/engine/admin/logging/overview/" class="ulink" target="_top">logging driver</a>. Also
-note that the default json-file logging driver is not ideally suited for
-production use.</p>
+<p>
+考虑使用不同的<a href="https://docs.docker.com/engine/admin/logging/overview/" class="ulink" target="_top">日志驱动程序(logging driver)</a>来集中日志。
+还要注意的是，默认的 json-file 日志驱动不太适合生产环境使用。
+</p>
 </div>
 
 </div>
@@ -475,50 +590,67 @@ production use.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="docker-configuration-methods"></a>Configuring Elasticsearch with Docker<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
+<a id="docker-configuration-methods"></a>
+使用 Docker 配置 Elasticsearch
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>When you run in Docker, the <a class="xref" href="settings.html#config-files-location" title="Config files location">Elasticsearch configuration files</a> are loaded from
-<code class="literal">/usr/share/elasticsearch/config/</code>.</p>
-<p>To use custom configuration files, you <a class="xref" href="docker.html#docker-config-bind-mount" title="Mounting Elasticsearch configuration files">bind-mount the files</a>
-over the configuration files in the image.</p>
+<p>
+When you run in Docker, the <a class="xref" href="settings.html#config-files-location" title="Config files location">Elasticsearch configuration files</a> are loaded from <code class="literal">/usr/share/elasticsearch/config/</code>.
+</p>
+<p>
+To use custom configuration files, you <a class="xref" href="docker.html#docker-config-bind-mount" title="Mounting Elasticsearch configuration files">bind-mount the files</a> over the configuration files in the image.
+</p>
 <p>You can set individual Elasticsearch configuration parameters using Docker environment variables.
-The <a class="xref" href="docker.html#docker-compose-file" title="Starting a multi-node cluster with Docker Compose">sample compose file</a> and the
-<a class="xref" href="docker.html#docker-cli-run-dev-mode" title="Starting a single node cluster with Docker">single-node example</a> use this method.</p>
-<p>To use the contents of a file to set an environment variable, suffix the environment
-variable name with <code class="literal">_FILE</code>. This is useful for passing secrets such as passwords to Elasticsearch
-without specifying them directly.</p>
-<p>For example, to set the Elasticsearch bootstrap password from a file, you can bind mount the
-file and set the <code class="literal">ELASTIC_PASSWORD_FILE</code> environment variable to the mount location.
-If you mount the password file to <code class="literal">/run/secrets/password.txt</code>, specify:</p>
+
+The <a class="xref" href="docker.html#docker-compose-file" title="Starting a multi-node cluster with Docker Compose">sample compose file</a> and the <a class="xref" href="docker.html#docker-cli-run-dev-mode" title="Starting a single node cluster with Docker">single-node example</a> use this method.
+</p>
+<p>
+To use the contents of a file to set an environment variable, suffix the environment variable name with <code class="literal">_FILE</code>.
+
+This is useful for passing secrets such as passwords to Elasticsearch without specifying them directly.
+</p>
+<p>
+For example, to set the Elasticsearch bootstrap password from a file, you can bind mount the file and set the <code class="literal">ELASTIC_PASSWORD_FILE</code> environment variable to the mount location.
+
+If you mount the password file to <code class="literal">/run/secrets/password.txt</code>, specify:
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">-e ELASTIC_PASSWORD_FILE=/run/secrets/bootstrapPassword.txt</pre>
 </div>
-<p>You can also override the default command for the image to pass Elasticsearch configuration
-parameters as command line options. For example:</p>
+<p>
+You can also override the default command for the image to pass Elasticsearch configuration parameters as command line options. For example:
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">docker run &lt;various parameters&gt; bin/elasticsearch -Ecluster.name=mynewclustername</pre>
 </div>
-<p>While bind-mounting your configuration files is usually the preferred method in production,
-you can also <a class="xref" href="docker.html#_c_customized_image" title="Using custom Docker images">create a custom Docker image</a>
-that contains your configuration.</p>
+<p>
+While bind-mounting your configuration files is usually the preferred method in production, you can also <a class="xref" href="docker.html#_c_customized_image" title="Using custom Docker images">create a custom Docker image</a> that contains your configuration.
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="docker-config-bind-mount"></a>Mounting Elasticsearch configuration files<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
+<a id="docker-config-bind-mount"></a>
+Mounting Elasticsearch configuration files
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
-<p>Create custom config files and bind-mount them over the corresponding files in the Docker image.
-For example, to bind-mount <code class="literal">custom_elasticsearch.yml</code> with <code class="literal">docker run</code>, specify:</p>
+<p>
+Create custom config files and bind-mount them over the corresponding files in the Docker image.
+
+For example, to bind-mount <code class="literal">custom_elasticsearch.yml</code> with <code class="literal">docker run</code>, specify:
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">-v full_path_to/custom_elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml</pre>
 </div>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The container <span class="strong strong"><strong>runs Elasticsearch as user <code class="literal">elasticsearch</code> using
-uid:gid <code class="literal">1000:0</code></strong></span>. Bind mounted host directories and files must be accessible by this user,
-and the data and log directories must be writable by this user.</p>
+<p>
+The container <span class="strong strong"><strong>runs Elasticsearch as user <code class="literal">elasticsearch</code> using uid:gid <code class="literal">1000:0</code></strong></span>. 
+
+Bind mounted host directories and files must be accessible by this user, and the data and log directories must be writable by this user.
+</p>
 </div>
 </div>
 </div>
@@ -526,18 +658,21 @@ and the data and log directories must be writable by this user.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="docker-keystore-bind-mount"></a>Mounting an Elasticsearch keystore<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
+<a id="docker-keystore-bind-mount"></a>
+Mounting an Elasticsearch keystore
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
-<p>By default, Elasticsearch will auto-generate a keystore file for secure settings. This
-file is obfuscated but not encrypted. If you want to encrypt your
-<a class="xref" href="secure-settings.html" title="Secure settings">secure settings</a> with a password, you must use the
-<code class="literal">elasticsearch-keystore</code> utility to create a password-protected keystore and
-bind-mount it to the container as
-<code class="literal">/usr/share/elasticsearch/config/elasticsearch.keystore</code>. In order to provide
-the Docker container with the password at startup, set the Docker environment
-value <code class="literal">KEYSTORE_PASSWORD</code> to the value of your password. For example, a <code class="literal">docker
-run</code> command might have the following options:</p>
+<p>
+By default, Elasticsearch will auto-generate a keystore file for secure settings. 
+
+This file is obfuscated but not encrypted. If you want to encrypt your <a class="xref" href="secure-settings.html" title="Secure settings">secure settings</a> with a password, you must use the <code class="literal">elasticsearch-keystore</code> utility to create a password-protected keystore and
+bind-mount it to the container as <code class="literal">/usr/share/elasticsearch/config/elasticsearch.keystore</code>. 
+
+In order to provide the Docker container with the password at startup, set the Docker environment value <code class="literal">KEYSTORE_PASSWORD</code> to the value of your password. 
+
+For example, a <code class="literal">docker run</code> command might have the following options:
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">-v full_path_to/elasticsearch.keystore:/usr/share/elasticsearch/config/elasticsearch.keystore
 -E KEYSTORE_PASSWORD=mypassword</pre>
@@ -547,22 +682,30 @@ run</code> command might have the following options:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_c_customized_image"></a>Using custom Docker images<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
+<a id="_c_customized_image"></a>
+Using custom Docker images
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
-<p>In some environments, it might make more sense to prepare a custom image that contains
-your configuration. A <code class="literal">Dockerfile</code> to achieve this might be as simple as:</p>
+<p>
+In some environments, it might make more sense to prepare a custom image that contains your configuration. 
+A <code class="literal">Dockerfile</code> to achieve this might be as simple as:
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">FROM docker.elastic.co/elasticsearch/elasticsearch:7.7.1
 COPY --chown=elasticsearch:elasticsearch elasticsearch.yml /usr/share/elasticsearch/config/</pre>
 </div>
-<p>You could then build and run the image with:</p>
+<p>
+You could then build and run the image with:
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">docker build --tag=elasticsearch-custom .
 docker run -ti -v /usr/share/elasticsearch/data elasticsearch-custom</pre>
 </div>
-<p>Some plugins require additional security permissions.
-You must explicitly accept them either by:</p>
+<p>
+Some plugins require additional security permissions.
+You must explicitly accept them either by:
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
@@ -573,8 +716,9 @@ Inspecting the security permissions and accepting them (if appropriate) by addin
 </li>
 </ul>
 </div>
-<p>See <a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/_other_command_line_parameters.html" class="ulink" target="_top">Plugin management</a>
-for more information.</p>
+<p>
+See <a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/_other_command_line_parameters.html" class="ulink" target="_top">Plugin management</a> for more information.
+</p>
 </div>
 
 </div>
@@ -582,22 +726,26 @@ for more information.</p>
 <div class="section exclude">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_next_steps_6"></a>Next steps<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/next-steps.asciidoc">edit</a>
+<a id="_next_steps_6"></a>
+下一步
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/next-steps.asciidoc">edit</a>
 </h3>
 </div></div></div>
-<p>You now have a test Elasticsearch environment set up.  Before you start
-serious development or go into production with Elasticsearch, you must do some additional
-setup:</p>
+<p>
+你现在已经设置了一个 Elasticsearch 测试环境。
+
+在开始正式开发或开始使用 Elasticsearch 进行生产之前，你还必须做一些额外的设置：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Learn how to <a class="xref" href="settings.html" title="Configuring Elasticsearch">configure Elasticsearch</a>.
+学习如何 <a class="xref" href="settings.html" title="Configuring Elasticsearch">配置 Elasticsearch</a>.
 </li>
 <li class="listitem">
-Configure <a class="xref" href="important-settings.html" title="Important Elasticsearch configuration">important Elasticsearch settings</a>.
+配置 <a class="xref" href="important-settings.html" title="Important Elasticsearch configuration">重要的 Elasticsearch 设置</a>.
 </li>
 <li class="listitem">
-Configure <a class="xref" href="system-config.html" title="Important System Configuration">important system settings</a>.
+配置 <a class="xref" href="system-config.html" title="Important System Configuration">重要的系统设置</a>.
 </li>
 </ul>
 </div>
@@ -606,10 +754,10 @@ Configure <a class="xref" href="system-config.html" title="Important System Conf
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="windows.html">« Install Elasticsearch with Windows MSI Installer</a>
+<a href="windows.html">« 使用windows安装包安装 Elasticsearch</a>
 </span>
 <span class="next">
-<a href="brew.html">Install Elasticsearch on macOS with Homebrew »</a>
+<a href2="brew.html">Install Elasticsearch on macOS with Homebrew »</a>
 </span>
 </div>
 </div>

@@ -596,49 +596,49 @@ Elasticsearch 对 I/O 敏感，而Docker存储器不能提供快速 I/O
 </h3>
 </div></div></div>
 <p>
-When you run in Docker, the <a class="xref" href="settings.html#config-files-location" title="Config files location">Elasticsearch configuration files</a> are loaded from <code class="literal">/usr/share/elasticsearch/config/</code>.
+当在Docker中运行时，<a class="xref" href="settings.html#config-files-location" title="Config files location">Elasticsearch的配置文件</a>是从<code class="literal">/usr/share/elasticsearch/config/</code>加载的。
 </p>
 <p>
-To use custom configuration files, you <a class="xref" href="docker.html#docker-config-bind-mount" title="Mounting Elasticsearch configuration files">bind-mount the files</a> over the configuration files in the image.
-</p>
-<p>You can set individual Elasticsearch configuration parameters using Docker environment variables.
-
-The <a class="xref" href="docker.html#docker-compose-file" title="Starting a multi-node cluster with Docker Compose">sample compose file</a> and the <a class="xref" href="docker.html#docker-cli-run-dev-mode" title="Starting a single node cluster with Docker">single-node example</a> use this method.
+要使用自定义的配置文件，请<a class="xref" href="docker.html#docker-config-bind-mount" title="Mounting Elasticsearch configuration files">绑定挂载(bind-mount)文件</a>到镜像中的配置文件。
 </p>
 <p>
-To use the contents of a file to set an environment variable, suffix the environment variable name with <code class="literal">_FILE</code>.
+可以使用 Docker 环境变量设置独立的 Elasticearch 配置参数。
 
-This is useful for passing secrets such as passwords to Elasticsearch without specifying them directly.
+<a class="xref" href="docker.html#docker-compose-file" title="Starting a multi-node cluster with Docker Compose">compose示例文件</a>和<a class="xref" href="docker.html#docker-cli-run-dev-mode" title="Starting a single node cluster with Docker">单节点示例</a>使用的就是这种方法。
 </p>
 <p>
-For example, to set the Elasticsearch bootstrap password from a file, you can bind mount the file and set the <code class="literal">ELASTIC_PASSWORD_FILE</code> environment variable to the mount location.
+要使用一个文件的内容去设置一个环境变量，请将环境拜年了的名称以<code class="literal">_FILE</code>为后缀。
 
-If you mount the password file to <code class="literal">/run/secrets/password.txt</code>, specify:
+这对于在不直接指定密码的情况下将密码等机密信息传递给 Elasticearch 非常有用。
+</p>
+<p>
+比如，要从文件设置 Elasticsearch 的启动密码，你可以绑定挂载一个文件并设置环境变量<code class="literal">ELASTIC_PASSWORD_FILE</code>到这个挂载的位置。
+
+如果你挂载密码文件到<code class="literal">/run/secrets/password.txt</code>，请指定：
 </p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">-e ELASTIC_PASSWORD_FILE=/run/secrets/bootstrapPassword.txt</pre>
 </div>
 <p>
-You can also override the default command for the image to pass Elasticsearch configuration parameters as command line options. For example:
+你还可以重写镜像的默认命令，以命令行选项的形式传递 Elasticsearch 的配置参数。比如：
 </p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">docker run &lt;various parameters&gt; bin/elasticsearch -Ecluster.name=mynewclustername</pre>
 </div>
 <p>
-While bind-mounting your configuration files is usually the preferred method in production, you can also <a class="xref" href="docker.html#_c_customized_image" title="Using custom Docker images">create a custom Docker image</a> that contains your configuration.
+虽然绑定挂载配置文件通常是生产环境中首选的方法，但还可以使用包含自定义配置的方式<a class="xref" href="docker.html#_c_customized_image" title="Using custom Docker images">创建自定义的Docker镜像</a>。
 </p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
 <a id="docker-config-bind-mount"></a>
-Mounting Elasticsearch configuration files
+挂载 Elasticsearch 配置文件
 <a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
 <p>
-Create custom config files and bind-mount them over the corresponding files in the Docker image.
-
-For example, to bind-mount <code class="literal">custom_elasticsearch.yml</code> with <code class="literal">docker run</code>, specify:
+创建自定义配置文件，并将它们绑定挂载到Docker映像中的相应文件上。
+比如，要使用<code class="literal">docker run</code>挂载绑定<code class="literal">custom_elasticsearch.yml</code>，请指定：
 </p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">-v full_path_to/custom_elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml</pre>
@@ -647,9 +647,9 @@ For example, to bind-mount <code class="literal">custom_elasticsearch.yml</code>
 <div class="icon"></div>
 <div class="admon_content">
 <p>
-The container <span class="strong strong"><strong>runs Elasticsearch as user <code class="literal">elasticsearch</code> using uid:gid <code class="literal">1000:0</code></strong></span>. 
+容器 <span class="strong strong"><strong>以用户<code class="literal">elasticsearch</code>的身份运行 Elasticsearch，使用 uid:gid <code class="literal">1000:0</code> </strong></span>。
 
-Bind mounted host directories and files must be accessible by this user, and the data and log directories must be writable by this user.
+该用户必须能访问绑定挂载的宿主目录和文件，必须可以写入数据和日志目录。
 </p>
 </div>
 </div>
@@ -664,14 +664,13 @@ Mounting an Elasticsearch keystore
 </h4>
 </div></div></div>
 <p>
-By default, Elasticsearch will auto-generate a keystore file for secure settings. 
+默认情况下，ElasticSearch 将自动为安全设置生成一个密钥存储库文件。
+此文件被混淆，但未加密。
 
-This file is obfuscated but not encrypted. If you want to encrypt your <a class="xref" href="secure-settings.html" title="Secure settings">secure settings</a> with a password, you must use the <code class="literal">elasticsearch-keystore</code> utility to create a password-protected keystore and
-bind-mount it to the container as <code class="literal">/usr/share/elasticsearch/config/elasticsearch.keystore</code>. 
+如果你想用密码去加密<a class="xref" href="secure-settings.html" title="Secure settings">安全设置</a>，必须使用<code class="literal">elasticsearch-keystore</code>程序去创建一个受密码保护的密钥存储库并将其作为<code class="literal">/usr/share/elasticsearch/config/elasticsearch.keystore</code>绑定挂载到容器。
 
-In order to provide the Docker container with the password at startup, set the Docker environment value <code class="literal">KEYSTORE_PASSWORD</code> to the value of your password. 
-
-For example, a <code class="literal">docker run</code> command might have the following options:
+为了在 Docker 容器启动时为其提供密码，请将 Docker 环境值 <code class="literal">KEYSTORE_PASSWORD</code> 设置为你的密码。
+比如，一个<code class="literal">docker run</code>命令可能有下面的这些选项：
 </p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">-v full_path_to/elasticsearch.keystore:/usr/share/elasticsearch/config/elasticsearch.keystore
@@ -683,41 +682,43 @@ For example, a <code class="literal">docker run</code> command might have the fo
 <div class="titlepage"><div><div>
 <h4 class="title">
 <a id="_c_customized_image"></a>
-Using custom Docker images
+使用自定义的 Docker 镜像
 <a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
 <p>
-In some environments, it might make more sense to prepare a custom image that contains your configuration. 
-A <code class="literal">Dockerfile</code> to achieve this might be as simple as:
+在某些环境中，准备一个包含你自己的配置的自定义映像可能更有意义。  
+要实现这一点，<code class="literal">Dockerfile</code> 可能就像下面这样这么简单:
 </p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">FROM docker.elastic.co/elasticsearch/elasticsearch:7.7.1
 COPY --chown=elasticsearch:elasticsearch elasticsearch.yml /usr/share/elasticsearch/config/</pre>
 </div>
 <p>
-You could then build and run the image with:
+然后你可以构建并运行镜像:
 </p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">docker build --tag=elasticsearch-custom .
 docker run -ti -v /usr/share/elasticsearch/data elasticsearch-custom</pre>
 </div>
 <p>
-Some plugins require additional security permissions.
-You must explicitly accept them either by:
+某些插件需要额外的安全权限。
+必须以下面某一种方式显式的接受这些权限要求：
 </p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Attaching a <code class="literal">tty</code> when you run the Docker image and allowing the permissions when prompted.
+运行Docker镜像时附加一个<code class="literal">tty</code>，并在提示权限时允许之。
 </li>
 <li class="listitem">
-Inspecting the security permissions and accepting them (if appropriate) by adding the <code class="literal">--batch</code> flag to the plugin install command.
+检查安全权限并接受之（如何合适）
+
+通过将<code class="literal">--batch</code>标志添加到插件安装命令中，检查安全权限并接受它们(如果适当的话)。
 </li>
 </ul>
 </div>
 <p>
-See <a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/_other_command_line_parameters.html" class="ulink" target="_top">Plugin management</a> for more information.
+更多信息参考<a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/_other_command_line_parameters.html" class="ulink" target="_top">插件管理</a>。
 </p>
 </div>
 

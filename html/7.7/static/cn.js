@@ -102,7 +102,7 @@ var esNavLinks = [
                     {
                         "url": "brew.html",
                         "text": "在MacOS上用Homebrew安装",
-                        "title": "Install Elasticsearch on macOS with Homebrew"
+                        "title": "在MacOS上用Homebrew安装"
                     }
                 ]
             },

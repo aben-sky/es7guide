@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Configuring Elasticsearch | ElasticSearch 7.7 权威指南中文版</title>
+	<title>配置 Elasticsearch | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -34,124 +34,152 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-node">Configuring Elasticsearch</span>
+<span class="breadcrumb-node">配置 Elasticsearch</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="brew.html">« Install Elasticsearch on macOS with Homebrew</a>
+<a href="brew.html">« 在MacOS上用Homebrew安装 Elasticsearch</a>
 </span>
 <span class="next">
-<a href="jvm-options.html">Setting JVM options »</a>
+<a href2="jvm-options.html">Setting JVM options »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="settings"></a>Configuring Elasticsearch<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/configuration.asciidoc">edit</a>
+<a id="settings"></a>
+配置 Elasticsearch
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/configuration.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>Elasticsearch ships with good defaults and requires very little configuration.
-Most settings can be changed on a running cluster using the
-<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Cluster update settings</a> API.</p>
-<p>The configuration files should contain settings which are node-specific (such
-as <code class="literal">node.name</code> and paths), or settings which a node requires in order to be
-able to join a cluster, such as <code class="literal">cluster.name</code> and <code class="literal">network.host</code>.</p>
+<p>
+ElasticSearch 提供了的默认设置已经很好了，只需要很少的配置。
+大多数配置都可以在运行中的集群上使用 <a class="xref" href="cluster-update-settings.html" title="集群更新设置 API">集群更新设置</a> API 修改。
+</p>
+<p>
+配置文件应该包含特定于节点的设置(例如 <code class="literal">node.name</code> 和 路径)，或者 节点加入集群所需要的设置，比如<code class="literal">cluster.name</code> 和 <code class="literal">network.host</code>。
+</p>
 <h3>
-<a id="config-files-location"></a>Config files location<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/configuration.asciidoc">edit</a>
+<a id="config-files-location"></a>
+配置文件的位置
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/configuration.asciidoc">edit</a>
 </h3>
-<p>Elasticsearch has three configuration files:</p>
+<p>
+Elasticsearch 有三个配置文件：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">elasticsearch.yml</code> for configuring Elasticsearch
+ <code class="literal">elasticsearch.yml</code>: Elasticsearch 配置文件
 </li>
 <li class="listitem">
-<code class="literal">jvm.options</code> for configuring Elasticsearch JVM settings
+<code class="literal">jvm.options</code>: Elasticsearch JVM 配置文件
 </li>
 <li class="listitem">
-<code class="literal">log4j2.properties</code> for configuring Elasticsearch logging
+<code class="literal">log4j2.properties</code>: Elasticsearch 日志配置文件
 </li>
 </ul>
 </div>
-<p>These files are located in the config directory, whose default location depends
-on whether or not the installation is from an archive distribution (<code class="literal">tar.gz</code> or
-<code class="literal">zip</code>) or a package distribution (Debian or RPM packages).</p>
-<p>For the archive distributions, the config directory location defaults to
-<code class="literal">$ES_HOME/config</code>. The location of the config directory can be changed via the
-<code class="literal">ES_PATH_CONF</code> environment variable as follows:</p>
+<p>
+这些配置文件位于配置目录，这个目录的默认位置取决于安装来源是 归档的发行版(<code class="literal">tar.gz</code> 或 <code class="literal">zip</code>) 还是 安装包的发行版(Debian or RPM packages)。
+</p>
+<p>
+对于 归档的发行版，配置目录默认位于 <code class="literal">$ES_HOME/config</code>。
+配置目录可以通过环境变量 <code class="literal">ES_PATH_CONF</code> 来修改，比如：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">ES_PATH_CONF=/path/to/my/config ./bin/elasticsearch</pre>
 </div>
-<p>Alternatively, you can <code class="literal">export</code> the <code class="literal">ES_PATH_CONF</code> environment variable via the
-command line or via your shell profile.</p>
-<p>For the package distributions, the config directory location defaults to
-<code class="literal">/etc/elasticsearch</code>. The location of the config directory can also be changed
-via the <code class="literal">ES_PATH_CONF</code> environment variable, but note that setting this in your
-shell is not sufficient. Instead, this variable is sourced from
-<code class="literal">/etc/default/elasticsearch</code> (for the Debian package) and
-<code class="literal">/etc/sysconfig/elasticsearch</code> (for the RPM package). You will need to edit the
-<code class="literal">ES_PATH_CONF=/etc/elasticsearch</code> entry in one of these files accordingly to
-change the config directory location.</p>
+<p>
+或者，你可以通过 命令行 或 shell 配置文件<code class="literal">导出(export)</code> 环境变量<code class="literal">ES_PATH_CONF</code>。
+</p>
+<p>
+对于 安装包的发行版，配置目录默认位于 <code class="literal">/etc/elasticsearch</code>。
+
+配置目录也可以通过环境变量 <code class="literal">ES_PATH_CONF</code> 来修改，但是请注意，光是在 shell 中设置时不够的。
+
+相反，这个变量来源于 <code class="literal">/etc/default/elasticsearch</code>(Debian安装包) 和 <code class="literal">/etc/sysconfig/elasticsearch</code>(RPM安装包)。
+
+你还需在其中一个文件中编辑<code class="literal">ES_PATH_CONF=/etc/elasticsearch</code>条目，以更改配置目录的位置。
+</p>
 <h3>
 <a id="_config_file_format"></a>Config file format<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/configuration.asciidoc">edit</a>
 </h3>
-<p>The configuration format is <a href="http://www.yaml.org/" class="ulink" target="_top">YAML</a>. Here is an
-example of changing the path of the data and logs directories:</p>
+<p>
+配置文件的格式是 <a href="http://www.yaml.org/" class="ulink" target="_top">YAML</a>。
+
+下面是一个修改数据和日志目录路径的示例：
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">path:
     data: /var/lib/elasticsearch
     logs: /var/log/elasticsearch</pre>
 </div>
-<p>Settings can also be flattened as follows:</p>
+<p>
+设置还可以像这样展开：
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">path.data: /var/lib/elasticsearch
 path.logs: /var/log/elasticsearch</pre>
 </div>
 <h3>
-<a id="_environment_variable_substitution"></a>Environment variable substitution<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/configuration.asciidoc">edit</a>
+<a id="_environment_variable_substitution"></a>
+环境变量替代 (Environment variable substitution)
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/configuration.asciidoc">edit</a>
 </h3>
-<p>Environment variables referenced with the <code class="literal">${...}</code> notation within the
-configuration file will be replaced with the value of the environment
-variable. For example:</p>
+<p>
+配置文件中的<code class="literal">${...}</code>符号引用的环境变量将被替换为环境变量的值。比如：
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">node.name:    ${HOSTNAME}
 network.host: ${ES_NETWORK_HOST}</pre>
 </div>
-<p>Values for environment variables must be simple strings. Use a comma-separated string to provide values that Elasticsearch will parse as a list. For example, Elasticsearch will split the following string into a list of values for the <code class="literal">${HOSTNAME}</code> environment variable:</p>
+<p>
+环境变量的值必须是简单字符串。
+
+使用逗号分隔的字符串提供的值，将被 ElasticSearch 解析为一个列表。
+
+例如，Elasticsearch 会将以下字符串拆分为<code class="literal">${HOSTNAME}</code>环境变量的值列表：
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">export HOSTNAME=“host1,host2"</pre>
 </div>
 <h3>
-<a id="cluster-setting-types"></a>Cluster and node setting types<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/configuration.asciidoc">edit</a>
+<a id="cluster-setting-types"></a>
+群集和节点设置类型
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/configuration.asciidoc">edit</a>
 </h3>
-<p>Cluster and node settings can be categorized based on how they are configured:</p>
+<p>
+可以根据集群和节点设置的配置方式对它们进行分类：
+</p>
 <div class="variablelist">
 <a id="dynamic-cluster-setting"></a>
 <dl class="variablelist">
 <dt>
 <span class="term">
-Dynamic
+动态 (Dynamic)
 </span>
 </dt>
 <dd>
 <p>
-You can configure and update dynamic settings on a running cluster using the
-<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">cluster update settings API</a>.
+可以使用 <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">群集更新设置 API</a> 配置和更新正在运行的群集上的动态设置。
 </p>
-<p>You can also configure dynamic settings locally on an unstarted or shut down
-node using <code class="literal">elasticsearch.yml</code>.</p>
+<p>
+您还可以使用 <code class="literal">elasticsearch.yml</code> 在未启动或关闭的节点上本地配置动态设置。
+</p>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>It’s best to set dynamic, cluster-wide settings with the cluster update
-settings API and use <code class="literal">elasticsearch.yml</code> only for local configurations. Using
-the cluster update settings API ensures the setting is the same on all nodes. If
-you accidentally configure different settings in <code class="literal">elasticsearch.yml</code> on
-different nodes, it can be difficult to notice discrepancies.</p>
+<p>
+最好使用 集群更新设置API 来设置动态的、集群范围的设置，并且只对本地配置使用<code class="literal">elasticsearch.yml</code>。
+使用 群集更新设置API 可以确保所有节点上的配置都是相同的。
+
+如果你意外地在不同节点上的配置文件<code class="literal">elasticsearch.yml</code>中设置了不同的配置，则很难注意到差异。
+</p>
 </div>
 </div>
 </dd>
@@ -162,15 +190,16 @@ different nodes, it can be difficult to notice discrepancies.</p>
 <dl class="variablelist">
 <dt>
 <span class="term">
-Static
+静态 (Static)
 </span>
 </dt>
 <dd>
 <p>
-Static settings can only be configured on an unstarted or shut down node using
-<code class="literal">elasticsearch.yml</code>.
+静态设置只能在未启动或关闭的节点上使用<code class="literal">elasticsearch.yml</code>进行配置。
 </p>
-<p>Static settings must be set on every relevant node in the cluster.</p>
+<p>
+必须在集群中的每个相关节点上设置 静态设置。
+</p>
 </dd>
 </dl>
 </div>
@@ -206,10 +235,10 @@ Static settings can only be configured on an unstarted or shut down node using
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="brew.html">« Install Elasticsearch on macOS with Homebrew</a>
+<a href="brew.html">« 在MacOS上用Homebrew安装 Elasticsearch</a>
 </span>
 <span class="next">
-<a href="jvm-options.html">Setting JVM options »</a>
+<a href2="jvm-options.html">Setting JVM options »</a>
 </span>
 </div>
 </div>

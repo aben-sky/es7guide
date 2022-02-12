@@ -108,8 +108,8 @@ var esNavLinks = [
             },
             {
                 "url": "settings.html",
-                "text": "配置Elasticsearch",
-                "title": "Configuring Elasticsearch",
+                "text": "配置 Elasticsearch",
+                "title": "配置 Elasticsearch",
                 "sub": [
                     {
                         "url": "jvm-options.html",

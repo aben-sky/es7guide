@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Secure settings | ElasticSearch 7.7 权威指南中文版</title>
+	<title>安全设置 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -34,56 +34,76 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="settings.html">Configuring Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="settings.html">配置 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Secure settings</span>
+<span class="breadcrumb-node">安全设置</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="jvm-options.html">« Setting JVM options</a>
+<a href="jvm-options.html">« 设置 JVM 选项</a>
 </span>
 <span class="next">
-<a href="auditing-settings.html">Auditing security settings »</a>
+<a href2="auditing-settings.html">Auditing security settings »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="secure-settings"></a>Secure settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/secure-settings.asciidoc">edit</a>
+<a id="secure-settings"></a>
+安全设置
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/secure-settings.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>Some settings are sensitive, and relying on filesystem permissions to protect
-their values is not sufficient. For this use case, Elasticsearch provides a
-keystore and the <a class="xref" href="elasticsearch-keystore.html" title="elasticsearch-keystore"><code class="literal">elasticsearch-keystore</code> tool</a> to
-manage the settings in the keystore.</p>
+<p>
+有些设置是敏感的，依靠文件系统权限来保护它们的值是不够的。
+
+针对这个问题，Elasticsearch 提供了一个 秘钥库(keystore) 和<a class="xref" href="elasticsearch-keystore.html" title="elasticsearch-keystore"><code class="literal">elasticsearch-keystore</code>工具</a>来管理秘钥库中的设置。
+</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Only some settings are designed to be read from the keystore. However,
-the keystore has no validation to block unsupported settings. Adding unsupported
-settings to the keystore causes Elasticsearch to fail to start. To see whether a setting
-is supported in the keystore, look for a "Secure" qualifier the setting
-reference.</p>
+<p>
+只有一些设置被设计为可以从密钥库中读取。
+
+但是，密钥库没有阻止不支持的设置的验证。
+
+向密钥库中添加不支持的设置会导致 Elasticsearch 无法启动。
+
+要查看密钥库中是否支持某个设置，请在设置引用中查找“Secure”限定符。
+</p>
 </div>
 </div>
-<p>All the modifications to the keystore take effect only after restarting Elasticsearch.</p>
-<p>These settings, just like the regular ones in the <code class="literal">elasticsearch.yml</code> config file,
-need to be specified on each node in the cluster. Currently, all secure settings
-are node-specific settings that must have the same value on every node.</p>
+<p>
+对密钥库的所有修改只有在重新启动 Elasticsearch 后才会生效。
+</p>
+<p>
+这些设置，就像<code class="literal">elasticsearch.yml</code>配置文件中的常规设置一样，需要在集群中的每个节点上指定。
+
+目前，所有安全设置都是特定于节点的设置，必须在每个节点上具有相同的值。
+</p>
 <h3>
-<a id="reloadable-secure-settings"></a>Reloadable secure settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/secure-settings.asciidoc">edit</a>
+<a id="reloadable-secure-settings"></a>
+可重新加载的安全设置 (Reloadable secure settings)
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/secure-settings.asciidoc">edit</a>
 </h3>
-<p>Just like the settings values in <code class="literal">elasticsearch.yml</code>, changes to the keystore
-contents are not automatically applied to the running Elasticsearch node. Re-reading
-settings requires a node restart. However, certain secure settings are marked as
-<span class="strong strong"><strong>reloadable</strong></span>. Such settings can be <a class="xref" href="cluster-nodes-reload-secure-settings.html" title="Nodes reload secure settings API">re-read and applied on a running node</a>.</p>
-<p>The values of all secure settings, <span class="strong strong"><strong>reloadable</strong></span> or not, must be identical
-across all cluster nodes. After making the desired secure settings changes,
-using the <code class="literal">bin/elasticsearch-keystore add</code> command, call:</p>
+<p>
+就像<code class="literal">elasticsearch.yml</code>中的设置值一样，对密钥库内容的更改不会自动应用于正在运行的 elasticsearch 节点。
+
+重新读取设置需要重新启动节点。
+
+但是，某些安全设置被标记为<span class="strong strong"><strong>可重新加载(reloadable)</strong></span>。
+
+这些设置可以<a class="xref" href="cluster-nodes-reload-secure-settings.html" title="Nodes reload secure settings API">重新读取并被应用到正在运行中的节点</a>。
+</p>
+<p>
+所有安全设置的值，无论是否<span class="strong strong"><strong>可重新加载</strong></span>，在集群的所有节点上都必须相同。
+
+进行所需的安全设置更改后，使用<code class="literal">bin/elasticsearch-keystore add</code>命令，调用:
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST _nodes/reload_secure_settings
 {
@@ -98,47 +118,54 @@ using the <code class="literal">bin/elasticsearch-keystore add</code> command, c
 <p><a href="#CO6-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The password that the Elasticsearch keystore is encrypted with.</p>
+<p>
+Elasticsearch 密钥库的加密密码。
+</p>
 </td>
 </tr>
 </table>
 </div>
-<p>This API decrypts and re-reads the entire keystore, on every cluster node,
-but only the <span class="strong strong"><strong>reloadable</strong></span> secure settings are applied. Changes to other
-settings do not go into effect until the next restart. Once the call returns,
-the reload has been completed, meaning that all internal data structures
-dependent on these settings have been changed. Everything should look as if the
-settings had the new value from the start.</p>
-<p>When changing multiple <span class="strong strong"><strong>reloadable</strong></span> secure settings, modify all of them on each
-cluster node, then issue a <a class="xref" href="cluster-nodes-reload-secure-settings.html" title="Nodes reload secure settings API"><code class="literal">reload_secure_settings</code></a>
-call instead of reloading after each modification.</p>
-<p>There are reloadable secure settings for:</p>
+<p>
+此 API 在每个群集节点上解密并重新读取整个密钥库，但仅应用<span class="strong strong"><strong>可重新加载</strong></span>的安全设置。
+
+对其他设置的更改要到下次重新启动时才会生效。
+
+一旦调用返回，重载就完成了，这意味着依赖于这些设置的所有内部数据结构都已更改。
+
+一切都应该看起来好像安全设置从一开始就有新的值。
+</p>
+<p>
+更改多个<span class="strong strong"><strong>可重新加载</strong></span> 的安全设置时，请在群集的每个节点上修改所有设置，然后执行<a class="xref" href="cluster-nodes-reload-secure-settings.html" title="Nodes reload secure settings API"><code class="literal">reload_secure_settings</code></a>调用，而不是在每次修改后重新加载配置。
+</p>
+<p>
+There are reloadable secure settings for:
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/repository-azure-client-settings.html" class="ulink" target="_top">The Azure repository plugin</a>
+<a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/repository-azure-client-settings.html" class="ulink" target="_top">Azure 存储库插件</a>
 </li>
 <li class="listitem">
-<a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/discovery-ec2-usage.html#_configuring_ec2_discovery" class="ulink" target="_top">The EC2 discovery plugin</a>
+<a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/discovery-ec2-usage.html#_configuring_ec2_discovery" class="ulink" target="_top">EC2 发现插件</a>
 </li>
 <li class="listitem">
-<a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/repository-gcs-client.html" class="ulink" target="_top">The GCS repository plugin</a>
+<a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/repository-gcs-client.html" class="ulink" target="_top">GCS 存储库插件</a>
 </li>
 <li class="listitem">
-<a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/repository-s3-client.html" class="ulink" target="_top">The S3 repository plugin</a>
+<a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/repository-s3-client.html" class="ulink" target="_top">S3 存储库插件</a>
 </li>
 <li class="listitem">
-<a class="xref" href="monitoring-settings.html" title="Monitoring settings in Elasticsearch">Monitoring settings</a>
+<a class="xref" href="monitoring-settings.html" title="Monitoring settings in Elasticsearch">监控设置</a>
 </li>
 </ul>
 </div>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="jvm-options.html">« Setting JVM options</a>
+<a href="jvm-options.html">« 设置 JVM 选项</a>
 </span>
 <span class="next">
-<a href="auditing-settings.html">Auditing security settings »</a>
+<a href2="auditing-settings.html">Auditing security settings »</a>
 </span>
 </div>
 </div>

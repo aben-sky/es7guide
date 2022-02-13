@@ -119,7 +119,7 @@ var esNavLinks = [
                     {
                         "url": "secure-settings.html",
                         "text": "安全设置",
-                        "title": "Secure settings"
+                        "title": "安全设置"
                     },
                     {
                         "url": "auditing-settings.html",

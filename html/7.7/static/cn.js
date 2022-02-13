@@ -113,8 +113,8 @@ var esNavLinks = [
                 "sub": [
                     {
                         "url": "jvm-options.html",
-                        "text": "设置JVM",
-                        "title": "Setting JVM options"
+                        "text": "设置 JVM 选项",
+                        "title": "设置 JVM 选项"
                     },
                     {
                         "url": "secure-settings.html",

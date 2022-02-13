@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Setting JVM options | ElasticSearch 7.7 权威指南中文版</title>
+	<title>设置 JVM | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -34,17 +34,17 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="settings.html">Configuring Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="settings.html">配置 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Setting JVM options</span>
+<span class="breadcrumb-node">设置 JVM</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="settings.html">« Configuring Elasticsearch</a>
+<a href="settings.html">« 配置 Elasticsearch</a>
 </span>
 <span class="next">
 <a href="secure-settings.html">Secure settings »</a>
@@ -53,97 +53,121 @@ will be released for this version. For the latest information, see the
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="jvm-options"></a>Setting JVM options<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/jvm-options.asciidoc">edit</a>
+<a id="jvm-options"></a>
+设置 JVM
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/jvm-options.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>You should rarely need to change Java Virtual Machine (JVM) options. If you do,
-the most likely change is setting the <a class="xref" href="heap-size.html" title="Setting the heap size">heap size</a>. The remainder of
-this document explains in detail how to set JVM options. You can set options
-either with <code class="literal">jvm.options</code> files or with the <code class="literal">ES_JAVA_OPTS</code> environment variable.</p>
-<p>The preferred method of setting or overriding JVM options is via JVM options
-files. When installing from the tar or zip distributions, the root <code class="literal">jvm.options</code>
-configuration file is <code class="literal">config/jvm.options</code> and custom JVM options files can be
-added to <code class="literal">config/jvm.options.d/</code>. When installing from the Debian or RPM
-packages, the root <code class="literal">jvm.options</code> configuration file is
-<code class="literal">/etc/elasticsearch/jvm.options</code> and custom JVM options files can be added to
-<code class="literal">/etc/elasticsearch/jvm.options.d/</code>. When using the <a class="xref" href="docker.html" title="Install Elasticsearch with Docker">Docker
-distribution of Elasticsearch</a> you can bind mount custom JVM options files into
-<code class="literal">/usr/share/elasticsearch/config/jvm.options.d/</code>. You should never need to
-modify the root <code class="literal">jvm.options</code> file instead preferring to use custom JVM options
-files. The processing ordering of custom JVM options is lexicographic.</p>
-<p>JVM options files must have the suffix <em>.options</em> and contain a line-delimited
-list of JVM arguments following a special syntax:</p>
+<p>
+你应该很少需要更改 Java虚拟机(JVM)选项。
+
+如果这样做，最有可能的修改是设置 <a class="xref" href="heap-size.html" title="Setting the heap size">堆大小</a>。
+
+本文档的剩余部分详细的解释了如何设置 JVM 选项。
+
+你可以使用 <code class="literal">jvm.options</code> 文件 或 环境变量 <code class="literal">ES_JAVA_OPTS</code> 来设置选项。
+</p>
+<p>
+设置或覆盖 JVM 选项的首选方法是通过 JVM 选项文件。
+</p>
+<p>
+从 tar 或 zip 发行版安装时，<code class="literal">jvm.options</code>的根配置文件是<code class="literal">config/jvm.options</code>，自定义的 JVM 选项文件可以添加到 <code class="literal">config/jvm.options.d/</code>。
+</p>
+<p>
+当从 Debian 或 RPM 安装包安装时，<code class="literal">jvm.options</code>的根配置文件是<code class="literal">/etc/elasticsearch/jvm.options</code>，自定义的 JVM 选项文件可以添加到 <code class="literal">/etc/elasticsearch/jvm.options.d/</code>。
+</p>
+<p>
+当使用 <a class="xref" href="docker.html" title="Install Elasticsearch with Docker">Elasticsearch 的 Docker 发行版</a> 时，你可以绑定挂载 自定义的 JVM 选项文件到 <code class="literal">/usr/share/elasticsearch/config/jvm.options.d/</code>。
+</p>
+<p>
+你应该永远也不需要修改 <code class="literal">jvm.options</code> 根文件，而应该使用自定义的 JVM 选项文件。
+
+自定义 JVM 选项的处理顺序是按字母顺序排列。
+</p>
+<p>
+JVM 选项文件必须有后缀<em>.options</em>，并包含一个按特殊语法以行分隔的 JVM 参数列表:
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-lines consisting of whitespace only are ignored
+仅包含空白的行会被忽略
 </li>
 <li class="listitem">
-<p>lines beginning with <code class="literal">#</code> are treated as comments and are ignored</p>
+<p>
+以<code class="literal">#</code>开头的行被视为注释并被忽略
+</p>
 <div class="pre_wrapper lang-text">
 <pre class="programlisting prettyprint lang-text"># this is a comment</pre>
 </div>
 </li>
 <li class="listitem">
-<p>lines beginning with a <code class="literal">-</code> are treated as a JVM option that applies
-independent of the version of the JVM</p>
+<p>
+以<code class="literal">-</code>开头的行被视为独立于 JVM 版本应用的 JVM 选项
+</p>
 <div class="pre_wrapper lang-text">
 <pre class="programlisting prettyprint lang-text">-Xmx2g</pre>
 </div>
 </li>
 <li class="listitem">
-<p>lines beginning with a number followed by a <code class="literal">:</code> followed by a <code class="literal">-</code> are treated
-as a JVM option that applies only if the version of the JVM matches the number</p>
+<p>
+以数字开头、后跟一个<code class="literal">:</code>再后跟一个<code class="literal">-</code>的行被视为一个 JVM 选项，仅当JVM的版本与数字匹配时才适用
+</p>
 <div class="pre_wrapper lang-text">
 <pre class="programlisting prettyprint lang-text">8:-Xmx2g</pre>
 </div>
 </li>
 <li class="listitem">
-<p>lines beginning with a number followed by a <code class="literal">-</code> followed by a <code class="literal">:</code> are treated
-as a JVM option that applies only if the version of the JVM is greater than or
-equal to the number</p>
+<p>
+以数字开头、后跟一个<code class="literal">-</code>再后跟一个<code class="literal">:</code>的行被视为一个 JVM 选项，仅当 JVM 版本大于或等于该数字时才适用
+</p>
 <div class="pre_wrapper lang-text">
 <pre class="programlisting prettyprint lang-text">8-:-Xmx2g</pre>
 </div>
 </li>
 <li class="listitem">
-<p>lines beginning with a number followed by a <code class="literal">-</code> followed by a number followed
-by a <code class="literal">:</code> are treated as a JVM option that applies only if the version of the
-JVM falls in the range of the two numbers</p>
+<p>
+以数字开头、后跟一个<code class="literal">-</code>再后跟数字、后跟<code class="literal">:</code>的行被视为一个 JVM 选项，仅当 JVM 的版本在这两个数字的范围内时才适用
+</p>
 <div class="pre_wrapper lang-text">
 <pre class="programlisting prettyprint lang-text">8-9:-Xmx2g</pre>
 </div>
 </li>
 <li class="listitem">
-all other lines are rejected
+所有其他行都被拒绝
 </li>
 </ul>
 </div>
-<p>An alternative mechanism for setting Java Virtual Machine options is via the
-<code class="literal">ES_JAVA_OPTS</code> environment variable. For instance:</p>
+<p>
+设置 Java 虚拟机选项的另一种机制是通过 环境变量<code class="literal">ES_JAVA_OPTS</code>。例如:
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">export ES_JAVA_OPTS="$ES_JAVA_OPTS -Djava.io.tmpdir=/path/to/temp/dir"
 ./bin/elasticsearch</pre>
 </div>
-<p>When using the RPM or Debian packages, <code class="literal">ES_JAVA_OPTS</code> can be specified in the
-<a class="xref" href="setting-system-settings.html#sysconfig" title="Sysconfig file">system configuration file</a>.</p>
-<p>The JVM has a built-in mechanism for observing the <code class="literal">JAVA_TOOL_OPTIONS</code>
-environment variable. We intentionally ignore this environment variable in our
-packaging scripts. The primary reason for this is that on some OS (e.g., Ubuntu)
-there are agents installed by default via this environment variable that we do
-not want interfering with Elasticsearch.</p>
-<p>Additionally, some other Java programs support the <code class="literal">JAVA_OPTS</code> environment
-variable. This is <span class="strong strong"><strong>not</strong></span> a mechanism built into the JVM but instead a convention
-in the ecosystem. However, we do not support this environment variable, instead
-supporting setting JVM options via the <code class="literal">jvm.options</code> file or the environment
-variable <code class="literal">ES_JAVA_OPTS</code> as above.</p>
+<p>
+当使用 RPM 或 Debian 安装包时，可以在<a class="xref" href="setting-system-settings.html#sysconfig" title="Sysconfig file">系统配置文件</a>中指定<code class="literal">ES_JAVA_OPTS</code>。
+</p>
+<p>
+JVM 有一个内置的机制来观察 环境变量<code class="literal">JAVA_TOOL_OPTIONS</code>。
+
+我们有意在打包脚本中忽略这个环节变量。
+
+这样做的主要原因是，在某些操作系统(例如 Ubuntu)上，默认情况下通过这个环境变量安装了代理，我们不希望它干扰 Elasticsearch。
+</p>
+<p>
+此外，一些其他的 Java 程序支持 环境变量<code class="literal">JAVA_OPTS</code>。
+
+这<span class="strong strong"><strong>不是</strong></span>JVM内置的机制，而是生态系统中的约定。
+
+但是，我们不支持这个环境变量，而是支持通过<code class="literal">jvm.options</code>文件或环境变量<code class="literal">ES_JAVA_OPTS</code>来设置 JVM 选项，如上所述。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="settings.html">« Configuring Elasticsearch</a>
+<a href="settings.html">« 配置 Elasticsearch</a>
 </span>
 <span class="next">
-<a href="secure-settings.html">Secure settings »</a>
+<a href2="secure-settings.html">Secure settings »</a>
 </span>
 </div>
 </div>

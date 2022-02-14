@@ -66,7 +66,7 @@ ElasticSearch包含多个 熔断器(circuit breaker)，用于防止操作引起�
 此外，还有一个父级熔断器，它指定所有断路器可以使用的内存总量。
 </p>
 <p>
-Except where noted otherwise, these settings can be dynamically updated on a live cluster with the <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">cluster-update-settings</a> API.
+除非另有说明，否则可以使用 <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">集群更新设置</a> API 在运行中的集群上动态更新这些设置。
 </p>
 <h4>
 <a id="parent-circuit-breaker"></a>
@@ -74,7 +74,7 @@ Except where noted otherwise, these settings can be dynamically updated on a liv
 <a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/circuit_breaker.asciidoc">edit</a>
 </h4>
 <p>
-The parent-level breaker can be configured with the following settings:
+父级熔断器可以通过以下设置进行配置：
 </p>
 <div class="variablelist">
 <dl class="variablelist">
@@ -84,9 +84,7 @@ The parent-level breaker can be configured with the following settings:
 </span>
 </dt>
 <dd>
-<em>Static</em> setting determining whether the parent breaker should take real memory usage into account (<code class="literal">true</code>) or only consider the amount that is reserved by child circuit breakers (<code class="literal">false</code>).
-
-Defaults to <code class="literal">true</code>.
+<em>静态(Static)</em>设置，决定父级熔断器应考虑实际内存使用(<code class="literal">true</code>)还是仅考虑子熔断器预留的数量(<code class="literal">false</code>)。默认为 <code class="literal">true</code>。
 </dd>
 <dt>
 <span class="term">
@@ -94,23 +92,27 @@ Defaults to <code class="literal">true</code>.
 </span>
 </dt>
 <dd>
-Starting limit for overall parent breaker, defaults to 70% of JVM heap if <code class="literal">indices.breaker.total.use_real_memory</code> is <code class="literal">false</code>.
+父级熔断器总体的起始限制。
 
-If <code class="literal">indices.breaker.total.use_real_memory</code> is <code class="literal">true</code>, defaults to 95% of the JVM heap.
+当<code class="literal">indices.breaker.total.use_real_memory</code>设置为 <code class="literal">false</code> 时，默认为 JVM 堆的70%；
+
+设置为 <code class="literal">true</code> 时， 默认为 JVM 堆的 95%。
 </dd>
 </dl>
 </div>
 <h4>
-<a id="fielddata-circuit-breaker"></a>Field data circuit breaker<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/circuit_breaker.asciidoc">edit</a>
+<a id="fielddata-circuit-breaker"></a>
+字段数据熔断器 (Field data circuit breaker)
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/circuit_breaker.asciidoc">edit</a>
 </h4>
 <p>
-The field data circuit breaker allows Elasticsearch to estimate the amount of memory a field will require to be loaded into memory.
+字段数据熔断器允许 Elasticsearch 预估一个字段加载到内存中需要的内存大小。
 
-It can then prevent the field data loading by raising an exception.
+然后，它可以通过抛出异常来阻止字段数据加载。
 
-By default the limit is configured to 40% of the maximum JVM heap.
+默认情况下，这个限制被配置为 JVM 堆最大大小的 40%。
 
-It can be configured with the following parameters:
+可以使用以下参数来配置：
 </p>
 <div class="variablelist">
 <dl class="variablelist">
@@ -120,7 +122,7 @@ It can be configured with the following parameters:
 </span>
 </dt>
 <dd>
-Limit for fielddata breaker, defaults to 40% of JVM heap
+字段数据熔断器的限制，默认为 JVM 堆的40%
 </dd>
 <dt>
 <span class="term">
@@ -128,15 +130,17 @@ Limit for fielddata breaker, defaults to 40% of JVM heap
 </span>
 </dt>
 <dd>
-A constant that all field data estimations are multiplied with to determine a final estimation. Defaults to 1.03
+一个常数，所有字段数据预估值乘以该常数以确定最终估计值。默认为 1.03
 </dd>
 </dl>
 </div>
 <h4>
-<a id="request-circuit-breaker"></a>Request circuit breaker<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/circuit_breaker.asciidoc">edit</a>
+<a id="request-circuit-breaker"></a>
+请求熔断器 (Request circuit breaker)
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/circuit_breaker.asciidoc">edit</a>
 </h4>
 <p>
-The request circuit breaker allows Elasticsearch to prevent per-request data structures (for example, memory used for calculating aggregations during a request) from exceeding a certain amount of memory.
+请求熔断器允许 Elasticsearch 防止每个请求的数据结构(例如，请求期间用于聚合计算的内存)超过一定的内存量。
 </p>
 <div class="variablelist">
 <dl class="variablelist">
@@ -146,7 +150,7 @@ The request circuit breaker allows Elasticsearch to prevent per-request data str
 </span>
 </dt>
 <dd>
-Limit for request breaker, defaults to 60% of JVM heap
+请求熔断器的限制，默认为 JVM 堆的60%
 </dd>
 <dt>
 <span class="term">
@@ -154,17 +158,23 @@ Limit for request breaker, defaults to 60% of JVM heap
 </span>
 </dt>
 <dd>
-A constant that all request estimations are multiplied with to determine a final estimation. Defaults to 1
+一个常数，所有请求的预估值都要乘以这个常数才能确定最终的估计值。默认为 1
 </dd>
 </dl>
 </div>
 <h4>
-<a id="in-flight-circuit-breaker"></a>In flight requests circuit breaker<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/circuit_breaker.asciidoc">edit</a>
+<a id="in-flight-circuit-breaker"></a>
+请求队列熔断器 (In flight requests circuit breaker)
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/circuit_breaker.asciidoc">edit</a>
 </h4>
 <p>
-The in flight requests circuit breaker allows Elasticsearch to limit the memory usage of all currently active incoming requests on transport or HTTP level from exceeding a certain amount of memory on a node. The memory usage is based on the content length of the request itself.
+<span style="color:#666; font-size:80%;">译者注: In flight requests, 是 client 的请求队列, 包括正在发送的请求和已经发送的但还没有接收到response的请求</span><br/>
 
-This circuit breaker also considers that memory is not only needed for representing the raw request but also as a structured object which is reflected by default overhead.
+请求队列熔断器允许 Elasticsearch 限制 传输 或 HTTP 级别上所有当前活动的传入请求的内存使用，使其不超过该节点的一定的内存量。
+
+内存使用量基于请求自身的内容的长度。
+
+该熔断器还认为，内存不仅需要表示原始请求，而且也是一个反映默认开销的结构化对象。
 </p>
 <div class="variablelist">
 <dl class="variablelist">
@@ -174,7 +184,9 @@ This circuit breaker also considers that memory is not only needed for represent
 </span>
 </dt>
 <dd>
-Limit for in flight requests breaker, defaults to 100% of JVM heap. This means that it is bound by the limit configured for the parent circuit breaker.
+请求队列的限制，默认为 JVM 堆的100%。
+
+这异味着它受到为父级熔断器配置的限制的约束。
 </dd>
 <dt>
 <span class="term">
@@ -182,15 +194,19 @@ Limit for in flight requests breaker, defaults to 100% of JVM heap. This means t
 </span>
 </dt>
 <dd>
-A constant that all in flight requests estimations are multiplied with to determine a final estimation. Defaults to 2.
+一个常数，所有请求队列预估值都要乘以这个常数才能确定最终的预估值。默认为 2。
 </dd>
 </dl>
 </div>
 <h4>
-<a id="accounting-circuit-breaker"></a>Accounting requests circuit breaker<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/circuit_breaker.asciidoc">edit</a>
+<a id="accounting-circuit-breaker"></a>
+核算请求熔断器 (Accounting requests circuit breaker)
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/circuit_breaker.asciidoc">edit</a>
 </h4>
 <p>
-The accounting circuit breaker allows Elasticsearch to limit the memory usage of things held in memory that are not released when a request is completed. This includes things like the Lucene segment memory.
+核算请求熔断器允许 Elasticsearch 限制保存在内存中的东西的内存使用，这些东西在请求完成时不会被释放。
+
+这包括像 Lucene 段内存这样的东西。
 </p>
 <div class="variablelist">
 <dl class="variablelist">
@@ -200,7 +216,7 @@ The accounting circuit breaker allows Elasticsearch to limit the memory usage of
 </span>
 </dt>
 <dd>
-Limit for accounting breaker, defaults to 100% of JVM heap. This means that it is bound by the limit configured for the parent circuit breaker.
+核算请求的限制，默认为 JVM 堆的100%。这异味着它受到为父级熔断器配置的限制的约束。
 </dd>
 <dt>
 <span class="term">
@@ -208,18 +224,20 @@ Limit for accounting breaker, defaults to 100% of JVM heap. This means that it i
 </span>
 </dt>
 <dd>
-A constant that all accounting estimations are multiplied with to determine a final estimation. Defaults to 1
+一个常数，所有核算预估值都要乘以这个常数来确定最终的预估值。默认为 1
 </dd>
 </dl>
 </div>
 <h4>
-<a id="script-compilation-circuit-breaker"></a>Script compilation circuit breaker<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/circuit_breaker.asciidoc">edit</a>
+<a id="script-compilation-circuit-breaker"></a>
+脚本编译熔断器 (Script compilation circuit breaker)
+<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/circuit_breaker.asciidoc">edit</a>
 </h4>
 <p>
-Slightly different than the previous memory-based circuit breaker, the script compilation circuit breaker limits the number of inline script compilations within a period of time.
+与以前的基于内存的熔断器略有不同，脚本编译熔断器限制了一段时间内的内联脚本编译数量。
 </p>
 <p>
-See the "prefer-parameters" section of the <a class="xref" href="modules-scripting-using.html" title="How to use scripts">scripting</a> documentation for more information.
+更多信息请参考文档 <a class="xref" href="modules-scripting-using.html" title="How to use scripts">脚本(scripting)</a> 的 "首选参数 (prefer-parameters)" 部分。
 </p>
 <div class="variablelist">
 <dl class="variablelist">
@@ -229,7 +247,7 @@ See the "prefer-parameters" section of the <a class="xref" href="modules-scripti
 </span>
 </dt>
 <dd>
-Limit for the number of unique dynamic scripts within a certain interval that are allowed to be compiled. Defaults to 75/5m, meaning 75 every 5 minutes.
+在一定时间间隔内允许编译的唯一动态脚本的数量限制。默认为 75 / 5m，即每 5 分钟 75 个。
 </dd>
 </dl>
 </div>

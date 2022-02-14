@@ -128,8 +128,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "circuit-breaker.html",
-                        "text": "熔断机制设置",
-                        "title": "Circuit breaker settings"
+                        "text": "熔断设置",
+                        "title": "熔断设置"
                     },
                     {
                         "url": "modules-cluster.html",

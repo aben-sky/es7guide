@@ -124,7 +124,7 @@ var esNavLinks = [
                     {
                         "url": "auditing-settings.html",
                         "text": "审计设置",
-                        "title": "Auditing settings"
+                        "title": "审计设置"
                     },
                     {
                         "url": "circuit-breaker.html",

@@ -134,7 +134,7 @@ var esNavLinks = [
                     {
                         "url": "modules-cluster.html",
                         "text": "集群级分片分配和路由设置",
-                        "title": "Cluster-level shard allocation and routing settings"
+                        "title": "集群级分片分配和路由设置"
                     },
                     {
                         "url": "ccr-settings.html",

@@ -54,51 +54,51 @@ will be released for this version. For the latest information, see the
 <div class="titlepage"><div><div>
 <h2 class="title">
 <a id="modules-cluster"></a>
-集群级分片分配和路由设置
+集群级分片分配和路由设置 (Cluster-level shard allocation and routing settings)
 </h2>
 </div></div></div>
 <p>
-<em>Shard allocation</em> is the process of allocating shards to nodes.
+<em>分片分配 (shard allocation)</em> 是分配分片到节点的过程。
 
-This can happen during initial recovery, replica allocation, rebalancing, or when nodes are added or removed.
+这可能在 初始化恢复(initial recovery)、副本分配(replica allocation)、再平衡(rebalancing)，或 添加/删除节点时发生。
 </p>
 <p>
-One of the main roles of the master is to decide which shards to allocate to which nodes, and when to move shards between nodes in order to rebalance the cluster.
+主节点的主要角色之一是决定将哪些分片分配到哪个节点，以及何时在节点之间移动分片，以再平衡集群。
 </p>
 <p>
-There are a number of settings available to control the shard allocation process:
+有许多可用于控制分片分配过程的设置：
 </p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<a class="xref" href="modules-cluster.html#cluster-shard-allocation-settings" title="Cluster-level shard allocation settings">Cluster-level shard allocation settings</a> control allocation and rebalancing operations.
+<a class="xref" href="modules-cluster.html#cluster-shard-allocation-settings" title="Cluster-level shard allocation settings">集群级(cluster-level)分片分配设置</a> 控制分配和再平衡操作。
 </li>
 <li class="listitem">
-<a class="xref" href="modules-cluster.html#disk-based-shard-allocation" title="Disk-based shard allocation settings">Disk-based shard allocation settings</a> explains how Elasticsearch takes available disk space into account, and the related settings.
+<a class="xref" href="modules-cluster.html#disk-based-shard-allocation" title="Disk-based shard allocation settings">基于磁盘(disk-based)的分片分配设置</a> 解释 Elasticsearch 如何根据可用磁盘空间来分配分片以及相关设置。
 </li>
 <li class="listitem">
-<a class="xref" href="modules-cluster.html#shard-allocation-awareness" title="Shard allocation awareness">Shard allocation awareness</a> and <a class="xref" href="modules-cluster.html#forced-awareness" title="Forced awareness">Forced awareness</a> control how shards can be distributed across different racks or availability zones.
+<a class="xref" href="modules-cluster.html#shard-allocation-awareness" title="Shard allocation awareness">分片分配感知 (shard allocation awareness)</a> 和 <a class="xref" href="modules-cluster.html#forced-awareness" title="Forced awareness">强制感知 (forced awareness)</a> 控制如何在不同的机架或可用区域之间分发分片。
 </li>
 <li class="listitem">
-<a class="xref" href="modules-cluster.html#cluster-shard-allocation-filtering" title="Cluster-level shard allocation filtering">Cluster-level shard allocation filtering</a> allows certain nodes or groups of nodes excluded from allocation so that they can be decommissioned.
+<a class="xref" href="modules-cluster.html#cluster-shard-allocation-filtering" title="Cluster-level shard allocation filtering">集群级(cluster-level)分片分配 过滤 (filtering)</a> 允许某些节点或一组节点被排除在分配之外，以便它们可以被关闭。
 </li>
 </ul>
 </div>
 <p>
-Besides these, there are a few other <a class="xref" href="modules-cluster.html#misc-cluster-settings" title="Miscellaneous cluster settings">miscellaneous cluster-level settings</a>.
+除此之外，还有其他一些<a class="xref" href="modules-cluster.html#misc-cluster-settings" title="Miscellaneous cluster settings">其他的集群级设置</a>。
 </p>
 <p>
-All of these settings are <em>dynamic</em> and can be updated on a live cluster with the <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">cluster-update-settings</a> API.
+这些设置都是<em>动态的 (dynamic)</em>，而且可以使用 <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">集群更新设置</a> API 在运行中的集群上更新。
 </p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
 <a id="cluster-shard-allocation-settings"></a>
-Cluster-level shard allocation settings
+集群级(cluster-level)分片分配设置
 </h3>
 </div></div></div>
 <p>
-The following <em>dynamic</em> settings may be used to control shard allocation and recovery:
+以下 <em>动态的 (dynamic)</em> 设置可以用来控制分片分配和恢复：
 </p>
 <div class="variablelist">
 <a id="cluster-routing-allocation-enable"></a>
@@ -110,28 +110,28 @@ The following <em>dynamic</em> settings may be used to control shard allocation 
 </dt>
 <dd>
 <p>
-Enable or disable allocation for specific kinds of shards:
+启用或禁用对特定类型的分片的分配：
 </p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">all</code> -             (default) Allows shard allocation for all kinds of shards.
+<code class="literal">all</code> -             (默认) 允许所有类型的分片进行分片分配。
 </li>
 <li class="listitem">
-<code class="literal">primaries</code> -       Allows shard allocation only for primary shards.
+<code class="literal">primaries</code> -       仅允许主分片进行分片分配。
 </li>
 <li class="listitem">
-<code class="literal">new_primaries</code> -   Allows shard allocation only for primary shards for new indices.
+<code class="literal">new_primaries</code> -   仅允许新索引的主分片进行分片分配。
 </li>
 <li class="listitem">
-<code class="literal">none</code> -            No shard allocations of any kind are allowed for any indices.
+<code class="literal">none</code> -            不允许任何索引进行任何类型的分片分配。
 </li>
 </ul>
 </div>
 <p>
-This setting does not affect the recovery of local primary shards when restarting a node.
+这个设置不影响重启一个节点时本地主分片的恢复。
 
-A restarted node that has a copy of an unassigned primary shard will recover that primary immediately, assuming that its allocation id matches one of the active allocation ids in the cluster state.
+具有未分配主分片副本的节点重启后，如果其分配 id 与群集状态下的活动的分配 id 之一匹配，则将立即恢复该主分片。
 </p>
 </dd>
 <dt>
@@ -140,9 +140,9 @@ A restarted node that has a copy of an unassigned primary shard will recover tha
 </span>
 </dt>
 <dd>
-How many concurrent incoming shard recoveries are allowed to happen on a node.
+一个节点上允许并发的 传入分片(incoming shard) 恢复的个数。
 
-Incoming recoveries are the recoveries where the target shard (most likely the replica unless a shard is relocating) is allocated on the node. Defaults to <code class="literal">2</code>.
+传入恢复(incoming recovery) 是在节点上分配目标分片(很可能是副本，除非分片被重新定位)的恢复。默认为 <code class="literal">2</code>。
 </dd>
 <dt>
 <span class="term">
@@ -150,9 +150,9 @@ Incoming recoveries are the recoveries where the target shard (most likely the r
 </span>
 </dt>
 <dd>
-How many concurrent outgoing shard recoveries are allowed to happen on a node.
+一个节点上允许并发的 传出分片(outgoing shard) 恢复的个数。  
 
-Outgoing recoveries are the recoveries where the source shard (most likely the primary unless a shard is relocating) is allocated on the node. Defaults to <code class="literal">2</code>.
+传出恢复(outgoing recovery)是在节点上分配源分片(很可能是主分片，除非分片被重新定位)的恢复。默认为 <code class="literal">2</code>。
 </dd>
 <dt>
 <span class="term">
@@ -160,7 +160,7 @@ Outgoing recoveries are the recoveries where the source shard (most likely the p
 </span>
 </dt>
 <dd>
-A shortcut to set both <code class="literal">cluster.routing.allocation.node_concurrent_incoming_recoveries</code> and <code class="literal">cluster.routing.allocation.node_concurrent_outgoing_recoveries</code>.
+同时设置<code class="literal">cluster.routing.allocation.node_concurrent_incoming_recoveries</code> 和 <code class="literal">cluster.routing.allocation.node_concurrent_outgoing_recoveries</code>的快捷方式。
 </dd>
 <dt>
 <span class="term">
@@ -168,9 +168,9 @@ A shortcut to set both <code class="literal">cluster.routing.allocation.node_con
 </span>
 </dt>
 <dd>
-While the recovery of replicas happens over the network, the recovery of an unassigned primary after node restart uses data from the local disk.
+虽然副本的恢复发生在网络上，但是节点重启后恢复未分配的主节点时使用的是本地磁盘中的数据。
 
-These should be fast so more initial primary recoveries can happen in parallel on the same node. Defaults to <code class="literal">4</code>.
+这些恢复应该很快，这样就可以在同一个节点上并行地进行更多的初始主分片恢复。默认为<code class="literal">4</code>。
 </dd>
 <dt>
 <span class="term">
@@ -178,11 +178,11 @@ These should be fast so more initial primary recoveries can happen in parallel o
 </span>
 </dt>
 <dd>
-Allows to perform a check to prevent allocation of multiple instances of the same shard on a single host, based on host name and host address.
+允许根据主机名和主机地址执行检查，以防止在单个主机上分配同一分片的多个实例。
 
-Defaults to <code class="literal">false</code>, meaning that no check is performed by default.
+默认为 <code class="literal">false</code>，即不执行检查。
 
-This setting only applies if multiple nodes are started on the same machine.
+这个设置仅适用于在同一台机器上启动了多个节点。
 </dd>
 </dl>
 </div>
@@ -192,11 +192,11 @@ This setting only applies if multiple nodes are started on the same machine.
 <div class="titlepage"><div><div>
 <h3 class="title">
 <a id="shards-rebalancing-settings"></a>
-Shard rebalancing settings
+分片再平衡设置
 </h3>
 </div></div></div>
 <p>
-The following <em>dynamic</em> settings may be used to control the rebalancing of shards across the cluster:
+以下 <em>动态的 (dynamic)</em> 设置可以用于控制跨集群的分片的再平衡：
 </p>
 <div class="variablelist">
 <dl class="variablelist">
@@ -207,21 +207,21 @@ The following <em>dynamic</em> settings may be used to control the rebalancing o
 </dt>
 <dd>
 <p>
-Enable or disable rebalancing for specific kinds of shards:
+启用或禁用对特定类型的分片的再平衡：
 </p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">all</code> -         (default) Allows shard balancing for all kinds of shards.
+<code class="literal">all</code> -         (默认)  允许所有类型的分片进行分片再平衡
 </li>
 <li class="listitem">
-<code class="literal">primaries</code> -   Allows shard balancing only for primary shards.
+<code class="literal">primaries</code> -   仅允许主分片进行分片再平衡
 </li>
 <li class="listitem">
-<code class="literal">replicas</code> -    Allows shard balancing only for replica shards.
+<code class="literal">replicas</code> -    仅允许副本分片进行分片再平衡
 </li>
 <li class="listitem">
-<code class="literal">none</code> -        No shard balancing of any kind are allowed for any indices.
+<code class="literal">none</code> -        不允许任何索引进行任何类型的分片平衡。
 </li>
 </ul>
 </div>
@@ -233,18 +233,18 @@ Enable or disable rebalancing for specific kinds of shards:
 </dt>
 <dd>
 <p>
-Specify when shard rebalancing is allowed:
+指定什么时候允许分片再平衡：
 </p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">always</code> -                    Always allow rebalancing.
+<code class="literal">always</code> -                    总是允许再平衡
 </li>
 <li class="listitem">
-<code class="literal">indices_primaries_active</code> -  Only when all primaries in the cluster are allocated.
+<code class="literal">indices_primaries_active</code> -  仅当集群中的所有主分片已分配
 </li>
 <li class="listitem">
-<code class="literal">indices_all_active</code> -        (default) Only when all shards (primaries and replicas) in the cluster are allocated.
+<code class="literal">indices_all_active</code> -        (默认) 仅当集群中的所有分片(主和副本)已分配
 </li>
 </ul>
 </div>
@@ -255,11 +255,11 @@ Specify when shard rebalancing is allowed:
 </span>
 </dt>
 <dd>
-Allow to control how many concurrent shard rebalances are allowed cluster wide. Defaults to <code class="literal">2</code>.
+允许控制集群范围内允许多少个并发的分片再平衡。默认为 <code class="literal">2</code>。
 
-Note that this setting only controls the number of concurrent shard relocations due to imbalances in the cluster.
+请注意，此设置仅控制由于集群不平衡而导致的并发分片重定位的数量。
 
-This setting does not limit shard relocations due to <a class="xref" href="modules-cluster.html#cluster-shard-allocation-filtering" title="Cluster-level shard allocation filtering">allocation filtering</a> or <a class="xref" href="modules-cluster.html#forced-awareness" title="Forced awareness">forced awareness</a>.
+此设置不会限制由于 <a class="xref" href="modules-cluster.html#cluster-shard-allocation-filtering" title="Cluster-level shard allocation filtering">分配过滤 (allocation filtering)</a> 或 <a class="xref" href="modules-cluster.html#forced-awareness" title="Forced awareness">强制感知 (forced awareness)</a> 而导致的分片重新定位。
 </dd>
 </dl>
 </div>
@@ -269,12 +269,13 @@ This setting does not limit shard relocations due to <a class="xref" href="modul
 <div class="titlepage"><div><div>
 <h3 class="title">
 <a id="shards-rebalancing-heuristics"></a>
-Shard balancing heuristics settings
+分片平衡启发式设置 (shard balancing heuristics settings)
 </h3>
 </div></div></div>
 <p>
-The following settings are used together to determine where to place each
-shard.
+下面的设置一起用于确定每个分片的放置位置。
+
+当任何允许的再平衡操作都不能使任何节点的权重(weight) 与 任何其他节点的权重 之差距小于 <code class="literal">balance.threshold</code> 时，集群就是平衡的。
 
 The cluster is balanced when no allowed rebalancing operation can bring the weight of any node closer to the weight of any other node by more than the <code class="literal">balance.threshold</code>.
 </p>

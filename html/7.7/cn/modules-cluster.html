@@ -275,9 +275,7 @@ will be released for this version. For the latest information, see the
 <p>
 下面的设置一起用于确定每个分片的放置位置。
 
-当任何允许的再平衡操作都不能使任何节点的权重(weight) 与 任何其他节点的权重 之差距小于 <code class="literal">balance.threshold</code> 时，集群就是平衡的。
-
-The cluster is balanced when no allowed rebalancing operation can bring the weight of any node closer to the weight of any other node by more than the <code class="literal">balance.threshold</code>.
+当任何允许的再平衡操作都不能使任何节点的权重(weight) 与 任何其他节点的权重 之间的密切性比 <code class="literal">balance.threshold</code> 更接近时，集群就是平衡的<span style="color:#666; font-size:80%;">(原文: The cluster is balanced when no allowed rebalancing operation can bring the weight of any node closer to the weight of any other node by more than the balance.threshold.)</span>。
 </p>
 <div class="variablelist">
 <dl class="variablelist">
@@ -287,11 +285,9 @@ The cluster is balanced when no allowed rebalancing operation can bring the weig
 </span>
 </dt>
 <dd>
-Defines the weight factor for the total number of shards allocated on a node (float).
+定义节点上分配的分片总数的权重(weight)因子(浮点型)。默认为 <code class="literal">0.45f</code>。
 
-Defaults to <code class="literal">0.45f</code>.
-
-Raising this raises the tendency to equalize the number of shards across all nodes in the cluster.
+提高这个值会增加集群中所有节点之间分片数量均衡的趋势。
 </dd>
 <dt>
 <span class="term">
@@ -299,11 +295,9 @@ Raising this raises the tendency to equalize the number of shards across all nod
 </span>
 </dt>
 <dd>
-Defines the weight factor for the number of shards per index allocated on a specific node (float).
+定义在特定节点上分配的每个索引的分片数的权重因子(浮点型)。默认为 <code class="literal">0.55f</code>。
 
-Defaults to <code class="literal">0.55f</code>.
-
-Raising this raises the tendency to equalize the number of shards per index across all nodes in the cluster.
+提高这个值会使集群中所有节点的每个索引的分片数量更加趋于均衡。
 </dd>
 <dt>
 <span class="term">
@@ -311,11 +305,9 @@ Raising this raises the tendency to equalize the number of shards per index acro
 </span>
 </dt>
 <dd>
-Minimal optimization value of operations that should be performed (non negative float).
+应该执行的最小优化值(非负浮点数)。默认为 <code class="literal">1.0f</code>。
 
-Defaults to <code class="literal">1.0f</code>.
-
-Raising this will cause the cluster to be less aggressive about optimizing the shard balance.
+提高该值将导致集群在优化分片平衡方面不那么积极。
 </dd>
 </dl>
 </div>
@@ -323,7 +315,7 @@ Raising this will cause the cluster to be less aggressive about optimizing the s
 <div class="icon"></div>
 <div class="admon_content">
 <p>
-Regardless of the result of the balancing algorithm, rebalancing might not be allowed due to forced awareness or allocation filtering.
+不管平衡算法的结果如何，强制感知(forced awareness) 或 分配过滤(allocation filtering) 可能会导致不允许重新平衡。
 </p>
 </div>
 </div>
@@ -333,14 +325,14 @@ Regardless of the result of the balancing algorithm, rebalancing might not be al
 <div class="titlepage"><div><div>
 <h3 class="title">
 <a id="disk-based-shard-allocation"></a>
-Disk-based shard allocation settings
+基于磁盘的分片分配设置 (Disk-based shard allocation settings)
 </h3>
 </div></div></div>
 <p>
-Elasticsearch considers the available disk space on a node before deciding whether to allocate new shards to that node or to actively relocate shards away from that node.
+Elasticsearch 会考量节点上的可用磁盘空间，然后决定是向该节点分配新的分片，还是主动将分片从该节点移走。
 </p>
 <p>
-Below are the settings that can be configured in the <code class="literal">elasticsearch.yml</code> config file or updated dynamically on a live cluster with the <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">cluster-update-settings</a> API:
+以下是可以在配置文件 <code class="literal">elasticsearch.yml</code> 中配置的设置，或者使用 <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">集群更新设置</a> API 在实时集群上动态更新的设置：
 </p>
 <div class="variablelist">
 <dl class="variablelist">
@@ -350,9 +342,7 @@ Below are the settings that can be configured in the <code class="literal">elast
 </span>
 </dt>
 <dd>
-Defaults to <code class="literal">true</code>.
-
-Set to <code class="literal">false</code> to disable the disk allocation decider.
+默认为 <code class="literal">true</code>。设置为 <code class="literal">false</code> 将禁用磁盘分配决策器。
 </dd>
 <dt>
 <span class="term">
@@ -360,13 +350,11 @@ Set to <code class="literal">false</code> to disable the disk allocation decider
 </span>
 </dt>
 <dd>
-Controls the low watermark for disk usage.
+控制磁盘使用的 低 水位线(watermark)。默认为 <code class="literal">85%</code>，表示 Elasticsearch 不会给磁盘使用率超过 85% 的节点分配分片。
 
-It defaults to <code class="literal">85%</code>, meaning that Elasticsearch will not allocate shards to nodes that have more than 85% disk used.
+也可以将其设置为绝对字节值(如<code class="literal">500mb</code>)，以防止Elasticsearch 在可用空间少于指定的值时分配分片。
 
-It can also be set to an absolute byte value (like <code class="literal">500mb</code>) to prevent Elasticsearch from allocating shards if less than the specified amount of space is available.
-
-This setting has no effect on the primary shards of newly-created indices but will prevent their replicas from being allocated.
+该设置对新创建的索引的主分片没有影响，但会阻止它们的副本的分配。
 </dd>
 <dt>
 <span class="term">
@@ -374,13 +362,11 @@ This setting has no effect on the primary shards of newly-created indices but wi
 </span>
 </dt>
 <dd>
-Controls the high watermark.
+控制磁盘使用的 高 水位线(watermark)。默认为 <code class="literal">90%</code>，表示 Elasticsearch 将尝试从磁盘使用率超过 90% 的节点上移走分片。
 
-It defaults to <code class="literal">90%</code>, meaning that Elasticsearch will attempt to relocate shards away from a node whose disk usage is above 90%.
+也可以将其设置为绝对字节值(类似于低水位线)，以便在节点的可用空间少于指定的值时将分片从该节点移走并重新定位。
 
-It can also be set to an absolute byte value (similarly to the low watermark) to relocate shards away from a node if it has less than the specified amount of free space.
-
-This setting affects the allocation of all shards, whether previously allocated or not.
+这个设置影响所有分片的分配，无论之前是否已分配。
 </dd>
 </dl>
 </div>
@@ -394,28 +380,28 @@ This setting affects the allocation of all shards, whether previously allocated 
 </dt>
 <dd>
 <p>
-Controls the flood stage watermark, which defaults to 95%.
+控制洪水位水位线，默认为 95%。
 
-Elasticsearch enforces a read-only index block (<code class="literal">index.blocks.read_only_allow_delete</code>) on every index that has one or more shards allocated on the node, and that has at least one disk exceeding the flood stage.
+Elasticsearch 在每个索引上强制执行一个只读索引块(<code class="literal">index.blocks.read_only_allow_delete</code>)，该索引块在节点上分配了一个或多个分片，并且至少有一个磁盘超过了洪水位。
 
-This setting is a last resort to prevent nodes from running out of disk space.
+此设置是防止节点磁盘空间耗尽的最后手段。
 
-The index block is automatically released when the disk utilization falls below the high watermark.
+当磁盘使用率低于高水位线时，索引块会自动释放。
 </p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
 <p>
-You cannot mix the usage of percentage values and byte values within these settings.
+在这些设置中，不能混合使用百分比值和字节值。
 
-Either all values are set to percentage values, or all are set to byte values.
+要么所有值都设置为百分比值，要么所有值都设置为字节值。
 
-This enforcement is so that Elasticsearch can validate that the settings are internally consistent, ensuring that the low disk threshold is less than the high disk threshold, and the high disk threshold is less than the flood stage threshold.
+这样做是为了让 Elasticsearch 可以验证设置在内部是一致的，确保低磁盘阈值小于高磁盘阈值，高磁盘阈值小于洪水位阈值。
 </p>
 </div>
 </div>
 <p>
-An example of resetting the read-only index block on the <code class="literal">twitter</code> index:
+重置索引<code class="literal">twitter</code>上的只读索引块的示例：
 </p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /twitter/_settings
@@ -431,9 +417,7 @@ An example of resetting the read-only index block on the <code class="literal">t
 </span>
 </dt>
 <dd>
-How often Elasticsearch should check on disk usage for each node in the cluster.
-
-Defaults to <code class="literal">30s</code>.
+Elasticsearch 应该多久检查一次集群中每个节点的磁盘使用情况。默认 <code class="literal">30s</code>。
 </dd>
 <dt>
 <span class="term">
@@ -444,12 +428,12 @@ Defaults to <code class="literal">30s</code>.
 <span class="Admonishment Admonishment--change">
 [<span class="Admonishment-version u-mono u-strikethrough">7.5.0</span>]
 <span class="Admonishment-detail">
-Deprecated in 7.5.0. Future versions will always account for relocations.
+在 7.5.0 版本中废弃。未来的版本将始终考虑 重定位(relocations)。  
 </span>
 </span>
-Defaults to <code class="literal">true</code>, which means that Elasticsearch will take into account shards that are currently being relocated to the target node when computing a node’s disk usage.
+默认为 <code class="literal">true</code>，这意味着在计算节点的磁盘使用量时，Elasticsearch 会将当前重定位到目标节点的分片考虑在内。
 
-Taking relocating shards' sizes into account may, however, mean that the disk usage for a node is incorrectly estimated on the high side, since the relocation could be 90% complete and a recently retrieved disk usage would include the total size of the relocating shard as well as the space already used by the running relocation.
+然而，考虑重定位分片的大小，可能意味着节点的磁盘使用量被错误地估计为偏高，因为重定位可能完成了90%，而最近检索的磁盘使用量会包括重定位分片的总大小以及正在运行的重定位已经使用的空间。
 </dd>
 </dl>
 </div>
@@ -457,16 +441,16 @@ Taking relocating shards' sizes into account may, however, mean that the disk us
 <div class="icon"></div>
 <div class="admon_content">
 <p>
-Percentage values refer to used disk space, while byte values refer to free disk space.
+百分比值是指已用磁盘空间，而字节值是指可用磁盘空间。
 
-This can be confusing, since it flips the meaning of high and low.
+这可能会令人困惑，因为它颠倒了高和低的含义。
 
-For example, it makes sense to set the low watermark to 10gb and the high watermark to 5gb, but not the other way around.
+例如，将低水位设置为 10gb，高水位设置为 5gb 是有意义的，但反过来则不行。
 </p>
 </div>
 </div>
 <p>
-An example of updating the low watermark to at least 100 gigabytes free, a high watermark of at least 50 gigabytes free, and a flood stage watermark of 10 gigabytes free, and updating the information about the cluster every minute:
+下面的例子, 将低水位线更新为至少 100gb 字节可用空间，高水位线更新为至少 50gb 字节可用空间，洪水位水位线更新为 10gb 字节可用空间，并每分钟更新一次集群的信息:
 </p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT _cluster/settings
@@ -486,37 +470,36 @@ An example of updating the low watermark to at least 100 gigabytes free, a high 
 <div class="titlepage"><div><div>
 <h3 class="title">
 <a id="shard-allocation-awareness"></a>
-Shard allocation awareness
+分片分配感知 (shard allocation awareness)
 </h3>
 </div></div></div>
 <p>
-You can use custom node attributes as <em>awareness attributes</em> to enable Elasticsearch to take your physical hardware configuration into account when allocating shards.
+您可以使用自定义节点属性作为<em>感知属性(awareness attributes)</em>，使Elasticsearch 在分配分片时考虑物理硬件配置。
 
-If Elasticsearch knows which nodes are on the same physical server, in the same rack, or in the same zone, it can distribute the primary shard and its replica shards to minimise the risk of losing all shard copies in the event of a failure.
+如果 Elasticsearch 知道哪些节点在同一个物理服务器上、在同一个机架上，或者在同一个区域中，它可以分发主分片及其副本分片，以最大限度地降低故障时丢失所有分片副本的风险。
 </p>
 <p>
-When shard allocation awareness is enabled with the <code class="literal">cluster.routing.allocation.awareness.attributes</code> setting, shards are only allocated to nodes that have values set for the specified awareness
-attributes.
+当使用<code class="literal">cluster.routing.allocation.awareness.attributes</code>设置启用分片分配感知时，分片仅分配给具有为指定感知属性设置的值的节点。
 
-If you use multiple awareness attributes, Elasticsearch considers each attribute separately when allocating shards.
+如果使用了多个感知属性，Elasticsearch 在分配分片时会单独考虑每个属性。
 </p>
 <p>
-The allocation awareness settings can be configured in <code class="literal">elasticsearch.yml</code> and updated dynamically with the <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">cluster-update-settings</a> API.
+分配感知设置可以在<code class="literal">elasticsearch.yml</code>中配置，也可以使用<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">集群更新设置</a> API动态更新。
 </p>
 <p>
-By default Elasticsearch uses <a class="xref" href="search.html#search-adaptive-replica" title="Adaptive Replica Selection">adaptive replica selection</a> to route search or GET requests.
+默认情况下，Elasticsearch 使用 <a class="xref" href="search.html#search-adaptive-replica" title="Adaptive Replica Selection">自适应副本选择(adaptive replica selection)</a> 来路由搜索或 GET 请求。
 
-However, with the presence of allocation awareness attributes Elasticsearch will prefer using shards in the same location (with the same awareness attribute values) to process these requests.
+然而，由于分配感知属性的存在，Elasticsearch 将更倾向于使用相同位置的分片(具有相同的感知属性值)来处理这些请求。
 
-This behavior can be disabled by specifying <code class="literal">export ES_JAVA_OPTS="$ES_JAVA_OPTS -Des.search.ignore_awareness_attributes=true"</code> system property on every node that is part of the cluster.
+要禁用此行为，可以在集群的每个节点上指定系统属性<code class="literal">export ES_JAVA_OPTS="$ES_JAVA_OPTS -Des.search.ignore_awareness_attributes=true"</code>。
 </p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
 <p>
-The number of attribute values determines how many shard copies are allocated in each location.
+属性值的数量决定了在每个位置分配多少个分片的副本。
 
-If the number of nodes in each location is unbalanced and there are a lot of replicas, replica shards might be left unassigned.
+如果每个位置的节点数量不均衡，且有大量副本，则副本分片可能会保持未分配状态。
 </p>
 </div>
 </div>
@@ -524,25 +507,25 @@ If the number of nodes in each location is unbalanced and there are a lot of rep
 <div class="titlepage"><div><div>
 <h4 class="title">
 <a id="enabling-awareness"></a>
-Enabling shard allocation awareness
+启用分片分配感知
 </h4>
 </div></div></div>
 <p>
-To enable shard allocation awareness:
+要启用分片分配感知:
 </p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
 <p>
-Specify the location of each node with a custom node attribute.
+使用自定义节点属性指定每个节点的位置。
 
-For example, if you want Elasticsearch to distribute shards across different racks, you might set an awareness attribute called <code class="literal">rack_id</code> in each node’s <code class="literal">elasticsearch.yml</code>config file.
+例如，如果希望 Elasticsearch 将分片分布在不同的机架上，可以在每个节点的配置文件 <code class="literal">elasticsearch.yml</code> 中设置一个名为<code class="literal">rack_id</code>的感知属性。
 </p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">node.attr.rack_id: rack_one</pre>
 </div>
 <p>
-You can also set custom attributes when you start a node:
+还可以在启动节点时设置自定义属性:
 </p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">`./bin/elasticsearch -Enode.attr.rack_id=rack_one`</pre>
@@ -550,7 +533,7 @@ You can also set custom attributes when you start a node:
 </li>
 <li class="listitem">
 <p>
-Tell Elasticsearch to take one or more awareness attributes into account when allocating shards by setting <code class="literal">cluster.routing.allocation.awareness.attributes</code> in <span class="strong strong"><strong>every</strong></span> master-eligible node’s <code class="literal">elasticsearch.yml</code> config file.
+通过在<span class="strong strong"><strong>每个</strong></span>符合主节点条件的节点的配置文件 <code class="literal">elasticsearch.yml</code> 中设置<code class="literal">cluster.routing.allocation.awareness.attributes</code>，告诉 Elasticsearch 在分配分片时考虑一个或多个感知属性。
 </p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">cluster.routing.allocation.awareness.attributes: rack_id <a id="CO7-1"></a><i class="conum" data-value="1"></i></pre>
@@ -563,29 +546,28 @@ Tell Elasticsearch to take one or more awareness attributes into account when al
 </td>
 <td align="left" valign="top">
 <p>
-Specify multiple attributes as a comma-separated list.
+以逗号分隔的列表形式指定多个属性。
 </p>
 </td>
 </tr>
 </table>
 </div>
 <p>
-You can also use the <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">cluster-update-settings</a> API to set or update a cluster’s awareness attributes.
+还可以使用 <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">集群更新设置</a> API来设置或更新集群的感知属性。
 </p>
 </li>
 </ol>
 </div>
 <p>
-With this example configuration, if you start two nodes with
-<code class="literal">node.attr.rack_id</code> set to <code class="literal">rack_one</code> and create an index with 5 primary shards and 1 replica of each primary, all primaries and replicas are allocated across the two nodes.
+在此示例配置中，如果启动两个节点且将 <code class="literal">node.attr.rack_id</code> 设置为 <code class="literal">rack_one</code> <span style="color:#666;font-size:80%;">(机架1)</span>，并创建一个包含 5 个主分片和每个主分片 1 个副本的索引，则所有主分片和副本都将在这两个节点之间分配。
 </p>
 <p>
-If you add two nodes with <code class="literal">node.attr.rack_id</code> set to <code class="literal">rack_two</code>, Elasticsearch moves shards to the new nodes, ensuring (if possible) that no two copies of the same shard are in the same rack.
+如果在 <code class="literal">node.attr.rack_id</code> 设置为 <code class="literal">rack_two</code><span style="color:#666;font-size:80%;">(机架2)</span> 的情况下添加两个节点，Elasticsearch 会将分片移动到新节点，确保(如果可能的话)没有同一个分片的两个副本都在同一个机架中。
 </p>
 <p>
-If <code class="literal">rack_two</code> fails and takes down both its nodes, by default Elasticsearch allocates the lost shard copies to nodes in <code class="literal">rack_one</code>.
+如果 <code class="literal">rack_two</code><span style="color:#666;font-size:80%;">(机架2)</span> 出现故障并关闭了它的两个节点，默认情况下，Elasticsearch 会将丢失的分片副本分配给 <code class="literal">rack_one</code> <span style="color:#666;font-size:80%;">(机架1)</span> 上的节点。
 
-To prevent multiple copies of a particular shard from being allocated in the same location, you can enable forced awareness.
+为了防止在同一位置分配特定分片的多个副本，可以启用 <em>强制感知 (forced awareness)</em>。
 </p>
 </div>
 

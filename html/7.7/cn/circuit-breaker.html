@@ -55,7 +55,6 @@ will be released for this version. For the latest information, see the
 <h2 class="title">
 <a id="circuit-breaker"></a>
 熔断机制设置 （Circuit breaker settings）
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/circuit_breaker.asciidoc">edit</a>
 </h2>
 </div></div></div>
 <p>
@@ -71,7 +70,6 @@ ElasticSearch包含多个 熔断器(circuit breaker)，用于防止操作引起�
 <h4>
 <a id="parent-circuit-breaker"></a>
 父级熔断器 (Parent circuit breaker)
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/circuit_breaker.asciidoc">edit</a>
 </h4>
 <p>
 父级熔断器可以通过以下设置进行配置：
@@ -103,7 +101,6 @@ ElasticSearch包含多个 熔断器(circuit breaker)，用于防止操作引起�
 <h4>
 <a id="fielddata-circuit-breaker"></a>
 字段数据熔断器 (Field data circuit breaker)
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/circuit_breaker.asciidoc">edit</a>
 </h4>
 <p>
 字段数据熔断器允许 Elasticsearch 预估一个字段加载到内存中需要的内存大小。
@@ -137,7 +134,6 @@ ElasticSearch包含多个 熔断器(circuit breaker)，用于防止操作引起�
 <h4>
 <a id="request-circuit-breaker"></a>
 请求熔断器 (Request circuit breaker)
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/circuit_breaker.asciidoc">edit</a>
 </h4>
 <p>
 请求熔断器允许 Elasticsearch 防止每个请求的数据结构(例如，请求期间用于聚合计算的内存)超过一定的内存量。
@@ -165,7 +161,6 @@ ElasticSearch包含多个 熔断器(circuit breaker)，用于防止操作引起�
 <h4>
 <a id="in-flight-circuit-breaker"></a>
 请求队列熔断器 (In flight requests circuit breaker)
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/circuit_breaker.asciidoc">edit</a>
 </h4>
 <p>
 <span style="color:#666; font-size:80%;">译者注: In flight requests, 是 client 的请求队列, 包括正在发送的请求和已经发送的但还没有接收到response的请求</span><br/>
@@ -201,7 +196,6 @@ ElasticSearch包含多个 熔断器(circuit breaker)，用于防止操作引起�
 <h4>
 <a id="accounting-circuit-breaker"></a>
 核算请求熔断器 (Accounting requests circuit breaker)
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/circuit_breaker.asciidoc">edit</a>
 </h4>
 <p>
 核算请求熔断器允许 Elasticsearch 限制保存在内存中的东西的内存使用，这些东西在请求完成时不会被释放。
@@ -231,7 +225,6 @@ ElasticSearch包含多个 熔断器(circuit breaker)，用于防止操作引起�
 <h4>
 <a id="script-compilation-circuit-breaker"></a>
 脚本编译熔断器 (Script compilation circuit breaker)
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/circuit_breaker.asciidoc">edit</a>
 </h4>
 <p>
 与以前的基于内存的熔断器略有不同，脚本编译熔断器限制了一段时间内的内联脚本编译数量。

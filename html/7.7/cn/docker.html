@@ -55,7 +55,6 @@ will be released for this version. For the latest information, see the
 <h2 class="title">
 <a id="docker"></a>
 用Docker安装 Elasticsearch
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h2>
 </div></div></div>
 <p>
@@ -82,7 +81,6 @@ will be released for this version. For the latest information, see the
 <h3 class="title">
 <a id="_pulling_the_image"></a>
 拉取镜像
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h3>
 </div></div></div>
 <p>
@@ -103,7 +101,6 @@ will be released for this version. For the latest information, see the
 <h3 class="title">
 <a id="docker-cli-run-dev-mode"></a>
 用 Docker 启动一个单节点集群
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h3>
 </div></div></div>
 <p>
@@ -119,7 +116,6 @@ will be released for this version. For the latest information, see the
 <h3 class="title">
 <a id="docker-compose-file"></a>
 使用 Docker Compose 启动一个多节点集群
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h3>
 </div></div></div>
 <p>
@@ -275,7 +271,6 @@ Linux上的 Docker Compose 并未随 Docker 预装。
 <h4 class="title">
 <a id="next-getting-started-tls-docker"></a>
 启动一个多节点集群并开启 TLS 支持
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
 <p>
@@ -290,7 +285,6 @@ Linux上的 Docker Compose 并未随 Docker 预装。
 <h3 class="title">
 <a id="docker-prod-prerequisites"></a>
 在生产环境中使用 Docker 镜像
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h3>
 </div></div></div>
 <p>
@@ -301,7 +295,6 @@ Linux上的 Docker Compose 并未随 Docker 预装。
 <h4 class="title">
 <a id="_set_vm_max_map_count_to_at_least_262144"></a>
 <code class="literal">vm.max_map_count</code> 至少设置为 <code class="literal">262144</code>
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
 <p>
@@ -380,7 +373,6 @@ sudo sysctl -w vm.max_map_count=262144</pre>
 <h4 class="title">
 <a id="_configuration_files_must_be_readable_by_the_elasticsearch_user"></a>
 配置文件必须对用户<code class="literal">elasticsearch</code>可读
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
 <p>
@@ -423,7 +415,6 @@ chgrp 0 esdatadir</pre>
 <h4 class="title">
 <a id="_increase_ulimits_for_nofile_and_nproc"></a>
 给 nofile 和 nproc 增加 ulimits
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
 <p>
@@ -452,7 +443,6 @@ Elasticsearch 容器必须增加 <a class="xref" href="setting-system-settings.h
 <h4 class="title">
 <a id="_disable_swapping"></a>
 禁用 swapping
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
 <p>
@@ -474,7 +464,6 @@ Elasticsearch 容器必须增加 <a class="xref" href="setting-system-settings.h
 <h4 class="title">
 <a id="_randomize_published_ports"></a>
 随机化发布的端口 (Randomize published ports)
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
 <p>
@@ -489,7 +478,6 @@ Elasticsearch 容器必须增加 <a class="xref" href="setting-system-settings.h
 <h4 class="title">
 <a id="docker-set-heap-size"></a>
 设置堆内存大小(heap size)
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
 <p>
@@ -521,7 +509,6 @@ Elasticsearch 容器必须增加 <a class="xref" href="setting-system-settings.h
 <h4 class="title">
 <a id="_pin_deployments_to_a_specific_image_version"></a>
 将部署固定到指定版本的镜像
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
 <p>
@@ -535,7 +522,6 @@ Elasticsearch 容器必须增加 <a class="xref" href="setting-system-settings.h
 <h4 class="title">
 <a id="_always_bind_data_volumes"></a>
 总是绑定数据卷 (Always bind data volumes)
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
 <p>
@@ -561,7 +547,6 @@ Elasticsearch 对 I/O 敏感，而Docker存储器不能提供快速 I/O
 <h4 class="title">
 <a id="_avoid_using_loop_lvm_mode"></a>
 避免使用 <code class="literal">loop-lvm</code> 模式
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
 <p>
@@ -576,7 +561,6 @@ Elasticsearch 对 I/O 敏感，而Docker存储器不能提供快速 I/O
 <h4 class="title">
 <a id="_centralize_your_logs"></a>
 日志中心化
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
 <p>
@@ -592,7 +576,6 @@ Elasticsearch 对 I/O 敏感，而Docker存储器不能提供快速 I/O
 <h3 class="title">
 <a id="docker-configuration-methods"></a>
 使用 Docker 配置 Elasticsearch
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h3>
 </div></div></div>
 <p>
@@ -633,7 +616,6 @@ Elasticsearch 对 I/O 敏感，而Docker存储器不能提供快速 I/O
 <h4 class="title">
 <a id="docker-config-bind-mount"></a>
 挂载 Elasticsearch 配置文件
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
 <p>
@@ -660,7 +642,6 @@ Elasticsearch 对 I/O 敏感，而Docker存储器不能提供快速 I/O
 <h4 class="title">
 <a id="docker-keystore-bind-mount"></a>
 Mounting an Elasticsearch keystore
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
 <p>
@@ -683,7 +664,6 @@ Mounting an Elasticsearch keystore
 <h4 class="title">
 <a id="_c_customized_image"></a>
 使用自定义的 Docker 镜像
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/docker.asciidoc">edit</a>
 </h4>
 </div></div></div>
 <p>
@@ -729,7 +709,6 @@ docker run -ti -v /usr/share/elasticsearch/data elasticsearch-custom</pre>
 <h3 class="title">
 <a id="_next_steps_6"></a>
 下一步
-<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/next-steps.asciidoc">edit</a>
 </h3>
 </div></div></div>
 <p>

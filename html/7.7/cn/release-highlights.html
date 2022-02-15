@@ -49,7 +49,7 @@ will be released for this version. For the latest information, see the
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h1 class="title">
-<a id="release-highlights"></a>7.7版本的新特性<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/release-notes/highlights.asciidoc">edit</a>
+<a id="release-highlights"></a>7.7版本的新特性
 </h1>
 </div></div></div>
 <p>
@@ -66,7 +66,7 @@ will be released for this version. For the latest information, see the
 | <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/release-highlights-7.1.0.html" class="ulink" target="_top">7.1</a>
 | <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.0/release-highlights-7.0.0.html" class="ulink" target="_top">7.0</a></p>
 <h3>
-<a id="_fixed_index_corruption_on_shrunk_indices"></a>修复收缩索引时索引奔溃的问题<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/release-notes/highlights.asciidoc">edit</a>
+<a id="_fixed_index_corruption_on_shrunk_indices"></a>修复收缩索引时索引奔溃的问题
 </h3>
 <p>
 在索引 <em>收缩 (shrunk)</em> 后对其进行删除或更新操作可能会损坏索引。
@@ -80,7 +80,7 @@ will be released for this version. For the latest information, see the
 更详细的信息参考 <a href="https://issues.apache.org/jira/browse/LUCENE-9300" class="ulink" target="_top">相关问题</a>.
 </p>
 <h3>
-<a id="_significant_reduction_of_heap_usage_of_segments"></a>大大地减少段使用的堆内存<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/release-notes/highlights.asciidoc">edit</a>
+<a id="_significant_reduction_of_heap_usage_of_segments"></a>大大地减少段使用的堆内存
 </h3>
 <p>
 这个版本的 ElasticSearch 大大地减少了保持 Lucene 段打开所需的堆内存量。
@@ -88,7 +88,7 @@ will be released for this version. For the latest information, see the
 这除了有助于集群的稳定性，还有助于降低成本，因为在内存达到上限前，每个节点可以存储更多的数据。  
 </p>
 <h3>
-<a id="_transforms_now_in_ga"></a>转换 – 现在在正式版本中了!<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/release-notes/highlights.asciidoc">edit</a>
+<a id="_transforms_now_in_ga"></a>转换 – 现在在正式版本中了!
 </h3>
 <p>
 在 7.7 中，我们将<em>转换 (transforms)</em>从 beta 版本迁移到正式版本(GA， general availability)。
@@ -112,7 +112,7 @@ will be released for this version. For the latest information, see the
 我们也对 <a href="search-aggregations-bucket-datehistogram-aggregation.html" class="ulink" target="_top">日期直方图聚合 (date histogram aggregations)</a> 的性能进行了优化。
 </p>
 <h3>
-<a id="_introducing_multiclass_classification"></a>引入 多类别分类(multiclass classification)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/release-notes/highlights.asciidoc">edit</a>
+<a id="_introducing_multiclass_classification"></a>引入 多类别分类(multiclass classification)
 </h3>
 <p>
 使用多个类别的 <a href="https://www.elastic.co/guide/en/machine-learning/7.7/dfa-classification.html" class="ulink" target="_top">分类</a> 现在可以在数据帧分析中使用。
@@ -122,7 +122,7 @@ will be released for this version. For the latest information, see the
 多类别分类可以很好地处理多达30个不同的类别。
 </p>
 <h3>
-<a id="_feature_importance_at_inference_time"></a>推理时的特征重要性<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/release-notes/highlights.asciidoc">edit</a>
+<a id="_feature_importance_at_inference_time"></a>推理时的特征重要性
 </h3>
 <p>
 特征重要性现在可以在推理时计算。
@@ -130,7 +130,7 @@ will be released for this version. For the latest information, see the
 该值提供了对分类或回归作业的结果的进一步了解，因此有助于解释这些结果。 
 </p>
 <h3>
-<a id="_finer_memory_control_for_bucket_aggregations"></a>更精细的桶聚合内存控制<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/release-notes/highlights.asciidoc">edit</a>
+<a id="_finer_memory_control_for_bucket_aggregations"></a>更精细的桶聚合内存控制
 </h3>
 <p>
 当构建桶时，聚合会在继续分配更多桶之前周期性地检查实际内存断路器。
@@ -140,7 +140,7 @@ will be released for this version. For the latest information, see the
 这允许对内存压力有更好的响应能力，并避免了由于分配了超过节点处理能力的桶而导致的<code class="literal">OutOfMemory</code>情况。
 </p>
 <h3>
-<a id="_a_new_way_of_searching_asynchronously"></a>一种新的搜索方式：异步搜索<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/release-notes/highlights.asciidoc">edit</a>
+<a id="_a_new_way_of_searching_asynchronously"></a>一种新的搜索方式：异步搜索
 </h3>
 <p>
 你现在可以使用 <a href="async-search.html" class="ulink" target="_top"><code class="literal">_async_search</code> API</a> 来执行一个 <a href="async-search-intro.html" class="ulink" target="_top">长时搜索(long-running searches)</a>。
@@ -167,7 +167,7 @@ will be released for this version. For the latest information, see the
 
 这个时间间隔的默认值为5天，可以由另一个请求参数 <code class="literal">keep_alive</code> 控制。  
 <h3>
-<a id="_password_protection_for_the_keystore"></a>密钥存储库的密码保护<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/release-notes/highlights.asciidoc">edit</a>
+<a id="_password_protection_for_the_keystore"></a>密钥存储库的密码保护
 </h3>
 <p>
 Elasticsearch 为密码和SSL证书等安全设置使用一个自定义的保存在磁盘上的 <a href="secure-settings.html" class="ulink" target="_top">密钥存储库(keystore)</a>。
@@ -184,7 +184,7 @@ Elasticsearch 为密码和SSL证书等安全设置使用一个自定义的保存
 用户必须选择对其密钥存储库进行密码保护，以便从新的行为中受益。  
 </p>
 <h3>
-<a id="_a_new_aggregation_top_metrics"></a>一个新的聚合: <code class="literal">top_metrics</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/release-notes/highlights.asciidoc">edit</a>
+<a id="_a_new_aggregation_top_metrics"></a>一个新的聚合: <code class="literal">top_metrics</code>
 </h3>
 <p>
 新的 <a href="search-aggregations-metrics-top-metrics.html" class="ulink" target="_top"><code class="literal">top_metrics</code></a> 聚合根据给定的不同字段的标准从文档中“选择”一个度量。
@@ -195,7 +195,7 @@ Elasticsearch 为密码和SSL证书等安全设置使用一个自定义的保存
 </p>
 <h3>
 <a id="_query_speed_up_for_sorted_queries_on_time_based_indices"></a>
-基于时间的索引的排序查询的查询加速<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/release-notes/highlights.asciidoc">edit</a>
+基于时间的索引的排序查询的查询加速
 </h3>
 <p>
 我们优化了在基于时间的索引上运行的排序的、只针对顶级文档的查询。  
@@ -209,7 +209,7 @@ Elasticsearch 为密码和SSL证书等安全设置使用一个自定义的保存
 也就是说，我们提前知道，在部分合并后(排序的)结果集的底部条目比当前分片中包含的值更好。 
 </p>
 <h3>
-<a id="_a_new_aggregation_boxplot"></a>一个新的聚合：<code class="literal">boxplot</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/release-notes/highlights.asciidoc">edit</a>
+<a id="_a_new_aggregation_boxplot"></a>一个新的聚合：<code class="literal">boxplot</code>
 </h3>
 <p>
 <a href="https://en.wikipedia.org/wiki/Interquartile_range" class="ulink" target="_top">四分位距(又称四分差。IQR, interquartile range)</a> 是一种常用的统计离散度的稳健测量方法。  
@@ -223,7 +223,7 @@ Elasticsearch 为密码和SSL证书等安全设置使用一个自定义的保存
 计算给定数据集的最小、最大、中等以及第一和第三个四分位数。  
 </p>
 <h3>
-<a id="_aarch64_support"></a>AArch64 支持<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/release-notes/highlights.asciidoc">edit</a>
+<a id="_aarch64_support"></a>AArch64 支持
 </h3>
 <p>
 Elasticsearch 现在提供了 AArch64 包，包括捆绑的一个 AArch64 JDK 发行版。

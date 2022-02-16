@@ -703,7 +703,7 @@ cluster.routing.allocation.awareness.force.zone.values: zone1,zone2 <a id="CO8-1
 </td>
 <td valign="top">
 <p>
-Match nodes by node name
+按节点名匹配节点
 </p>
 </td>
 </tr>
@@ -715,7 +715,7 @@ Match nodes by node name
 </td>
 <td valign="top">
 <p>
-Match nodes by host IP address (IP associated with hostname)
+通过主机IP地址匹配节点(IP与主机名关联)
 </p>
 </td>
 </tr>
@@ -727,7 +727,7 @@ Match nodes by host IP address (IP associated with hostname)
 </td>
 <td valign="top">
 <p>
-Match nodes by publish IP address
+通过外部IP地址匹配节点
 </p>
 </td>
 </tr>
@@ -739,7 +739,7 @@ Match nodes by publish IP address
 </td>
 <td valign="top">
 <p>
-Match either <code class="literal">_host_ip</code> or <code class="literal">_publish_ip</code>
+匹配 <code class="literal">_host_ip</code> 或 <code class="literal">_publish_ip</code>
 </p>
 </td>
 </tr>
@@ -751,7 +751,7 @@ Match either <code class="literal">_host_ip</code> or <code class="literal">_pub
 </td>
 <td valign="top">
 <p>
-Match nodes by hostname
+按主机名匹配节点
 </p>
 </td>
 </tr>
@@ -763,14 +763,14 @@ Match nodes by hostname
 </td>
 <td valign="top">
 <p>
-Match nodes by node id
+按节点id匹配节点
 </p>
 </td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>You can use wildcards when specifying attribute values, for example:</p>
+<p>指定属性的值时可以使用通配符，例如：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT _cluster/settings
 {
@@ -788,16 +788,16 @@ Match nodes by node id
 <div class="titlepage"><div><div>
 <h3 class="title">
 <a id="misc-cluster-settings"></a>
-Miscellaneous cluster settings
+其他集群设置
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="cluster-read-only"></a>Metadata
+<a id="cluster-read-only"></a>元数据 (metadata)
 </h4>
 </div></div></div>
-<p>An entire cluster may be set to read-only with the following <em>dynamic</em> setting:</p>
+<p>可以使用以下<em>动态(dynamic)</em>设置将整个集群设置为只读：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -806,7 +806,7 @@ Miscellaneous cluster settings
 </span>
 </dt>
 <dd>
-Make the whole cluster read only (indices do not accept write operations), metadata is not allowed to be modified (create or delete indices).
+使整个集群只读(索引不接受写操作)，不允许修改元数据(创建或删除索引)。
 </dd>
 <dt>
 <span class="term">
@@ -814,14 +814,17 @@ Make the whole cluster read only (indices do not accept write operations), metad
 </span>
 </dt>
 <dd>
-Identical to <code class="literal">cluster.blocks.read_only</code> but allows to delete indices to free up resources.
+与 <code class="literal">cluster.blocks.read_only</code>相同，但允许删除索引以释放资源。
 </dd>
 </dl>
 </div>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Don’t rely on this setting to prevent changes to your cluster. Any user with access to the <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">cluster-update-settings</a> API can make the cluster read-write again.</p>
+<p>
+不要依赖此设置来阻止对群集的更改。
+任何有权访问 <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">集群更新设置</a> API 的用户都可以让集群再次可读写。
+</p>
 </div>
 </div>
 </div>
@@ -830,39 +833,34 @@ Identical to <code class="literal">cluster.blocks.read_only</code> but allows to
 <div class="titlepage"><div><div>
 <h4 class="title">
 <a id="cluster-shard-limit"></a>
-Cluster shard limit
+集群分片限制
 </h4>
 </div></div></div>
 <p>
-There is a soft limit on the number of shards in a cluster, based on the number of nodes in the cluster.
-
-This is intended to prevent operations which may unintentionally destabilize the cluster.
+基于集群中的节点数量，集群中的分片数量有一个软限制。这是为了防止可能无意中破坏集群稳定性的操作。
 </p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
 <p>
-This limit is intended as a safety net, not a sizing recommendation.
-
-The exact number of shards your cluster can safely support depends on your hardware configuration and workload, but should remain well below this limit in almost all cases, as the default limit is set quite high.
+该限制旨在作为一种保护措施，而非大小建议。
+集群可以安全支持的分片的确切数量取决于硬件配置和工作负载，但几乎所有情况下都应保持在该限制以下，因为默认限制设置得相当高。
 </p>
 </div>
 </div>
 <p>
-If an operation, such as creating a new index, restoring a snapshot of an index, or opening a closed index would lead to the number of shards in the cluster going over this limit, the operation will fail with an error indicating the shard limit.
+如果某项操作（如创建新索引、恢复索引的快照或打开关闭的索引）会导致群集中的分片数量超过此限制，则该操作将失败，并给出错误，指示分片限制。
 </p>
 <p>
-If the cluster is already over the limit, due to changes in node membership or setting changes, all operations that create or open indices will fail until either the limit is increased as described below, or some indices are <a class="xref" href="indices-open-close.html" title="Open index API">closed</a> or <a class="xref" href="indices-delete-index.html" title="Delete index API">deleted</a> to bring the number of shards below the limit.
+如果集群由于节点成员的变化或设置的变化已经超过限制，则所有创建或打开索引的操作都将失败，直到增加限制(如下所述),或者<a class="xref" href="indices-open-close.html" title="Open index API">关闭</a>或<a class="xref" href="indices-delete-index.html" title="Delete index API">删除</a>一些索引以使分片数低于这个限制。
 </p>
 <p>
-Replicas count towards this limit, but closed indexes do not.
-
-An index with 5 primary shards and 2 replicas will be counted as 15 shards.
-
-Any closed index is counted as 0, no matter how many shards and replicas it contains.
+副本数量计入此限制，但关闭的索引不计入。
+包含 5 个主分片和 2 个副本的索引将被计为 15 个分片。
+任何关闭的索引都计为 0，不管它包含多少分片和副本。
 </p>
 <p>
-The limit defaults to 1,000 shards per data node, and can be dynamically adjusted using the following property:
+该限制默认为每个数据节点 1,000 个分片，可以使用以下属性进行动态调整：
 </p>
 <div class="variablelist">
 <dl class="variablelist">
@@ -872,22 +870,20 @@ The limit defaults to 1,000 shards per data node, and can be dynamically adjuste
 </span>
 </dt>
 <dd>
-Controls the number of shards allowed in the cluster per data node.
+控制群集中每个数据节点允许的分片数量。
 </dd>
 </dl>
 </div>
 <p>
-For example, a 3-node cluster with the default setting would allow 3,000 shards total, across all open indexes.
+例如，使用默认设置的 3 个节点的集群将允许所有打开的索引中共有 3,000 个分片。
 
-If the above setting is changed to 500, then the cluster would allow 1,500 shards total.
+如果将上述设置更改为 500，那么集群将总共允许 1,500 个分片。
 </p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
 <p>
-If there are no data nodes in the cluster, the limit will not be enforced.
-
-This allows the creation of indices during cluster creation if dedicated master nodes are set up before data nodes.
+如果群集中没有数据节点，将不会强制实施该限制。如果在数据节点之前设置专用的主节点，将允许在集群创建期间创建索引。
 </p>
 </div>
 </div>
@@ -897,17 +893,14 @@ This allows the creation of indices during cluster creation if dedicated master 
 <div class="titlepage"><div><div>
 <h4 class="title">
 <a id="user-defined-data"></a>
-User-defined cluster metadata
+用户定义的集群元数据 (user-defined cluster metadata)
 </h4>
 </div></div></div>
 <p>
-User-defined metadata can be stored and retrieved using the Cluster Settings API.
-
-This can be used to store arbitrary, infrequently-changing data about the cluster without the need to create an index to store it.
-
-This data may be stored using any key prefixed with <code class="literal">cluster.metadata.</code>.
-
-For example, to store the email address of the administrator of a cluster under the key <code class="literal">cluster.metadata.administrator</code>, issue this request:
+可以使用 集群设置(Cluster Settings) API 存储和检索用户定义的元数据。
+这可以用来存储关于集群的任意、不经常改变的数据，而不需要创建索引来存储这些数据。
+可以使用以 <code class="literal">cluster.metadata.</code>为前缀的任何键来存储该数据。
+例如，要在键 <code class="literal">cluster.metadata.administrator</code>下存储集群管理员的 email 地址，请发送以下请求:
 </p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /_cluster/settings
@@ -922,10 +915,8 @@ For example, to store the email address of the administrator of a cluster under 
 <div class="icon"></div>
 <div class="admon_content">
 <p>
-User-defined cluster metadata is not intended to store sensitive or
-confidential information.
-
-Any information stored in user-defined cluster metadata will be viewable by anyone with access to the <a class="xref" href="cluster-get-settings.html" title="Cluster get settings API">Cluster Get Settings</a> API, and is recorded in the Elasticsearch logs.
+用户定义的集群元数据不要用于存储敏感或机密信息。
+存储在用户定义的集群元数据中的任何信息都可以被任何能够访问 <a class="xref" href="cluster-get-settings.html" title="Cluster get settings API">集群获取设置</a> API 的人查看，并被记录在 Elasticsearch 日志中。
 </p>
 </div>
 </div>
@@ -935,13 +926,12 @@ Any information stored in user-defined cluster metadata will be viewable by anyo
 <div class="titlepage"><div><div>
 <h4 class="title">
 <a id="cluster-max-tombstones"></a>
-Index tombstones
+索引墓碑 (index tombstones)
 </h4>
 </div></div></div>
 <p>
-The cluster state maintains index tombstones to explicitly denote indices that have been deleted.
-
-The number of tombstones maintained in the cluster state is controlled by the following property, which cannot be updated dynamically:
+集群状态维护 <em>索引墓碑 (index tombstones)</em>，以明确表示已被删除的索引。
+在群集状态下维护的 墓碑 数量由下面这个不能动态更新的属性控制:
 </p>
 <div class="variablelist">
 <dl class="variablelist">
@@ -951,15 +941,15 @@ The number of tombstones maintained in the cluster state is controlled by the fo
 </span>
 </dt>
 <dd>
-Index tombstones prevent nodes that are not part of the cluster when a delete occurs from joining the cluster and reimporting the index as though the delete was never issued.
+索引墓碑可防止发生删除时不属于群集的节点加入群集并重新导入索引，就好像从未执行过删除一样 <span class="remark">(原文: Index tombstones prevent nodes that are not part of the cluster when a delete occurs from joining the cluster and reimporting the index as though the delete was never issued.)</span>。
 
-To keep the cluster state from growing huge we only keep the last <code class="literal">cluster.indices.tombstones.size</code> deletes, which defaults to 500.
+为了防止集群状态变得过大，只保留最后的<code class="literal">cluster.indices.tombstones.size</code> 个删除，默认为 500。
 
-You can increase it if you expect nodes to be absent from the cluster and miss more than 500 deletes.
+如果你期望节点不在集群中，并且错过的删除次数超过500次，则可以增加该值<span class="remark">(原文: You can increase it if you expect nodes to be absent from the cluster and miss more than 500 deletes.)</span>。
 
-We think that is rare, thus the default.
+我们认为这是罕见的，因此使用这个默认值。
 
-Tombstones don’t take up much space, but we also think that a number like 50,000 is probably too big.
+墓碑不占太多空间，但我们也觉得 50,000 这样的数字可能太大了。
 </dd>
 </dl>
 </div>
@@ -969,13 +959,13 @@ Tombstones don’t take up much space, but we also think that a number like 50,0
 <div class="titlepage"><div><div>
 <h4 class="title">
 <a id="cluster-logger"></a>
-Logger
+日志 (logger)
 </h4>
 </div></div></div>
 <p>
-The settings which control logging can be updated dynamically with the <code class="literal">logger.</code> prefix.
+控制记录的设置可以用 <code class="literal">logger.</code> 前缀动态更新。
 
-For instance, to increase the logging level of the <code class="literal">indices.recovery</code> module to <code class="literal">DEBUG</code>, issue this request:
+例如，要提高 <code class="literal">indices.recovery</code> 模块的日志记录级别到 <code class="literal">DEBUG</code>，请发送以下请求:
 </p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /_cluster/settings
@@ -992,18 +982,16 @@ For instance, to increase the logging level of the <code class="literal">indices
 <div class="titlepage"><div><div>
 <h4 class="title">
 <a id="persistent-tasks-allocation"></a>
-Persistent tasks allocation
+持久任务分配 (persistent tasks allocation)
 </h4>
 </div></div></div>
 <p>
-Plugins can create a kind of tasks called persistent tasks.
-
-Those tasks are usually long-lived tasks and are stored in the cluster state, allowing the tasks to be revived after a full cluster restart.
+插件可以创建一种叫做<em>持久任务 (persistent tasks)</em>的任务。
+这些任务通常是长期存在的任务，存储在集群状态中，允许在整个集群重新启动后重新启动这些任务。  
 </p>
 <p>
-Every time a persistent task is created, the master node takes care of assigning the task to a node of the cluster, and the assigned node will then pick up the task and execute it locally.
-
-The process of assigning persistent tasks to nodes is controlled by the following properties, which can be updated dynamically:
+每次创建持久任务时，主节点负责将任务分配给集群中的一个节点，然后被分配的节点将接受该任务并在本地执行。
+将持久任务分配给节点的过程由下面几个可以动态更新的属性控制：
 </p>
 <div class="variablelist">
 <dl class="variablelist">
@@ -1013,21 +1001,20 @@ The process of assigning persistent tasks to nodes is controlled by the followin
 </span>
 </dt>
 <dd>
-<p>Enable or disable allocation for persistent tasks:</p>
+<p>启用或禁用持久任务的分配：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">all</code> -             (default) Allows persistent tasks to be assigned to nodes
+<code class="literal">all</code> -             (默认) 允许给节点分配持久任务
 </li>
 <li class="listitem">
-<code class="literal">none</code> -            No allocations are allowed for any type of persistent task
+<code class="literal">none</code> -            任何类型的持久任务都不允许分配
 </li>
 </ul>
 </div>
 <p>
-This setting does not affect the persistent tasks that are already being executed.
-
-Only newly created persistent tasks, or tasks that must be reassigned (after a node left the cluster, for example), are impacted by this setting.
+此设置不影响已经在执行的持久任务。
+只有新创建的持久任务或必须重新分配的任务(例如，节点离开群集后)才受此设置的影响。
 </p>
 </dd>
 <dt>
@@ -1036,15 +1023,13 @@ Only newly created persistent tasks, or tasks that must be reassigned (after a n
 </span>
 </dt>
 <dd>
-The master node will automatically check whether persistent tasks need to be assigned when the cluster state changes significantly.
+当集群状态发生重大变化时，主节点将自动检查是否需要分配持久任务。
 
-However, there may be other factors, such as memory usage, that affect whether persistent tasks can be assigned to nodes but do not cause the cluster state to change.
+但是，可能有其他因素，如内存使用率，会影响持久任务是否可以分配给节点，但又不会导致群集状态发生变化。
 
-This setting controls how often assignment checks are performed to react to these factors.
+此设置控制为响应这些因素而执行分配检查的频率。
 
-The default is 30 seconds.
-
-The minimum permitted value is 10 seconds.
+默认为 30 秒。允许的最小值为 10 秒。
 </dd>
 </dl>
 </div>

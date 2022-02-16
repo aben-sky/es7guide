@@ -115,16 +115,16 @@ will be released for this version. For the latest information, see the
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">all</code> -             (默认) 允许所有类型的分片进行分片分配。
+<code class="literal">all</code> -             (默认) 允许为所有类型的分片分配分片。
 </li>
 <li class="listitem">
-<code class="literal">primaries</code> -       仅允许主分片进行分片分配。
+<code class="literal">primaries</code> -       仅允许为主分片分配分片。
 </li>
 <li class="listitem">
-<code class="literal">new_primaries</code> -   仅允许新索引的主分片进行分片分配。
+<code class="literal">new_primaries</code> -   仅允许为新索引的主分片分配分片。
 </li>
 <li class="listitem">
-<code class="literal">none</code> -            不允许任何索引进行任何类型的分片分配。
+<code class="literal">none</code> -            任何索引都不允许任何类型的分片。
 </li>
 </ul>
 </div>
@@ -212,16 +212,16 @@ will be released for this version. For the latest information, see the
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">all</code> -         (默认)  允许所有类型的分片进行分片再平衡
+<code class="literal">all</code> -         (默认)  允许各种分片的分片再平衡
 </li>
 <li class="listitem">
-<code class="literal">primaries</code> -   仅允许主分片进行分片再平衡
+<code class="literal">primaries</code> -   仅允许主分片的分片再平衡
 </li>
 <li class="listitem">
-<code class="literal">replicas</code> -    仅允许副本分片进行分片再平衡
+<code class="literal">replicas</code> -    仅允许副本分片的分片再平衡
 </li>
 <li class="listitem">
-<code class="literal">none</code> -        不允许任何索引进行任何类型的分片平衡。
+<code class="literal">none</code> -        任何索引都不允许任何类型的分片平衡。
 </li>
 </ul>
 </div>
@@ -238,13 +238,13 @@ will be released for this version. For the latest information, see the
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">always</code> -                    总是允许再平衡
+<code class="literal">always</code> -                    始终允许再平衡
 </li>
 <li class="listitem">
-<code class="literal">indices_primaries_active</code> -  仅当集群中的所有主分片已分配
+<code class="literal">indices_primaries_active</code> -  仅当集群中的所有主分片已分配(处于激活状态)
 </li>
 <li class="listitem">
-<code class="literal">indices_all_active</code> -        (默认) 仅当集群中的所有分片(主和副本)已分配
+<code class="literal">indices_all_active</code> -        (默认) 仅当集群中的所有分片(主和副本)已分配(处于激活状态)
 </li>
 </ul>
 </div>
@@ -263,6 +263,10 @@ will be released for this version. For the latest information, see the
 </dd>
 </dl>
 </div>
+<div>
+更多阅读参考: <a href="https://zhuanlan.zhihu.com/p/164970344" rel="nofollow">ElasticSearch集群shard均衡策略</a> (v6.x, 来自知乎)
+</div>
+
 </div>
 
 <div class="section">
@@ -519,7 +523,7 @@ Elasticsearch 应该多久检查一次集群中每个节点的磁盘使用情况
 <p>
 使用自定义节点属性指定每个节点的位置。
 
-例如，如果希望 Elasticsearch 将分片分布在不同的机架上，可以在每个节点的配置文件 <code class="literal">elasticsearch.yml</code> 中设置一个名为<code class="literal">rack_id</code>的感知属性。
+例如，如果希望 Elasticsearch 将分片分布在不同的机架上，可以在每个节点的配置文件 <code class="literal">elasticsearch.yml</code> 中设置一个名为<code class="literal">rack_id</code> <span class="remark">(机架id)</span>的感知属性。
 </p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">node.attr.rack_id: rack_one</pre>
@@ -559,13 +563,13 @@ Elasticsearch 应该多久检查一次集群中每个节点的磁盘使用情况
 </ol>
 </div>
 <p>
-在此示例配置中，如果启动两个节点且将 <code class="literal">node.attr.rack_id</code> 设置为 <code class="literal">rack_one</code> <span style="color:#666;font-size:80%;">(机架1)</span>，并创建一个包含 5 个主分片和每个主分片 1 个副本的索引，则所有主分片和副本都将在这两个节点之间分配。
+在此示例配置中，如果启动两个节点且将 <code class="literal">node.attr.rack_id</code> 设置为 <code class="literal">rack_one</code> <span class="remark">(机架1)</span>，并创建一个包含 5 个主分片和每个主分片 1 个副本的索引，则所有主分片和副本都将在这两个节点之间分配。
 </p>
 <p>
-如果在 <code class="literal">node.attr.rack_id</code> 设置为 <code class="literal">rack_two</code><span style="color:#666;font-size:80%;">(机架2)</span> 的情况下添加两个节点，Elasticsearch 会将分片移动到新节点，确保(如果可能的话)没有同一个分片的两个副本都在同一个机架中。
+如果在 <code class="literal">node.attr.rack_id</code> 设置为 <code class="literal">rack_two</code><span class="remark">(机架2)</span> 的情况下添加两个节点，Elasticsearch 会将分片移动到新节点，确保(如果可能的话)没有同一个分片的两个副本都在同一个机架中。
 </p>
 <p>
-如果 <code class="literal">rack_two</code><span style="color:#666;font-size:80%;">(机架2)</span> 出现故障并关闭了它的两个节点，默认情况下，Elasticsearch 会将丢失的分片副本分配给 <code class="literal">rack_one</code> <span style="color:#666;font-size:80%;">(机架1)</span> 上的节点。
+如果 <code class="literal">rack_two</code><span class="remark">(机架2)</span> 出现故障并关闭了它的两个节点，默认情况下，Elasticsearch 会将丢失的分片副本分配给 <code class="literal">rack_one</code> <span class="remark">(机架1)</span> 上的节点。
 
 为了防止在同一位置分配特定分片的多个副本，可以启用 <em>强制感知 (forced awareness)</em>。
 </p>
@@ -575,20 +579,19 @@ Elasticsearch 应该多久检查一次集群中每个节点的磁盘使用情况
 <div class="titlepage"><div><div>
 <h4 class="title">
 <a id="forced-awareness"></a>
-Forced awareness
+强制感知 (forced awareness)
 </h4>
 </div></div></div>
 <p>
-By default, if one location fails, Elasticsearch assigns all of the missing
-replica shards to the remaining locations.
+默认情况下，如果一个位置失效，Elasticsearch 会将所有丢失的副本分片分配给其余位置。
 
-While you might have sufficient resources across all locations to host your primary and replica shards, a single location might be unable to host <span class="strong strong"><strong>ALL</strong></span> of the shards.
+虽然可能在所有的位置上都有足够的资源来承载主分片和副本分片，但是单个位置可能无法承载<span class="strong strong"><strong>所有的</strong></span>分片。
 </p>
 <p>
-To prevent a single location from being overloaded in the event of a failure, you can set <code class="literal">cluster.routing.allocation.awareness.force</code> so no replicas are allocated until nodes are available in another location.
+为了防止单个位置在发生故障时超负荷，可以设置 <code class="literal">cluster.routing.allocation.awareness.force</code>，以便在其他位置的节点可用之前不会分配副本。
 </p>
 <p>
-For example, if you have an awareness attribute called <code class="literal">zone</code> and configure nodes in <code class="literal">zone1</code> and <code class="literal">zone2</code>, you can use forced awareness to prevent Elasticsearch from allocating replicas if only one zone is available:
+例如，如果有一个名为<code class="literal">zone</code>的感知属性，并在<code class="literal">zone1</code>和<code class="literal">zone2</code>中配置节点，可以使用强制感知来防止 Elasticearch 在只有一个区域可用时分配副本：
 </p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">cluster.routing.allocation.awareness.attributes: zone
@@ -601,15 +604,13 @@ cluster.routing.allocation.awareness.force.zone.values: zone1,zone2 <a id="CO8-1
 <p><a href="#CO8-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Specify all possible values for the awareness attribute.</p>
+<p>为感知属性指定所有可能的值。</p>
 </td>
 </tr>
 </table>
 </div>
 <p>
-With this example configuration, if you start two nodes with <code class="literal">node.attr.zone</code> set to <code class="literal">zone1</code> and create an index with 5 shards and 1 replica, Elasticsearch creates the index and allocates the 5 primary shards but no replicas.
-
-Replicas are only allocated once nodes with <code class="literal">node.attr.zone</code> set to <code class="literal">zone2</code> are available.
+使用上面这个示例的配置，如果启动两个节点，并将<code class="literal">node.attr.zone</code> 设置为 <code class="literal">zone1</code>，并创建一个包含 5 个分片和 1 个副本的索引，则 Elasticsearch 将创建索引并分配 5 个主分片，但不分配副本。副本只有在 <code class="literal">node.attr.zone</code> 值为<code class="literal">zone2</code> 的节点可用时才会分配。
 </p>
 </div>
 
@@ -619,26 +620,26 @@ Replicas are only allocated once nodes with <code class="literal">node.attr.zone
 <div class="titlepage"><div><div>
 <h3 class="title">
 <a id="cluster-shard-allocation-filtering"></a>
-Cluster-level shard allocation filtering
+集群级分片分配过滤 (cluster-level shard allocation filtering)
 </h3>
 </div></div></div>
 <p>
-You can use cluster-level shard allocation filters to control where Elasticsearch allocates shards from any index.
+可以使用群集级别的分片分配过滤器来控制 Elasticearch 从任何索引中分配分片的位置。
 
-These cluster wide filters are applied in conjunction with <a class="xref" href="shard-allocation-filtering.html" title="Index-level shard allocation filtering">per-index allocation filtering</a> and <a class="xref" href="modules-cluster.html#shard-allocation-awareness" title="Shard allocation awareness">allocation awareness</a>.
+这些集群范围的过滤器与 <a class="xref" href="shard-allocation-filtering.html" title="Index-level shard allocation filtering">每个索引的分配过滤</a> 和 <a class="xref" href="modules-cluster.html#shard-allocation-awareness" title="Shard allocation awareness">分配感知</a> 一起应用。
 </p>
 <p>
-Shard allocation filters can be based on custom node attributes or the built-in <code class="literal">_name</code>, <code class="literal">_host_ip</code>, <code class="literal">_publish_ip</code>, <code class="literal">_ip</code>, <code class="literal">_host</code> and <code class="literal">_id</code> attributes.
+分片分配过滤可以基于自定义的节点属性，或者内置的<code class="literal">_name</code>, <code class="literal">_host_ip</code>, <code class="literal">_publish_ip</code>, <code class="literal">_ip</code>, <code class="literal">_host</code> 和 <code class="literal">_id</code>属性。
 </p>
 <p>
-The <code class="literal">cluster.routing.allocation</code> settings are dynamic, enabling live indices to be moved from one set of nodes to another.
+<code class="literal">cluster.routing.allocation</code> 是动态的，允许将活动索引从一组节点移动到另一组节点。
 
-Shards are only relocated if it is possible to do so without breaking another routing constraint, such as never allocating a primary and replica shard on the same node.
+只有在不破坏另一个路由约束的情况下，才能重新定位分片，例如永远不要在同一节点上分配主分片和副本分片。
 </p>
 <p>
-The most common use case for cluster-level shard allocation filtering is when you want to decommission a node.
+集群级分片分配过滤最常见的使用场景是当你想 关闭<span class="remark">(decommission)</span> 一个节点时。
 
-To move shards off of a node prior to shutting it down, you could create a filter that excludes the node by its IP address:
+若要在关闭节点之前将分片移出节点，可以创建一个过滤器，根据节点的 IP 地址将其排除在外：
 </p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT _cluster/settings
@@ -653,7 +654,7 @@ To move shards off of a node prior to shutting it down, you could create a filte
 <div class="titlepage"><div><div>
 <h4 class="title">
 <a id="cluster-routing-settings"></a>
-Cluster routing settings
+集群路由设置
 </h4>
 </div></div></div>
 <div class="variablelist">
@@ -664,7 +665,7 @@ Cluster routing settings
 </span>
 </dt>
 <dd>
-Allocate shards to a node whose <code class="literal">{attribute}</code> has at least one of the comma-separated values.
+将分片分配给 <code class="literal">{attribute}</code> 至少有一个逗号分隔值的节点。
 </dd>
 <dt>
 <span class="term">
@@ -672,7 +673,7 @@ Allocate shards to a node whose <code class="literal">{attribute}</code> has at 
 </span>
 </dt>
 <dd>
-Only allocate shards to a node whose <code class="literal">{attribute}</code> has <em>all</em> of the comma-separated values.
+仅将分片分配给 <code class="literal">{attribute}</code> 具有<em>所有</em>逗号分隔值的节点。
 </dd>
 <dt>
 <span class="term">
@@ -680,11 +681,13 @@ Only allocate shards to a node whose <code class="literal">{attribute}</code> ha
 </span>
 </dt>
 <dd>
-Do not allocate shards to a node whose <code class="literal">{attribute}</code> has <em>any</em> of the comma-separated values.
+不要将分片分配给其<code class="literal">{attribute}</code>具有<em>任何</em>逗号分隔值的节点。
 </dd>
 </dl>
 </div>
-<p>The cluster allocation settings support the following built-in attributes:</p>
+<p>
+集群分配设置支持以下几个内置的属性：
+</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>

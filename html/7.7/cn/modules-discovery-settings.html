@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Discovery and cluster formation settings | ElasticSearch 7.7 权威指南中文版</title>
+	<title>发现和集群信息设置 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -34,30 +34,29 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="settings.html">Configuring Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="settings.html">配置 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Discovery and cluster formation settings</span>
+<span class="breadcrumb-node">发现和集群信息设置</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="ccr-settings.html">« Cross-cluster replication settings</a>
+<a href="ccr-settings.html">« 跨集群复制设置</a>
 </span>
 <span class="next">
-<a href="modules-fielddata.html">Field data cache settings »</a>
+<a href2="modules-fielddata.html">Field data cache settings »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="modules-discovery-settings"></a>Discovery and cluster formation settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/discovery/discovery-settings.asciidoc">edit</a>
+<a id="modules-discovery-settings"></a>发现(discovery) 和集群信息设置
 </h2>
 </div></div></div>
-<p><a class="xref" href="modules-discovery.html" title="Discovery and cluster formation">Discovery and cluster formation</a> are affected by the
-following settings:</p>
+<p><a class="xref" href="modules-discovery.html" title="Discovery and cluster formation">发现和集群信息</a> 受以下几个设置的影响：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -66,14 +65,16 @@ following settings:</p>
 </span>
 </dt>
 <dd>
-<p>Provides a list of the addresses of the master-eligible nodes in the cluster.
-May also be a single string containing the addresses separated by commas. Each
-address has the format <code class="literal">host:port</code> or <code class="literal">host</code>. The <code class="literal">host</code> is either a host name
-to be resolved by DNS, an IPv4 address, or an IPv6 address. IPv6 addresses
-must be enclosed in square brackets. If a host name resolves via DNS to multiple
-addresses, Elasticsearch uses all of them. DNS lookups are subject to
-<a class="xref" href="networkaddress-cache-ttl.html" title="DNS cache settings">JVM DNS caching</a>. If the <code class="literal">port</code> is not given then it
-is determined by checking the following settings in order:</p>
+<p>
+提供集群中符合主节点条件的节点的地址列表。
+也可以是包含以逗号分隔的地址的单个字符串。
+单个地址的格式是 <code class="literal">host:port</code> 或者 <code class="literal">host</code>。
+<code class="literal">host</code>可以是由 DNS 解析的主机名、IPv4 地址或 IPv6 地址。
+IPv6 地址必须用中括号[]括起来。
+如果一个主机名通过 DNS 解析成多个地址，Elasticsearch 会使用所有的地址。
+DNS查找依赖于 <a class="xref" href="networkaddress-cache-ttl.html" title="DNS cache settings">JVM DNS 缓存</a>。
+如果未指定 <code class="literal">port</code>，则通过顺序检查以下设置来确定端口：
+</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
@@ -84,11 +85,14 @@ is determined by checking the following settings in order:</p>
 </li>
 </ol>
 </div>
-<p>If neither of these is set then the default port is <code class="literal">9300</code>. The default value
-for <code class="literal">discovery.seed_hosts</code> is <code class="literal">["127.0.0.1", "[::1]"]</code>. See <a class="xref" href="discovery-settings.html#unicast.hosts" title="discovery.seed_hosts"><code class="literal">discovery.seed_hosts</code></a>.</p>
-<p>This setting was previously known as <code class="literal">discovery.zen.ping.unicast.hosts</code>. Its
-old name is deprecated but continues to work in order to preserve backwards
-compatibility. Support for the old name will be removed in a future version.</p>
+<p>
+如果两个都没有设置，则默认端口为 <code class="literal">9300</code>。
+<code class="literal">discovery.seed_hosts</code> 的默认值为 <code class="literal">["127.0.0.1", "[::1]"]</code>。
+(参考 <a class="xref" href="discovery-settings.html#unicast.hosts" title="discovery.seed_hosts"><code class="literal">discovery.seed_hosts</code></a>)。
+</p>
+<p>
+该设置以前叫 <code class="literal">discovery.zen.ping.unicast.hosts</code>。这个旧名称已被弃用，但为了保持向后兼容性，仍可以继续使用。在未来版本中将移除对旧名称的支持。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -96,14 +100,11 @@ compatibility. Support for the old name will be removed in a future version.</p>
 </span>
 </dt>
 <dd>
-Specifies which types of <a class="xref" href="modules-discovery-hosts-providers.html#built-in-hosts-providers" title="Seed hosts providers">seed hosts provider</a> to
-use to obtain the addresses of the seed nodes used to start the discovery
-process. By default, it is the
-<a class="xref" href="modules-discovery-hosts-providers.html#settings-based-hosts-provider" title="Settings-based seed hosts provider">settings-based seed hosts provider</a> which
-obtains the seed node addresses from the <code class="literal">discovery.seed_hosts</code> setting.
-This setting was previously known as <code class="literal">discovery.zen.hosts_provider</code>. Its old
-name is deprecated but continues to work in order to preserve backwards
-compatibility. Support for the old name will be removed in a future version.
+指定使用哪种类型的 <a class="xref" href="modules-discovery-hosts-providers.html#built-in-hosts-providers" title="Seed hosts providers">种子主机提供程序(seed hosts provider)</a> 来获取用于启动 发现(discovery) 过程的种子节点的地址。
+
+默认情况下，由 <a class="xref" href="modules-discovery-hosts-providers.html#settings-based-hosts-provider" title="Settings-based seed hosts provider">基于设置的种子主机提供程序(settings-based seed hosts provider)</a> 从 <code class="literal">discovery.seed_hosts</code> 设置中获取种子节点地址。
+
+这个设置以前叫 <code class="literal">discovery.zen.hosts_provider</code>。这个旧名称已被弃用，但为了保持向后兼容性，仍可以继续使用。在未来版本中将移除对旧名称的支持。
 </dd>
 <dt>
 <span class="term">
@@ -111,12 +112,12 @@ compatibility. Support for the old name will be removed in a future version.
 </span>
 </dt>
 <dd>
-Specifies whether Elasticsearch should form a multiple-node cluster. By default, Elasticsearch
-discovers other nodes when forming a cluster and allows other nodes to join
-the cluster later. If <code class="literal">discovery.type</code> is set to <code class="literal">single-node</code>, Elasticsearch forms a
-single-node cluster and suppresses the timeouts set by
-<code class="literal">cluster.publish.timeout</code> and <code class="literal">cluster.join.timeout</code>. For more information
-about when you might use this setting, see <a class="xref" href="bootstrap-checks.html#single-node-discovery" title="Single-node discovery">Single-node discovery</a>.
+指定 Elasticsearch 是否应该组建成一个多节点的集群。
+默认情况下，Elasticsearch 会在组成集群时发现其他节点，并允许其他节点稍后加入集群。
+
+如果 <code class="literal">discovery.type</code> 设置为 <code class="literal">single-node</code>，Elasticsearch 将组建一个单节点集群，并取消<code class="literal">cluster.publish.timeout</code> 和 <code class="literal">cluster.join.timeout</code> 设置的超时时间。
+
+有关何时可以使用此设置的更多信息，请参考 <a class="xref" href="bootstrap-checks.html#single-node-discovery" title="Single-node discovery">Single-node discovery</a>。
 </dd>
 <dt>
 <span class="term">
@@ -124,23 +125,21 @@ about when you might use this setting, see <a class="xref" href="bootstrap-check
 </span>
 </dt>
 <dd>
-Sets the initial set of master-eligible nodes in a brand-new cluster. By
-default this list is empty, meaning that this node expects to join a cluster
-that has already been bootstrapped. See <a class="xref" href="discovery-settings.html#initial_master_nodes" title="cluster.initial_master_nodes"><code class="literal">cluster.initial_master_nodes</code></a>.
+在全新的群集中设置初始的符合主节点条件的节点集。
+默认情况下，该列表为空，这意味着该节点希望加入一个已经启动的集群。
+参考 <a class="xref" href="discovery-settings.html#initial_master_nodes" title="cluster.initial_master_nodes"><code class="literal">cluster.initial_master_nodes</code></a>。
 </dd>
 </dl>
 </div>
 <h4>
-<a id="_expert_settings"></a>Expert settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/discovery/discovery-settings.asciidoc">edit</a>
+<a id="_expert_settings"></a>
+专家级设置 (expert settings)
 </h4>
-<p>Discovery and cluster formation are also affected by the following
-<em>expert-level</em> settings, although it is not recommended to change any of these
-from their default values.</p>
+<p>发现和集群的组建也受以下<em>专家级(expert-level)</em>设置的影响，尽管我们不建议更改这些设置的默认值。</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If you adjust these settings then your cluster may not form correctly
-or may become unstable or intolerant of certain failures.</p>
+<p>如果你调整了这些设置，群集可能无法正确的组建，或者可能变得不稳定或不能容忍某些故障。</p>
 </div>
 </div>
 <div class="variablelist">
@@ -151,11 +150,9 @@ or may become unstable or intolerant of certain failures.</p>
 </span>
 </dt>
 <dd>
-Sets how long a node will try to form a cluster before logging a warning
-that the cluster did not form. Defaults to <code class="literal">10s</code>. If a cluster has not
-formed after <code class="literal">discovery.cluster_formation_warning_timeout</code> has elapsed then
-the node will log a warning message that starts with the phrase <code class="literal">master not
-discovered</code> which describes the current state of the discovery process.
+设置在记录集群未组建成功的警告之前，节点尝试组建集的时间。
+默认为 <code class="literal">10s</code>。
+如果在 <code class="literal">discovery.cluster_formation_warning_timeout</code> 时间过去后仍未组建群集，则该节点将记录一条警告消息，该消息以短语<code class="literal">master not discovered</code>开头，描述发现过程的当前状态。
 </dd>
 <dt>
 <span class="term">
@@ -163,8 +160,7 @@ discovered</code> which describes the current state of the discovery process.
 </span>
 </dt>
 <dd>
-Sets how long a node will wait before attempting another discovery round.
-Defaults to <code class="literal">1s</code>.
+设置节点在尝试另一轮发现前等待的时间。默认为 <code class="literal">1s</code>。
 </dd>
 <dt>
 <span class="term">
@@ -172,8 +168,7 @@ Defaults to <code class="literal">1s</code>.
 </span>
 </dt>
 <dd>
-Sets how long to wait when attempting to connect to each address. Defaults
-to <code class="literal">3s</code>.
+设置尝试连接到每个地址时要等待的时间。默认为 <code class="literal">3s</code>。
 </dd>
 <dt>
 <span class="term">
@@ -181,8 +176,7 @@ to <code class="literal">3s</code>.
 </span>
 </dt>
 <dd>
-Sets how long to wait when attempting to identify the remote node via a
-handshake. Defaults to <code class="literal">1s</code>.
+设置尝试通过握手识别远程节点时要等待的时间。默认为 <code class="literal">1s</code>。
 </dd>
 <dt>
 <span class="term">
@@ -190,8 +184,7 @@ handshake. Defaults to <code class="literal">1s</code>.
 </span>
 </dt>
 <dd>
-Sets how long a node will wait after asking its peers again before
-considering the request to have failed. Defaults to <code class="literal">3s</code>.
+设置节点在再次请求其 对等(peers) 节点后等待多长时间，然后将请求视为失败。默认为 <code class="literal">3s</code>。
 </dd>
 <dt>
 <span class="term">
@@ -199,12 +192,8 @@ considering the request to have failed. Defaults to <code class="literal">3s</co
 </span>
 </dt>
 <dd>
-Specifies how many concurrent DNS lookups to perform when resolving the
-addresses of seed nodes. Defaults to <code class="literal">10</code>. This setting was previously
-known as <code class="literal">discovery.zen.ping.unicast.concurrent_connects</code>. Its old name is
-deprecated but continues to work in order to preserve backwards
-compatibility. Support for the old name will be removed in a future
-version.
+指定在解析种子节点的地址时要执行多少个并发 DNS 查找。默认为 10</code>。
+这个设置以前叫 <code class="literal">discovery.zen.ping.unicast.concurrent_connects</code>。这个旧名称已被弃用，但为了保持向后兼容性，仍可以继续使用。在未来版本中将移除对旧名称的支持。
 </dd>
 <dt>
 <span class="term">
@@ -212,12 +201,9 @@ version.
 </span>
 </dt>
 <dd>
-Specifies how long to wait for each DNS lookup performed when resolving the
-addresses of seed nodes. Defaults to <code class="literal">5s</code>. This setting was previously
-known as <code class="literal">discovery.zen.ping.unicast.hosts.resolve_timeout</code>. Its old name
-is deprecated but continues to work in order to preserve backwards
-compatibility. Support for the old name will be removed in a future
-version.
+指定在解析种子节点的地址时，每次 DNS 查找等待的时间。默认为<code class="literal">5s</code>。
+
+这个设置以前叫 <code class="literal">discovery.zen.ping.unicast.hosts.resolve_timeout</code>。这个旧名称已被弃用，但为了保持向后兼容性，仍可以继续使用。在未来版本中将移除对旧名称的支持。
 </dd>
 <dt>
 <span class="term">
@@ -225,12 +211,9 @@ version.
 </span>
 </dt>
 <dd>
-Controls whether the <a class="xref" href="modules-discovery-voting.html" title="Voting configurations">voting configuration</a>
-sheds departed nodes automatically, as long as it still contains at least 3
-nodes. The default value is <code class="literal">true</code>. If set to <code class="literal">false</code>, the voting
-configuration never shrinks automatically and you must remove departed
-nodes manually with the <a class="xref" href="voting-config-exclusions.html" title="Voting configuration exclusions API">voting configuration
-exclusions API</a>.
+控制 <a class="xref" href="modules-discovery-voting.html" title="Voting configurations">选举设置</a> 是否自动删除离开的节点，只要它仍然包含至少 3 个节点。默认为 <code class="literal">true</code>。
+
+如果设置为false，选举设置永远不会自动收缩，你必须使用 <a class="xref" href="voting-config-exclusions.html" title="Voting configuration exclusions API">选举设置排除</a> API 手动删除脱离的节点。
 </dd>
 <dt>
 <span class="term">
@@ -238,10 +221,7 @@ exclusions API</a>.
 </span>
 </dt>
 <dd>
-Sets the amount to increase the upper bound on the wait before an election
-on each election failure. Note that this is <em>linear</em> backoff. This defaults
-to <code class="literal">100ms</code>. Changing this setting from the default may cause your cluster
-to fail to elect a master node.
+设置每次选举失败时选举前等待时间上限的增量。请注意，这是<em>线性(linear)</em> 回退(backoff)。默认为 <code class="literal">100ms</code>。更改默认设置可能会导致集群无法选举主节点。
 </dd>
 <dt>
 <span class="term">
@@ -249,10 +229,7 @@ to fail to elect a master node.
 </span>
 </dt>
 <dd>
-Sets how long each election is allowed to take before a node considers it
-to have failed and schedules a retry. This defaults to <code class="literal">500ms</code>.  Changing
-this setting from the default may cause your cluster to fail to elect a
-master node.
+设置在节点认为选举失败并安排重试之前，允许每次选举持续的时间。默认为 <code class="literal">500ms</code>。更改默认设置可能会导致集群无法选举主节点。
 </dd>
 <dt>
 <span class="term">
@@ -260,10 +237,7 @@ master node.
 </span>
 </dt>
 <dd>
-Sets the upper bound on how long a node will wait initially, or after the
-elected master fails, before attempting its first election. This defaults
-to <code class="literal">100ms</code>. Changing this setting from the default may cause your cluster
-to fail to elect a master node.
+设置节点最初等待时间的上限，或者在选举的主节点失效后，在尝试第一次选举之前等待时间的上限。默认为 <code class="literal">100ms</code>。更改默认设置可能会导致集群无法选举主节点。
 </dd>
 <dt>
 <span class="term">
@@ -271,11 +245,7 @@ to fail to elect a master node.
 </span>
 </dt>
 <dd>
-Sets the maximum upper bound on how long a node will wait before attempting
-an first election, so that an network partition that lasts for a long time
-does not result in excessively sparse elections. This defaults to <code class="literal">10s</code>.
-Changing this setting from the default may cause your cluster to fail to
-elect a master node.
+设置节点在尝试第一次选举之前等待时间的最大上限，以便持续很长时间的网络分区不会导致过度稀疏的选举。默认为 <code class="literal">10s</code>。更改默认设置可能会导致集群无法选举主节点。
 </dd>
 <dt>
 <span class="term">
@@ -283,9 +253,7 @@ elect a master node.
 </span>
 </dt>
 <dd>
-Sets how long the elected master waits between follower checks to each
-other node in the cluster. Defaults to <code class="literal">1s</code>. Changing this setting from the
-default may cause your cluster to become unstable.
+设置选举出的主节点在从节点对集群中其他节点检查过程中等待的时间。默认为 <code class="literal">1s</code>。更改默认设置可能会导致集群无法选举主节点。
 </dd>
 <dt>
 <span class="term">
@@ -293,9 +261,7 @@ default may cause your cluster to become unstable.
 </span>
 </dt>
 <dd>
-Sets how long the elected master waits for a response to a follower check
-before considering it to have failed. Defaults to <code class="literal">10s</code>. Changing this
-setting from the default may cause your cluster to become unstable.
+设置选举出的主节点在认为从节点检查失败之前等待响应的时间。默认为 <code class="literal">10s</code>。更改默认设置可能会导致集群无法选举主节点。
 </dd>
 <dt>
 <span class="term">
@@ -303,10 +269,7 @@ setting from the default may cause your cluster to become unstable.
 </span>
 </dt>
 <dd>
-Sets how many consecutive follower check failures must occur to each node
-before the elected master considers that node to be faulty and removes it
-from the cluster. Defaults to <code class="literal">3</code>. Changing this setting from the default
-may cause your cluster to become unstable.
+设置每个节点必须连续发生多少次从节点检查失败，然后选举出的主节点才会认为该节点出现故障并将其从集群中删除。默认为 <code class="literal">3</code>。更改默认设置可能会导致集群无法选举主节点。
 </dd>
 <dt>
 <span class="term">
@@ -314,9 +277,7 @@ may cause your cluster to become unstable.
 </span>
 </dt>
 <dd>
-Sets how long each node waits between checks of the elected master.
-Defaults to <code class="literal">1s</code>. Changing this setting from the default may cause your
-cluster to become unstable.
+设置每个节点在选举出的主节点检查之间等待的时间。默认为 <code class="literal">1s</code>。更改默认设置可能会导致集群无法选举主节点。
 </dd>
 <dt>
 <span class="term">
@@ -324,10 +285,7 @@ cluster to become unstable.
 </span>
 </dt>
 <dd>
-Sets how long each node waits for a response to a leader check from the
-elected master before considering it to have failed. Defaults to <code class="literal">10s</code>.
-Changing this setting from the default may cause your cluster to become
-unstable.
+设置每个节点在被视为失效之前等待来自选举出的主节点的 leader 检查响应的时间。默认为 <code class="literal">10s</code>。更改默认设置可能会导致集群无法选举主节点。
 </dd>
 <dt>
 <span class="term">
@@ -335,10 +293,7 @@ unstable.
 </span>
 </dt>
 <dd>
-Sets how many consecutive leader check failures must occur before a node
-considers the elected master to be faulty and attempts to find or elect a
-new master. Defaults to <code class="literal">3</code>. Changing this setting from the default may
-cause your cluster to become unstable.
+设置在节点认为选举出的主节点有故障并尝试查找或选择新的主节点之前，必须发生多少次连续的 leader 检查 失败。默认为 <code class="literal">3</code>。更改默认设置可能会导致集群无法选举主节点。
 </dd>
 <dt>
 <span class="term">
@@ -346,11 +301,7 @@ cause your cluster to become unstable.
 </span>
 </dt>
 <dd>
-Sets how long the master node waits to receive acknowledgements for cluster
-state updates from lagging nodes. The default value is <code class="literal">90s</code>. If a node
-does not successfully apply the cluster state update within this period of
-time, it is considered to have failed and is removed from the cluster. See
-<a class="xref" href="cluster-state-publishing.html" title="Publishing the cluster state">Publishing the cluster state</a>.
+设置主节点等待从滞后节点接收群集状态更新确认的时间。默认为 <code class="literal">90s</code>。如果一个节点在这段时间内没有成功更新集群状态，则该节点被认为已经失效并从集群中删除。参考 <a class="xref" href="cluster-state-publishing.html" title="Publishing the cluster state">发布集群状态</a>。
 </dd>
 <dt>
 <span class="term">
@@ -358,9 +309,7 @@ time, it is considered to have failed and is removed from the cluster. See
 </span>
 </dt>
 <dd>
-Sets how long a node will wait after sending a request to join a cluster
-before it considers the request to have failed and retries, unless
-<code class="literal">discovery.type</code> is set to <code class="literal">single-node</code>. Defaults to <code class="literal">60s</code>.
+设置节点在发送加入集群的请求后，在认为请求失败并重试之前等待的时间，除非<code class="literal">discovery.type</code> 被设置为 <code class="literal">single-node</code>。默认为 <code class="literal">60s</code>。
 </dd>
 <dt>
 <span class="term">
@@ -368,9 +317,7 @@ before it considers the request to have failed and retries, unless
 </span>
 </dt>
 <dd>
-Sets a limit on the number of voting configuration exclusions at any one
-time. The default value is <code class="literal">10</code>. See
-<a class="xref" href="modules-discovery-adding-removing-nodes.html" title="Adding and removing nodes">Adding and removing nodes</a>.
+设置无论在任何时候的投票配置排除的数量限制。<span class="remark">(原文: Sets a limit on the number of voting configuration exclusions at any one time.) </span>  默认为 <code class="literal">10</code>。参考 <a class="xref" href="modules-discovery-adding-removing-nodes.html" title="Adding and removing nodes">添加和移除节点</a>。
 </dd>
 <dt>
 <span class="term">
@@ -378,9 +325,7 @@ time. The default value is <code class="literal">10</code>. See
 </span>
 </dt>
 <dd>
-Sets how long the master node waits for each cluster state update to be
-completely published to all nodes before logging a message indicating that
-some nodes are responding slowly. The default value is <code class="literal">10s</code>.
+设置主节点等待 每个集群状态更新 完全发布到所有节点的时间，然后记录一条消息，指示某些节点响应缓慢。默认为 <code class="literal">10s</code>。
 </dd>
 <dt>
 <span class="term">
@@ -388,9 +333,7 @@ some nodes are responding slowly. The default value is <code class="literal">10s
 </span>
 </dt>
 <dd>
-Sets how long the master node waits for each cluster state update to be
-completely published to all nodes, unless <code class="literal">discovery.type</code> is set to
-<code class="literal">single-node</code>. The default value is <code class="literal">30s</code>. See <a class="xref" href="cluster-state-publishing.html" title="Publishing the cluster state">Publishing the cluster state</a>.
+设置主节点等待 每个集群状态更新 完全发布到所有节点的时间，除非<code class="literal">discovery.type</code> 被设置为 <code class="literal">single-node</code>。默认为 <code class="literal">30s</code>。参考 <a class="xref" href="cluster-state-publishing.html" title="Publishing the cluster state">发布集群状态</a>。
 </dd>
 <dt>
 <span class="term">
@@ -399,8 +342,7 @@ completely published to all nodes, unless <code class="literal">discovery.type</
 </dt>
 <dd>
 <p>
-Specifies which operations are rejected when there is no active master in a
-cluster. This setting has two valid values:
+指定当群集中没有活动的主节点时拒绝哪些操作。该设置有两个有效值：
 </p>
 <div class="variablelist">
 <dl class="variablelist">
@@ -410,9 +352,7 @@ cluster. This setting has two valid values:
 </span>
 </dt>
 <dd>
-All operations on the node (both read and write operations) are rejected.
-This also applies for API cluster state read or write operations, like the get
-index settings, put mapping and cluster state API.
+拒绝集群上的所有操作（读和写操作）。这也适用于 集群状态读取或写入操作的 API ，如获取索引设置、设置映射(mapping) 和 集群状态 API。
 </dd>
 <dt>
 <span class="term">
@@ -420,10 +360,7 @@ index settings, put mapping and cluster state API.
 </span>
 </dt>
 <dd>
-(default) Write operations are rejected. Read operations succeed,
-based on the last known cluster configuration. This situation may result in
-partial reads of stale data as this node may be isolated from the rest of the
-cluster.
+(默认) 拒绝写操作。根据最后一次已知的集群配置，读取操作是成功的。这种情况可能会导致对陈旧数据的部分读取，因为该节点可能与集群的其余部分隔离。
 </dd>
 </dl>
 </div>
@@ -433,12 +370,11 @@ cluster.
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-The <code class="literal">cluster.no_master_block</code> setting doesn’t apply to nodes-based APIs
-(for example, cluster stats, node info, and node stats APIs). Requests to these
-APIs are not be blocked and can run on any available node.
+<code class="literal">cluster.no_master_block</code> 设置不适用于 基于节点的 API（比如 集群统计，节点信息，以及节点统计 API）。
+对这些 API 的请求不会被阻止，可以在任何可用的节点上运行。
 </li>
 <li class="listitem">
-For the cluster to be fully operational, it must have an active master.
+要使集群完全运行，它必须有一个活动的主节点。
 </li>
 </ul>
 </div>
@@ -447,8 +383,9 @@ For the cluster to be fully operational, it must have an active master.
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>This setting replaces the <code class="literal">discovery.zen.no_master_block</code> setting in
-earlier versions. The <code class="literal">discovery.zen.no_master_block</code> setting is ignored.</p>
+<p>
+这个设置取代了之前版本中的 <code class="literal">discovery.zen.no_master_block</code> 设置。且 <code class="literal">discovery.zen.no_master_block</code> 已被忽略。
+</p>
 </div>
 </div>
 </dd>
@@ -457,10 +394,10 @@ earlier versions. The <code class="literal">discovery.zen.no_master_block</code>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="ccr-settings.html">« Cross-cluster replication settings</a>
+<a href="ccr-settings.html">« 跨集群复制设置</a>
 </span>
 <span class="next">
-<a href="modules-fielddata.html">Field data cache settings »</a>
+<a href2="modules-fielddata.html">Field data cache settings »</a>
 </span>
 </div>
 </div>

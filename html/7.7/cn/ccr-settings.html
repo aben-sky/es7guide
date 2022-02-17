@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Cross-cluster replication settings | ElasticSearch 7.7 权威指南中文版</title>
+	<title>跨集群复制设置 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -34,112 +34,113 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="settings.html">Configuring Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="settings.html">配置 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Cross-cluster replication settings</span>
+<span class="breadcrumb-node">跨集群复制设置</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="modules-cluster.html">« Cluster-level shard allocation and routing settings</a>
+<a href="modules-cluster.html">« 集群级分片分配和路由设置</a>
 </span>
 <span class="next">
-<a href="modules-discovery-settings.html">Discovery and cluster formation settings »</a>
+<a href2="modules-discovery-settings.html">Discovery and cluster formation settings »</a>
 </span>
 </div>
 <div class="section xpack">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="ccr-settings"></a>Cross-cluster replication settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/ccr-settings.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
+<a id="ccr-settings"></a>跨集群复制设置
 </h2>
 </div></div></div>
-<p>These cross-cluster replication settings can be dynamically updated on a live cluster with the
-<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">cluster update settings API</a>.</p>
+<p>
+这些跨集群复制设置可以通过 <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">集群更新设置</a> API 在实时集群上动态更新。
 <h4>
-<a id="ccr-recovery-settings"></a>Remote recovery settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/ccr-settings.asciidoc">edit</a>
+<a id="ccr-recovery-settings"></a>
+远程恢复设置 (remote recovery settings)
 </h4>
-<p>The following setting can be used to rate-limit the data transmitted during
-<a class="xref" href="remote-recovery.html" title="Remote recovery">remote recoveries</a>:</p>
+<p>以下设置可用于对 <a class="xref" href="remote-recovery.html" title="Remote recovery">远程恢复</a> 远程恢复期间传输的数据进行速率限制：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<code class="literal">ccr.indices.recovery.max_bytes_per_sec</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">ccr.indices.recovery.max_bytes_per_sec</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-Limits the total inbound and outbound remote recovery traffic on each node.
-Since this limit applies on each node, but there may be many nodes performing
-remote recoveries concurrently, the total amount of remote recovery bytes may be
-much higher than this limit. If you set this limit too high then there is a risk
-that ongoing remote recoveries will consume an excess of bandwidth (or other
-resources) which could destabilize the cluster. This setting is used by both the
-leader and follower clusters. For example if it is set to <code class="literal">20mb</code> on a leader,
-the leader will only send <code class="literal">20mb/s</code> to the follower even if the follower is
-requesting and can accept <code class="literal">60mb/s</code>. Defaults to <code class="literal">40mb</code>.
+限制每个节点上远程恢复的入站和出站的总流量。
+
+由于此限制应用于每个节点，但可能有许多节点同时执行远程恢复，因此远程恢复的字节总量可能远远高于此限制。
+
+如果将此限制设置得太高，则存在正在进行中的远程恢复会消耗过多带宽(或其他资源)的风险，这可能会使集群不稳定。
+
+主(leader)集群和从(follower)集群都使用此设置。
+
+例如，如果在主集群上设置为 <code class="literal">20mb</code>，即使从集群可以接受 <code class="literal">60mb/s</code>并以此为上限发出请求，主集群仍将只向从集群发送 <code class="literal">20mb/s</code>。默认为 <code class="literal">40mb</code>。
 </dd>
 </dl>
 </div>
 <h4>
-<a id="ccr-advanced-recovery-settings"></a>Advanced remote recovery settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/ccr-settings.asciidoc">edit</a>
+<a id="ccr-advanced-recovery-settings"></a>
+高级远程恢复设置 (Advanced remote recovery settings)
 </h4>
-<p>The following <em>expert</em> settings can be set to manage the resources consumed by
-remote recoveries:</p>
+<p>可以使用以下<em>专家级</em>设置来管理远程恢复的资源消耗：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<code class="literal">ccr.indices.recovery.max_concurrent_file_chunks</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">ccr.indices.recovery.max_concurrent_file_chunks</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-Controls the number of file chunk requests that can be sent in parallel per
-recovery. As multiple remote recoveries might already running in parallel,
-increasing this expert-level setting might only help in situations where remote
-recovery of a single shard is not reaching the total inbound and outbound remote recovery traffic as configured by <code class="literal">ccr.indices.recovery.max_bytes_per_sec</code>.
-Defaults to <code class="literal">5</code>. The maximum allowed value is <code class="literal">10</code>.
+控制每次恢复时可以并行发送的文件区块请求的数量。
+
+由于多个远程恢复可能已经并行运行，因此增加此专家级设置可能仅在单个分片的远程恢复未达到 <code class="literal">ccr.indices.recovery.max_bytes_per_sec</code> 配置的远程恢复的入站和出站的总流量的情况下有所帮助。
+
+默认为 <code class="literal">5</code>。允许的最大值为 <code class="literal">10</code>。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">ccr.indices.recovery.chunk_size</code>(<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">ccr.indices.recovery.chunk_size</code>(<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-Controls the chunk size requested by the follower during file transfer. Defaults to
-<code class="literal">1mb</code>.
+控制文件传输过程中跟随请求的块大小。默认为 <code class="literal">1mb</code>。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">ccr.indices.recovery.recovery_activity_timeout</code>(<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">ccr.indices.recovery.recovery_activity_timeout</code>(<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-Controls the timeout for recovery activity. This timeout primarily applies on
-the leader cluster. The leader cluster must open resources in-memory to supply
-data to the follower during the recovery process. If the leader does not receive recovery requests from the follower for this period of time, it will close the resources. Defaults to 60 seconds.
+控制恢复活动的超时时间。
+此超时时间主要作用于主群集。
+在恢复过程中，主集群必须打开内存中的资源，以便向从集群提供数据。
+主集群如果在这段时间内没有收到从集群的恢复请求，则它将关闭资源。
+默认为 60 秒。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">ccr.indices.recovery.internal_action_timeout</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">ccr.indices.recovery.internal_action_timeout</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-Controls the timeout for individual network requests during the remote recovery
-process. An individual action timing out can fail the recovery. Defaults to
-60 seconds.
+制远程恢复过程中各个网络请求的超时时间。
+单个操作超时可能会导致恢复失败。
+默认为 60 秒。
 </dd>
 </dl>
 </div>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="modules-cluster.html">« Cluster-level shard allocation and routing settings</a>
+<a href="modules-cluster.html">« 集群级分片分配和路由设置</a>
 </span>
 <span class="next">
-<a href="modules-discovery-settings.html">Discovery and cluster formation settings »</a>
+<a href2="modules-discovery-settings.html">Discovery and cluster formation settings »</a>
 </span>
 </div>
 </div>

@@ -139,7 +139,7 @@ var esNavLinks = [
                     {
                         "url": "ccr-settings.html",
                         "text": "跨集群复制设置",
-                        "title": "Cross-cluster replication settings"
+                        "title": "跨集群复制设置"
                     },
                     {
                         "url": "modules-discovery-settings.html",

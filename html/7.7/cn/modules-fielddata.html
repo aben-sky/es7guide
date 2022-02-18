@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Field data cache settings | ElasticSearch 7.7 权威指南中文版</title>
+	<title>字段数据缓存设置 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -34,37 +34,39 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="settings.html">Configuring Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="settings.html">配置 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Field data cache settings</span>
+<span class="breadcrumb-node">字段数据缓存设置</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="modules-discovery-settings.html">« Discovery and cluster formation settings</a>
+<a href="modules-discovery-settings.html">« 发现和集群信息设置</a>
 </span>
 <span class="next">
-<a href="modules-http.html">HTTP »</a>
+<a href2="modules-http.html">HTTP »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="modules-fielddata"></a>Field data cache settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/fielddata.asciidoc">edit</a>
+<a id="modules-fielddata"></a>字段数据缓存设置
+
 </h2>
 </div></div></div>
-<p>The field data cache is used mainly when sorting on or computing aggregations
-on a field. It loads all the field values to memory in order to provide fast
-document based access to those values. The field data cache can be
-expensive to build for a field, so its recommended to have enough memory
-to allocate it, and to keep it loaded.</p>
-<p>The amount of memory used for the field
-data cache can be controlled using <code class="literal">indices.fielddata.cache.size</code>. Note:
-reloading  the field data which does not fit into your cache will be expensive
-and  perform poorly.</p>
+<p>
+字段数据缓存主要在对字段进行排序或聚合计算时使用。
+它将所有字段的值加载到内存中，以便提供对这些值的基于文档的快速访问。
+为字段构建字段数据缓存的成本可能很高，因此建议有足够的内存来分配数据缓存，并保持其加载状态。
+</p>
+<p>
+可以使用 <code class="literal">indices.fielddata.cache.size</code> 来控制用于字段数据缓存的内存使用量。
+注意：重新加载不适合的字段数据到缓存中的代价是很高的，而且性能很差。 
+<span class="remark">(原文: Note: reloading the field data which does not fit into your cache will be expensive and  perform poorly.)</span>
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -73,32 +75,29 @@ and  perform poorly.</p>
 </span>
 </dt>
 <dd>
-The max size of the field data cache, eg <code class="literal">30%</code> of node heap space, or an
-absolute value, eg <code class="literal">12GB</code>. Defaults to unbounded.  Also see
-<a class="xref" href="circuit-breaker.html#fielddata-circuit-breaker" title="Field data circuit breaker">Field data circuit breaker</a>.
+字段数据缓存的最大值, 比如 节点堆空间的 <code class="literal">30%</code>，或者 一个确切的值，比如 <code class="literal">12GB</code>。默认为 没有限制(unbounded)。可以参考 <a class="xref" href="circuit-breaker.html#fielddata-circuit-breaker" title="Field data circuit breaker">字段数据熔断器 (field data circuit breaker)</a>。
 </dd>
 </dl>
 </div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>These are static settings which must be configured on every data node in
-the cluster.</p>
+<p>这些是静态设置，必须在集群中的每个数据节点上进行配置。</p>
 </div>
 </div>
 <h4>
-<a id="fielddata-monitoring"></a>Monitoring field data<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/fielddata.asciidoc">edit</a>
+<a id="fielddata-monitoring"></a>
+监控字段数据 (monitoring field data)
 </h4>
-<p>You can monitor memory usage for field data as well as the field data circuit
-breaker using
-<a class="xref" href="cluster-nodes-stats.html" title="Nodes stats API">Nodes Stats API</a></p>
+<p>
+可以使用 <a class="xref" href="cluster-nodes-stats.html" title="Nodes stats API">节点统计 API</a> 监控字段数据 以及 字段数据熔断器的内存使用情况。
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="modules-discovery-settings.html">« Discovery and cluster formation settings</a>
+<a href="modules-discovery-settings.html">« 发现和集群信息设置</a>
 </span>
 <span class="next">
-<a href="modules-http.html">HTTP »</a>
+<a href2="modules-http.html">HTTP »</a>
 </span>
 </div>
 </div>

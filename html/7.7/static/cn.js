@@ -148,8 +148,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "modules-fielddata.html",
-                        "text": "字段信息缓存设置",
-                        "title": "Field data cache settings"
+                        "text": "字段数据缓存设置",
+                        "title": "字段数据缓存设置"
                     },
                     {
                         "url": "modules-http.html",

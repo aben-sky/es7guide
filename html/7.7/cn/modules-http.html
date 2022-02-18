@@ -34,47 +34,46 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="settings.html">Configuring Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="settings.html">配置 Elasticsearch</a></span>
 »
 <span class="breadcrumb-node">HTTP</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="modules-fielddata.html">« Field data cache settings</a>
+<a href="modules-fielddata.html">« 字段数据缓存设置</a>
 </span>
 <span class="next">
-<a href="ilm-settings.html">Index lifecycle management settings in Elasticsearch »</a>
+<a href2="ilm-settings.html">Index lifecycle management settings in Elasticsearch »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="modules-http"></a>HTTP<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/http.asciidoc">edit</a>
+<a id="modules-http"></a>HTTP
 </h2>
 </div></div></div>
-<p>The HTTP layer exposes Elasticsearch’s REST APIs over HTTP.</p>
-<p>The HTTP mechanism is completely asynchronous in nature, meaning that
-there is no blocking thread waiting for a response. The benefit of using
-asynchronous communication for HTTP is solving the
-<a href="http://en.wikipedia.org/wiki/C10k_problem" class="ulink" target="_top">C10k problem</a>.</p>
-<p>When possible, consider using
-<a href="http://en.wikipedia.org/wiki/Keepalive#HTTP_Keepalive" class="ulink" target="_top">HTTP keep alive</a>
-when connecting for better performance and try to get your favorite
-client not to do
-<a href="http://en.wikipedia.org/wiki/Chunked_transfer_encoding" class="ulink" target="_top">HTTP chunking</a>.</p>
+<p>HTTP层通过HTTP公开 Elasticsearch 的 REST API。</p>
+<p>
+HTTP机制本质上是完全异步的，这意味着不存在等待响应的阻塞线程。
+对 HTTP 使用异步通信的好处是解决了 <a href="http://en.wikipedia.org/wiki/C10k_problem" class="ulink" target="_top">C10k problem</a> 问题（ <a href="https://blog.csdn.net/chinawangfei/article/details/102780959" rel="nofollow">国内打不开点这里<a/>）。
+</p>
+<p>
+如果可以，考虑在连接时使用 <a href="http://en.wikipedia.org/wiki/Keepalive#HTTP_Keepalive" class="ulink" target="_top">HTTP keep alive</a> 以获得更好的性能，并尝试让你最喜欢的客户端不要进行 <a href="http://en.wikipedia.org/wiki/Chunked_transfer_encoding" class="ulink" target="_top">HTTP 分块</a>。
+</p>
 <div class="http-settings">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_http_settings"></a>HTTP settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/http.asciidoc">edit</a>
+<a id="_http_settings"></a>HTTP 设置
 </h3>
 </div></div></div>
-<p>The settings in the table below can be configured for HTTP. Note that none of
-them are dynamically updatable so for them to take effect they should be set in
-the Elasticsearch <a class="xref" href="settings.html" title="Configuring Elasticsearch">configuration file</a>.</p>
+<p>
+下表中的设置可以对 HTTP 进行配置。
+注意，它们都不能动态更新，要让它们生效，应该在 Elasticsearch 的 <a class="xref" href="settings.html" title="Configuring Elasticsearch">配置文件 </a>中设置。
+</p>
 <div class="informaltable">
 <table border="1" cellpadding="4px">
 <colgroup>
@@ -90,143 +89,126 @@ the Elasticsearch <a class="xref" href="settings.html" title="Configuring Elasti
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">http.port</code></p></td>
-<td align="left" valign="top"><p>A bind port range. Defaults to <code class="literal">9200-9300</code>.</p></td>
+<td align="left" valign="top"><p>绑定端口范围。默认为 <code class="literal">9200-9300</code>。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">http.publish_port</code></p></td>
-<td align="left" valign="top"><p>The port that HTTP clients should use when
-communicating with this node. Useful when a cluster node is behind a
-proxy or firewall and the <code class="literal">http.port</code> is not directly addressable
-from the outside. Defaults to the actual port assigned via <code class="literal">http.port</code>.</p></td>
+<td align="left" valign="top"><p>HTTP客户端在与此节点通信时应使用的端口。
+当集群的节点位于代理或防火墙之后，并且 <code class="literal">http.port</code> 不能从外部直接寻址时，此功能非常有用。默认为通过<code class="literal">http.port</code>分配的实际端口。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">http.bind_host</code></p></td>
-<td align="left" valign="top"><p>The host address to bind the HTTP service to. Defaults to <code class="literal">http.host</code> (if set) or <code class="literal">network.bind_host</code>.</p></td>
+<td align="left" valign="top"><p>HTTP 服务要绑定到的主机地址。默认为 <code class="literal">http.host</code> (如果设置了) 或者 <code class="literal">network.bind_host</code>。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">http.publish_host</code></p></td>
-<td align="left" valign="top"><p>The host address to publish for HTTP clients to connect to. Defaults to <code class="literal">http.host</code> (if set) or <code class="literal">network.publish_host</code>.</p></td>
+<td align="left" valign="top"><p>要发布供 HTTP 客户端连接的主机地址。默认为 <code class="literal">http.host</code> (如果设置了) 或者 <code class="literal">network.publish_host</code>。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">http.host</code></p></td>
-<td align="left" valign="top"><p>Used to set the <code class="literal">http.bind_host</code> and the <code class="literal">http.publish_host</code>.</p></td>
+<td align="left" valign="top"><p>用于设置 <code class="literal">http.bind_host</code> 和 <code class="literal">http.publish_host</code>。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">http.max_content_length</code></p></td>
-<td align="left" valign="top"><p>The max content of an HTTP request. Defaults to
-<code class="literal">100mb</code>.</p></td>
+<td align="left" valign="top"><p>HTTP 请求的最大内容。默认为 <code class="literal">100mb</code>。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">http.max_initial_line_length</code></p></td>
-<td align="left" valign="top"><p>The max length of an HTTP URL. Defaults
-to <code class="literal">4kb</code></p></td>
+<td align="left" valign="top"><p>HTTP URL 的最大长度。默认为 <code class="literal">4kb</code>。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">http.max_header_size</code></p></td>
-<td align="left" valign="top"><p>The max size of allowed headers.  Defaults to <code class="literal">8kB</code></p></td>
+<td align="left" valign="top"><p>允许的 header 大小的最大值。默认为 <code class="literal">8kB</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">http.compression</code></p></td>
 <td align="left" valign="top">
-<p>Support for compression when possible (with
-Accept-Encoding). If HTTPS is enabled, defaults to <code class="literal">false</code>. Otherwise, defaults
-to <code class="literal">true</code>.</p>
-<p>Disabling compression for HTTPS mitigates potential security risks, such as a
-<a href="https://en.wikipedia.org/wiki/BREACH" class="ulink" target="_top">BREACH attack</a>. To compress HTTPS traffic,
-you must explicitly set <code class="literal">http.compression</code> to <code class="literal">true</code>.</p>
+<p>如果可以就支持压缩 (使用 Accept-Encoding)。如果开启了 HTTPS，默认为 <code class="literal">false</code>。否则，默认为 <code class="literal">true</code>。</p>
+<p>
+对 HTTPS 禁用压缩可以降低潜在的安全风险，如 <a href="https://en.wikipedia.org/wiki/BREACH" class="ulink" target="_top">BREACH 攻击</a>。要压缩 HTTPS 流量，必须将 <code class="literal">http.compression</code> 设置为 <code class="literal">true</code>。</p>
 </td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">http.compression_level</code></p></td>
-<td align="left" valign="top"><p>Defines the compression level to use for HTTP responses. Valid values are in the range of 1 (minimum compression)
-and 9 (maximum compression). Defaults to <code class="literal">3</code>.</p></td>
+<td align="left" valign="top"><p>定义用于 HTTP 响应的压缩级别。有效值的范围为 1（最小压缩） 到 9 （最大压缩）。默认为 <code class="literal">3</code>。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">http.cors.enabled</code></p></td>
-<td align="left" valign="top"><p>Enable or disable cross-origin resource sharing,
-i.e. whether a browser on another origin can execute requests against
-Elasticsearch. Set to <code class="literal">true</code> to enable Elasticsearch to process pre-flight
-<a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing" class="ulink" target="_top">CORS</a> requests.
-Elasticsearch will respond to those requests with the <code class="literal">Access-Control-Allow-Origin</code> header
-if the <code class="literal">Origin</code> sent in the request is permitted by the <code class="literal">http.cors.allow-origin</code>
-list. Set to <code class="literal">false</code> (the default) to make Elasticsearch ignore the <code class="literal">Origin</code>
-request header, effectively disabling CORS requests because Elasticsearch will
-never respond with the <code class="literal">Access-Control-Allow-Origin</code> response header. Note that
-if the client does not send a pre-flight request with an <code class="literal">Origin</code> header or it
-does not check the response headers from the server to validate the
-<code class="literal">Access-Control-Allow-Origin</code> response header, then cross-origin security is
-compromised. If CORS is not enabled on Elasticsearch, the only way for the client
-to know is to send a pre-flight request and realize the required response headers
-are missing.</p></td>
+<td align="left" valign="top"><p>
+启用或禁用 跨域(cross-origin) 资源共享，即在浏览器上另一个源是否可以对 Elasticsearch 执行请求。
+
+设置为 <code class="literal">true</code> 以使 Elasticsearch 能够处理 预检的(pre-flight) <a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing" class="ulink" target="_top">CORS</a> 请求。
+
+如果 <code class="literal">http.cors.allow-origin</code> 列表允许请求中发送的 <code class="literal">Origin(域)</code>，Elasticsearch 将使用 <code class="literal">Access-Control-Allow-Origin</code> 头响应这些请求。
+
+设置为 <code class="literal">false</code> (默认)，Elasticsearch 会忽略  <code class="literal">Origin</code> 请求头，能有效的禁用 CORS 请求，因为 Elasticsearch 永远不会使用 <code class="literal">Access-Control-Allow-Origin</code> 响应头进行响应。
+
+注意，如果客户端没有发送带有 <code class="literal">Origin</code> 头的 预检的(pre-flight) 请求，或者没有检查来自服务器的响应头以验证<code class="literal">Access-Control-Allow-Origin</code> 响应头，则 跨域(cross-origin) 安全性会受到损害。
+
+如果 Elasticsearch 上没有启用 CORS，那么客户端知道的唯一方法是发送一个 预检的(pre-flight) 请求，并意识到所需的响应头丢失了。
+</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">http.cors.allow-origin</code></p></td>
-<td align="left" valign="top"><p>Which origins to allow. Defaults to no origins
-allowed. If you prepend and append a <code class="literal">/</code> to the value, this will
-be treated as a regular expression, allowing you to support HTTP and HTTPs.
-for example using <code class="literal">/https?:\/\/localhost(:[0-9]+)?/</code> would return the
-request header appropriately in both cases. <code class="literal">*</code> is a valid value but is
-considered a <span class="strong strong"><strong>security risk</strong></span> as your Elasticsearch instance is open to cross origin
-requests from <span class="strong strong"><strong>anywhere</strong></span>.</p></td>
+<td align="left" valign="top"><p>
+允许的域(源, origin)。默认不允许任何域。
+如果在该值前添加 <code class="literal">/</code>，它将被视为正则表达式，允许支持 HTTP 和 HTTPS。
+例如使用<code class="literal">/https?:\/\/localhost(:[0-9]+)?/</code> 在这两种情况下<span class="remark">(即http和https)</span>都会适当地返回请求头。
+<code class="literal">*</code> 是一个有效的值，但被认为是一个<span class="strong strong"><strong>安全风险</strong></span>，因为 Elasticsearch 实例对来自<span class="strong strong"><strong>任何地方</strong></span>的跨域请求都开放。
+</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">http.cors.max-age</code></p></td>
-<td align="left" valign="top"><p>Browsers send a "preflight" OPTIONS-request to
-determine CORS settings. <code class="literal">max-age</code> defines how long the result should
-be cached for. Defaults to <code class="literal">1728000</code> (20 days)</p></td>
+<td align="left" valign="top"><p>
+浏览器发送带 “预检(preflight)” 选项的请求来确定 CORS 设置。
+<code class="literal">max-age</code> 定义了结果要缓存的时间。默认为 <code class="literal">1728000</code> (20 天)。
+</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">http.cors.allow-methods</code></p></td>
-<td align="left" valign="top"><p>Which methods to allow. Defaults to
-<code class="literal">OPTIONS, HEAD, GET, POST, PUT, DELETE</code>.</p></td>
+<td align="left" valign="top"><p>允许哪些方法。默认为 <code class="literal">OPTIONS, HEAD, GET, POST, PUT, DELETE</code>。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">http.cors.allow-headers</code></p></td>
-<td align="left" valign="top"><p>Which headers to allow. Defaults to
-<code class="literal">X-Requested-With, Content-Type, Content-Length</code>.</p></td>
+<td align="left" valign="top"><p>允许那些 header 。默认为 <code class="literal">X-Requested-With, Content-Type, Content-Length</code>。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">http.cors.allow-credentials</code></p></td>
-<td align="left" valign="top"><p>Whether the <code class="literal">Access-Control-Allow-Credentials</code>
-header should be returned. Note: This header is only returned, when the setting is
-set to <code class="literal">true</code>. Defaults to <code class="literal">false</code></p></td>
+<td align="left" valign="top"><p>是否要返回 <code class="literal">Access-Control-Allow-Credentials</code> 头。注意：仅当设置为 <code class="literal">true</code> 时才会返回这个值。默认为 <code class="literal">false</code>。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">http.detailed_errors.enabled</code></p></td>
-<td align="left" valign="top"><p>Enables or disables the output of detailed error messages
-and stack traces in response output. Note: When set to <code class="literal">false</code> and the <code class="literal">error_trace</code> request
-parameter is specified, an error will be returned; when <code class="literal">error_trace</code> is not specified, a
-simple message will be returned. Defaults to <code class="literal">true</code></p></td>
+<td align="left" valign="top"><p>
+启用或禁用响应中详细错误消息和堆栈跟踪的输出。
+注意：当设置为 <code class="literal">false</code> 且指定了 <code class="literal">error_trace</code> 请求参数时，会返回错误；如果未指定 <code class="literal">error_trace</code>，则只返回一个简单的信息。默认为 <code class="literal">true</code>。
+</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">http.pipelining.max_events</code></p></td>
-<td align="left" valign="top"><p>The maximum number of events to be queued up in memory before an HTTP connection is closed, defaults to <code class="literal">10000</code>.</p></td>
+<td align="left" valign="top"><p>关闭 HTTP 连接之前，要在内存中排队的最大事件数，默认为 <code class="literal">10000</code>。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">http.max_warning_header_count</code></p></td>
-<td align="left" valign="top"><p>The maximum number of warning headers in
- client HTTP responses, defaults to unbounded.</p></td>
+<td align="left" valign="top"><p>客户端 HTTP 响应中警告头的最大数量，默认为 不限制。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">http.max_warning_header_size</code></p></td>
-<td align="left" valign="top"><p>The maximum total size of warning headers in
-client HTTP responses, defaults to unbounded.</p></td>
+<td align="left" valign="top"><p>客户端 HTTP 响应中警告头的最大总大小，默认为 不限制。</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>It also uses the common
-<a class="xref" href="modules-network.html" title="Network settings">network settings</a>.</p>
+<p>它还使用通用的 <a class="xref" href="modules-network.html" title="Network settings">网络设置</a>。</p>
 </div>
 
 <div class="http-rest-request-tracer">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_rest_request_tracer"></a>REST request tracer<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/http.asciidoc">edit</a>
+<a id="_rest_request_tracer"></a>REST 请求跟踪器
 </h3>
 </div></div></div>
-<p>The HTTP layer has a dedicated tracer logger which, when activated, logs incoming requests. The log can be dynamically activated
-by setting the level of the <code class="literal">org.elasticsearch.http.HttpTracer</code> logger to <code class="literal">TRACE</code>:</p>
+<p>HTTP层有一个专用的跟踪记录器，当它被激活时，记录传入的请求。
+通过将 <code class="literal">org.elasticsearch.http.HttpTracer</code>日志的级别设置为 <code class="literal">TRACE</code> ，可以动态激活日志:</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT _cluster/settings
 {
@@ -236,8 +218,7 @@ by setting the level of the <code class="literal">org.elasticsearch.http.HttpTra
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/25.console"></div>
-<p>You can also control which uris will be traced, using a set of include and exclude wildcard patterns. By default every request will be
-traced.</p>
+<p>您还可以使用一组包含和排除通配符模式来控制将跟踪哪些 uri。默认情况下，每个请求都会被跟踪。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT _cluster/settings
 {
@@ -253,10 +234,10 @@ traced.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="modules-fielddata.html">« Field data cache settings</a>
+<a href="modules-fielddata.html">« 字段数据缓存设置</a>
 </span>
 <span class="next">
-<a href="ilm-settings.html">Index lifecycle management settings in Elasticsearch »</a>
+<a href2="ilm-settings.html">Index lifecycle management settings in Elasticsearch »</a>
 </span>
 </div>
 </div>

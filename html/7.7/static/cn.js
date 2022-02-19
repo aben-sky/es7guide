@@ -163,8 +163,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "recovery.html",
-                        "text": "索引恢复的设置",
-                        "title": "Index recovery settings"
+                        "text": "索引恢复设置",
+                        "title": "索引恢复设置"
                     },
                     {
                         "url": "indexing-buffer.html",

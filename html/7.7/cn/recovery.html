@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Index recovery settings | ElasticSearch 7.7 权威指南中文版</title>
+	<title>索引恢复设置 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -34,45 +34,43 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="settings.html">Configuring Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="settings.html">配置 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Index recovery settings</span>
+<span class="breadcrumb-node">索引恢复设置</span>
 </div>
 <div class="navheader">
 <span class="prev">
 <a href="ilm-settings.html">« Index lifecycle management settings in Elasticsearch</a>
 </span>
 <span class="next">
-<a href="indexing-buffer.html">Indexing buffer settings »</a>
+<a href2="indexing-buffer.html">Indexing buffer settings »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="recovery"></a>Index recovery settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/recovery.asciidoc">edit</a>
+<a id="recovery"></a>索引恢复设置
 </h2>
 </div></div></div>
-<p>Peer recovery syncs data from a primary shard to a new or existing shard copy.</p>
-<p>Peer recovery automatically occurs when Elasticsearch:</p>
+<p>对等恢复(peer recovery) 将数据从主分片同步到新的或已有的分片副本。</p>
+<p>Elasticsearch 在以下情形时，对等恢复会自动发生：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Recreates a shard lost during node failure
+重新创建节点失效期间丢失的分片
 </li>
 <li class="listitem">
-Relocates a shard to another node due to a cluster rebalance or changes to the
-<a class="xref" href="modules-cluster.html" title="Cluster-level shard allocation and routing settings">shard allocation settings</a>
+由于集群再平衡或<a class="xref" href="modules-cluster.html" title="Cluster-level shard allocation and routing settings">分片分配设置</a>的更改，需要将分片重新定位到另一个节点
 </li>
 </ul>
 </div>
-<p>You can view a list of in-progress and completed recoveries using the
-<a class="xref" href="cat-recovery.html" title="cat recovery API">cat recovery API</a>.</p>
+<p>您可以使用 <a class="xref" href="cat-recovery.html" title="cat recovery API">cat recovery API</a> 查看正在进行的和已完成的恢复列表。</p>
 <h4>
-<a id="_peer_recovery_settings"></a>Peer recovery settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/recovery.asciidoc">edit</a>
+<a id="_peer_recovery_settings"></a>对等恢复设置 (peer recovery settings)
 </h4>
 <div class="variablelist">
 <dl class="variablelist">
@@ -83,31 +81,28 @@ Relocates a shard to another node due to a cluster rebalance or changes to the
 </dt>
 <dd>
 <p>
-(<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>) Limits total inbound and outbound
-recovery traffic for each node. Defaults to <code class="literal">40mb</code>.
+(<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态的</a>) 
+限制每个节点入站和出站的总恢复流量。默认为 <code class="literal">40mb</code>。
 </p>
-<p>This limit applies to each node separately. If multiple nodes in a cluster
-perform recoveries at the same time, the cluster’s total recovery traffic may
-exceed this limit.</p>
-<p>If this limit is too high, ongoing recoveries may consume an excess of bandwidth
-and other resources, which can destabilize the cluster.</p>
-<p>This is a dynamic setting, which means you can set it in each node’s
-<code class="literal">elasticsearch.yml</code> config file and you can update it dynamically using the
-<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">cluster update settings API</a>. If you set it
-dynamically then the same limit applies on every node in the cluster. If you do
-not set it dynamically then you can set a different limit on each node, which is
-useful if some of your nodes have better bandwidth than others. For example, if
-you are using <a class="xref" href="overview-index-lifecycle-management.html" title="ILM overview">Index Lifecycle Management</a>
-then you may be able to give your hot nodes a higher recovery bandwidth limit
-than your warm nodes.</p>
+<p>此限制分别作用于每个节点。如果集群中的多个节点同时执行恢复，集群的总恢复流量可能会超过此限制。</p>
+<p>如果此限制太高，正在进行的恢复可能会消耗过多的带宽和其他资源，从而导致集群不稳定。</p>
+<p>
+这是一个动态设置，意味着你可以在配置文件 <code class="literal">elasticsearch.yml</code> 中设置，也可以使用 <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">集群更新设置</a> API 动态更新。
+
+如果你动态的设置该参数，那么集群中的每一个节点都会应用相同的限制。
+如果你不动态的设置它，那么你可以给每一个节点设置一个不同的限制，如果一些节点比其他节点具有更大的带宽，这将非常有用。
+
+比如，如果你使用 <a class="xref" href="overview-index-lifecycle-management.html" title="ILM overview">索引生命周期管理</a>，
+那么可以为 热节点(hot nodes) 提供比 普通节点(warm nodes) 更高的恢复带宽限制。
+</p>
 </dd>
 </dl>
 </div>
 <h4>
-<a id="_expert_peer_recovery_settings"></a>Expert peer recovery settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/recovery.asciidoc">edit</a>
+<a id="_expert_peer_recovery_settings"></a>
+专家级的对等恢复设置
 </h4>
-<p>You can use the following <em>expert</em> setting to manage resources for peer
-recoveries.</p>
+<p>你可以使用<em>专家级</em>的设置来管理对等恢复时的资源。</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -117,11 +112,11 @@ recoveries.</p>
 </dt>
 <dd>
 <p>
-(<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>, Expert) Number of file chunk requests
-sent in parallel for each recovery. Defaults to <code class="literal">2</code>.
+(<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态的</a>, 专家级) 每次恢复时并行发送的文件区块请求数。默认为 <code class="literal">2</code>。
 </p>
-<p>You can increase the value of this setting when the recovery of a single shard
-is not reaching the traffic limit set by <code class="literal">indices.recovery.max_bytes_per_sec</code>.</p>
+<p>
+当单个分片的恢复流量未达到<code class="literal">indices.recovery.max_bytes_per_sec</code>设置的限制时，可以增加此设置的值。
+</p>
 </dd>
 </dl>
 </div>
@@ -131,7 +126,7 @@ is not reaching the traffic limit set by <code class="literal">indices.recovery.
 <a href="ilm-settings.html">« Index lifecycle management settings in Elasticsearch</a>
 </span>
 <span class="next">
-<a href="indexing-buffer.html">Indexing buffer settings »</a>
+<a href2="indexing-buffer.html">Indexing buffer settings »</a>
 </span>
 </div>
 </div>

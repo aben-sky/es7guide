@@ -158,8 +158,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "ilm-settings.html",
-                        "text": "索引生命周期管理的设置",
-                        "title": "Index lifecycle management settings"
+                        "text": "索引生命周期管理设置",
+                        "title": "索引生命周期管理设置"
                     },
                     {
                         "url": "recovery.html",

@@ -174,7 +174,7 @@ var esNavLinks = [
                     {
                         "url": "license-settings.html",
                         "text": "许可证设置",
-                        "title": "License settings"
+                        "title": "许可证设置"
                     },
                     {
                         "url": "modules-gateway.html",

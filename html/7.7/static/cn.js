@@ -184,7 +184,7 @@ var esNavLinks = [
                     {
                         "url": "logging.html",
                         "text": "日志设置",
-                        "title": "Logging configuration"
+                        "title": "日志设置"
                     },
                     {
                         "url": "ml-settings.html",

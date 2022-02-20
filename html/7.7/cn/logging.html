@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Logging configuration | ElasticSearch 7.7 权威指南中文版</title>
+	<title>日志设置 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -34,43 +34,38 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="settings.html">Configuring Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="settings.html">配置 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Logging configuration</span>
+<span class="breadcrumb-node">日志设置</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="modules-gateway.html">« Local gateway settings</a>
+<a href="modules-gateway.html">« 本地网关设置</a>
 </span>
 <span class="next">
-<a href="ml-settings.html">Machine learning settings in Elasticsearch »</a>
+<a href2="ml-settings.html">Machine learning settings in Elasticsearch »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="logging"></a>Logging configuration<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/logging-config.asciidoc">edit</a>
+<a id="logging"></a>日志设置 (logging configuration)
 </h2>
 </div></div></div>
-<p>Elasticsearch uses <a href="https://logging.apache.org/log4j/2.x/" class="ulink" target="_top">Log4j 2</a> for
-logging. Log4j 2 can be configured using the log4j2.properties
-file. Elasticsearch exposes three properties, <code class="literal">${sys:es.logs.base_path}</code>,
-<code class="literal">${sys:es.logs.cluster_name}</code>, and <code class="literal">${sys:es.logs.node_name}</code> that can be
-referenced in the configuration file to determine the location of the log
-files. The property <code class="literal">${sys:es.logs.base_path}</code> will resolve to the log directory,
-<code class="literal">${sys:es.logs.cluster_name}</code> will resolve to the cluster name (used as the
-prefix of log filenames in the default configuration), and
-<code class="literal">${sys:es.logs.node_name}</code> will resolve to the node name (if the node name is
-explicitly set).</p>
-<p>For example, if your log directory (<code class="literal">path.logs</code>) is <code class="literal">/var/log/elasticsearch</code> and
-your cluster is named <code class="literal">production</code> then <code class="literal">${sys:es.logs.base_path}</code> will resolve
-to <code class="literal">/var/log/elasticsearch</code> and
-<code class="literal">${sys:es.logs.base_path}${sys:file.separator}${sys:es.logs.cluster_name}.log</code>
-will resolve to <code class="literal">/var/log/elasticsearch/production.log</code>.</p>
+<p>
+Elasticsearch 使用 <a href="https://logging.apache.org/log4j/2.x/" class="ulink" target="_top">Log4j 2</a> 进行日志记录。
+Log4j 2 可以使用 log4j2.properties 文件进行配置。
+Elasticsearch公开了三个属性，<code class="literal">${sys:es.logs.base_path}</code>、<code class="literal">${sys:es.logs.cluster_name}</code> 以及  <code class="literal">${sys:es.logs.node_name}</code>，可以在配置文件中引用这些属性来确定日志文件的位置。
+
+属性 <code class="literal">${sys:es.logs.base_path}</code> 将解析为日志目录，<code class="literal">${sys:es.logs.cluster_name}</code> 将解析为集群名称(在默认配置中用作日志文件名的前缀)，而<code class="literal">${sys:es.logs.node_name}</code>将解析为节点名称(如果明确设置了节点名称)。
+</p>
+<p>
+比如，如果日志目录(<code class="literal">path.logs</code>)是<code class="literal">/var/log/elasticsearch</code>，集群名称是<code class="literal">production</code>，那么<code class="literal">${sys:es.logs.base_path}</code>就会解析为<code class="literal">/var/log/elasticsearch</code>，<code class="literal">${sys:es.logs.base_path}${sys:file.separator}${sys:es.logs.cluster_name}.log</code> 将解析为<code class="literal">/var/log/elasticsearch/production.log</code>。
+</p>
 <div class="pre_wrapper lang-properties">
 <pre class="programlisting prettyprint lang-properties">######## Server JSON ############################
 appender.rolling.type = RollingFile <a id="CO9-1"></a><i class="conum" data-value="1"></i>
@@ -102,7 +97,7 @@ appender.rolling.strategy.action.condition.nested_condition.exceeds = 2GB <a id=
 <p><a href="#CO9-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Configure the <code class="literal">RollingFile</code> appender</p>
+<p>配置 <code class="literal">RollingFile</code> 附加器</p>
 </td>
 </tr>
 <tr>
@@ -110,7 +105,7 @@ appender.rolling.strategy.action.condition.nested_condition.exceeds = 2GB <a id=
 <p><a href="#CO9-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Log to <code class="literal">/var/log/elasticsearch/production_server.json</code></p>
+<p>日志记录到 <code class="literal">/var/log/elasticsearch/production_server.json</code></p>
 </td>
 </tr>
 <tr>
@@ -118,7 +113,7 @@ appender.rolling.strategy.action.condition.nested_condition.exceeds = 2GB <a id=
 <p><a href="#CO9-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Use JSON layout.</p>
+<p>使用 JSON 布局</p>
 </td>
 </tr>
 <tr>
@@ -126,8 +121,10 @@ appender.rolling.strategy.action.condition.nested_condition.exceeds = 2GB <a id=
 <p><a href="#CO9-4"><i class="conum" data-value="4"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">type_name</code> is a flag populating the <code class="literal">type</code> field in a <code class="literal">ESJsonLayout</code>.
-It can be used to distinguish different types of logs more easily when parsing them.</p>
+<p>
+<code class="literal">type_name</code>是一个标志，用于填充<code class="literal">ESJsonLayout</code>中的<code class="literal">type</code>字段。
+在解析日志时，它可以用来更容易地区分不同类型的日志。
+</p>
 </td>
 </tr>
 <tr>
@@ -135,8 +132,8 @@ It can be used to distinguish different types of logs more easily when parsing t
 <p><a href="#CO9-5"><i class="conum" data-value="5"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Roll logs to <code class="literal">/var/log/elasticsearch/production-yyyy-MM-dd-i.json</code>; logs
-will be compressed on each roll and <code class="literal">i</code> will be incremented</p>
+<p>滚动(roll)日志到 <code class="literal">/var/log/elasticsearch/production-yyyy-MM-dd-i.json</code>；
+日志将在每个滚动上被压缩，<code class="literal">i</code>将递增
 </td>
 </tr>
 <tr>
@@ -144,7 +141,7 @@ will be compressed on each roll and <code class="literal">i</code> will be incre
 <p><a href="#CO9-6"><i class="conum" data-value="6"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Use a time-based roll policy</p>
+<p>使用一个基于时间的滚动策略</p>
 </td>
 </tr>
 <tr>
@@ -152,7 +149,7 @@ will be compressed on each roll and <code class="literal">i</code> will be incre
 <p><a href="#CO9-7"><i class="conum" data-value="7"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Roll logs on a daily basis</p>
+<p>以天为基础<span class="remark">(每天)</span>滚动日志</p>
 </td>
 </tr>
 <tr>
@@ -160,8 +157,7 @@ will be compressed on each roll and <code class="literal">i</code> will be incre
 <p><a href="#CO9-8"><i class="conum" data-value="8"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Align rolls on the day boundary (as opposed to rolling every twenty-four
-hours)</p>
+<p>在一天的边界上对齐滚动(而不是每24小时滚动一次)</p>
 </td>
 </tr>
 <tr>
@@ -169,7 +165,7 @@ hours)</p>
 <p><a href="#CO9-9"><i class="conum" data-value="9"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Using a size-based roll policy</p>
+<p>使用基于大小的滚动策略</p>
 </td>
 </tr>
 <tr>
@@ -177,7 +173,7 @@ hours)</p>
 <p><a href="#CO9-10"><i class="conum" data-value="10"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Roll logs after 256 MB</p>
+<p>日志达到 256 MB 时滚动</p>
 </td>
 </tr>
 <tr>
@@ -185,7 +181,7 @@ hours)</p>
 <p><a href="#CO9-11"><i class="conum" data-value="11"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Use a delete action when rolling logs</p>
+<p>滚动日志时使用删除操作</p>
 </td>
 </tr>
 <tr>
@@ -193,7 +189,7 @@ hours)</p>
 <p><a href="#CO9-12"><i class="conum" data-value="12"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Only delete logs matching a file pattern</p>
+<p>仅删除与文件模式匹配的日志</p>
 </td>
 </tr>
 <tr>
@@ -201,7 +197,7 @@ hours)</p>
 <p><a href="#CO9-13"><i class="conum" data-value="13"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The pattern is to only delete the main logs</p>
+<p>模式是只删除主日志</p>
 </td>
 </tr>
 <tr>
@@ -209,7 +205,7 @@ hours)</p>
 <p><a href="#CO9-14"><i class="conum" data-value="14"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Only delete if we have accumulated too many compressed logs</p>
+<p>只有当我们积累了太多的压缩日志时才删除</p>
 </td>
 </tr>
 <tr>
@@ -217,7 +213,7 @@ hours)</p>
 <p><a href="#CO9-15"><i class="conum" data-value="15"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The size condition on the compressed logs is 2 GB</p>
+<p>压缩日志的大小条件是2 GB</p>
 </td>
 </tr>
 </table>
@@ -238,8 +234,8 @@ appender.rolling_old.filePattern = ${sys:es.logs.base_path}${sys:file.separator}
 <p><a href="#CO10-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The configuration for <code class="literal">old style</code> pattern appenders. These logs will be saved in <code class="literal">*.log</code> files and if archived will be in <code class="literal">*
-.log.gz</code> files. Note that these should be considered deprecated and will be removed in the future.</p>
+<p>
+<code class="literal">old style</code>模式附加器的配置。这些日志将被保存在 <code class="literal">*.log</code> 文件中，如果存档，将被保存在 <code class="literal">*.log.gz</code> 文件中。请注意，这些应该被认为是过时的，将来会被删除。</p>
 </td>
 </tr>
 </table>
@@ -247,14 +243,10 @@ appender.rolling_old.filePattern = ${sys:es.logs.base_path}${sys:file.separator}
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Log4j’s configuration parsing gets confused by any extraneous whitespace;
-if you copy and paste any Log4j settings on this page, or enter any Log4j
-configuration in general, be sure to trim any leading and trailing whitespace.</p>
+<p>Log4j 的配置解析会被任何无关的 空白(whitespace) 混淆；如果你在这个页面上复制和粘贴任何 Log4j 设置，或者输入任何 Log4j 配置，一定要移除(trim)任何前后空白。</p>
 </div>
 </div>
-<p>Note than you can replace <code class="literal">.gz</code> by <code class="literal">.zip</code> in <code class="literal">appender.rolling.filePattern</code> to
-compress the rolled logs using the zip format. If you remove the <code class="literal">.gz</code>
-extension then logs will not be compressed as they are rolled.</p>
+<p>注意，你可以在<code class="literal">appender.rolling.filePattern</code>中使用<code class="literal">.zip</code>取代<code class="literal">.gz</code>，以使用 zip 格式压缩滚动的日志。如果你把<code class="literal">.gz</code>扩展名移除，则日志在滚动时不会被压缩。</p>
 <p>If you want to retain log files for a specified period of time, you can use a
 rollover strategy with a delete action.</p>
 <div class="pre_wrapper lang-properties">
@@ -470,10 +462,10 @@ appender.rolling.filePattern = ${sys:es.logs.base_path}${sys:file.separator}${sy
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="modules-gateway.html">« Local gateway settings</a>
+<a href="modules-gateway.html">« 本地网关设置</a>
 </span>
 <span class="next">
-<a href="ml-settings.html">Machine learning settings in Elasticsearch »</a>
+<a href2="ml-settings.html">Machine learning settings in Elasticsearch »</a>
 </span>
 </div>
 </div>

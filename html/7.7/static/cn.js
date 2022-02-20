@@ -179,7 +179,7 @@ var esNavLinks = [
                     {
                         "url": "modules-gateway.html",
                         "text": "本地网关设置",
-                        "title": "Local gateway settings"
+                        "title": "本地网关设置"
                     },
                     {
                         "url": "logging.html",

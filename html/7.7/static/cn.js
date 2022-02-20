@@ -168,8 +168,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "indexing-buffer.html",
-                        "text": "索引时的缓存设置",
-                        "title": "Indexing buffer settings"
+                        "text": "索引时的缓冲区设置",
+                        "title": "索引时的缓冲区设置"
                     },
                     {
                         "url": "license-settings.html",

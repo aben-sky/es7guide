@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Indexing buffer settings | ElasticSearch 7.7 权威指南中文版</title>
+	<title>索引缓冲区设置 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -34,33 +34,34 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="settings.html">Configuring Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="settings.html">配置 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Indexing buffer settings</span>
+<span class="breadcrumb-node">索引缓冲区设置</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="recovery.html">« Index recovery settings</a>
+<a href="recovery.html">« 索引恢复设置</a>
 </span>
 <span class="next">
-<a href="license-settings.html">License settings »</a>
+<a href2="license-settings.html">License settings »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="indexing-buffer"></a>Indexing buffer settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/indexing_buffer.asciidoc">edit</a>
+<a id="indexing-buffer"></a>索引缓冲区设置 (Indexing buffer settings)
 </h2>
 </div></div></div>
-<p>The indexing buffer is used to store newly indexed documents.  When it fills
-up, the documents in the buffer are written to a segment on disk. It is divided
-between all shards on the node.</p>
-<p>The following settings are <em>static</em> and must be configured on every data node
-in the cluster:</p>
+<p>
+索引缓冲区用于存储新索引的文档。当缓冲区填满时，其中的文档会被写到磁盘上的一个段中。节点的所有分片都使用这个缓冲区。
+</p>
+<p>
+下面几个设置是<em>动态的</em>，必须在集群的每一个节点上都配置：
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -69,9 +70,8 @@ in the cluster:</p>
 </span>
 </dt>
 <dd>
-Accepts either a percentage or a byte size value. It defaults to <code class="literal">10%</code>,
-meaning that <code class="literal">10%</code> of the total heap allocated to a node will be used as the
-indexing buffer size shared across all shards.
+接受百分比或字节大小值。
+默认为 <code class="literal">10%</code>，表示分配给一个节点的堆的总大小的 <code class="literal">10%</code> 将用于所有分片共享的索引缓冲区大小。
 </dd>
 <dt>
 <span class="term">
@@ -79,8 +79,7 @@ indexing buffer size shared across all shards.
 </span>
 </dt>
 <dd>
-If the <code class="literal">index_buffer_size</code> is specified as a percentage, then this
-setting can be used to specify an absolute minimum.  Defaults to <code class="literal">48mb</code>.
+如果将 <code class="literal">index_buffer_size</code> 指定为一个百分比值，则此设置可用于指定绝对最小值。默认为 <code class="literal">48mb</code>。
 </dd>
 <dt>
 <span class="term">
@@ -88,18 +87,17 @@ setting can be used to specify an absolute minimum.  Defaults to <code class="li
 </span>
 </dt>
 <dd>
-If the <code class="literal">index_buffer_size</code> is specified as a percentage, then this
-setting can be used to specify an absolute maximum.  Defaults to unbounded.
+如果将 <code class="literal">index_buffer_size</code> 指定为一个百分比值，则此设置可用于指定绝对最大值。默认为 不限制。
 </dd>
 </dl>
 </div>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="recovery.html">« Index recovery settings</a>
+<a href="recovery.html">« 索引恢复设置</a>
 </span>
 <span class="next">
-<a href="license-settings.html">License settings »</a>
+<a href2="license-settings.html">License settings »</a>
 </span>
 </div>
 </div>

@@ -247,8 +247,7 @@ appender.rolling_old.filePattern = ${sys:es.logs.base_path}${sys:file.separator}
 </div>
 </div>
 <p>注意，你可以在<code class="literal">appender.rolling.filePattern</code>中使用<code class="literal">.zip</code>取代<code class="literal">.gz</code>，以使用 zip 格式压缩滚动的日志。如果你把<code class="literal">.gz</code>扩展名移除，则日志在滚动时不会被压缩。</p>
-<p>If you want to retain log files for a specified period of time, you can use a
-rollover strategy with a delete action.</p>
+<p>如果要将日志文件保留指定的一段时间，可以使用带有删除操作的滚动策略。</p>
 <div class="pre_wrapper lang-properties">
 <pre class="programlisting prettyprint lang-properties">appender.rolling.strategy.type = DefaultRolloverStrategy <a id="CO11-1"></a><i class="conum" data-value="1"></i>
 appender.rolling.strategy.action.type = Delete <a id="CO11-2"></a><i class="conum" data-value="2"></i>
@@ -265,7 +264,7 @@ appender.rolling.strategy.action.condition.nested_condition.age = 7D <a id="CO11
 <p><a href="#CO11-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Configure the <code class="literal">DefaultRolloverStrategy</code></p>
+<p>配置 <code class="literal">DefaultRolloverStrategy</code></p>
 </td>
 </tr>
 <tr>
@@ -273,7 +272,7 @@ appender.rolling.strategy.action.condition.nested_condition.age = 7D <a id="CO11
 <p><a href="#CO11-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Configure the <code class="literal">Delete</code> action for handling rollovers</p>
+<p>配置用于处理滚动的 <code class="literal">Delete</code> 操作</p>
 </td>
 </tr>
 <tr>
@@ -281,7 +280,7 @@ appender.rolling.strategy.action.condition.nested_condition.age = 7D <a id="CO11
 <p><a href="#CO11-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The base path to the Elasticsearch logs</p>
+<p>Elasticsearch 日志的基本路径</p>
 </td>
 </tr>
 <tr>
@@ -289,7 +288,7 @@ appender.rolling.strategy.action.condition.nested_condition.age = 7D <a id="CO11
 <p><a href="#CO11-4"><i class="conum" data-value="4"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The condition to apply when handling rollovers</p>
+<p>应用滚动处理时的条件</p>
 </td>
 </tr>
 <tr>
@@ -297,10 +296,10 @@ appender.rolling.strategy.action.condition.nested_condition.age = 7D <a id="CO11
 <p><a href="#CO11-5"><i class="conum" data-value="5"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Delete files from the base path matching the glob
-<code class="literal">${sys:es.logs.cluster_name}-*</code>; this is the glob that log files are rolled
-to; this is needed to only delete the rolled Elasticsearch logs but not also
-delete the deprecation and slow logs</p>
+<p>
+从与<code class="literal">${sys:es.logs.cluster_name}-*</code> 通配符(glob) 匹配的基本路径中删除文件；这是日志文件滚动到的 通配符(glob)；
+这仅需要删除滚动的 Elasticsearch 日志，但不需要删除启用的和慢日志
+</p>
 </td>
 </tr>
 <tr>
@@ -308,7 +307,7 @@ delete the deprecation and slow logs</p>
 <p><a href="#CO11-6"><i class="conum" data-value="6"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>A nested condition to apply to files matching the glob</p>
+<p>应用于与通配符匹配的文件的嵌套条件 <span class="remark">(A nested condition to apply to files matching the glob)</span></p>
 </td>
 </tr>
 <tr>
@@ -316,41 +315,40 @@ delete the deprecation and slow logs</p>
 <p><a href="#CO11-7"><i class="conum" data-value="7"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Retain logs for seven days</p>
+<p>日志保留 7 天</p>
 </td>
 </tr>
 </table>
 </div>
-<p>Multiple configuration files can be loaded (in which case they will get merged)
-as long as they are named <code class="literal">log4j2.properties</code> and have the Elasticsearch config
-directory as an ancestor; this is useful for plugins that expose additional
-loggers. The logger section contains the java packages and their corresponding
-log level. The appender section contains the destinations for the logs.
-Extensive information on how to customize logging and all the supported
-appenders can be found on the
-<a href="http://logging.apache.org/log4j/2.x/manual/configuration.html" class="ulink" target="_top">Log4j
-documentation</a>.</p>
+<p>
+只要将多个配置文件命名为<code class="literal">log4j2.properties</code>，就可以加载多个配置文件(在这种情况下它们将被合并)，并将 Elasticsearch 配置目录作为根目录；这对公开附加日志的插件很有用。
+
+日志(logger) 部分包含 java 包及相对应的日志级别。
+
+附加器(appender) 部分包含日志的目的地。  
+
+关于如何定制日志记录和所有支持的附加器的详细信息可以在<a href="http://logging.apache.org/log4j/2.x/manual/configuration.html" class="ulink" target="_top">Log4j 文档</a>中找到。
+</p>
 <h3>
-<a id="configuring-logging-levels"></a>Configuring logging levels<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/logging-config.asciidoc">edit</a>
+<a id="configuring-logging-levels"></a>
+配置日志级别 (configuring logging levels)
+
 </h3>
-<p>There are four ways to configuring logging levels, each having situations in which they are appropriate to use.</p>
+<p>有四种配置日志级别的方法，每种方法都有与之相对应的使用场景。</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-Via the command-line: <code class="literal">-E &lt;name of logging hierarchy&gt;=&lt;level&gt;</code> (e.g.,
-<code class="literal">-E logger.org.elasticsearch.discovery=debug</code>). This is most appropriate when
-you are temporarily debugging a problem on a single node (for example, a
-problem with startup, or during development).
+通过命令行： <code class="literal">-E &lt;name of logging hierarchy&gt;=&lt;level&gt;</code> (比如，
+<code class="literal">-E logger.org.elasticsearch.discovery=debug</code>).
+当你临时调试单个节点上的问题(例如，启动或开发过程中的问题)时，这是最合适的。
 </li>
 <li class="listitem">
-Via <code class="literal">elasticsearch.yml</code>: <code class="literal">&lt;name of logging hierarchy&gt;: &lt;level&gt;</code> (e.g.,
-<code class="literal">logger.org.elasticsearch.discovery: debug</code>). This is most appropriate when
-you are temporarily debugging a problem but are not starting Elasticsearch
-via the command-line (e.g., via a service) or you want a logging level
-adjusted on a more permanent basis.
+通过 <code class="literal">elasticsearch.yml</code>: <code class="literal">&lt;name of logging hierarchy&gt;: &lt;level&gt;</code> (比如，
+<code class="literal">logger.org.elasticsearch.discovery: debug</code>).
+当你临时调试一个问题，但没有通过命令行（例如，通过服务）启动 Elasticsearch 时，或者你希望在更持久的基础上调整日志级别时，这是最合适的。
 </li>
 <li class="listitem">
-<p>Via <a class="xref" href="modules-cluster.html#cluster-logger" title="Logger">cluster settings</a>:</p>
+<p>通过 <a class="xref" href="modules-cluster.html#cluster-logger" title="Logger">集群设置</a>:</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">PUT /_cluster/settings
 {
@@ -359,7 +357,7 @@ adjusted on a more permanent basis.
   }
 }</pre>
 </div>
-<p>For example:</p>
+<p>比如：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /_cluster/settings
 {
@@ -369,51 +367,42 @@ adjusted on a more permanent basis.
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/27.console"></div>
-<p>This is most appropriate when you need to dynamically need to adjust a logging
-level on an actively-running cluster.</p>
+<p>当你需要动态地调整正在运行的集群上的日志级别时，这是最合适的。</p>
 </li>
 <li class="listitem">
-<p>Via the <code class="literal">log4j2.properties</code>:</p>
+<p>通过 <code class="literal">log4j2.properties</code>:</p>
 <div class="pre_wrapper lang-properties">
 <pre class="programlisting prettyprint lang-properties">logger.&lt;unique_identifier&gt;.name = &lt;name of logging hierarchy&gt;
 logger.&lt;unique_identifier&gt;.level = &lt;level&gt;</pre>
 </div>
-<p>For example:</p>
+<p>比如：</p>
 <div class="pre_wrapper lang-properties">
 <pre class="programlisting prettyprint lang-properties">logger.discovery.name = org.elasticsearch.discovery
 logger.discovery.level = debug</pre>
 </div>
-<p>This is most appropriate when you need fine-grained control over the logger (for
-example, you want to send the logger to another file, or manage the logger
-differently; this is a rare use-case).</p>
+<p>当你需要对日志进行细粒度控制时，这是最合适的(例如，你想要将日志发送到另一个文件，或者以不同的方式管理日志；这是一个罕见的用例)。</p>
 </li>
 </ol>
 </div>
 <h3>
-<a id="deprecation-logging"></a>Deprecation logging<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/logging-config.asciidoc">edit</a>
+<a id="deprecation-logging"></a>弃用日志 (deprecation logging)
 </h3>
-<p>In addition to regular logging, Elasticsearch allows you to enable logging
-of deprecated actions. For example this allows you to determine early, if
-you need to migrate certain functionality in the future. By default,
-deprecation logging is enabled at the WARN level, the level at which all
-deprecation log messages will be emitted.</p>
+<p>
+除了常规日志之外，Elasticsearch 还允许你开启记录 弃用的操作(deprecated action) 的日志。
+例如，这允许你尽早确定将来是否需要迁移某些功能。
+默认情况下，在 <code class="literal">WARN</code> 级别启用弃用日志记录，在该级别会发出所有弃用日志消息。
+</p>
 <div class="pre_wrapper lang-properties">
 <pre class="programlisting prettyprint lang-properties">logger.deprecation.level = warn</pre>
 </div>
-<p>This will create a daily rolling deprecation log file in your log directory.
-Check this file regularly, especially when you intend to upgrade to a new
-major version.</p>
-<p>The default logging configuration has set the roll policy for the deprecation
-logs to roll and compress after 1 GB, and to preserve a maximum of five log
-files (four rolled logs, and the active log).</p>
-<p>You can disable it in the <code class="literal">config/log4j2.properties</code> file by setting the deprecation
-log level to <code class="literal">error</code> like this:</p>
+<p>这将在日志目录中创建一个每日滚动的弃用日志文件。请定期检查该文件，尤其是当你打算升级到新的主要版本时。</p>
+<p>默认的日志记录配置已将弃用日志的滚动策略设置为在 1 GB 后滚动和压缩，并最多保留五个日志文件(四个滚动日志和一个活动的日志)。</p>
+<p>你可以在<code class="literal">config/log4j2.properties</code> 文件中禁用它，方法是将弃用日志级别设置为<code class="literal">error</code>，如下所示:</p>
 <div class="pre_wrapper lang-properties">
 <pre class="programlisting prettyprint lang-properties">logger.deprecation.name = org.elasticsearch.deprecation
 logger.deprecation.level = error</pre>
 </div>
-<p>You can identify what is triggering deprecated functionality if <code class="literal">X-Opaque-Id</code> was used as an HTTP header.
-The user ID is included in the <code class="literal">X-Opaque-ID</code> field in deprecation JSON logs.</p>
+<p>如果<code class="literal">X-Opaque-Id</code>被用作 HTTP 头，你可以确定是什么触发了弃用的功能。用户 ID 包含在弃用 JSON 日志的<code class="literal">X-Opaque-ID</code>字段中。</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
   "type": "deprecation",
@@ -429,26 +418,28 @@ The user ID is included in the <code class="literal">X-Opaque-ID</code> field in
 }</pre>
 </div>
 <h3>
-<a id="json-logging"></a>JSON log format<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/logging-config.asciidoc">edit</a>
+<a id="json-logging"></a>JSON 日志格式
 </h3>
-<p>To make parsing Elasticsearch logs easier, logs are now printed in a JSON format.
-This is configured by a Log4J layout property <code class="literal">appender.rolling.layout.type = ESJsonLayout</code>.
-This layout requires a <code class="literal">type_name</code> attribute to be set which is used to distinguish
-logs streams when parsing.</p>
+<p>
+为了更容易解析 Elasticsearch 日志，日志现在已经以 JSON 格式打印。
+这是由 Log4J 布局属性<code class="literal">appender.rolling.layout.type = ESJsonLayout</code>配置的。
+此布局要求设置<code class="literal">type_name</code>属性，该属性用于在解析时区分日志流。</p>
 <div class="pre_wrapper lang-properties">
 <pre class="programlisting prettyprint lang-properties">appender.rolling.layout.type = ESJsonLayout
 appender.rolling.layout.type_name = server</pre>
 </div>
-<p>Each line contains a single JSON document with the properties configured in <code class="literal">ESJsonLayout</code>.
-See this class <a href="https://artifacts.elastic.co/javadoc/org/elasticsearch/elasticsearch/7.7.1/org/elasticsearch/common/logging/ESJsonLayout.html" class="ulink" target="_top">javadoc</a> for more details.
-However if a JSON document contains an exception, it will be printed over multiple lines.
-The first line will contain regular properties and subsequent lines will contain the
-stacktrace formatted as a JSON array.</p>
+<p>
+每行包含一个 JSON 文档，其属性在 <code class="literal">ESJsonLayout</code> 中配置。
+有关更多详细信息，请参见此类<a href="https://artifacts.elastic.co/javadoc/org/elasticsearch/elasticsearch/7.7.1/org/elasticsearch/common/logging/ESJsonLayout.html" class="ulink" target="_top">javadoc</a>。
+然而，如果一个 JSON 文档包含一个异常，它将被打印成多行。
+第一行将包含常规属性，随后的行将包含格式化为 JSON 数组的栈跟踪信息。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>You can still use your own custom layout. To do that replace the line
-<code class="literal">appender.rolling.layout.type</code> with a different layout. See sample below:</p>
+<p>
+你仍然可以使用自己的自定义布局。
+为此，请用不同的布局替换<code class="literal">appender.rolling.layout.type</code>行。参见下面的示例：
 </div>
 </div>
 <div class="pre_wrapper lang-properties">

@@ -189,7 +189,7 @@ var esNavLinks = [
                     {
                         "url": "ml-settings.html",
                         "text": "机器学习设置",
-                        "title": "Machine learning settings"
+                        "title": "机器学习设置"
                     },
                     {
                         "url": "monitoring-settings.html",

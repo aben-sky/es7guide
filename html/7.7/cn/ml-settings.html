@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Machine learning settings in Elasticsearch | ElasticSearch 7.7 权威指南中文版</title>
+	<title>Elasticsearch中的机器学习设置 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -34,51 +34,47 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="settings.html">Configuring Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="settings.html">配置 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Machine learning settings in Elasticsearch</span>
+<span class="breadcrumb-node">Elasticsearch中的机器学习设置</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="logging.html">« Logging configuration</a>
+<a href="logging.html">« 日志设置</a>
 </span>
 <span class="next">
-<a href="monitoring-settings.html">Monitoring settings in Elasticsearch »</a>
+<a href2="monitoring-settings.html">Monitoring settings in Elasticsearch »</a>
 </span>
 </div>
 <div class="section xpack">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="ml-settings"></a>Machine learning settings in Elasticsearch<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/ml-settings.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
+<a id="ml-settings"></a>Elasticsearch中的机器学习设置<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/ml-settings.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
 </h2>
 </div></div></div>
 
-<p>You do not need to configure any settings to use machine learning. It is enabled by default.</p>
+<p>你不需要为使用机器学习做任何设置。它默认就是启用的。</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Machine learning uses SSE4.2 instructions, so will only work on machines whose
-CPUs <a href="https://en.wikipedia.org/wiki/SSE4#Supporting_CPUs" class="ulink" target="_top">support</a> SSE4.2. If you
-run Elasticsearch on older hardware you must disable machine learning (by setting <code class="literal">xpack.ml.enabled</code>
-to <code class="literal">false</code>).</p>
+<p>
+机器学习使用 SSE4.2 指令，因此只能在CPU <a href="https://en.wikipedia.org/wiki/SSE4#Supporting_CPUs" class="ulink" target="_top">支持</a> SSE4.2 的机器上工作。
+如果你这在老的硬件上运行 Elasticsearch，你必须禁用机器学习（通过设置<code class="literal">xpack.ml.enabled</code> 为 <code class="literal">false</code>）。</p>
 </div>
 </div>
-<p>All of these settings can be added to the <code class="literal">elasticsearch.yml</code> configuration file.
-The dynamic settings can also be updated across a cluster with the
-<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">cluster update settings API</a>.</p>
+<p>所有这些设置都可以添加到<code class="literal">elasticsearch.yml</code>配置文件中。动态设置还可以通过 <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">集群更新设置 API</a>来对整个集群进行更新。</p>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Dynamic settings take precedence over settings in the <code class="literal">elasticsearch.yml</code>
-file.</p>
+<p>动态设置优先于<code class="literal">elasticsearch.yml</code>文件中的设置。</p>
 </div>
 </div>
 <h4>
-<a id="general-ml-settings"></a>General machine learning settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/ml-settings.asciidoc">edit</a>
+<a id="general-ml-settings"></a>常规机器学习设置
 </h4>
 <div class="variablelist">
 <dl class="variablelist">
@@ -89,17 +85,17 @@ file.</p>
 </dt>
 <dd>
 <p>
-Set to <code class="literal">true</code> (default) to identify the node as a <em>machine learning node</em>.<br>
+设置为 <code class="literal">true</code> (默认) 以指定节点为一个<em>机器学习节点</em>。<br>
 </p>
-<p>If set to <code class="literal">false</code> in <code class="literal">elasticsearch.yml</code>, the node cannot run jobs. If set to
-<code class="literal">true</code> but <code class="literal">xpack.ml.enabled</code> is set to <code class="literal">false</code>, the <code class="literal">node.ml</code> setting is
-ignored and the node cannot run jobs. If you want to run jobs, there must be at
-least one machine learning node in your cluster.<br></p>
+<p>
+如果在<code class="literal">elasticsearch.yml</code>中设置为<code class="literal">false</code>，则该节点不能运行 作业(job)。
+如果设置为<code class="literal">true</code>，但是<code class="literal">xpack.ml.enabled</code>设置为<code class="literal">false</code>，则<code class="literal">node.ml</code>设置会被忽略且节点不能运行 作业(job)。
+如果你想运行 作业，集群中必须至少有一个机器学习节点。
+</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>On dedicated coordinating nodes or dedicated master nodes, disable
-the <code class="literal">node.ml</code> role.</p>
+<p>在专用协调节点或专用主节点上，禁用<code class="literal">node.ml</code>角色。</p>
 </div>
 </div>
 </dd>
@@ -109,23 +105,20 @@ the <code class="literal">node.ml</code> role.</p>
 </span>
 </dt>
 <dd>
+<p>设置为<code class="literal">true</code> (默认) 以启用节点的机器学习。</p>
 <p>
-Set to <code class="literal">true</code> (default) to enable machine learning on the node.
-</p>
-<p>If set to <code class="literal">false</code>, the machine learning APIs are disabled on the node. Therefore the node
-cannot open jobs, start datafeeds, or receive transport (internal) communication
-requests related to machine learning APIs. If the node is a coordinating node, machine learning requests
-from clients (including Kibana) also fail. For more information about disabling
-machine learning in specific Kibana instances, see
-<a href="https://www.elastic.co/guide/en/kibana/7.7/ml-settings-kb.html" class="ulink" target="_top">Kibana machine learning settings</a>.</p>
+如果设置为<code class="literal">false</code>，该节点的机器学习 API 会被禁用。
+因此，该节点不能打开作业、启动数据源(datafeeds)或接收与机器学习 API 相关的传输(内部)通信请求。
+如果节点是协调节点，来自客户端(包括 Kibana)的机器学习请求也会失败。
+有关在特定的 Kibana 实例中禁用机器学习的更多信息，请参考 <a href="https://www.elastic.co/guide/en/kibana/7.7/ml-settings-kb.html" class="ulink" target="_top">Kibana machine learning settings</a>.</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If you want to use machine learning features in your cluster, it is recommended
-that you set <code class="literal">xpack.ml.enabled</code> to <code class="literal">true</code> on all nodes. This is the
-default behavior. At a minimum, it must be enabled on all master-eligible nodes.
-If you want to use machine learning features in clients or Kibana, it must also be enabled on
-all coordinating nodes.</p>
+<p>
+如果要在集群中使用机器学习功能，建议在所有节点上将<code class="literal">xpack.ml.enabled</code> 设置为<code class="literal">true</code>。
+这是默认行为。至少，它必须在所有符合主节点条件的节点上启用
+如果您想在客户端或 Kibana 中使用机器学习功能，还必须在所有协调节点上启用它。
+</p>
 </div>
 </div>
 </dd>
@@ -135,10 +128,8 @@ all coordinating nodes.</p>
 </span>
 </dt>
 <dd>
-The maximum inference cache size allowed. The inference cache exists in the JVM
-heap on each ingest node. The cache affords faster processing times for the
-<code class="literal">inference</code> processor. The value can be a static byte sized value (i.e. "2gb")
-or a percentage of total allocated heap. The default is "40%".
+允许的最大<code class="literal">推理(inference)</code>缓存大小。推理缓存存在于每个 预处理节点(ingest node) 上的JVM堆中。高速缓存为<code class="literal">推理(inference)</code>处理器提供了更快的处理时间。
+该值可以是静态字节大小的值(比如，“2gb”)或分配的堆的总大小的百分比。默认为“40%”。
 </dd>
 <dt>
 <span class="term">
@@ -146,38 +137,33 @@ or a percentage of total allocated heap. The default is "40%".
 </span>
 </dt>
 <dd>
-The time to live (TTL) for models in the inference model cache. The TTL is
-calculated from last access. The <code class="literal">inference</code> processor attempts to load the
-model from cache. If the <code class="literal">inference</code> processor does not receive any documents
-for the duration of the TTL, the referenced model is flagged for eviction from
-the cache. If a document is processed later, the model is again loaded into the
-cache. Defaults to <code class="literal">5m</code>.
+推理模型缓存中模型的生存时间(TTL)。TTL 从上次访问开始计算。
+<code class="literal">推理(inference)</code>处理器试图从缓存中加载模型。
+如果<code class="literal">推理</code>处理器在 TTL 期间没有接收到任何文档，则被引用的模型被标记为从缓存中移除。
+如果稍后有文档被处理，模型将再次加载到缓存中。默认为<code class="literal">5m</code>。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.ml.max_inference_processors</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">xpack.ml.max_inference_processors</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-The total number of <code class="literal">inference</code> type processors allowed across all ingest
-pipelines. Once the limit is reached, adding an <code class="literal">inference</code> processor to
-a pipeline is disallowed. Defaults to <code class="literal">50</code>.
+所有 预处理管道(ingest pipelines) 中允许的<code class="literal">推理</code>类型处理器的总数。
+一旦达到限制，就不允许在管道中添加<code class="literal">推理</code>处理器。默认为<code class="literal">50</code>。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.ml.max_machine_memory_percent</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">xpack.ml.max_machine_memory_percent</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-The maximum percentage of the machine’s memory that machine learning may use for running
-analytics processes. (These processes are separate to the Elasticsearch JVM.) Defaults to
-<code class="literal">30</code> percent. The limit is based on the total memory of the machine, not current
-free memory. Jobs will not be allocated to a node if doing so would cause the
-estimated memory use of machine learning jobs to exceed the limit.
+机器学习可用于运行分析过程的机器内存的最大百分比。(这些过程独立于 Elasticsearch JVM。) 默认为 <code class="literal">30</code> %。
+该限制基于机器的总内存，而不是当前的可用内存。
+如果分配作业会导致机器学习作业的估计内存使用超过限制，则不会将作业分配给节点。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.ml.max_model_memory_limit</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">xpack.ml.max_model_memory_limit</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
@@ -194,7 +180,7 @@ affected when you update this setting. For more information about the
 <dl class="variablelist">
 <dt>
 <span class="term">
-<code class="literal">xpack.ml.max_open_jobs</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">xpack.ml.max_open_jobs</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
@@ -288,10 +274,10 @@ value for this setting is <code class="literal">5s</code>.
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="logging.html">« Logging configuration</a>
+<a href="logging.html">« 日志设置</a>
 </span>
 <span class="next">
-<a href="monitoring-settings.html">Monitoring settings in Elasticsearch »</a>
+<a href2="monitoring-settings.html">Monitoring settings in Elasticsearch »</a>
 </span>
 </div>
 </div>

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Monitoring settings in Elasticsearch | ElasticSearch 7.7 权威指南中文版</title>
+	<title>监控设置 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -34,48 +34,50 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="settings.html">Configuring Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="settings.html">配置 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Monitoring settings in Elasticsearch</span>
+<span class="breadcrumb-node">监控设置</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="ml-settings.html">« Machine learning settings in Elasticsearch</a>
+<a href="ml-settings.html">« 机器学习设置</a>
 </span>
 <span class="next">
-<a href="modules-node.html">Node »</a>
+<a href2="modules-node.html">Node »</a>
 </span>
 </div>
 <div class="section xpack">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="monitoring-settings"></a>Monitoring settings in Elasticsearch<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/monitoring-settings.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
+<a id="monitoring-settings"></a>监控设置 (Monitoring settings in Elasticsearch)
 </h2>
 </div></div></div>
 
-<p>By default, monitoring is enabled but data collection is disabled. To enable
-data collection, use the <code class="literal">xpack.monitoring.collection.enabled</code> setting.</p>
-<p>You can configure these monitoring settings in the <code class="literal">elasticsearch.yml</code> file. You
-can also dynamically set some of these settings using the
-<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">cluster update settings API</a>.</p>
+<p>
+默认情况下，监控是开启的，但数据收集是禁用的。
+要开启数据收集，使用 <code class="literal">xpack.monitoring.collection.enabled</code> 设置。
+</p>
+<p>
+你可以在文件 <code class="literal">elasticsearch.yml</code> 中配置这些监控设置。
+你还可以使用<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">集群更新设置 API</a>动态的更新一部分设置。
+</p>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Cluster settings take precedence over settings in the <code class="literal">elasticsearch.yml</code>
-file.</p>
+<p>集群设置优先于<code class="literal">elasticsearch.yml</code>文件中的设置。</p>
 </div>
 </div>
-<p>To adjust how monitoring data is displayed in the monitoring UI, configure
-<a href="https://www.elastic.co/guide/en/kibana/7.7/monitoring-settings-kb.html" class="ulink" target="_top"><code class="literal">xpack.monitoring</code> settings</a> in
-<code class="literal">kibana.yml</code>. To control how monitoring data is collected from Logstash,
-configure monitoring settings in <code class="literal">logstash.yml</code>.</p>
-<p>For more information, see <a class="xref" href="monitor-elasticsearch-cluster.html" title="Monitor a cluster">Monitor a cluster</a>.</p>
+<p>
+要调整监控数据在监控UI中的显示方式，请在<code class="literal">kibana.yml</code>中配置<a href="https://www.elastic.co/guide/en/kibana/7.7/monitoring-settings-kb.html" class="ulink" target="_top"><code class="literal">xpack.monitoring</code> 设置</a>。
+若要控制如何从 Logstash 收集监控数据，请在<code class="literal">logstash.yml</code>中配置监控设置。
+</p>
+<p>更多信息请参考 <a class="xref" href="monitor-elasticsearch-cluster.html" title="Monitor a cluster">监控一个集群</a>。</p>
 <h4>
-<a id="general-monitoring-settings"></a>General Monitoring Settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/monitoring-settings.asciidoc">edit</a>
+<a id="general-monitoring-settings"></a>常规监控设置
 </h4>
 <div class="variablelist">
 <dl class="variablelist">
@@ -85,42 +87,35 @@ configure monitoring settings in <code class="literal">logstash.yml</code>.</p>
 </span>
 </dt>
 <dd>
-<p>
-Set to <code class="literal">true</code> (default) to enable Elasticsearch X-Pack monitoring for Elasticsearch on the node.
-</p>
+<p>设置为 <code class="literal">true</code>(默认) 以在节点上启用 Elasticsearch X-Pack 对 Elasticsearch 的监控。</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>To enable data collection, you must also set <code class="literal">xpack.monitoring.collection.enabled</code>
-to <code class="literal">true</code>. Its default value is <code class="literal">false</code>.</p>
+<p>要启用数据收集，必须设置 <code class="literal">xpack.monitoring.collection.enabled</code> 为 <code class="literal">true</code>。默认为 <code class="literal">false</code>。</p>
 </div>
 </div>
 </dd>
 </dl>
 </div>
 <h4>
-<a id="monitoring-collection-settings"></a>Monitoring Collection Settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/monitoring-settings.asciidoc">edit</a>
+<a id="monitoring-collection-settings"></a>监控收集设置 (Monitoring Collection Settings)
 </h4>
-<p>The <code class="literal">xpack.monitoring.collection</code> settings control how data is collected from
-your Elasticsearch nodes. You can dynamically change all monitoring collection
-settings using the <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">cluster update settings API</a>.</p>
+<p><code class="literal">xpack.monitoring.collection</code> 设置控制如何从 Elasticsearch 节点收集数据。可以使用 <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">集群更新设置 API</a> 动态地更新所有监控收集的设置。</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<code class="literal">xpack.monitoring.collection.enabled</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">xpack.monitoring.collection.enabled</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
 <span class="Admonishment Admonishment--change">
 [<span class="Admonishment-version u-mono">6.3.0</span>]
 <span class="Admonishment-detail">
-Added in 6.3.0.
+在 6.3.0 版本中添加的。
 </span>
-</span> Set to <code class="literal">true</code> to enable the collection of monitoring data. When
-this setting is <code class="literal">false</code> (default), Elasticsearch monitoring data is not collected and
-all monitoring data from other sources such as Kibana, Beats, and Logstash is
-ignored.
+</span> 设置为 <code class="literal">true</code> 以开启监控数据的收集。
+当这个设置为 <code class="literal">false</code> (默认值)时，Elasticsearch 监控数据不会被收集，且所有来自其他源(比如Kibana，Beats和 Logstash)的监控数据都会被忽略。
 </dd>
 <dt>
 <span class="term">
@@ -889,10 +884,10 @@ http layer.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="ml-settings.html">« Machine learning settings in Elasticsearch</a>
+<a href="ml-settings.html">« 机器学习设置</a>
 </span>
 <span class="next">
-<a href="modules-node.html">Node »</a>
+<a href2="modules-node.html">Node »</a>
 </span>
 </div>
 </div>

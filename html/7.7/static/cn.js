@@ -194,7 +194,7 @@ var esNavLinks = [
                     {
                         "url": "monitoring-settings.html",
                         "text": "监控设置",
-                        "title": "Monitoring settings"
+                        "title": "监控设置"
                     },
                     {
                         "url": "modules-node.html",

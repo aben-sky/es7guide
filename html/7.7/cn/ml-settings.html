@@ -167,11 +167,10 @@ will be released for this version. For the latest information, see the
 </span>
 </dt>
 <dd>
-The maximum <code class="literal">model_memory_limit</code> property value that can be set for any job on
-this node. If you try to create a job with a <code class="literal">model_memory_limit</code> property value
-that is greater than this setting value, an error occurs. Existing jobs are not
-affected when you update this setting. For more information about the
-<code class="literal">model_memory_limit</code> property, see <a class="xref" href="ml-put-job.html#put-analysislimits">`analysis_limits`</a>.
+可以为此节点上的任何作业设置的最大 <code class="literal">model_memory_limit</code> 属性值。
+如果尝试使用大于此设置值的 <code class="literal">model_memory_limit</code> 属性值创建作业，将会出现错误。
+更新此设置时，现有作业不受影响。
+更多关于 <code class="literal">model_memory_limit</code> 属性的信息, 参考 <a class="xref" href="ml-put-job.html#put-analysislimits">`analysis_limits`</a>。
 </dd>
 </dl>
 </div>
@@ -184,90 +183,82 @@ affected when you update this setting. For more information about the
 </span>
 </dt>
 <dd>
-The maximum number of jobs that can run simultaneously on a node. Defaults to
-<code class="literal">20</code>. In this context, jobs include both anomaly detection jobs and data frame analytics jobs.
-The maximum number of jobs is also constrained by memory usage. Thus if the
-estimated memory usage of the jobs would be higher than allowed, fewer jobs will
-run on a node. Prior to version 7.1, this setting was a per-node non-dynamic
-setting. It became a cluster-wide dynamic setting in version 7.1. As a result,
-changes to its value after node startup are used only after every node in the
-cluster is running version 7.1 or higher. The maximum permitted value is <code class="literal">512</code>.
+一个节点上可以同时运行的最大作业数。默认为 <code class="literal">20</code>。
+在这种情况下，任务包括异常检测任务和数据帧分析任务。
+最大作业数量也受到内存使用的限制。
+因此，如果作业的估计内存使用量高于允许值，则在一个节点上运行的作业会更少。
+7.1 版之前，此设置是基于节点的非动态设置。
+在 7.1 版中，它成为集群范围的动态设置。
+因此，节点启动后对其值的更改只有在群集中的每个节点都运行 7.1 版或更高版本时才能使用。
+最大允许值为 <code class="literal">512</code>。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.ml.node_concurrent_job_allocations</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">xpack.ml.node_concurrent_job_allocations</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-The maximum number of jobs that can concurrently be in the <code class="literal">opening</code> state on
-each node. Typically, jobs spend a small amount of time in this state before
-they move to <code class="literal">open</code> state. Jobs that must restore large models when they are
-opening spend more time in the <code class="literal">opening</code> state. Defaults to <code class="literal">2</code>.
+每个节点上可以同时处于<code class="literal">opening</code>状态的最大作业数。
+通常，作业在进入<code class="literal">open</code>状态之前，会在此状态下停留一段时间。
+在打开时必须恢复大型模型的作业会在<code class="literal">opening</code>状态花费更多时间。默认为 <code class="literal">2</code>。
 </dd>
 </dl>
 </div>
 <h4>
-<a id="advanced-ml-settings"></a>Advanced machine learning settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/ml-settings.asciidoc">edit</a>
+<a id="advanced-ml-settings"></a>机器学习的高级设置
 </h4>
-<p>These settings are for advanced use cases; the default values are generally
-sufficient:</p>
+<p>
+这些设置适用于高级用例；通常情况下默认值就够用了：
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<code class="literal">xpack.ml.enable_config_migration</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">xpack.ml.enable_config_migration</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-Reserved.
+保留的 (Reserved)。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.ml.max_anomaly_records</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">xpack.ml.max_anomaly_records</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-The maximum number of records that are output per bucket. The default value is
-<code class="literal">500</code>.
+每个 存储桶(bucket) 输出的最大记录数。默认值为<code class="literal">500</code>.
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.ml.max_lazy_ml_nodes</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">xpack.ml.max_lazy_ml_nodes</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
 <p>
-The number of lazily spun up Machine Learning nodes. Useful in situations
-where ML nodes are not desired until the first Machine Learning Job
-is opened. It defaults to <code class="literal">0</code> and has a maximum acceptable value of <code class="literal">3</code>.
-If the current number of ML nodes is <code class="literal">&gt;=</code> than this setting, then it is
-assumed that there are no more lazy nodes available as the desired number
-of nodes have already been provisioned. When a job is opened with this
-setting set at <code class="literal">&gt;0</code> and there are no nodes that can accept the job, then
-the job will stay in the <code class="literal">OPENING</code> state until a new ML node is added to the
-cluster and the job is assigned to run on that node.
+延迟启动机器学习节点的数量。
+在打开第一个机器学习作业之前不需要 ML 节点的情况下非常有用。
+默认值为 <code class="literal">0</code>，最可可接受的值为 <code class="literal">3</code>。
+如果当前 ML 节点的数量 <code class="literal">&gt;=</code> 该设置，则认为不再有可用的延迟节点，因为已经提供了所需的节点数量。  
+当作业在此设置值为 <code class="literal">&gt;0</code> 的情况下打开，并且没有可以接受该作业的节点时，该作业将保持<code class="literal">OPENING</code>状态，直到新的 ML 节点添加到群集，然后该作业会被分配在该节点上运行。
 </p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>This setting assumes some external process is capable of adding ML nodes
-to the cluster. This setting is only useful when used in conjunction with
-such an external process.</p>
+<p>该设置假设一些外部进程能够将 ML 节点添加到集群中。此设置仅在与此类外部进程结合使用时有用。</p>
 </div>
 </div>
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.ml.process_connect_timeout</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">xpack.ml.process_connect_timeout</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-The connection timeout for machine learning processes that run separately from the Elasticsearch JVM.
-Defaults to <code class="literal">10s</code>. Some machine learning processing is done by processes that run separately
-to the Elasticsearch JVM. When such processes are started they must connect to the Elasticsearch
-JVM. If such a process does not connect within the time period specified by this
-setting then the process is assumed to have failed. Defaults to <code class="literal">10s</code>. The minimum
-value for this setting is <code class="literal">5s</code>.
+与 Elasticsearch JVM 分开运行的机器学习进程的连接超时时间。默认为 <code class="literal">10s</code>。
+一些机器学习运算是由独立于 Elasticsearch JVM 运行的进程完成的。
+当这些进程启动时，它们必须连接到 Elasticsearch JVM。
+如果此类进程未在此设置指定的时间内连接，则认为该进程已失败。
+默认为 <code class="literal">10s</code>，此设置的最小值是 <code class="literal">5s</code>。
 </dd>
 </dl>
 </div>

@@ -111,114 +111,99 @@ will be released for this version. For the latest information, see the
 <dd>
 <span class="Admonishment Admonishment--change">
 [<span class="Admonishment-version u-mono">6.3.0</span>]
-<span class="Admonishment-detail">
-在 6.3.0 版本中添加的。
+<span class="Admonishment-detail">在 6.3.0 版本中添加的。</span>
 </span>
-</span> 设置为 <code class="literal">true</code> 以开启监控数据的收集。
-当这个设置为 <code class="literal">false</code> (默认值)时，Elasticsearch 监控数据不会被收集，且所有来自其他源(比如Kibana，Beats和 Logstash)的监控数据都会被忽略。
+设置为 <code class="literal">true</code> 以开启监控数据的收集。当这个设置为 <code class="literal">false</code> (默认值)时，Elasticsearch 监控数据不会被收集，且所有来自其他源(比如Kibana，Beats和 Logstash)的监控数据都会被忽略。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.monitoring.collection.interval</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">xpack.monitoring.collection.interval</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
 <p>
-Setting to <code class="literal">-1</code> to disable data collection is no longer supported beginning with
-7.0.0. <span class="Admonishment Admonishment--change">
-[<span class="Admonishment-version u-mono u-strikethrough">6.3.0</span>]
-<span class="Admonishment-detail">
-Deprecated in 6.3.0. Use <code class="literal">xpack.monitoring.collection.enabled</code> set to <code class="literal">false</code> instead.
+从 7.0.0 开始，不再支持设置为<code class="literal">-1</code>以禁用数据收集。<span class="Admonishment Admonishment--change">[<span class="Admonishment-version u-mono u-strikethrough">6.3.0</span>]<span class="Admonishment-detail">在 6.3.0 版本中废弃。请使用 设置<code class="literal">xpack.monitoring.collection.enabled</code> 为 <code class="literal">false</code> 代替之。
 </span>
 </span>
 </p>
-<p>Controls how often data samples are collected. Defaults to <code class="literal">10s</code>. If you
-modify the collection interval, set the <code class="literal">xpack.monitoring.min_interval_seconds</code>
-option in <code class="literal">kibana.yml</code> to the same value.</p>
+<p>
+控制收集数据样本的频率。默认为 <code class="literal">10s</code>。如果你修改了收集的间隔时间，请在<code class="literal">kibana.yml</code>中将<code class="literal">xpack.monitoring.min_interval_seconds</code>选项设置为相同的值。</p>
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.monitoring.elasticsearch.collection.enabled</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">xpack.monitoring.elasticsearch.collection.enabled</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-Controls whether statistics about your Elasticsearch cluster should be collected. Defaults to <code class="literal">true</code>.
-This is different from xpack.monitoring.collection.enabled, which allows you to enable or disable
-all monitoring collection. However, this setting simply disables the collection of Elasticsearch
-data while still allowing other data (e.g., Kibana, Logstash, Beats, or APM Server monitoring data)
-to pass through this cluster.
+控制是否应收集有关 Elasticsearch 集群的统计数据。默认为 <code class="literal">true</code>。与 <code class="literal">xpack.monitoring.collection.enabled</code> 不同的是，它允许你启用或禁用所有监控的数据收集。然而，该设置只是禁用 Elasticsearch 数据的收集，仍然允许其他数据(例如，Kibana、Logstash、Beats 或 APM 服务器监控数据)通过该集群。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.monitoring.collection.cluster.stats.timeout</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">xpack.monitoring.collection.cluster.stats.timeout</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-(<a class="xref" href="common-options.html#time-units" title="Time units">time value</a>) Timeout for collecting the cluster statistics. Defaults to <code class="literal">10s</code>.
+(<a class="xref" href="common-options.html#time-units" title="Time units">time value</a>) 收集集群统计信息的超时时间。默认为 <code class="literal">10s</code>。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.monitoring.collection.node.stats.timeout</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">xpack.monitoring.collection.node.stats.timeout</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-(<a class="xref" href="common-options.html#time-units" title="Time units">time value</a>) Timeout for collecting the node statistics. Defaults to <code class="literal">10s</code>.
+(<a class="xref" href="common-options.html#time-units" title="Time units">time value</a>) 收集节点统计信息的超时时间。默认为 <code class="literal">10s</code>。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.monitoring.collection.indices</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">xpack.monitoring.collection.indices</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-Controls which indices Monitoring collects data from. Defaults to all indices. Specify the index names
-as a comma-separated list, for example <code class="literal">test1,test2,test3</code>. Names can include wildcards, for
-example <code class="literal">test*</code>. You can explicitly exclude indices by prepending <code class="literal">-</code>. For example <code class="literal">test*,-test3</code> will
-monitor all indexes that start with <code class="literal">test</code> except for <code class="literal">test3</code>. System indices like .security* or .kibana*
-always start with a <code class="literal">.</code>, and generally should be monitored. Consider adding <code class="literal">.*</code> to the list of indices
-ensure monitoring of system indices. For example <code class="literal">.*,test*,-test3</code>
+控制监控要从哪些索引收集数据。默认为所有索引。
+以逗号分隔的列表形式指定索引名称，例如 <code class="literal">test1,test2,test3</code>。
+名称可以包含通配符，比如 <code class="literal">test*</code>。可以用<code class="literal">-</code>作为前缀来显式指定要排除的索引。
+比如，<code class="literal">test*,-test3</code> 将监控所有以 <code class="literal">test</code> 开头的索引，但是<code class="literal">test3</code>除外。
+系统索引，像 .security* 或 .kibana* 总是以<code class="literal">.</code>开头的，通常是应该被监控的。
+考虑添加<code class="literal">.*</code>到索引列表中，以确保对系统索引的监控，比如<code class="literal">.*,test*,-test3</code>。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.monitoring.collection.index.stats.timeout</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">xpack.monitoring.collection.index.stats.timeout</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-(<a class="xref" href="common-options.html#time-units" title="Time units">time value</a>) Timeout for collecting index statistics. Defaults to <code class="literal">10s</code>.
+(<a class="xref" href="common-options.html#time-units" title="Time units">time value</a>) 收集索引的统计信息的超时时间。默认为 <code class="literal">10s</code>。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.monitoring.collection.index.recovery.active_only</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">xpack.monitoring.collection.index.recovery.active_only</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-Controls whether or not all recoveries are collected. Set to <code class="literal">true</code> to
-collect only active recoveries. Defaults to <code class="literal">false</code>.
+控制是否要收集所有的 恢复(reovery)。设置为 <code class="literal">true</code>，只收集活动中的恢复。默认为 <code class="literal">false</code>.
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.monitoring.collection.index.recovery.timeout</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">xpack.monitoring.collection.index.recovery.timeout</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-(<a class="xref" href="common-options.html#time-units" title="Time units">time value</a>) Timeout for collecting the recovery information. Defaults to <code class="literal">10s</code>.
+(<a class="xref" href="common-options.html#time-units" title="Time units">time value</a>) 收集恢复信息的超时时间。默认为 <code class="literal">10s</code>。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.monitoring.history.duration</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">xpack.monitoring.history.duration</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
 <p>
-(<a class="xref" href="common-options.html#time-units" title="Time units">time value</a>) Retention duration beyond which the indices created by a Monitoring
-exporter are automatically deleted. Defaults to <code class="literal">7d</code> (7 days).
+(<a class="xref" href="common-options.html#time-units" title="Time units">time value</a>) 保留期限，超过该期限，由监控导出程序创建的索引将被自动删除。默认为<code class="literal">7d</code> (7天)。
 </p>
-<p>This setting has a minimum value of <code class="literal">1d</code> (1 day) to ensure that something is
-being monitored, and it cannot be disabled.</p>
+<p>这个设置有一个最小值 <code class="literal">1d</code> (1天)，以确保有一些内容受到监控，且不可以禁用。</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>This setting currently only impacts <code class="literal">local</code>-type exporters. Indices created using
-the <code class="literal">http</code> exporter will not be deleted automatically.</p>
+<p>这个设置只影响<code class="literal">local</code>类型的导出程序。使用<code class="literal">http</code>导出程序建立的索引不会被自动删除。</p>
 </div>
 </div>
 </dd>
@@ -228,23 +213,16 @@ the <code class="literal">http</code> exporter will not be deleted automatically
 </span>
 </dt>
 <dd>
-Configures where the agent stores monitoring data. By default, the agent uses a
-local exporter that indexes monitoring data on the cluster where it is installed.
-Use an HTTP exporter to send data to a separate monitoring cluster. For more
-information, see <a class="xref" href="monitoring-settings.html#local-exporter-settings" title="Local Exporter Settings">Local exporter settings</a>,
-<a class="xref" href="monitoring-settings.html#http-exporter-settings" title="HTTP Exporter Settings">HTTP exporter settings</a>, and
-<a class="xref" href="how-monitoring-works.html" title="How monitoring works"><em>How it works</em></a>.
+配置代理存储监控数据的位置。默认情况下，代理使用本地导出器，该导出器在其安装的集群上索引监控数据。使用 HTTP 导出器将数据发送到单独的监控集群。
+更多信息，请参考 <a class="xref" href="monitoring-settings.html#local-exporter-settings" title="Local Exporter Settings">本地导出器设置</a>, <a class="xref" href="monitoring-settings.html#http-exporter-settings" title="HTTP Exporter Settings">HTTP 导出器设置</a> 以及 <a class="xref" href="how-monitoring-works.html" title="How monitoring works"><em>监控是如何工作的</em></a>.
 </dd>
 </dl>
 </div>
 <h4>
-<a id="local-exporter-settings"></a>Local Exporter Settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/monitoring-settings.asciidoc">edit</a>
+<a id="local-exporter-settings"></a>本地导出器设置 (Local Exporter Settings)
 </h4>
-<p>The <code class="literal">local</code> exporter is the default exporter used by Monitoring. As the name is
-meant to imply, it exports data to the <em>local</em> cluster, which means that there
-is not much needed to be configured.</p>
-<p>If you do not supply <em>any</em> exporters, then Monitoring will automatically create
-one for you. If any exporter is provided, then no default is added.</p>
+<p><code class="literal">local</code>导出器是监控使用的默认的导出器。顾名思义，它将数据导出到<code class="literal">本地(local)</code>集群，这意味着不需要太多配置。</p>
+<p>如果你未提供<em>任何(any)</em>导出器，那么监控会自动为你创建一个。只要提供了任意一个导出器，都不会再添加默认值。</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">xpack.monitoring.exporters.my_local:
   type: local</pre>
@@ -257,7 +235,7 @@ one for you. If any exporter is provided, then no default is added.</p>
 </span>
 </dt>
 <dd>
-The value for a Local exporter must always be <code class="literal">local</code> and it is required.
+本地导出器的值必须始终是 <code class="literal">local</code>，且是必需的。
 </dd>
 <dt>
 <span class="term">
@@ -265,10 +243,7 @@ The value for a Local exporter must always be <code class="literal">local</code>
 </span>
 </dt>
 <dd>
-Whether to supply a placeholder pipeline to the cluster and a pipeline processor with
-every bulk request. The default value is <code class="literal">true</code>. If disabled, then it means that it will not
-use pipelines, which means that a future release cannot automatically upgrade bulk requests
-to future-proof them.
+是否为集群提供 占位符管道(placeholder pipeline)，并为每个批量请求提供 管道处理器(pipeline processor)。默认为 <code class="literal">true</code>。如果禁用，则意味着它将不会使用管道，这意味着未来的版本无法自动将批量请求升级为 符合未来要求的(future-proof) 请求。 
 </dd>
 <dt>
 <span class="term">
@@ -276,17 +251,14 @@ to future-proof them.
 </span>
 </dt>
 <dd>
-Whether to create cluster alerts for this cluster. The default value is <code class="literal">true</code>.
-To use this feature, Watcher must be enabled.  If you have a basic license,
-cluster alerts are not displayed.
+是否为此集群创建集群警报。默认值为 <code class="literal">true</code>。要使用此特性，必须启用 Watcher。如果你用的是基础许可证，集群警报不会显示。
 </dd>
 </dl>
 </div>
 <h4>
-<a id="http-exporter-settings"></a>HTTP Exporter Settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/monitoring-settings.asciidoc">edit</a>
+<a id="http-exporter-settings"></a>HTTP导出器设置 (HTTP Exporter Settings)
 </h4>
-<p>The following lists settings that can be supplied with the <code class="literal">http</code> exporter.
-All settings are shown as what follows the name you select for your exporter:</p>
+<p>下面列出了<code class="literal">http</code>导出器可以提供的设置。所有设置都在选择了导出器名称之后显示:</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">xpack.monitoring.exporters.my_remote:
   type: http
@@ -300,7 +272,7 @@ All settings are shown as what follows the name you select for your exporter:</p
 </span>
 </dt>
 <dd>
-The value for an HTTP exporter must always be <code class="literal">http</code> and it is required.
+HTTP 导出器的值必须始终是<code class="literal">http</code>，且是必需的。
 </dd>
 <dt>
 <span class="term">
@@ -309,10 +281,9 @@ The value for an HTTP exporter must always be <code class="literal">http</code> 
 </dt>
 <dd>
 <p>
-Host supports multiple formats, both as an array or as a single value. Supported formats include
-<code class="literal">hostname</code>, <code class="literal">hostname:port</code>, <code class="literal">http://hostname</code> <code class="literal">http://hostname:port</code>, <code class="literal">https://hostname</code>, and
-<code class="literal">https://hostname:port</code>. Hosts cannot be assumed. The default scheme is always <code class="literal">http</code> and the default
-port is always <code class="literal">9200</code> if not supplied as part of the <code class="literal">host</code> string.
+<code class="literal">host</code>支持多种格式，既可以是数组，也可以是单个值。
+支持的格式包括 <code class="literal">hostname</code>, <code class="literal">hostname:port</code>，<code class="literal">http://hostname</code> <code class="literal">http://hostname:port</code>，<code class="literal">https://hostname</code> 以及 <code class="literal">https://hostname:port</code>。主机不能被假设，必须真实存在。
+如果未在<code class="literal">host</code>字符串中指定，则默认的 模式(schema) 始终是 <code class="literal">http</code>，默认的 端口(port) 始终是<code class="literal">9200</code>。
 </p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">xpack.monitoring.exporters:
@@ -336,7 +307,7 @@ port is always <code class="literal">9200</code> if not supplied as part of the 
 </span>
 </dt>
 <dd>
-The username is required if <code class="literal">auth.secure_password</code> or <code class="literal">auth.password</code> is supplied.
+如果提供了<code class="literal">auth.secure_password</code> Huo  <code class="literal">auth.password</code>，则 username 是必须的。
 </dd>
 <dt>
 <span class="term">
@@ -344,7 +315,8 @@ The username is required if <code class="literal">auth.secure_password</code> or
 </span>
 </dt>
 <dd>
-The password for the <code class="literal">auth.username</code>. Takes precedence over <code class="literal">auth.password</code> if it is also specified.
+<code class="literal">auth.username</code>的密码。
+如果还指定了<code class="literal">auth.password</code>，则它优先级更高。
 </dd>
 <dt>
 <span class="term">
@@ -352,15 +324,16 @@ The password for the <code class="literal">auth.username</code>. Takes precedenc
 </span>
 </dt>
 <dd>
-The password for the <code class="literal">auth.username</code>. If <code class="literal">auth.secure_password</code> is also specified, this setting is ignored.
+<code class="literal">auth.username</code>的密码。
+如果还指定了<code class="literal">auth.secure_password</code>，则它会被忽略。
 </dd>
 </dl>
 </div>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<h3>Deprecated in 7.7.0.</h3>
-<p>Use <code class="literal">auth.secure_password</code> instead.</p>
+<h3>在 7.7.0 中废弃！</h3>
+<p>请使用 <code class="literal">auth.secure_password</code> 替代之。</p>
 </div>
 </div>
 <div class="variablelist">
@@ -371,8 +344,7 @@ The password for the <code class="literal">auth.username</code>. If <code class=
 </span>
 </dt>
 <dd>
-(<a class="xref" href="common-options.html#time-units" title="Time units">time value</a>) Amount of time that the HTTP connection is supposed to wait for a socket to open for the
-request. The default value is <code class="literal">6s</code>.
+(<a class="xref" href="common-options.html#time-units" title="Time units">time value</a>) HTTP 连接等待套接字为请求打开的时间。默认值为 <code class="literal">6s</code>。
 </dd>
 <dt>
 <span class="term">
@@ -380,8 +352,7 @@ request. The default value is <code class="literal">6s</code>.
 </span>
 </dt>
 <dd>
-(<a class="xref" href="common-options.html#time-units" title="Time units">time value</a>) Amount of time that the HTTP connection is supposed to wait for a socket to
-send back a response. The default value is <code class="literal">10 * connection.timeout</code> (<code class="literal">60s</code> if neither are set).
+(<a class="xref" href="common-options.html#time-units" title="Time units">time value</a>) HTTP 连接等待套接字发回响应的时间。默认为 <code class="literal">10 * connection.timeout</code> (当 time_out 和 real_timeout 两个都未设置时为<code class="literal">60s</code>)。
 </dd>
 <dt>
 <span class="term">
@@ -389,8 +360,7 @@ send back a response. The default value is <code class="literal">10 * connection
 </span>
 </dt>
 <dd>
-Each HTTP exporter can define its own TLS / SSL settings or inherit them. See the
-<a class="xref" href="monitoring-settings.html#ssl-monitoring-settings" title="X-Pack monitoring TLS/SSL settings">TLS / SSL section below</a>.
+每个 HTTP 导出器可以定义自己的 TLS / SSL 设置或继承它们。 参考下面的 <a class="xref" href="monitoring-settings.html#ssl-monitoring-settings" title="X-Pack monitoring TLS/SSL settings">TLS / SSL</a> 部分。
 </dd>
 <dt>
 <span class="term">
@@ -398,8 +368,7 @@ Each HTTP exporter can define its own TLS / SSL settings or inherit them. See th
 </span>
 </dt>
 <dd>
-The base path to prefix any outgoing request, such as <code class="literal">/base/path</code> (e.g., bulk requests would
-then be sent as <code class="literal">/base/path/_bulk</code>). There is no default value.
+作为任何传出请求前缀的基本路径，诸如<code class="literal">/base/path</code>(例如，批量请求将作为<code class="literal">/base/path/_bulk</code>发送)。没有默认值。
 </dd>
 <dt>
 <span class="term">
@@ -408,8 +377,7 @@ then be sent as <code class="literal">/base/path/_bulk</code>). There is no defa
 </dt>
 <dd>
 <p>
-Optional headers that are added to every request, which can assist with routing requests through
-proxies.
+添加到每个请求中的可选的 header，有助于通过代理路由请求。
 </p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">xpack.monitoring.exporters.my_remote:
@@ -417,9 +385,11 @@ proxies.
     X-My-Array: [abc, def, xyz]
     X-My-Header: abc123</pre>
 </div>
-<p>Array-based headers are sent <code class="literal">n</code> times where <code class="literal">n</code> is the size of the array. <code class="literal">Content-Type</code>
-and <code class="literal">Content-Length</code> cannot be set. Any headers created by the Monitoring agent will override
-anything defined here.</p>
+<p>
+基于数组的 header 被发送<code class="literal">n</code>次，其中<code class="literal">n</code>是数组的大小。
+不能设置<code class="literal">Content-Type</code> 和 <code class="literal">Content-Length</code>。
+监控代理创建的任何 header 都将覆盖此处定义的任何内容。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -427,8 +397,8 @@ anything defined here.</p>
 </span>
 </dt>
 <dd>
-A mechanism for changing the default date suffix for the, by default, daily Monitoring indices.
-The default value is <code class="literal">yyyy.MM.dd</code>, which is why the indices are created daily.
+一种机制，用于更改默认情况下每日监控索引的默认日期后缀。  
+默认为 <code class="literal">yyyy.MM.dd</code>，这就是每天创建索引的原因。
 </dd>
 <dt>
 <span class="term">
@@ -436,10 +406,7 @@ The default value is <code class="literal">yyyy.MM.dd</code>, which is why the i
 </span>
 </dt>
 <dd>
-Whether to supply a placeholder pipeline to the monitoring cluster and a pipeline processor with
-every bulk request. The default value is <code class="literal">true</code>. If disabled, then it means that it will not
-use pipelines, which means that a future release cannot automatically upgrade bulk requests
-to future-proof them.
+是否为集群提供 占位符管道(placeholder pipeline)，并为每个批量请求提供 管道处理器(pipeline processor)。默认为 <code class="literal">true</code>。如果禁用，则意味着它将不会使用管道，这意味着未来的版本无法自动将批量请求升级为 符合未来要求的(future-proof) 请求。
 </dd>
 <dt>
 <span class="term">
@@ -447,9 +414,8 @@ to future-proof them.
 </span>
 </dt>
 <dd>
-Whether to create cluster alerts for this cluster. The default value is <code class="literal">true</code>.
-To use this feature, Watcher must be enabled.  If you have a basic license,
-cluster alerts are not displayed.
+是否为此集群创建集群警报。默认为 <code class="literal">true</code>。
+要使用此特性，必须启用 Watcher。如果你用的是基础许可证，集群警报不会显示。
 </dd>
 <dt>
 <span class="term">
@@ -457,11 +423,8 @@ cluster alerts are not displayed.
 </span>
 </dt>
 <dd>
-<p>
-Prevents the creation of specific cluster alerts. It also removes any applicable
-watches that already exist in the current cluster.
-</p>
-<p>You can add any of the following watch identifiers to the list of blocked alerts:</p>
+<p>防止创建特定的集群警报。它还会删除当前集群中已经存在的任何可用的观察器。</p>
+<p>可以将以下任何观察标识符添加到阻止的警报列表中:</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
@@ -484,17 +447,17 @@ watches that already exist in the current cluster.
 </li>
 </ul>
 </div>
-<p>For example: <code class="literal">["elasticsearch_version_mismatch","xpack_license_expiration"]</code>.</p>
+<p>比如：<code class="literal">["elasticsearch_version_mismatch","xpack_license_expiration"]</code></p>
 </dd>
 </dl>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="ssl-monitoring-settings"></a>X-Pack monitoring TLS/SSL settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/ssl-settings.asciidoc">edit</a>
+<a id="ssl-monitoring-settings"></a>X-Pack 监控 TLS/SSL 的设置
 </h3>
 </div></div></div>
-<p>You can configure the following TLS/SSL settings.</p>
+<p>可以配置以下 TLS/SSL 设置。</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -504,16 +467,14 @@ watches that already exist in the current cluster.
 </dt>
 <dd>
 <p>
-Supported protocols with versions. Valid protocols: <code class="literal">SSLv2Hello</code>,
-<code class="literal">SSLv3</code>, <code class="literal">TLSv1</code>, <code class="literal">TLSv1.1</code>, <code class="literal">TLSv1.2</code>, <code class="literal">TLSv1.3</code>. If the JVM’s SSL provider supports TLSv1.3,
-the default is <code class="literal">TLSv1.3,TLSv1.2,TLSv1.1</code>. Otherwise, the default is
-<code class="literal">TLSv1.2,TLSv1.1</code>.
+支持的协议版本。可用的协议有: <code class="literal">SSLv2Hello</code>，<code class="literal">SSLv3</code>，<code class="literal">TLSv1</code>，<code class="literal">TLSv1.1</code>，<code class="literal">TLSv1.2</code>，<code class="literal">TLSv1.3</code>。
+如果 JVM 的提供者支持 TLSv1.3，则默认为 <code class="literal">TLSv1.3,TLSv1.2,TLSv1.1</code>。
+否则，默认为 <code class="literal">TLSv1.2,TLSv1.1</code>。
 </p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If <code class="literal">xpack.security.fips_mode.enabled</code> is <code class="literal">true</code>, you cannot use <code class="literal">SSLv2Hello</code>
-or <code class="literal">SSLv3</code>. See <a class="xref" href="fips-140-compliance.html" title="FIPS 140-2">FIPS 140-2</a>.</p>
+<p>如果 <code class="literal">xpack.security.fips_mode.enabled</code> 为 <code class="literal">true</code>，则你不能使用 <code class="literal">SSLv2Hello</code> 和 <code class="literal">SSLv3</code>。 参考 <a class="xref" href="fips-140-compliance.html" title="FIPS 140-2">FIPS 140-2</a>。</p>
 </div>
 </div>
 </dd>
@@ -524,27 +485,23 @@ or <code class="literal">SSLv3</code>. See <a class="xref" href="fips-140-compli
 </dt>
 <dd>
 <p>
-Controls the verification of certificates.
-Valid values are:
+控制证书的验证。有效值包括：
 </p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">full</code>, which verifies that the provided certificate is signed by a trusted
-authority (CA) and also verifies that the server’s hostname (or IP address)
-matches the names identified within the certificate.
+<code class="literal">full</code>，验证所提供的证书是否由可信机构(CA)签名，还验证服务器的主机名(或IP地址)是否与证书中标识的名称匹配。
 </li>
 <li class="listitem">
-<code class="literal">certificate</code>, which verifies that the provided certificate is signed by a
-trusted authority (CA), but does not perform any hostname verification.
+<code class="literal">certificate</code>，用于验证所提供的证书是否由可信机构(CA)签名，但不执行任何主机名验证。
 </li>
 <li class="listitem">
-<p><code class="literal">none</code>, which performs <em>no verification</em> of the server’s certificate. This
-mode disables many of the security benefits of SSL/TLS and should only be used
-after very careful consideration. It is primarily intended as a temporary
-diagnostic mechanism when attempting to resolve TLS errors; its use on
-production clusters is strongly discouraged.</p>
-<p>The default value is <code class="literal">full</code>.</p>
+<p>
+<code class="literal">none</code>，<em>不验证</em>服务器的证书。
+这种模式禁用了 SSL/TLS 的许多安全优势，并且应该在非常谨慎的考虑之后才使用。
+它主要用作尝试解决 TLS 错误时的临时诊断机制；强烈建议不要在生产集群上使用它。
+</p>
+<p>默认为 <code class="literal">full</code></p>
 </li>
 </ul>
 </div>

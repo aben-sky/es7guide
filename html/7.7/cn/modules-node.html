@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Node | ElasticSearch 7.7 权威指南中文版</title>
+	<title>节点 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -34,45 +34,45 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="settings.html">Configuring Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="settings.html">配置 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Node</span>
+<span class="breadcrumb-node">节点</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="monitoring-settings.html">« Monitoring settings in Elasticsearch</a>
+<a href="monitoring-settings.html">« 监控设置</a>
 </span>
 <span class="next">
-<a href="modules-network.html">Network settings »</a>
+<a href2="modules-network.html">Network settings »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="modules-node"></a>Node<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/node.asciidoc">edit</a>
+<a id="modules-node"></a>节点 (Node)
 </h2>
 </div></div></div>
-<p>Any time that you start an instance of Elasticsearch, you are starting a <em>node</em>.
-A collection of connected nodes is called a <a class="xref" href="modules-cluster.html" title="Cluster-level shard allocation and routing settings">cluster</a>. If you
-are running a single node of Elasticsearch, then you have a cluster of one node.</p>
-<p>Every node in the cluster can handle <a class="xref" href="modules-http.html" title="HTTP">HTTP</a> and
-<a class="xref" href="modules-transport.html" title="Transport">Transport</a> traffic by default. The transport layer is used
-exclusively for communication between nodes; the HTTP layer is used by REST
-clients.</p>
-<p>All nodes know about all the other nodes in the cluster and can forward client
-requests to the appropriate node.</p>
-<p>By default, a node is all of the following types: master-eligible, data, ingest,
-and (if available) machine learning and transform.</p>
+<p>
+任何时候启动一个 Elasticsearch 实例，都是在启动一个<em>节点 (node)</em>。
+连接的节点的集合称为<a class="xref" href="modules-cluster.html" title="Cluster-level shard allocation and routing settings">集群 (cluster)</a>。 
+如果你运行的是 Elasticsearch 的单个节点，那么你有一个包含一个节点的集群。
+</p>
+<p>
+默认情况下，群集中的每个节点都可以处理<a class="xref" href="modules-http.html" title="HTTP">HTTP</a> 和 <a class="xref" href="modules-transport.html" title="Transport">传输 (Transport)</a>流量。
+传输层专门用于节点之间的通信；HTTP 层被 REST 客户端使用。
+</p>
+<p>所有节点都知道群集中的所有其他节点，并且可以将客户端请求转发到适当的节点。</p>
+<p>
+默认情况下，节点包含以下所有类型: 符合主节点条件的节点(master-eligible)、数据节点(data)、预处理节点(ingest) 以及 机器学习(machine learning)(如果可用) 和 转换(transform)节点。
+</p>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>As the cluster grows and in particular if you have large machine learning jobs or
-continuous transforms, consider separating dedicated master-eligible nodes from
-dedicated data nodes, machine learning nodes, and transform nodes.</p>
+<p>随着集群的增长，特别是如果你有大型机器学习作业或连续转换，请考虑将专用的符合主机条件的节点与专用的数据节点、机器学习节点和转换节点分开。</p>
 </div>
 </div>
 <div class="variablelist">
@@ -83,9 +83,7 @@ dedicated data nodes, machine learning nodes, and transform nodes.</p>
 </span>
 </dt>
 <dd>
-A node that has <code class="literal">node.master</code> set to <code class="literal">true</code> (default), which makes it eligible
-to be <a class="xref" href="modules-discovery.html" title="Discovery and cluster formation">elected as the <em>master</em> node</a>, which controls the
-cluster.
+<code class="literal">node.master</code>设置为<code class="literal">true</code>(默认值)的节点，这使它有资格 <a class="xref" href="modules-discovery.html" title="Discovery and cluster formation">被选为<em>主 (master)</em>节点</a>，主节点可以控制集群。
 </dd>
 <dt>
 <span class="term">
@@ -93,8 +91,7 @@ cluster.
 </span>
 </dt>
 <dd>
-A node that has <code class="literal">node.data</code> set to <code class="literal">true</code> (default). Data nodes hold data and
-perform data related operations such as CRUD, search, and aggregations.
+<code class="literal">node.data</code>设置为<code class="literal">true</code>(默认值)的节点。数据节点保存数据并执行与数据相关的操作，如 CRUD、搜索和聚合。
 </dd>
 <dt>
 <span class="term">
@@ -1233,10 +1230,10 @@ including:</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="monitoring-settings.html">« Monitoring settings in Elasticsearch</a>
+<a href="monitoring-settings.html">« 监控设置</a>
 </span>
 <span class="next">
-<a href="modules-network.html">Network settings »</a>
+<a href2="modules-network.html">Network settings »</a>
 </span>
 </div>
 </div>

@@ -199,7 +199,7 @@ var esNavLinks = [
                     {
                         "url": "modules-node.html",
                         "text": "节点",
-                        "title": "Node"
+                        "title": "节点"
                     },
                     {
                         "url": "modules-network.html",

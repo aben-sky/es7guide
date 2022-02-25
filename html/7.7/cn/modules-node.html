@@ -62,10 +62,10 @@ will be released for this version. For the latest information, see the
 如果你运行的是 Elasticsearch 的单个节点，那么你有一个包含一个节点的集群。
 </p>
 <p>
-默认情况下，群集中的每个节点都可以处理<a class="xref" href="modules-http.html" title="HTTP">HTTP</a> 和 <a class="xref" href="modules-transport.html" title="Transport">传输 (Transport)</a>流量。
+默认情况下，集群中的每个节点都可以处理<a class="xref" href="modules-http.html" title="HTTP">HTTP</a> 和 <a class="xref" href="modules-transport.html" title="Transport">传输 (Transport)</a>流量。
 传输层专门用于节点之间的通信；HTTP 层被 REST 客户端使用。
 </p>
-<p>所有节点都知道群集中的所有其他节点，并且可以将客户端请求转发到适当的节点。</p>
+<p>所有节点都知道集群中的所有其他节点，并且可以将客户端请求转发到适当的节点。</p>
 <p>
 默认情况下，节点包含以下所有类型: 符合主节点条件的节点(master-eligible)、数据节点(data)、预处理节点(ingest) 以及 机器学习(machine learning)(如果可用) 和 转换(transform)节点。
 </p>
@@ -79,7 +79,7 @@ will be released for this version. For the latest information, see the
 <dl class="variablelist">
 <dt>
 <span class="term">
-<a class="xref" href="modules-node.html#master-node" title="Master-eligible node">Master-eligible node</a>
+<a class="xref" href="modules-node.html#master-node" title="Master-eligible node">符合主节点条件的节点 (Master-eligible node)</a>
 </span>
 </dt>
 <dd>
@@ -87,7 +87,7 @@ will be released for this version. For the latest information, see the
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="modules-node.html#data-node" title="Data node">Data node</a>
+<a class="xref" href="modules-node.html#data-node" title="Data node">数据节点 (Data node)</a>
 </span>
 </dt>
 <dd>
@@ -95,110 +95,95 @@ will be released for this version. For the latest information, see the
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="ingest.html" title="Ingest node">Ingest node</a>
+<a class="xref" href="ingest.html" title="Ingest node">预处理节点 (Ingest node)</a>
 </span>
 </dt>
 <dd>
-A node that has <code class="literal">node.ingest</code> set to <code class="literal">true</code> (default). Ingest nodes are able
-to apply an <a class="xref" href="pipeline.html" title="Pipeline Definition">ingest pipeline</a> to a document in order to transform
-and enrich the document before indexing. With a heavy ingest load, it makes
-sense to use dedicated ingest nodes and to mark the master and data nodes as
-<code class="literal">node.ingest: false</code>.
+<code class="literal">node.ingest</code>设置为<code class="literal">true</code>(默认值)的节点。
+预处理节点能够将 <a class="xref" href="pipeline.html" title="Pipeline Definition">预处理管道 (ingest pipeline)</a> 应用于文档，以便在索引之前转换并丰富文档。
+当预处理负载很大时，使用专用的预处理节点并将主节点和数据节点标记为<code class="literal">node.ingest: false</code>是有意义的。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="modules-node.html#ml-node" title="Machine learning node">Machine learning node</a>
+<a class="xref" href="modules-node.html#ml-node" title="Machine learning node">机器学习节点 (Machine learning node)</a>
 </span>
 </dt>
 <dd>
 <p>
-A node that has <code class="literal">xpack.ml.enabled</code> and <code class="literal">node.ml</code> set to <code class="literal">true</code>, which is the
-default behavior in the Elasticsearch default distribution. If you want to use machine learning features,
-there must be at least one machine learning node in your cluster. For more information about
-machine learning features, see
-<a href="https://www.elastic.co/guide/en/machine-learning/7.7/index.html" class="ulink" target="_top">Machine learning in the Elastic Stack</a>.
+<code class="literal">xpack.ml.enabled</code> 和 <code class="literal">node.ml</code> 设置为 <code class="literal">true</code> 的节点，这是 Elasticsearch 默认发行版中的默认行为。
+如果要使用机器学习功能，集群中必须至少有一个机器学习节点。
+有关机器学习功能的更多信息，请参考 <a href="https://www.elastic.co/guide/en/machine-learning/7.7/index.html" class="ulink" target="_top">Elastic Stack 中的机器学习</a>.
 </p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If you use the OSS-only distribution, do not set <code class="literal">node.ml</code>. Otherwise, the node
-fails to start.</p>
+<p>如果是 OSS-only 的发行版，请不要设置<code class="literal">node.ml</code>。 否则，节点会启动失败。</p>
 </div>
 </div>
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="modules-node.html#transform-node" title="Transform node">Transform node</a>
+<a class="xref" href="modules-node.html#transform-node" title="Transform node">转换节点 (Transform node)</a>
 </span>
 </dt>
 <dd>
-A node that has <code class="literal">xpack.transform.enabled</code> and <code class="literal">node.transform</code> set to <code class="literal">true</code>. If
-you want to use transforms, there must be at least one transform node in
-your cluster. For more information, see <a class="xref" href="transform-settings.html" title="Transforms settings in Elasticsearch">Transforms settings</a> and
-<a class="xref" href="transforms.html" title="Transforming data"><em>Transforming data</em></a>.
+<code class="literal">xpack.transform.enabled</code> 和 <code class="literal">node.transform</code> 设置为 <code class="literal">true</code> 的节点。
+如果要使用转换，集群中必须至少有一个转换节点。
+更多信息想参考 <a class="xref" href="transform-settings.html" title="Transforms settings in Elasticsearch">转换设置</a> and
+<a class="xref" href="transforms.html" title="Transforming data"><em>数据转换</em></a>.
 </dd>
 </dl>
 </div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<h3>Coordinating node<a id="coordinating-node"></a>
+<h3>协调节点 (Coordinating node)<a id="coordinating-node"></a>
 </h3>
-<p>Requests like search requests or bulk-indexing requests may involve data held
-on different data nodes. A search request, for example, is executed in two
-phases which are coordinated by the node which receives the client request — the <em>coordinating node</em>.</p>
-<p>In the <em>scatter</em> phase, the coordinating node forwards the request to the data
-nodes which hold the data.  Each data node executes the request locally and
-returns its results to the coordinating node. In the <em>gather</em>  phase, the
-coordinating node reduces each data node’s results into a single global
-resultset.</p>
-<p>Every node is implicitly a coordinating node. This means that a node that has
-all three <code class="literal">node.master</code>, <code class="literal">node.data</code> and <code class="literal">node.ingest</code> set to <code class="literal">false</code> will
-only act as a coordinating node, which cannot be disabled. As a result, such
-a node needs to have enough memory and CPU in order to deal with the gather
-phase.</p>
+<p>
+像搜索请求或批量索引请求这样的请求可能涉及保存在不同数据节点上的数据。
+例如，搜索请求分两个阶段执行，这两个阶段由接收客户端请求的节点协调 - <em>协调节点 (coordinating node)</em>.
+</p>
+<p>
+在<em>scatter</em>阶段，协调节点将请求转发给保存数据的数据节点。
+每个数据节点在本地执行请求，并将结果返回给协调节点。
+在<em>gather</em>阶段，协调节点将每个数据节点的结果缩减为一个全局结果集。
+</p>
+<p>
+含蓄地说，每个节点都是一个协调节点。
+这意味着所有三个设置<code class="literal">node.master</code>、<code class="literal">node.data</code> 和 <code class="literal">node.ingest</code>都是<code class="literal">false</code>的节点将仅充当协调节点，不能禁用。
+因此，这样的节点需要有足够的内存和 CPU 来处理<em>gather</em>阶段的数据。
+</p>
 </div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="master-node"></a>Master-eligible node<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/node.asciidoc">edit</a>
+<a id="master-node"></a>符合主节点条件的节点 (Master-eligible node)
 </h3>
 </div></div></div>
-<p>The master node is responsible for lightweight cluster-wide actions such as
-creating or deleting an index, tracking which nodes are part of the cluster,
-and deciding which shards to allocate to which nodes. It is important for
-cluster health to have a stable master node.</p>
-<p>Any master-eligible node that is not a <a class="xref" href="modules-node.html#voting-only-node" title="Voting-only master-eligible node">voting-only node</a> may
-be elected to become the master node by the <a class="xref" href="modules-discovery.html" title="Discovery and cluster formation">master election
-process</a>.</p>
+<p>主节点负责轻量级的集群范围的操作，例如创建或删除索引、跟踪哪些节点是集群的一部分，以及决定将哪些分片分配给哪些节点。拥有一个稳定的主节点对于集群的健康非常重要。</p>
+<p>任何符合主节点条件的节点，但不是<a class="xref" href="modules-node.html#voting-only-node" title="Voting-only master-eligible node">仅可以投票(vote-only)的节点</a>，都可以被<a class="xref" href="modules-discovery.html" title="Discovery and cluster formation">主节点选举过程</a>选为主节点。</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Master nodes must have access to the <code class="literal">data/</code> directory (just like
-<code class="literal">data</code> nodes) as this is where the cluster state is persisted between node
-restarts.</p>
+<p>主节点必须能够访问<code class="literal">data/</code>木兰路(就像<code class="literal">数据(data)</code>节点一样)，因为这是节点重新启动之间集群状态的保存位置。</p>
 </div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="dedicated-master-node"></a>Dedicated master-eligible node<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/node.asciidoc">edit</a>
+<a id="dedicated-master-node"></a>专用的符合主节点条件的节点 (Dedicated master-eligible node)
 </h4>
 </div></div></div>
-<p>It is important for the health of the cluster that the elected master node has
-the resources it needs to fulfill its responsibilities. If the elected master
-node is overloaded with other tasks then the cluster may not operate well. In
-particular, indexing and searching your data can be very resource-intensive, so
-in large or high-throughput clusters it is a good idea to avoid using the
-master-eligible nodes for tasks such as indexing and searching. You can do this
-by configuring three of your nodes to be dedicated master-eligible nodes.
-Dedicated master-eligible nodes only have the <code class="literal">master</code> role, allowing them to
-focus on managing the cluster. While master nodes can also behave as
-<a class="xref" href="modules-node.html#coordinating-node" title="Coordinating node">coordinating nodes</a> and route search and indexing requests
-from clients to data nodes, it is better <em>not</em> to use dedicated master nodes for
-this purpose.</p>
-<p>To create a dedicated master-eligible node in the default distribution, set:</p>
+<p>
+当选的主节点拥有履行其职责所需的资源，这对集群的健康非常重要。
+如果选出的主节点因其他任务而过载，那么集群可能无法正常运行。
+特别是，索引和搜索数据会占用大量资源，因此在大型或高吞吐集群中，最好避免使用符合主节点条件的节点来执行索引和搜索等任务。
+为此，你可以将三个节点配置为专用的符合主节点条件的节点。
+专用的符合主节点条件的节点仅具有<code class="literal">master</code>角色，这使得它们可以专注于管理集群。
+虽然主节点也可以充当<a class="xref" href="modules-node.html#coordinating-node" title="Coordinating node">协调节点</a>，并将搜索和索引请求从客户端路由到数据节点，但最好<em>不要</em>为此使用专用主节点。
+</p>
+<p>要在默认发行版中创建专用的符合主节点条件的节点，请设置：</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">node.master: true <a id="CO12-1"></a><i class="conum" data-value="1"></i>
 node.voting_only: false <a id="CO12-2"></a><i class="conum" data-value="2"></i>
@@ -217,7 +202,7 @@ node.remote_cluster_client: false <a id="CO12-9"></a><i class="conum" data-value
 <p><a href="#CO12-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">node.master</code> role is enabled by default.</p>
+<p>默认启动 <code class="literal">node.master</code> 角色</p>
 </td>
 </tr>
 <tr>
@@ -225,7 +210,7 @@ node.remote_cluster_client: false <a id="CO12-9"></a><i class="conum" data-value
 <p><a href="#CO12-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">node.voting_only</code> role is disabled by default.</p>
+<p>默认禁用 <code class="literal">node.voting_only</code> 角色</p>
 </td>
 </tr>
 <tr>
@@ -233,7 +218,7 @@ node.remote_cluster_client: false <a id="CO12-9"></a><i class="conum" data-value
 <p><a href="#CO12-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.data</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.data</code> 角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -241,7 +226,7 @@ node.remote_cluster_client: false <a id="CO12-9"></a><i class="conum" data-value
 <p><a href="#CO12-4"><i class="conum" data-value="4"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.ingest</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.ingest</code> 角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -249,7 +234,7 @@ node.remote_cluster_client: false <a id="CO12-9"></a><i class="conum" data-value
 <p><a href="#CO12-5"><i class="conum" data-value="5"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.ml</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.ml</code> 角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -257,7 +242,7 @@ node.remote_cluster_client: false <a id="CO12-9"></a><i class="conum" data-value
 <p><a href="#CO12-6"><i class="conum" data-value="6"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">xpack.ml.enabled</code> setting is enabled by default.</p>
+<p><code class="literal">xpack.ml.enabled</code> 设置是默认启用的</p>
 </td>
 </tr>
 <tr>
@@ -265,7 +250,7 @@ node.remote_cluster_client: false <a id="CO12-9"></a><i class="conum" data-value
 <p><a href="#CO12-7"><i class="conum" data-value="7"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.transform</code> role.</p>
+<p>禁用 <code class="literal">node.transform</code> 角色</p>
 </td>
 </tr>
 <tr>
@@ -273,7 +258,7 @@ node.remote_cluster_client: false <a id="CO12-9"></a><i class="conum" data-value
 <p><a href="#CO12-8"><i class="conum" data-value="8"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">xpack.transform.enabled</code> setting is enabled by default.</p>
+<p><code class="literal">xpack.transform.enabled</code> 设置默认是启用的</p>
 </td>
 </tr>
 <tr>
@@ -281,12 +266,12 @@ node.remote_cluster_client: false <a id="CO12-9"></a><i class="conum" data-value
 <p><a href="#CO12-9"><i class="conum" data-value="9"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable remote cluster connections (enabled by default).</p>
+<p>禁用远端集群连接 (默认是启用的)</p>
 </td>
 </tr>
 </table>
 </div>
-<p>To create a dedicated master-eligible node in the OSS-only distribution, set:</p>
+<p>要在 OSS-only 的发行版中创建专用的符合主节点条件的节点，请设置：</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">node.master: true <a id="CO13-1"></a><i class="conum" data-value="1"></i>
 node.data: false <a id="CO13-2"></a><i class="conum" data-value="2"></i>
@@ -300,7 +285,7 @@ node.remote_cluster_client: false <a id="CO13-4"></a><i class="conum" data-value
 <p><a href="#CO13-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">node.master</code> role is enabled by default.</p>
+<p><code class="literal">node.master</code> 角色是默认启用的</p>
 </td>
 </tr>
 <tr>
@@ -308,7 +293,7 @@ node.remote_cluster_client: false <a id="CO13-4"></a><i class="conum" data-value
 <p><a href="#CO13-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.data</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.data</code> 角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -316,7 +301,7 @@ node.remote_cluster_client: false <a id="CO13-4"></a><i class="conum" data-value
 <p><a href="#CO13-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.ingest</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.ingest</code> 角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -324,7 +309,7 @@ node.remote_cluster_client: false <a id="CO13-4"></a><i class="conum" data-value
 <p><a href="#CO13-4"><i class="conum" data-value="4"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable remote cluster connections (enabled by default).</p>
+<p>禁用远端集群连接 (默认是启用的)</p>
 </td>
 </tr>
 </table>
@@ -334,21 +319,19 @@ node.remote_cluster_client: false <a id="CO13-4"></a><i class="conum" data-value
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="voting-only-node"></a>Voting-only master-eligible node<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/node.asciidoc">edit</a>
+<a id="voting-only-node"></a> 只有投票资格的符合主节点条件的节点 (Voting-only master-eligible node)
 </h4>
 </div></div></div>
-<p>A voting-only master-eligible node is a node that participates in
-<a class="xref" href="modules-discovery.html" title="Discovery and cluster formation">master elections</a> but which will not act as the cluster’s
-elected master node. In particular, a voting-only node can serve as a tiebreaker
-in elections.</p>
-<p>It may seem confusing to use the term "master-eligible" to describe a
-voting-only node since such a node is not actually eligible to become the master
-at all. This terminology is an unfortunate consequence of history:
-master-eligible nodes are those nodes that participate in elections and perform
-certain tasks during cluster state publications, and voting-only nodes have the
-same responsibilities even if they can never become the elected master.</p>
-<p>To configure a master-eligible node as a voting-only node, set the following
-setting:</p>
+<p>
+只有投票资格的符合主节点条件的节点是指参与<a class="xref" href="modules-discovery.html" title="Discovery and cluster formation">主节点选举 (master elections)</a>，但不会充当集群的当选主节点的节点。
+特别是，只有投票资格的节点可以在选举中发挥决定性作用。
+</p>
+<p>
+用术语 “符合主节点条件的节点(master-eligible)” 来描述 只有投票资格(voting-only) 的节点可能会令人困惑，因为这样的节点实际上根本没有资格成为主节点。
+这个术语是历史造成的一个不幸的结果：<em>符合主节点条件的(master-eligible)</em> 的节点是那些参与选举并在集群状态发布期间执行特定任务的节点，而 <em>只有投票资格(voting-only)</em> 的节点具有相同的责任，即使它们永远无法成为被选举的主节点。  
+</p>
+<p>
+要将符合主节点条件的节点配置为只有投票资格的节点，请看以下设置：</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">node.voting_only: true <a id="CO14-1"></a><i class="conum" data-value="1"></i></pre>
 </div>
@@ -359,7 +342,7 @@ setting:</p>
 <p><a href="#CO14-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The default for <code class="literal">node.voting_only</code> is <code class="literal">false</code>.</p>
+<p><code class="literal">node.voting_only</code> 默认值为 <code class="literal">false</code></p>
 </td>
 </tr>
 </table>
@@ -367,26 +350,24 @@ setting:</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The <code class="literal">voting_only</code> role requires the default distribution of Elasticsearch and is not
-supported in the OSS-only distribution. If you use the OSS-only distribution and set
-<code class="literal">node.voting_only</code> then the node will fail to start.  Also note that only
-master-eligible nodes can be marked as voting-only.</p>
+<p>
+<code class="literal">voting_only</code>角色需要 Elasticsearch 的默认发行版，在 OSS-only 的发行版中不受支持。
+如果使用 OSS-only 的发行版并设置<code class="literal">node.voting_only</code>，则节点将无法启动。
+另请注意，只有符合主节点条件的节点才能标记为<code class="literal">voting_only</code>节点。
+</p>
 </div>
 </div>
-<p>High availability (HA) clusters require at least three master-eligible nodes, at
-least two of which are not voting-only nodes. Such a cluster will be able to
-elect a master node even if one of the nodes fails.</p>
-<p>Since voting-only nodes never act as the cluster’s elected master, they may
-require require less heap and a less powerful CPU than the true master nodes.
-However all master-eligible nodes, including voting-only nodes, require
-reasonably fast persistent storage and a reliable and low-latency network
-connection to the rest of the cluster, since they are on the critical path for
-<a class="xref" href="cluster-state-publishing.html" title="Publishing the cluster state">publishing cluster state updates</a>.</p>
-<p>Voting-only master-eligible nodes may also fill other roles in your cluster.
-For instance, a node may be both a data node and a voting-only master-eligible
-node. A <em>dedicated</em> voting-only master-eligible nodes is a voting-only
-master-eligible node that fills no other roles in the cluster. To create a
-dedicated voting-only master-eligible node in the default distribution, set:</p>
+<p>高可用性(HA)集群需要至少三个 符合主节点条件 的节点，其中至少两个不是 只有投票资格的节点。即使其中一个节点出现故障，这样的集群也能够选出一个主节点。</p>
+<p>
+由于 只有投票资格的节点 从不充当集群的当选主节点，因此与真正的主节点相比，它们可能需要更少的堆和更弱的CPU。
+然而，所有符合主节点条件的节点，包括只有投票资格的节点，都需要相当快的持久存储及与集群其余节点的可靠、低延迟的网络连接，因为它们处于 <a class="xref" href="cluster-state-publishing.html" title="Publishing the cluster state">发布集群状态更新</a>的关键路径上。
+</p>
+<p>
+只有投票资格的符合主节点条件的节点也可以担任集群中的其他角色。
+例如，一个节点既可以是数据节点，也可以是只有投票资格的符合主节点条件的节点。
+一个<em>专用的</em>只有投票资格的符合主节点条件的节点 是一个 只有投票资格的符合主节点条件的节点，它不担任集群中的任何其他角色。
+要在默认的发行版中创建只有投票资格的符合主节点条件的节点，设置：
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">node.master: true <a id="CO15-1"></a><i class="conum" data-value="1"></i>
 node.voting_only: true <a id="CO15-2"></a><i class="conum" data-value="2"></i>
@@ -405,7 +386,7 @@ node.remote_cluster_client: false <a id="CO15-9"></a><i class="conum" data-value
 <p><a href="#CO15-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">node.master</code> role is enabled by default.</p>
+<p><code class="literal">node.master</code> 角色默认是启用的</p>
 </td>
 </tr>
 <tr>
@@ -413,7 +394,7 @@ node.remote_cluster_client: false <a id="CO15-9"></a><i class="conum" data-value
 <p><a href="#CO15-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Enable the <code class="literal">node.voting_only</code> role (disabled by default).</p>
+<p>启用 <code class="literal">node.voting_only</code> 角色 (默认是禁用的)</p>
 </td>
 </tr>
 <tr>
@@ -421,7 +402,7 @@ node.remote_cluster_client: false <a id="CO15-9"></a><i class="conum" data-value
 <p><a href="#CO15-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.data</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.data</code> 角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -429,7 +410,7 @@ node.remote_cluster_client: false <a id="CO15-9"></a><i class="conum" data-value
 <p><a href="#CO15-4"><i class="conum" data-value="4"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.ingest</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.ingest</code>  角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -437,7 +418,7 @@ node.remote_cluster_client: false <a id="CO15-9"></a><i class="conum" data-value
 <p><a href="#CO15-5"><i class="conum" data-value="5"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.ml</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.ml</code> 角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -445,7 +426,7 @@ node.remote_cluster_client: false <a id="CO15-9"></a><i class="conum" data-value
 <p><a href="#CO15-6"><i class="conum" data-value="6"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">xpack.ml.enabled</code> setting is enabled by default.</p>
+<p><code class="literal">xpack.ml.enabled</code> 设置默认是启用的</p>
 </td>
 </tr>
 <tr>
@@ -453,7 +434,7 @@ node.remote_cluster_client: false <a id="CO15-9"></a><i class="conum" data-value
 <p><a href="#CO15-7"><i class="conum" data-value="7"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.transform</code> role.</p>
+<p>禁用 <code class="literal">node.transform</code> 角色</p>
 </td>
 </tr>
 <tr>
@@ -461,7 +442,7 @@ node.remote_cluster_client: false <a id="CO15-9"></a><i class="conum" data-value
 <p><a href="#CO15-8"><i class="conum" data-value="8"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">xpack.transform.enabled</code> setting is enabled by default.</p>
+<p><code class="literal">xpack.transform.enabled</code> 设置默认是启用的</p>
 </td>
 </tr>
 <tr>
@@ -469,7 +450,7 @@ node.remote_cluster_client: false <a id="CO15-9"></a><i class="conum" data-value
 <p><a href="#CO15-9"><i class="conum" data-value="9"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable remote cluster connections (enabled by default).</p>
+<p>禁用远端集群连接 (默认是启用的)</p>
 </td>
 </tr>
 </table>
@@ -481,16 +462,17 @@ node.remote_cluster_client: false <a id="CO15-9"></a><i class="conum" data-value
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="data-node"></a>Data node<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/node.asciidoc">edit</a>
+<a id="data-node"></a>数据节点 (Data node)
 </h3>
 </div></div></div>
-<p>Data nodes hold the shards that contain the documents you have indexed. Data
-nodes handle data related operations like CRUD, search, and aggregations.
-These operations are I/O-, memory-, and CPU-intensive. It is important to
-monitor these resources and to add more data nodes if they are overloaded.</p>
-<p>The main benefit of having dedicated data nodes is the separation of the master
-and data roles.</p>
-<p>To create a dedicated data node in the default distribution, set:</p>
+<p>
+数据节点保存包含已建立索引的文档的分片。  
+数据节点处理与数据相关的操作，如CRUD、搜索和聚合。
+这些操作对I/O、内存、CPU是敏感的。
+监视这些资源并在它们过载时添加更多的数据节点是很重要的。
+</p>
+<p>拥有专用数据节点的主要好处是主角色和数据角色的分离。</p>
+<p>要在默认发行版中创建专用数据节点，请设置：</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">node.master: false <a id="CO16-1"></a><i class="conum" data-value="1"></i>
 node.voting_only: false <a id="CO16-2"></a><i class="conum" data-value="2"></i>
@@ -508,7 +490,7 @@ node.remote_cluster_client: false <a id="CO16-8"></a><i class="conum" data-value
 <p><a href="#CO16-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.master</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.master</code> 角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -516,7 +498,7 @@ node.remote_cluster_client: false <a id="CO16-8"></a><i class="conum" data-value
 <p><a href="#CO16-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">node.voting_only</code> role is disabled by default.</p>
+<p><code class="literal">node.voting_only</code> 角色默认是禁用的</p>
 </td>
 </tr>
 <tr>
@@ -524,7 +506,7 @@ node.remote_cluster_client: false <a id="CO16-8"></a><i class="conum" data-value
 <p><a href="#CO16-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">node.data</code> role is enabled by default.</p>
+<p><code class="literal">node.data</code> 角色默认是启用的</p>
 </td>
 </tr>
 <tr>
@@ -532,7 +514,7 @@ node.remote_cluster_client: false <a id="CO16-8"></a><i class="conum" data-value
 <p><a href="#CO16-4"><i class="conum" data-value="4"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.ingest</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.ingest</code> 角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -540,7 +522,7 @@ node.remote_cluster_client: false <a id="CO16-8"></a><i class="conum" data-value
 <p><a href="#CO16-5"><i class="conum" data-value="5"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.ml</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.ml</code> 角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -548,7 +530,7 @@ node.remote_cluster_client: false <a id="CO16-8"></a><i class="conum" data-value
 <p><a href="#CO16-6"><i class="conum" data-value="6"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.transform</code> role.</p>
+<p>禁用 <code class="literal">node.transform</code> 角色</p>
 </td>
 </tr>
 <tr>
@@ -556,7 +538,7 @@ node.remote_cluster_client: false <a id="CO16-8"></a><i class="conum" data-value
 <p><a href="#CO16-7"><i class="conum" data-value="7"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">xpack.transform.enabled</code> setting is enabled by default.</p>
+<p><code class="literal">xpack.transform.enabled</code> 设置默认是启用的</p>
 </td>
 </tr>
 <tr>
@@ -564,12 +546,12 @@ node.remote_cluster_client: false <a id="CO16-8"></a><i class="conum" data-value
 <p><a href="#CO16-8"><i class="conum" data-value="8"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable remote cluster connections (enabled by default).</p>
+<p>禁用远端集群连接 (默认是启用的)</p>
 </td>
 </tr>
 </table>
 </div>
-<p>To create a dedicated data node in the OSS-only distribution, set:</p>
+<p>要在 OSS-only 的发行版中创建专用数据节点，请设置：</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">node.master: false <a id="CO17-1"></a><i class="conum" data-value="1"></i>
 node.data: true <a id="CO17-2"></a><i class="conum" data-value="2"></i>
@@ -583,7 +565,7 @@ node.remote_cluster_client: false <a id="CO17-4"></a><i class="conum" data-value
 <p><a href="#CO17-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.master</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.master</code> 角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -591,7 +573,7 @@ node.remote_cluster_client: false <a id="CO17-4"></a><i class="conum" data-value
 <p><a href="#CO17-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">node.data</code> role is enabled by default.</p>
+<p><code class="literal">node.data</code> 角色默认是启用的</p>
 </td>
 </tr>
 <tr>
@@ -599,7 +581,7 @@ node.remote_cluster_client: false <a id="CO17-4"></a><i class="conum" data-value
 <p><a href="#CO17-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.ingest</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.ingest</code>  角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -607,7 +589,7 @@ node.remote_cluster_client: false <a id="CO17-4"></a><i class="conum" data-value
 <p><a href="#CO17-4"><i class="conum" data-value="4"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable remote cluster connections (enabled by default).</p>
+<p>禁用远端集群连接 (默认是启用的)</p>
 </td>
 </tr>
 </table>
@@ -617,14 +599,14 @@ node.remote_cluster_client: false <a id="CO17-4"></a><i class="conum" data-value
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="node-ingest-node"></a>Ingest node<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/node.asciidoc">edit</a>
+<a id="node-ingest-node"></a>预处理节点 (Ingest node)
 </h3>
 </div></div></div>
-<p>Ingest nodes can execute pre-processing pipelines, composed of one or more
-ingest processors. Depending on the type of operations performed by the ingest
-processors and the required resources, it may make sense to have dedicated
-ingest nodes, that will only perform this specific task.</p>
-<p>To create a dedicated ingest node in the default distribution, set:</p>
+<p>
+预处理节点可以执行 预处理管道(pre-processing pipelines)，由一个或多个预处理处理器组成。
+根据预处理处理器执行的操作类型和所需的资源，拥有专用预处理节点可能是有意义的，这些节点将只执行此特定任务。
+</p>
+<p>要在默认发行版中创建专用预处理节点，请设置：</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">node.master: false <a id="CO18-1"></a><i class="conum" data-value="1"></i>
 node.voting_only: false <a id="CO18-2"></a><i class="conum" data-value="2"></i>
@@ -641,7 +623,7 @@ node.remote_cluster_client: false <a id="CO18-7"></a><i class="conum" data-value
 <p><a href="#CO18-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.master</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.master</code> 角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -649,7 +631,7 @@ node.remote_cluster_client: false <a id="CO18-7"></a><i class="conum" data-value
 <p><a href="#CO18-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">node.voting_only</code> role is disabled by default.</p>
+<p><code class="literal">node.voting_only</code> 角色默认是禁用的</p>
 </td>
 </tr>
 <tr>
@@ -657,7 +639,7 @@ node.remote_cluster_client: false <a id="CO18-7"></a><i class="conum" data-value
 <p><a href="#CO18-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.data</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.data</code> 角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -665,7 +647,7 @@ node.remote_cluster_client: false <a id="CO18-7"></a><i class="conum" data-value
 <p><a href="#CO18-4"><i class="conum" data-value="4"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">node.ingest</code> role is enabled by default.</p>
+<p>The <code class="literal">node.ingest</code> 角色默认是启用的</p>
 </td>
 </tr>
 <tr>
@@ -673,7 +655,7 @@ node.remote_cluster_client: false <a id="CO18-7"></a><i class="conum" data-value
 <p><a href="#CO18-5"><i class="conum" data-value="5"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.ml</code> role (enabled by default).</p>
+<p>Disable the <code class="literal">node.ml</code> role (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -681,7 +663,7 @@ node.remote_cluster_client: false <a id="CO18-7"></a><i class="conum" data-value
 <p><a href="#CO18-6"><i class="conum" data-value="6"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.transform</code> role.</p>
+<p>禁用 <code class="literal">node.transform</code> 角色</p>
 </td>
 </tr>
 <tr>
@@ -689,12 +671,12 @@ node.remote_cluster_client: false <a id="CO18-7"></a><i class="conum" data-value
 <p><a href="#CO18-7"><i class="conum" data-value="7"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable remote cluster connections (enabled by default).</p>
+<p>禁用远端集群连接 (默认是启用的)</p>
 </td>
 </tr>
 </table>
 </div>
-<p>To create a dedicated ingest node in the OSS-only distribution, set:</p>
+<p>要在 OSS-only 的发行版中创建专用预处理节点，请设置：</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">node.master: false <a id="CO19-1"></a><i class="conum" data-value="1"></i>
 node.data: false <a id="CO19-2"></a><i class="conum" data-value="2"></i>
@@ -708,7 +690,7 @@ node.remote_cluster_client: false <a id="CO19-4"></a><i class="conum" data-value
 <p><a href="#CO19-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.master</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.master</code> 角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -716,7 +698,7 @@ node.remote_cluster_client: false <a id="CO19-4"></a><i class="conum" data-value
 <p><a href="#CO19-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.data</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.data</code> 角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -724,7 +706,7 @@ node.remote_cluster_client: false <a id="CO19-4"></a><i class="conum" data-value
 <p><a href="#CO19-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">node.ingest</code> role is enabled by default.</p>
+<p>The <code class="literal">node.ingest</code> 角色默认是启用的</p>
 </td>
 </tr>
 <tr>
@@ -732,7 +714,7 @@ node.remote_cluster_client: false <a id="CO19-4"></a><i class="conum" data-value
 <p><a href="#CO19-4"><i class="conum" data-value="4"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable remote cluster connections (enabled by default).</p>
+<p>禁用远端集群连接 (默认是启用的)</p>
 </td>
 </tr>
 </table>
@@ -742,29 +724,27 @@ node.remote_cluster_client: false <a id="CO19-4"></a><i class="conum" data-value
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="coordinating-only-node"></a>Coordinating only node<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/node.asciidoc">edit</a>
+<a id="coordinating-only-node"></a>只负责协调的节点 (Coordinating only node)
 </h3>
 </div></div></div>
-<p>If you take away the ability to be able to handle master duties, to hold data,
-and pre-process documents, then you are left with a <em>coordinating</em> node that
-can only route requests, handle the search reduce phase, and distribute bulk
-indexing. Essentially, coordinating only nodes behave as smart load balancers.</p>
-<p>Coordinating only nodes can benefit large clusters by offloading the
-coordinating node role from data and master-eligible nodes.  They join the
-cluster and receive the full <a class="xref" href="cluster-state.html" title="Cluster state API">cluster state</a>, like every other
-node, and they use the cluster state to route requests directly to the
-appropriate place(s).</p>
+<p>
+如果失去了处理主任务、保存数据和预处理文档的能力，那么只剩下一个<em>协调 (coordinating)</em>节点，它只能路由请求、处理搜索 <code class="literal">reduce</code> 阶段及分发批量索引。
+本质上，只负责协调的节点就像智能负载均衡器一样。
+</p>
+<p>
+通过将协调节点角色从数据和符合主节点条件的节点上卸载下来，只负责协调的节点可以使大型集群受益。
+它们加入集群并接收完整的<a class="xref" href="cluster-state.html" title="Cluster state API">集群状态</a>，就像所有其他节点一样，它们使用集群状态将请求直接路由到适当的位置。
+</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Adding too many coordinating only nodes to a cluster can increase the
-burden on the entire cluster because the elected master node must await
-acknowledgement of cluster state updates from every node! The benefit of
-coordinating only nodes should not be overstated — data nodes can happily
-serve the same purpose.</p>
+<p>
+向集群添加太多 只负责协调的节点 会增加整个集群的负担，因为选出的主节点必须等待来自每个节点的集群状态更新的确认！
+不应夸大 只负责协调的节点 的好处——数据节点可以很好地服务于相同的目的。
+</p>
 </div>
 </div>
-<p>To create a dedicated coordinating node in the default distribution, set:</p>
+<p>要在默认发行版中创建专用协调节点，请设置：</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">node.master: false <a id="CO20-1"></a><i class="conum" data-value="1"></i>
 node.voting_only: false <a id="CO20-2"></a><i class="conum" data-value="2"></i>
@@ -783,7 +763,7 @@ node.remote_cluster_client: false <a id="CO20-9"></a><i class="conum" data-value
 <p><a href="#CO20-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.master</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.master</code> 角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -791,7 +771,7 @@ node.remote_cluster_client: false <a id="CO20-9"></a><i class="conum" data-value
 <p><a href="#CO20-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">node.voting_only</code> role is disabled by default.</p>
+<p>The <code class="literal">node.voting_only</code> 角色默认是禁用的</p>
 </td>
 </tr>
 <tr>
@@ -799,7 +779,7 @@ node.remote_cluster_client: false <a id="CO20-9"></a><i class="conum" data-value
 <p><a href="#CO20-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.data</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.data</code> 角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -807,7 +787,7 @@ node.remote_cluster_client: false <a id="CO20-9"></a><i class="conum" data-value
 <p><a href="#CO20-4"><i class="conum" data-value="4"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.ingest</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.ingest</code>  角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -815,7 +795,7 @@ node.remote_cluster_client: false <a id="CO20-9"></a><i class="conum" data-value
 <p><a href="#CO20-5"><i class="conum" data-value="5"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.ml</code> role (enabled by default).</p>
+<p>Disable the <code class="literal">node.ml</code> role (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -823,7 +803,7 @@ node.remote_cluster_client: false <a id="CO20-9"></a><i class="conum" data-value
 <p><a href="#CO20-6"><i class="conum" data-value="6"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">xpack.ml.enabled</code> setting is enabled by default.</p>
+<p>The <code class="literal">xpack.ml.enabled</code> 设置默认是启用的</p>
 </td>
 </tr>
 <tr>
@@ -831,7 +811,7 @@ node.remote_cluster_client: false <a id="CO20-9"></a><i class="conum" data-value
 <p><a href="#CO20-7"><i class="conum" data-value="7"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.transform</code> role.</p>
+<p>禁用 <code class="literal">node.transform</code> 角色</p>
 </td>
 </tr>
 <tr>
@@ -839,7 +819,7 @@ node.remote_cluster_client: false <a id="CO20-9"></a><i class="conum" data-value
 <p><a href="#CO20-8"><i class="conum" data-value="8"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">xpack.transform.enabled</code> setting is enabled by default.</p>
+<p>The <code class="literal">xpack.transform.enabled</code> 设置默认是启用的</p>
 </td>
 </tr>
 <tr>
@@ -847,12 +827,12 @@ node.remote_cluster_client: false <a id="CO20-9"></a><i class="conum" data-value
 <p><a href="#CO20-9"><i class="conum" data-value="9"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable remote cluster connections (enabled by default).</p>
+<p>禁用远端集群连接 (默认是启用的)</p>
 </td>
 </tr>
 </table>
 </div>
-<p>To create a dedicated coordinating node in the OSS-only distribution, set:</p>
+<p>要在 OSS-only 的发行版中创建专用协调节点，请设置：</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">node.master: false <a id="CO21-1"></a><i class="conum" data-value="1"></i>
 node.data: false <a id="CO21-2"></a><i class="conum" data-value="2"></i>
@@ -866,7 +846,7 @@ node.remote_cluster_client: false <a id="CO21-4"></a><i class="conum" data-value
 <p><a href="#CO21-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.master</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.master</code> 角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -874,7 +854,7 @@ node.remote_cluster_client: false <a id="CO21-4"></a><i class="conum" data-value
 <p><a href="#CO21-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.data</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.data</code> 角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -882,7 +862,7 @@ node.remote_cluster_client: false <a id="CO21-4"></a><i class="conum" data-value
 <p><a href="#CO21-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.ingest</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.ingest</code>  角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -890,7 +870,7 @@ node.remote_cluster_client: false <a id="CO21-4"></a><i class="conum" data-value
 <p><a href="#CO21-4"><i class="conum" data-value="4"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable remote cluster connections (enabled by default).</p>
+<p>禁用远端集群连接 (默认是启用的)</p>
 </td>
 </tr>
 </table>
@@ -900,18 +880,24 @@ node.remote_cluster_client: false <a id="CO21-4"></a><i class="conum" data-value
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="ml-node"></a><span class="xpack">Machine learning node</span><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/node.asciidoc">edit</a>
+<a id="ml-node"></a><span class="xpack">机器学习节点 (Machine learning node)
 </h3>
 </div></div></div>
-<p>The machine learning features provide machine learning nodes, which run jobs and handle machine learning API
-requests. If <code class="literal">xpack.ml.enabled</code> is set to <code class="literal">true</code> and <code class="literal">node.ml</code> is set to <code class="literal">false</code>,
-the node can service API requests but it cannot run jobs.</p>
-<p>If you want to use machine learning features in your cluster, you must enable machine learning
-(set <code class="literal">xpack.ml.enabled</code> to <code class="literal">true</code>) on all master-eligible nodes. If you want to
-use machine learning features in clients (including Kibana), it must also be enabled on all
-coordinating nodes. If you have the OSS-only distribution, do not use these settings.</p>
-<p>For more information about these settings, see <a class="xref" href="ml-settings.html" title="Machine learning settings in Elasticsearch">Machine learning settings</a>.</p>
-<p>To create a dedicated machine learning node in the default distribution, set:</p>
+<p>
+机器学习功能提供机器学习节点，这些节点运行作业并处理机器学习API请求。
+如果<code class="literal">xpack.ml.enabled</code>设置为<code class="literal">true</code>，<code class="literal">node.ml</code>设置为<code class="literal">false</code>，则节点可以为 API 请求提供服务，但不能运行作业。
+</p>
+<p>
+如果要在集群中使用机器学习功能，必须在所有符合主节点条件的节点上启用机器学习(将<code class="literal">xpack.ml.enabled</code>设置为<code class="literal">true</code>)。
+
+如果想要在客户端(包括Kibana)中使用机器学习功能，还必须在所有协调节点上启用它。
+
+如果用的是 OSS-only 发行版，请不要使用这些设置。
+</p>
+<p>
+关于这些设置的更多信息，参考 <a class="xref" href="ml-settings.html" title="Machine learning settings in Elasticsearch">机器学习设置</a>.
+</p>
+<p>要在默认发行版中创建专用的机器学习节点，请设置：</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">node.master: false <a id="CO22-1"></a><i class="conum" data-value="1"></i>
 node.voting_only: false <a id="CO22-2"></a><i class="conum" data-value="2"></i>
@@ -930,7 +916,7 @@ node.remote_cluster_client: false <a id="CO22-9"></a><i class="conum" data-value
 <p><a href="#CO22-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.master</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.master</code> 角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -938,7 +924,7 @@ node.remote_cluster_client: false <a id="CO22-9"></a><i class="conum" data-value
 <p><a href="#CO22-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">node.voting_only</code> role is disabled by default.</p>
+<p><code class="literal">node.voting_only</code> 角色默认是禁用的</p>
 </td>
 </tr>
 <tr>
@@ -946,7 +932,7 @@ node.remote_cluster_client: false <a id="CO22-9"></a><i class="conum" data-value
 <p><a href="#CO22-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.data</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.data</code> 角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -954,7 +940,7 @@ node.remote_cluster_client: false <a id="CO22-9"></a><i class="conum" data-value
 <p><a href="#CO22-4"><i class="conum" data-value="4"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.ingest</code> role (enabled by default).</p>
+<p>禁用 <code class="literal">node.ingest</code>  角色 (默认是启用的)</p>
 </td>
 </tr>
 <tr>
@@ -962,7 +948,7 @@ node.remote_cluster_client: false <a id="CO22-9"></a><i class="conum" data-value
 <p><a href="#CO22-5"><i class="conum" data-value="5"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">node.ml</code> role is enabled by default.</p>
+<p><code class="literal">node.ml</code> 角色默认是启用的</p>
 </td>
 </tr>
 <tr>
@@ -970,7 +956,7 @@ node.remote_cluster_client: false <a id="CO22-9"></a><i class="conum" data-value
 <p><a href="#CO22-6"><i class="conum" data-value="6"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">xpack.ml.enabled</code> setting is enabled by default.</p>
+<p><code class="literal">xpack.ml.enabled</code> 设置默认是启用的</p>
 </td>
 </tr>
 <tr>
@@ -978,7 +964,7 @@ node.remote_cluster_client: false <a id="CO22-9"></a><i class="conum" data-value
 <p><a href="#CO22-7"><i class="conum" data-value="7"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.transform</code> role.</p>
+<p>禁用 <code class="literal">node.transform</code> 角色</p>
 </td>
 </tr>
 <tr>
@@ -986,7 +972,7 @@ node.remote_cluster_client: false <a id="CO22-9"></a><i class="conum" data-value
 <p><a href="#CO22-8"><i class="conum" data-value="8"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">xpack.transform.enabled</code> setting is enabled by default.</p>
+<p><code class="literal">xpack.transform.enabled</code> 设置默认是启用的</p>
 </td>
 </tr>
 <tr>
@@ -994,7 +980,7 @@ node.remote_cluster_client: false <a id="CO22-9"></a><i class="conum" data-value
 <p><a href="#CO22-9"><i class="conum" data-value="9"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable remote cluster connections (enabled by default).</p>
+<p>禁用远端集群连接 (默认是启用的)</p>
 </td>
 </tr>
 </table>
@@ -1004,18 +990,18 @@ node.remote_cluster_client: false <a id="CO22-9"></a><i class="conum" data-value
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="transform-node"></a><span class="xpack">Transform node</span><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/node.asciidoc">edit</a>
+<a id="transform-node"></a><span class="xpack">转换节点 (Transform node)
 </h3>
 </div></div></div>
-<p>Transform nodes run transforms and handle transform API requests.</p>
-<p>If you want to use transforms in your cluster, you must have
-<code class="literal">xpack.transform.enabled</code> set to <code class="literal">true</code> on all master-eligible nodes and all
-data nodes. If you want to use transforms in clients (including Kibana), it
-must also be enabled on all coordinating nodes. You must also have
-<code class="literal">node.transform</code> set to <code class="literal">true</code> on at least one node. This is the default
-behavior. If you have the OSS-only distribution, do not use these settings. For more
-information, see <a class="xref" href="transform-settings.html" title="Transforms settings in Elasticsearch">Transforms settings</a>.</p>
-<p>To create a dedicated transform node in the default distribution, set:</p>
+<p>转换节点运行转换并处理转换API请求。</p>
+<p>
+如果要在集群中使用转换，必须在所有符合主节点条件的节点和所有数据节点上将<code class="literal">xpack.transform.enabled</code>设置为<code class="literal">true</code>。
+如果要在客户端(包括Kibana)中使用转换，还必须在所有协调节点上启用它。
+还必须在至少一个节点上将<code class="literal">node.transform</code>设置为<code class="literal">true</code>。
+这是默认行为。
+如果你用的是 OSS-only 发行版，请不要使用这些设置。更多信息请参考 <a class="xref" href="transform-settings.html" title="Transforms settings in Elasticsearch">转换设置</a>.
+</p>
+<p>要在默认发行版中创建专用的转换节点，请设置：</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">node.master: false <a id="CO23-1"></a><i class="conum" data-value="1"></i>
 node.voting_only: false <a id="CO23-2"></a><i class="conum" data-value="2"></i>
@@ -1033,7 +1019,7 @@ node.remote_cluster_client: false <a id="CO23-8"></a><i class="conum" data-value
 <p><a href="#CO23-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.master</code> role.</p>
+<p>禁用 <code class="literal">node.master</code> 角色.</p>
 </td>
 </tr>
 <tr>
@@ -1041,7 +1027,7 @@ node.remote_cluster_client: false <a id="CO23-8"></a><i class="conum" data-value
 <p><a href="#CO23-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.voting_only</code>.</p>
+<p>禁用 <code class="literal">node.voting_only</code> </p>
 </td>
 </tr>
 <tr>
@@ -1049,7 +1035,7 @@ node.remote_cluster_client: false <a id="CO23-8"></a><i class="conum" data-value
 <p><a href="#CO23-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.data</code> role.</p>
+<p>禁用 <code class="literal">node.data</code> 角色</p>
 </td>
 </tr>
 <tr>
@@ -1057,7 +1043,7 @@ node.remote_cluster_client: false <a id="CO23-8"></a><i class="conum" data-value
 <p><a href="#CO23-4"><i class="conum" data-value="4"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable the <code class="literal">node.ingest</code> role.</p>
+<p>禁用 <code class="literal">node.ingest</code>  角色.</p>
 </td>
 </tr>
 <tr>
@@ -1065,7 +1051,7 @@ node.remote_cluster_client: false <a id="CO23-8"></a><i class="conum" data-value
 <p><a href="#CO23-5"><i class="conum" data-value="5"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Enable the <code class="literal">node.ml</code> role.</p>
+<p>启用<code class="literal">node.ml</code> 角色</p>
 </td>
 </tr>
 <tr>
@@ -1073,7 +1059,7 @@ node.remote_cluster_client: false <a id="CO23-8"></a><i class="conum" data-value
 <p><a href="#CO23-6"><i class="conum" data-value="6"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Enable the <code class="literal">node.transform</code> role.</p>
+<p>启用<code class="literal">node.transform</code> 角色</p>
 </td>
 </tr>
 <tr>
@@ -1081,7 +1067,7 @@ node.remote_cluster_client: false <a id="CO23-8"></a><i class="conum" data-value
 <p><a href="#CO23-7"><i class="conum" data-value="7"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Enable the <code class="literal">xpack.transform.enabled</code> setting.</p>
+<p>启用<code class="literal">xpack.transform.enabled</code> 设置</p>
 </td>
 </tr>
 <tr>
@@ -1089,7 +1075,7 @@ node.remote_cluster_client: false <a id="CO23-8"></a><i class="conum" data-value
 <p><a href="#CO23-8"><i class="conum" data-value="8"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disable remote cluster connections.</p>
+<p>禁用远端集群连接.</p>
 </td>
 </tr>
 </table>
@@ -1099,119 +1085,118 @@ node.remote_cluster_client: false <a id="CO23-8"></a><i class="conum" data-value
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="change-node-role"></a>Changing the role of a node<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/node.asciidoc">edit</a>
+<a id="change-node-role"></a>更改节点的角色
 </h3>
 </div></div></div>
-<p>Each data node maintains the following data on disk:</p>
+<p>每个数据节点在磁盘上维护以下数据：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-the shard data for every shard allocated to that node,
+分配给该节点的每个分片的分片数据，
 </li>
 <li class="listitem">
-the index metadata corresponding with every shard allocated to that node, and
+对应于分配给该节点的每个分片的索引的元数据，
 </li>
 <li class="listitem">
-the cluster-wide metadata, such as settings and index templates.
+集群范围的元数据，如设置和索引模板。
 </li>
 </ul>
 </div>
-<p>Similarly, each master-eligible node maintains the following data on disk:</p>
+<p>同样，每个符合主节点条件的节点在磁盘上维护以下数据：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-the index metadata for every index in the cluster, and
+集群中每个索引的索引元数据，
 </li>
 <li class="listitem">
-the cluster-wide metadata, such as settings and index templates.
+集群范围的元数据，如设置和索引模板。
 </li>
 </ul>
 </div>
-<p>Each node checks the contents of its data path at startup. If it discovers
-unexpected data then it will refuse to start. This is to avoid importing
-unwanted <a class="xref" href="modules-gateway-dangling-indices.html" title="Dangling indices">dangling indices</a> which can lead
-to a red cluster health. To be more precise, nodes with <code class="literal">node.data: false</code> will
-refuse to start if they find any shard data on disk at startup, and nodes with
-both <code class="literal">node.master: false</code> and <code class="literal">node.data: false</code> will refuse to start if they
-have any index metadata on disk at startup.</p>
-<p>It is possible to change the roles of a node by adjusting its
-<code class="literal">elasticsearch.yml</code> file and restarting it. This is known as <em>repurposing</em> a
-node. In order to satisfy the checks for unexpected data described above, you
-must perform some extra steps to prepare a node for repurposing when setting
-its <code class="literal">node.data</code> or <code class="literal">node.master</code> roles to <code class="literal">false</code>:</p>
+<p>
+每个节点在启动时检查其数据路径的内容。
+如果发现意外的数据，将拒绝启动。
+这是为了避免导入不需要的<a class="xref" href="modules-gateway-dangling-indices.html" title="Dangling indices">僵尸索引 (dangling indices)</a>，因为这会导致集群运行状况为红色。
+更准确地说，如果<code class="literal">node.data: false</code>的节点在启动时在磁盘上发现任何分片数据，它们将拒绝启动；如果<code class="literal">node.master: false</code>和<code class="literal">node.data: false</code>的节点在启动时在磁盘上有任何索引元数据，它们将拒绝启动。
+</p>
+<p>
+通过调整节点的<code class="literal">elasticsearch.yml</code>文件并重新启动，可以更改节点的角色。
+这被称为 重新调整节点的用途(<em>repurposing</em>)。
+
+为了满足上述对意外数据的检查，当将节点的<code class="literal">node.data</code>或<code class="literal">node.master</code>角色设置为<code class="literal">false</code>时，必须执行一些额外的步骤来准备重新调整节点的用途:
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-If you want to repurpose a data node by changing <code class="literal">node.data</code> to <code class="literal">false</code> then
-you should first use an <a class="xref" href="allocation-filtering.html" title="Cluster-level shard allocation filtering">allocation filter</a> to safely
-migrate all the shard data onto other nodes in the cluster.
+如果你想通过将<code class="literal">node.data</code>更改为<code class="literal">false</code>来重新调整数据节点的用途，那么你应该首先使用 <a class="xref" href="allocation-filtering.html" title="Cluster-level shard allocation filtering">分配过滤器 (allocation filter)</a> 将所有分片数据安全地迁移到集群中的其他节点上。
 </li>
 <li class="listitem">
-If you want to repurpose a node to have both <code class="literal">node.master: false</code> and
-<code class="literal">node.data: false</code> then it is simplest to start a brand-new node with an
-empty data path and the desired roles. You may find it safest to use an
-<a class="xref" href="allocation-filtering.html" title="Cluster-level shard allocation filtering">allocation filter</a> to migrate the shard data
-elsewhere in the cluster first.
+如果你想重新调整一个节点的用途，使其同时具有<code class="literal">node.master: false</code> 和 <code class="literal">node.data: false</code>，那么最简单的方法是用一个空的数据目录和所需的角色启动一个全新的节点。
+您可能会发现首先使用<a class="xref" href="allocation-filtering.html" title="Cluster-level shard allocation filtering">分配过滤器 (allocation filter)</a>将分片数据迁移到集群中的其他地方是最安全的。
 </li>
 </ul>
 </div>
-<p>If it is not possible to follow these extra steps then you may be able to use
-the <a class="xref" href="node-tool.html#node-tool-repurpose" title="Changing the role of a node"><code class="literal">elasticsearch-node repurpose</code></a> tool to delete any
-excess data that prevents a node from starting.</p>
+<p>
+如果无法遵循这些额外的步骤，那么你可以使用<a class="xref" href="node-tool.html#node-tool-repurpose" title="Changing the role of a node"><code class="literal">节点更改用途</code></a>工具删除任何阻止节点启动的多余数据。
+</p>
 <h3>
-<a id="_node_data_path_settings"></a>Node data path settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/node.asciidoc">edit</a>
+<a id="_node_data_path_settings"></a>节点数据路径设置 (Node data path settings)
 </h3>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="data-path"></a><code class="literal">path.data</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/node.asciidoc">edit</a>
+<a id="data-path"></a><code class="literal">path.data</code>
 </h3>
 </div></div></div>
-<p>Every data and master-eligible node requires access to a data directory where
-shards and index and cluster metadata will be stored. The <code class="literal">path.data</code> defaults
-to <code class="literal">$ES_HOME/data</code> but can be configured in the <code class="literal">elasticsearch.yml</code> config
-file an absolute path or a path relative to <code class="literal">$ES_HOME</code> as follows:</p>
+<p>
+每个数据和符合主节点条件的节点都需要访问存储分片、索引和集群元数据的数据目录。
+<code class="literal">path.data</code>默认为<code class="literal">$ES_HOME/data</code>，但可以在<code class="literal">elasticsearch.yml</code>配置文件中配置为绝对路径或相对于<code class="literal">$ES_HOME</code>的路径，如下所示:
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">path.data:  /var/elasticsearch/data</pre>
 </div>
-<p>Like all node settings, it can also be specified on the command line as:</p>
+<p>像所有节点设置一样，它也可以在命令行上这样指定：</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">./bin/elasticsearch -Epath.data=/var/elasticsearch/data</pre>
 </div>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>When using the <code class="literal">.zip</code> or <code class="literal">.tar.gz</code> distributions, the <code class="literal">path.data</code> setting
-should be configured to locate the data directory outside the Elasticsearch home
-directory, so that the home directory can be deleted without deleting your data!
-The RPM and Debian distributions do this for you already.</p>
+<p>
+使用<code class="literal">.zip</code>或<code class="literal">.tar.gz</code>发行版时，<code class="literal">path.data</code>设置应该配置为将数据目录定位在 Elasticsearch 主目录之外，这样就可以在不删除您的数据的情况下删除主目录！
+RPM和Debian发行版已经帮你做到了。
+</p>
 </div>
 </div>
 <h3>
 <a id="max-local-storage-nodes"></a><code class="literal">node.max_local_storage_nodes</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/node.asciidoc">edit</a>
 </h3>
-<p>The <a class="xref" href="modules-node.html#data-path" title="path.data">data path</a> can be shared by multiple nodes, even by nodes from
-different clusters. It is recommended however to only run one node of Elasticsearch using
-the same data path. This setting is deprecated in 7.x and will be removed in
-version 8.0.</p>
-<p>By default, Elasticsearch is configured to prevent more than one node from sharing the
-same data path. To allow for more than one node (e.g., on your development
-machine), use the setting <code class="literal">node.max_local_storage_nodes</code> and set this to a
-positive integer larger than one.</p>
+<p>
+<a class="xref" href="modules-node.html#data-path" title="path.data">数据路径 (data path)</a>可以由多个节点共享，甚至可以被来自不同集群的节点共享。
+但是，建议使用相同的数据路径只运行一个 Elasticsearch 节点。
+此设置在 7.x 中已废弃，将在 8.0 版中删除。
+</p>
+<p>
+默认情况下，Elasticsearch 被配置为防止多个节点共享同一数据路径。
+要允许多个节点(例如，在你的开发电脑上)，请使用<code class="literal">node.max_local_storage_nodes</code>设置，并将其设置为大于 1 的正整数。
+</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Never run different node types (i.e. master, data) from the same data
-directory. This can lead to unexpected data loss.</p>
+<p>
+永远不要从同一数据目录运行不同的节点类型(比如：主节点、数据节点)。
+这可能会导致意外的数据丢失。
+</p>
 </div>
 </div>
 <h3>
-<a id="other-node-settings"></a>Other node settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/node.asciidoc">edit</a>
+<a id="other-node-settings"></a>节点的其他设置
 </h3>
-<p>More node settings can be found in <a class="xref" href="settings.html" title="Configuring Elasticsearch"><em>Configuring Elasticsearch</em></a> and <a class="xref" href="important-settings.html" title="Important Elasticsearch configuration"><em>Important Elasticsearch configuration</em></a>,
-including:</p>
+<p>
+更多关于节点的设置可以在 <a class="xref" href="settings.html" title="Configuring Elasticsearch"><em>配置 Elasticsearch</em></a> 及 <a class="xref" href="important-settings.html" title="Important Elasticsearch configuration"><em>Elasticsearch 的重要配置</em></a>找到,
+包含：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Network settings | ElasticSearch 7.7 权威指南中文版</title>
+	<title>网络设置 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -34,44 +34,44 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="settings.html">Configuring Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="settings.html">配置 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Network settings</span>
+<span class="breadcrumb-node">网络设置</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="modules-node.html">« Node</a>
+<a href="modules-node.html">« 节点</a>
 </span>
 <span class="next">
-<a href="query-cache.html">Node query cache settings »</a>
+<a href2="query-cache.html">Node query cache settings »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="modules-network"></a>Network settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/network.asciidoc">edit</a>
+<a id="modules-network"></a>网络设置
 </h2>
 </div></div></div>
-<p>Elasticsearch binds to localhost only by default.  This is sufficient for you
-to run a local development server (or even a development cluster, if you start
-multiple nodes on the same machine), but you will need to configure some
-<a class="xref" href="modules-network.html#common-network-settings" title="Commonly used network settings">basic network settings</a> in order to run a real
-production cluster across multiple servers.</p>
+<p>
+默认情况下，Elasticsearch 只绑定到<code class="literal">localhost</code>。
+
+这足以运行本地开发服务器(如果在同一台计算机上启动多个节点，甚至可以运行开发集群)，但你需要配置一些<a class="xref" href="modules-network.html#common-network-settings" title="Commonly used network settings">基本的网络设置</a>，以便跨多个服务器运行真实的生产集群。
+</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<h3>Be careful with the network configuration!</h3>
-<p>Never expose an unprotected node to the public internet.</p>
+<h3>注意网络配置！</h3>
+<p>不要向公共互联网公开不受保护的节点。</p>
 </div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="common-network-settings"></a>Commonly used network settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/network.asciidoc">edit</a>
+<a id="common-network-settings"></a>常用网络设置
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -83,16 +83,14 @@ production cluster across multiple servers.</p>
 </dt>
 <dd>
 <p>
-The node will bind to this hostname or IP address and <em>publish</em> (advertise)
-this host to other nodes in the cluster. Accepts an IP address, hostname, a
-<a class="xref" href="modules-network.html#network-interface-values" title="Special values for network.host">special value</a>, or an array of any combination of
-these. Note that any values containing a <code class="literal">:</code> (e.g., an IPv6 address or
-containing one of the <a class="xref" href="modules-network.html#network-interface-values" title="Special values for network.host">special values</a>) must be
-quoted because <code class="literal">:</code> is a special character in YAML. <code class="literal">0.0.0.0</code> is an acceptable
-IP address and will bind to all network interfaces. The value <code class="literal">0</code> has the
-same effect as the value <code class="literal">0.0.0.0</code>.
+该节点将绑定到此主机名或IP地址，并将此主机<em>发布</em>(广告)到集群中的其他节点。
+接受IP地址、主机名、<a class="xref" href="modules-network.html#network-interface-values" title="Special values for network.host">特殊值</a>或这些值的任意组合的数组。
+
+请注意，任何包含<code class="literal">:</code>的值(例如，IPv 6地址或其中一个<a class="xref" href="modules-network.html#network-interface-values" title="Special values for network.host">特殊值</a>)都必须加引号，因为<code class="literal">:</code>是 YAML 中的一个特殊字符。
+<code class="literal">0.0.0.0</code>是一个可接受的IP地址，并将绑定到所有网络接口。
+值<code class="literal">0</code>与值<code class="literal">0.0.0.0</code>具有相同的效果。
 </p>
-<p>Defaults to <code class="literal">_local_</code>.</p>
+<p>默认为 <code class="literal">_local_</code></p>
 </dd>
 <dt>
 <span class="term">
@@ -101,18 +99,13 @@ same effect as the value <code class="literal">0.0.0.0</code>.
 </dt>
 <dd>
 <p>
-In order to join a cluster, a node needs to know the hostname or IP address of
-at least some of the other nodes in the cluster.  This setting provides the
-initial list of addresses this node will try to contact. Accepts IP addresses
-or hostnames. If a hostname lookup resolves to multiple IP addresses then each
-IP address will be used for discovery.
-<a href="https://en.wikipedia.org/wiki/Round-robin_DNS" class="ulink" target="_top">Round robin DNS</a> — returning a
-different IP from a list on each lookup — can be used for discovery; non-
-existent IP addresses will throw exceptions and cause another DNS lookup on the
-next round of pinging (subject to <a class="xref" href="networkaddress-cache-ttl.html" title="DNS cache settings">JVM DNS
-caching</a>).
+为了加入集群，节点需要知道集群中至少几个其他节点的主机名或IP地址。
+此设置提供此节点将尝试联系的地址的初始列表。
+接受IP地址或主机名。
+如果主机名查找解析到多个IP地址，则每个IP地址都将用于发现。
+<a href="https://en.wikipedia.org/wiki/Round-robin_DNS" class="ulink" target="_top">轮询 DNS</a>--从每次查找的列表中返回不同的IP--可以用于发现；不存在的IP地址将抛出异常，并在下一轮 ping 时导致另一次 DNS 查找(受<a class="xref" href="networkaddress-cache-ttl.html" title="DNS cache settings">JVM DNS 缓存</a>影响)。
 </p>
-<p>Defaults to <code class="literal">["127.0.0.1", "[::1]"]</code>.</p>
+<p>默认为 <code class="literal">["127.0.0.1", "[::1]"]</code></p>
 </dd>
 <dt>
 <span class="term">
@@ -345,10 +338,10 @@ See <a class="xref" href="modules-http.html" title="HTTP">HTTP</a>.
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="modules-node.html">« Node</a>
+<a href="modules-node.html">« 节点</a>
 </span>
 <span class="next">
-<a href="query-cache.html">Node query cache settings »</a>
+<a href2="query-cache.html">Node query cache settings »</a>
 </span>
 </div>
 </div>

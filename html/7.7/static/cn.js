@@ -204,7 +204,7 @@ var esNavLinks = [
                     {
                         "url": "modules-network.html",
                         "text": "网络设置",
-                        "title": "Network settings"
+                        "title": "网络设置"
                     },
                     {
                         "url": "query-cache.html",

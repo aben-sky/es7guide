@@ -114,11 +114,10 @@ will be released for this version. For the latest information, see the
 </dt>
 <dd>
 <p>
-Port to bind to for incoming HTTP requests. Accepts a single value or a range.
-If a range is specified, the node will bind to the first available port in the
-range.
+传入HTTP请求要绑定到的端口。接受单个值或范围。
+如果指定了范围，节点将绑定到范围内的第一个可用的端口。
 </p>
-<p>Defaults to <code class="literal">9200-9300</code>.</p>
+<p>默认为 <code class="literal">9200-9300</code></p>
 </dd>
 <dt>
 <span class="term">
@@ -127,11 +126,10 @@ range.
 </dt>
 <dd>
 <p>
-Port to bind for communication between nodes. Accepts a single value or a
-range. If a range is specified, the node will bind to the first available port
-in the range.
+为节点之间的通信绑定的端口。接受单个值或范围。
+如果指定了范围，节点将绑定到范围内的第一个可用的端口。
 </p>
-<p>Defaults to <code class="literal">9300-9400</code>.</p>
+<p>默认为 <code class="literal">9300-9400</code></p>
 </dd>
 </dl>
 </div>
@@ -140,10 +138,10 @@ in the range.
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="network-interface-values"></a>Special values for <code class="literal">network.host</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/network.asciidoc">edit</a>
+<a id="network-interface-values"></a><code class="literal">network.host</code>的特殊值
 </h3>
 </div></div></div>
-<p>The following special values may be passed to <code class="literal">network.host</code>:</p>
+<p>以下几个特殊值可以传递给 <code class="literal">network.host</code>：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -152,7 +150,7 @@ in the range.
 </span>
 </dt>
 <dd>
-Addresses of a network interface, for example <code class="literal">_en0_</code>.
+网络接口的地址，比如 <code class="literal">_en0_</code>.
 </dd>
 <dt>
 <span class="term">
@@ -160,7 +158,7 @@ Addresses of a network interface, for example <code class="literal">_en0_</code>
 </span>
 </dt>
 <dd>
-Any loopback addresses on the system, for example <code class="literal">127.0.0.1</code>.
+系统上的任何 回环(loopback) 地址，比如 <code class="literal">127.0.0.1</code>
 </dd>
 <dt>
 <span class="term">
@@ -168,7 +166,7 @@ Any loopback addresses on the system, for example <code class="literal">127.0.0.
 </span>
 </dt>
 <dd>
-Any site-local addresses on the system, for example <code class="literal">192.168.0.1</code>.
+系统上的任何 本地站点(site-local) 地址，比如 <code class="literal">192.168.0.1</code>
 </dd>
 <dt>
 <span class="term">
@@ -176,27 +174,26 @@ Any site-local addresses on the system, for example <code class="literal">192.16
 </span>
 </dt>
 <dd>
-Any globally-scoped addresses on the system, for example <code class="literal">8.8.8.8</code>.
+系统上任何 全局范围(globally-scoped) 的地址，比如 <code class="literal">8.8.8.8</code>
 </dd>
 </dl>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="network-interface-values-ipv4-vs-ipv6"></a>IPv4 vs IPv6<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/network.asciidoc">edit</a>
+<a id="network-interface-values-ipv4-vs-ipv6"></a>IPv4 vs IPv6
 </h4>
 </div></div></div>
-<p>These special values will work over both IPv4 and IPv6 by default, but you can
-also limit this with the use of <code class="literal">:ipv4</code> of <code class="literal">:ipv6</code> specifiers. For example,
-<code class="literal">_en0:ipv4_</code> would only bind to the IPv4 addresses of interface <code class="literal">en0</code>.</p>
+<p>
+默认情况下，这些特殊值在 IPv4 和 IPv6 上都有效，但是你也可以使用<code class="literal">:ipv4</code> 或 <code class="literal">:ipv6</code>说明符对此进行限制。
+例如，<code class="literal">_en0:ipv4_</code>将仅绑定到接口<code class="literal">en0</code>的 ipv4 地址。
+</p>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<h3>Discovery in the Cloud</h3>
-<p>More special settings are available when running in the Cloud with either the
-<a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/discovery-ec2.html" class="ulink" target="_top">EC2 discovery plugin</a> or the
-<a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/discovery-gce-network-host.html#discovery-gce-network-host" class="ulink" target="_top">Google Compute Engine discovery plugin</a>
-installed.</p>
+<h3>云上的发现 (Discovery in the Cloud)</h3>
+<p>
+在云中运行时，可以使用更多的特殊设置，不管安装的是 <a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/discovery-ec2.html" class="ulink" target="_top">EC2 discovery plugin</a> 还是 <a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/discovery-gce-network-host.html#discovery-gce-network-host" class="ulink" target="_top">Google Compute Engine discovery plugin</a>。
 </div>
 </div>
 </div>
@@ -206,13 +203,13 @@ installed.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="advanced-network-settings"></a>Advanced network settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/network.asciidoc">edit</a>
+<a id="advanced-network-settings"></a>高级网络设置
 </h3>
 </div></div></div>
-<p>The <code class="literal">network.host</code> setting explained in <a class="xref" href="modules-network.html#common-network-settings" title="Commonly used network settings">Commonly used network settings</a>
-is a shortcut which sets the <em>bind host</em> and the <em>publish host</em> at the same
-time. In advanced used cases, such as when running behind a proxy server, you
-may need to set these settings to different values:</p>
+<p>
+<a class="xref" href="modules-network.html#common-network-settings" title="Commonly used network settings">常用网络设置 (Commonly used network settings)</a> 中介绍的<code class="literal">network.host</code>设置是同时设置<em>bind host</em>和<em>publish host</em>的快捷方式。
+在高级用例中，例如在代理服务器后面运行时，你可能需要将这些设置设置为不同的值:
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -221,10 +218,8 @@ may need to set these settings to different values:</p>
 </span>
 </dt>
 <dd>
-This specifies which network interface(s) a node should bind to in order to
-listen for incoming requests.  A node can bind to multiple interfaces, e.g.
-two network cards, or a site-local address and a local address. Defaults to
-<code class="literal">network.host</code>.
+指定节点应该绑定到哪个(哪些)网络接口，以便监听传入的请求。
+一个节点可以绑定到多个接口，例如两个网卡，或者一个 本地站点(site-local) 地址和一个本地地址。默认为 <code class="literal">network.host</code>。
 </dd>
 <dt>
 <span class="term">
@@ -232,28 +227,21 @@ two network cards, or a site-local address and a local address. Defaults to
 </span>
 </dt>
 <dd>
-The publish host is the single interface that the node advertises to other nodes
-in the cluster, so that those nodes can connect to it. Currently an
-Elasticsearch node may be bound to multiple addresses, but only publishes one.
-If not specified, this defaults to the “best” address from <code class="literal">network.host</code>,
-sorted by IPv4/IPv6 stack preference, then by reachability. If you set a
-<code class="literal">network.host</code> that results in multiple bind addresses yet rely on a specific
-address for node-to-node communication, you should explicitly set
-<code class="literal">network.publish_host</code>.
+发布主机是节点向集群中的其他节点发布的单一接口，以便这些节点可以连接到它。
+目前，一个 Elasticsearch 节点可能会绑定到多个地址，但只发布一个。
+如果未指定，则默认为<code class="literal">network.host</code>中的“最佳”地址，先按 IPv4/IPv6 堆栈优先级排序，然后按可达性排序。
+如果你设置的<code class="literal">network.host</code>会产生多个绑定地址，但仍依赖特定地址进行节点到节点的通信，则应该显式设置<code class="literal">network.publish_host</code>。
 </dd>
 </dl>
 </div>
-<p>Both of the above settings can be configured just like <code class="literal">network.host</code> — they
-accept IP addresses, host names, and
-<a class="xref" href="modules-network.html#network-interface-values" title="Special values for network.host">special values</a>.</p>
+<p>上述两种设置都可以像<code class="literal">network.host</code>一样进行配置，它们接受IP地址、主机名和<a class="xref" href="modules-network.html#network-interface-values" title="Special values for network.host">特殊值</a>。</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="tcp-settings"></a>Advanced TCP settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/network.asciidoc">edit</a>
+<a id="tcp-settings"></a>高级 TCP 设置
 </h4>
 </div></div></div>
-<p>Any component that uses TCP (like the <a class="xref" href="modules-http.html" title="HTTP">HTTP</a> and
-<a class="xref" href="modules-transport.html" title="Transport">transport</a> layers) share the following settings:</p>
+<p>任何使用 TCP 的组件(如 <a class="xref" href="modules-http.html" title="HTTP">HTTP</a> 和<a class="xref" href="modules-transport.html" title="Transport">传输</a>层)都共享以下设置：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -262,8 +250,7 @@ accept IP addresses, host names, and
 </span>
 </dt>
 <dd>
-Enable or disable the <a href="https://en.wikipedia.org/wiki/Nagle%27s_algorithm" class="ulink" target="_top">TCP no delay</a>
-setting. Defaults to <code class="literal">true</code>.
+启用或禁用 <a href="https://en.wikipedia.org/wiki/Nagle%27s_algorithm" class="ulink" target="_top">TCP no delay</a> 设置。默认为 <code class="literal">true</code>
 </dd>
 <dt>
 <span class="term">
@@ -271,8 +258,7 @@ setting. Defaults to <code class="literal">true</code>.
 </span>
 </dt>
 <dd>
-Enable or disable <a href="https://en.wikipedia.org/wiki/Keepalive" class="ulink" target="_top">TCP keep alive</a>.
-Defaults to <code class="literal">true</code>.
+启用或禁用 <a href="https://en.wikipedia.org/wiki/Keepalive" class="ulink" target="_top">TCP keep alive</a>。默认为 <code class="literal">true</code>
 </dd>
 <dt>
 <span class="term">
@@ -280,8 +266,7 @@ Defaults to <code class="literal">true</code>.
 </span>
 </dt>
 <dd>
-Should an address be reused or not. Defaults to <code class="literal">true</code> on non-windows
-machines.
+一个地址是否应该被重用。在非 windows 机器上默认为<code class="literal">true</code>。
 </dd>
 <dt>
 <span class="term">
@@ -289,8 +274,7 @@ machines.
 </span>
 </dt>
 <dd>
-The size of the TCP send buffer (specified with <a class="xref" href="common-options.html#size-units" title="Unit-less quantities">size units</a>).
-By default not explicitly set.
+TCP 发送缓冲区的大小(用<a class="xref" href="common-options.html#size-units" title="Unit-less quantities">size 单位</a>指定)。默认情况下不显式设置。
 </dd>
 <dt>
 <span class="term">
@@ -298,16 +282,14 @@ By default not explicitly set.
 </span>
 </dt>
 <dd>
-The size of the TCP receive buffer (specified with <a class="xref" href="common-options.html#size-units" title="Unit-less quantities">size units</a>).
-By default not explicitly set.
+TCP 接收缓冲区的大小(用<a class="xref" href="common-options.html#size-units" title="Unit-less quantities">size 单位</a>指定)。默认情况下不显式设置。
 </dd>
 </dl>
 </div>
 <h3>
-<a id="_transport_and_http_protocols"></a>Transport and HTTP protocols<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/network.asciidoc">edit</a>
+<a id="_transport_and_http_protocols"></a>传输和HTTP协议 (Transport and HTTP protocols)
 </h3>
-<p>An Elasticsearch node exposes two network protocols which inherit the above
-settings, but may be further configured independently:</p>
+<p>Elasticsearch 节点公开了继承上述设置的两种网络协议，但可以进一步独立配置:</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -316,9 +298,8 @@ TCP Transport
 </span>
 </dt>
 <dd>
-Used for communication between nodes in the cluster, by the Java
-<a href="https://www.elastic.co/guide/en/elasticsearch/client/java-api/7.7/transport-client.html" class="ulink" target="_top">Transport client</a>.
-See <a class="xref" href="modules-transport.html" title="Transport">Transport</a>.
+由 Java <a href="https://www.elastic.co/guide/en/elasticsearch/client/java-api/7.7/transport-client.html" class="ulink" target="_top">传输客户端 (Transport client)</a> 用于集群中节点之间的通信。
+参考 <a class="xref" href="modules-transport.html" title="Transport">传输 (Transport)</a>。
 </dd>
 <dt>
 <span class="term">
@@ -326,8 +307,7 @@ HTTP
 </span>
 </dt>
 <dd>
-Exposes the JSON-over-HTTP interface used by all clients.
-See <a class="xref" href="modules-http.html" title="HTTP">HTTP</a>.
+公开所有客户端使用的 JSON-over-HTTP 接口。参考 <a class="xref" href="modules-http.html" title="HTTP">HTTP</a>。
 </dd>
 </dl>
 </div>

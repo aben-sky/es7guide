@@ -208,8 +208,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-cache.html",
-                        "text": "节点的查询缓存设置",
-                        "title": "Node query cache settings"
+                        "text": "节点查询缓存设置",
+                        "title": "节点查询缓存设置"
                     },
                     {
                         "url": "search-settings.html",

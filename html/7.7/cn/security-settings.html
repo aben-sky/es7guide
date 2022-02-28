@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Security settings in Elasticsearch | ElasticSearch 7.7 权威指南中文版</title>
+	<title>安全设置 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -34,45 +34,46 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="settings.html">Configuring Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="settings.html">配置 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Security settings in Elasticsearch</span>
+<span class="breadcrumb-node">安全设置</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-settings.html">« Search settings</a>
+<a href="search-settings.html">« 搜索设置</a>
 </span>
 <span class="next">
-<a href="shard-request-cache.html">Shard request cache settings »</a>
+<a href2="shard-request-cache.html">Shard request cache settings »</a>
 </span>
 </div>
 <div class="section xpack">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="security-settings"></a>Security settings in Elasticsearch<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
+<a id="security-settings"></a>安全设置
 </h2>
 </div></div></div>
 
-<p>By default, the Elasticsearch security features are disabled when you have a basic or
-trial license. To enable security features, use the <code class="literal">xpack.security.enabled</code>
-setting.</p>
-<p>You configure <code class="literal">xpack.security</code> settings to
-<a class="xref" href="security-settings.html#anonymous-access-settings" title="Anonymous access settings">enable anonymous access</a> and perform message
-authentication,
-<a class="xref" href="security-settings.html#field-document-security-settings" title="Document and field level security settings">set up document and field level security</a>,
-<a class="xref" href="security-settings.html#realm-settings" title="Realm settings">configure realms</a>,
-<a class="xref" href="security-settings.html#ssl-tls-settings" title="General TLS settings">encrypt communications with SSL</a>,and
-<a class="xref" href="auditing-settings.html" title="Auditing security settings">audit security events</a>.</p>
-<p>All of these settings can be added to the <code class="literal">elasticsearch.yml</code> configuration file,
-with the exception of the secure settings, which you add to the Elasticsearch keystore.
-For more information about creating and updating the Elasticsearch keystore, see
-<a class="xref" href="secure-settings.html" title="Secure settings">Secure settings</a>.</p>
+<p>
+默认情况下，当你使用(basic)基本 或 (trail)试用许可时，Elasticsearch 安全功能是禁用的。
+要启用安全功能，请使用 <code class="literal">xpack.security.enabled</code> 设置。
+</p>
+<p>
+配置 <code class="literal">xpack.security</code> 设置以 <a class="xref" href="security-settings.html#anonymous-access-settings" title="Anonymous access settings">启用匿名访问</a> 并执行消息身份验证，
+<a class="xref" href="security-settings.html#field-document-security-settings" title="Document and field level security settings">设置文档和字段级别的安全</a>，
+<a class="xref" href="security-settings.html#realm-settings" title="Realm settings">配置领域(realms)</a>，
+<a class="xref" href="security-settings.html#ssl-tls-settings" title="General TLS settings">用 SSL 加密通信</a>，
+以及 <a class="xref" href="auditing-settings.html" title="Auditing security settings">审计安全事件</a>。
+</p>
+<p>
+有这些设置都可以添加到<code class="literal">elasticsearch.yml</code>配置文件中，只有安全设置除外，它是添加到 Elasticsearch 密钥库中的。
+有关创建和更新 Elasticsearch 密钥库的更多信息，请参考 <a class="xref" href="secure-settings.html" title="Secure settings">安全设置</a>。
+</p>
 <h4>
-<a id="general-security-settings"></a>General security settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
+<a id="general-security-settings"></a>常规安全设置
 </h4>
 <div class="variablelist">
 <dl class="variablelist">
@@ -83,19 +84,19 @@ For more information about creating and updating the Elasticsearch keystore, see
 </dt>
 <dd>
 <p>
-Set to <code class="literal">true</code> to enable Elasticsearch security features on the node.<br>
+设置为 <code class="literal">true</code> 以在节点上启用 Elasticsearch 安全功能。
 </p>
-<p>If set to <code class="literal">false</code>, which is the default value for basic and trial licenses,
-security features are disabled. It also affects all Kibana instances that
-connect to this Elasticsearch instance; you do not need to disable security features in
-those <code class="literal">kibana.yml</code> files. For more information about disabling security features
-in specific Kibana instances, see
-<a href="https://www.elastic.co/guide/en/kibana/7.7/security-settings-kb.html" class="ulink" target="_top">Kibana security settings</a>.</p>
+<p>
+如果设置为 <code class="literal">false</code>（basic 许可证和 trail 许可证的默认值），则安全功能将被禁用。
+它还影响连接到这个 Elasticsearch 实例的所有 Kibana 实例，不需要在那些 Kibana 实例的 <code class="literal">kibana.yml</code> 文件中禁用安全特性。
+有关在特定 Kibana 实例中禁用安全功能的更多信息，请参考 <a href="https://www.elastic.co/guide/en/kibana/7.7/security-settings-kb.html" class="ulink" target="_top">Kibana安全设置</a>。
+</p>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If you have gold or higher licenses, the default value is <code class="literal">true</code>; we
-recommend that you explicitly add this setting to avoid confusion.</p>
+<p>
+如果你使用 gold 或更高版本的许可证，默认就是 <code class="literal">true</code>；但是仍建议你显式地添加此设置，以免混淆。
+</p>
 </div>
 </div>
 </dd>
@@ -105,13 +106,11 @@ recommend that you explicitly add this setting to avoid confusion.</p>
 </span>
 </dt>
 <dd>
-A comma-separated list of settings that are omitted from the results of the
-<a class="xref" href="cluster-nodes-info.html" title="Nodes info API">cluster nodes info API</a>. You can use wildcards to include
-multiple settings in the list.  For example, the following value hides all the
-settings for the ad1 active_directory realm:
-<code class="literal">xpack.security.authc.realms.active_directory.ad1.*</code>.
-The API already omits all <code class="literal">ssl</code> settings, <code class="literal">bind_dn</code>, and <code class="literal">bind_password</code> due to
-the sensitive nature of the information.
+群集节点信息API结果中忽略的设置的逗号分隔列表。
+一个用逗号分隔的设置列表，这些设置在 <a class="xref" href="cluster-nodes-info.html" title="Nodes info API">集群节点信息API</a> 的结果中被省略了。
+可以使用通配符在列表中包含多个设置。
+例如，<code class="literal">xpack.security.authc.realms.active_directory.ad1.*</code> 这个值会隐藏 ad1 活动目录领域(active_directory realm)的所有设置。
+出于信息的敏感性，API 已经忽略了所有<code class="literal">ssl</code>设置、<code class="literal">bind_dn</code>和 <code class="literal">bind_password</code>。
 </dd>
 <dt>
 <span class="term">
@@ -119,12 +118,15 @@ the sensitive nature of the information.
 </span>
 </dt>
 <dd>
-Enables fips mode of operation. Set this to <code class="literal">true</code> if you run this Elasticsearch instance in a FIPS 140-2 enabled JVM.  For more information, see <a class="xref" href="fips-140-compliance.html" title="FIPS 140-2">FIPS 140-2</a>. Defaults to <code class="literal">false</code>.
+启用 <code class="literal">fips</code> 操作模式。
+如果你在启用 FIPS 140-2 的 JVM 中运行这个 Elasticsearch 实例，请设置为 <code class="literal">true</code>。
+更多信息参考 <a class="xref" href="fips-140-compliance.html" title="FIPS 140-2">FIPS 140-2</a>。
+默认为 <code class="literal">false</code>。
 </dd>
 </dl>
 </div>
 <h4>
-<a id="password-hashing-settings"></a>Password hashing settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
+<a id="password-hashing-settings"></a>密码哈希设置
 </h4>
 <div class="variablelist">
 <dl class="variablelist">
@@ -134,16 +136,18 @@ Enables fips mode of operation. Set this to <code class="literal">true</code> if
 </span>
 </dt>
 <dd>
-Specifies the hashing algorithm that is used for secure user credential storage.
-See <a class="xref" href="security-settings.html#password-hashing-algorithms" title="Password hashing algorithms">Table 2, “Password hashing algorithms”</a>. Defaults to <code class="literal">bcrypt</code>.
+指定用于安全用户凭据存储的哈希算法。  
+参考 <a class="xref" href="security-settings.html#password-hashing-algorithms" title="Password hashing algorithms">表 2，“密码哈希算法”</a>。默认为<code class="literal">bcrypt</code>。
 </dd>
 </dl>
 </div>
 <h4>
-<a id="anonymous-access-settings"></a>Anonymous access settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
+<a id="anonymous-access-settings"></a>匿名访问设置
 </h4>
-<p>You can configure the following anonymous access settings in
-<code class="literal">elasticsearch.yml</code>.  For more information, see <a class="xref" href="anonymous-access.html" title="Enabling anonymous access">Enabling anonymous access</a>.</p>
+<p>
+你可以在 <code class="literal">elasticsearch.yml</code> 中配置下面几个匿名访问设置。
+更多信息参考 <a class="xref" href="anonymous-access.html" title="Enabling anonymous access">启用匿名访问</a>。
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -152,7 +156,7 @@ See <a class="xref" href="security-settings.html#password-hashing-algorithms" ti
 </span>
 </dt>
 <dd>
-The username (principal) of the anonymous user. Defaults to <code class="literal">_es_anonymous_user</code>.
+匿名用户的用户名(最重要的)。默认为 <code class="literal">_es_anonymous_user</code> 。
 </dd>
 <dt>
 <span class="term">
@@ -160,7 +164,7 @@ The username (principal) of the anonymous user. Defaults to <code class="literal
 </span>
 </dt>
 <dd>
-The roles to associate with the anonymous user. Required.
+与匿名用户关联的角色。必填。
 </dd>
 <dt>
 <span class="term">
@@ -168,22 +172,20 @@ The roles to associate with the anonymous user. Required.
 </span>
 </dt>
 <dd>
-When <code class="literal">true</code>, an HTTP 403 response is returned if the anonymous user
-does not have the appropriate permissions for the requested action. The
-user is not prompted to provide credentials to access the requested
-resource. When set to <code class="literal">false</code>, an HTTP 401 response is returned and the user
-can provide credentials with the appropriate permissions to gain
-access. Defaults to <code class="literal">true</code>.
+为<code class="literal">true</code>时，如果匿名用户没有请求操作的适当权限，则返回 HTTP 403 响应。
+也不会提示用户提供凭据来访问所请求的资源。
+当设置为 <code class="literal">false</code> 时, 会返回一个 HTTP 401 响应，用户可以提供具有适当权限的凭据来获得访问权限。
+默认为 <code class="literal">true</code>。
 </dd>
 </dl>
 </div>
 <h4>
-<a id="security-automata-settings"></a>Automata Settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
+<a id="security-automata-settings"></a>自动机(Automata) 设置
 </h4>
-<p>In places where the security features accept wildcard patterns (e.g. index
-patterns in roles, group matches in the role mapping API), each pattern is
-compiled into an Automaton. The follow settings are available to control this
-behaviour.</p>
+<p>
+在安全特征接受通配符模式的地方(例如，角色中的索引模式、角色映射API中的组匹配)，每个模式都被编译成自动机。
+以下设置可用于控制这种行为。
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -192,9 +194,9 @@ behaviour.</p>
 </span>
 </dt>
 <dd>
-The upper limit on how many automaton states may be created by a single pattern.
-This protects against too-difficult (e.g. exponentially hard) patterns.
-Defaults to <code class="literal">100,000</code>.
+单个模式可以创建的自动机状态的上限。
+这防止了过于困难(例如指数级困难)的模式。
+默认为 <code class="literal">100,000</code> 。
 </dd>
 <dt>
 <span class="term">
@@ -202,10 +204,10 @@ Defaults to <code class="literal">100,000</code>.
 </span>
 </dt>
 <dd>
-Whether to cache the compiled automata. Compiling automata can be CPU intensive
-and may slowdown some operations. The cache reduces the frequency with which
-automata need to be compiled.
-Defaults to <code class="literal">true</code>.
+是否缓存编译后的自动机。
+编译自动机会占用大量 CPU 资源，可能会降低某些操作的速度。
+缓存降低了自动机需要编译的频率。
+默认为 <code class="literal">true</code> 。
 </dd>
 <dt>
 <span class="term">
@@ -213,8 +215,7 @@ Defaults to <code class="literal">true</code>.
 </span>
 </dt>
 <dd>
-The maximum number of items to retain in the automata cache.
-Defaults to <code class="literal">10,000</code>.
+自动机缓存中要保留的最大项目数。默认为 <code class="literal">10,000</code> 。
 </dd>
 <dt>
 <span class="term">
@@ -222,18 +223,18 @@ Defaults to <code class="literal">10,000</code>.
 </span>
 </dt>
 <dd>
-The length of time to retain in an item in the automata cache (based on most
-recent usage).
-Defaults to <code class="literal">48h</code> (48 hours).
+项目在自动机缓存中保留的时间(基于最近的使用)。
+默认为 <code class="literal">48h</code> (48 小时)。
 </dd>
 </dl>
 </div>
 <h4>
-<a id="field-document-security-settings"></a>Document and field level security settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
+<a id="field-document-security-settings"></a>文档和字段级别的安全设置
 </h4>
-<p>You can set the following document and field level security
-settings in <code class="literal">elasticsearch.yml</code>. For more information, see
-<a class="xref" href="field-and-document-access-control.html" title="Setting up field and document level security">Setting up field and document level security</a>.</p>
+<p>
+可以在 <code class="literal">elasticsearch.yml</code> 中配置下面几个文档和字段级别的安全设置。
+更多信息参考 <a class="xref" href="field-and-document-access-control.html" title="Setting up field and document level security">设置字段和文档级别的安全</a>。
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -242,8 +243,8 @@ settings in <code class="literal">elasticsearch.yml</code>. For more information
 </span>
 </dt>
 <dd>
-Set to <code class="literal">false</code> to prevent document and field level security
-from being configured. Defaults to <code class="literal">true</code>.
+设置为<code class="literal">false</code> 可防止配置文档和字段级别的安全性。
+默认为 <code class="literal">true</code> 。
 </dd>
 <dt>
 <span class="term">
@@ -251,10 +252,9 @@ from being configured. Defaults to <code class="literal">true</code>.
 </span>
 </dt>
 <dd>
-The time-to-live for cached <code class="literal">BitSet</code> entries for document level security.
-Document level security queries may depend on Lucene BitSet objects, and these are
-automatically cached to improve performance. Defaults to expire entries that are
-unused for <code class="literal">168h</code> (7 days).
+用于文档级安全的 <code class="literal">位组 (BitSet)</code> 条目的缓存的生存时间(ttl, time-to-live)。
+文档级安全查询可能依赖于 Lucene BitSet 对象，这些对象会被自动缓存以提高性能。
+默认会将 <code class="literal">168h</code> (7天)未使用的条目过期。
 </dd>
 <dt>
 <span class="term">
@@ -262,10 +262,9 @@ unused for <code class="literal">168h</code> (7 days).
 </span>
 </dt>
 <dd>
-The maximum memory usage of cached <code class="literal">BitSet</code> entries for document level security.
-Document level security queries may depend on Lucene BitSet objects, and these are
-automatically cached to improve performance. Defaults to <code class="literal">50mb</code>, after which
-least-recently-used entries will be evicted.
+用于文档级安全的 <code class="literal">位组 (BitSet)</code> 条目的缓存可使用的最大内存。
+文档级安全查询可能依赖于 Lucene BitSet 对象，这些对象会被自动缓存以提高性能。
+默认为 <code class="literal">50mb</code>，超过此内存，最近最少使用的条目将被清除。
 </dd>
 </dl>
 </div>
@@ -4492,10 +4491,10 @@ to one of the following:</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-settings.html">« Search settings</a>
+<a href="search-settings.html">« 搜索设置</a>
 </span>
 <span class="next">
-<a href="shard-request-cache.html">Shard request cache settings »</a>
+<a href2="shard-request-cache.html">Shard request cache settings »</a>
 </span>
 </div>
 </div>

@@ -219,7 +219,7 @@ var esNavLinks = [
                     {
                         "url": "security-settings.html",
                         "text": "安全设置",
-                        "title": "Security settings"
+                        "title": "安全设置"
                     },
                     {
                         "url": "shard-request-cache.html",

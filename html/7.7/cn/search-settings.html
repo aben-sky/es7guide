@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Search settings | ElasticSearch 7.7 权威指南中文版</title>
+	<title>搜索设置 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -34,30 +34,31 @@ will be released for this version. For the latest information, see the
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="settings.html">Configuring Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="settings.html">配置 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Search settings</span>
+<span class="breadcrumb-node">搜索设置</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-cache.html">« Node query cache settings</a>
+<a href="query-cache.html">« 节点查询缓存设置</a>
 </span>
 <span class="next">
-<a href="security-settings.html">Security settings in Elasticsearch »</a>
+<a href2="security-settings.html">Security settings in Elasticsearch »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-settings"></a>Search settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/search-settings.asciidoc">edit</a>
+<a id="search-settings"></a>搜索设置
 </h2>
 </div></div></div>
-<p>The following expert settings can be set to manage global search and aggregation
-limits.</p>
+<p>
+可以通过下面几个专家级设置来管理全局搜索和聚合限制。
+</p>
 <div class="variablelist">
 <a id="indices-query-bool-max-clause-count"></a>
 <dl class="variablelist">
@@ -69,16 +70,16 @@ limits.</p>
 <dd>
 <p>
 (integer)
-Maximum number of clauses a Lucene BooleanQuery can contain. Defaults to <code class="literal">1024</code>.
+Lucene BooleanQuery 可以包含的最大子句数。默认为<code class="literal">1024</code>。
 </p>
-<p>This setting limits the number of clauses a Lucene BooleanQuery can have. The
-default of 1024 is quite high and should normally be sufficient. This limit does
-not only affect Elasticsearchs <code class="literal">bool</code> query, but many other queries are rewritten to Lucene’s
-BooleanQuery internally. The limit is in place to prevent searches from becoming too large
-and taking up too much CPU and memory. In case you’re considering increasing this setting,
-make sure you’ve exhausted all other options to avoid having to do this. Higher values can lead
-to performance degradations and memory issues, especially in clusters with a high load or
-few resources.</p>
+<p>
+这个设置限制了 Lucene BooleanQuery 可以拥有的子句数量。
+默认值 1024 已经很大，通常应该足够了。
+这个限制不仅影响 Elasticsearchs 的<code class="literal">bool</code>查询，很多其他查询都是内部重写到 Lucene 的 BooleanQuery。
+这个个限制是为了防止搜索变得太大，占用太多的CPU和内存。
+如果你正在考虑增加这个设置，请确保已经用尽了所有其他选项来避免这样做。  
+较大的值可能会导致性能下降和内存问题，尤其是在负载高或资源少的集群中。
+</p>
 </dd>
 </dl>
 </div>
@@ -92,21 +93,21 @@ few resources.</p>
 </dt>
 <dd>
 <p>
-(<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>, integer)
-Maximum number of <a class="xref" href="search-aggregations-bucket.html" title="Bucket Aggregations">aggregation buckets</a> allowed in
-a single response. Defaults to <code class="literal">10000</code>.
+(<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态的</a>, integer)
+单个响应中允许的<a class="xref" href="search-aggregations-bucket.html" title="Bucket Aggregations">聚合桶(aggregation bucket)</a>的最大数量。默认为 <code class="literal">10000</code>。
 </p>
-<p>Requests that attempt to return more than this limit will return an error.</p>
+<p>
+试图返回超过此限制的请求将返回错误。
 </dd>
 </dl>
 </div>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-cache.html">« Node query cache settings</a>
+<a href="query-cache.html">« 节点查询缓存设置</a>
 </span>
 <span class="next">
-<a href="security-settings.html">Security settings in Elasticsearch »</a>
+<a href2="security-settings.html">Security settings in Elasticsearch »</a>
 </span>
 </div>
 </div>

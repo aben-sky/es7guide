@@ -214,7 +214,7 @@ var esNavLinks = [
                     {
                         "url": "search-settings.html",
                         "text": "搜索设置",
-                        "title": "Search settings"
+                        "title": "搜索设置"
                     },
                     {
                         "url": "security-settings.html",

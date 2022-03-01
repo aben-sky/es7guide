@@ -252,7 +252,7 @@ will be released for this version. For the latest information, see the
 </span>
 </dt>
 <dd>
-用于文档级安全的 <code class="literal">位组 (BitSet)</code> 条目的缓存的生存时间(ttl, time-to-live)。
+用于文档级安全的 <code class="literal">位组 (BitSet)</code> 的缓存的生存时间(ttl, time-to-live)。
 文档级安全查询可能依赖于 Lucene BitSet 对象，这些对象会被自动缓存以提高性能。
 默认会将 <code class="literal">168h</code> (7天)未使用的条目过期。
 </dd>
@@ -262,17 +262,16 @@ will be released for this version. For the latest information, see the
 </span>
 </dt>
 <dd>
-用于文档级安全的 <code class="literal">位组 (BitSet)</code> 条目的缓存可使用的最大内存。
+用于文档级安全的 <code class="literal">位组 (BitSet)</code> 的缓存可使用的最大内存。
 文档级安全查询可能依赖于 Lucene BitSet 对象，这些对象会被自动缓存以提高性能。
 默认为 <code class="literal">50mb</code>，超过此内存，最近最少使用的条目将被清除。
 </dd>
 </dl>
 </div>
 <h4>
-<a id="token-service-settings"></a>Token service settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
+<a id="token-service-settings"></a>令牌(token)服务设置
 </h4>
-<p>You can set the following token service settings in
-<code class="literal">elasticsearch.yml</code>.</p>
+<p>可以在 <code class="literal">elasticsearch.yml</code> 中设置以下令牌服务设置。</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -281,9 +280,9 @@ will be released for this version. For the latest information, see the
 </span>
 </dt>
 <dd>
-Set to <code class="literal">false</code> to disable the built-in token service. Defaults to <code class="literal">true</code> unless
- <code class="literal">xpack.security.http.ssl.enabled</code> is <code class="literal">false</code>. This prevents sniffing the token
-  from a connection over plain http.
+设置为 <code class="literal">false</code> 以禁用内置的令牌服务。
+默认值是 <code class="literal">true</code>，除非 <code class="literal">xpack.security.http.ssl.enabled</code>设置为 <code class="literal">false</code>。
+这可以防止通过普通 http 从连接中嗅探令牌。
 </dd>
 <dt>
 <span class="term">
@@ -291,16 +290,16 @@ Set to <code class="literal">false</code> to disable the built-in token service.
 </span>
 </dt>
 <dd>
-The length of time that a token is valid for. By default this value is <code class="literal">20m</code> or
-20 minutes. The maximum value is 1 hour.
+令牌的有效时间。
+默认情况下，这个值是 <code class="literal">20m</code>，就是 20分钟。
+最大值是 1 小时。
 </dd>
 </dl>
 </div>
 <h4>
-<a id="api-key-service-settings"></a>API key service settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
+<a id="api-key-service-settings"></a>API 密钥服务管理
 </h4>
-<p>You can set the following API key service settings in
-<code class="literal">elasticsearch.yml</code>.</p>
+<p>可以在 <code class="literal">elasticsearch.yml</code> 中设置以下 API 密钥服务设置。</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -309,9 +308,9 @@ The length of time that a token is valid for. By default this value is <code cla
 </span>
 </dt>
 <dd>
-Set to <code class="literal">false</code> to disable the built-in API key service. Defaults to <code class="literal">true</code> unless
- <code class="literal">xpack.security.http.ssl.enabled</code> is <code class="literal">false</code>. This prevents sniffing the API key
-  from a connection over plain http.
+设置为 <code class="literal">false</code> 以禁用内置的 API 密钥服务。
+默认值是 <code class="literal">true</code>，除非 <code class="literal">xpack.security.http.ssl.enabled</code>设置为 <code class="literal">false</code>。
+这可以防止通过普通 http 从连接中嗅探API 密钥。
 </dd>
 <dt>
 <span class="term">
@@ -319,8 +318,9 @@ Set to <code class="literal">false</code> to disable the built-in API key servic
 </span>
 </dt>
 <dd>
-Specifies the hashing algorithm that is used for securing API key credentials.
-See <a class="xref" href="security-settings.html#password-hashing-algorithms" title="Password hashing algorithms">Table 2, “Password hashing algorithms”</a>. Defaults to <code class="literal">pbkdf2</code>.
+指定用于保护 API 密钥凭据的哈希算法。
+参考 <a class="xref" href="security-settings.html#password-hashing-algorithms" title="Password hashing algorithms">表 2, “密码哈希算法”</a>。
+默认值为 <code class="literal">pbkdf2</code>。
 </dd>
 <dt>
 <span class="term">
@@ -328,9 +328,10 @@ See <a class="xref" href="security-settings.html#password-hashing-algorithms" ti
 </span>
 </dt>
 <dd>
-The time-to-live for cached API key entries. A API key id and a hash of its
-API key are cached for this period of time. Specify the time period using
-the standard Elasticsearch <a class="xref" href="common-options.html#time-units" title="Time units">time units</a>. Defaults to <code class="literal">1d</code>.
+缓存的 API 密钥的生存时间。
+在这段时间内，API 密钥的 id 及密钥的哈希值被缓存。
+用 Elasticsearch 标准的<a class="xref" href="common-options.html#time-units" title="Time units">time units (时间单位)</a>指定时间段。
+默认为 <code class="literal">1d</code> 即 1 天。
 </dd>
 <dt>
 <span class="term">
@@ -338,8 +339,7 @@ the standard Elasticsearch <a class="xref" href="common-options.html#time-units"
 </span>
 </dt>
 <dd>
-The maximum number of API key entries that can live in the
-cache at any given time. Defaults to 10,000.
+在任何给定时间内，可以存在于缓存中的 API 密钥的最大数量。默认为 10,000。
 </dd>
 <dt>
 <span class="term">
@@ -347,18 +347,19 @@ cache at any given time. Defaults to 10,000.
 </span>
 </dt>
 <dd>
-(Expert Setting)
-The hashing algorithm that is used for the
-in-memory cached API key credentials. For possible values, see <a class="xref" href="security-settings.html#cache-hash-algo" title="Cache hash algorithms">Table 1, “Cache hash algorithms”</a>.
-Defaults to <code class="literal">ssha256</code>.
+(专家级设置) 用于缓存在内存中的 API 密钥凭据的哈希算法。
+有关可能的值，参考 <a class="xref" href="security-settings.html#cache-hash-algo" title="Cache hash algorithms">表 1, “缓存哈希算法”</a>.
+默认值为 <code class="literal">ssha256</code>。
 </dd>
 </dl>
 </div>
 <h4>
-<a id="realm-settings"></a>Realm settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
+<a id="realm-settings"></a>realm 设置
 </h4>
-<p>You configure realm settings in the <code class="literal">xpack.security.authc.realms</code>
-namespace in <code class="literal">elasticsearch.yml</code>. For example:</p>
+<p>
+可以在 <code class="literal">elasticsearch.yml</code> 的 <code class="literal">xpack.security.authc.realms</code> 命名空间下配置 realm 设置。
+比如：
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">xpack.security.authc.realms:
 
@@ -382,17 +383,20 @@ namespace in <code class="literal">elasticsearch.yml</code>. For example:</p>
 <p><a href="#CO24-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Specifies the type of realm (for example, <code class="literal">native</code>, <code class="literal">ldap</code>,
-<code class="literal">active_directory</code>, <code class="literal">pki</code>, <code class="literal">file</code>, <code class="literal">kerberos</code>, <code class="literal">saml</code>) and the realm name. This
-information is required.</p>
+<p>
+指定 realm 的类型（比如，<code class="literal">native</code>, <code class="literal">ldap</code>, <code class="literal">active_directory</code>, <code class="literal">pki</code>, <code class="literal">file</code>, <code class="literal">kerberos</code>, <code class="literal">saml</code>）及 realm 的名称。
+此设置是必须的。
+</p>
 </td>
 </tr>
 </table>
 </div>
-<p>The valid settings vary depending on the realm type. For more
-information, see <a class="xref" href="setting-up-authentication.html" title="User authentication"><em>User authentication</em></a>.</p>
+<p>
+有效设置因 realm 类型而异。
+更多信息请参考 <a class="xref" href="setting-up-authentication.html" title="User authentication"><em>用户身份验证</em></a>。
+</p>
 <h5>
-<a id="ref-realm-settings"></a>Settings valid for all realms<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
+<a id="ref-realm-settings"></a>对所有 realm 有效的设置
 </h5>
 <div class="variablelist">
 <dl class="variablelist">
@@ -402,9 +406,9 @@ information, see <a class="xref" href="setting-up-authentication.html" title="Us
 </span>
 </dt>
 <dd>
-The priority of the realm within the realm chain. Realms with a lower order are
-consulted first. Although not required, use of this setting is strongly
-recommended when you configure multiple realms. Defaults to <code class="literal">Integer.MAX_VALUE</code>.
+realm 链中 realm 的优先级。值越小，越先被咨询。
+虽然不是必需的，但强烈建议在配置多个 realm 时使用此设置。
+默认值为 <code class="literal">Integer.MAX_VALUE</code>。
 </dd>
 <dt>
 <span class="term">
@@ -412,17 +416,18 @@ recommended when you configure multiple realms. Defaults to <code class="literal
 </span>
 </dt>
 <dd>
-Indicates whether a realm is enabled. You can use this setting to disable a
-realm without removing its configuration information. Defaults to <code class="literal">true</code>.
+是否启用 realm 。
+可以使用此设置禁用 realm，而无需删除其配置信息。默认为 <code class="literal">true</code>。
 </dd>
 </dl>
 </div>
 <h5>
-<a id="ref-native-settings"></a>Native realm settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
+<a id="ref-native-settings"></a>本地realm设置 (native realm settings)
 </h5>
-<p>For a native realm, the <code class="literal">type</code> must be set to <code class="literal">native</code>. In addition to the
-<a class="xref" href="security-settings.html#ref-realm-settings" title="Settings valid for all realms">settings that are valid for all realms</a>, you can specify
-the following optional settings:</p>
+<p>
+对于本地 realm 来说，<code class="literal">type</code> 必须设置为 <code class="literal">native</code>。
+除了<a class="xref" href="security-settings.html#ref-realm-settings" title="Settings valid for all realms">对所有realm都有效的设置</a>之外，你还可以指定以下可选设置:
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -431,9 +436,10 @@ the following optional settings:</p>
 </span>
 </dt>
 <dd>
-The time-to-live for cached user entries. A user and a hash of its
-credentials are cached for this period of time. Specify the time period using
-the standard Elasticsearch <a class="xref" href="common-options.html#time-units" title="Time units">time units</a>. Defaults to <code class="literal">20m</code>.
+缓存的用户的生存时间。
+在这段时间内，用户及其凭证的哈希值将被缓存。
+用 Elasticsearch 标准的<a class="xref" href="common-options.html#time-units" title="Time units">time units (时间单位)</a>指定时间段。
+默认为 <code class="literal">20m</code> 即 20 分钟。
 </dd>
 <dt>
 <span class="term">
@@ -441,8 +447,7 @@ the standard Elasticsearch <a class="xref" href="common-options.html#time-units"
 </span>
 </dt>
 <dd>
-The maximum number of user entries that can live in the
-cache at any given time. Defaults to 100,000.
+在任何给定时间内，可以存在于缓存中的最大用户数量。默认为 100,000。
 </dd>
 <dt>
 <span class="term">
@@ -450,9 +455,9 @@ cache at any given time. Defaults to 100,000.
 </span>
 </dt>
 <dd>
-(Expert Setting) The hashing algorithm that is used for the
-in-memory cached user credentials. For possible values, see <a class="xref" href="security-settings.html#cache-hash-algo" title="Cache hash algorithms">Table 1, “Cache hash algorithms”</a>.
-Defaults to <code class="literal">ssha256</code>.
+(专家级设置) 用于缓存在内存中的用户凭据的哈希算法。
+有关可能的值，参考 <a class="xref" href="security-settings.html#cache-hash-algo" title="Cache hash algorithms">表 1, “缓存哈希算法”</a>.
+默认值为 <code class="literal">ssha256</code>。
 </dd>
 <dt>
 <span class="term">
@@ -460,20 +465,18 @@ Defaults to <code class="literal">ssha256</code>.
 </span>
 </dt>
 <dd>
-If set to <code class="literal">false</code>, disables authentication support in
-this realm, so that it only supports user lookups.
-(See the <a class="xref" href="run-as-privilege.html" title="Submitting requests on behalf of other users">run as</a> and
-<a class="xref" href="realm-chains.html#authorization_realms" title="Delegating authorization to another realm">authorization realms</a> features).
-Defaults to <code class="literal">true</code>.
+如果设置为 <code class="literal">false</code>，则在该 realm 中禁用对身份验证的支持，这就仅支持用户查找了。
+(参考 <a class="xref" href="run-as-privilege.html" title="Submitting requests on behalf of other users">运行方式 (run as)</a> 和 <a class="xref" href="realm-chains.html#authorization_realms" title="Delegating authorization to another realm">授权 realms</a> 功能)。
+默认为 <code class="literal">true</code>。
 </dd>
 </dl>
 </div>
 <h5>
-<a id="ref-users-settings"></a>File realm settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
+<a id="ref-users-settings"></a>文件 realm 设置
 </h5>
-<p>The <code class="literal">type</code> setting must be set to <code class="literal">file</code>. In addition to the
-<a class="xref" href="security-settings.html#ref-realm-settings" title="Settings valid for all realms">settings that are valid for all realms</a>, you can specify
-the following settings:</p>
+<p>
+<code class="literal">type</code> 设置必须设置为 <code class="literal">file</code>。
+除了<a class="xref" href="security-settings.html#ref-realm-settings" title="Settings valid for all realms">对所有realm都有效的设置</a>之外，你还可以指定以下可选设置:</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -482,10 +485,10 @@ the following settings:</p>
 </span>
 </dt>
 <dd>
-The time-to-live for cached user entries. A user and a hash of its credentials
-are cached for this configured period of time. Defaults to <code class="literal">20m</code>. Specify values
-using the standard Elasticsearch <a class="xref" href="common-options.html#time-units" title="Time units">time units</a>.
-Defaults to <code class="literal">20m</code>.
+缓存的用户的生存时间。
+在这段时间内，用户及其凭证的哈希值将被缓存。
+用 Elasticsearch 标准的<a class="xref" href="common-options.html#time-units" title="Time units">time units (时间单位)</a>指定时间段。
+默认为 <code class="literal">20m</code> 即 20 分钟。
 </dd>
 <dt>
 <span class="term">
@@ -493,8 +496,7 @@ Defaults to <code class="literal">20m</code>.
 </span>
 </dt>
 <dd>
-The maximum number of user entries that can live in the cache at a given time.
-Defaults to 100,000.
+在任何给定时间内，可以存在于缓存中的最大用户数量。默认为 100,000。
 </dd>
 <dt>
 <span class="term">
@@ -502,8 +504,9 @@ Defaults to 100,000.
 </span>
 </dt>
 <dd>
-(Expert Setting) The hashing algorithm that is used for the in-memory cached
-user credentials. See <a class="xref" href="security-settings.html#cache-hash-algo" title="Cache hash algorithms">Table 1, “Cache hash algorithms”</a>. Defaults to <code class="literal">ssha256</code>.
+(专家级设置) 用于缓存在内存中的用户凭据的哈希算法。
+有关可能的值，参考 <a class="xref" href="security-settings.html#cache-hash-algo" title="Cache hash algorithms">表 1, “缓存哈希算法”</a>.
+默认值为 <code class="literal">ssha256</code>。
 </dd>
 <dt>
 <span class="term">
@@ -511,19 +514,20 @@ user credentials. See <a class="xref" href="security-settings.html#cache-hash-al
 </span>
 </dt>
 <dd>
-If set to <code class="literal">false</code>, disables authentication support in
-this realm, so that it only supports user lookups.
-(See the <a class="xref" href="run-as-privilege.html" title="Submitting requests on behalf of other users">run as</a> and
-<a class="xref" href="realm-chains.html#authorization_realms" title="Delegating authorization to another realm">authorization realms</a> features).
-Defaults to <code class="literal">true</code>.
+如果设置为 <code class="literal">false</code>，则在该 realm 中禁用对身份验证的支持，这就仅支持用户查找了。
+(参考 <a class="xref" href="run-as-privilege.html" title="Submitting requests on behalf of other users">运行方式 (run as)</a> 和 <a class="xref" href="realm-chains.html#authorization_realms" title="Delegating authorization to another realm">授权 realms</a> 功能)。
+默认为 <code class="literal">true</code>。
 </dd>
 </dl>
 </div>
 <h5>
-<a id="ref-ldap-settings"></a>LDAP realm settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
+<a id="ref-ldap-settings"></a>LDAP realm 设置
 </h5>
-<p>The <code class="literal">type</code> setting must be set to <code class="literal">ldap</code>. In addition to the
-<a class="xref" href="security-settings.html#ref-realm-settings" title="Settings valid for all realms">Settings valid for all realms</a>, you can specify the following settings:</p>
+<p>
+<code class="literal">type</code> 设置必须设置为 <code class="literal">ldap</code>。
+
+除了<a class="xref" href="security-settings.html#ref-realm-settings" title="Settings valid for all realms">对所有realm都有效的设置</a>之外，你还可以指定以下可选设置:
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -533,11 +537,14 @@ Defaults to <code class="literal">true</code>.
 </dt>
 <dd>
 <p>
-One or more LDAP URLs in the <code class="literal">ldap[s]://&lt;server&gt;:&lt;port&gt;</code> format. Required.
+<code class="literal">ldap[s]://&lt;server&gt;:&lt;port&gt;</code> 格式的一个或多个 LDAP url地址。必填。
 </p>
-<p>To provide multiple URLs, use a YAML array (<code class="literal">["ldap://server1:636", "ldap://server2:636"]</code>)
-or comma-separated string (<code class="literal">"ldap://server1:636, ldap://server2:636"</code>).</p>
-<p>While both are supported, you can’t mix the <code class="literal">ldap</code> and <code class="literal">ldaps</code> protocols.</p>
+<p>
+如果要提供多个 url 地址，使用 YAML 数组 (<code class="literal">["ldap://server1:636", "ldap://server2:636"]</code>) 或者逗号分隔的字符串 (<code class="literal">"ldap://server1:636, ldap://server2:636"</code>)。
+</p>
+<p>
+虽然两者都受支持，但是不能混合使用<code class="literal">ldap</code>和<code class="literal">ldaps</code>协议。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -545,9 +552,9 @@ or comma-separated string (<code class="literal">"ldap://server1:636, ldap://ser
 </span>
 </dt>
 <dd>
-The behavior to use when there are multiple LDAP URLs defined. For supported
-values see <a class="xref" href="security-settings.html#load-balancing" title="Load balancing and failover">load balancing and failover types</a>.
-Defaults to <code class="literal">failover</code>.
+定义了多个 LDAP url地址时使用的行为。
+关于支持的值，请参考 <a class="xref" href="security-settings.html#load-balancing" title="Load balancing and failover">负载均衡和故障转移类型</a>。
+默认值为 <code class="literal">failover</code>。
 </dd>
 <dt>
 <span class="term">
@@ -555,9 +562,8 @@ Defaults to <code class="literal">failover</code>.
 </span>
 </dt>
 <dd>
-When using <code class="literal">dns_failover</code> or <code class="literal">dns_round_robin</code> as the load balancing type,
-this setting controls the amount of time to cache DNS lookups. Defaults
-to <code class="literal">1h</code>.
+当负载均衡的类型为 <code class="literal">dns_failover</code> 或 <code class="literal">dns_round_robin</code> 时，这个设置用来控制 DNS 查找缓存的时间。
+默认值为 <code class="literal">1h</code>。
 </dd>
 <dt>
 <span class="term">
@@ -565,11 +571,11 @@ to <code class="literal">1h</code>.
 </span>
 </dt>
 <dd>
-The DN of the user that is used to bind to the LDAP and perform searches.
-Only applicable in user search mode.
-If not specified, an anonymous bind is attempted.
-Defaults to Empty. Due to its potential security impact, <code class="literal">bind_dn</code> is not
-exposed via the <a class="xref" href="cluster-nodes-info.html" title="Nodes info API">nodes info API</a>.
+用于绑定到 LDAP 并执行搜索的用户的 DN。
+仅适用于用户搜索模式。
+如果未指定，则尝试匿名绑定。
+默认值为空。
+由于潜在的安全影响，<code class="literal">bind_dn</code> 没有通过 <a class="xref" href="cluster-nodes-info.html" title="Nodes info API">节点信息API</a>公开。
 </dd>
 <dt>
 <span class="term">
@@ -580,21 +586,21 @@ exposed via the <a class="xref" href="cluster-nodes-info.html" title="Nodes info
 <span class="Admonishment Admonishment--change">
 [<span class="Admonishment-version u-mono u-strikethrough">6.3</span>]
 <span class="Admonishment-detail">
-Deprecated in 6.3.
+在 6.3 中废弃
 </span>
-</span> Use <code class="literal">secure_bind_password</code> instead. The password for the user
-that is used to bind to the LDAP directory.
-Defaults to Empty. Due to its potential security impact, <code class="literal">bind_password</code> is not
-exposed via the <a class="xref" href="cluster-nodes-info.html" title="Nodes info API">nodes info API</a>.
+</span> 使用 <code class="literal">secure_bind_password</code> 替代之。
+用于绑定到 LDAP 目录的用户密码。
+默认值为空。
+由于潜在的安全影响，<code class="literal">bind_password</code> 没有通过 <a class="xref" href="cluster-nodes-info.html" title="Nodes info API">节点信息API</a>公开。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">secure_bind_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">secure_bind_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-The password for the user that is used to bind to the LDAP directory.
-Defaults to Empty.
+用于绑定到 LDAP 目录的用户密码。
+默认值为空。
 </dd>
 <dt>
 <span class="term">
@@ -602,11 +608,11 @@ Defaults to Empty.
 </span>
 </dt>
 <dd>
-The DN template that replaces the user name with the string <code class="literal">{0}</code>.
-This setting is multivalued; you can specify multiple user contexts.
-Required to operate in user template mode. If <code class="literal">user_search.base_dn</code> is specified,
-this setting is not valid. For more information on
-the different modes, see <a class="xref" href="ldap-realm.html" title="LDAP user authentication">LDAP user authentication</a>.
+用字符串<code class="literal">{0}</code>替换用户名的 DN 模板。
+该设置是 多值的(multivalued)，你可以指定多个用户上下文。
+需要在用户模板模式下操作。
+如果指定了 <code class="literal">user_search.base_dn</code>，则此设置无效。
+有关不同模式的更多信息，请参考<a class="xref" href="ldap-realm.html" title="LDAP user authentication">LDAP 用户身份验证</a>。
 </dd>
 <dt>
 <span class="term">
@@ -615,17 +621,17 @@ the different modes, see <a class="xref" href="ldap-realm.html" title="LDAP user
 </dt>
 <dd>
 <p>
-The names of the realms that should be consulted for delegated authorization.
-If this setting is used, then the LDAP realm does not perform role mapping and
-instead loads the user from the listed realms. The referenced realms are
-consulted in the order that they are defined in this list.
-See <a class="xref" href="realm-chains.html#authorization_realms" title="Delegating authorization to another realm">Delegating authorization to another realm</a>.
+委托授权时应咨询的 realm 的名称。
+如果使用此设置，则 LDAP realm 不执行角色映射，而是从列出的 realms 加载用户。
+被引用的 realms 按照它们在列表中定义的顺序进行查询。
+参考 <a class="xref" href="realm-chains.html#authorization_realms" title="Delegating authorization to another realm">将授权委托给另一个 realm</a>。
 </p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If any settings starting with <code class="literal">user_search</code> are specified, the
-<code class="literal">user_dn_templates</code> settings are ignored.</p>
+<p>
+如果指定的任何一个设置以 <code class="literal">user_search</code> 开头，则 <code class="literal">user_dn_templates</code> 设置将无效。
+</p>
 </div>
 </div>
 </dd>
@@ -635,9 +641,9 @@ See <a class="xref" href="realm-chains.html#authorization_realms" title="Delegat
 </span>
 </dt>
 <dd>
-Specifies the attribute to examine on the user for group membership.
-If any <code class="literal">group_search</code> settings are specified, this setting is ignored. Defaults
-to <code class="literal">memberOf</code>.
+指定要检查用户组成员关系的属性。
+如果指定了任何 <code class="literal">group_search</code> 设置，该设置将被忽略。
+默认为 <code class="literal">memberOf</code>。
 </dd>
 <dt>
 <span class="term">
@@ -645,10 +651,10 @@ to <code class="literal">memberOf</code>.
 </span>
 </dt>
 <dd>
-Specifies a container DN to search for users. Required
-to operated in user search mode. If <code class="literal">user_dn_templates</code> is specified, this
-setting is not valid. For more information on
-the different modes, see <a class="xref" href="ldap-realm.html" title="LDAP user authentication">LDAP user authentication</a>.
+为用户搜索所指定的容器 DN。
+需要在用户搜索模式下操作。
+如果指定了 <code class="literal">user_dn_templates</code>，则此设置无效。
+有关不同模式的更多信息，请参考<a class="xref" href="ldap-realm.html" title="LDAP user authentication">LDAP 用户身份验证</a>。
 </dd>
 <dt>
 <span class="term">
@@ -656,11 +662,12 @@ the different modes, see <a class="xref" href="ldap-realm.html" title="LDAP user
 </span>
 </dt>
 <dd>
-The scope of the user search. Valid values are <code class="literal">sub_tree</code>, <code class="literal">one_level</code> or
-<code class="literal">base</code>. <code class="literal">one_level</code> only searches objects directly contained within the
-<code class="literal">base_dn</code>. <code class="literal">sub_tree</code> searches all objects contained under <code class="literal">base_dn</code>.
-<code class="literal">base</code> specifies that the <code class="literal">base_dn</code> is the user object, and that it is
-the only user considered. Defaults to <code class="literal">sub_tree</code>.
+用户搜索的范围。
+有效值包括<code class="literal">sub_tree</code>、<code class="literal">one_level</code>、<code class="literal">base</code>。
+<code class="literal">one_level</code> 搜索直接包含在 <code class="literal">base_dn</code>中的对象。
+<code class="literal">sub_tree</code> 搜索 <code class="literal">base_dn</code> 中的所有对象。
+<code class="literal">base</code> 指定 <code class="literal">base_dn</code> 是用户对象，并且是唯一被考虑的用户。
+默认值为 <code class="literal">sub_tree</code>。
 </dd>
 <dt>
 <span class="term">
@@ -668,9 +675,9 @@ the only user considered. Defaults to <code class="literal">sub_tree</code>.
 </span>
 </dt>
 <dd>
-Specifies the filter used to search the directory in attempts to match
-an entry with the username provided by the user. Defaults to <code class="literal">(uid={0})</code>.
-<code class="literal">{0}</code> is substituted with the username provided when searching.
+指定用于搜索目录的过滤器，以尝试将条目与用户提供的用户名相匹配。
+默认值为 <code class="literal">(uid={0})</code>。
+<code class="literal">{0}</code> 会被替换为搜索时提供的用户名。
 </dd>
 <dt>
 <span class="term">
@@ -1115,9 +1122,10 @@ prior to 11 and is included in the default list only when using Java 11 or above
 </span>
 </dt>
 <dd>
-Specifies the time-to-live for cached user entries. A user and a hash of its
-credentials are cached for this period of time. Use the standard Elasticsearch
-<a class="xref" href="common-options.html#time-units" title="Time units">time units</a>. Defaults to  <code class="literal">20m</code>.
+缓存的用户的生存时间。
+在这段时间内，用户及其凭证的哈希值将被缓存。
+用 Elasticsearch 标准的<a class="xref" href="common-options.html#time-units" title="Time units">time units (时间单位)</a>指定时间段。
+默认为 <code class="literal">20m</code> 即 20 分钟。
 </dd>
 <dt>
 <span class="term">
@@ -1143,20 +1151,18 @@ in-memory cached user credentials. See <a class="xref" href="security-settings.h
 </span>
 </dt>
 <dd>
-If set to <code class="literal">false</code>, disables authentication support in
-this realm, so that it only supports user lookups.
-(See the <a class="xref" href="run-as-privilege.html" title="Submitting requests on behalf of other users">run as</a> and
-<a class="xref" href="realm-chains.html#authorization_realms" title="Delegating authorization to another realm">authorization realms</a> features).
-Defaults to <code class="literal">true</code>.
+如果设置为 <code class="literal">false</code>，则在该 realm 中禁用对身份验证的支持，这就仅支持用户查找了。
+(参考 <a class="xref" href="run-as-privilege.html" title="Submitting requests on behalf of other users">运行方式 (run as)</a> 和 <a class="xref" href="realm-chains.html#authorization_realms" title="Delegating authorization to another realm">授权 realms</a> 功能)。
+默认为 <code class="literal">true</code>。
 </dd>
 </dl>
 </div>
 <h5>
 <a id="ref-ad-settings"></a>Active Directory realm settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
 </h5>
-<p>The <code class="literal">type</code> setting must be set to <code class="literal">active_directory</code>. In addition to the
-<a class="xref" href="security-settings.html#ref-realm-settings" title="Settings valid for all realms">settings that are valid for all realms</a>, you can specify
-the following settings:</p>
+<p>The <code class="literal">type</code> setting must be set to <code class="literal">active_directory</code>. 
+除了<a class="xref" href="security-settings.html#ref-realm-settings" title="Settings valid for all realms">对所有realm都有效的设置</a>之外，你还可以指定以下可选设置:
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -1166,16 +1172,22 @@ the following settings:</p>
 </dt>
 <dd>
 <p>
-One or more LDAP URLs in the <code class="literal">ldap[s]://&lt;server&gt;:&lt;port&gt;</code> format. Defaults to
-<code class="literal">ldap://&lt;domain_name&gt;:389</code>. This setting is required when connecting using
-SSL/TLS or when using a custom port.
+<code class="literal">ldap[s]://&lt;server&gt;:&lt;port&gt;</code> 格式的一个或多个 LDAP url地址。
+默认为 <code class="literal">ldap://&lt;domain_name&gt;:389</code>。
+ 
+This setting is required when connecting using SSL/TLS or when using a custom port.
 </p>
-<p>To provide multiple URLs, use a YAML array (<code class="literal">["ldap://server1:636", "ldap://server2:636"]</code>)
-or comma-separated string (<code class="literal">"ldap://server1:636, ldap://server2:636"</code>).</p>
-<p>While both are supported, you can’t mix the <code class="literal">ldap</code> and <code class="literal">ldaps</code> protocols.</p>
-<p>If no URL is provided, Elasticsearch uses a default of <code class="literal">ldap://&lt;domain_name&gt;:389</code>. This
-default uses the <code class="literal">domain_name</code> setting value and assumes an unencrypted
-connection to port 389.</p>
+<p>
+如果要提供多个 url 地址，使用 YAML 数组 (<code class="literal">["ldap://server1:636", "ldap://server2:636"]</code>) 或者逗号分隔的字符串 (<code class="literal">"ldap://server1:636, ldap://server2:636"</code>)。
+</p>
+<p>
+虽然两者都受支持，但是不能混合使用<code class="literal">ldap</code>和<code class="literal">ldaps</code>协议。
+</p>
+<p>
+If no URL is provided, Elasticsearch uses a default of <code class="literal">ldap://&lt;domain_name&gt;:389</code>.
+
+This default uses the <code class="literal">domain_name</code> setting value and assumes an unencrypted connection to port 389.
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -1183,9 +1195,9 @@ connection to port 389.</p>
 </span>
 </dt>
 <dd>
-The behavior to use when there are multiple LDAP URLs defined. For supported
-values see <a class="xref" href="security-settings.html#load-balancing" title="Load balancing and failover">load balancing and failover types</a>.
-Defaults to <code class="literal">failover</code>.
+定义了多个 LDAP url地址时使用的行为。
+关于支持的值，请参考 <a class="xref" href="security-settings.html#load-balancing" title="Load balancing and failover">负载均衡和故障转移类型</a>。
+默认值为 <code class="literal">failover</code>。
 </dd>
 <dt>
 <span class="term">
@@ -1193,9 +1205,8 @@ Defaults to <code class="literal">failover</code>.
 </span>
 </dt>
 <dd>
-When using <code class="literal">dns_failover</code> or <code class="literal">dns_round_robin</code> as the load balancing type,
-this setting controls the amount of time to cache DNS lookups. Defaults
-to <code class="literal">1h</code>.
+当负载均衡的类型为 <code class="literal">dns_failover</code> 或 <code class="literal">dns_round_robin</code> 时，这个设置用来控制 DNS 查找缓存的时间。
+默认值为 <code class="literal">1h</code>。
 </dd>
 <dt>
 <span class="term">
@@ -1214,8 +1225,8 @@ setting. Required.
 </dt>
 <dd>
 The DN of the user that is used to bind to Active Directory and perform searches.
-Defaults to Empty. Due to its potential security impact, <code class="literal">bind_dn</code> is not
-exposed via the <a class="xref" href="cluster-nodes-info.html" title="Nodes info API">nodes info API</a>.
+Defaults to Empty.
+由于潜在的安全影响，<code class="literal">bind_dn</code> 没有通过 <a class="xref" href="cluster-nodes-info.html" title="Nodes info API">节点信息API</a>公开。
 </dd>
 <dt>
 <span class="term">
@@ -1704,10 +1715,10 @@ prior to 11 and is included in the default list only when using Java 11 or above
 </span>
 </dt>
 <dd>
-Specifies the time-to-live for cached user entries. A user and a hash of its
-credentials are cached for this configured period of time. Use the
-standard Elasticsearch <a class="xref" href="common-options.html#time-units" title="Time units">time units</a>).
-Defaults to <code class="literal">20m</code>.
+缓存的用户的生存时间。
+在这段时间内，用户及其凭证的哈希值将被缓存。
+用 Elasticsearch 标准的<a class="xref" href="common-options.html#time-units" title="Time units">time units (时间单位)</a>指定时间段。
+默认为 <code class="literal">20m</code> 即 20 分钟。
 </dd>
 <dt>
 <span class="term">
@@ -1733,11 +1744,9 @@ the in-memory cached user credentials. See <a class="xref" href="security-settin
 </span>
 </dt>
 <dd>
-If set to <code class="literal">false</code>, disables authentication support in
-this realm, so that it only supports user lookups.
-(See the <a class="xref" href="run-as-privilege.html" title="Submitting requests on behalf of other users">run as</a> and
-<a class="xref" href="realm-chains.html#authorization_realms" title="Delegating authorization to another realm">authorization realms</a> features).
-Defaults to <code class="literal">true</code>.
+如果设置为 <code class="literal">false</code>，则在该 realm 中禁用对身份验证的支持，这就仅支持用户查找了。
+(参考 <a class="xref" href="run-as-privilege.html" title="Submitting requests on behalf of other users">运行方式 (run as)</a> 和 <a class="xref" href="realm-chains.html#authorization_realms" title="Delegating authorization to another realm">授权 realms</a> 功能)。
+默认为 <code class="literal">true</code>。
 </dd>
 <dt>
 <span class="term">
@@ -1754,9 +1763,9 @@ LDAP operation (such as <code class="literal">search</code>). Defaults to <code 
 <h5>
 <a id="ref-pki-settings"></a>PKI realm settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
 </h5>
-<p>The <code class="literal">type</code> setting must be set to <code class="literal">pki</code>. In addition to the
-<a class="xref" href="security-settings.html#ref-realm-settings" title="Settings valid for all realms">settings that are valid for all realms</a>, you can specify
-the following settings:</p>
+<p>The <code class="literal">type</code> setting must be set to <code class="literal">pki</code>. 
+除了<a class="xref" href="security-settings.html#ref-realm-settings" title="Settings valid for all realms">对所有realm都有效的设置</a>之外，你还可以指定以下可选设置:
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -1833,10 +1842,9 @@ Defaults to <code class="literal">ES_PATH_CONF/role_mapping.yml</code>.
 </span>
 </dt>
 <dd>
-The names of the realms that should be consulted for delegated authorization.
-If this setting is used, then the PKI realm does not perform role mapping and
-instead loads the user from the listed realms.
-See <a class="xref" href="realm-chains.html#authorization_realms" title="Delegating authorization to another realm">Delegating authorization to another realm</a>.
+委托授权时应咨询的 realm 的名称。
+如果使用此设置，则 KPI realm 不执行角色映射，而是从列出的 realms 加载用户。
+参考 <a class="xref" href="realm-chains.html#authorization_realms" title="Delegating authorization to another realm">将授权委托给另一个 realm</a>。
 </dd>
 <dt>
 <span class="term">
@@ -1844,10 +1852,10 @@ See <a class="xref" href="realm-chains.html#authorization_realms" title="Delegat
 </span>
 </dt>
 <dd>
-Specifies the time-to-live for cached user entries. A user and a hash of its
-credentials are cached for this period of time. Use the
-standard Elasticsearch <a class="xref" href="common-options.html#time-units" title="Time units">time units</a>).
-Defaults to <code class="literal">20m</code>.
+缓存的用户的生存时间。
+在这段时间内，用户及其凭证的哈希值将被缓存。
+用 Elasticsearch 标准的<a class="xref" href="common-options.html#time-units" title="Time units">time units (时间单位)</a>指定时间段。
+默认为 <code class="literal">20m</code> 即 20 分钟。
 </dd>
 <dt>
 <span class="term">
@@ -1878,9 +1886,9 @@ must be defined. For more details, see <a class="xref" href="pki-realm.html#pki-
 <h5>
 <a id="ref-saml-settings"></a>SAML realm settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
 </h5>
-<p>The <code class="literal">type</code> setting must be set to <code class="literal">saml</code>. In addition to the
-<a class="xref" href="security-settings.html#ref-realm-settings" title="Settings valid for all realms">settings that are valid for all realms</a>, you can specify
-the following settings:</p>
+<p>The <code class="literal">type</code> setting must be set to <code class="literal">saml</code>. 
+除了<a class="xref" href="security-settings.html#ref-realm-settings" title="Settings valid for all realms">对所有realm都有效的设置</a>之外，你还可以指定以下可选设置:
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -2102,10 +2110,9 @@ provided by the SAML attributes. Defaults to <code class="literal">true</code>.
 </span>
 </dt>
 <dd>
-The names of the realms that should be consulted for delegated authorization.
-If this setting is used, then the SAML realm does not perform role mapping and
-instead loads the user from the listed realms.
-See <a class="xref" href="realm-chains.html#authorization_realms" title="Delegating authorization to another realm">Delegating authorization to another realm</a>.
+委托授权时应咨询的 realm 的名称。
+如果使用此设置，则 SAML realm 不执行角色映射，而是从列出的 realms 加载用户。
+参考 <a class="xref" href="realm-chains.html#authorization_realms" title="Delegating authorization to another realm">将授权委托给另一个 realm</a>。
 </dd>
 <dt>
 <span class="term">
@@ -2602,9 +2609,9 @@ prior to 11 and is included in the default list only when using Java 11 or above
 <h5>
 <a id="ref-kerberos-settings"></a>Kerberos realm settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
 </h5>
-<p>For a Kerberos realm, the <code class="literal">type</code> must be set to <code class="literal">kerberos</code>. In addition to the
-<a class="xref" href="security-settings.html#ref-realm-settings" title="Settings valid for all realms">settings that are valid for all realms</a>, you can specify
-the following settings:</p>
+<p>For a Kerberos realm, the <code class="literal">type</code> must be set to <code class="literal">kerberos</code>. 
+除了<a class="xref" href="security-settings.html#ref-realm-settings" title="Settings valid for all realms">对所有realm都有效的设置</a>之外，你还可以指定以下可选设置:
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -2643,9 +2650,10 @@ provides support for Kerberos authentication. Defaults to <code class="literal">
 </span>
 </dt>
 <dd>
-The time-to-live for cached user entries. A user is cached for
-this period of time. Specify the time period using the standard Elasticsearch
-<a class="xref" href="common-options.html#time-units" title="Time units">time units</a>. Defaults to <code class="literal">20m</code>.
+缓存的用户的生存时间。
+在这段时间内，用户将被缓存。
+用 Elasticsearch 标准的<a class="xref" href="common-options.html#time-units" title="Time units">time units (时间单位)</a>指定时间段。
+默认为 <code class="literal">20m</code> 即 20 分钟。
 </dd>
 <dt>
 <span class="term">
@@ -2653,8 +2661,7 @@ this period of time. Specify the time period using the standard Elasticsearch
 </span>
 </dt>
 <dd>
-The maximum number of user entries that can live in the
-cache at any given time. Defaults to 100,000.
+在任何给定时间内，可以存在于缓存中的最大用户数量。默认为 100,000。
 </dd>
 <dt>
 <span class="term">
@@ -2662,18 +2669,18 @@ cache at any given time. Defaults to 100,000.
 </span>
 </dt>
 <dd>
-The names of the realms that should be consulted for delegated authorization.
-If this setting is used, then the Kerberos realm does not perform role mapping and
-instead loads the user from the listed realms.
-See <a class="xref" href="realm-chains.html#authorization_realms" title="Delegating authorization to another realm">Delegating authorization to another realm</a>.
+委托授权时应咨询的 realm 的名称。
+如果使用此设置，则 Kerberos realm 不执行角色映射，而是从列出的 realms 加载用户。
+参考 <a class="xref" href="realm-chains.html#authorization_realms" title="Delegating authorization to another realm">将授权委托给另一个 realm</a>。
 </dd>
 </dl>
 </div>
 <h5>
 <a id="ref-oidc-settings"></a>OpenID Connect realm settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
 </h5>
-<p>In addition to the <a class="xref" href="security-settings.html#ref-realm-settings" title="Settings valid for all realms">settings that are valid for all realms</a>, you
-can specify the following settings:</p>
+<p>
+除了<a class="xref" href="security-settings.html#ref-realm-settings" title="Settings valid for all realms">对所有realm都有效的设置</a>之外，你还可以指定以下可选设置:
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -3248,7 +3255,7 @@ prior to 11 and is included in the default list only when using Java 11 or above
 </dl>
 </div>
 <h5>
-<a id="load-balancing"></a>Load balancing and failover<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
+<a id="load-balancing"></a>负载均衡和失效 (load balancing and failover)
 </h5>
 <p>The <code class="literal">load_balance.type</code> setting can have the following values:</p>
 <div class="ulist itemizedlist">

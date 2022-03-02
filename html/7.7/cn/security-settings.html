@@ -447,7 +447,7 @@ realm 链中 realm 的优先级。值越小，越先被咨询。
 </span>
 </dt>
 <dd>
-在任何给定时间内，可以存在于缓存中的最大用户数量。默认为 100,000。
+在任何给定时间内，可以存在于缓存中的最大用户数量。默认为 <code class="literal">100000</code>
 </dd>
 <dt>
 <span class="term">
@@ -496,7 +496,7 @@ realm 链中 realm 的优先级。值越小，越先被咨询。
 </span>
 </dt>
 <dd>
-在任何给定时间内，可以存在于缓存中的最大用户数量。默认为 100,000。
+在任何给定时间内，可以存在于缓存中的最大用户数量。默认为 <code class="literal">100000</code>
 </dd>
 <dt>
 <span class="term">
@@ -688,10 +688,10 @@ realm 链中 realm 的优先级。值越小，越先被咨询。
 <span class="Admonishment Admonishment--change">
 [<span class="Admonishment-version u-mono u-strikethrough">5.6</span>]
 <span class="Admonishment-detail">
-Deprecated in 5.6.
+在 5.6 中废弃。
 </span>
-</span> Use <code class="literal">user_search.filter</code> instead.
-The attribute to match with the username sent with the request. Defaults to <code class="literal">uid</code>.
+</span> 使用 <code class="literal">user_search.filter</code> 替代之。
+与请求发送的用户名匹配的属性。默认为 <code class="literal">uid</code>。
 </dd>
 <dt>
 <span class="term">
@@ -699,9 +699,9 @@ The attribute to match with the username sent with the request. Defaults to <cod
 </span>
 </dt>
 <dd>
-Enables or disables connection pooling for user search. If set to <code class="literal">false</code>, a new
-connection is created for every search. The
-default is <code class="literal">true</code> when <code class="literal">bind_dn</code> is set.
+为用户搜索启用或禁用连接池。
+如果设置为<code class="literal">false</code>，则每次搜索都会创建一个新的连接。
+当设置了 <code class="literal">bind_dn</code> 时， 默认值为 <code class="literal">true</code>。
 </dd>
 <dt>
 <span class="term">
@@ -709,8 +709,8 @@ default is <code class="literal">true</code> when <code class="literal">bind_dn<
 </span>
 </dt>
 <dd>
-The maximum number of connections to the LDAP server to allow in the
-connection pool. Defaults to <code class="literal">20</code>.
+连接池中允许的 LDAP 服务器的最大连接数。
+默认值为 <code class="literal">20</code>。
 </dd>
 <dt>
 <span class="term">
@@ -718,9 +718,8 @@ connection pool. Defaults to <code class="literal">20</code>.
 </span>
 </dt>
 <dd>
-The initial number of connections to create to the LDAP server on startup.
-Defaults to <code class="literal">0</code>. If the LDAP server is down, values greater than <code class="literal">0</code> could cause
-startup failures.
+在启动时要创建到 LDAP 服务器的初始连接数。默认为 <code class="literal">0</code>。
+如果 LDAP 服务器关闭，大于<code class="literal">0</code>的值可能会导致启动失败。
 </dd>
 <dt>
 <span class="term">
@@ -728,9 +727,9 @@ startup failures.
 </span>
 </dt>
 <dd>
-Enables or disables a health check on LDAP connections in the connection
-pool. Connections are checked in the background at the specified interval.
-Defaults to <code class="literal">true</code>.
+启用或禁用连接池中 LDAP 连接的健康检查。 
+以指定的时间间隔在后台检查连接。
+默认值为 <code class="literal">true</code>。
 </dd>
 <dt>
 <span class="term">
@@ -738,9 +737,10 @@ Defaults to <code class="literal">true</code>.
 </span>
 </dt>
 <dd>
-The distinguished name that is retrieved as part of the health check.
-Defaults to the value of <code class="literal">bind_dn</code> if present; if
-not, falls back to <code class="literal">user_search.base_dn</code>.
+健康检查时需要使用的 识别名(dn, distinguished name)。
+<span class="remark">原文: The distinguished name that is retrieved as part of the health check.</span>
+
+默认值为 <code class="literal">bind_dn</code> (如果存在)；如果没有，则返回到 <code class="literal">user_search.base_dn</code>。
 </dd>
 <dt>
 <span class="term">
@@ -748,8 +748,7 @@ not, falls back to <code class="literal">user_search.base_dn</code>.
 </span>
 </dt>
 <dd>
-The interval to perform background checks of connections in the pool.
-Defaults to <code class="literal">60s</code>.
+对连接池中的连接执行后台检查的时间间隔。默认为 <code class="literal">60s</code>。
 </dd>
 <dt>
 <span class="term">
@@ -757,9 +756,8 @@ Defaults to <code class="literal">60s</code>.
 </span>
 </dt>
 <dd>
-The container DN to search for groups in which the user has membership. When
-this element is absent, Elasticsearch searches for the attribute specified by
-<code class="literal">user_group_attribute</code> set on the user in order to determine group membership.
+用于搜索用户所属的组的容器 DN。
+当缺少此元素时，Elasticsearch 搜索由用户上设置的<code class="literal">user_group_attribute</code>指定的属性，以确定组成员关系。
 </dd>
 <dt>
 <span class="term">
@@ -767,11 +765,11 @@ this element is absent, Elasticsearch searches for the attribute specified by
 </span>
 </dt>
 <dd>
-Specifies whether the group search should be <code class="literal">sub_tree</code>, <code class="literal">one_level</code> or
-<code class="literal">base</code>.  <code class="literal">one_level</code> only searches objects directly contained within the
-<code class="literal">base_dn</code>. <code class="literal">sub_tree</code> searches all objects contained under <code class="literal">base_dn</code>.
-<code class="literal">base</code> specifies that the <code class="literal">base_dn</code> is a group object, and that it is the
-only group considered. Defaults to  <code class="literal">sub_tree</code>.
+指定组搜索应该是<code class="literal">sub_tree</code>、<code class="literal">one_level</code> 还是 <code class="literal">base</code>。
+<code class="literal">one_level</code> 搜索直接包含在 <code class="literal">base_dn</code>中的对象。
+<code class="literal">sub_tree</code> 搜索 <code class="literal">base_dn</code> 中的所有对象。
+<code class="literal">base</code> 指定 <code class="literal">base_dn</code> 是组对象，并且是唯一被考虑的组。
+默认值为 <code class="literal">sub_tree</code>。
 </dd>
 <dt>
 <span class="term">
@@ -779,11 +777,9 @@ only group considered. Defaults to  <code class="literal">sub_tree</code>.
 </span>
 </dt>
 <dd>
-Specifies a filter to use to look up a group.
-When not set, the realm searches for <code class="literal">group</code>, <code class="literal">groupOfNames</code>, <code class="literal">groupOfUniqueNames</code>,
-or <code class="literal">posixGroup</code> with the attributes <code class="literal">member</code>, <code class="literal">memberOf</code>, or <code class="literal">memberUid</code>.  Any
-instance of <code class="literal">{0}</code> in the filter is replaced by the user attribute defined in
-<code class="literal">group_search.user_attribute</code>.
+指定用于查找组的筛选器。
+如果未设置，realm 将使用属性<code class="literal">member</code>、<code class="literal">memberOf</code> 或 <code class="literal">memberUid</code>搜索 <code class="literal">group</code>、<code class="literal">groupOfNames</code>、<code class="literal">groupOfUniqueNames</code> 或 <code class="literal">posixGroup</code>。
+筛选器中的任何<code class="literal">{0}</code>实例都被<code class="literal">group_search.user_attribute</code>中定义的用户属性替换。
 </dd>
 <dt>
 <span class="term">
@@ -791,8 +787,9 @@ instance of <code class="literal">{0}</code> in the filter is replaced by the us
 </span>
 </dt>
 <dd>
-Specifies the user attribute that is fetched and provided as a parameter to
-the filter.  If not set, the user DN is passed into the filter. Defaults to Empty.
+指定提取并作为参数提供给过滤器的用户属性。
+如果未设置，则用户 DN 被传递到过滤器中。
+默认为空。
 </dd>
 <dt>
 <span class="term">
@@ -800,10 +797,10 @@ the filter.  If not set, the user DN is passed into the filter. Defaults to Empt
 </span>
 </dt>
 <dd>
-If set to <code class="literal">true</code>, the names of any unmapped LDAP groups are used as role names
-and assigned to the user. A group is considered to be <em>unmapped</em> if it is not
-referenced in a <a class="xref" href="mapping-roles.html#mapping-roles-file" title="Using role mapping files">role-mapping file</a>. API-based
-role mappings are not considered. Defaults to <code class="literal">false</code>.
+如果设置为 <code class="literal">true</code>，任何 未映射(unmapped) 的 LDAP 组的名称将用作角色名称并分配给用户。
+如果在 <a class="xref" href="mapping-roles.html#mapping-roles-file" title="Using role mapping files">角色映射(role-mapping)文件</a>中没有引用某个组，则该组被视为<em>未映射(unmapped)</em>。
+不考虑基于 API 的角色映射。
+默认为 <code class="literal">false</code>
 </dd>
 <dt>
 <span class="term">
@@ -811,9 +808,8 @@ role mappings are not considered. Defaults to <code class="literal">false</code>
 </span>
 </dt>
 <dd>
-The <a class="xref" href="security-files.html" title="Security files">location</a> for the
-<a class="xref" href="mapping-roles.html" title="Mapping users and groups to roles">YAML role mapping configuration file</a>. Defaults to
-<code class="literal">ES_PATH_CONF/role_mapping.yml</code>.
+<a class="xref" href="mapping-roles.html" title="Mapping users and groups to roles">YAML 角色映射配置文件</a> 的 <a class="xref" href="security-files.html" title="Security files">位置(location)</a>。
+默认值为 <code class="literal">ES_PATH_CONF/role_mapping.yml</code>。
 </dd>
 <dt>
 <span class="term">
@@ -821,9 +817,9 @@ The <a class="xref" href="security-files.html" title="Security files">location</
 </span>
 </dt>
 <dd>
-Specifies whether Elasticsearch should follow referrals returned
-by the LDAP server. Referrals are URLs returned by the server that are to be
-used to continue the LDAP operation (for example, search). Defaults to <code class="literal">true</code>.
+指定 Elasticsearch 是否应该遵循 LDAP 服务器返回的引用(referrals)。  
+引用(referrals)是服务器返回的URL，用于继续 LDAP 操作(例如，搜索)。
+默认为 <code class="literal">true</code>。
 </dd>
 <dt>
 <span class="term">
@@ -831,8 +827,7 @@ used to continue the LDAP operation (for example, search). Defaults to <code cla
 </span>
 </dt>
 <dd>
-A list of additional LDAP attributes that should be loaded from the
-LDAP server and stored in the authenticated user’s metadata field.
+应该从 LDAP 服务器加载的附加 LDAP 属性的列表，它们存储在经过身份验证的用户的元数据字段中。
 </dd>
 <dt>
 <span class="term">
@@ -840,9 +835,9 @@ LDAP server and stored in the authenticated user’s metadata field.
 </span>
 </dt>
 <dd>
-The TCP connect timeout period for establishing an LDAP connection.
-An <code class="literal">s</code> at the end indicates seconds, or <code class="literal">ms</code> indicates milliseconds.
-Defaults to <code class="literal">5s</code> (5 seconds ).
+建立 LDAP 连接的 TCP 连接超时时间。
+<code class="literal">s</code>结尾的表示秒，<code class="literal">ms</code>结尾的表示毫秒。
+默认值为 <code class="literal">5s</code> (5秒)。
 </dd>
 <dt>
 <span class="term">
@@ -853,12 +848,11 @@ Defaults to <code class="literal">5s</code> (5 seconds ).
 <span class="Admonishment Admonishment--change">
 [<span class="Admonishment-version u-mono u-strikethrough">7.7</span>]
 <span class="Admonishment-detail">
-Deprecated in 7.7.
+在 7.7 中废弃。
 </span>
-</span> The TCP read timeout period after establishing an LDAP
-connection. This is equivalent to and is deprecated in favor of
-<code class="literal">timeout.response</code> and they cannot be used simultaneously. An <code class="literal">s</code> at the end
-indicates seconds, or <code class="literal">ms</code> indicates milliseconds.
+</span> 建立 LDAP 连接后的 TCP 读取超时时间。 
+它等价于<code class="literal">timeout.response</code>，但(相比于后者)不再不推荐使用它，且它们不能同时使用。
+<code class="literal">s</code>结尾的表示秒，<code class="literal">ms</code>结尾的表示毫秒。
 </dd>
 <dt>
 <span class="term">
@@ -866,9 +860,9 @@ indicates seconds, or <code class="literal">ms</code> indicates milliseconds.
 </span>
 </dt>
 <dd>
-The time interval to wait for the response from the LDAP server. An <code class="literal">s</code> at the
-end indicates seconds, or <code class="literal">ms</code> indicates milliseconds. Defaults to the value of
-<code class="literal">timeout.ldap_search</code>.
+等待 LDAP 服务器响应的时间间隔。
+<code class="literal">s</code>结尾的表示秒，<code class="literal">ms</code>结尾的表示毫秒。
+默认值为 <code class="literal">timeout.ldap_search</code>。
 </dd>
 <dt>
 <span class="term">
@@ -876,10 +870,10 @@ end indicates seconds, or <code class="literal">ms</code> indicates milliseconds
 </span>
 </dt>
 <dd>
-The timeout period for an LDAP search. The value is specified in the request
-and is enforced by the receiving LDAP Server.
-An <code class="literal">s</code> at the end indicates seconds, or <code class="literal">ms</code> indicates milliseconds.
-Defaults to <code class="literal">5s</code> (5 seconds ).
+LDAP 搜索的超时时间。
+该值在请求中指定，并由接收 LDAP 服务器强制执行。
+<code class="literal">s</code>结尾的表示秒，<code class="literal">ms</code>结尾的表示毫秒。
+默认值为 <code class="literal">5s</code> (5秒)。
 </dd>
 <dt>
 <span class="term">
@@ -888,10 +882,12 @@ Defaults to <code class="literal">5s</code> (5 seconds ).
 </dt>
 <dd>
 <p>
-Path to a PEM encoded file containing the private key.
+包含私钥的 PEM 编码文件的路径。
 </p>
-<p>If the LDAP server requires client authentication, it uses this file. You cannot
-use this setting and <code class="literal">ssl.keystore.path</code> at the same time.</p>
+<p>
+如果 LDAP 服务器需要客户端身份验证，则将使用该文件。
+这个设置不能与 <code class="literal">ssl.keystore.path</code> 同时使用。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -899,17 +895,17 @@ use this setting and <code class="literal">ssl.keystore.path</code> at the same 
 </span>
 </dt>
 <dd>
-The passphrase that is used to decrypt the private key. Since the key might not
-be encrypted, this value is optional.
+用于解密私钥的密码。
+由于密钥可能没有加密，因此该值是可选的。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">ssl.secure_key_passphrase</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">ssl.secure_key_passphrase</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-The passphrase that is used to decrypt the private key. Since the key might not
-be encrypted, this value is optional.
+用于解密私钥的密码。
+由于密钥可能没有加密，因此该值是可选的。.
 </dd>
 <dt>
 <span class="term">
@@ -917,11 +913,8 @@ be encrypted, this value is optional.
 </span>
 </dt>
 <dd>
-<p>
-Specifies the path for the PEM encoded certificate (or certificate chain) that is
-associated with the key.
-</p>
-<p>This certificate is presented to clients when they connect.</p>
+<p>指定与密钥相关的PEM编码证书(或证书链)的路径。</p>
+<p>客户端连接时会收到此证书。</p>
 </dd>
 <dt>
 <span class="term">
@@ -930,9 +923,9 @@ associated with the key.
 </dt>
 <dd>
 <p>
-List of paths to PEM encoded certificate files that should be trusted.
+应受信任的 PEM 编码证书文件的路径列表。
 </p>
-<p>You cannot use this setting and <code class="literal">ssl.truststore.path</code> at the same time.</p>
+<p>此设置不能与 <code class="literal">ssl.truststore.path</code> 同时使用。</p>
 </dd>
 <dt>
 <span class="term">
@@ -941,9 +934,9 @@ List of paths to PEM encoded certificate files that should be trusted.
 </dt>
 <dd>
 <p>
-The path for the keystore file that contains a private key and certificate.
+包含私钥和证书的密钥库文件的路径。
 </p>
-<p>You cannot use this setting and <code class="literal">ssl.key</code> at the same time.</p>
+<p>此设置不能与 <code class="literal">ssl.key</code> 同时使用。</p>
 </dd>
 <dt>
 <span class="term">
@@ -951,9 +944,8 @@ The path for the keystore file that contains a private key and certificate.
 </span>
 </dt>
 <dd>
-The format of the keystore file. It must be either <code class="literal">jks</code> or <code class="literal">PKCS12</code>. If the
-keystore path ends in ".p12", ".pfx", or ".pkcs12", this setting defaults
-to <code class="literal">PKCS12</code>. Otherwise, it defaults to <code class="literal">jks</code>.
+密钥库文件的格式，必须是 <code class="literal">jks</code> 或 <code class="literal">PKCS12</code>。
+如果秘钥库路径以 ".p12"、".pfx", 或 ".pkcs12" 结尾，则其默认值为 <code class="literal">PKCS12</code>；否则，默认值为 <code class="literal">jks</code>
 </dd>
 <dt>
 <span class="term">
@@ -961,15 +953,15 @@ to <code class="literal">PKCS12</code>. Otherwise, it defaults to <code class="l
 </span>
 </dt>
 <dd>
-The password for the keystore.
+密钥库的密码。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">ssl.keystore.secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">ssl.keystore.secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-The password for the keystore.
+密钥库的密码。
 </dd>
 <dt>
 <span class="term">
@@ -977,7 +969,7 @@ The password for the keystore.
 </span>
 </dt>
 <dd>
-The password for the key in the keystore. The default is the keystore password.
+密钥库中密钥的密码。默认值是密钥库的密码。
 </dd>
 <dt>
 <span class="term">
@@ -985,7 +977,7 @@ The password for the key in the keystore. The default is the keystore password.
 </span>
 </dt>
 <dd>
-The password for the key in the keystore. The default is the keystore password.
+密钥库中密钥的密码。默认值是密钥库的密码。
 </dd>
 <dt>
 <span class="term">
@@ -994,10 +986,10 @@ The password for the key in the keystore. The default is the keystore password.
 </dt>
 <dd>
 <p>
-The path for the keystore that contains the certificates to trust. It must be
-either a Java keystore (jks) or a PKCS#12 file.
+包含要信任的证书的密钥库的路径。
+它必须是 Java密钥库(jks) 或 PKCS#12 文件。
 </p>
-<p>You cannot use this setting and <code class="literal">ssl.certificate_authorities</code> at the same time.</p>
+<p>此设置不能与 <code class="literal">ssl.certificate_authorities</code> 同时使用。</p>
 </dd>
 <dt>
 <span class="term">
@@ -1005,15 +997,15 @@ either a Java keystore (jks) or a PKCS#12 file.
 </span>
 </dt>
 <dd>
-The password for the truststore.
+信任库的密码。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">ssl.truststore.secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">ssl.truststore.secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-Password for the truststore.
+信任库的密码。
 </dd>
 <dt>
 <span class="term">
@@ -1021,9 +1013,11 @@ Password for the truststore.
 </span>
 </dt>
 <dd>
-The format of the truststore file. For the Java keystore format, use <code class="literal">jks</code>. For
-PKCS#12 files, use <code class="literal">PKCS12</code>. For a PKCS#11 token, use <code class="literal">PKCS11</code>. The default is
-<code class="literal">jks</code>.
+信任库文件的格式。
+对于Java秘钥库格式，使用 <code class="literal">jks</code>。
+对于 PKCS#12 文件，使用 <code class="literal">PKCS12</code>。
+对于 PKCS#11 令牌, 使用 <code class="literal">PKCS11</code>。
+默认值为 <code class="literal">jks</code>
 </dd>
 <dt>
 <span class="term">
@@ -1032,28 +1026,24 @@ PKCS#12 files, use <code class="literal">PKCS12</code>. For a PKCS#11 token, use
 </dt>
 <dd>
 <p>
-Indicates the type of verification when using <code class="literal">ldaps</code> to protect against man
-in the middle attacks and certificate forgery.
-Valid values are:
+指示使用 <code class="literal">ldaps</code> 防止中间人攻击和证书伪造时的验证类型。
+可用的值有：
 </p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">full</code>, which verifies that the provided certificate is signed by a trusted
-authority (CA) and also verifies that the server’s hostname (or IP address)
-matches the names identified within the certificate.
+<code class="literal">full</code>，用于验证所提供的证书是否由可信机构(CA)签名，还验证服务器的主机名(或IP地址)是否与证书中标识的名称匹配。
 </li>
 <li class="listitem">
-<code class="literal">certificate</code>, which verifies that the provided certificate is signed by a
-trusted authority (CA), but does not perform any hostname verification.
+<code class="literal">certificate</code>，用于验证所提供的证书是否由可信机构(CA)签名，但不执行任何主机名验证。
 </li>
 <li class="listitem">
-<p><code class="literal">none</code>, which performs <em>no verification</em> of the server’s certificate. This
-mode disables many of the security benefits of SSL/TLS and should only be used
-after very careful consideration. It is primarily intended as a temporary
-diagnostic mechanism when attempting to resolve TLS errors; its use on
-production clusters is strongly discouraged.</p>
-<p>The default value is <code class="literal">full</code>.</p>
+<p>
+<code class="literal">none</code>，<em>不验证</em>服务器的证书。
+这种模式禁用了 SSL/TLS 的许多安全优势，应该在非常谨慎的考虑之后才使用。
+它主要用作尝试解决 TLS 错误时的临时诊断机制；强烈建议不要在生产集群上使用它。
+</p>
+<p>默认值为 <code class="literal">full</code> </p>
 </li>
 </ul>
 </div>
@@ -1065,16 +1055,13 @@ production clusters is strongly discouraged.</p>
 </dt>
 <dd>
 <p>
-Supported protocols with versions. Valid protocols: <code class="literal">SSLv2Hello</code>,
-<code class="literal">SSLv3</code>, <code class="literal">TLSv1</code>, <code class="literal">TLSv1.1</code>, <code class="literal">TLSv1.2</code>, <code class="literal">TLSv1.3</code>. If the JVM’s SSL provider supports TLSv1.3,
-the default is <code class="literal">TLSv1.3,TLSv1.2,TLSv1.1</code>. Otherwise, the default is
-<code class="literal">TLSv1.2,TLSv1.1</code>.
+支持的协议版本。可用的协议包括：<code class="literal">SSLv2Hello</code>，<code class="literal">SSLv3</code>，<code class="literal">TLSv1</code>，<code class="literal">TLSv1.1</code>，<code class="literal">TLSv1.2</code>，<code class="literal">TLSv1.3</code>。
+如果 JVM 的 SSL 提供程序支持 TLSv1.3，则默认值为 <code class="literal">TLSv1.3,TLSv1.2,TLSv1.1</code>；否则，默认值为 <code class="literal">TLSv1.2,TLSv1.1</code>
 </p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If <code class="literal">xpack.security.fips_mode.enabled</code> is <code class="literal">true</code>, you cannot use <code class="literal">SSLv2Hello</code>
-or <code class="literal">SSLv3</code>. See <a class="xref" href="fips-140-compliance.html" title="FIPS 140-2">FIPS 140-2</a>.</p>
+<p>如果 <code class="literal">xpack.security.fips_mode.enabled</code> 为 <code class="literal">true</code>，则不能使用 <code class="literal">SSLv2Hello</code> 或 <code class="literal">SSLv3</code>。参考 <a class="xref" href="fips-140-compliance.html" title="FIPS 140-2">FIPS 140-2</a>。</p>
 </div>
 </div>
 </dd>
@@ -1085,10 +1072,8 @@ or <code class="literal">SSLv3</code>. See <a class="xref" href="fips-140-compli
 </dt>
 <dd>
 <p>
-Specifies the cipher suites that should be supported when
-communicating with the LDAP server.
-Supported cipher suites vary depending on which version of Java you use. For
-example, for version 11 the default value is <code class="literal">TLS_AES_256_GCM_SHA384</code>,
+指定与LDAP服务器通信时应支持的密码套件。
+支持的密码套件因使用的 Java 版本而异。例如，对于版本11，默认值为 <code class="literal">TLS_AES_256_GCM_SHA384</code>,
 <code class="literal">TLS_AES_128_GCM_SHA256</code>, <code class="literal">TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</code>,
 <code class="literal">TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256</code>, <code class="literal">TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</code>,
 <code class="literal">TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256</code>, <code class="literal">TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384</code>,
@@ -1103,18 +1088,15 @@ example, for version 11 the default value is <code class="literal">TLS_AES_256_G
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The default cipher suites list above includes TLSv1.3 ciphers and ciphers
-that require the <em>Java Cryptography Extension (JCE) Unlimited Strength
-Jurisdiction Policy Files</em> for 256-bit AES encryption. If TLSv1.3 is not
-available, the TLSv1.3 ciphers <code class="literal">TLS_AES_256_GCM_SHA384</code> and
-<code class="literal">TLS_AES_128_GCM_SHA256</code> are not included in the default list. If 256-bit AES is
-unavailable, ciphers with <code class="literal">AES_256</code> in their names are not included in the
-default list. Finally, AES GCM has known performance issues in Java versions
-prior to 11 and is included in the default list only when using Java 11 or above.</p>
+<p>
+上面列出的默认密码套件包括 TLSv1.3 密码和需要 <em title="Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files">Java 加密扩展(JCE)无限强度权限策略文件</em>进行256位 AES 加密的密码。
+如果 TLSv1.3 不可用，则 TLSv1.3 密码 <code class="literal">TLS_AES_256_GCM_SHA384</code> 和 <code class="literal">TLS_AES_128_GCM_SHA256</code> 不会包括在默认列表中。
+如果 256-bit AES 不可用，则名字中有<code class="literal">AES_256</code>的密码不会包含在默认列表中。
+最后，AES GCM 在 Java 11 之前的版本中存在已知的性能问题，只有在使用 Java 11 或更高版本时才会包含在默认列表中。
+</p>
 </div>
 </div>
-<p>For more information, see Oracle’s
-<a href="https://docs.oracle.com/en/java/javase/11/security/oracle-providers.html#GUID-7093246A-31A3-4304-AC5F-5FB6400405E2" class="ulink" target="_top">Java Cryptography Architecture documentation</a>.</p>
+<p>有关更多信息，请参见Oracle的 <a href="https://docs.oracle.com/en/java/javase/11/security/oracle-providers.html#GUID-7093246A-31A3-4304-AC5F-5FB6400405E2" class="ulink" target="_top">Java加密体系结构文档</a> 。</p>
 </dd>
 <dt>
 <span class="term">
@@ -1133,8 +1115,8 @@ prior to 11 and is included in the default list only when using Java 11 or above
 </span>
 </dt>
 <dd>
-Specifies the maximum number of user entries that the cache can contain.
-Defaults to <code class="literal">100000</code>.
+指定缓存可以包含的最大用户数。
+默认为 <code class="literal">100000</code>
 </dd>
 <dt>
 <span class="term">
@@ -1142,8 +1124,9 @@ Defaults to <code class="literal">100000</code>.
 </span>
 </dt>
 <dd>
-(Expert Setting) Specifies the hashing algorithm that is used for the
-in-memory cached user credentials. See <a class="xref" href="security-settings.html#cache-hash-algo" title="Cache hash algorithms">Table 1, “Cache hash algorithms”</a>. Defaults to <code class="literal">ssha256</code>.
+(专家级设置) 用于缓存在内存中的用户凭据的哈希算法。
+参考 <a class="xref" href="security-settings.html#cache-hash-algo" title="Cache hash algorithms">表 1, “缓存哈希算法”</a>.
+默认值为 <code class="literal">ssha256</code>。
 </dd>
 <dt>
 <span class="term">
@@ -1158,9 +1141,9 @@ in-memory cached user credentials. See <a class="xref" href="security-settings.h
 </dl>
 </div>
 <h5>
-<a id="ref-ad-settings"></a>Active Directory realm settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
+<a id="ref-ad-settings"></a>Active Directory(活动目录/域控制器) realm 设置
 </h5>
-<p>The <code class="literal">type</code> setting must be set to <code class="literal">active_directory</code>. 
+<p><code class="literal">type</code> 设置必须配置为 <code class="literal">active_directory</code>。 
 除了<a class="xref" href="security-settings.html#ref-realm-settings" title="Settings valid for all realms">对所有realm都有效的设置</a>之外，你还可以指定以下可选设置:
 </p>
 <div class="variablelist">
@@ -1174,8 +1157,7 @@ in-memory cached user credentials. See <a class="xref" href="security-settings.h
 <p>
 <code class="literal">ldap[s]://&lt;server&gt;:&lt;port&gt;</code> 格式的一个或多个 LDAP url地址。
 默认为 <code class="literal">ldap://&lt;domain_name&gt;:389</code>。
- 
-This setting is required when connecting using SSL/TLS or when using a custom port.
+使用 SSL/TLS 连接或使用自定义端口时，必须设置。
 </p>
 <p>
 如果要提供多个 url 地址，使用 YAML 数组 (<code class="literal">["ldap://server1:636", "ldap://server2:636"]</code>) 或者逗号分隔的字符串 (<code class="literal">"ldap://server1:636, ldap://server2:636"</code>)。
@@ -1184,9 +1166,8 @@ This setting is required when connecting using SSL/TLS or when using a custom po
 虽然两者都受支持，但是不能混合使用<code class="literal">ldap</code>和<code class="literal">ldaps</code>协议。
 </p>
 <p>
-If no URL is provided, Elasticsearch uses a default of <code class="literal">ldap://&lt;domain_name&gt;:389</code>.
-
-This default uses the <code class="literal">domain_name</code> setting value and assumes an unencrypted connection to port 389.
+如果 URL 未指定，Elasticsearch 会使用默认值 <code class="literal">ldap://&lt;domain_name&gt;:389</code>。
+此默认值使用 <code class="literal">domain_name</code> 的值，并假设到端口 389 的连接未加密。
 </p>
 </dd>
 <dt>
@@ -1197,7 +1178,7 @@ This default uses the <code class="literal">domain_name</code> setting value and
 <dd>
 定义了多个 LDAP url地址时使用的行为。
 关于支持的值，请参考 <a class="xref" href="security-settings.html#load-balancing" title="Load balancing and failover">负载均衡和故障转移类型</a>。
-默认值为 <code class="literal">failover</code>。
+默认值为 <code class="literal">failover</code>
 </dd>
 <dt>
 <span class="term">
@@ -1206,7 +1187,7 @@ This default uses the <code class="literal">domain_name</code> setting value and
 </dt>
 <dd>
 当负载均衡的类型为 <code class="literal">dns_failover</code> 或 <code class="literal">dns_round_robin</code> 时，这个设置用来控制 DNS 查找缓存的时间。
-默认值为 <code class="literal">1h</code>。
+默认值为 <code class="literal">1h</code>
 </dd>
 <dt>
 <span class="term">
@@ -1214,9 +1195,8 @@ This default uses the <code class="literal">domain_name</code> setting value and
 </span>
 </dt>
 <dd>
-The domain name of Active Directory. If the <code class="literal">url</code> and the <code class="literal">user_search.base_dn</code>
-settings are not specified, the cluster can derive those values from this
-setting. Required.
+Active Directory 的 域名(domain name)。 
+如果 <code class="literal">url</code> 和 <code class="literal">user_search.base_dn</code> 设置未指定，群集可以从该设置中获取这些值。必填。
 </dd>
 <dt>
 <span class="term">
@@ -1224,9 +1204,9 @@ setting. Required.
 </span>
 </dt>
 <dd>
-The DN of the user that is used to bind to Active Directory and perform searches.
-Defaults to Empty.
-由于潜在的安全影响，<code class="literal">bind_dn</code> 没有通过 <a class="xref" href="cluster-nodes-info.html" title="Nodes info API">节点信息API</a>公开。
+用于绑定到 Active Directory 并执行搜索的用户的 DN。
+默认为空。
+由于潜在的安全影响，<code class="literal">bind_dn</code> 没有通过 <a class="xref" href="cluster-nodes-info.html" title="Nodes info API">节点信息API</a> 公开。
 </dd>
 <dt>
 <span class="term">
@@ -1237,21 +1217,21 @@ Defaults to Empty.
 <span class="Admonishment Admonishment--change">
 [<span class="Admonishment-version u-mono u-strikethrough">6.3</span>]
 <span class="Admonishment-detail">
-Deprecated in 6.3.
+在 6.3 中废弃。
 </span>
-</span> Use <code class="literal">secure_bind_password</code> instead. The password for the user
-that is used to bind to Active Directory. Defaults to Empty. Due to its
-potential security impact, <code class="literal">bind_password</code> is not exposed via the
-<a class="xref" href="cluster-nodes-info.html" title="Nodes info API">nodes info API</a>.
+</span> 使用 <code class="literal">secure_bind_password</code> 替代之。
+用于绑定到 Active Directory 的用户的密码。 
+默认为空。
+由于潜在的安全影响，<code class="literal">bind_password</code> 没有通过 <a class="xref" href="cluster-nodes-info.html" title="Nodes info API">节点信息API</a> 公开。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">secure_bind_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">secure_bind_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-The password for the user that is used to bind to Active Directory.
-Defaults to Empty.
+用于绑定到 Active Directory 的用户的密码。 
+默认为空。
 </dd>
 <dt>
 <span class="term">
@@ -1259,10 +1239,10 @@ Defaults to Empty.
 </span>
 </dt>
 <dd>
-If set to <code class="literal">true</code>, the names of any unmapped Active Directory groups are used as
-role names and assigned to the user. A group is considered <em>unmapped</em> when it
-is not referenced in any role-mapping files. API-based role mappings are not
-considered. Defaults to <code class="literal">false</code>.
+如果设置为 <code class="literal">true</code>，任何 未映射(unmapped) 的 Active Directory 组的名称将用作角色名称并分配给用户。
+如果在 <a class="xref" href="mapping-roles.html#mapping-roles-file" title="Using role mapping files">角色映射(role-mapping)文件</a>中没有引用某个组，则该组被视为<em>未映射(unmapped)</em>。
+不考虑基于 API 的角色映射。
+默认为 <code class="literal">false</code>。
 </dd>
 <dt>
 <span class="term">
@@ -1270,8 +1250,8 @@ considered. Defaults to <code class="literal">false</code>.
 </span>
 </dt>
 <dd>
-The <a class="xref" href="security-files.html" title="Security files">location</a> for the YAML
-role mapping configuration file. Defaults to <code class="literal">ES_PATH_CONF/role_mapping.yml</code>.
+<a class="xref" href="mapping-roles.html" title="Mapping users and groups to roles">YAML 角色映射配置文件</a> 的 <a class="xref" href="security-files.html" title="Security files">位置(location)</a>。
+默认值为 <code class="literal">ES_PATH_CONF/role_mapping.yml</code>。
 </dd>
 <dt>
 <span class="term">
@@ -1279,8 +1259,7 @@ role mapping configuration file. Defaults to <code class="literal">ES_PATH_CONF/
 </span>
 </dt>
 <dd>
-The context to search for a user. Defaults to the root
-of the Active Directory domain.
+搜索用户的上下文。默认为 Active Directory 域的根目录。
 </dd>
 <dt>
 <span class="term">
@@ -1288,11 +1267,11 @@ of the Active Directory domain.
 </span>
 </dt>
 <dd>
-Specifies whether the user search should be <code class="literal">sub_tree</code>, <code class="literal">one_level</code> or <code class="literal">base</code>.
-<code class="literal">one_level</code> only searches users directly contained within the <code class="literal">base_dn</code>.
-<code class="literal">sub_tree</code> searches all objects contained under <code class="literal">base_dn</code>. <code class="literal">base</code>
-specifies that the <code class="literal">base_dn</code> is a user object, and that it is the
-only user considered. Defaults to <code class="literal">sub_tree</code>.
+指定用户搜索应该是<code class="literal">sub_tree</code>、<code class="literal">one_level</code> 还是 <code class="literal">base</code>。
+<code class="literal">one_level</code> 搜索直接包含在 <code class="literal">base_dn</code>中的用户。
+<code class="literal">sub_tree</code> 搜索 <code class="literal">base_dn</code> 中的所有对象。
+<code class="literal">base</code> 指定 <code class="literal">base_dn</code> 是用户对象，并且是唯一被考虑的用户。
+默认值为 <code class="literal">sub_tree</code>
 </dd>
 <dt>
 <span class="term">
@@ -1300,12 +1279,11 @@ only user considered. Defaults to <code class="literal">sub_tree</code>.
 </span>
 </dt>
 <dd>
-Specifies a filter to use to lookup a user given a username.  The default
-filter looks up <code class="literal">user</code> objects with either <code class="literal">sAMAccountName</code> or
-<code class="literal">userPrincipalName</code>. If specified, this must be a valid LDAP user search filter.
-For example <code class="literal">(&amp;(objectClass=user)(sAMAccountName={0}))</code>. For more information,
-see
-<a href="https://msdn.microsoft.com/en-us/library/aa746475(v=vs.85).aspx" class="ulink" target="_top">Search Filter Syntax</a>.
+指定用于查找给定用户名的用户的筛选器。
+默认筛选器使用<code class="literal">sAMAccountName</code>或<code class="literal">userPrincipalName</code>查找 <code class="literal">user</code>对象。
+如果指定，则必须是一个有效的 LDAP 用户搜索过滤器。
+比如 <code class="literal">(&amp;(objectClass=user)(sAMAccountName={0}))</code>。
+更多信息参考 <a href="https://msdn.microsoft.com/en-us/library/aa746475(v=vs.85).aspx" class="ulink" target="_top">搜索过滤器语法(Search Filter Syntax)</a>。
 </dd>
 <dt>
 <span class="term">
@@ -1313,13 +1291,12 @@ see
 </span>
 </dt>
 <dd>
-Specifies a filter to use to lookup a user given a user principal name.
-The default filter looks up <code class="literal">user</code> objects with
-a matching <code class="literal">userPrincipalName</code>. If specified, this
-must be a valid LDAP user search filter. For example,
-<code class="literal">(&amp;(objectClass=user)(userPrincipalName={1}))</code>. <code class="literal">{1}</code> is the full user principal name
-provided by the user. For more information, see
-<a href="https://msdn.microsoft.com/en-us/library/aa746475(v=vs.85).aspx" class="ulink" target="_top">Search Filter Syntax</a>.
+指定用于在给定用户主体名称的情况下查找用户的筛选器。
+默认筛选器使用 <code class="literal">userPrincipalName</code> 查找 <code class="literal">user</code> 对象。
+如果指定，则必须是一个有效的 LDAP 用户搜索过滤器。
+比如 <code class="literal">(&amp;(objectClass=user)(userPrincipalName={1}))</code>。
+<code class="literal">{1}</code> 是用户提供的完整用户主体名称。
+更多信息参考 <a href="https://msdn.microsoft.com/en-us/library/aa746475(v=vs.85).aspx" class="ulink" target="_top">搜索过滤器语法(Search Filter Syntax)</a>。
 </dd>
 <dt>
 <span class="term">
@@ -1327,12 +1304,11 @@ provided by the user. For more information, see
 </span>
 </dt>
 <dd>
-Specifies a filter to use to lookup a user given a down level logon name
-(DOMAIN\user). The default filter looks up <code class="literal">user</code> objects with a matching
-<code class="literal">sAMAccountName</code> in the domain provided. If specified, this
-must be a valid LDAP user search filter. For example,
-<code class="literal">(&amp;(objectClass=user)(sAMAccountName={0}))</code>. For more information, see
-<a href="https://msdn.microsoft.com/en-us/library/aa746475(v=vs.85).aspx" class="ulink" target="_top">Search Filter Syntax</a>.
+指定用于查找给定了下级登录名(DOMAIN\user)的用户的筛选器。
+默认筛选器使用 <code class="literal">sAMAccountName</code> 在指定的域内查找 <code class="literal">user</code> 对象。
+如果指定，则必须是一个有效的 LDAP 用户搜索过滤器。
+比如 <code class="literal">(&amp;(objectClass=user)(sAMAccountName={0}))</code>。
+更多信息参考 <a href="https://msdn.microsoft.com/en-us/library/aa746475(v=vs.85).aspx" class="ulink" target="_top">搜索过滤器语法(Search Filter Syntax)</a>。
 </dd>
 <dt>
 <span class="term">
@@ -1340,9 +1316,9 @@ must be a valid LDAP user search filter. For example,
 </span>
 </dt>
 <dd>
-Enables or disables connection pooling for user search. When
-disabled a new connection is created for every search. The
-default is <code class="literal">true</code> when <code class="literal">bind_dn</code> is provided.
+为用户搜索启用或禁用连接池。
+禁用时，每次搜索都会创建一个新连接。
+当提供了 <code class="literal">bind_dn</code>时，默认值为 <code class="literal">true</code>
 </dd>
 <dt>
 <span class="term">
@@ -1350,8 +1326,8 @@ default is <code class="literal">true</code> when <code class="literal">bind_dn<
 </span>
 </dt>
 <dd>
-The maximum number of connections to the Active Directory server to allow in the
-connection pool. Defaults to <code class="literal">20</code>.
+连接池中允许的到 Active Directory 服务器的最大连接数。
+默认为 <code class="literal">20</code>
 </dd>
 <dt>
 <span class="term">
@@ -1359,9 +1335,8 @@ connection pool. Defaults to <code class="literal">20</code>.
 </span>
 </dt>
 <dd>
-The initial number of connections to create to the Active Directory server on startup.
-Defaults to <code class="literal">0</code>. If the LDAP server is down, values greater than 0
-could cause startup failures.
+在启动时要创建到 Active Directory 服务器的初始连接数。默认为 <code class="literal">0</code>。
+如果 Active Directory 服务器关闭，大于<code class="literal">0</code>的值可能会导致启动失败。
 </dd>
 <dt>
 <span class="term">
@@ -1407,11 +1382,17 @@ to the root of the Active Directory domain.
 </span>
 </dt>
 <dd>
-Specifies whether the group search should be <code class="literal">sub_tree</code>, <code class="literal">one_level</code> or
-<code class="literal">base</code>.  <code class="literal">one_level</code> searches for groups directly contained within the
-<code class="literal">base_dn</code>. <code class="literal">sub_tree</code> searches all objects contained under <code class="literal">base_dn</code>.
-<code class="literal">base</code> specifies that the <code class="literal">base_dn</code> is a group object, and that it is
-the only group considered. Defaults to <code class="literal">sub_tree</code>.
+指定组搜索应该是<code class="literal">sub_tree</code>、<code class="literal">one_level</code> 还是 <code class="literal">base</code>。
+<code class="literal">one_level</code> 搜索直接包含在 <code class="literal">base_dn</code>中的组。
+<code class="literal">sub_tree</code> 搜索 <code class="literal">base_dn</code> 中的所有对象。
+<code class="literal">base</code> 指定 <code class="literal">base_dn</code> 是组对象，并且是唯一被考虑的组。
+默认值为 <code class="literal">sub_tree</code>。
+
+
+
+<code class="literal">base</code> specifies that the <code class="literal">base_dn</code> is a group object, and that it is the only group considered. 
+
+Defaults to <code class="literal">sub_tree</code>.
 </dd>
 <dt>
 <span class="term">
@@ -1726,8 +1707,8 @@ prior to 11 and is included in the default list only when using Java 11 or above
 </span>
 </dt>
 <dd>
-Specifies the maximum number of user entries that the cache can contain.
-Defaults to <code class="literal">100000</code>.
+指定缓存可以包含的最大用户数。
+默认为 <code class="literal">100000</code>
 </dd>
 <dt>
 <span class="term">
@@ -1735,8 +1716,9 @@ Defaults to <code class="literal">100000</code>.
 </span>
 </dt>
 <dd>
-(Expert Setting) Specifies the hashing algorithm that is used for
-the in-memory cached user credentials. See <a class="xref" href="security-settings.html#cache-hash-algo" title="Cache hash algorithms">Table 1, “Cache hash algorithms”</a>. Defaults to <code class="literal">ssha256</code>.
+(专家级设置) 用于缓存在内存中的用户凭据的哈希算法。
+参考 <a class="xref" href="security-settings.html#cache-hash-algo" title="Cache hash algorithms">表 1, “缓存哈希算法”</a>.
+默认值为 <code class="literal">ssha256</code>。
 </dd>
 <dt>
 <span class="term">
@@ -1746,7 +1728,7 @@ the in-memory cached user credentials. See <a class="xref" href="security-settin
 <dd>
 如果设置为 <code class="literal">false</code>，则在该 realm 中禁用对身份验证的支持，这就仅支持用户查找了。
 (参考 <a class="xref" href="run-as-privilege.html" title="Submitting requests on behalf of other users">运行方式 (run as)</a> 和 <a class="xref" href="realm-chains.html#authorization_realms" title="Delegating authorization to another realm">授权 realms</a> 功能)。
-默认为 <code class="literal">true</code>。
+默认为 <code class="literal">true</code>
 </dd>
 <dt>
 <span class="term">
@@ -1863,8 +1845,8 @@ Defaults to <code class="literal">ES_PATH_CONF/role_mapping.yml</code>.
 </span>
 </dt>
 <dd>
-Specifies the maximum number of user entries that the cache can contain.
-Defaults to <code class="literal">100000</code>.
+指定缓存可以包含的最大用户数。
+默认为 <code class="literal">100000</code>
 </dd>
 <dt>
 <span class="term">

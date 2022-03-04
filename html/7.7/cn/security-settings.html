@@ -945,7 +945,7 @@ LDAP 搜索的超时时间。
 </dt>
 <dd>
 密钥库文件的格式，必须是 <code class="literal">jks</code> 或 <code class="literal">PKCS12</code>。
-如果秘钥库路径以 ".p12"、".pfx", 或 ".pkcs12" 结尾，则其默认值为 <code class="literal">PKCS12</code>；否则，默认值为 <code class="literal">jks</code>
+如果秘钥库路径以 ".p12"、".pfx" 或 ".pkcs12" 结尾，则其默认值为 <code class="literal">PKCS12</code>；否则，默认值为 <code class="literal">jks</code>
 </dd>
 <dt>
 <span class="term">
@@ -1546,7 +1546,7 @@ LDAP 搜索的超时时间。
 </dt>
 <dd>
 密钥库文件的格式，必须是 <code class="literal">jks</code> 或 <code class="literal">PKCS12</code>。
-如果秘钥库路径以 ".p12"、".pfx", 或 ".pkcs12" 结尾，则其默认值为 <code class="literal">PKCS12</code>；否则，默认值为 <code class="literal">jks</code>
+如果秘钥库路径以 ".p12"、".pfx" 或 ".pkcs12" 结尾，则其默认值为 <code class="literal">PKCS12</code>；否则，默认值为 <code class="literal">jks</code>
 </dd>
 <dt>
 <span class="term">
@@ -1965,7 +1965,7 @@ Kibana 中的 单一注销服务<span class="remark">(Single Logout service)</sp
 </span>
 </dt>
 <dd>
-在应用于用户的<em>principal</em>属性之前，与<code class="literal">attributes.pattern</code>指定的 SAML 属性匹配的 Java 正则表达式。
+在应用于用户的 <em>主体</em><span class="remark">principal</span> 属性之前，与<code class="literal">attributes.pattern</code>指定的 SAML 属性匹配的 Java 正则表达式。
 属性值必须与模式匹配，并且第一个 <em>捕获组</em><span class="remark">(capturing group)</span> 的值用作主体。
 比如，<code class="literal">^([^@]+)@example\\.com$</code> 匹配来自 "example.com" 域的email地址，并将 <a href="https://www.jochentopf.com/email/chars.html" rel="nofollow">local-part</a><span class="remark">(就是@前面的部分内容)</span>作为主体。
 </dd>
@@ -1975,7 +1975,7 @@ Kibana 中的 单一注销服务<span class="remark">(Single Logout service)</sp
 </span>
 </dt>
 <dd>
-每个 <code class="literal">attribute_patterns.principal</code>，<em>group</em> 属性除外。
+每个 <code class="literal">attribute_patterns.principal</code>，但<em>group</em> 属性除外。
 </dd>
 <dt>
 <span class="term">
@@ -1983,7 +1983,7 @@ Kibana 中的 单一注销服务<span class="remark">(Single Logout service)</sp
 </span>
 </dt>
 <dd>
-每个 <code class="literal">attribute_patterns.principal</code>，<em>name</em> 属性除外。
+每个 <code class="literal">attribute_patterns.principal</code>，但<em>name</em> 属性除外。
 </dd>
 <dt>
 <span class="term">
@@ -1991,7 +1991,7 @@ Kibana 中的 单一注销服务<span class="remark">(Single Logout service)</sp
 </span>
 </dt>
 <dd>
-每个 <code class="literal">attribute_patterns.principal</code>，<em>mail</em> 属性除外。
+每个 <code class="literal">attribute_patterns.principal</code>，但<em>mail</em> 属性除外。
 </dd>
 <dt>
 <span class="term">
@@ -1999,7 +1999,7 @@ Kibana 中的 单一注销服务<span class="remark">(Single Logout service)</sp
 </span>
 </dt>
 <dd>
-每个 <code class="literal">attribute_patterns.principal</code>，<em>dn</em> 属性除外。
+每个 <code class="literal">attribute_patterns.principal</code>，但<em>dn</em> 属性除外。
 </dd>
 <dt>
 <span class="term">
@@ -2076,17 +2076,17 @@ IdP 时钟和 Elasticsearch 节点时钟之间可以容忍的最大偏差量。
 请求IdP对当前用户进行身份验证时，要包含在请求的 身份验证上下文<span class="remark">(Authentication Context)</span> 中的 身份验证上下文类引用<span class="remark">(Authentication Context Class Reference)</span> 值的逗号分隔列表。
 相应的身份验证响应的身份验证上下文应该包含至少一个请求的值。  
 </p>
-<p>更多信息参考
-<a class="xref" href="saml-guide-authentication.html#req-authn-context" title="Requesting specific authentication methods">请求特定的身份验证方法</a>。</p>
+<p>更多信息参考 <a class="xref" href="saml-guide-authentication.html#req-authn-context" title="Requesting specific authentication methods">请求特定的身份验证方法</a>。</p>
 </dd>
 </dl>
 </div>
 <h5>
-<a id="ref-saml-signing-settings"></a>SAML realm signing settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
+<a id="ref-saml-signing-settings"></a>SAML realm 签名设置
 </h5>
-<p>If a signing key is configured (that is, either <code class="literal">signing.key</code> or
-<code class="literal">signing.keystore.path</code> is set), then Elasticsearch signs outgoing SAML messages.
-Signing can be configured using the following settings:</p>
+<p>
+如果配置了签名密钥(即设置了<code class="literal">signing.key</code>或<code class="literal">signing.keystore.path</code>)，那么 Elasticsearch 会对传出的 SAML 消息进行签名。
+可以使用以下设置来配置签名：
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -2095,11 +2095,11 @@ Signing can be configured using the following settings:</p>
 </span>
 </dt>
 <dd>
-A list of SAML message types that should be signed or <code class="literal">*</code> to sign all messages.
-Each element in the list should be the local name of a SAML XML Element.
-Supported element types are <code class="literal">AuthnRequest</code>, <code class="literal">LogoutRequest</code> and <code class="literal">LogoutResponse</code>.
-Only valid if <code class="literal">signing.key</code> or <code class="literal">signing.keystore.path</code> is also specified.
-Defaults to <code class="literal">*</code>.
+应签名的SAML消息类型列表，或使用<code class="literal">*</code>表示对所有消息进行签名。
+列表中的每个元素都应该是SAML XML元素的本地名称。
+支持的元素类型有<code class="literal">AuthnRequest</code>、<code class="literal">LogoutRequest</code> 及 <code class="literal">LogoutResponse</code>。
+还必须同时指定了 <code class="literal">signing.key</code> 或 <code class="literal">signing.keystore.path</code> 才有效。
+默认值为 <code class="literal">*</code>
 </dd>
 <dt>
 <span class="term">
@@ -2107,17 +2107,16 @@ Defaults to <code class="literal">*</code>.
 </span>
 </dt>
 <dd>
-Specifies the path to the PEM encoded private key to use for SAML message signing.
-<code class="literal">signing.key</code> and <code class="literal">signing.keystore.path</code> cannot be used at the same time.
+指定用于SAML消息签名的PEM编码私钥的路径。
+<code class="literal">signing.key</code> 和 <code class="literal">signing.keystore.path</code> 不能同时使用。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">signing.secure_key_passphrase</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">signing.secure_key_passphrase</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-Specifies the passphrase to decrypt the PEM encoded private key (<code class="literal">signing.key</code>)
-if it is encrypted.
+用于解密加密过的PEM编码私钥(<code class="literal">signing.key</code>)的密码。
 </dd>
 <dt>
 <span class="term">
@@ -2125,10 +2124,9 @@ if it is encrypted.
 </span>
 </dt>
 <dd>
-Specifies the path to the PEM encoded certificate (or certificate chain) that
-corresponds to the <code class="literal">signing.key</code>. This certificate must also be included in the
-Service Provider metadata or manually configured within the IdP to allow for
-signature validation. This setting can only be used if <code class="literal">signing.key</code> is set.
+指定对应于<code class="literal">signing.key</code>的PEM编码证书(或证书链)的路径。
+该证书还必须包含在 服务提供者<span class="remark">(Service Provider)</span> 的元数据中，或者在 IdP 中手动配置，以允许签名验证。
+只有设置了<code class="literal">signing.key</code>，才能使用此设置。
 </dd>
 <dt>
 <span class="term">
@@ -2136,9 +2134,9 @@ signature validation. This setting can only be used if <code class="literal">sig
 </span>
 </dt>
 <dd>
-The path to the keystore that contains a private key and certificate. It must be
-either a Java keystore (jks) or a PKCS#12 file. You cannot use this setting and
-<code class="literal">signing.key</code> at the same time.
+包含私钥和证书的密钥库的路径。
+它必须是 Java密钥库(jks) 或 PKCS#12 文件。
+此设置不能与 <code class="literal">signing.key</code> 同时使用。
 </dd>
 <dt>
 <span class="term">
@@ -2146,9 +2144,8 @@ either a Java keystore (jks) or a PKCS#12 file. You cannot use this setting and
 </span>
 </dt>
 <dd>
-The type of the keystore in <code class="literal">signing.keystore.path</code>.
-Must be either <code class="literal">jks</code> or <code class="literal">PKCS12</code>. If the keystore path ends in ".p12", ".pfx",
-or "pkcs12", this setting defaults to <code class="literal">PKCS12</code>. Otherwise, it defaults to <code class="literal">jks</code>.
+<code class="literal">signing.keystore.path</code>中的密钥库的类型，必须是 <code class="literal">jks</code> 或 <code class="literal">PKCS12</code>。
+如果秘钥库路径以 ".p12"、".pfx" 或 ".pkcs12" 结尾，则其默认值为 <code class="literal">PKCS12</code>；否则，默认值为 <code class="literal">jks</code>
 </dd>
 <dt>
 <span class="term">
@@ -2156,36 +2153,35 @@ or "pkcs12", this setting defaults to <code class="literal">PKCS12</code>. Other
 </span>
 </dt>
 <dd>
-Specifies the alias of the key within the keystore that should be
-used for SAML message signing. If the keystore contains more than one private
-key, this setting must be specified.
+密钥库中用于SAML消息签名的密钥的别名。
+如果密钥库包含多个私钥，则必须指定此设置。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">signing.keystore.secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">signing.keystore.secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-The password to the keystore in <code class="literal">signing.keystore.path</code>.
+<code class="literal">signing.keystore.path</code>中密钥库的密码。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">signing.keystore.secure_key_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">signing.keystore.secure_key_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-The password for the key in the keystore (<code class="literal">signing.keystore.path</code>).
-Defaults to the keystore password.
+密钥库(<code class="literal">signing.keystore.path</code>中密钥的密码。
+默认值为密钥库的密码。
 </dd>
 </dl>
 </div>
 <h5>
-<a id="ref-saml-encryption-settings"></a>SAML realm encryption settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
+<a id="ref-saml-encryption-settings"></a>SAML realm 加密设置
 </h5>
-<p>If an encryption key is configured (that is, either <code class="literal">encryption.key</code> or
-<code class="literal">encryption.keystore.path</code> is set), then Elasticsearch publishes an encryption
-certificate when generating metadata and attempts to decrypt incoming SAML
-content. Encryption can be configured using the following settings:</p>
+<p>
+如果配置了加密密钥(即设置了 <code class="literal">encryption.key</code> 或 <code class="literal">encryption.keystore.path</code> )，那么 Elasticsearch 会在生成元数据时发布加密证书，并尝试解密传入的 SAML 内容。
+可以使用以下设置来配置加密:
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -2194,9 +2190,8 @@ content. Encryption can be configured using the following settings:</p>
 </span>
 </dt>
 <dd>
-Specifies the path to the PEM encoded private key to use for SAML message
-decryption.
-<code class="literal">encryption.key</code> and <code class="literal">encryption.keystore.path</code> cannot be used at the same time.
+用于SAML消息解密的PEM编码私钥的路径。
+<code class="literal">encryption.key</code> 和 <code class="literal">encryption.keystore.path</code> 不能同时使用。
 </dd>
 <dt>
 <span class="term">
@@ -2204,8 +2199,7 @@ decryption.
 </span>
 </dt>
 <dd>
-Specifies the passphrase to decrypt the PEM encoded private key
-(<code class="literal">encryption.key</code>) if it is encrypted.
+用于解密加密过的PEM编码私钥(<code class="literal">encryption.key</code>)的密码。
 </dd>
 <dt>
 <span class="term">
@@ -2213,10 +2207,9 @@ Specifies the passphrase to decrypt the PEM encoded private key
 </span>
 </dt>
 <dd>
-Specifies the path to the PEM encoded certificate (or certificate chain) that is
-associated with the <code class="literal">encryption.key</code>. This certificate must also be included in
-the Service Provider metadata or manually configured within the IdP to enable
-message encryption. This setting can be used only if <code class="literal">encryption.key</code> is set.
+与<code class="literal">encryption.key</code>关联的PEM编码证书(或证书链)的路径。
+该证书还必须包含在 服务提供者<span class="remark">(Service Provider)</span> 的元数据中，或者在 IdP 中手动配置，以允许消息加密。
+只有设置了<code class="literal">encryption.key</code>，才能使用此设置。
 </dd>
 <dt>
 <span class="term">
@@ -2224,9 +2217,9 @@ message encryption. This setting can be used only if <code class="literal">encry
 </span>
 </dt>
 <dd>
-The path to the keystore that contains a private key and certificate. It must be
-either a Java keystore (jks) or a PKCS#12 file. You cannot use this setting and
-<code class="literal">encryption.key</code> at the same time.
+包含私钥和证书的密钥库的路径。
+它必须是 Java密钥库(jks) 或 PKCS#12 文件。
+此设置不能与 <code class="literal">encryption.key</code> 同时使用。
 </dd>
 <dt>
 <span class="term">
@@ -2234,9 +2227,8 @@ either a Java keystore (jks) or a PKCS#12 file. You cannot use this setting and
 </span>
 </dt>
 <dd>
-The type of the keystore (<code class="literal">encryption.keystore.path</code>).
-Must be either <code class="literal">jks</code> or <code class="literal">PKCS12</code>. If the keystore path ends in ".p12", ".pfx",
-or "pkcs12", this setting defaults to <code class="literal">PKCS12</code>. Otherwise, it defaults to <code class="literal">jks</code>.
+密钥库(<code class="literal">encryption.keystore.path</code>)的类型，必须是 <code class="literal">jks</code> 或者 <code class="literal">PKCS12</code>。
+如果秘钥库路径以 ".p12"、".pfx" 或 ".pkcs12" 结尾，则其默认值为 <code class="literal">PKCS12</code>；否则，默认值为 <code class="literal">jks</code>
 </dd>
 <dt>
 <span class="term">
@@ -2244,41 +2236,38 @@ or "pkcs12", this setting defaults to <code class="literal">PKCS12</code>. Other
 </span>
 </dt>
 <dd>
-Specifies the alias of the key within the keystore (<code class="literal">encryption.keystore.path</code>)
-that should be used for SAML message decryption. If not specified, all compatible
-key pairs from the keystore are considered as candidate keys for decryption.
-</dd>
+密钥库(<code class="literal">encryption.keystore.path</code>)中用于解密SAML消息的密钥的别名。
+如果未指定，密钥库中所有兼容的密钥对都将被视为解密的候选密钥。
 <dt>
 <span class="term">
-<code class="literal">encryption.keystore.secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">encryption.keystore.secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-The password to the keystore (<code class="literal">encryption.keystore.path</code>).
+密钥库(<code class="literal">encryption.keystore.path</code>)的密码。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">encryption.keystore.secure_key_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">encryption.keystore.secure_key_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-The password for the key in the keystore (<code class="literal">encryption.keystore.path</code>). Only a
-single password is supported. If you are using multiple decryption keys,
-they cannot have individual passwords.
+密钥库(<code class="literal">encryption.keystore.path</code>)中的密钥的密码。
+只支持单个密码。
+如果你使用了多个解密密钥，则它们不能有单独的密码。
 </dd>
 </dl>
 </div>
 <h5>
-<a id="ref-saml-ssl-settings"></a>SAML realm SSL settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
+<a id="ref-saml-ssl-settings"></a>SAML realm SSL 设置
 </h5>
-<p>If you are loading the IdP metadata over SSL/TLS (that is, <code class="literal">idp.metadata.path</code>
-is a URL using the <code class="literal">https</code> protocol), the following settings can be used to
-configure SSL.</p>
+<p>
+如果你通过SSL/TLS加载IdP元数据(即<code class="literal">idp.metadata.path</code>是一个使用<code class="literal">https</code>协议的URL)，以下设置可用于配置SSL。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>These settings are not used for any purpose other than loading metadata
-over https.</p>
+<p>除了通过https加载元数据之外，这些设置不会用于任何目的。</p>
 </div>
 </div>
 <div class="variablelist">
@@ -2311,7 +2300,7 @@ over https.</p>
 </dd>
 <dt>
 <span class="term">
-<code class="literal">ssl.secure_key_passphrase</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">ssl.secure_key_passphrase</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
@@ -2362,7 +2351,7 @@ over https.</p>
 </dt>
 <dd>
 密钥库文件的格式，必须是 <code class="literal">jks</code> 或 <code class="literal">PKCS12</code>。
-如果秘钥库路径以 ".p12"、".pfx", 或 ".pkcs12" 结尾，则其默认值为 <code class="literal">PKCS12</code>；否则，默认值为 <code class="literal">jks</code>
+如果秘钥库路径以 ".p12"、".pfx" 或 ".pkcs12" 结尾，则其默认值为 <code class="literal">PKCS12</code>；否则，默认值为 <code class="literal">jks</code>
 </dd>
 <dt>
 <span class="term">
@@ -2429,7 +2418,7 @@ over https.</p>
 </dt>
 <dd>
 信任库文件的格式，必须是 <code class="literal">jks</code> 或 <code class="literal">PKCS12</code>。
-如果秘钥库路径以 ".p12"、".pfx", 或 ".pkcs12" 结尾，则其默认值为 <code class="literal">PKCS12</code>；否则，默认值为 <code class="literal">jks</code>
+如果秘钥库路径以 ".p12"、".pfx" 或 ".pkcs12" 结尾，则其默认值为 <code class="literal">PKCS12</code>；否则，默认值为 <code class="literal">jks</code>
 </dd>
 <dt>
 <span class="term">
@@ -2440,8 +2429,7 @@ over https.</p>
 <p>
 信任库的密码。
 </p>
-<p>You cannot use this setting and <code class="literal">ssl.truststore.secure_password</code> at the same
-time.</p>
+<p>此设置不能与 <code class="literal">ssl.truststore.secure_password</code> 同时使用。</p>
 </dd>
 <dt>
 <span class="term">
@@ -2452,7 +2440,7 @@ time.</p>
 <p>
 信任库的密码。
 </p>
-<p>This setting cannot be used with <code class="literal">ssl.truststore.password</code>.</p>
+<p>此设置不能和 <code class="literal">ssl.truststore.password</code> 一起使用。</p>
 </dd>
 <dt>
 <span class="term">
@@ -2535,9 +2523,9 @@ time.</p>
 </dl>
 </div>
 <h5>
-<a id="ref-kerberos-settings"></a>Kerberos realm settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
+<a id="ref-kerberos-settings"></a>Kerberos realm 设置
 </h5>
-<p>For a Kerberos realm, the <code class="literal">type</code> must be set to <code class="literal">kerberos</code>. 
+<p>对于一个 Kerberos realm，<code class="literal">type</code> 必须设置为 <code class="literal">kerberos</code>。
 除了<a class="xref" href="security-settings.html#ref-realm-settings" title="Settings valid for all realms">对所有realm都有效的设置</a>之外，你还可以指定以下可选设置:
 </p>
 <div class="variablelist">
@@ -2548,9 +2536,9 @@ time.</p>
 </span>
 </dt>
 <dd>
-Specifies the path to the Kerberos keytab file that contains the
-service principal used by this Elasticsearch node. This must be a location within the
-Elasticsearch configuration directory and the file must have read permissions. Required.
+指定 Kerberos 密钥表文件的路径，该文件包含此 Elasticsearch 节点使用的服务主体。
+它必须是 Elasticsearch 配置目录中的一个位置，并且该文件必须具有读取权限。
+必填。
 </dd>
 <dt>
 <span class="term">
@@ -2558,10 +2546,10 @@ Elasticsearch configuration directory and the file must have read permissions. R
 </span>
 </dt>
 <dd>
-Set to <code class="literal">true</code> to remove the realm part of principal names.
-Principal names in Kerberos have the form <code class="literal">user/instance@REALM</code>. If this option
-is <code class="literal">true</code>, the realm part (<code class="literal">@REALM</code>) will not be included in the username.
-Defaults to <code class="literal">false</code>.
+设置为<code class="literal">true</code>可删除主体名称中的 realm 部分。
+Kerberos 中的 主体名称 的格式为 <code class="literal">user/instance@REALM</code>。
+如果设置为 <code class="literal">true</code>，则用户名中不会包含 realm 部分(<code class="literal">@REALM</code>)。
+默认为 <code class="literal">false</code>
 </dd>
 <dt>
 <span class="term">
@@ -2569,8 +2557,7 @@ Defaults to <code class="literal">false</code>.
 </span>
 </dt>
 <dd>
-Set to <code class="literal">true</code> to enable debug logs for the Java login module that
-provides support for Kerberos authentication. Defaults to <code class="literal">false</code>.
+设置为<code class="literal">true</code>以启用为 Kerberos 身份验证提供支持的 Java 登录模块的调试日志。默认为 <code class="literal">false</code>
 </dd>
 <dt>
 <span class="term">
@@ -2604,7 +2591,7 @@ provides support for Kerberos authentication. Defaults to <code class="literal">
 </dl>
 </div>
 <h5>
-<a id="ref-oidc-settings"></a>OpenID Connect realm settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
+<a id="ref-oidc-settings"></a>OpenID Connect realm 设置
 </h5>
 <p>
 除了<a class="xref" href="security-settings.html#ref-realm-settings" title="Settings valid for all realms">对所有realm都有效的设置</a>之外，你还可以指定以下可选设置:
@@ -2617,11 +2604,9 @@ provides support for Kerberos authentication. Defaults to <code class="literal">
 </span>
 </dt>
 <dd>
-A verifiable Identifier for your OpenID Connect Provider. An Issuer
-Identifier is usually a case sensitive URL using the https scheme that contains
-scheme, host, and optionally, port number and path components and no query or
-fragment components. The value for this setting should be provided by your OpenID
-Connect Provider.
+OpenID连接提供程序<span class="remark">(OpenID Connect Provider)</span> 的可验证标识。 
+发行者标识<span class="remark">(Issuer Identifier)</span> 通常是一个使用https方案的大小写敏感的URL，它包含方案、主机、可选的端口号 及 路径组件，不包含查询或分段<span class="remark">(fragment)</span>组件。
+此设置的值应由你的 OpenID连接提供程序 提供。
 </dd>
 <dt>
 <span class="term">
@@ -2629,9 +2614,8 @@ Connect Provider.
 </span>
 </dt>
 <dd>
-The URL for the Authorization Endpoint at the
-OpenID Connect Provider. The value for this setting should be provided by your OpenID
-Connect Provider.
+OpenID连接提供程序 中 授权 终端的URL。
+此设置的值应由你的 OpenID连接提供程序 提供。
 </dd>
 <dt>
 <span class="term">
@@ -2639,8 +2623,8 @@ Connect Provider.
 </span>
 </dt>
 <dd>
-The URL for the Token Endpoint at the OpenID Connect Provider.
-The value for this setting should be provided by your OpenID Connect Provider.
+OpenID连接提供程序 中 令牌 终端的URL。
+此设置的值应由你的 OpenID连接提供程序 提供。
 </dd>
 <dt>
 <span class="term">
@@ -2648,8 +2632,8 @@ The value for this setting should be provided by your OpenID Connect Provider.
 </span>
 </dt>
 <dd>
-The URL for the User Info Endpoint at the OpenID Connect Provider.
-The value for this setting should be provided by your OpenID Connect Provider.
+OpenID连接提供程序 中 用户信息 终端的URL。
+此设置的值应由你的 OpenID连接提供程序 提供。
 </dd>
 <dt>
 <span class="term">
@@ -2657,8 +2641,8 @@ The value for this setting should be provided by your OpenID Connect Provider.
 </span>
 </dt>
 <dd>
-The URL for the End Session Endpoint at the OpenID Connect
-Provider. The value for this setting should be provided by your OpenID Connect Provider.
+OpenID连接提供程序 中的 结束会话 终端的URL。
+此设置的值应由你的 OpenID连接提供程序 提供。
 </dd>
 <dt>
 <span class="term">
@@ -2666,20 +2650,16 @@ Provider. The value for this setting should be provided by your OpenID Connect P
 </span>
 </dt>
 <dd>
-The path or URL to a JSON Web Key Set with the key material that the OpenID Connect
-Provider uses for signing tokens and claims responses.
-If a path is provided, then it is resolved relative to the Elasticsearch config
-directory.
-If a URL is provided, then it must be either a <code class="literal">file</code> URL or a <code class="literal">https</code> URL.
-Elasticsearch automatically caches the retrieved JWK set to avoid unnecessary HTTP
-requests but will attempt to refresh the JWK upon signature verification
-failure, as this might indicate that the OpenID Connect Provider has
-rotated the signing keys.
+JSON Web Key Set 的路径或URL, OpenID连接提供程序用于签名令牌和声明响应的密钥材料。
+如果提供的是路径，则相对于 Elasticsearch 配置目录进行解析。
+如果提供的是URL，则它必须是一个 <code class="literal">file</code> URL 或 <code class="literal">https</code> URL。
+Elasticsearch会自动缓存检索到的JWK集，以避免不必要的HTTP请求，但会在签名验证失败时尝试刷新JWK，因为这可能表明OpenID连接提供程序已经轮换了签名密钥。
 </dd>
 </dl>
 </div>
-<p>File based resources are polled at a frequency determined by the global Elasticsearch
-<code class="literal">resource.reload.interval.high</code> setting, which defaults to 5 seconds.</p>
+<p>
+基于文件的资源的轮询频率由 Elasticsearch 全局设置 <code class="literal">resource.reload.interval.high</code> 决定，默认为5秒。
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -2688,17 +2668,15 @@ rotated the signing keys.
 </span>
 </dt>
 <dd>
-The OAuth 2.0 Client Identifier that was assigned to Elasticsearch during registration
-at the OpenID Connect Provider
+在 OpenID连接提供程序 处注册时分配给 Elasticsearch 的 OAuth 2.0 客户端标识。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">rp.client_secret</code>(<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">rp.client_secret</code>(<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-The OAuth 2.0 Client Secret that was assigned to Elasticsearch during registration
-at the OpenID Connect Provider
+在 OpenID连接提供程序 处注册时分配给 Elasticsearch 的 OAuth 2.0 客户端密钥。
 </dd>
 <dt>
 <span class="term">
@@ -2706,9 +2684,12 @@ at the OpenID Connect Provider
 </span>
 </dt>
 <dd>
-The Redirect URI within Kibana. If you want to use the authorization code flow, this is the
-"api/security/oidc/callback" endpoint of your Kibana server. If you want to use the implicit flow,  it is the "api/security/oidc/implicit" endpoint.
-For example, <code class="literal">https://kibana.example.com/api/security/oidc/callback</code>.
+Kibana 内的重定向<span class="remark">(Redirect)</span> URI。
+如果想要使用 授权代码流程<span class="remark">(authorization code flow)</span> ，就是你的Kibana服务器的“api/security/oidc/callback”终端。
+
+如果要使用隐式流程<span class="remark">(implicit flow)</span> ，就是 "api/security/oidc/implicit" 终端。
+
+比如 <code class="literal">https://kibana.example.com/api/security/oidc/callback</code>。
 </dd>
 <dt>
 <span class="term">
@@ -2716,19 +2697,16 @@ For example, <code class="literal">https://kibana.example.com/api/security/oidc/
 </span>
 </dt>
 <dd>
-OAuth 2.0 Response Type value that determines the authorization
-processing flow to be used. Can be <code class="literal">code</code> for authorization code grant flow,
-or one of <code class="literal">id_token</code>, <code class="literal">id_token token</code> for the implicit flow.
+OAuth 2.0 响应类型，它决定了要使用的授权处理流程。
+可以是用于授权码授权流程的<code class="literal">code</code>，或者 <code class="literal">id_token</code>、<code class="literal">id_token token</code>中的一个，用于隐式流程。
 </dd>
 <dt>
 <span class="term">
 <code class="literal">rp.signature_algorithm</code>
 </span>
 </dt>
-<dd>
-The signature algorithm that will be used by Elasticsearch in order to verify the
-signature of the id tokens it will receive from the OpenID Connect Provider.
-Defaults to <code class="literal">RSA256</code>
+<dd> 
+签名算法，Elasticsearch 用于验证它将从 OpenID连接提供程序 接收的id令牌的签名。默认为 <code class="literal">RSA256</code>
 </dd>
 <dt>
 <span class="term">
@@ -2736,8 +2714,7 @@ Defaults to <code class="literal">RSA256</code>
 </span>
 </dt>
 <dd>
-The scope values that will be requested by the OpenID Connect Provider as
-part of the Authentication Request. Optional, defaults to <code class="literal">openid</code>
+作为身份验证请求的一部分，OpenID连接提供程序 会请求 范围(scope) 的值。可选，默认为 <code class="literal">openid</code>
 </dd>
 <dt>
 <span class="term">
@@ -2745,8 +2722,7 @@ part of the Authentication Request. Optional, defaults to <code class="literal">
 </span>
 </dt>
 <dd>
-The Redirect URI (usually within Kibana) that the OpenID Connect Provider
-should redirect the browser to after a successful Single Logout.
+重定向URI(通常在Kibana内)，在一次成功的注销后，OpenID连接提供程序应该将浏览器重定向到这个URI。  
 </dd>
 <dt>
 <span class="term">
@@ -2754,7 +2730,7 @@ should redirect the browser to after a successful Single Logout.
 </span>
 </dt>
 <dd>
-The name of the OpenID Connect claim that contains the user’s principal (username).
+包含用户主体(用户名)的 OpenID连接 声明的名称。
 </dd>
 <dt>
 <span class="term">
@@ -2762,7 +2738,7 @@ The name of the OpenID Connect claim that contains the user’s principal (usern
 </span>
 </dt>
 <dd>
-The name of the OpenID Connect claim that contains the user’s groups.
+包含用户组的 OpenID连接 声明的名称。
 </dd>
 <dt>
 <span class="term">
@@ -2770,7 +2746,7 @@ The name of the OpenID Connect claim that contains the user’s groups.
 </span>
 </dt>
 <dd>
-The name of the OpenID Connect claim that contains the user’s full name.
+包含用户全名的OpenID连接声明的名称。
 </dd>
 <dt>
 <span class="term">
@@ -2778,7 +2754,7 @@ The name of the OpenID Connect claim that contains the user’s full name.
 </span>
 </dt>
 <dd>
-The name of the OpenID Connect claim that contains the user’s email address.
+包含用户email地址的OpenID连接声明的名称。
 </dd>
 <dt>
 <span class="term">
@@ -2786,8 +2762,7 @@ The name of the OpenID Connect claim that contains the user’s email address.
 </span>
 </dt>
 <dd>
-The name of the OpenID Connect claim that contains the user’s X.509
-<em>Distinguished Name</em>.
+包含用户的 X.509 <em>识别名称</em><span class="remark">(dn, Distinguished Name)</span> 的OpenID连接声明的名称。
 </dd>
 <dt>
 <span class="term">
@@ -2795,12 +2770,9 @@ The name of the OpenID Connect claim that contains the user’s X.509
 </span>
 </dt>
 <dd>
-A Java regular expression that is matched against the OpenID Connect claim specified
-by <code class="literal">claims.principal</code> before it is applied to the user’s <em>principal</em> property.
-The attribute value must match the pattern and the value of the first
-<em>capturing group</em> is used as the principal. For example, <code class="literal">^([^@]+)@example\\.com$</code>
-matches email addresses from the "example.com" domain and uses the local-part as
-the principal.
+在应用于用户的 <em>主体</em></em><span class="remark">(principal)</span> 属性之前，与<code class="literal">claims.principal</code>指定的OpenID连接声明相匹配的 Java 正则表达式。
+属性值必须与模式匹配，第一个 <em>捕获组</em><span class="remark">(capturing group)</span> 的值用作主体。  
+比如，<code class="literal">^([^@]+)@example\\.com$</code> 匹配来自 "example.com" 域的email地址，并将 <a href="https://www.jochentopf.com/email/chars.html" rel="nofollow">local-part</a><span class="remark">(就是@前面的部分内容)</span>作为主体。
 </dd>
 <dt>
 <span class="term">
@@ -2808,7 +2780,7 @@ the principal.
 </span>
 </dt>
 <dd>
-As per <code class="literal">claim_patterns.principal</code>, but for the <em>group</em> property.
+每个 <code class="literal">claim_patterns.principal</code>，但 <em>group</em> 属性除外。
 </dd>
 <dt>
 <span class="term">
@@ -2816,7 +2788,7 @@ As per <code class="literal">claim_patterns.principal</code>, but for the <em>gr
 </span>
 </dt>
 <dd>
-As per <code class="literal">claim_patterns.principal</code>, but for the <em>name</em> property.
+每个 <code class="literal">claim_patterns.principal</code>，但 <em>name</em> 属性除外。
 </dd>
 <dt>
 <span class="term">
@@ -2824,7 +2796,7 @@ As per <code class="literal">claim_patterns.principal</code>, but for the <em>na
 </span>
 </dt>
 <dd>
-As per <code class="literal">claim_patterns.principal</code>, but for the <em>mail</em> property.
+每个 <code class="literal">claim_patterns.principal</code>，但 <em>mail</em> 属性除外。
 </dd>
 <dt>
 <span class="term">
@@ -2832,7 +2804,7 @@ As per <code class="literal">claim_patterns.principal</code>, but for the <em>ma
 </span>
 </dt>
 <dd>
-As per <code class="literal">claim_patterns.principal</code>, but for the <em>dn</em> property.
+每个 <code class="literal">claim_patterns.principal</code>，但 <em>dn</em> 属性除外。
 </dd>
 <dt>
 <span class="term">
@@ -2840,8 +2812,7 @@ As per <code class="literal">claim_patterns.principal</code>, but for the <em>dn
 </span>
 </dt>
 <dd>
-The maximum allowed clock skew to be taken into consideration when validating
-id tokens with regards to their creation and expiration times.
+验证id令牌的创建和过期时间时，要考虑的最大允许时钟偏差。
 </dd>
 <dt>
 <span class="term">
@@ -2849,8 +2820,7 @@ id tokens with regards to their creation and expiration times.
 </span>
 </dt>
 <dd>
-Specifies whether to populate the Elasticsearch user’s metadata with the values that are
-provided by the OpenID Connect claims. Defaults to <code class="literal">true</code>.
+是否用OpenID连接声明提供的值填充 Elasticsearch 用户的元数据。默认为 <code class="literal">true</code>
 </dd>
 <dt>
 <span class="term">
@@ -2858,9 +2828,10 @@ provided by the OpenID Connect claims. Defaults to <code class="literal">true</c
 </span>
 </dt>
 <dd>
-Controls the behavior of the http client used for back-channel communication to
-the OpenID Connect Provider endpoints. Specifies the timeout until a connection
- is established. A value of zero means the timeout is not used. Defaults to <code class="literal">5s</code>
+控制用于与OpenID连接提供程序终端进行 反向通道<span class="remark">(back-channel)</span> 通信的 http 客户端的行为。
+指定连接建立之前的超时时间。
+零值意味着不使用超时。
+默认为 <code class="literal">5s</code>
 </dd>
 <dt>
 <span class="term">
@@ -2868,9 +2839,10 @@ the OpenID Connect Provider endpoints. Specifies the timeout until a connection
 </span>
 </dt>
 <dd>
-Controls the behavior of the http client used for back-channel communication to
-the OpenID Connect Provider endpoints. Specifies the timeout used when
-requesting a connection from the connection manager. Defaults to <code class="literal">5s</code>
+控制用于与OpenID连接提供程序终端进行 反向通道<span class="remark">(back-channel)</span> 通信的 http 客户端的行为。
+
+从连接管理器请求连接时使用的超时时间。
+默认为 <code class="literal">5s</code>
 </dd>
 <dt>
 <span class="term">
@@ -2878,11 +2850,10 @@ requesting a connection from the connection manager. Defaults to <code class="li
 </span>
 </dt>
 <dd>
-Controls the behavior of the http client used for back-channel communication to
-the OpenID Connect Provider endpoints. Specifies the socket timeout (SO_TIMEOUT)
-in milliseconds, which is the timeout for waiting for data or, put differently,
-a maximum period inactivity between two consecutive data packets). Defaults to
-<code class="literal">5s</code>
+控制用于与OpenID连接提供程序终端进行 反向通道<span class="remark">(back-channel)</span> 通信的 http 客户端的行为。
+
+socket超时时间(SO_TIMEOUT)，单位为毫秒，这是等待数据的超时时间，或者换句话说，两个连续数据包之间的最大不活动周期。  
+默认为 <code class="literal">5s</code>
 </dd>
 <dt>
 <span class="term">
@@ -2890,9 +2861,9 @@ a maximum period inactivity between two consecutive data packets). Defaults to
 </span>
 </dt>
 <dd>
-Controls the behavior of the http client used for back-channel communication to
-the OpenID Connect Provider endpoints. Specifies the maximum number of
-connections allowed across all endpoints.
+控制用于与OpenID连接提供程序终端进行 反向通道<span class="remark">(back-channel)</span> 通信的 http 客户端的行为。
+
+所有终端允许的最大连接数。
 </dd>
 <dt>
 <span class="term">
@@ -2900,22 +2871,22 @@ connections allowed across all endpoints.
 </span>
 </dt>
 <dd>
-Controls the behavior of the http client used for back-channel communication to
-the OpenID Connect Provider endpoints. Specifies the maximum number of
-connections allowed per endpoint.
+控制用于与OpenID连接提供程序终端进行 反向通道<span class="remark">(back-channel)</span> 通信的 http 客户端的行为。
+
+每个终端允许的最大连接数。
 </dd>
 </dl>
 </div>
 <h5>
-<a id="ref-oidc-ssl-settings"></a>OpenID Connect realm SSL settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
+<a id="ref-oidc-ssl-settings"></a>OpenID Connect realm SSL 设置
 </h5>
-<p>The following settings can be used to configure SSL for all outgoing http connections
-to the OpenID Connect Provider endpoints.</p>
+<p>以下设置可用于为到OpenID连接提供程序终端的所有传出http连接配置SSL。</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>These settings are <em>only</em> used for the back-channel communication between
-Elasticsearch and the OpenID Connect Provider</p>
+<p>
+这些设置<em>仅</em>用于 Elasticsearch 和OpenID连接提供程序之间的 反向通道<span class="remark">(back-channel)</span> 通信
+</p>
 </div>
 </div>
 <div class="variablelist">
@@ -2999,7 +2970,7 @@ Elasticsearch and the OpenID Connect Provider</p>
 </dt>
 <dd>
 密钥库文件的格式，必须是 <code class="literal">jks</code> 或 <code class="literal">PKCS12</code>。
-如果秘钥库路径以 ".p12"、".pfx", 或 ".pkcs12" 结尾，则其默认值为 <code class="literal">PKCS12</code>；否则，默认值为 <code class="literal">jks</code>
+如果秘钥库路径以 ".p12"、".pfx" 或 ".pkcs12" 结尾，则其默认值为 <code class="literal">PKCS12</code>；否则，默认值为 <code class="literal">jks</code>
 </dd>
 <dt>
 <span class="term">
@@ -3064,7 +3035,7 @@ Elasticsearch and the OpenID Connect Provider</p>
 </dt>
 <dd>
 密钥库文件的格式，必须是 <code class="literal">jks</code> 或 <code class="literal">PKCS12</code>。
-如果秘钥库路径以 ".p12"、".pfx", 或 ".pkcs12" 结尾，则其默认值为 <code class="literal">PKCS12</code>；否则，默认值为 <code class="literal">jks</code>
+如果秘钥库路径以 ".p12"、".pfx" 或 ".pkcs12" 结尾，则其默认值为 <code class="literal">PKCS12</code>；否则，默认值为 <code class="literal">jks</code>
 </dd>
 <dt>
 <span class="term">
@@ -3075,8 +3046,7 @@ Elasticsearch and the OpenID Connect Provider</p>
 <p>
 信任库的密码。
 </p>
-<p>You cannot use this setting and <code class="literal">ssl.truststore.secure_password</code> at the same
-time.</p>
+<p>该设置不能与 <code class="literal">ssl.truststore.secure_password</code> 同时使用。</p>
 </dd>
 <dt>
 <span class="term">
@@ -3087,7 +3057,7 @@ time.</p>
 <p>
 信任库的密码。
 </p>
-<p>You cannot use this setting and <code class="literal">ssl.truststore.password</code> at the same time.</p>
+<p>该设置不能与 <code class="literal">ssl.truststore.password</code> 同时使用。</p>
 </dd>
 <dt>
 <span class="term">
@@ -3172,40 +3142,38 @@ time.</p>
 <h5>
 <a id="load-balancing"></a>负载均衡和失效 (load balancing and failover)
 </h5>
-<p>The <code class="literal">load_balance.type</code> setting can have the following values:</p>
+<p><code class="literal">load_balance.type</code> 设置可以有下面这些值：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">failover</code>: The URLs specified are used in the order that they are specified.
-The first server that can be connected to will be used for all subsequent
-connections. If a connection to that server fails then the next server that a
-connection can be established to will be used for subsequent connections.
+<code class="literal">failover</code>：指定的 URL 按照指定的顺序使用。
+可以连接到的第一台服务器将用于所有后续连接。
+如果与该服务器的连接失败，则可以建立连接的下一个服务器将用于后续连接。
 </li>
 <li class="listitem">
-<code class="literal">dns_failover</code>: In this mode of operation, only a single URL may be specified.
-This URL must contain a DNS name. The system will be queried for all IP
-addresses that correspond to this DNS name. Connections to the Active Directory
-or LDAP server will always be tried in the order in which they were retrieved.
-This differs from <code class="literal">failover</code> in that there is no reordering of the list and if a
-server has failed at the beginning of the list, it will still be tried for each
-subsequent connection.
+<code class="literal">dns_failover</code>：在这种操作模式下，只能指定一个 URL。
+此 URL 必须包含一个 DNS 名称。
+将向系统查询与此 DNS 名称对应的所有IP地址。
+与A ctive Directory 或 LDAP 服务器的连接将始终按照检索的顺序进行尝试。
+将始终按照检索到 Active Directory 或 LDAP 服务器的顺序尝试连接。 
+
+这与<code class="literal">failover</code>的不同之处在于，列表没有重新排序，并且 如果服务器在列表开始时出现故障，它仍会尝试进行后续连接。
 </li>
 <li class="listitem">
-<code class="literal">round_robin</code>: Connections will continuously iterate through the list of
-provided URLs. If a server is unavailable, iterating through the list of URLs
-will continue until a successful connection is made.
+<code class="literal">round_robin</code>: 连接将不断遍历提供的 URL 列表。
+如果某一台服务器不可用，将继续遍历 URL 列表，直到成功连接。
 </li>
 <li class="listitem">
-<code class="literal">dns_round_robin</code>: In this mode of operation, only a single URL may be
-specified. This URL must contain a DNS name. The system will be queried for all
-IP addresses that correspond to this DNS name. Connections will continuously
-iterate through the list of addresses. If a server is unavailable, iterating
-through the list of URLs will continue until a successful connection is made.
+<code class="literal">dns_round_robin</code>: 在这种操作模式下，只能指定一个URL。
+此 URL 必须包含一个 DNS 名称。
+将向系统查询与此 DNS 名称对应的所有IP地址。
+连接将不断遍历地址列表。
+如果某一台服务器不可用，将继续遍历 URL 列表，直到成功连接。
 </li>
 </ul>
 </div>
 <h4>
-<a id="ssl-tls-settings"></a>General TLS settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
+<a id="ssl-tls-settings"></a>常规TLS设置
 </h4>
 <div class="variablelist">
 <dl class="variablelist">
@@ -3504,9 +3472,8 @@ The path for the keystore file that contains a private key and certificate.
 </span>
 </dt>
 <dd>
-The format of the keystore file. It must be either <code class="literal">jks</code> or <code class="literal">PKCS12</code>. If the
-keystore path ends in ".p12", ".pfx", or ".pkcs12", this setting defaults
-to <code class="literal">PKCS12</code>. Otherwise, it defaults to <code class="literal">jks</code>.
+密钥库文件的格式，必须是 <code class="literal">jks</code> 或 <code class="literal">PKCS12</code>。
+如果秘钥库路径以 ".p12"、".pfx" 或 ".pkcs12" 结尾，则其默认值为 <code class="literal">PKCS12</code>；否则，默认值为 <code class="literal">jks</code>
 </dd>
 <dt>
 <span class="term">
@@ -3907,9 +3874,8 @@ The path for the keystore file that contains a private key and certificate.
 </span>
 </dt>
 <dd>
-The format of the keystore file. It must be either <code class="literal">jks</code> or <code class="literal">PKCS12</code>. If the
-keystore path ends in ".p12", ".pfx", or ".pkcs12", this setting defaults
-to <code class="literal">PKCS12</code>. Otherwise, it defaults to <code class="literal">jks</code>.
+密钥库文件的格式，必须是 <code class="literal">jks</code> 或 <code class="literal">PKCS12</code>。
+如果秘钥库路径以 ".p12"、".pfx" 或 ".pkcs12" 结尾，则其默认值为 <code class="literal">PKCS12</code>；否则，默认值为 <code class="literal">jks</code>
 </dd>
 <dt>
 <span class="term">

@@ -3183,50 +3183,44 @@ socket超时时间(SO_TIMEOUT)，单位为毫秒，这是等待数据的超时�
 </span>
 </dt>
 <dd>
-Controls whether to output diagnostic messages for SSL/TLS trust failures.
-If this is <code class="literal">true</code> (the default), a message will be printed to the Elasticsearch
-log whenever an SSL connection (incoming or outgoing) is rejected due to a failure
-to establish trust.
-This diagnostic message contains information that can be used to determine the
-cause of the failure and assist with resolving the problem.
-Set to <code class="literal">false</code> to disable these messages.
-NOTE: This defaults to <code class="literal">false</code> when <code class="literal">xpack.security.fips_mode.enabled</code> is <code class="literal">true</code>.
+是否输出 SSL/TLS 信任失败的诊断消息。
+如果设置为<code class="literal">true</code>（默认值），则每当 SSL 连接（传入或传出）由于无法建立信任而被拒绝时，就会在 Elasticsearch 日志中打印一条消息。
+此诊断信息包含可用于确定故障原因并帮助解决问题的信息。
+设置为 <code class="literal">false</code> 以禁用此消息。
+注意：当 <code class="literal">xpack.security.fips_mode.enabled</code> 设置为 <code class="literal">true</code> 时，其默认值为 <code class="literal">false</code> ！
 </dd>
 </dl>
 </div>
 <h5>
-<a id="tls-ssl-key-settings"></a>TLS/SSL key and trusted certificate settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/security-settings.asciidoc">edit</a>
+<a id="tls-ssl-key-settings"></a>TLS/SSL密钥和可信证书设置
 </h5>
-<p>The following settings are used to specify a private key, certificate, and the
-trusted certificates that should be used when communicating over an SSL/TLS
-connection. If no trusted certificates are configured, the default certificates
-that are trusted by the JVM will be trusted along with the certificate(s)
-associated with a key in the same context. The key and certificate must be in
-place for connections that require client authentication or when acting as a
-SSL enabled server.</p>
+<p>
+以下设置用于指定通过SSL/TLS连接进行通信时应使用的私钥、证书和可信证书。
+如果未配置可信证书，JVM信任的默认证书将与同一上下文中与密钥关联的证书一起受信任。
+对于需要客户端身份验证的连接，或者充当启用SSL的服务器时，必须准备好密钥和证书。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
 <a id="pkcs12-truststore-note"></a>
-<p>Storing trusted certificates in a PKCS#12 file, although supported, is
-uncommon in practice. The <a class="xref" href="certutil.html" title="elasticsearch-certutil"><code class="literal">elasticsearch-certutil</code> tool</a>,
-as well as Java’s <code class="literal">keytool</code>, are designed to generate PKCS#12 files that
-can be used both as a keystore and as a truststore, but this may not be the
-case for container files that are created using other tools. Usually,
-PKCS#12 files only contain secret and private entries. To confirm that
-a PKCS#12 container includes trusted certificate ("anchor") entries look for
-<code class="literal">2.16.840.1.113894.746875.1.1: &lt;Unsupported tag 6&gt;</code> in the
-<code class="literal">openssl pkcs12 -info</code> output, or <code class="literal">trustedCertEntry</code> in the
-<code class="literal">keytool -list</code> output.</p>
+<p>
+在 PKCS#12 文件中存储可信证书，虽然受支持，但在实际使用中并不常见。
+
+<a class="xref" href="certutil.html" title="elasticsearch-certutil"><code class="literal">elasticsearch-certutil</code> 工具</a> 以及 Java的<code class="literal">keytool</code>被设计用于生成 PKCS#12 文件，这些文件既可用作密钥库，也可用作信任库，但对于使用其他工具创建的容器文件，情况可能并非如此。
+
+通常，PKCS#12 文件只包含机密和私有的条目。
+
+要确认 PKCS#12 容器中包含可信证书("anchor")条目，请在 <code class="literal">openssl pkcs12 -info</code> 输出中查找  <code class="literal">2.16.840.1.113894.746875.1.1: &lt;Unsupported tag 6&gt;</code> ，或在 <code class="literal">keytool -list</code> 输出中查找 <code class="literal">trustedCertEntry</code>
+</p>
 </div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="http-tls-ssl-settings"></a>HTTP TLS/SSL settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/ssl-settings.asciidoc">edit</a>
+<a id="http-tls-ssl-settings"></a>HTTP TLS/SSL 设置
 </h3>
 </div></div></div>
-<p>You can configure the following TLS/SSL settings.</p>
+<p>可以配置以下TLS/SSL设置。</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -3235,7 +3229,7 @@ a PKCS#12 container includes trusted certificate ("anchor") entries look for
 </span>
 </dt>
 <dd>
-Used to enable or disable TLS/SSL. The default is <code class="literal">false</code>.
+用于启用或禁用 TLS/SSL。默认值为 <code class="literal">false</code>
 </dd>
 <dt>
 <span class="term">

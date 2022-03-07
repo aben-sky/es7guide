@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Snapshot lifecycle management settings in Elasticsearch | ElasticSearch 7.7 权威指南中文版</title>
+	<title>快照的生命周期管理设置 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -30,39 +30,40 @@
                   <div class="page_header">
 <strong>IMPORTANT</strong>: No additional bug fixes or documentation updates
 will be released for this version. For the latest information, see the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html">current release documentation</a>.
+<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html" rel="nofollow">current release documentation</a>.
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="settings.html">Configuring Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="settings.html">配置 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Snapshot lifecycle management settings in Elasticsearch</span>
+<span class="breadcrumb-node">快照的生命周期管理设置</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="shard-request-cache.html">« Shard request cache settings</a>
+<a href="shard-request-cache.html">« 分片的请求缓存设置</a>
 </span>
 <span class="next">
-<a href="sql-settings.html">SQL access settings in Elasticsearch »</a>
+<a href="sql-settings.html">SQL访问设置 »</a>
 </span>
 </div>
 <div class="section xpack">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="slm-settings"></a>Snapshot lifecycle management settings in Elasticsearch<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/slm-settings.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
+<a id="slm-settings"></a>快照的生命周期管理设置
 </h2>
 </div></div></div>
 
-<p>These are the settings available for configuring
-<a class="xref" href="snapshot-lifecycle-management.html" title="SLM: Manage the snapshot lifecycle">snapshot lifecycle management</a> (SLM).</p>
+<p>
+这些是可用于配置 <a class="xref" href="snapshot-lifecycle-management.html" title="SLM: Manage the snapshot lifecycle">快照生命周期管理 (SLM, snapshot lifecycle management)</a> 的设置。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_cluster_level_settings_2"></a>Cluster-level settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/slm-settings.asciidoc">edit</a>
+<a id="_cluster_level_settings_2"></a>集群级别的设置
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -75,8 +76,8 @@ will be released for this version. For the latest information, see the
 </dt>
 <dd>
 (boolean)
-Controls whether SLM records the history of actions taken as part of SLM policies
-to the <code class="literal">slm-history-*</code> indices. Defaults to <code class="literal">true</code>.
+控制 SLM 是否将作为 SLM 策略的一部分所采取的动作的历史记录到<code class="literal"> SLM -history-*</code>索引。
+默认值为 <code class="literal">true</code>。
 </dd>
 </dl>
 </div>
@@ -89,11 +90,11 @@ to the <code class="literal">slm-history-*</code> indices. Defaults to <code cla
 </span>
 </dt>
 <dd>
-(<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>, <a class="xref" href="trigger-schedule.html#schedule-cron" title="Cron schedule">cron scheduler value</a>)
-Controls when the <a class="xref" href="slm-retention.html" title="Snapshot retention">retention task</a> runs.
-Can be a periodic or absolute time schedule.
-Supports all values supported by the <a class="xref" href="trigger-schedule.html#schedule-cron" title="Cron schedule">cron scheduler</a>.
-Defaults to daily at 1:30am UTC: <code class="literal">0 30 1 * * ?</code>.
+(<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态的</a>, <a class="xref" href="trigger-schedule.html#schedule-cron" title="Cron schedule">cron scheduler value</a>)
+控制 <a class="xref" href="slm-retention.html" title="Snapshot retention">保留任务(retention task)</a> 的何时运行。
+可以是周期性的或绝对的时间计划。
+支持 <a class="xref" href="trigger-schedule.html#schedule-cron" title="Cron schedule">cron scheduler</a> 支持的所有值。
+默认为 UTC 时间每天凌晨1:30 ：<code class="literal">0 30 1 * * ?</code>.
 </dd>
 </dl>
 </div>
@@ -106,9 +107,8 @@ Defaults to daily at 1:30am UTC: <code class="literal">0 30 1 * * ?</code>.
 </span>
 </dt>
 <dd>
-(<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>, <a class="xref" href="common-options.html#time-units" title="Time units">time value</a>)
-Limits how long SLM should spend deleting old snapshots.
-Defaults to one hour: <code class="literal">1h</code>.
+(<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态的</a>, <a class="xref" href="common-options.html#time-units" title="Time units">time value</a>)
+限制 SLM 应该花费多长时间删除旧快照。默认为一小时： <code class="literal">1h</code>.
 </dd>
 </dl>
 </div>
@@ -117,10 +117,10 @@ Defaults to one hour: <code class="literal">1h</code>.
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="shard-request-cache.html">« Shard request cache settings</a>
+<a href="shard-request-cache.html">« 分片的请求缓存设置</a>
 </span>
 <span class="next">
-<a href="sql-settings.html">SQL access settings in Elasticsearch »</a>
+<a href="sql-settings.html">SQL访问设置 »</a>
 </span>
 </div>
 </div>

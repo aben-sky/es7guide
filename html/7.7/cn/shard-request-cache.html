@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Shard request cache settings | ElasticSearch 7.7 权威指南中文版</title>
+	<title>分片的请求缓存设置 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -30,74 +30,77 @@
                   <div class="page_header">
 <strong>IMPORTANT</strong>: No additional bug fixes or documentation updates
 will be released for this version. For the latest information, see the
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html">current release documentation</a>.
+<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html" rel="nofollow">current release documentation</a>.
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="settings.html">Configuring Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="settings.html">配置 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Shard request cache settings</span>
+<span class="breadcrumb-node">分片的请求缓存设置</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="security-settings.html">« Security settings in Elasticsearch</a>
+<a href="security-settings.html">« 安全设置</a>
 </span>
 <span class="next">
-<a href="slm-settings.html">Snapshot lifecycle management settings in Elasticsearch »</a>
+<a href="slm-settings.html">快照的生命周期管理设置 »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="shard-request-cache"></a>Shard request cache settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/request_cache.asciidoc">edit</a>
+<a id="shard-request-cache"></a>分片的请求缓存设置
 </h2>
 </div></div></div>
-<p>When a search request is run against an index or against many indices, each
-involved shard executes the search locally and returns its local results to
-the <em>coordinating node</em>, which combines these shard-level results into a
-“global” result set.</p>
-<p>The shard-level request cache module caches the local results on each shard.
-This allows frequently used (and potentially heavy) search requests to return
-results almost instantly. The requests cache is a very good fit for the logging
-use case, where only the most recent index is being actively updated — results from older indices will be served directly from the cache.</p>
+<p>
+当对一个或多个索引执行搜索请求时，每个相关的分片在本地执行搜索，并将其本地结果返回给<em>协调节点(coordinating node)</em>，协调节点再将这些分片级的结果组合成一个“全局的(global)”结果集。
+</p>
+<p>
+分片级请求缓存模块在每个分片上缓存本地结果。
+这使得经常使用的(也可能是大量的)搜索请求几乎可以立即返回结果。
+请求缓存非常适合日志记录场景，在这种情况下，只有最新的索引会被主动更新 —— 旧索引的结果将直接从缓存中提供。
+</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>By default, the requests cache will only cache the results of search requests
-where <code class="literal">size=0</code>, so it will not cache <code class="literal">hits</code>,
-but it will cache <code class="literal">hits.total</code>,  <a class="xref" href="search-aggregations.html" title="Aggregations">aggregations</a>, and
-<a class="xref" href="search-suggesters.html" title="Suggesters">suggestions</a>.</p>
-<p>Most queries that use <code class="literal">now</code> (see <a class="xref" href="common-options.html#date-math" title="Date Math">Date Math</a>) cannot be cached.</p>
-<p>Scripted queries that use the API calls which are non-deterministic, such as
-<code class="literal">Math.random()</code> or <code class="literal">new Date()</code> are not cached.</p>
+<p>
+默认情况下，请求缓存将只缓存 <code class="literal">size=0</code> 的搜索请求的结果，因此它不会缓存<code class="literal">hits</code>，但会缓存 <code class="literal">hits.total</code>、<a class="xref" href="search-aggregations.html" title="Aggregations">aggregations</a> 及 <a class="xref" href="search-suggesters.html" title="Suggesters">suggestions</a>。
+</p>
+<p>
+大多数使用 <code class="literal">now</code> 的查询(请参考<a class="xref" href="common-options.html#date-math" title="Date Math">日期计算(Date Math)</a>)都不能被缓存。
+</p>
+<p>
+不缓存使用不确定的API调用的脚本查询，如 <code class="literal">Math.random()</code> 或 <code class="literal">new Date()</code> 。
+</p>
 </div>
 </div>
 <h4>
-<a id="_cache_invalidation"></a>Cache invalidation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/request_cache.asciidoc">edit</a>
+<a id="_cache_invalidation"></a>缓存失效 (Cache invalidation)
 </h4>
-<p>The cache is smart — it keeps the same <em>near real-time</em> promise as uncached
-search.</p>
-<p>Cached results are invalidated automatically whenever the shard refreshes, but
-only if the data in the shard has actually changed.  In other words, you will
-always get the same results from the cache as you would for an uncached search
-request.</p>
-<p>The longer the refresh interval, the longer that cached entries will remain
-valid. If the cache is full, the least recently used cache keys will be
-evicted.</p>
-<p>The cache can be expired manually with the <a class="xref" href="indices-clearcache.html" title="Clear cache API"><code class="literal">clear-cache</code> API</a>:</p>
+<p>
+缓存是智能的 - 它保持与 非缓存的搜索 相同的<em>近实时</em>承诺。
+</p>
+<p>
+只要分片 刷新(refresh)，缓存的结果就会自动失效，但前提是分片中的数据确实发生了更改。
+换句话说，你将总会从缓存中获得与未缓存的搜索请求相同的结果。
+</p>
+<p>
+刷新(refresh)间隔越长，缓存的条目保持有效的时间就越长。
+如果缓存满了，最近最少使用的缓存将被清除。
+</p>
+<p>可以使用<a class="xref" href="indices-clearcache.html" title="Clear cache API"><code class="literal">clear-cache</code> API</a>手动使缓存过期：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /kimchy,elasticsearch/_cache/clear?request=true</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/28.console"></div>
 <h4>
-<a id="_enabling_and_disabling_caching"></a>Enabling and disabling caching<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/request_cache.asciidoc">edit</a>
+<a id="_enabling_and_disabling_caching"></a>启用和禁用缓存
 </h4>
-<p>The cache is enabled by default, but can be disabled when creating a new
-index as follows:</p>
+<p>默认情况下，缓存是启用的，但在创建新索引时可以禁用，比如：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /my_index
 {
@@ -107,18 +110,21 @@ index as follows:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/29.console"></div>
-<p>It can also be enabled or disabled dynamically on an existing index with the
-<a class="xref" href="indices-update-settings.html" title="Update index settings API"><code class="literal">update-settings</code></a> API:</p>
+<p>
+也可以使用 <a class="xref" href="indices-update-settings.html" title="Update index settings API"><code class="literal">update-settings</code></a> API 动态的对一个已有的索引启用或禁用缓存：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /my_index/_settings
 { "index.requests.cache.enable": true }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/30.console"></div>
 <h4>
-<a id="_enabling_and_disabling_caching_per_request"></a>Enabling and disabling caching per request<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/request_cache.asciidoc">edit</a>
+<a id="_enabling_and_disabling_caching_per_request"></a>为每一个请求启用和禁用缓存
 </h4>
-<p>The <code class="literal">request_cache</code> query-string parameter can be used to enable or disable
-caching on a <span class="strong strong"><strong>per-request</strong></span> basis.  If set, it overrides the index-level setting:</p>
+<p>
+请求参数 <code class="literal">request_cache</code> 可以为 <span class="strong strong"><strong>每一个请求</strong></span> 启用会禁用缓存。
+如果设置了这个请求参数，则会覆盖索引级别的设置：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /my_index/_search?request_cache=true
 {
@@ -133,45 +139,52 @@ caching on a <span class="strong strong"><strong>per-request</strong></span> bas
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/31.console"></div>
-<p>Requests where <code class="literal">size</code> is greater than 0 will not be cached even if the request cache is
-enabled in the index settings. To cache these requests you will need to use the
-query-string parameter detailed here.</p>
+<p>
+即使在索引设置中开启了缓存，参数 <code class="literal">size</code> 大于0的请求也不会被缓存。
+要对这种查询使用缓存，你需要使用这里提供的请求参数。
+</p>
 <h4>
-<a id="_cache_key"></a>Cache key<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/request_cache.asciidoc">edit</a>
+<a id="_cache_key"></a>缓存的键 (cache key)
 </h4>
-<p>The whole JSON body is used as the cache key.  This means that if the JSON
-changes — for instance if keys are output in a different order — then the
-cache key will not be recognised.</p>
+<p>
+整个JSON主体都会被用来作为缓存的键。
+这意味着如果JSON改变了——例如，如果键以不同的顺序输出——那么缓存键将不会被识别<span class="remark">（即: 会被认为是一个新的键）</span>。
+</p>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Most JSON libraries support a <em>canonical</em> mode which ensures that JSON
-keys are always emitted in the same order. This canonical mode can be used in
-the application to ensure that a request is always serialized in the same way.</p>
+<p>
+大多数 JSON 库支持<em>规范(canonical)</em>模式，该模式确保 JSON 的键总是以相同的顺序书输出。这种规范模式可以在应用程序中使用，以确保请求总是以相同的方式序列化。
+</p>
 </div>
 </div>
 <h4>
-<a id="_cache_settings"></a>Cache settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/request_cache.asciidoc">edit</a>
+<a id="_cache_settings"></a>缓存设置
 </h4>
-<p>The cache is managed at the node level, and has a default maximum size of <code class="literal">1%</code>
-of the heap.  This can be changed in the <code class="literal">config/elasticsearch.yml</code> file with:</p>
+<p>
+缓存在节点级别进行管理，默认内存占用最大值为堆的<code class="literal">1%</code>。这可以在 <code class="literal">config/elasticsearch.yml</code> 文件中使用以下命令进行更改：
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">indices.requests.cache.size: 2%</pre>
 </div>
-<p>Also, you can use the <code class="literal">indices.requests.cache.expire</code> setting to specify a TTL
-for cached results, but there should be no reason to do so.  Remember that
-stale results are automatically invalidated when the index is refreshed. This
-setting is provided for completeness' sake only.</p>
+<p>
+此外，您可以使用 <code class="literal">indices.requests.cache.expire</code> 设置为缓存的结果指定 TTL(Time to Live)，但没有理由这样做。
+请记住，<em>刷新(refresh)</em> 索引时，过时的结果的缓存数据会自动失效。
+提供此设置只是为了完整性考虑。
+</p>
 <h4>
-<a id="_monitoring_cache_usage"></a>Monitoring cache usage<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/indices/request_cache.asciidoc">edit</a>
+<a id="_monitoring_cache_usage"></a>监控缓存使用情况
 </h4>
-<p>The size of the cache (in bytes) and the number of evictions can be viewed
-by index, with the <a class="xref" href="indices-stats.html" title="Index stats API"><code class="literal">indices-stats</code></a> API:</p>
+<p>
+可以使用 <a class="xref" href="indices-stats.html" title="Index stats API"><code class="literal">indices-stats</code></a> API 按索引查看缓存的大小(以字节为单位)和淘汰的数量：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_stats/request_cache?human</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/32.console"></div>
-<p>or by node with the <a class="xref" href="cluster-nodes-stats.html" title="Nodes stats API"><code class="literal">nodes-stats</code></a> API:</p>
+<p>
+或者使用 <a class="xref" href="cluster-nodes-stats.html" title="Nodes stats API"><code class="literal">nodes-stats</code></a> API 按节点查看：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_nodes/stats/indices/request_cache?human</pre>
 </div>
@@ -179,10 +192,10 @@ by index, with the <a class="xref" href="indices-stats.html" title="Index stats 
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="security-settings.html">« Security settings in Elasticsearch</a>
+<a href="security-settings.html">« 安全设置</a>
 </span>
 <span class="next">
-<a href="slm-settings.html">Snapshot lifecycle management settings in Elasticsearch »</a>
+<a href="slm-settings.html">快照的生命周期管理设置 »</a>
 </span>
 </div>
 </div>

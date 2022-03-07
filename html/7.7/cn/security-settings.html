@@ -47,7 +47,7 @@ will be released for this version. For the latest information, see the
 <a href="search-settings.html">« 搜索设置</a>
 </span>
 <span class="next">
-<a href2="shard-request-cache.html">Shard request cache settings »</a>
+<a href="shard-request-cache.html">分片的请求缓存设置 »</a>
 </span>
 </div>
 <div class="section xpack">
@@ -3692,7 +3692,7 @@ Elasticsearch可以配置为使用 PKCS#12 容器文件(<code class="literal">.p
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="security-transport-tls-ssl-key-trusted-certificate-settings"></a>Transport TLS/SSL 密钥和可信证书设置
+<a id="security-transport-tls-ssl-key-trusted-certificate-settings"></a>传输时的 TLS/SSL 密钥和可信证书设置
 </h4>
 </div></div></div>
 <p>
@@ -3971,16 +3971,17 @@ Elasticsearch可以配置为使用 PKCS#12 容器文件(<code class="literal">.p
 </div>
 </div>
 <h5>
-<a id="ssl-tls-profile-settings"></a>transport profile TLS/SSL 设置
+<a id="ssl-tls-profile-settings"></a>传输配置(transport profile)的 TLS/SSL 设置
 </h5>
+<span class="remark">(这里的 "transport profile" 可能翻译的不对, 但是我暂时还未找到更合适的翻译. By: aben)</span>
 <p>
-适用于<a class="xref" href="security-settings.html#transport-tls-ssl-settings" title="Transport TLS/SSL settings">default transport</a>的设置也适用于每个 transport profile。
-默认情况下，除非指定，否则 transport profile 的设置将与 default transport 相同。
+适用于<a class="xref" href="security-settings.html#transport-tls-ssl-settings" title="Transport TLS/SSL settings">默认传输机制(default transport)</a>的设置也适用于每个 <em>传输配置(transport profile)</em>。
+默认情况下，除非指定，否则 <em>传输配置</em> 的设置将与 <em>默认传输机制</em> 相同。
 </p>
 <p>
 举个例子，让我们看看密钥设置。
-对于 default transport ，是 <code class="literal">xpack.security.transport.ssl.key</code>。
-为了在一个 transport profile 中使用此设置，使用前缀 <code class="literal">transport.profiles.$PROFILE.xpack.security.</code> 并在 <code class="literal">xpack.security.transport.</code> 后追加设置部分。
+对于 <em>默认传输机制</em> 来说，这个属性叫 <code class="literal">xpack.security.transport.ssl.key</code>。
+为了在一个 <em>传输配置</em> 中使用此设置，使用前缀 <code class="literal">transport.profiles.$PROFILE.xpack.security.</code> 并在 <code class="literal">xpack.security.transport.</code> 后追加设置部分。
 对于密钥设置，是 <code class="literal">transport.profiles.$PROFILE.xpack.security.ssl.key</code>。
 </p>
 <h4>
@@ -4334,7 +4335,7 @@ Elasticsearch可以配置为使用 PKCS#12 容器文件(<code class="literal">.p
 <a href="search-settings.html">« 搜索设置</a>
 </span>
 <span class="next">
-<a href2="shard-request-cache.html">Shard request cache settings »</a>
+<a href="shard-request-cache.html">分片的请求缓存设置 »</a>
 </span>
 </div>
 </div>

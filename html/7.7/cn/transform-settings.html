@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Transforms settings in Elasticsearch | ElasticSearch 7.7 权威指南中文版</title>
+	<title>转换(transform)设置 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,42 +32,42 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="settings.html">Configuring Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="settings.html">配置 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Transforms  settings in Elasticsearch</span>
+<span class="breadcrumb-node">转换(transform)设置</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="sql-settings.html">« SQL access settings in Elasticsearch</a>
+<a href="sql-settings.html">« SQL访问设置</a>
 </span>
 <span class="next">
-<a href="modules-transport.html">Transport »</a>
+<a href2="modules-transport.html">Transport »</a>
 </span>
 </div>
 <div class="section xpack">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="transform-settings"></a>Transforms  settings in Elasticsearch<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/transform-settings.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
+<a id="transform-settings"></a>转换(transform)设置
 </h2>
 </div></div></div>
 
-<p>You do not need to configure any settings to use transforms. It is enabled by default.</p>
-<p>All of these settings can be added to the <code class="literal">elasticsearch.yml</code> configuration file.
-The dynamic settings can also be updated across a cluster with the
-<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">cluster update settings API</a>.</p>
+<p>使用 <em>转换(transform)</em> 不需要配置任何设置。它是默认开启的。</p>
+<p>
+所有这些设置都可以添加到 <code class="literal">elasticsearch.yml</code> 配置文件中。
+动态设置也可以使用 <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">集群更新设置 API</a> 来更新整个集群。
+</p>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Dynamic settings take precedence over settings in the <code class="literal">elasticsearch.yml</code>
-file.</p>
+<p>动态设置优先于 <code class="literal">elasticsearch.yml</code> 文件中的设置。</p>
 </div>
 </div>
 <h4>
-<a id="general-transform-settings"></a>General transforms settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/transform-settings.asciidoc">edit</a>
+<a id="general-transform-settings"></a>常规转换设置
 </h4>
 <div class="variablelist">
 <dl class="variablelist">
@@ -78,20 +78,24 @@ file.</p>
 </dt>
 <dd>
 <p>
-Set to <code class="literal">true</code> to identify the node as a <em>transform node</em>. If either <code class="literal">node.data</code>
-or <code class="literal">xpack.transform.enabled</code> is <code class="literal">false</code> for the node, the default value is
-<code class="literal">false</code>. Otherwise, the default value is <code class="literal">true</code>.
+设置为 <code class="literal">true</code> 以将节点标识为 <em>转换节点(transform node)</em>。
+如果节点的  <code class="literal">node.data</code> 或 <code class="literal">xpack.transform.enabled</code> 是 <code class="literal">false</code>，则该设置默认为 <code class="literal">false</code>；
+否则，默认值为 <code class="literal">true</code>。
 </p>
-<p>If set to <code class="literal">false</code> in <code class="literal">elasticsearch.yml</code>, the node cannot run transforms. If set to
-<code class="literal">true</code> but <code class="literal">xpack.transform.enabled</code> is set to <code class="literal">false</code>, the <code class="literal">node.transform</code> setting is
-ignored and the node cannot run transforms. If you want to run transforms, there must be at
-least one transform node in your cluster.<br></p>
+<p>
+如果在 <code class="literal">elasticsearch.yml</code> 配置文件中设置为 <code class="literal">false</code>， 该该节点无法运行 <em>转换</em>。
+
+如果设置为 <code class="literal">true</code>，但是 <code class="literal">xpack.transform.enabled</code> 被设置为 <code class="literal">false</code>，则 <code class="literal">node.transform</code> 设置会被忽略，这也意味着该该节点无法运行 <em>转换</em>。
+
+如果要运行转换，集群中必须且至少要有一个转换节点。
+</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>It is advised to use the <code class="literal">node.transform</code> setting to constrain the execution
-of transforms to certain nodes instead of using <code class="literal">xpack.transform.enabled</code>. On dedicated
-coordinating nodes or dedicated master nodes, disable the node.transform role.</p>
+<p>
+建议使用 <code class="literal">node.transform</code> 设置将转换的执行限制在某些节点上，而不是使用 <code class="literal">xpack.transform.enabled</code>。
+在专用的协调节点或专用的主节点上，禁用 node.transform 角色。
+</p>
 </div>
 </div>
 </dd>
@@ -102,46 +106,47 @@ coordinating nodes or dedicated master nodes, disable the node.transform role.</
 </dt>
 <dd>
 <p>
-Set to <code class="literal">true</code> (default) to enable transforms on the node.<br>
+设置为 <code class="literal">true</code> (默认值) 以在节点上启用转换。
 </p>
-<p>If set to <code class="literal">false</code> in <code class="literal">elasticsearch.yml</code>, the transform APIs are disabled on
-the node. Therefore the node cannot start or administrate transforms or
-receive transport (internal) communication requests related to transform APIs.
-If the node is a coordinating node, transform requests from clients (including
-Kibana) also fail.</p>
+<p>
+如果在 <code class="literal">elasticsearch.yml</code> 中设置为 <code class="literal">false</code> ，则该节点上的 转换API 会被禁用。
+
+因此，该节点不能启动或管理转换，也不能接收与 转换API 相关的传输(内部的)通信请求。
+
+如果该节点是 协调节点<span class="remark">(coordinating node)</span>，来自客户端(包括Kibana)的转换请求也会失败。
+</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If you want to use transform features in your cluster, it is
-recommended that you set <code class="literal">xpack.transform.enabled</code> to <code class="literal">true</code> on all nodes. This
-is the default behavior. At a minimum, it must be enabled on all master-eligible
-nodes and all data nodes. If you want to use transforms in clients or Kibana,
-it must also be enabled on all coordinating nodes.</p>
+<p>
+如果你想在集群中使用转换功能，推荐在所有节点上设置 <code class="literal">xpack.transform.enabled</code> 为 <code class="literal">true</code>。
+这是默认行为。
+至少，必须在所有<span title="master-eligible nodes">符合主节点条件的节点</span>和所有数据节点上启用它。
+如果你想在客户端 或 Kibana 中使用转换功能，必须在所有的 协调节点<span class="remark">(coordinating node)</span> 上启用它。
+</p>
 </div>
 </div>
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.transform.num_transform_failure_retries</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">xpack.transform.num_transform_failure_retries</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-The number of times that a transform retries when it experiences a
-non-fatal error. Once the number of retries is exhausted, the transform
-task will be marked as <code class="literal">failed</code>. The default value is <code class="literal">10</code> with a valid minimum of <code class="literal">0</code>
-and maximum of <code class="literal">100</code>.
-If a transform is already running, it will have to be restarted
-to use the changed setting.
+转换遇到非致命错误时重试的次数。
+一旦达到重试次数限制，转换任务将被标记为 <code class="literal">failed</code>。
+默认值为 <code class="literal">10</code>，有效最小值为 <code class="literal">0</code>，最大值为 <code class="literal">100</code>。
+如果转换已经在运行，则必须重新启动才能使用更改后的设置。
 </dd>
 </dl>
 </div>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="sql-settings.html">« SQL access settings in Elasticsearch</a>
+<a href="sql-settings.html">« SQL访问设置</a>
 </span>
 <span class="next">
-<a href="modules-transport.html">Transport »</a>
+<a href2="modules-transport.html">Transport »</a>
 </span>
 </div>
 </div>

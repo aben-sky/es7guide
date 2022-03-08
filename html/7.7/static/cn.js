@@ -223,23 +223,23 @@ var esNavLinks = [
                     },
                     {
                         "url": "shard-request-cache.html",
-                        "text": "分片上的请求的缓存设置",
-                        "title": "Shard request cache settings"
+                        "text": "分片的请求缓存设置",
+                        "title": "分片的请求缓存设置"
                     },
                     {
                         "url": "slm-settings.html",
                         "text": "快照的生命周期管理设置",
-                        "title": "Snapshot lifecycle management settings"
+                        "title": "快照的生命周期管理设置"
                     },
                     {
                         "url": "sql-settings.html",
-                        "text": "SQL查询支持的设置",
-                        "title": "SQL access settings"
+                        "text": "SQL访问设置",
+                        "title": "SQL访问设置"
                     },
                     {
                         "url": "transform-settings.html",
-                        "text": "转换(Transforms)设置",
-                        "title": "Transforms settings"
+                        "text": "转换(transform)设置",
+                        "title": "转换(transform)设置"
                     },
                     {
                         "url": "modules-transport.html",

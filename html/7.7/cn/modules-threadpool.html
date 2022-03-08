@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Thread pools | ElasticSearch 7.7 权威指南中文版</title>
+	<title>线程池 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,32 +32,33 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="settings.html">Configuring Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="settings.html">配置 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Thread pools</span>
+<span class="breadcrumb-node">线程池</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="modules-transport.html">« Transport</a>
+<a href="modules-transport.html">« 传输</a>
 </span>
 <span class="next">
-<a href="notification-settings.html">Watcher settings in Elasticsearch »</a>
+<a href2="notification-settings.html">Watcher settings in Elasticsearch »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="modules-threadpool"></a>Thread pools<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/threadpool.asciidoc">edit</a>
+<a id="modules-threadpool"></a>线程池 (thread pools)
 </h2>
 </div></div></div>
-<p>A node uses several thread pools to manage memory consumption.
-Queues associated with many of the thread pools enable pending requests
-to be held instead of discarded.</p>
-<p>There are several thread pools, but the important ones include:</p>
+<p>
+一个节点使用若干个线程池来管理内存消耗。
+与许多线程池关联的队列允许保留挂起的请求，而不是丢弃。
+</p>
+<p>有若干个线程池，但重要的几个是：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -66,8 +67,7 @@ to be held instead of discarded.</p>
 </span>
 </dt>
 <dd>
-For generic operations (for example, background node discovery).
-Thread pool type is <code class="literal">scaling</code>.
+对于一般操作(例如，后台节点发现)。其线程池类型为 <code class="literal">scaling</code>
 </dd>
 </dl>
 </div>
@@ -80,10 +80,8 @@ Thread pool type is <code class="literal">scaling</code>.
 </span>
 </dt>
 <dd>
-For count/search/suggest operations. Thread pool type is
-<code class="literal">fixed_auto_queue_size</code> with a size of
-<code class="literal">int((# of available_processors * 3) / 2) + 1</code>, and initial queue_size of
-<code class="literal">1000</code>.
+对于 count、search、suggest 操作。
+其线程池类型为 <code class="literal">fixed_auto_queue_size</code><span class="remark">(自动的固定的队列大小)</span>，大小为 <code class="literal">int((# 所有可用的处理器数 * 3) / 2) + 1</code>，初始队列大小为 <code class="literal">1000</code>
 </dd>
 <dt>
 <span class="term">
@@ -91,9 +89,8 @@ For count/search/suggest operations. Thread pool type is
 </span>
 </dt>
 <dd>
-For count/search/suggest/get operations on <code class="literal">search_throttled indices</code>.
-Thread pool type is <code class="literal">fixed_auto_queue_size</code> with a size of <code class="literal">1</code>, and initial
-queue_size of <code class="literal">100</code>.
+对于 <code class="literal">搜索节流索引</code><span class="remark">(search_throttled indices)</span> 上的 count、search、suggest、get 操作。
+其线程池类型为 <code class="literal">fixed_auto_queue_size</code><span class="remark">(自动的固定的队列大小)</span>，大小为<code class="literal">1</code>，初始队列大小为 <code class="literal">100</code>
 </dd>
 <dt>
 <span class="term">
@@ -101,9 +98,8 @@ queue_size of <code class="literal">100</code>.
 </span>
 </dt>
 <dd>
-For get operations. Thread pool type is <code class="literal">fixed</code>
-with a size of <code class="literal"># of available processors</code>,
-queue_size of <code class="literal">1000</code>.
+对于 get 操作。
+其线程池类型为 <code class="literal">fixed</code><span class="remark">(固定的)</span>，大小为 <code class="literal"># 可用的处理器数</code>，队列大小为 <code class="literal">1000</code>
 </dd>
 <dt>
 <span class="term">
@@ -111,8 +107,8 @@ queue_size of <code class="literal">1000</code>.
 </span>
 </dt>
 <dd>
-For analyze requests. Thread pool type is <code class="literal">fixed</code> with a size of <code class="literal">1</code>, queue
-size of <code class="literal">16</code>.
+对于 分析(analyze) 请求。
+其线程池类型为 <code class="literal">fixed</code><span class="remark">(固定的)</span>，大小为 <code class="literal">1</code>，队列大小为 <code class="literal">16</code>
 </dd>
 <dt>
 <span class="term">
@@ -121,8 +117,8 @@ size of <code class="literal">16</code>.
 </dt>
 <dd>
 For single-document index/delete/update and bulk requests. Thread pool type
-is <code class="literal">fixed</code> with a size of <code class="literal"># of available processors</code>, queue_size of <code class="literal">200</code>.
-The maximum size for this pool is <code class="literal">1 + # of available processors</code>.
+is <code class="literal">fixed</code> with a size of <code class="literal"># 可用的处理器数</code>, queue_size of <code class="literal">200</code>.
+The maximum size for this pool is <code class="literal">1 + # 可用的处理器数</code>.
 </dd>
 <dt>
 <span class="term">
@@ -131,7 +127,7 @@ The maximum size for this pool is <code class="literal">1 + # of available proce
 </dt>
 <dd>
 For snapshot/restore operations. Thread pool type is <code class="literal">scaling</code> with a
-keep-alive of <code class="literal">5m</code> and a max of <code class="literal">min(5, (# of available processors)/2)</code>.
+keep-alive of <code class="literal">5m</code> and a max of <code class="literal">min(5, (# 可用的处理器数)/2)</code>.
 </dd>
 <dt>
 <span class="term">
@@ -140,7 +136,7 @@ keep-alive of <code class="literal">5m</code> and a max of <code class="literal"
 </dt>
 <dd>
 For segment warm-up operations. Thread pool type is <code class="literal">scaling</code> with a
-keep-alive of <code class="literal">5m</code> and a max of <code class="literal">min(5, (# of available processors)/2)</code>.
+keep-alive of <code class="literal">5m</code> and a max of <code class="literal">min(5, (# 可用的处理器数)/2)</code>.
 </dd>
 <dt>
 <span class="term">
@@ -149,7 +145,7 @@ keep-alive of <code class="literal">5m</code> and a max of <code class="literal"
 </dt>
 <dd>
 For refresh operations. Thread pool type is <code class="literal">scaling</code> with a
-keep-alive of <code class="literal">5m</code> and a max of <code class="literal">min(10, (# of available processors)/2)</code>.
+keep-alive of <code class="literal">5m</code> and a max of <code class="literal">min(10, (# 可用的处理器数)/2)</code>.
 </dd>
 <dt>
 <span class="term">
@@ -159,7 +155,7 @@ keep-alive of <code class="literal">5m</code> and a max of <code class="literal"
 <dd>
 Mainly for java client executing of action when listener threaded is set to
 <code class="literal">true</code>. Thread pool type is <code class="literal">scaling</code> with a default max of
-<code class="literal">min(10, (# of available processors)/2)</code>.
+<code class="literal">min(10, (# 可用的处理器数)/2)</code>.
 </dd>
 <dt>
 <span class="term">
@@ -169,7 +165,7 @@ Mainly for java client executing of action when listener threaded is set to
 <dd>
 For listing shard states.
 Thread pool type is <code class="literal">scaling</code> with keep-alive of <code class="literal">5m</code> and a default maximum
-size of <code class="literal">2 * # of available processors</code>.
+size of <code class="literal">2 * # 可用的处理器数</code>.
 </dd>
 <dt>
 <span class="term">
@@ -179,7 +175,7 @@ size of <code class="literal">2 * # of available processors</code>.
 <dd>
 For listing shard stores.
 Thread pool type is <code class="literal">scaling</code> with keep-alive of <code class="literal">5m</code> and a default maximum
-size of <code class="literal">2 * # of available processors</code>.
+size of <code class="literal">2 * # 可用的处理器数</code>.
 </dd>
 <dt>
 <span class="term">
@@ -189,7 +185,7 @@ size of <code class="literal">2 * # of available processors</code>.
 <dd>
 For <a class="xref" href="indices-flush.html" title="Flush API">flush</a>, <a class="xref" href="indices-synced-flush-api.html" title="Synced flush API">synced flush</a>, and <a class="xref" href="index-modules-translog.html" title="Translog">translog</a> <code class="literal">fsync</code> operations.
 Thread pool type is <code class="literal">scaling</code> with a keep-alive of <code class="literal">5m</code> and a default
-maximum size of <code class="literal">min(5, (# of available processors)/2)</code>.
+maximum size of <code class="literal">min(5, (# 可用的处理器数)/2)</code>.
 </dd>
 <dt>
 <span class="term">
@@ -358,10 +354,10 @@ API with the <code class="literal">os</code> flag.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="modules-transport.html">« Transport</a>
+<a href="modules-transport.html">« 传输</a>
 </span>
 <span class="next">
-<a href="notification-settings.html">Watcher settings in Elasticsearch »</a>
+<a href2="notification-settings.html">Watcher settings in Elasticsearch »</a>
 </span>
 </div>
 </div>

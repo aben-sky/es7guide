@@ -249,7 +249,7 @@ var esNavLinks = [
                     {
                         "url": "modules-threadpool.html",
                         "text": "线程池",
-                        "title": "Thread pools"
+                        "title": "线程池"
                     },
                     {
                         "url": "notification-settings.html",

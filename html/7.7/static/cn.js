@@ -243,8 +243,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "modules-transport.html",
-                        "text": "Transport",
-                        "title": "Transport"
+                        "text": "传输(transport)",
+                        "title": "传输(transport)"
                     },
                     {
                         "url": "modules-threadpool.html",

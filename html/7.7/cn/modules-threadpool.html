@@ -67,7 +67,7 @@
 </span>
 </dt>
 <dd>
-对于一般操作(例如，后台节点发现)。其线程池类型为 <code class="literal">scaling</code>
+对应 一般操作(例如，后台节点发现)。其线程池类型为 <code class="literal">scaling</code>
 </dd>
 </dl>
 </div>
@@ -80,8 +80,8 @@
 </span>
 </dt>
 <dd>
-对于 count、search、suggest 操作。
-其线程池类型为 <code class="literal">fixed_auto_queue_size</code><span class="remark">(自动的固定的队列大小)</span>，大小为 <code class="literal">int((# 所有可用的处理器数 * 3) / 2) + 1</code>，初始队列大小为 <code class="literal">1000</code>
+对应 count、search、suggest 操作。
+其线程池类型为 <code class="literal">fixed_auto_queue_size</code><span class="remark">(自动的固定的队列大小)</span>，大小为 <code class="literal">int((可用的处理器数 * 3) / 2) + 1</code>，初始队列大小为 <code class="literal">1000</code>
 </dd>
 <dt>
 <span class="term">
@@ -89,7 +89,7 @@
 </span>
 </dt>
 <dd>
-对于 <code class="literal">搜索节流索引</code><span class="remark">(search_throttled indices)</span> 上的 count、search、suggest、get 操作。
+对应 <code class="literal">搜索节流索引</code><span class="remark">(search_throttled indices)</span> 上的 count、search、suggest、get 操作。
 其线程池类型为 <code class="literal">fixed_auto_queue_size</code><span class="remark">(自动的固定的队列大小)</span>，大小为<code class="literal">1</code>，初始队列大小为 <code class="literal">100</code>
 </dd>
 <dt>
@@ -98,8 +98,8 @@
 </span>
 </dt>
 <dd>
-对于 get 操作。
-其线程池类型为 <code class="literal">fixed</code><span class="remark">(固定的)</span>，大小为 <code class="literal"># 可用的处理器数</code>，队列大小为 <code class="literal">1000</code>
+对应 get 操作。
+其线程池类型为 <code class="literal">fixed</code><span class="remark">(固定的)</span>，大小为 <code class="literal">可用的处理器数</code>，队列大小为 <code class="literal">1000</code>
 </dd>
 <dt>
 <span class="term">
@@ -107,7 +107,7 @@
 </span>
 </dt>
 <dd>
-对于 分析(analyze) 请求。
+对应 分析(analyze) 请求。
 其线程池类型为 <code class="literal">fixed</code><span class="remark">(固定的)</span>，大小为 <code class="literal">1</code>，队列大小为 <code class="literal">16</code>
 </dd>
 <dt>
@@ -116,9 +116,9 @@
 </span>
 </dt>
 <dd>
-For single-document index/delete/update and bulk requests. Thread pool type
-is <code class="literal">fixed</code> with a size of <code class="literal"># 可用的处理器数</code>, queue_size of <code class="literal">200</code>.
-The maximum size for this pool is <code class="literal">1 + # 可用的处理器数</code>.
+对应 单个文档的 index/delete/update 及 批量(bulk) 请求。
+其线程池类型为 <code class="literal">fixed</code><span class="remark">(固定的)</span>，大小为 <code class="literal">可用的处理器数</code>, 队列大小为 <code class="literal">200</code>。
+线程池最大数量为 <code class="literal">1 + 可用的处理器数</code>。
 </dd>
 <dt>
 <span class="term">
@@ -126,8 +126,8 @@ The maximum size for this pool is <code class="literal">1 + # 可用的处理器
 </span>
 </dt>
 <dd>
-For snapshot/restore operations. Thread pool type is <code class="literal">scaling</code> with a
-keep-alive of <code class="literal">5m</code> and a max of <code class="literal">min(5, (# 可用的处理器数)/2)</code>.
+对应 snapshot/restore 操作。
+其线程池类型为 <code class="literal">scaling</code><span class="remark">(可扩展的)</span>，保持活动状态 <code class="literal">5m</code>，最大值为 <code class="literal">min(5, (可用的处理器数)/2)</code>。
 </dd>
 <dt>
 <span class="term">
@@ -135,8 +135,8 @@ keep-alive of <code class="literal">5m</code> and a max of <code class="literal"
 </span>
 </dt>
 <dd>
-For segment warm-up operations. Thread pool type is <code class="literal">scaling</code> with a
-keep-alive of <code class="literal">5m</code> and a max of <code class="literal">min(5, (# 可用的处理器数)/2)</code>.
+对应 段(segment)的 预热(warm-up) 操作。
+其线程池类型为 <code class="literal">scaling</code><span class="remark">(可扩展的)</span>，保持活动状态 <code class="literal">5m</code>，最大值为 <code class="literal">min(5, (可用的处理器数)/2)</code>。
 </dd>
 <dt>
 <span class="term">
@@ -144,8 +144,8 @@ keep-alive of <code class="literal">5m</code> and a max of <code class="literal"
 </span>
 </dt>
 <dd>
-For refresh operations. Thread pool type is <code class="literal">scaling</code> with a
-keep-alive of <code class="literal">5m</code> and a max of <code class="literal">min(10, (# 可用的处理器数)/2)</code>.
+对应 刷新(refhresh) 操作。
+其线程池类型为 <code class="literal">scaling</code><span class="remark">(可扩展的)</span>，保持活动状态 <code class="literal">5m</code>，最大值为 <code class="literal">min(10, (可用的处理器数)/2)</code>。
 </dd>
 <dt>
 <span class="term">
@@ -153,9 +153,8 @@ keep-alive of <code class="literal">5m</code> and a max of <code class="literal"
 </span>
 </dt>
 <dd>
-Mainly for java client executing of action when listener threaded is set to
-<code class="literal">true</code>. Thread pool type is <code class="literal">scaling</code> with a default max of
-<code class="literal">min(10, (# 可用的处理器数)/2)</code>.
+主要用于java客户端在监听器线程设置为<code class="literal">true</code>时执行操作。
+其线程池类型为 <code class="literal">scaling</code><span class="remark">(可扩展的)</span>，默认最大值为 <code class="literal">min(10, (可用的处理器数)/2)</code>。
 </dd>
 <dt>
 <span class="term">
@@ -163,9 +162,8 @@ Mainly for java client executing of action when listener threaded is set to
 </span>
 </dt>
 <dd>
-For listing shard states.
-Thread pool type is <code class="literal">scaling</code> with keep-alive of <code class="literal">5m</code> and a default maximum
-size of <code class="literal">2 * # 可用的处理器数</code>.
+对应 列出分片状态。
+其线程池类型为 <code class="literal">scaling</code><span class="remark">(可扩展的)</span>，保持活动状态 <code class="literal">5m</code>，默认最大值为 <code class="literal">2 * 可用的处理器数</code>。
 </dd>
 <dt>
 <span class="term">
@@ -173,9 +171,8 @@ size of <code class="literal">2 * # 可用的处理器数</code>.
 </span>
 </dt>
 <dd>
-For listing shard stores.
-Thread pool type is <code class="literal">scaling</code> with keep-alive of <code class="literal">5m</code> and a default maximum
-size of <code class="literal">2 * # 可用的处理器数</code>.
+对应 列出分片存储。
+其线程池类型为 <code class="literal">scaling</code><span class="remark">(可扩展的)</span>，保持活动状态 <code class="literal">5m</code>，默认最大值为 <code class="literal">2 * 可用的处理器数</code>。
 </dd>
 <dt>
 <span class="term">
@@ -183,9 +180,9 @@ size of <code class="literal">2 * # 可用的处理器数</code>.
 </span>
 </dt>
 <dd>
-For <a class="xref" href="indices-flush.html" title="Flush API">flush</a>, <a class="xref" href="indices-synced-flush-api.html" title="Synced flush API">synced flush</a>, and <a class="xref" href="index-modules-translog.html" title="Translog">translog</a> <code class="literal">fsync</code> operations.
-Thread pool type is <code class="literal">scaling</code> with a keep-alive of <code class="literal">5m</code> and a default
-maximum size of <code class="literal">min(5, (# 可用的处理器数)/2)</code>.
+对应 <a class="xref" href="indices-flush.html" title="Flush API">flush</a><span class="remark">(冲洗)</span>、<a class="xref" href="indices-synced-flush-api.html" title="Synced flush API">synced flush</a><span class="remark">(同步冲洗)</span> 及 <a class="xref" href="index-modules-translog.html" title="Translog">translog</a><span class="remark">(事务日志)</span> <code class="literal">fsync</code> 操作。
+
+其线程池类型为 <code class="literal">scaling</code><span class="remark">(可扩展的)</span>，保持活动状态 <code class="literal">5m</code>，默认最大值为 <code class="literal">min(5, 可用的处理器数/2)</code>。
 </dd>
 <dt>
 <span class="term">
@@ -193,8 +190,8 @@ maximum size of <code class="literal">min(5, (# 可用的处理器数)/2)</code>
 </span>
 </dt>
 <dd>
-For <a class="xref" href="indices-forcemerge.html" title="Force merge API">force merge</a> operations.
-Thread pool type is <code class="literal">fixed</code> with a size of 1 and an unbounded queue size.
+对应 <a class="xref" href="indices-forcemerge.html" title="Force merge API">强制合并(force merge)</a> 操作。
+其线程池类型为 <code class="literal">fixed</code><span class="remark">(固定的)</span>，大小为 1，队列大小无限制。
 </dd>
 <dt>
 <span class="term">
@@ -202,15 +199,14 @@ Thread pool type is <code class="literal">fixed</code> with a size of 1 and an u
 </span>
 </dt>
 <dd>
-For cluster management.
-Thread pool type is <code class="literal">scaling</code> with a keep-alive of <code class="literal">5m</code> and a default
-maximum size of <code class="literal">5</code>.
+对应 集群管理。
+其线程池类型为 <code class="literal">scaling</code><span class="remark">(可扩展的)</span>，保持活动状态 <code class="literal">5m</code>，默认最大值为 <code class="literal">5</code>。
 </dd>
 </dl>
 </div>
-<p>Changing a specific thread pool can be done by setting its type-specific
-parameters; for example, changing the number of threads in the <code class="literal">write</code> thread
-pool:</p>
+<p>
+可以通过设置特定类型的参数来更改特定的线程池；例如，更改<code class="literal">write</code>线程池中的线程数量：
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">thread_pool:
     write:
@@ -219,24 +215,27 @@ pool:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="thread-pool-types"></a>Thread pool types<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/threadpool.asciidoc">edit</a>
+<a id="thread-pool-types"></a>线程池类型
 </h3>
 </div></div></div>
-<p>The following are the types of thread pools and their respective parameters:</p>
+<p>以下是线程池的类型及其各自的参数：</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="fixed-thread-pool"></a><code class="literal">fixed</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/threadpool.asciidoc">edit</a>
+<a id="fixed-thread-pool"></a><code class="literal">fixed</code>
 </h4>
 </div></div></div>
-<p>The <code class="literal">fixed</code> thread pool holds a fixed size of threads to handle the
-requests with a queue (optionally bounded) for pending requests that
-have no threads to service them.</p>
-<p>The <code class="literal">size</code> parameter controls the number of threads.</p>
-<p>The <code class="literal">queue_size</code> allows to control the size of the queue of pending
-requests that have no threads to execute them. By default, it is set to
-<code class="literal">-1</code> which means its unbounded. When a request comes in and the queue is
-full, it will abort the request.</p>
+<p>
+<code class="literal">fixed</code>类型的线程池 拥有一个固定大小的线程来处理带有队列(可选有界)的请求，用于处理没有线程为其服务的等待请求。  
+</p>
+<p>
+参数 <code class="literal">size</code> 控制线程的数量。  
+</p>
+<p>
+参数 <code class="literal">queue_size</code> 允许控制没有线程执行请求的队列大小。
+默认情况下，它被设置为<code class="literal">-1</code>，这意味着它是无限制的。
+当队列已满时，进来的请求将被终止。
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">thread_pool:
     write:
@@ -248,38 +247,46 @@ full, it will abort the request.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="fixed-auto-queue-size"></a><code class="literal">fixed_auto_queue_size</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/threadpool.asciidoc">edit</a>
+<a id="fixed-auto-queue-size"></a><code class="literal">fixed_auto_queue_size</code>
 </h4>
 </div></div></div>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>This functionality is experimental and may be changed or removed completely in a future release. Elastic will take a best effort approach to fix any issues, but experimental features are not subject to the support SLA of official GA features.</p>
+<p>
+这个功能是实验性的，可能会在未来的版本中完全更改或删除。  
+Elastic 将尽最大努力修复任何问题，但实验性功能不受官方 GA 特性的 SLA 支持。  
+</p>
 </div>
 </div>
-<p>deprecated[7.7.0,The experimental <code class="literal">fixed_auto_queue_size</code> thread pool type is
-deprecated and will be removed in 8.0.]</p>
-<p>The <code class="literal">fixed_auto_queue_size</code> thread pool holds a fixed size of threads to handle
-the requests with a bounded queue for pending requests that have no threads to
-service them. It’s similar to the <code class="literal">fixed</code> threadpool, however, the <code class="literal">queue_size</code>
-automatically adjusts according to calculations based on
-<a href="https://en.wikipedia.org/wiki/Little%27s_law" class="ulink" target="_top">Little’s Law</a>. These calculations
-will potentially adjust the <code class="literal">queue_size</code> up or down by 50 every time
-<code class="literal">auto_queue_frame_size</code> operations have been completed.</p>
-<p>The <code class="literal">size</code> parameter controls the number of threads.</p>
-<p>The <code class="literal">queue_size</code> allows to control the initial size of the queue of pending
-requests that have no threads to execute them.</p>
-<p>The <code class="literal">min_queue_size</code> setting controls the minimum amount the <code class="literal">queue_size</code> can be
-adjusted to.</p>
-<p>The <code class="literal">max_queue_size</code> setting controls the maximum amount the <code class="literal">queue_size</code> can be
-adjusted to.</p>
-<p>The <code class="literal">auto_queue_frame_size</code> setting controls the number of operations during
-which measurement is taken before the queue is adjusted. It should be large
-enough that a single operation cannot unduly bias the calculation.</p>
-<p>The <code class="literal">target_response_time</code> is a time value setting that indicates the targeted
-average response time for tasks in the thread pool queue. If tasks are routinely
-above this time, the thread pool queue will be adjusted down so that tasks are
-rejected.</p>
+<p>废弃的 [实验性的<code class="literal">fixed_auto_queue_size</code> 线程池类型已在 7.7.0 版本废弃，并将在 8.0 版本中移除]</p>
+<p>
+<code class="literal">fixed_auto_queue_size</code> 类型的线程池 持有一个固定大小的线程来处理带有一个有界队列的请求，该队列用于处理没有线程为其服务的等待请求。  
+
+它类似于<code class="literal">fixed</code> 线程池，然而，<code class="literal">queue_size</code> 根据 <a href="https://en.wikipedia.org/wiki/Little%27s_law" class="ulink" target="_top">Little’s Law</a>的计算自动调整。  
+
+每当 <code class="literal">auto_queue_frame_size</code> 操作完成时，这些计算将潜在地将 <code class="literal">auto_queue_frame_size</code> 上下调整50。
+</p>
+<p>
+参数 <code class="literal">size</code> 控制线程的数量。  
+</p>
+<p>
+参数 <code class="literal">queue_size</code>允许控制没有线程执行的挂起请求队列的初始大小。
+</p>
+<p>
+<code class="literal">min_queue_size</code>设置控制<code class="literal">queue_size</code>可调整的最小数量。
+</p>
+<p>
+<code class="literal">min_queue_size</code>设置控制<code class="literal">queue_size</code>可调整的最大数量。
+</p>
+<p>
+<code class="literal">auto_queue_frame_size</code>设置控制在队列调整之前进行测量的操作次数。
+它应该足够大，使得单个操作不会过度地影响计算。
+</p>
+<p>
+<code class="literal">target_response_time</code> 是一个时间值设置，指示线程池队列中任务的目标平均响应时间。
+如果任务经常超过这个时间，线程池队列数将被减小，以便拒绝任务。
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">thread_pool:
     search:
@@ -295,14 +302,16 @@ rejected.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="scaling-thread-pool"></a><code class="literal">scaling</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/threadpool.asciidoc">edit</a>
+<a id="scaling-thread-pool"></a><code class="literal">scaling</code>
 </h4>
 </div></div></div>
-<p>The <code class="literal">scaling</code> thread pool holds a dynamic number of threads. This
-number is proportional to the workload and varies between the value of
-the <code class="literal">core</code> and <code class="literal">max</code> parameters.</p>
-<p>The <code class="literal">keep_alive</code> parameter determines how long a thread should be kept
-around in the thread pool without it doing any work.</p>
+<p>
+<code class="literal">scaling</code> 类型的线程池 持有一个动态数量的线程。
+这个数字与工作负载成正比，并且在<code class="literal">core</code>和<code class="literal">max</code>参数的值之间变化。  
+</p>
+<p>
+参数 <code class="literal">keep_alive</code> 决定了一个线程在不做任何工作的情况下应该在线程池中保留多长时间。
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">thread_pool:
     warmer:
@@ -317,38 +326,33 @@ around in the thread pool without it doing any work.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="node.processors"></a>Allocated processors setting<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/threadpool.asciidoc">edit</a>
+<a id="node.processors"></a>分配的处理器设置 (Allocated processors setting)
 </h3>
 </div></div></div>
-<p>The number of processors is automatically detected, and the thread pool settings
-are automatically set based on it. In some cases it can be useful to override
-the number of detected processors. This can be done by explicitly setting the
-<code class="literal">node.processors</code> setting.</p>
+<p>
+处理器的数量是自动检测的，线程池设置是基于它自动设置的。
+在某些情况下，覆盖检测到的处理器数量会很有用。
+这可以通过显式设置 <code class="literal">node.processors</code> 设置来实现。
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">node.processors: 2</pre>
 </div>
-<p>There are a few use-cases for explicitly overriding the <code class="literal">node.processors</code>
-setting:</p>
+<p>有几个显式覆盖 <code class="literal">node.processors</code> 设置的用例：</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-If you are running multiple instances of Elasticsearch on the same host but want want
-Elasticsearch to size its thread pools as if it only has a fraction of the CPU, you
-should override the <code class="literal">node.processors</code> setting to the desired fraction, for
-example, if you’re running two instances of Elasticsearch on a 16-core machine, set
-<code class="literal">node.processors</code> to 8.  Note that this is an expert-level use case and there’s
-a lot more involved than just setting the <code class="literal">node.processors</code> setting as there are
-other considerations like changing the number of garbage collector threads,
-pinning processes to cores, and so on.
+如果你在同一主机上运行多个 Elasticsearch 实例，但希望 Elasticsearch 调整线程池的大小，就像它只有一部分 CPU 一样，那么应该所需的部分的值来覆盖 <code class="literal">node.processors</code> 设置，例如，如果你在一个 16 核的机器上运行两个 Elasticsearch 实例，设置 <code class="literal">node.processors</code> 为 <code class="literal">8</code> 。
+
+请注意，这是一个专家级的用例，涉及的内容远不止配置 <code class="literal">node.processors</code> 设置，因为还有其他考虑事项，如更改垃圾回收器线程的数量、将进程锁定到内核等等。
 </li>
 <li class="listitem">
-Sometimes the number of processors is wrongly detected and in such cases
-explicitly setting the <code class="literal">node.processors</code> setting will workaround such issues.
+有时检测到的处理器数量是错误的，在这种情况下，显式设置 <code class="literal">node.processors</code> 设置可以解决此类问题。
 </li>
 </ol>
 </div>
-<p>In order to check the number of processors detected, use the nodes info
-API with the <code class="literal">os</code> flag.</p>
+<p>
+为了检查检测到的处理器数量，使用带有 <code class="literal">os</code> 标志的节点信息 API。
+</p>
 </div>
 
 </div>

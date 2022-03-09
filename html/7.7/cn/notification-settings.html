@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Watcher settings in Elasticsearch | ElasticSearch 7.7 权威指南中文版</title>
+	<title>预警设置 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,40 +32,40 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="settings.html">Configuring Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="settings.html">配置 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">Watcher settings in Elasticsearch</span>
+<span class="breadcrumb-node">预警设置</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="modules-threadpool.html">« Thread pools</a>
+<a href="modules-threadpool.html">« 线程池</a>
 </span>
 <span class="next">
-<a href="important-settings.html">Important Elasticsearch configuration »</a>
+<a href2="important-settings.html">Important Elasticsearch configuration »</a>
 </span>
 </div>
 <div class="section xpack">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="notification-settings"></a>Watcher settings in Elasticsearch<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/notification-settings.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
+<a id="notification-settings"></a>预警(Watcher) 设置<a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
 </h2>
 </div></div></div>
 
-<p>You configure Watcher settings to set up Watcher and send notifications via
-<a class="xref" href="notification-settings.html#email-notification-settings" title="Email Notification Settings">email</a>,
-<a class="xref" href="notification-settings.html#slack-notification-settings" title="Slack Notification Settings">Slack</a>, and
-<a class="xref" href="notification-settings.html#pagerduty-notification-settings" title="PagerDuty Notification Settings">PagerDuty</a>.</p>
-<p>All of these settings can be added to the <code class="literal">elasticsearch.yml</code> configuration file,
-with the exception of the secure settings, which you add to the Elasticsearch keystore.
-For more information about creating and updating the Elasticsearch keystore, see
-<a class="xref" href="secure-settings.html" title="Secure settings">Secure settings</a>. Dynamic settings can also be updated across a cluster with the
-<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">cluster update settings API</a>.</p>
+<p>
+你可以配置 预警(Watcher) 设置，以设置观察器并通过<a class="xref" href="notification-settings.html#email-notification-settings" title="Email Notification Settings">email</a>、<a class="xref" href="notification-settings.html#slack-notification-settings" title="Slack Notification Settings">Slack</a> 及 <a class="xref" href="notification-settings.html#pagerduty-notification-settings" title="PagerDuty Notification Settings">PagerDuty</a> 来发送提醒。
+</p>
+<p>
+所有这些设置都可以添加到 <code class="literal">elasticsearch.yml</code> 配置文件中，只有安全设置除外，它是添加到 Elasticsearch 密钥库中的。
+有关创建和更新 Elasticsearch 密钥库的更多信息，请参考 <a class="xref" href="secure-settings.html" title="Secure settings">安全设置</a>。
+
+还可以使用 <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">集群更新设置 API</a> 动态更新整个集群的设置。
+</p>
 <h4>
-<a id="general-notification-settings"></a>General Watcher Settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/notification-settings.asciidoc">edit</a>
+<a id="general-notification-settings"></a>常规预警设置
 </h4>
 <div class="variablelist">
 <dl class="variablelist">
@@ -75,7 +75,7 @@ For more information about creating and updating the Elasticsearch keystore, see
 </span>
 </dt>
 <dd>
-Set to <code class="literal">false</code> to disable Watcher on the node.
+设置为 <code class="literal">false</code> 以在该节点上禁用预警。
 </dd>
 <dt>
 <span class="term">
@@ -83,19 +83,19 @@ Set to <code class="literal">false</code> to disable Watcher on the node.
 </span>
 </dt>
 <dd>
-Set to <code class="literal">true</code> to encrypt sensitive data. If this setting is enabled, you
-must also specify the <code class="literal">xpack.watcher.encryption_key</code> setting. For more
-information, see <a class="xref" href="encrypting-data.html" title="Encrypting sensitive data in Watcher"><em>Encrypting sensitive data in Watcher</em></a>.
+设置为 <code class="literal">true</code> 以加密敏感数据。
+如果启用了该设置，还必须同时指定 <code class="literal">xpack.watcher.encryption_key</code> 设置。
+更多信息请参考 <a class="xref" href="encrypting-data.html" title="Encrypting sensitive data in Watcher"><em>在预警中加密敏感数据</em></a>。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.watcher.encryption_key</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">xpack.watcher.encryption_key</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-Specifies the path to a file that contains a key for encrypting sensitive data.
-If <code class="literal">xpack.watcher.encrypt_sensitive_data</code> is set to <code class="literal">true</code>, this setting is
-required. For more information, see <a class="xref" href="encrypting-data.html" title="Encrypting sensitive data in Watcher"><em>Encrypting sensitive data in Watcher</em></a>.
+指定包含用于加密敏感数据的密钥的文件的路径。
+如果 <code class="literal">xpack.watcher.encrypt_sensitive_data</code> 被设置为 <code class="literal">true</code>，此设置也必须设置。
+更多信息请参考 <a class="xref" href="encrypting-data.html" title="Encrypting sensitive data in Watcher"><em>在预警中加密敏感数据</em></a>。
 </dd>
 <dt>
 <span class="term">
@@ -107,23 +107,26 @@ required. For more information, see <a class="xref" href="encrypting-data.html" 
 <span class="Admonishment Admonishment--change">
 [<span class="Admonishment-version u-mono">6.3.0</span>]
 <span class="Admonishment-detail">
-Added in 6.3.0. Default changed to <code class="literal">true</code>.
+在 6.3.0 版本中添加的。默认值变更为 <code class="literal">true</code>。
 </span>
 </span>
 <span class="Admonishment Admonishment--change">
 [<span class="Admonishment-version u-mono u-strikethrough">7.0.0</span>]
 <span class="Admonishment-detail">
-Deprecated in 7.0.0. Watcher history indices are now managed by the <code class="literal">watch-history-ilm-policy</code> ILM policy
+在 7.0.0 版本中废弃。预警历史索引现在在 <code class="literal">watch-history-ilm-policy</code> ILM 策略下管理。
 </span>
 </span>
 </p>
-<p>Set to <code class="literal">true</code> (default) to enable the cleaner service. If this setting is
-<code class="literal">true</code>, the <code class="literal">xpack.monitoring.enabled</code> setting must also be set to <code class="literal">true</code> with
-a local exporter enabled. The cleaner service removes previous versions of
-Watcher indices (for example, <code class="literal">.watcher-history*</code>) when it determines that
-they are old. The duration of Watcher indices is determined by the
-<code class="literal">xpack.monitoring.history.duration</code> setting, which defaults to 7 days. For
-more information about that setting, see <a class="xref" href="monitoring-settings.html" title="Monitoring settings in Elasticsearch">Monitoring settings</a>.</p>
+<p>
+设置为 <code class="literal">true</code> (默认值) 有启用清理服务。
+如果此设置值为 <code class="literal">true</code>，则 <code class="literal">xpack.monitoring.enabled</code> 也必须设置为<code class="literal">true</code>，并启用 本地导出器(local exporter)。
+
+当清理服务确定以前版本的预警索引(比如, <code class="literal">.watcher-history*</code>)是旧的时，会移除他们。
+
+预警索引的保留时间由<code class="literal">xpack.monitoring.history.duration</code> 设置决定，默认为 7 天。
+
+更多信息请参考 <a class="xref" href="monitoring-settings.html" title="Monitoring settings in Elasticsearch">监控设置</a>。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -1515,10 +1518,10 @@ the event by default. Valid values: <code class="literal">true</code>, <code cla
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="modules-threadpool.html">« Thread pools</a>
+<a href="modules-threadpool.html">« 线程池</a>
 </span>
 <span class="next">
-<a href="important-settings.html">Important Elasticsearch configuration »</a>
+<a href2="important-settings.html">Important Elasticsearch configuration »</a>
 </span>
 </div>
 </div>

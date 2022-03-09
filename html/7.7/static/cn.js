@@ -253,8 +253,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "notification-settings.html",
-                        "text": "预警(watcher)设置",
-                        "title": "Watcher settings"
+                        "text": "预警设置",
+                        "title": "预警设置"
                     }
                 ]
             },

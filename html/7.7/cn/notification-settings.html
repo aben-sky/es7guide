@@ -134,7 +134,7 @@
 </span>
 </dt>
 <dd>
-Specifies the address of the proxy server to use to connect to HTTP services.
+指定用于连接HTTP服务的代理服务器的地址。
 </dd>
 <dt>
 <span class="term">
@@ -142,7 +142,7 @@ Specifies the address of the proxy server to use to connect to HTTP services.
 </span>
 </dt>
 <dd>
-Specifies the port number to use to connect to the proxy server.
+指定用于连接代理服务器的端口号。
 </dd>
 <dt>
 <span class="term">
@@ -150,8 +150,7 @@ Specifies the port number to use to connect to the proxy server.
 </span>
 </dt>
 <dd>
-The maximum period to wait until abortion of the request, when a
-connection is being initiated.
+当启动连接时，等待请求中止的最长时间。
 </dd>
 <dt>
 <span class="term">
@@ -159,8 +158,7 @@ connection is being initiated.
 </span>
 </dt>
 <dd>
-The maximum period of inactivity between two data packets, before the
-request is aborted.
+请求中止前，两个数据包之间的最长不活动时间。
 </dd>
 <dt>
 <span class="term">
@@ -168,8 +166,7 @@ request is aborted.
 </span>
 </dt>
 <dd>
-Specifies the maximum size an HTTP response is allowed to have, defaults to
-<code class="literal">10mb</code>, the maximum configurable value is <code class="literal">50mb</code>.
+指定HTTP响应允许的最大大小，默认值为 <code class="literal">10mb</code>，最大可配置为 <code class="literal">50mb</code>。 
 </dd>
 <dt>
 <span class="term">
@@ -177,22 +174,20 @@ Specifies the maximum size an HTTP response is allowed to have, defaults to
 </span>
 </dt>
 <dd>
-A list of URLs, that the internal HTTP client is allowed to connect to. This
-client is used in the HTTP input, the webhook, the slack, pagerduty,
-and jira actions. This setting can be updated dynamically.  It defaults to <code class="literal">*</code>
-allowing everything. Note: If you configure this setting and you are using one
-of the slack/pagerduty actions, you have to ensure that the
-corresponding endpoints are explicitly allowed as well.
+允许内部HTTP客户端连接的URL列表。
+这个客户机用于HTTP输入、webhook、slack、pagerduty 和 jira 操作。
+默认值 <code class="literal">*</code> 允许所有。
+注意：如果你配置了此设置，并且正在使用 slack 或 page duty 操作，则必须确保相应的 终端(endpoint) 也被显式允许。
 </dd>
 </dl>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="ssl-notification-settings"></a>Watcher HTTP TLS/SSL settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/ssl-settings.asciidoc">edit</a>
+<a id="ssl-notification-settings"></a>预警的 HTTP TLS/SSL 设置
 </h3>
 </div></div></div>
-<p>You can configure the following TLS/SSL settings.</p>
+<p>你可以配置以下TLS/SSL设置：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -202,16 +197,16 @@ corresponding endpoints are explicitly allowed as well.
 </dt>
 <dd>
 <p>
-Supported protocols with versions. Valid protocols: <code class="literal">SSLv2Hello</code>,
-<code class="literal">SSLv3</code>, <code class="literal">TLSv1</code>, <code class="literal">TLSv1.1</code>, <code class="literal">TLSv1.2</code>, <code class="literal">TLSv1.3</code>. If the JVM’s SSL provider supports TLSv1.3,
-the default is <code class="literal">TLSv1.3,TLSv1.2,TLSv1.1</code>. Otherwise, the default is
-<code class="literal">TLSv1.2,TLSv1.1</code>.
+支持的协议版本。
+可用的协议包括： <code class="literal">SSLv2Hello</code>, <code class="literal">SSLv3</code>, <code class="literal">TLSv1</code>, <code class="literal">TLSv1.1</code>, <code class="literal">TLSv1.2</code>, <code class="literal">TLSv1.3</code> 。
+
+如果JVM的 SSL 提供程序支持 TLSv1.3，则默认值为 <code class="literal">TLSv1.3,TLSv1.2,TLSv1.1</code>；否则，默认值为 <code class="literal">TLSv1.2,TLSv1.1</code> 。
 </p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If <code class="literal">xpack.security.fips_mode.enabled</code> is <code class="literal">true</code>, you cannot use <code class="literal">SSLv2Hello</code>
-or <code class="literal">SSLv3</code>. See <a class="xref" href="fips-140-compliance.html" title="FIPS 140-2">FIPS 140-2</a>.</p>
+<p>如果 <code class="literal">xpack.security.fips_mode.enabled</code> 为 <code class="literal">true</code>，则你不能使用 <code class="literal">SSLv2Hello</code> 和 <code class="literal">SSLv3</code>。
+参见 <a class="xref" href="fips-140-compliance.html" title="FIPS 140-2">FIPS 140-2</a>。</p>
 </div>
 </div>
 </dd>
@@ -222,27 +217,23 @@ or <code class="literal">SSLv3</code>. See <a class="xref" href="fips-140-compli
 </dt>
 <dd>
 <p>
-Controls the verification of certificates.
-Valid values are:
+控制证书的验证。有效值包括：
 </p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">full</code>, which verifies that the provided certificate is signed by a trusted
-authority (CA) and also verifies that the server’s hostname (or IP address)
-matches the names identified within the certificate.
+<code class="literal">full</code>，用于验证所提供的证书是否由可信机构(CA)签名，还验证服务器的主机名(或IP地址)是否与证书中标识的名称匹配。
 </li>
 <li class="listitem">
-<code class="literal">certificate</code>, which verifies that the provided certificate is signed by a
-trusted authority (CA), but does not perform any hostname verification.
+<code class="literal">certificate</code>，用于验证所提供的证书是否由可信机构(CA)签名，但不执行任何主机名验证。
 </li>
 <li class="listitem">
-<p><code class="literal">none</code>, which performs <em>no verification</em> of the server’s certificate. This
-mode disables many of the security benefits of SSL/TLS and should only be used
-after very careful consideration. It is primarily intended as a temporary
-diagnostic mechanism when attempting to resolve TLS errors; its use on
-production clusters is strongly discouraged.</p>
-<p>The default value is <code class="literal">full</code>.</p>
+<p>
+<code class="literal">none</code>，<em>不验证</em>服务器的证书。
+这种模式禁用了 SSL/TLS 的许多安全优势，应该在非常谨慎的考虑之后才使用。
+它主要用作尝试解决 TLS 错误时的临时诊断机制；强烈建议不要在生产集群上使用它。
+</p>
+<p>默认值为 <code class="literal">full</code> </p>
 </li>
 </ul>
 </div>
@@ -254,8 +245,8 @@ production clusters is strongly discouraged.</p>
 </dt>
 <dd>
 <p>
-Supported cipher suites vary depending on which version of Java you use. For
-example, for version 11 the default value is <code class="literal">TLS_AES_256_GCM_SHA384</code>,
+支持的密码套件因使用的 Java 版本而异。
+例如，对于版本11，默认值为   <code class="literal">TLS_AES_256_GCM_SHA384</code>,
 <code class="literal">TLS_AES_128_GCM_SHA256</code>, <code class="literal">TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</code>,
 <code class="literal">TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256</code>, <code class="literal">TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</code>,
 <code class="literal">TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256</code>, <code class="literal">TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384</code>,
@@ -270,40 +261,39 @@ example, for version 11 the default value is <code class="literal">TLS_AES_256_G
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The default cipher suites list above includes TLSv1.3 ciphers and ciphers
-that require the <em>Java Cryptography Extension (JCE) Unlimited Strength
-Jurisdiction Policy Files</em> for 256-bit AES encryption. If TLSv1.3 is not
-available, the TLSv1.3 ciphers <code class="literal">TLS_AES_256_GCM_SHA384</code> and
-<code class="literal">TLS_AES_128_GCM_SHA256</code> are not included in the default list. If 256-bit AES is
-unavailable, ciphers with <code class="literal">AES_256</code> in their names are not included in the
-default list. Finally, AES GCM has known performance issues in Java versions
-prior to 11 and is included in the default list only when using Java 11 or above.</p>
+<p>
+上面列出的默认密码套件包括 TLSv1.3 密码和需要 <em title="Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files">Java 加密扩展(JCE)无限强度权限策略文件</em>进行256位 AES 加密的密码。
+如果 TLSv1.3 不可用，则 TLSv1.3 密码 <code class="literal">TLS_AES_256_GCM_SHA384</code> 和 <code class="literal">TLS_AES_128_GCM_SHA256</code> 不会包括在默认列表中。
+如果 256-bit AES 不可用，则名字中有<code class="literal">AES_256</code>的密码不会包含在默认列表中。
+最后，AES GCM 在 Java 11 之前的版本中存在已知的性能问题，只有在使用 Java 11 或更高版本时才会包含在默认列表中。
+</p>
 </div>
 </div>
-<p>For more information, see Oracle’s
-<a href="https://docs.oracle.com/en/java/javase/11/security/oracle-providers.html#GUID-7093246A-31A3-4304-AC5F-5FB6400405E2" class="ulink" target="_top">Java Cryptography Architecture documentation</a>.</p>
+<p>
+有关更多信息，请参见Oracle的 <a href="https://docs.oracle.com/en/java/javase/11/security/oracle-providers.html#GUID-7093246A-31A3-4304-AC5F-5FB6400405E2" class="ulink" target="_top">Java加密体系结构文档</a> 。
+</p>
 </dd>
 </dl>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="watcher-tls-ssl-key-trusted-certificate-settings"></a>Watcher HTTP TLS/SSL key and trusted certificate settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/ssl-settings.asciidoc">edit</a>
+<a id="watcher-tls-ssl-key-trusted-certificate-settings"></a>预警的 HTTP TLS/SSL 密钥和可信证书设置
 </h4>
 </div></div></div>
-<p>The following settings are used to specify a private key, certificate, and the
-trusted certificates that should be used when communicating over an SSL/TLS connection.
-A private key and certificate are optional and would be used if the server requires client authentication for PKI
-authentication.</p>
+<p>
+下列设置用于指定通过SSL/TLS连接通信时应使用的私钥、证书和可信证书。
+私钥和证书是可选的，如果服务器要求对PKI身份验证进行客户端身份验证，将会使用它们。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_pem_encoded_files_4"></a>PEM encoded files<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/ssl-settings.asciidoc">edit</a>
+<a id="_pem_encoded_files_4"></a>PEM 编码文件
 </h4>
 </div></div></div>
-<p>When using PEM encoded files, use the following settings:</p>
+<p>使用 PEM 编码文件时，请使用以下设置：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -312,7 +302,7 @@ authentication.</p>
 </span>
 </dt>
 <dd>
-Path to a PEM encoded file containing the private key.
+包含私钥的 PEM 编码文件的路径。
 </dd>
 <dt>
 <span class="term">
@@ -320,8 +310,7 @@ Path to a PEM encoded file containing the private key.
 </span>
 </dt>
 <dd>
-The passphrase that is used to decrypt the private key. Since the key might not
-be encrypted, this value is optional.
+用于解密私钥的密码。由于密钥可能没有加密，因此该值是可选的。
 </dd>
 <dt>
 <span class="term">
@@ -329,8 +318,7 @@ be encrypted, this value is optional.
 </span>
 </dt>
 <dd>
-The passphrase that is used to decrypt the private key. Since the key might not
-be encrypted, this value is optional.
+用于解密私钥的密码。由于密钥可能没有加密，因此该值是可选的
 </dd>
 <dt>
 <span class="term">
@@ -338,8 +326,7 @@ be encrypted, this value is optional.
 </span>
 </dt>
 <dd>
-Specifies the path for the PEM encoded certificate (or certificate chain) that is
-associated with the key.
+指定与密钥相关的 PEM 编码证书(或证书链)的路径。
 </dd>
 <dt>
 <span class="term">
@@ -347,7 +334,7 @@ associated with the key.
 </span>
 </dt>
 <dd>
-List of paths to PEM encoded certificate files that should be trusted.
+应该受信任的 PEM 编码证书文件的路径列表。 
 </dd>
 </dl>
 </div>
@@ -356,11 +343,10 @@ List of paths to PEM encoded certificate files that should be trusted.
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_java_keystore_files_4"></a>Java keystore files<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/ssl-settings.asciidoc">edit</a>
+<a id="_java_keystore_files_4"></a>Java 密钥库文件
 </h4>
 </div></div></div>
-<p>When using Java keystore files (JKS), which contain the private key, certificate
-and certificates that should be trusted, use the following settings:</p>
+<p>使用包含私钥、证书和应该信任的证书的 Java 密钥库文件(JKS, Java keystore file)时，请使用以下设置：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -369,7 +355,7 @@ and certificates that should be trusted, use the following settings:</p>
 </span>
 </dt>
 <dd>
-The path for the keystore file that contains a private key and certificate.
+包含私钥和证书的密钥库文件的路径。
 </dd>
 <dt>
 <span class="term">
@@ -377,15 +363,15 @@ The path for the keystore file that contains a private key and certificate.
 </span>
 </dt>
 <dd>
-The password for the keystore.
+密钥库的密码。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.http.ssl.keystore.secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">xpack.http.ssl.keystore.secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-The password for the keystore.
+密钥库的密码。
 </dd>
 <dt>
 <span class="term">
@@ -393,15 +379,15 @@ The password for the keystore.
 </span>
 </dt>
 <dd>
-The password for the key in the keystore. The default is the keystore password.
+密钥库中密钥的密码。默认值是 密钥库密码<span class="remark">(keystore password)</span>。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.http.ssl.keystore.secure_key_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">xpack.http.ssl.keystore.secure_key_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-The password for the key in the keystore. The default is the keystore password.
+密钥库中密钥的密码。默认值是 密钥库密码<span class="remark">(keystore password)</span>。
 </dd>
 <dt>
 <span class="term">
@@ -409,8 +395,8 @@ The password for the key in the keystore. The default is the keystore password.
 </span>
 </dt>
 <dd>
-The path for the keystore that contains the certificates to trust. It must be
-either a Java keystore (jks) or a PKCS#12 file.
+包含要信任的证书的密钥库的路径。
+它必须是 Java 密钥库(jks) 或 PKCS#12 文件。
 </dd>
 <dt>
 <span class="term">
@@ -418,15 +404,15 @@ either a Java keystore (jks) or a PKCS#12 file.
 </span>
 </dt>
 <dd>
-The password for the truststore.
+信任库的密码。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.http.ssl.truststore.secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">xpack.http.ssl.truststore.secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-Password for the truststore.
+信任库的密码。
 </dd>
 </dl>
 </div>
@@ -435,12 +421,13 @@ Password for the truststore.
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="watcher-pkcs12-files"></a>PKCS#12 files<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/ssl-settings.asciidoc">edit</a>
+<a id="watcher-pkcs12-files"></a>PKCS#12 文件
 </h4>
 </div></div></div>
-<p>Elasticsearch can be configured to use PKCS#12 container files (<code class="literal">.p12</code> or <code class="literal">.pfx</code> files)
-that contain the private key, certificate and certificates that should be trusted.</p>
-<p>PKCS#12 files are configured in the same way as Java keystore files:</p>
+<p>
+Elasticsearch可以配置为使用 PKCS#12 容器文件(<code class="literal">.p12</code> 或 <code class="literal">.pfx</code>文件)，它包含私钥、证书和应该被信任的证书。
+</p>
+<p>PKCS#12 文件的配置方式与 Java 密钥库文件相同：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -449,7 +436,7 @@ that contain the private key, certificate and certificates that should be truste
 </span>
 </dt>
 <dd>
-The path for the keystore file that contains a private key and certificate.
+包含私钥和证书的密钥库文件的路径。
 </dd>
 <dt>
 <span class="term">
@@ -457,9 +444,8 @@ The path for the keystore file that contains a private key and certificate.
 </span>
 </dt>
 <dd>
-The format of the keystore file. It must be either <code class="literal">jks</code> or <code class="literal">PKCS12</code>. If the
-keystore path ends in ".p12", ".pfx", or ".pkcs12", this setting defaults
-to <code class="literal">PKCS12</code>. Otherwise, it defaults to <code class="literal">jks</code>.
+密钥库文件的格式，必须是 <code class="literal">jks</code> 或 <code class="literal">PKCS12</code>。
+如果秘钥库路径以 ".p12"、".pfx" 或 ".pkcs12" 结尾，则其默认值为 <code class="literal">PKCS12</code>；否则，默认值为 <code class="literal">jks</code>
 </dd>
 <dt>
 <span class="term">
@@ -467,15 +453,15 @@ to <code class="literal">PKCS12</code>. Otherwise, it defaults to <code class="l
 </span>
 </dt>
 <dd>
-The password for the keystore.
+密钥库的密码。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.http.ssl.keystore.secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">xpack.http.ssl.keystore.secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-The password for the keystore.
+密钥库的密码。
 </dd>
 <dt>
 <span class="term">
@@ -483,15 +469,15 @@ The password for the keystore.
 </span>
 </dt>
 <dd>
-The password for the key in the keystore. The default is the keystore password.
+密钥库中密钥的密码。默认值是密钥库密码。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.http.ssl.keystore.secure_key_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">xpack.http.ssl.keystore.secure_key_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-The password for the key in the keystore. The default is the keystore password.
+密钥库中密钥的密码。默认值是密钥库密码。
 </dd>
 <dt>
 <span class="term">
@@ -499,8 +485,7 @@ The password for the key in the keystore. The default is the keystore password.
 </span>
 </dt>
 <dd>
-The path for the keystore that contains the certificates to trust. It must be
-either a Java keystore (jks) or a PKCS#12 file.
+包含要信任的证书的密钥库的路径。它必须是Java密钥库(jks) 或 PKCS#12 文件。
 </dd>
 <dt>
 <span class="term">
@@ -508,7 +493,7 @@ either a Java keystore (jks) or a PKCS#12 file.
 </span>
 </dt>
 <dd>
-Set this to <code class="literal">PKCS12</code> to indicate that the truststore is a PKCS#12 file.
+将此项设置为 <code class="literal">PKCS12</code> ，以表明信任库是 PKCS#12 文件。
 </dd>
 <dt>
 <span class="term">
@@ -516,15 +501,15 @@ Set this to <code class="literal">PKCS12</code> to indicate that the truststore 
 </span>
 </dt>
 <dd>
-The password for the truststore.
+信任库的密码。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.http.ssl.truststore.secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">xpack.http.ssl.truststore.secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-Password for the truststore.
+信任库的密码。
 </dd>
 </dl>
 </div>
@@ -533,13 +518,11 @@ Password for the truststore.
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="watcher-pkcs11-tokens"></a>PKCS#11 tokens<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/ssl-settings.asciidoc">edit</a>
+<a id="watcher-pkcs11-tokens"></a>PKCS#11 令牌
 </h4>
 </div></div></div>
-<p>Elasticsearch can be configured to use a PKCS#11 token that contains the private key,
-certificate and certificates that should be trusted.</p>
-<p>PKCS#11 token require additional configuration on the JVM level and can be enabled
-via the following settings:</p>
+<p>Elasticsearch 可以被配置为使用 PKCS#11 令牌，该令牌包含私钥、证书和应该被信任的证书。</p>
+<p>PKCS#11 令牌需要在JVM级别进行额外配置，可以通过以下设置启用：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -548,7 +531,7 @@ via the following settings:</p>
 </span>
 </dt>
 <dd>
-Set this to <code class="literal">PKCS11</code> to indicate that the PKCS#11 token should be used as a keystore.
+将此项设置为 <code class="literal">PKCS11</code> ，以表明 PKCS#11 令牌应该被用作密钥库。
 </dd>
 <dt>
 <span class="term">
@@ -556,31 +539,31 @@ Set this to <code class="literal">PKCS11</code> to indicate that the PKCS#11 tok
 </span>
 </dt>
 <dd>
-The format of the truststore file. For the Java keystore format, use <code class="literal">jks</code>. For
-PKCS#12 files, use <code class="literal">PKCS12</code>. For a PKCS#11 token, use <code class="literal">PKCS11</code>. The default is
-<code class="literal">jks</code>.
+信任库文件的格式。
+对于Java秘钥库格式，使用 <code class="literal">jks</code>。
+对于 PKCS#12 文件，使用 <code class="literal">PKCS12</code>。
+对于 PKCS#11 令牌, 使用 <code class="literal">PKCS11</code>。
+默认值为 <code class="literal">jks</code>
 </dd>
 </dl>
 </div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>When configuring the PKCS#11 token that your JVM is configured to use as
-a keystore or a truststore for Elasticsearch, the PIN for the token can be
-configured by setting the appropriate value to <code class="literal">ssl.truststore.password</code>
-or <code class="literal">ssl.truststore.secure_password</code> in the context that you are configuring.
-Since there can only be one PKCS#11 token configured, only one keystore and
-truststore will be usable for configuration in Elasticsearch. This in turn means
-that only one certificate can be used for TLS both in the transport and the
-http layer.</p>
+<p>
+在配置 PKCS#11 令牌（即 JVM 被配置为用作 Elasticsearch 的密钥库或信任库）时，可以通过在所配置的上下文中将适当的值设置为<code class="literal">ssl.truststore.password</code> 或 <code class="literal">ssl.truststore.secure_password</code>来配置令牌的PIN。
+由于只能配置一个 PKCS#11 令牌，因此在 Elasticsearch 中只能配置一个密钥库和信任库。
+这反过来意味着只有一个证书可用于传输层和http层的TLS。
+</p>
 </div>
 </div>
 <h4>
-<a id="email-notification-settings"></a>Email Notification Settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/notification-settings.asciidoc">edit</a>
+<a id="email-notification-settings"></a>Email 通知设置
 </h4>
-<p>You can configure the following email notification settings in
-<code class="literal">elasticsearch.yml</code>. For more information about sending notifications
-via email, see <a class="xref" href="actions-email.html#configuring-email-actions" title="Configuring email actions">Configuring email actions</a>.</p>
+<p>
+你可以在 <code class="literal">elasticsearch.yml</code> 中配置以下邮件通知设置。
+有关通过电子邮件发送通知的详细信息，请参考 <a class="xref" href="actions-email.html#configuring-email-actions" title="Configuring email actions">配置邮件行为</a>。
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -590,163 +573,158 @@ via email, see <a class="xref" href="actions-email.html#configuring-email-action
 </dt>
 <dd>
 <p>
-Specifies account information for sending notifications via email. You
-can specify the following email account attributes:
+指定通过电子邮件发送通知的帐户信息。
+可以指定以下电子邮件帐户属性：
 </p>
 <div class="variablelist">
 <a id="email-account-attributes"></a>
 <dl class="variablelist">
 <dt>
 <span class="term">
-<code class="literal">profile</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">profile</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-The <a class="xref" href="actions-email.html#configuring-email" title="Configuring email accounts">email profile</a> to use to build the MIME
-messages that are sent from the account. Valid values: <code class="literal">standard</code>, <code class="literal">gmail</code> and
-<code class="literal">outlook</code>. Defaults to <code class="literal">standard</code>.
+<a class="xref" href="actions-email.html#configuring-email" title="Configuring email accounts">email配置</a>用来构建从帐户发送的MIME消息。
+可用的值有：<code class="literal">standard</code>、<code class="literal">gmail</code> 及 <code class="literal">outlook</code>。
+默认值为 <code class="literal">standard</code> 。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">email_defaults.*</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">email_defaults.*</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-An optional set of email attributes to use as defaults
-for the emails sent from the account. See
-<a class="xref" href="actions-email.html#email-action-attributes" title="Email action attributes">Email action attributes</a> for the supported
-attributes.
+一组可选的电子邮件属性，作为从该帐户发送的电子邮件的默认值。
+有关支持的属性，参考 <a class="xref" href="actions-email.html#email-action-attributes" title="Email action attributes">Email 行为属性</a>。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">smtp.auth</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">smtp.auth</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-Set to <code class="literal">true</code> to attempt to authenticate the user using the
-AUTH command. Defaults to <code class="literal">false</code>.
+设定为 <code class="literal">true</code> 以尝试使用 AUTH 命令验证用户。默认为 <code class="literal">false</code> 。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">smtp.host</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">smtp.host</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-The SMTP server to connect to. Required.
+要连接的SMTP服务器。必填。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">smtp.port</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">smtp.port</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-The SMTP server port to connect to. Defaults to 25.
+要连接的SMTP服务器端口。默认为25。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">smtp.user</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">smtp.user</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-The user name for SMTP. Required.
+SMTP的用户名。必填。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">smtp.secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">smtp.secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-The password for the specified SMTP user.
+指定SMTP用户的密码。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">smtp.starttls.enable</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">smtp.starttls.enable</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-Set to <code class="literal">true</code> to enable the use of the <code class="literal">STARTTLS</code>
-command (if supported by the server) to switch the connection to a
-TLS-protected connection before issuing any login commands. Note that
-an appropriate trust store must configured so that the client will
-trust the server’s certificate. Defaults to <code class="literal">false</code>.
+设置为 <code class="literal">true</code> 以允许使用 <code class="literal">STARTTLS</code> 命令(如果服务器支持)在发出任何登录命令之前将连接切换到 TLS 保护的连接。
+请注意，必须配置适当的信任存储，以便客户端信任服务器的证书。
+默认值为 <code class="literal">false</code> 。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">smtp.starttls.required</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">smtp.starttls.required</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-If <code class="literal">true</code>, then <code class="literal">STARTTLS</code> will be required. If that command fails, the
-connection will fail. Defaults to <code class="literal">false</code>.
+如果为 <code class="literal">true</code>，则必须使用 <code class="literal">STARTTLS</code> 命令。 
+如果该命令失败，连接也就失败了。
+默认值为 <code class="literal">false</code> 。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">smtp.ssl.trust</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">smtp.ssl.trust</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-A list of SMTP server hosts that are assumed trusted and for which
-certificate verification is disabled. If set to "*", all hosts are
-trusted. If set to a whitespace separated list of hosts, those hosts
-are trusted. Otherwise, trust depends on the certificate the server
-presents.
+假定受信任且证书验证被禁用的 SMTP 服务器主机列表。
+如果设置为<code class="literal">*</code>，则所有主机都是可信的。
+如果设置为空白分隔的主机列表，则这些主机是可信的。
+否则，信任依赖于服务器提供的证书。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">smtp.timeout</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">smtp.timeout</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-The socket read timeout. Default is two minutes.
+socket 读取超时。默认值为 2 分钟。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">smtp.connection_timeout</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">smtp.connection_timeout</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-The socket connection timeout. Default is two minutes.
+socket 连接超时时间，默认值为 2 分钟。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">smtp.write_timeout</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">smtp.write_timeout</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
-<dd>
-The socket write timeout. Default is two minutes.
+<dd>socket 写超时时间，默认值为 2 分钟。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">smtp.local_address</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">smtp.local_address</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-A configurable local address when sending emails. Not configured by default.
+发送电子邮件时可配置的本地地址。默认情况下未配置。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">smtp.local_port</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">smtp.local_port</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-A configurable local port when sending emails. Not configured by default.
+发送电子邮件时可配置的本地端口。默认情况下未配置。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">smtp.send_partial</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">smtp.send_partial</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-Send an email, despite one of the receiver addresses being invalid.
+发送电子邮件，尽管其中一个收件人地址无效。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">smtp.wait_on_quit</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">Dynamic</a>)
+<code class="literal">smtp.wait_on_quit</code> (<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">动态</a>)
 </span>
 </dt>
 <dd>
-If set to false the QUIT command is sent and the connection closed. If set to
-true, the QUIT command is sent and a reply is waited for. True by default.
+如果设置为 <code class="literal">false</code>，将发送 QUIT 命令并关闭连接。
+如果设置为 <code class="literal">true</code>，将发送 QUIT 命令并等待回复。
+默认值为 <code class="literal">true</code> 。
 </dd>
 </dl>
 </div>
@@ -758,10 +736,9 @@ true, the QUIT command is sent and a reply is waited for. True by default.
 </dt>
 <dd>
 <p>
-Specifies the HTML elements that are allowed in email notifications. For
-more information, see
-<a class="xref" href="actions-email.html#email-html-sanitization" title="Configuring HTML sanitization options">Configuring HTML sanitization options</a>. You can
-specify individual HTML elements and the following HTML feature groups:
+指定电子邮件通知中允许的HTML元素。
+更多信息请参考 <a class="xref" href="actions-email.html#email-html-sanitization" title="Configuring HTML sanitization options">配置HTML清理选项ons</a>。
+您可以指定单个HTML元素和以下HTML功能组:
 </p>
 <div class="variablelist">
 <a id="html-feature-groups"></a>
@@ -772,8 +749,7 @@ specify individual HTML elements and the following HTML feature groups:
 </span>
 </dt>
 <dd>
-All table related elements: <code class="literal">&lt;table&gt;</code>, <code class="literal">&lt;th&gt;</code>, <code class="literal">&lt;tr&gt;</code>
-                    and <code class="literal">&lt;td&gt;</code>.
+所有与table有关的元素： <code class="literal">&lt;table&gt;</code>、<code class="literal">&lt;th&gt;</code>、<code class="literal">&lt;tr&gt;</code> 及 <code class="literal">&lt;td&gt;</code> 。
 </dd>
 <dt>
 <span class="term">
@@ -781,9 +757,9 @@ All table related elements: <code class="literal">&lt;table&gt;</code>, <code cl
 </span>
 </dt>
 <dd>
-The following block elements: <code class="literal">&lt;p&gt;</code>, <code class="literal">&lt;div&gt;</code>, <code class="literal">&lt;h1&gt;</code>,
+以下几个块级元素： <code class="literal">&lt;p&gt;</code>, <code class="literal">&lt;div&gt;</code>, <code class="literal">&lt;h1&gt;</code>,
                     <code class="literal">&lt;h2&gt;</code>, <code class="literal">&lt;h3&gt;</code>, <code class="literal">&lt;h4&gt;</code>, <code class="literal">&lt;h5&gt;</code>, <code class="literal">&lt;h6&gt;</code>, <code class="literal">&lt;ul&gt;</code>, <code class="literal">&lt;ol&gt;</code>,
-                    <code class="literal">&lt;li&gt;</code>, and <code class="literal">&lt;blockquote&gt;</code>.
+                    <code class="literal">&lt;li&gt;</code> 及 <code class="literal">&lt;blockquote&gt;</code> 。
 </dd>
 <dt>
 <span class="term">
@@ -791,10 +767,10 @@ The following block elements: <code class="literal">&lt;p&gt;</code>, <code clas
 </span>
 </dt>
 <dd>
-The following inline formatting elements: <code class="literal">&lt;b&gt;</code>, <code class="literal">&lt;i&gt;</code>,
+以下几个行级元素：<code class="literal">&lt;b&gt;</code>, <code class="literal">&lt;i&gt;</code>,
                     <code class="literal">&lt;s&gt;</code>, <code class="literal">&lt;u&gt;</code>, <code class="literal">&lt;o&gt;</code>, <code class="literal">&lt;sup&gt;</code>, <code class="literal">&lt;sub&gt;</code>, <code class="literal">&lt;ins&gt;</code>, <code class="literal">&lt;del&gt;</code>,
                     <code class="literal">&lt;strong&gt;</code>, <code class="literal">&lt;strike&gt;</code>, <code class="literal">&lt;tt&gt;</code>, <code class="literal">&lt;code&gt;</code>, <code class="literal">&lt;big&gt;</code>,
-                    <code class="literal">&lt;small&gt;</code>, <code class="literal">&lt;br&gt;</code>, <code class="literal">&lt;span&gt;</code>, and <code class="literal">&lt;em&gt;</code>.
+                    <code class="literal">&lt;small&gt;</code>, <code class="literal">&lt;br&gt;</code>, <code class="literal">&lt;span&gt;</code>, 及 <code class="literal">&lt;em&gt;</code> 。
 </dd>
 <dt>
 <span class="term">
@@ -802,9 +778,7 @@ The following inline formatting elements: <code class="literal">&lt;b&gt;</code>
 </span>
 </dt>
 <dd>
-The <code class="literal">&lt;a&gt;</code> element with an <code class="literal">href</code> attribute that points
-                    to a URL using the following protocols: <code class="literal">http</code>, <code class="literal">https</code>
-                    and <code class="literal">mailto</code>.
+带有 <code class="literal">href</code> 属性的 <code class="literal">&lt;a&gt;</code> 元素，使用以下协议指向一个 URL：<code class="literal">http</code>, <code class="literal">https</code> 及 <code class="literal">mailto</code> 。
 </dd>
 <dt>
 <span class="term">
@@ -812,8 +786,8 @@ The <code class="literal">&lt;a&gt;</code> element with an <code class="literal"
 </span>
 </dt>
 <dd>
-The <code class="literal">style</code> attribute on all elements. Note that CSS
-                    attributes are also sanitized to prevent XSS attacks.
+所有元素的 <code class="literal">style</code> 属性。
+注意，CSS 属性也会被清理以阻止 XSS 攻击。
 </dd>
 <dt>
 <span class="term">
@@ -826,7 +800,7 @@ The <code class="literal">style</code> attribute on all elements. Note that CSS
 </span>
 </dt>
 <dd>
-All images (external and embedded).
+所有图像 (外部及内嵌的)。
 </dd>
 <dt>
 <span class="term">
@@ -834,8 +808,7 @@ All images (external and embedded).
 </span>
 </dt>
 <dd>
-Only embedded images. Embedded images can only use the
-                  <code class="literal">cid:</code> URL protocol in their <code class="literal">src</code> attribute.
+仅内嵌的图像。内嵌图像只能使用在 <code class="literal">src</code> 属性中使用 <code class="literal">cid:</code> URL 协议。
 </dd>
 </dl>
 </div>
@@ -846,8 +819,8 @@ Only embedded images. Embedded images can only use the
 </span>
 </dt>
 <dd>
-Specifies the HTML elements that are NOT allowed in email notifications.
-You can specify individual HTML elements and <a class="xref" href="notification-settings.html#html-feature-groups">HTML feature groups</a>.
+指定电子邮件通知中<em>不</em>允许的 HTML 元素。
+可以指定单个 HTML 元素和 <a class="xref" href="notification-settings.html#html-feature-groups">HTML功能组</a>。
 </dd>
 <dt>
 <span class="term">
@@ -855,8 +828,7 @@ You can specify individual HTML elements and <a class="xref" href="notification-
 </span>
 </dt>
 <dd>
-Set to <code class="literal">false</code> to completely disable HTML sanitation. Not recommended.
-Defaults to <code class="literal">true</code>.
+设置为 <code class="literal">false</code> 将完全禁用 HTML 清理。不推荐。默认为 <code class="literal">true</code> 。
 </dd>
 </dl>
 </div>
@@ -867,10 +839,10 @@ Defaults to <code class="literal">true</code>.
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="ssl-notification-smtp-settings"></a>Watcher Email TLS/SSL settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/ssl-settings.asciidoc">edit</a>
+<a id="ssl-notification-smtp-settings"></a>预警邮件的 TLS/SSL 设置
 </h3>
 </div></div></div>
-<p>You can configure the following TLS/SSL settings.</p>
+<p>可以配置以下TLS/SSL设置。</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -880,16 +852,14 @@ Defaults to <code class="literal">true</code>.
 </dt>
 <dd>
 <p>
-Supported protocols with versions. Valid protocols: <code class="literal">SSLv2Hello</code>,
-<code class="literal">SSLv3</code>, <code class="literal">TLSv1</code>, <code class="literal">TLSv1.1</code>, <code class="literal">TLSv1.2</code>, <code class="literal">TLSv1.3</code>. If the JVM’s SSL provider supports TLSv1.3,
-the default is <code class="literal">TLSv1.3,TLSv1.2,TLSv1.1</code>. Otherwise, the default is
-<code class="literal">TLSv1.2,TLSv1.1</code>.
+支持的协议版本。可用的协议包括：<code class="literal">SSLv2Hello</code>，<code class="literal">SSLv3</code>，<code class="literal">TLSv1</code>，<code class="literal">TLSv1.1</code>，<code class="literal">TLSv1.2</code>，<code class="literal">TLSv1.3</code>。
+如果 JVM 的 SSL 提供程序支持 TLSv1.3，则默认值为 <code class="literal">TLSv1.3,TLSv1.2,TLSv1.1</code>；否则，默认值为 <code class="literal">TLSv1.2,TLSv1.1</code>
 </p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If <code class="literal">xpack.security.fips_mode.enabled</code> is <code class="literal">true</code>, you cannot use <code class="literal">SSLv2Hello</code>
-or <code class="literal">SSLv3</code>. See <a class="xref" href="fips-140-compliance.html" title="FIPS 140-2">FIPS 140-2</a>.</p>
+<p>如果 <code class="literal">xpack.security.fips_mode.enabled</code> 为 <code class="literal">true</code>，则你不能使用 <code class="literal">SSLv2Hello</code> 和 <code class="literal">SSLv3</code>。
+参见 <a class="xref" href="fips-140-compliance.html" title="FIPS 140-2">FIPS 140-2</a>。</p>
 </div>
 </div>
 </dd>
@@ -900,27 +870,23 @@ or <code class="literal">SSLv3</code>. See <a class="xref" href="fips-140-compli
 </dt>
 <dd>
 <p>
-Controls the verification of certificates.
-Valid values are:
+控制证书的验证。有效值包括:
 </p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">full</code>, which verifies that the provided certificate is signed by a trusted
-authority (CA) and also verifies that the server’s hostname (or IP address)
-matches the names identified within the certificate.
+<code class="literal">full</code>，用于验证所提供的证书是否由可信机构(CA)签名，还验证服务器的主机名(或IP地址)是否与证书中标识的名称匹配。
 </li>
 <li class="listitem">
-<code class="literal">certificate</code>, which verifies that the provided certificate is signed by a
-trusted authority (CA), but does not perform any hostname verification.
+<code class="literal">certificate</code>，用于验证所提供的证书是否由可信机构(CA)签名，但不执行任何主机名验证。
 </li>
 <li class="listitem">
-<p><code class="literal">none</code>, which performs <em>no verification</em> of the server’s certificate. This
-mode disables many of the security benefits of SSL/TLS and should only be used
-after very careful consideration. It is primarily intended as a temporary
-diagnostic mechanism when attempting to resolve TLS errors; its use on
-production clusters is strongly discouraged.</p>
-<p>The default value is <code class="literal">full</code>.</p>
+<p>
+<code class="literal">none</code>，<em>不验证</em>服务器的证书。
+这种模式禁用了 SSL/TLS 的许多安全优势，应该在非常谨慎的考虑之后才使用。
+它主要用作尝试解决 TLS 错误时的临时诊断机制；强烈建议不要在生产集群上使用它。
+</p>
+<p>默认值为 <code class="literal">full</code> </p>
 </li>
 </ul>
 </div>
@@ -932,8 +898,7 @@ production clusters is strongly discouraged.</p>
 </dt>
 <dd>
 <p>
-Supported cipher suites vary depending on which version of Java you use. For
-example, for version 11 the default value is <code class="literal">TLS_AES_256_GCM_SHA384</code>,
+支持的密码套件因使用的 Java 版本而异。例如，对于版本11，默认值为 <code class="literal">TLS_AES_256_GCM_SHA384</code>,
 <code class="literal">TLS_AES_128_GCM_SHA256</code>, <code class="literal">TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</code>,
 <code class="literal">TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256</code>, <code class="literal">TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</code>,
 <code class="literal">TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256</code>, <code class="literal">TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384</code>,
@@ -948,40 +913,38 @@ example, for version 11 the default value is <code class="literal">TLS_AES_256_G
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The default cipher suites list above includes TLSv1.3 ciphers and ciphers
-that require the <em>Java Cryptography Extension (JCE) Unlimited Strength
-Jurisdiction Policy Files</em> for 256-bit AES encryption. If TLSv1.3 is not
-available, the TLSv1.3 ciphers <code class="literal">TLS_AES_256_GCM_SHA384</code> and
-<code class="literal">TLS_AES_128_GCM_SHA256</code> are not included in the default list. If 256-bit AES is
-unavailable, ciphers with <code class="literal">AES_256</code> in their names are not included in the
-default list. Finally, AES GCM has known performance issues in Java versions
-prior to 11 and is included in the default list only when using Java 11 or above.</p>
+<p>
+上面列出的默认密码套件包括 TLSv1.3 密码和需要 <em title="Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files">Java 加密扩展(JCE)无限强度权限策略文件</em>进行256位 AES 加密的密码。
+如果 TLSv1.3 不可用，则 TLSv1.3 密码 <code class="literal">TLS_AES_256_GCM_SHA384</code> 和 <code class="literal">TLS_AES_128_GCM_SHA256</code> 不会包括在默认列表中。
+如果 256-bit AES 不可用，则名字中有<code class="literal">AES_256</code>的密码不会包含在默认列表中。
+最后，AES GCM 在 Java 11 之前的版本中存在已知的性能问题，只有在使用 Java 11 或更高版本时才会包含在默认列表中。
+</p>
 </div>
 </div>
-<p>For more information, see Oracle’s
-<a href="https://docs.oracle.com/en/java/javase/11/security/oracle-providers.html#GUID-7093246A-31A3-4304-AC5F-5FB6400405E2" class="ulink" target="_top">Java Cryptography Architecture documentation</a>.</p>
+<p>有关更多信息，请参见Oracle的 <a href="https://docs.oracle.com/en/java/javase/11/security/oracle-providers.html#GUID-7093246A-31A3-4304-AC5F-5FB6400405E2" class="ulink" target="_top">Java加密体系结构文档</a> 。</p>
 </dd>
 </dl>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="watcher-email-tls-ssl-key-trusted-certificate-settings"></a>Watcher Email TLS/SSL key and trusted certificate settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/ssl-settings.asciidoc">edit</a>
+<a id="watcher-email-tls-ssl-key-trusted-certificate-settings"></a>预警邮件的 TLS/SSL 密钥和可信证书设置
 </h4>
 </div></div></div>
-<p>The following settings are used to specify a private key, certificate, and the
-trusted certificates that should be used when communicating over an SSL/TLS connection.
-A private key and certificate are optional and would be used if the server requires client authentication for PKI
-authentication.</p>
+<p>
+以下设置用于指定通过SSL/TLS连接进行通信时应使用的私钥、证书和可信证书。
+必须配置私钥和证书。
+私钥和证书是可选的，如果服务器要求对PKI身份验证进行客户端身份验证，将会使用它们。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_pem_encoded_files_5"></a>PEM encoded files<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/ssl-settings.asciidoc">edit</a>
+<a id="_pem_encoded_files_5"></a>PEM 编码文件
 </h4>
 </div></div></div>
-<p>When using PEM encoded files, use the following settings:</p>
+<p>使用 PEM 编码文件时，请使用以下设置：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -990,7 +953,7 @@ authentication.</p>
 </span>
 </dt>
 <dd>
-Path to a PEM encoded file containing the private key.
+包含私钥的 PEM 编码文件的路径。
 </dd>
 <dt>
 <span class="term">
@@ -998,17 +961,15 @@ Path to a PEM encoded file containing the private key.
 </span>
 </dt>
 <dd>
-The passphrase that is used to decrypt the private key. Since the key might not
-be encrypted, this value is optional.
+用于解密私钥的密码。由于密钥可能没有加密，因此该值是可选的。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.notification.email.ssl.secure_key_passphrase</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">xpack.notification.email.ssl.secure_key_passphrase</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-The passphrase that is used to decrypt the private key. Since the key might not
-be encrypted, this value is optional.
+用于解密私钥的密码。由于密钥可能没有加密，因此该值是可选的。
 </dd>
 <dt>
 <span class="term">
@@ -1016,8 +977,7 @@ be encrypted, this value is optional.
 </span>
 </dt>
 <dd>
-Specifies the path for the PEM encoded certificate (or certificate chain) that is
-associated with the key.
+指定与密钥相关的 PEM 编码证书(或证书链)的路径。
 </dd>
 <dt>
 <span class="term">
@@ -1025,7 +985,7 @@ associated with the key.
 </span>
 </dt>
 <dd>
-List of paths to PEM encoded certificate files that should be trusted.
+应该受信任的 PEM 编码证书文件的路径列表。
 </dd>
 </dl>
 </div>
@@ -1034,11 +994,10 @@ List of paths to PEM encoded certificate files that should be trusted.
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_java_keystore_files_5"></a>Java keystore files<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/ssl-settings.asciidoc">edit</a>
+<a id="_java_keystore_files_5"></a>Java 密钥库文件
 </h4>
 </div></div></div>
-<p>When using Java keystore files (JKS), which contain the private key, certificate
-and certificates that should be trusted, use the following settings:</p>
+<p>使用包含私钥、证书和应该信任的证书的 Java 密钥库文件(JKS, Java keystore file)时，请使用以下设置：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -1047,7 +1006,7 @@ and certificates that should be trusted, use the following settings:</p>
 </span>
 </dt>
 <dd>
-The path for the keystore file that contains a private key and certificate.
+包含私钥和证书的密钥库文件的路径。
 </dd>
 <dt>
 <span class="term">
@@ -1055,15 +1014,15 @@ The path for the keystore file that contains a private key and certificate.
 </span>
 </dt>
 <dd>
-The password for the keystore.
+密钥库的密码。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.notification.email.ssl.keystore.secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">xpack.notification.email.ssl.keystore.secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-The password for the keystore.
+密钥库的密码。
 </dd>
 <dt>
 <span class="term">
@@ -1071,7 +1030,7 @@ The password for the keystore.
 </span>
 </dt>
 <dd>
-The password for the key in the keystore. The default is the keystore password.
+密钥库中密钥的密码。默认值是密钥库密码。
 </dd>
 <dt>
 <span class="term">
@@ -1079,7 +1038,7 @@ The password for the key in the keystore. The default is the keystore password.
 </span>
 </dt>
 <dd>
-The password for the key in the keystore. The default is the keystore password.
+密钥库中密钥的密码。默认值是密钥库密码。
 </dd>
 <dt>
 <span class="term">
@@ -1087,8 +1046,7 @@ The password for the key in the keystore. The default is the keystore password.
 </span>
 </dt>
 <dd>
-The path for the keystore that contains the certificates to trust. It must be
-either a Java keystore (jks) or a PKCS#12 file.
+包含要信任的证书的密钥库的路径。它必须是Java密钥库(jks) 或 PKCS#12 文件。
 </dd>
 <dt>
 <span class="term">
@@ -1096,7 +1054,7 @@ either a Java keystore (jks) or a PKCS#12 file.
 </span>
 </dt>
 <dd>
-The password for the truststore.
+信任库的密码。
 </dd>
 <dt>
 <span class="term">
@@ -1104,7 +1062,7 @@ The password for the truststore.
 </span>
 </dt>
 <dd>
-Password for the truststore.
+信任库的密码。
 </dd>
 </dl>
 </div>
@@ -1113,12 +1071,13 @@ Password for the truststore.
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="watcher-email-pkcs12-files"></a>PKCS#12 files<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/ssl-settings.asciidoc">edit</a>
+<a id="watcher-email-pkcs12-files"></a>PKCS#12 文件
 </h4>
 </div></div></div>
-<p>Elasticsearch can be configured to use PKCS#12 container files (<code class="literal">.p12</code> or <code class="literal">.pfx</code> files)
-that contain the private key, certificate and certificates that should be trusted.</p>
-<p>PKCS#12 files are configured in the same way as Java keystore files:</p>
+<p>
+Elasticsearch可以配置为使用 PKCS#12 容器文件(<code class="literal">.p12</code> 或 <code class="literal">.pfx</code>文件)，它包含私钥、证书和应该被信任的证书。
+</p>
+<p>PKCS#12 文件的配置方式与 Java 密钥库文件相同：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -1127,7 +1086,7 @@ that contain the private key, certificate and certificates that should be truste
 </span>
 </dt>
 <dd>
-The path for the keystore file that contains a private key and certificate.
+包含私钥和证书的密钥库文件的路径。
 </dd>
 <dt>
 <span class="term">
@@ -1135,9 +1094,8 @@ The path for the keystore file that contains a private key and certificate.
 </span>
 </dt>
 <dd>
-The format of the keystore file. It must be either <code class="literal">jks</code> or <code class="literal">PKCS12</code>. If the
-keystore path ends in ".p12", ".pfx", or ".pkcs12", this setting defaults
-to <code class="literal">PKCS12</code>. Otherwise, it defaults to <code class="literal">jks</code>.
+密钥库文件的格式，必须是 <code class="literal">jks</code> 或 <code class="literal">PKCS12</code>。
+如果秘钥库路径以 ".p12"、".pfx" 或 ".pkcs12" 结尾，则其默认值为 <code class="literal">PKCS12</code>；否则，默认值为 <code class="literal">jks</code>
 </dd>
 <dt>
 <span class="term">
@@ -1145,15 +1103,15 @@ to <code class="literal">PKCS12</code>. Otherwise, it defaults to <code class="l
 </span>
 </dt>
 <dd>
-The password for the keystore.
+密钥库的密码。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.notification.email.ssl.keystore.secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">xpack.notification.email.ssl.keystore.secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-The password for the keystore.
+密钥库的密码。
 </dd>
 <dt>
 <span class="term">
@@ -1161,15 +1119,15 @@ The password for the keystore.
 </span>
 </dt>
 <dd>
-The password for the key in the keystore. The default is the keystore password.
+密钥库中密钥的密码。默认值是密钥库密码。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.notification.email.ssl.keystore.secure_key_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">xpack.notification.email.ssl.keystore.secure_key_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-The password for the key in the keystore. The default is the keystore password.
+密钥库中密钥的密码。默认值是密钥库密码。
 </dd>
 <dt>
 <span class="term">
@@ -1177,8 +1135,7 @@ The password for the key in the keystore. The default is the keystore password.
 </span>
 </dt>
 <dd>
-The path for the keystore that contains the certificates to trust. It must be
-either a Java keystore (jks) or a PKCS#12 file.
+包含要信任的证书的密钥库的路径。它必须是Java密钥库(jks) 或 PKCS#12 文件。
 </dd>
 <dt>
 <span class="term">
@@ -1186,7 +1143,7 @@ either a Java keystore (jks) or a PKCS#12 file.
 </span>
 </dt>
 <dd>
-Set this to <code class="literal">PKCS12</code> to indicate that the truststore is a PKCS#12 file.
+将此项设置为 <code class="literal">PKCS12</code> ，以表明信任库是 PKCS#12 文件。
 </dd>
 <dt>
 <span class="term">
@@ -1194,15 +1151,15 @@ Set this to <code class="literal">PKCS12</code> to indicate that the truststore 
 </span>
 </dt>
 <dd>
-The password for the truststore.
+信任库的密码。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">xpack.notification.email.ssl.truststore.secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">xpack.notification.email.ssl.truststore.secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-Password for the truststore.
+信任库的密码。
 </dd>
 </dl>
 </div>
@@ -1211,13 +1168,11 @@ Password for the truststore.
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="watcher-email-pkcs11-tokens"></a>PKCS#11 tokens<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/ssl-settings.asciidoc">edit</a>
+<a id="watcher-email-pkcs11-tokens"></a>PKCS#11 令牌
 </h4>
 </div></div></div>
-<p>Elasticsearch can be configured to use a PKCS#11 token that contains the private key,
-certificate and certificates that should be trusted.</p>
-<p>PKCS#11 token require additional configuration on the JVM level and can be enabled
-via the following settings:</p>
+<p>Elasticsearch 可以被配置为使用 PKCS#11 令牌，该令牌包含私钥、证书和应该被信任的证书。</p>
+<p>PKCS#11 令牌需要在JVM级别进行额外配置，可以通过以下设置启用：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -1226,7 +1181,7 @@ via the following settings:</p>
 </span>
 </dt>
 <dd>
-Set this to <code class="literal">PKCS11</code> to indicate that the PKCS#11 token should be used as a keystore.
+将此项设置为 <code class="literal">PKCS11</code>，以表明 PKCS#11 令牌应该被用作密钥库。
 </dd>
 <dt>
 <span class="term">
@@ -1234,31 +1189,31 @@ Set this to <code class="literal">PKCS11</code> to indicate that the PKCS#11 tok
 </span>
 </dt>
 <dd>
-The format of the truststore file. For the Java keystore format, use <code class="literal">jks</code>. For
-PKCS#12 files, use <code class="literal">PKCS12</code>. For a PKCS#11 token, use <code class="literal">PKCS11</code>. The default is
-<code class="literal">jks</code>.
+信任库文件的格式。
+对于Java秘钥库格式，使用 <code class="literal">jks</code>。
+对于 PKCS#12 文件，使用 <code class="literal">PKCS12</code>。
+对于 PKCS#11 令牌, 使用 <code class="literal">PKCS11</code>。
+默认值为 <code class="literal">jks</code>
 </dd>
 </dl>
 </div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>When configuring the PKCS#11 token that your JVM is configured to use as
-a keystore or a truststore for Elasticsearch, the PIN for the token can be
-configured by setting the appropriate value to <code class="literal">ssl.truststore.password</code>
-or <code class="literal">ssl.truststore.secure_password</code> in the context that you are configuring.
-Since there can only be one PKCS#11 token configured, only one keystore and
-truststore will be usable for configuration in Elasticsearch. This in turn means
-that only one certificate can be used for TLS both in the transport and the
-http layer.</p>
+<p>
+在配置 PKCS#11 令牌（即 JVM 被配置为用作 Elasticsearch 的密钥库或信任库）时，可以通过在所配置的上下文中将适当的值设置为<code class="literal">ssl.truststore.password</code> 或 <code class="literal">ssl.truststore.secure_password</code>来配置令牌的PIN。
+由于只能配置一个 PKCS#11 令牌，因此在 Elasticsearch 中只能配置一个密钥库和信任库。
+这反过来意味着只有一个证书可用于传输层和http层的TLS。
+</p>
 </div>
 </div>
 <h4>
-<a id="slack-notification-settings"></a>Slack Notification Settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/notification-settings.asciidoc">edit</a>
+<a id="slack-notification-settings"></a>Slack 通知设置
 </h4>
-<p>You can configure the following Slack notification settings in
-<code class="literal">elasticsearch.yml</code>. For more information about sending notifications
-via Slack, see <a class="xref" href="actions-slack.html#configuring-slack-actions" title="Configuring Slack actions">Configuring Slack actions</a>.</p>
+<p>
+您可以在<code class="literal">elasticsearch.yml</code>中配置以下 Slack 通知设置。
+有关通过 Slack 发送通知的更多信息，参考 <a class="xref" href="actions-slack.html#configuring-slack-actions" title="Configuring Slack actions">配置 Slack 行为</a>。
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -1268,19 +1223,18 @@ via Slack, see <a class="xref" href="actions-slack.html#configuring-slack-action
 </dt>
 <dd>
 <p>
-Specifies account information for sending notifications
-via Slack. You can specify the following Slack account attributes:
+指定通过 Slack 发送通知的帐户信息。可以指定以下 Slack 帐户属性:
 </p>
 <div class="variablelist">
 <a id="slack-account-attributes"></a>
 <dl class="variablelist">
 <dt>
 <span class="term">
-<code class="literal">secure_url</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">secure_url</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-The Incoming Webhook URL to use to post messages to Slack. Required.
+用于向 Slack 发布消息的传入 Webhook URL。必填。
 </dd>
 <dt>
 <span class="term">
@@ -1288,8 +1242,7 @@ The Incoming Webhook URL to use to post messages to Slack. Required.
 </span>
 </dt>
 <dd>
-The sender name to display in the
-                                  Slack message. Defaults to the watch ID.
+要在 Slack 消息中显示的发件人姓名。默认为 预警的ID。
 </dd>
 <dt>
 <span class="term">
@@ -1297,8 +1250,7 @@ The sender name to display in the
 </span>
 </dt>
 <dd>
-The default Slack channels or groups you
-                                           want to send messages to.
+要向其发送消息的默认 Slack 频道或组。
 </dd>
 <dt>
 <span class="term">
@@ -1306,9 +1258,8 @@ The default Slack channels or groups you
 </span>
 </dt>
 <dd>
-The icon to display in the Slack messages.
-                                           Overrides the incoming webhook’s configured
-                                           icon. Accepts a public URL to an image.
+在 Slack 消息中显示的图标。覆盖 传入 webhook 配置的图标。
+接受一个图像的公共 URL。
 </dd>
 <dt>
 <span class="term">
@@ -1316,7 +1267,7 @@ The icon to display in the Slack messages.
 </span>
 </dt>
 <dd>
-The default message content.
+默认的消息的内容。
 </dd>
 <dt>
 <span class="term">
@@ -1324,11 +1275,9 @@ The default message content.
 </span>
 </dt>
 <dd>
-Default message attachments. Slack message attachments
-                                  enable you to create more richly-formatted messages.
-                                  Specified as an array as defined in the
-                                  <a href="https://api.slack.com/docs/attachments" class="ulink" target="_top">
-                                 Slack attachments documentation</a>.
+默认的消息的附件。
+Slack 消息附件使你能够创建格式更丰富的消息。
+可指定为 <a href="https://api.slack.com/docs/attachments" class="ulink" target="_top">Slack 附件文档</a> 中定义的数组。
 </dd>
 </dl>
 </div>
@@ -1336,11 +1285,12 @@ Default message attachments. Slack message attachments
 </dl>
 </div>
 <h4>
-<a id="jira-notification-settings"></a>Jira Notification Settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/notification-settings.asciidoc">edit</a>
+<a id="jira-notification-settings"></a>Jira 通知设置
 </h4>
-<p>You can configure the following Jira notification settings in
-<code class="literal">elasticsearch.yml</code>. For more information about using notifications
-to create issues in Jira, see <a class="xref" href="actions-jira.html#configuring-jira-actions" title="Configuring Jira actions">Configuring Jira actions</a>.</p>
+<p>
+可以在<code class="literal">elasticsearch.yml</code>中配置以下 Jira 通知设置。
+有关在 Jira 中使用通知创建问题的详情，请参考 <a class="xref" href="actions-jira.html#configuring-jira-actions" title="Configuring Jira actions">配置 Jira 行为</a>。
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>

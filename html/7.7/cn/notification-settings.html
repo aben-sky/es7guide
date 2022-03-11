@@ -56,7 +56,7 @@
 </div></div></div>
 
 <p>
-你可以配置 预警(Watcher) 设置，以设置观察器并通过<a class="xref" href="notification-settings.html#email-notification-settings" title="Email Notification Settings">email</a>、<a class="xref" href="notification-settings.html#slack-notification-settings" title="Slack Notification Settings">Slack</a> 及 <a class="xref" href="notification-settings.html#pagerduty-notification-settings" title="PagerDuty Notification Settings">PagerDuty</a> 来发送提醒。
+你可以配置 预警(Watcher) 设置，以设置观察器并通过<a class="xref" href="notification-settings.html#email-notification-settings" title="Email Notification Settings">email</a>、<a class="xref" href="notification-settings.html#slack-notification-settings" title="Slack Notification Settings">Slack</a><span class="remark">(世界上最受欢迎的工作平台和团队消息传递应用程序之一)</span> 及 <a class="xref" href="notification-settings.html#pagerduty-notification-settings" title="PagerDuty Notification Settings">PagerDuty</a><span class="remark">(一套付费监控报警系统)</span> 来发送提醒。
 </p>
 <p>
 所有这些设置都可以添加到 <code class="literal">elasticsearch.yml</code> 配置文件中，只有安全设置除外，它是添加到 Elasticsearch 密钥库中的。
@@ -1300,35 +1300,34 @@ Slack 消息附件使你能够创建格式更丰富的消息。
 </dt>
 <dd>
 <p>
-Specifies account information for using notifications to create
-issues in Jira. You can specify the following Jira account attributes:
+指定使用通知在 Jira 创建问题的帐户信息。你可以指定以下 Jira 帐户属性:
 </p>
 <div class="variablelist">
 <a id="jira-account-attributes"></a>
 <dl class="variablelist">
 <dt>
 <span class="term">
-<code class="literal">secure_url</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">secure_url</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-The URL of the Jira Software server. Required.
+Jira 软件服务器的URL。必填。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">secure_user</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">secure_user</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-The name of the user to connect to the Jira Software server. Required.
+连接到 Jira 软件服务器的用户名。必填。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">secure_password</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-The password of the user to connect to the Jira Software server. Required.
+连接到 Jira 软件服务器的用户密码。必填。
 </dd>
 <dt>
 <span class="term">
@@ -1336,9 +1335,9 @@ The password of the user to connect to the Jira Software server. Required.
 </span>
 </dt>
 <dd>
-Default fields values for the issue created in Jira. See
-<a class="xref" href="actions-jira.html#jira-action-attributes" title="Jira action attributes">Jira action attributes</a> for more information.
-Optional.
+在 Jira 里创建的问题的默认字段值。
+更多信息请参考 <a class="xref" href="actions-jira.html#jira-action-attributes" title="Jira action attributes">Jira 行为属性</a>。
+选填。
 </dd>
 </dl>
 </div>
@@ -1346,11 +1345,12 @@ Optional.
 </dl>
 </div>
 <h4>
-<a id="pagerduty-notification-settings"></a>PagerDuty Notification Settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/settings/notification-settings.asciidoc">edit</a>
+<a id="pagerduty-notification-settings"></a>PagerDuty 通知设置
 </h4>
-<p>You can configure the following PagerDuty notification settings in
-<code class="literal">elasticsearch.yml</code>. For more information about sending notifications
-via PagerDuty, see <a class="xref" href="actions-pagerduty.html#configuring-pagerduty-actions" title="Configuring PagerDuty actions">Configuring PagerDuty actions</a>.</p>
+<p>
+你可以在 <code class="literal">elasticsearch.yml</code> 中配置以下 PagerDuty 通知设置。
+有关通过 PagerDuty 发送通知的详细信息，请参阅 <a class="xref" href="actions-pagerduty.html#configuring-pagerduty-actions" title="Configuring PagerDuty actions">配置 PagerDuty 行为</a>。
+</p>
 <div class="variablelist">
 <a id="pagerduty-account-attributes"></a>
 <dl class="variablelist">
@@ -1361,8 +1361,7 @@ via PagerDuty, see <a class="xref" href="actions-pagerduty.html#configuring-page
 </dt>
 <dd>
 <p>
-Specifies account information for sending notifications
-via PagerDuty. You can specify the following PagerDuty account attributes:
+指定通过 PagerDuty 发送通知的帐户信息。你可以指定以下 PagerDuty 责任帐户属性：
 </p>
 <div class="variablelist">
 <dl class="variablelist">
@@ -1372,17 +1371,15 @@ via PagerDuty. You can specify the following PagerDuty account attributes:
 </span>
 </dt>
 <dd>
-A name for the PagerDuty account associated with the API key you
-are using to access PagerDuty. Required.
+与用于访问 PagerDuty 的 API key 相关联的 PagerDuty 帐户的名称。必填。
 </dd>
 <dt>
 <span class="term">
-<code class="literal">secure_service_api_key</code> (<a class="xref" href="secure-settings.html" title="Secure settings">Secure</a>)
+<code class="literal">secure_service_api_key</code> (<a class="xref" href="secure-settings.html" title="Secure settings">安全</a>)
 </span>
 </dt>
 <dd>
-The <a href="https://developer.pagerduty.com/documentation/rest/authentication" class="ulink" target="_top">
-PagerDuty API key</a> to use to access PagerDuty. Required.
+用于访问 PagerDuty 的 <a href="https://developer.pagerduty.com/documentation/rest/authentication" class="ulink" target="_top">PagerDuty API key</a>。必填。
 </dd>
 </dl>
 </div>
@@ -1395,9 +1392,8 @@ PagerDuty API key</a> to use to access PagerDuty. Required.
 </dt>
 <dd>
 <p>
-Default values for
-<a class="xref" href="actions-pagerduty.html#pagerduty-event-trigger-incident-attributes" title="Pagerduty event trigger incident attributes">PagerDuty event attributes</a>.
-Optional.
+<a class="xref" href="actions-pagerduty.html#pagerduty-event-trigger-incident-attributes" title="Pagerduty event trigger incident attributes">PagerDuty 事件属性</a> 的默认值。
+选填。
 </p>
 <div class="variablelist">
 <dl class="variablelist">
@@ -1407,9 +1403,8 @@ Optional.
 </span>
 </dt>
 <dd>
-A string that contains the default description for PagerDuty events.
-If no default is configured, each PagerDuty action must specify a
-<code class="literal">description</code>.
+一个字符串，包含 PagerDuty 事件的默认描述。
+如果没有配置默认值，每个 PagerDuty 操作都必须指定一个<code class="literal">description</code>。
 </dd>
 <dt>
 <span class="term">
@@ -1417,8 +1412,7 @@ If no default is configured, each PagerDuty action must specify a
 </span>
 </dt>
 <dd>
-A string that contains the default incident key to use when sending
-PagerDuty events.
+一个字符串，包含发送 PagerDuty 事件时使用的默认事件的 key。
 </dd>
 <dt>
 <span class="term">
@@ -1426,7 +1420,7 @@ PagerDuty events.
 </span>
 </dt>
 <dd>
-A string that specifies the default monitoring client.
+一个字符串，指定默认的监视客户端。
 </dd>
 <dt>
 <span class="term">
@@ -1434,7 +1428,7 @@ A string that specifies the default monitoring client.
 </span>
 </dt>
 <dd>
-The URL of the default monitoring client.
+默认的监视客户端的 URL 。
 </dd>
 <dt>
 <span class="term">
@@ -1442,7 +1436,8 @@ The URL of the default monitoring client.
 </span>
 </dt>
 <dd>
-The default event type. Valid values: <code class="literal">trigger</code>,<code class="literal">resolve</code>, <code class="literal">acknowledge</code>.
+默认的时间类型。
+有效的值有：<code class="literal">trigger</code>,<code class="literal">resolve</code>, <code class="literal">acknowledge</code> 。
 </dd>
 <dt>
 <span class="term">
@@ -1450,8 +1445,8 @@ The default event type. Valid values: <code class="literal">trigger</code>,<code
 </span>
 </dt>
 <dd>
-Whether or not to provide the watch payload as context for
-the event by default. Valid values: <code class="literal">true</code>, <code class="literal">false</code>.
+默认情况下，是否提供监视负载作为事件的上下文。
+有效的值有：<code class="literal">true</code>, <code class="literal">false</code> 。
 </dd>
 </dl>
 </div>

@@ -261,27 +261,27 @@ var esNavLinks = [
             {
                 "url": "important-settings.html",
                 "text": "Elasticsearch的重要的配置",
-                "title": "Important Elasticsearch configuration",
+                "title": "Elasticsearch的重要的配置",
                 "sub": [
                     {
                         "url": "path-settings.html",
                         "text": "<code class=\"literal\">path.data</code>和<code class=\"literal\">path.logs</code>",
-                        "title": "path.data and path.logs"
+                        "title": "<code class=\"literal\">path.data</code>和<code class=\"literal\">path.logs</code>"
                     },
                     {
                         "url": "cluster.name.html",
                         "text": "集群名称(<code class=\"literal\">cluster.name</code>)",
-                        "title": "cluster.name"
+                        "title": "集群名称(<code class=\"literal\">cluster.name</code>"
                     },
                     {
                         "url": "node.name.html",
                         "text": "节点名称(<code class=\"literal\">node.name</code>)",
-                        "title": "node.name"
+                        "title": "节点名称(<code class=\"literal\">node.name</code>"
                     },
                     {
                         "url": "network.host.html",
                         "text": "网络之宿主绑定(<code class=\"literal\">network.host</code>)",
-                        "title": "network.host"
+                        "title": "网络之宿主绑定(<code class=\"literal\">network.host</code>)"
                     },
                     {
                         "url": "discovery-settings.html",

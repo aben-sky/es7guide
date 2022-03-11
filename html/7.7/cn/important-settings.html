@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Important Elasticsearch configuration | ElasticSearch 7.7 权威指南中文版</title>
+	<title>Elasticsearch的重要的配置 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,57 +32,60 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-node">Important Elasticsearch configuration</span>
+<span class="breadcrumb-node">重要的配置</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="notification-settings.html">« Watcher settings in Elasticsearch</a>
+<a href="notification-settings.html">« 预警设置</a>
 </span>
 <span class="next">
-<a href="path-settings.html"><code class="literal">path.data</code> and <code class="literal">path.logs</code> »</a>
+<a href="path-settings.html"><code class="literal">path.data</code> 和 <code class="literal">path.logs</code> »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="important-settings"></a>Important Elasticsearch configuration<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/important-settings.asciidoc">edit</a>
+<a id="important-settings"></a>Elasticsearch的重要的配置
 </h2>
 </div></div></div>
-<p>While Elasticsearch requires very little configuration, there are a number of
-settings which need to be considered before going into production.</p>
-<p>The following settings <span class="strong strong"><strong>must</strong></span> be considered before going to production:</p>
+<p>
+虽然 Elasticsearch 只需要很少的配置，但在投入生产之前需要考虑一些设置。
+</p>
+<p>
+在投入生产之前，<span class="strong strong"><strong>必须</strong></span> 考虑以下设置：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<a class="xref" href="path-settings.html" title="path.data and path.logs">Path settings</a>
+<a class="xref" href="path-settings.html" title="path.data and path.logs">路径设置 (Path settings)</a>
 </li>
 <li class="listitem">
-<a class="xref" href="cluster.name.html" title="cluster.name">Cluster name</a>
+<a class="xref" href="cluster.name.html" title="cluster.name">集群名称 (Cluster name)</a>
 </li>
 <li class="listitem">
-<a class="xref" href="node.name.html" title="node.name">Node name</a>
+<a class="xref" href="node.name.html" title="node.name">节点名称 (Node name)</a>
 </li>
 <li class="listitem">
-<a class="xref" href="network.host.html" title="network.host">Network host</a>
+<a class="xref" href="network.host.html" title="network.host">网络主机 (Network host)</a>
 </li>
 <li class="listitem">
-<a class="xref" href="discovery-settings.html" title="Important discovery and cluster formation settings">Discovery settings</a>
+<a class="xref" href="discovery-settings.html" title="Important discovery and cluster formation settings">发现设置 (Discovery settings)</a>
 </li>
 <li class="listitem">
-<a class="xref" href="heap-size.html" title="Setting the heap size">Heap size</a>
+<a class="xref" href="heap-size.html" title="Setting the heap size">堆大小 (Heap size)</a>
 </li>
 <li class="listitem">
-<a class="xref" href="heap-dump-path.html" title="JVM heap dump path">Heap dump path</a>
+<a class="xref" href="heap-dump-path.html" title="JVM heap dump path">堆转储路径 (Heap dump path)</a>
 </li>
 <li class="listitem">
-<a class="xref" href="gc-logging.html" title="GC logging">GC logging</a>
+<a class="xref" href="gc-logging.html" title="GC logging">垃圾回收日志 (GC logging)</a>
 </li>
 <li class="listitem">
-<a class="xref" href="es-tmpdir.html" title="Temp directory">Temp directory</a>
+<a class="xref" href="es-tmpdir.html" title="Temp directory">临时目录 (Temp directory)</a>
 </li>
 </ul>
 </div>
@@ -99,10 +102,10 @@ settings which need to be considered before going into production.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="notification-settings.html">« Watcher settings in Elasticsearch</a>
+<a href="notification-settings.html">« 预警设置</a>
 </span>
 <span class="next">
-<a href="path-settings.html"><code class="literal">path.data</code> and <code class="literal">path.logs</code> »</a>
+<a href="path-settings.html"><code class="literal">path.data</code> 和 <code class="literal">path.logs</code> »</a>
 </span>
 </div>
 </div>

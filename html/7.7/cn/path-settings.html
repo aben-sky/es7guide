@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>path.data and path.logs | ElasticSearch 7.7 权威指南中文版</title>
+	<title>path.data 和 path.logs | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,43 +32,46 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="important-settings.html">Important Elasticsearch configuration</a></span>
+<span class="breadcrumb-link"><a href="important-settings.html">重要的配置</a></span>
 »
-<span class="breadcrumb-node"><code class="literal">path.data</code> and <code class="literal">path.logs</code></span>
+<span class="breadcrumb-node"><code class="literal">path.data</code> 和 <code class="literal">path.logs</code></span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="important-settings.html">« Important Elasticsearch configuration</a>
+<a href="important-settings.html">« 重要的配置</a>
 </span>
 <span class="next">
-<a href="cluster.name.html"><code class="literal">cluster.name</code> »</a>
+<a href="cluster.name.html"><code class="literal">集群名称(cluster.name)</code> »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="path-settings"></a><code class="literal">path.data</code> and <code class="literal">path.logs</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/important-settings/path-settings.asciidoc">edit</a>
+<a id="path-settings"></a><code class="literal">path.data</code> 和 <code class="literal">path.logs</code>
 </h2>
 </div></div></div>
-<p>If you are using the <code class="literal">.zip</code> or <code class="literal">.tar.gz</code> archives, the <code class="literal">data</code> and <code class="literal">logs</code>
-directories are sub-folders of <code class="literal">$ES_HOME</code>.  If these important folders are left
-in their default locations, there is a high risk of them being deleted while
-upgrading Elasticsearch to a new version.</p>
-<p>In production use, you will almost certainly want to change the locations of the
-data and log folder:</p>
+<p>
+如果你使用的是 <code class="literal">.zip</code> 或 <code class="literal">.tar.gz</code> 归档，则 <code class="literal">data</code> 和 <code class="literal">logs</code> 目录是 <code class="literal">$ES_HOME</code> 的子目录。
+如果这些重要的文件夹被放在默认的位置，就会有一个很高的风险：在升级到新版本时他们会被删除。
+</p>
+<p>
+在生产使用中，你几乎肯定会想要更改数据和日志文件夹的位置：
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">path:
   logs: /var/log/elasticsearch
   data: /var/data/elasticsearch</pre>
 </div>
-<p>The RPM and Debian distributions already use custom paths for <code class="literal">data</code> and <code class="literal">logs</code>.</p>
-<p>The <code class="literal">path.data</code> settings can be set to multiple paths, in which case all paths
-will be used to store data (although the files belonging to a single shard will
-all be stored on the same data path):</p>
+<p>
+RPM 和 Debian 发行版已经为 <code class="literal">data</code> 和 <code class="literal">logs</code> 使用了定制的路径。
+</p>
+<p>
+<code class="literal">path.data</code> 可以设置为多个路径，在这种情况下，所有路径都将用于存储数据(尽管属于单个分片的文件都将存储在同一数据路径上)：
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">path:
   data:
@@ -79,10 +82,10 @@ all be stored on the same data path):</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="important-settings.html">« Important Elasticsearch configuration</a>
+<a href="important-settings.html">« 重要的配置</a>
 </span>
 <span class="next">
-<a href="cluster.name.html"><code class="literal">cluster.name</code> »</a>
+<a href="cluster.name.html"><code class="literal">集群名称(cluster.name)</code> »</a>
 </span>
 </div>
 </div>

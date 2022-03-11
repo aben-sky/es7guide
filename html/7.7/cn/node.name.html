@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>node.name | ElasticSearch 7.7 权威指南中文版</title>
+	<title>节点名称 (node.name) | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,43 +32,42 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="important-settings.html">Important Elasticsearch configuration</a></span>
+<span class="breadcrumb-link"><a href="important-settings.html">重要的配置</a></span>
 »
-<span class="breadcrumb-node"><code class="literal">node.name</code></span>
+<span class="breadcrumb-node"><code class="literal">节点名称(node.name)</code></span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="cluster.name.html">« <code class="literal">cluster.name</code></a>
+<a href="cluster.name.html">« <code class="literal">集群名称(cluster.name)</code></a>
 </span>
 <span class="next">
-<a href="network.host.html"><code class="literal">network.host</code> »</a>
+<a href="network.host.html">网络之宿主绑定(<code class=\"literal\">network.host</code>) »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="node.name"></a><code class="literal">node.name</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/important-settings/node-name.asciidoc">edit</a>
+<a id="node.name"></a>节点名称 <code class="literal">node.name</code>
 </h2>
 </div></div></div>
-<p>Elasticsearch uses <code class="literal">node.name</code> as a human readable identifier for a
-particular instance of Elasticsearch so it is included in the response
-of many APIs. It defaults to the hostname that the machine has when
-Elasticsearch starts but can be configured explicitly in
-<code class="literal">elasticsearch.yml</code> as follows:</p>
+<p>
+Elasticsearch 使用 <code class="literal">node.name</code> 作为 Elasticsearch 的特定实例的可读标识符，因此它包含在许多 API 的响应中。
+它默认为 Elasticsearch 启动时机器的主机名，但可以在 <code class="literal">elasticsearch.yml</code> 中明确配置，如下所示:
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">node.name: prod-data-2</pre>
 </div>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="cluster.name.html">« <code class="literal">cluster.name</code></a>
+<a href="cluster.name.html">« <code class="literal">集群名称(cluster.name)</code></a>
 </span>
 <span class="next">
-<a href="network.host.html"><code class="literal">network.host</code> »</a>
+<a href="network.host.html">网络之宿主绑定(<code class=\"literal\">network.host</code>) »</a>
 </span>
 </div>
 </div>

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>network.host | ElasticSearch 7.7 权威指南中文版</title>
+	<title>网络之宿主绑定(network.host) | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,65 +32,67 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="important-settings.html">Important Elasticsearch configuration</a></span>
+<span class="breadcrumb-link"><a href="important-settings.html">重要的配置</a></span>
 »
-<span class="breadcrumb-node"><code class="literal">network.host</code></span>
+<span class="breadcrumb-node">网络之宿主绑定(<code class="literal">network.host)</code></span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="node.name.html">« <code class="literal">node.name</code></a>
+<a href="node.name.html">« 节点名称 <code class="literal">node.name</code></a>
 </span>
 <span class="next">
-<a href="discovery-settings.html">Important discovery and cluster formation settings »</a>
+<a href2="discovery-settings.html">Important discovery and cluster formation settings »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="network.host"></a><code class="literal">network.host</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/important-settings/network-host.asciidoc">edit</a>
+<a id="network.host"></a>网络之宿主绑定(<code class="literal">network.host</code>)
 </h2>
 </div></div></div>
-<p>By default, Elasticsearch binds to loopback addresses only — e.g. <code class="literal">127.0.0.1</code>
-and <code class="literal">[::1]</code>. This is sufficient to run a single development node on a server.</p>
+<p>
+默认情况下，Elasticsearch 只绑定到回环地址 - 比如 <code class="literal">127.0.0.1</code> 和 <code class="literal">[::1]</code>。
+这足以在服务器上运行单个开发节点。
+</p>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>In fact, more than one node can be started from the same <code class="literal">$ES_HOME</code>
-location on a single node.  This can be useful for testing Elasticsearch’s
-ability to form clusters, but it is not a configuration recommended for
-production.</p>
+<p>
+事实上，可以从单个节点上的同一个 <code class="literal">$ES_HOME</code> 位置启动多个节点。
+这对于测试 Elasticsearch 形成集群的能力很有用，但不建议在生产环境中使用这种配置。
+</p>
 </div>
 </div>
-<p>In order to form a cluster with nodes on other servers, your
-node will need to bind to a non-loopback address. While there are many
-<a class="xref" href="modules-network.html" title="Network settings">network settings</a>, usually all you need to configure is
-<code class="literal">network.host</code>:</p>
+<p>
+为了与其他服务器上的节点组成一个集群，你的节点需要绑定到一个非回环地址。
+虽然 <a class="xref" href="modules-network.html" title="Network settings">网络设置</a> 有很多，但通常你需要配置的只是 <code class="literal">network.host</code>：
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">network.host: 192.168.1.10</pre>
 </div>
-<p>The <code class="literal">network.host</code> setting also understands some special values such as
-<code class="literal">_local_</code>, <code class="literal">_site_</code>, <code class="literal">_global_</code> and modifiers like <code class="literal">:ip4</code> and <code class="literal">:ip6</code>, details of
-which can be found in <a class="xref" href="modules-network.html#network-interface-values" title="Special values for network.host">Special values for <code class="literal">network.host</code></a>.</p>
+<p>
+<code class="literal">network.host</code> 设置还支持一些特殊值，比如 <code class="literal">_local_</code>, <code class="literal">_site_</code>, <code class="literal">_global_</code> 以及 <code class="literal">:ip4</code> 和 <code class="literal">:ip6</code> 这样的修饰语, 详情请参考 <a class="xref" href="modules-network.html#network-interface-values" title="Special values for network.host"><code class="literal">network.host</code>的特殊值</a>。
+</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>As soon as you provide a custom setting for <code class="literal">network.host</code>,
-Elasticsearch assumes that you are moving from development mode to production
-mode, and upgrades a number of system startup checks from warnings to
-exceptions. See <a class="xref" href="system-config.html#dev-vs-prod" title="Development mode vs production mode">Development mode vs production mode</a> for more information.</p>
+<p>
+一旦你为 <code class="literal">network.host</code> 提供了自定义设置，Elasticsearch 就会认为你正在从开发模式转移到生产模式，并将许多系统启动检查从警告升级为异常。
+更多信息参考 <a class="xref" href="system-config.html#dev-vs-prod" title="Development mode vs production mode">开始模式与生产模式</a> 。
+</p>
 </div>
 </div>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="node.name.html">« <code class="literal">node.name</code></a>
+<a href="node.name.html">« 节点名称 <code class="literal">node.name</code></a>
 </span>
 <span class="next">
-<a href="discovery-settings.html">Important discovery and cluster formation settings »</a>
+<a href2="discovery-settings.html">Important discovery and cluster formation settings »</a>
 </span>
 </div>
 </div>

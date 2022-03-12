@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Important discovery and cluster formation settings | ElasticSearch 7.7 权威指南中文版</title>
+	<title>发现(discovery)和集群形成的重要设置 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,63 +32,57 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="important-settings.html">Important Elasticsearch configuration</a></span>
+<span class="breadcrumb-link"><a href="important-settings.html">重要的配置</a></span>
 »
-<span class="breadcrumb-node">Important discovery and cluster formation settings</span>
+<span class="breadcrumb-node">发现(discovery)和集群形成的重要设置</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="network.host.html">« <code class="literal">network.host</code></a>
+<a href="network.host.html">« 网络之宿主绑定(<code class="literal">network.host)</code></a>
 </span>
 <span class="next">
-<a href="heap-size.html">Setting the heap size »</a>
+<a href2="heap-size.html">Setting the heap size »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="discovery-settings"></a>Important discovery and cluster formation settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/important-settings/discovery-settings.asciidoc">edit</a>
+<a id="discovery-settings"></a>发现(discovery)和集群形成的重要设置
 </h2>
 </div></div></div>
 
-<p>There are two important discovery and cluster formation settings that should be
-configured before going to production so that nodes in the cluster can discover
-each other and elect a master node.</p>
+<p>
+在投入生产之前，应该配置两个重要的 发现(discovery) 和 集群形成(cluster formation) 设置，以便集群中的节点能够彼此发现并选举一个主节点。
+</p>
 <h4>
-<a id="unicast.hosts"></a><code class="literal">discovery.seed_hosts</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/important-settings/discovery-settings.asciidoc">edit</a>
+<a id="unicast.hosts"></a><code class="literal">discovery.seed_hosts</code>
 </h4>
-<p>Out of the box, without any network configuration, Elasticsearch will bind to
-the available loopback addresses and will scan local ports 9300 to 9305 to try
-to connect to other nodes running on the same server. This provides an
-auto-clustering experience without having to do any configuration.</p>
-<p>When you want to form a cluster with nodes on other hosts, you should use the
-<code class="literal">discovery.seed_hosts</code> setting to provide a list of other nodes in the cluster
-that are master-eligible and likely to be live and contactable in order to seed
-the <a class="xref" href="modules-discovery-hosts-providers.html" title="Discovery">discovery process</a>. This setting
-should be a list of the addresses of all the master-eligible nodes in the
-cluster. Each address can be either an IP address or a hostname which resolves
-to one or more IP addresses via DNS.</p>
-<p>If your master-eligible nodes do not have fixed names or addresses, use an
-<a class="xref" href="modules-discovery-hosts-providers.html#built-in-hosts-providers" title="Seed hosts providers">alternative hosts provider</a> to find their addresses
-dynamically.</p>
+<p>
+在没有任何网络配置的情况下，Elasticsearch 将绑定到可用的回环地址，并扫描本地端口 9300 至9305，尝试连接到同一服务器上运行的其他节点。
+这提供了一种自动集群体验，而无需进行任何配置。
+</p>
+<p>
+当你想要在其他主机上形成一个有多个节点的集群时，你应该使用 <code class="literal">discovery.seed_hosts</code> 设置来提供一个集群中其他(符合主节点的条件的)节点的列表，并且可能是活动的和可连接的，以便启动 <a class="xref" href="modules-discovery-hosts-providers.html" title="Discovery">发现过程(discovery process)</a>。
+此设置应是集群中所有合格主节点的节点的地址列表。
+每个地址可以是 IP 地址，也可以是主机名(可以通过 DNS 解析为一个或多个 IP 地址)。
+</p>
+<p>
+如果你的符合主节点的节点没有固定的名称或地址，请使用 <a class="xref" href="modules-discovery-hosts-providers.html#built-in-hosts-providers" title="Seed hosts providers">替代主机提供程序(alternative hosts provider)</a> 动态查找它们的地址。
+</p>
 <h4>
-<a id="initial_master_nodes"></a><code class="literal">cluster.initial_master_nodes</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/important-settings/discovery-settings.asciidoc">edit</a>
+<a id="initial_master_nodes"></a><code class="literal">cluster.initial_master_nodes</code>
 </h4>
-<p>When you start a brand new Elasticsearch cluster for the very first time, there
-is a <a class="xref" href="modules-discovery-bootstrap-cluster.html" title="Bootstrapping a cluster">cluster bootstrapping</a> step, which
-determines the set of master-eligible nodes whose votes are counted in the very
-first election. In <a class="xref" href="bootstrap-checks.html#dev-vs-prod-mode" title="Development vs. production mode">development mode</a>, with no discovery
-settings configured, this step is automatically performed by the nodes
-themselves. As this auto-bootstrapping is <a class="xref" href="modules-discovery-quorums.html" title="Quorum-based decision making">inherently
-unsafe</a>, when you start a brand new cluster in <a class="xref" href="bootstrap-checks.html#dev-vs-prod-mode" title="Development vs. production mode">production
-mode</a>, you must explicitly list the master-eligible nodes whose votes should be
-counted in the very first election. This list is set using the
-<code class="literal">cluster.initial_master_nodes</code> setting. You should not use this setting when
-restarting a cluster or adding a new node to an existing cluster.</p>
+<p>
+当你第一次启动一个全新的 ElasticSearch 集群时，就会有一个 <a class="xref" href="modules-discovery-bootstrap-cluster.html" title="Bootstrapping a cluster">集群引导</a>步骤，它确定第一次选举中计算选票的一组符合主节点条件的节点。
+在<a class="xref" href="bootstrap-checks.html#dev-vs-prod-mode" title="Development vs. production mode">开发模式</a>中，没有配置任何 发现(discovery) 设置，此步骤将由节点自己自动执行。
+由于这种自动引导本质上是<a class="xref" href="modules-discovery-quorums.html" title="Quorum-based decision making">不安全的</a>，所以当你在生产模式中启动一个全新的集群时，必须显式地列出在第一次选举中应该计算选票的符合主节点条件的节点。
+这个列表是使用 <code class="literal">cluster.initial_master_nodes</code> 设置来设置的。
+当重新启动集群或向现有集群添加新节点时，不应使用此设置。
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">discovery.seed_hosts:
    - 192.168.1.10:9300
@@ -107,8 +101,9 @@ cluster.initial_master_nodes: <a id="CO25-4"></a><i class="conum" data-value="4"
 <p><a href="#CO25-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The port is optional and usually defaults to <code class="literal">9300</code>, but this default can
-be <a class="xref" href="modules-discovery-hosts-providers.html#built-in-hosts-providers" title="Seed hosts providers">overridden</a> by certain settings.</p>
+<p>
+端口是可选的，通常默认为 <code class="literal">9300</code>，但此默认设置可以被某些设置 <a class="xref" href="modules-discovery-hosts-providers.html#built-in-hosts-providers" title="Seed hosts providers">覆盖</a>。
+</p>
 </td>
 </tr>
 <tr>
@@ -116,8 +111,9 @@ be <a class="xref" href="modules-discovery-hosts-providers.html#built-in-hosts-p
 <p><a href="#CO25-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>If a hostname resolves to multiple IP addresses then the node will attempt to
-discover other nodes at all resolved addresses.</p>
+<p>
+如果一个主机名解析到多个 IP 地址，则该节点将尝试在所有已解析的地址上发现其他节点。
+</p>
 </td>
 </tr>
 <tr>
@@ -125,7 +121,7 @@ discover other nodes at all resolved addresses.</p>
 <p><a href="#CO25-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>IPv6 addresses must be enclosed in square brackets.</p>
+<p>IPv6 地址必须用方括号括起来。</p>
 </td>
 </tr>
 <tr>
@@ -133,14 +129,12 @@ discover other nodes at all resolved addresses.</p>
 <p><a href="#CO25-4"><i class="conum" data-value="4"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The initial master nodes should be identified by their
-<a class="xref" href="node.name.html" title="node.name"><code class="literal">node.name</code></a>, which defaults to their hostname. Make sure that
-the value in <code class="literal">cluster.initial_master_nodes</code> matches the <code class="literal">node.name</code>
-exactly. If you use a fully-qualified domain name such as
-<code class="literal">master-node-a.example.com</code> for your node names then you must use the
-fully-qualified name in this list; conversely if <code class="literal">node.name</code> is a bare
-hostname without any trailing qualifiers then you must also omit the
-trailing qualifiers in <code class="literal">cluster.initial_master_nodes</code>.</p>
+<p>
+初始主节点应该通过它们的 <a class="xref" href="node.name.html" title="node.name"><code class="literal">node.name</code></a>来标识，默认为它们的主机名。
+确保 <code class="literal">cluster.initial_master_nodes</code> 的值与 <code class="literal">node.name</code> 完全匹配。
+如果你使用一个绝对域名，如 <code class="literal">master-node-a.example.com</code>，那么你必须在此列表中使用完整的名称；
+相反，如果 <code class="literal">node.name</code> 是一个没有 后限定符<span class="remark">(trailing qualifier)</span> 的裸主机名，那么还必须省略 <code class="literal">cluster.initial_master_nodes</code> 中的后限定符。
+</p>
 </td>
 </tr>
 </table>
@@ -150,10 +144,10 @@ trailing qualifiers in <code class="literal">cluster.initial_master_nodes</code>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="network.host.html">« <code class="literal">network.host</code></a>
+<a href="network.host.html">« 网络之宿主绑定(<code class="literal">network.host)</code></a>
 </span>
 <span class="next">
-<a href="heap-size.html">Setting the heap size »</a>
+<a href2="heap-size.html">Setting the heap size »</a>
 </span>
 </div>
 </div>

@@ -285,8 +285,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "discovery-settings.html",
-                        "text": "发现(discovery)和集群信息设置",
-                        "title": "发现和集群信息设置"
+                        "text": "发现(discovery)和集群形成的重要设置",
+                        "title": "发现(discovery)和集群形成的重要设置"
                     },
                     {
                         "url": "heap-size.html",

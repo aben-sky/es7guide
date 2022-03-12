@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>发现和集群信息设置 | ElasticSearch 7.7 权威指南中文版</title>
+	<title>发现和集群形成设置 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -38,7 +38,7 @@
 »
 <span class="breadcrumb-link"><a href="settings.html">配置 Elasticsearch</a></span>
 »
-<span class="breadcrumb-node">发现和集群信息设置</span>
+<span class="breadcrumb-node">发现和集群形成设置</span>
 </div>
 <div class="navheader">
 <span class="prev">
@@ -51,10 +51,10 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="modules-discovery-settings"></a>发现(discovery) 和集群信息设置
+<a id="modules-discovery-settings"></a>发现(discovery) 和集群形成设置
 </h2>
 </div></div></div>
-<p><a class="xref" href="modules-discovery.html" title="Discovery and cluster formation">发现和集群信息</a> 受以下几个设置的影响：</p>
+<p><a class="xref" href="modules-discovery.html" title="Discovery and cluster formation">发现和集群形成</a> 受以下几个设置的影响：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -148,7 +148,7 @@ DNS查找依赖于 <a class="xref" href="networkaddress-cache-ttl.html" title="D
 </span>
 </dt>
 <dd>
-设置在记录集群未组建成功的警告之前，节点尝试组建集的时间。
+设置在记录集群未组建成功的警告之前，节点尝试组建集群的时间。
 默认为 <code class="literal">10s</code>。
 如果在 <code class="literal">discovery.cluster_formation_warning_timeout</code> 时间过去后仍未组建群集，则该节点将记录一条警告消息，该消息以短语<code class="literal">master not discovered</code>开头，描述发现过程的当前状态。
 </dd>

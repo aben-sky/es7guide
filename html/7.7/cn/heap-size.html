@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Setting the heap size | ElasticSearch 7.7 权威指南中文版</title>
+	<title>设置堆大小 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,55 +32,53 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="important-settings.html">Important Elasticsearch configuration</a></span>
+<span class="breadcrumb-link"><a href="important-settings.html">重要的配置</a></span>
 »
-<span class="breadcrumb-node">Setting the heap size</span>
+<span class="breadcrumb-node">设置堆大小</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="discovery-settings.html">« Important discovery and cluster formation settings</a>
+<a href="discovery-settings.html">« 发现(discovery)和集群形成的重要设置</a>
 </span>
 <span class="next">
-<a href="heap-dump-path.html">JVM heap dump path »</a>
+<a href2="heap-dump-path.html">JVM heap dump path »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="heap-size"></a>Setting the heap size<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/important-settings/heap-size.asciidoc">edit</a>
+<a id="heap-size"></a>设置堆大小
 </h2>
 </div></div></div>
-<p>By default, Elasticsearch tells the JVM to use a heap with a minimum and maximum
-size of 1 GB. When moving to production, it is important to configure heap size
-to ensure that Elasticsearch has enough heap available.</p>
-<p>Elasticsearch will assign the entire heap specified in
-<a class="xref" href="jvm-options.html" title="Setting JVM options">jvm.options</a> via the <code class="literal">Xms</code> (minimum heap size) and <code class="literal">Xmx</code> (maximum
-heap size) settings. You should set these two settings to be equal to each
-other.</p>
-<p>The value for these settings depends on the amount of RAM available on your
-server:</p>
+<p>
+默认情况下，Elasticsearch 告诉 JVM 使用的堆的最小和最大值为 1 GB。
+当转移到生产环境时，配置堆大小以确保 Elasticsearch 有足够的堆可用是很重要的。
+</p>
+<p>
+Elasticsearch 将根据 <a class="xref" href="jvm-options.html" title="Setting JVM options">jvm.options</a> 中设置的 Xms(最小堆大小) 和 Xmx(最大堆大小) 来分配整个堆。
+你应该将这两个设置设置为彼此相等。
+</p>
+<p>
+这些设置的值取决于服务器上可用的RAM容量：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Set <code class="literal">Xmx</code> and <code class="literal">Xms</code> to no more than 50% of your physical RAM. Elasticsearch requires
-memory for purposes other than the JVM heap and it is important to leave
-space for this. For instance, Elasticsearch uses off-heap buffers for efficient
-network communication, relies on the operating system’s filesystem cache for
-efficient access to files, and the JVM itself requires some memory too. It is
-normal to observe the Elasticsearch process using more memory than the limit
-configured with the <code class="literal">Xmx</code> setting.
+将 <code class="literal">Xmx</code> 和 <code class="literal">Xms</code> 设置为不超过物理RAM的50%。
+Elasticsearch需要内存用于JVM堆以外的其他用途，为此预留空间很重要。
+例如，Elasticsearch使用堆外缓冲区进行高效的网络通信，依赖于操作系统的文件系统缓存进行高效的文件访问，而JVM本身也需要一些内存。  
+观察到Elasticsearch进程使用的内存超过 <code class="literal">Xmx</code> 设置配置的限制是正常的。
 </li>
 <li class="listitem">
-<p>Set <code class="literal">Xmx</code> and <code class="literal">Xms</code> to no more than the threshold that the JVM uses for
-compressed object pointers (compressed oops); the exact threshold varies but
-is near 32 GB. You can verify that you are under the threshold by looking for a
-line in the logs like the following:</p>
+<p>
+将<code class="literal">Xmx</code> 和 <code class="literal">Xms</code>设置为不超过JVM用于压缩对象指针的阈值(compressed oops)；确切的阈值有所不同，但接近32 GB。
+可以通过在日志中查找如下行来验证是否低于阈值：
+</p>
 <pre class="literallayout">heap size [1.9gb], compressed ordinary object pointers [true]</pre>
-
 </li>
 <li class="listitem">
 <p>Ideally set <code class="literal">Xmx</code> and <code class="literal">Xms</code> to no more than the threshold for zero-based
@@ -166,10 +164,10 @@ additional details.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="discovery-settings.html">« Important discovery and cluster formation settings</a>
+<a href="discovery-settings.html">« 发现(discovery)和集群形成的重要设置</a>
 </span>
 <span class="next">
-<a href="heap-dump-path.html">JVM heap dump path »</a>
+<a href2="heap-dump-path.html">JVM heap dump path »</a>
 </span>
 </div>
 </div>

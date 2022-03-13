@@ -290,8 +290,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "heap-size.html",
-                        "text": "堆大小(heap size)设置",
-                        "title": "Setting the heap size"
+                        "text": "设置堆大小",
+                        "title": "设置堆大小"
                     },
                     {
                         "url": "heap-dump-path.html",

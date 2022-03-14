@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>JVM heap dump path | ElasticSearch 7.7 权威指南中文版</title>
+	<title>JVM堆的转储路径 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,17 +32,17 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="important-settings.html">Important Elasticsearch configuration</a></span>
+<span class="breadcrumb-link"><a href="important-settings.html">重要的配置</a></span>
 »
-<span class="breadcrumb-node">JVM heap dump path</span>
+<span class="breadcrumb-node">JVM堆的转储路径</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="heap-size.html">« Setting the heap size</a>
+<a href="heap-size.html">« 设置堆大小</a>
 </span>
 <span class="next">
 <a href="gc-logging.html">GC logging »</a>
@@ -51,25 +51,19 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="heap-dump-path"></a>JVM heap dump path<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/important-settings/heap-dump-path.asciidoc">edit</a>
+<a id="heap-dump-path"></a>JVM堆的转储路径 (JVM heap dump path)
 </h2>
 </div></div></div>
-<p>By default, Elasticsearch configures the JVM to dump the heap on out of
-memory exceptions to the default data directory (this is
-<code class="literal">/var/lib/elasticsearch</code> for the <a class="xref" href="rpm.html" title="Install Elasticsearch with RPM">RPM</a> and <a class="xref" href="deb.html" title="Install Elasticsearch with Debian Package">Debian</a> package
-distributions, and the <code class="literal">data</code> directory under the root of the
-Elasticsearch installation for the <a class="xref" href="targz.html" title="Install Elasticsearch from archive on Linux or MacOS">tar</a> and <a class="xref" href="zip-windows.html" title="Install Elasticsearch with .zip on Windows">zip</a> archive
-distributions). If this path is not suitable for receiving heap dumps,
-you should modify the entry <code class="literal">-XX:HeapDumpPath=...</code> in
-<a class="xref" href="jvm-options.html" title="Setting JVM options"><code class="literal">jvm.options</code></a>. If you specify a directory, the JVM
-will generate a filename for the heap dump based on the PID of the running
-instance. If you specify a fixed filename instead of a directory, the file must
-not exist when the JVM needs to perform a heap dump on an out of memory
-exception, otherwise the heap dump will fail.</p>
+<p>
+默认情况下，Elasticsearch 配置 JVM 将内存不足异常的堆转储到默认数据目录(<a class="xref" href="rpm.html" title="Install Elasticsearch with RPM">RPM</a> 和 <a class="xref" href="deb.html" title="Install Elasticsearch with Debian Package">Debian</a> 包发行版下是 <code class="literal">/var/lib/elasticsearch</code>，而 <a class="xref" href="targz.html" title="Install Elasticsearch from archive on Linux or MacOS">tar</a> 和 <a class="xref" href="zip-windows.html" title="Install Elasticsearch with .zip on Windows">zip</a> 归档发行版下是elasticsearch安装根目录下的<code class="literal">data</code>目录)。
+如果这个路径不适合接收堆转储，应该修改<a class="xref" href="jvm-options.html" title="Setting JVM options"><code class="literal">jvm.options</code></a> 中的 <code class="literal">-XX:HeapDumpPath=...</code> 条目。
+如果指定一个目录，JVM 将根据正在运行的实例的 PID 为堆转储生成一个文件名。
+如果指定的是固定的文件名而不是目录，当 JVM 需要对内存不足异常执行堆转储时，该文件不能存在，否则堆转储将失败。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="heap-size.html">« Setting the heap size</a>
+<a href="heap-size.html">« 设置堆大小</a>
 </span>
 <span class="next">
 <a href="gc-logging.html">GC logging »</a>

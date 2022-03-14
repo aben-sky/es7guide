@@ -295,8 +295,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "heap-dump-path.html",
-                        "text": "JVM堆的转储路径(JVM heap dump path)",
-                        "title": "JVM heap dump path"
+                        "text": "JVM堆的转储路径",
+                        "title": "JVM堆的转储路径"
                     },
                     {
                         "url": "gc-logging.html",

@@ -265,23 +265,23 @@ var esNavLinks = [
                 "sub": [
                     {
                         "url": "path-settings.html",
-                        "text": "<code class=\"literal\">path.data</code>和<code class=\"literal\">path.logs</code>",
-                        "title": "<code class=\"literal\">path.data</code>和<code class=\"literal\">path.logs</code>"
+                        "text": "path.data 和 path.logs",
+                        "title": "path.data 和 path.logs"
                     },
                     {
                         "url": "cluster.name.html",
-                        "text": "集群名称(<code class=\"literal\">cluster.name</code>)",
-                        "title": "集群名称(<code class=\"literal\">cluster.name</code>"
+                        "text": "集群名称(cluster.name)",
+                        "title": "集群名称(cluster.name)"
                     },
                     {
                         "url": "node.name.html",
-                        "text": "节点名称(<code class=\"literal\">node.name</code>)",
-                        "title": "节点名称(<code class=\"literal\">node.name</code>"
+                        "text": "节点名称(node.name)",
+                        "title": "节点名称(node.name)"
                     },
                     {
                         "url": "network.host.html",
-                        "text": "网络之宿主绑定(<code class=\"literal\">network.host</code>)",
-                        "title": "网络之宿主绑定(<code class=\"literal\">network.host</code>)"
+                        "text": "网络之宿主绑定(network.host)",
+                        "title": "网络之宿主绑定(network.host)"
                     },
                     {
                         "url": "discovery-settings.html",

@@ -300,13 +300,13 @@ var esNavLinks = [
                     },
                     {
                         "url": "gc-logging.html",
-                        "text": "垃圾回收(GC)日志",
-                        "title": "GC logging"
+                        "text": "垃圾回收日志",
+                        "title": "垃圾回收日志"
                     },
                     {
                         "url": "es-tmpdir.html",
-                        "text": "临时文件目录",
-                        "title": "Temp directory"
+                        "text": "临时目录",
+                        "title": "临时目录"
                     },
                     {
                         "url": "error-file-path.html",

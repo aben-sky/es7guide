@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Temp directory | ElasticSearch 7.7 权威指南中文版</title>
+	<title>临时目录 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,52 +32,51 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="important-settings.html">Important Elasticsearch configuration</a></span>
+<span class="breadcrumb-link"><a href="important-settings.html">重要的配置</a></span>
 »
-<span class="breadcrumb-node">Temp directory</span>
+<span class="breadcrumb-node">临时目录</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="gc-logging.html">« GC logging</a>
+<a href="gc-logging.html">« 垃圾回收日志</a>
 </span>
 <span class="next">
-<a href="error-file-path.html">JVM fatal error logs »</a>
+<a href="error-file-path.html">JVM致命错误日志 »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="es-tmpdir"></a>Temp directory<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/important-settings/es-tmpdir.asciidoc">edit</a>
+<a id="es-tmpdir"></a>临时目录 (Temp directory)
 </h2>
 </div></div></div>
-<p>By default, Elasticsearch uses a private temporary directory that the startup
-script creates immediately below the system temporary directory.</p>
-<p>On some Linux distributions a system utility will clean files and directories
-from <code class="literal">/tmp</code> if they have not been recently accessed. This can lead to the
-private temporary directory being removed while Elasticsearch is running if
-features that require the temporary directory are not used for a long time.
-This causes problems if a feature that requires the temporary directory is
-subsequently used.</p>
-<p>If you install Elasticsearch using the <code class="literal">.deb</code> or <code class="literal">.rpm</code> packages and run it
-under <code class="literal">systemd</code> then the private temporary directory that Elasticsearch uses
-is excluded from periodic cleanup.</p>
-<p>However, if you intend to run the <code class="literal">.tar.gz</code> distribution on Linux for an
-extended period then you should consider creating a dedicated temporary
-directory for Elasticsearch that is not under a path that will have old files
-and directories cleaned from it. This directory should have permissions set
-so that only the user that Elasticsearch runs as can access it. Then set the
-<code class="literal">$ES_TMPDIR</code> environment variable to point to it before starting Elasticsearch.</p>
+<p>
+默认情况下，Elasticsearch 使用一个私有的临时目录，该目录是启动脚本在系统临时目录下直接创建的。
+</p>
+<p>
+在某些 Linux 发行版上，如果 <code class="literal">/tmp</code> 中的文件和目录最近没有被访问过，系统实用程序会清除它们。
+如果需要临时目录的功能长时间未被使用，这会导致在 Elasticsearch 运行时私有临时目录被删除。
+如果随后使用这些需要临时目录的功能，就会导致出现问题。
+</p>
+<p>
+如果你使用 <code class="literal">.deb</code> 或 <code class="literal">.rpm</code> 包并在 <code class="literal">systemd</code> 下运行，那么 Elasticsearch 使用的私有临时目录将被排除在定期清理之外。
+</p>
+<p>
+但是，如果你打算在 Linux 上长时间运行 <code class="literal">.tar.gz</code> 发行版，那么你应该考虑为 Elasticsearch 创建一个专用的临时目录，该目录不在会清除旧文件和目录的路径下。
+这个目录应该有权限设置，这样只有运行 Elasticsearch 的用户才能访问它。
+然后在启动 Elasticsearch 之前设置 <code class="literal">$ES_TMPDIR</code> 环境变量指向它。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="gc-logging.html">« GC logging</a>
+<a href="gc-logging.html">« 垃圾回收日志</a>
 </span>
 <span class="next">
-<a href="error-file-path.html">JVM fatal error logs »</a>
+<a href="error-file-path.html">JVM致命错误日志 »</a>
 </span>
 </div>
 </div>

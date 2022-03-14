@@ -81,26 +81,26 @@ Elasticsearch需要内存用于JVM堆以外的其他用途，为此预留空间�
 <pre class="literallayout">heap size [1.9gb], compressed ordinary object pointers [true]</pre>
 </li>
 <li class="listitem">
-<p>Ideally set <code class="literal">Xmx</code> and <code class="literal">Xms</code> to no more than the threshold for zero-based
-compressed oops; the exact threshold varies but 26 GB is safe on most
-systems, but can be as large as 30 GB on some systems. You can verify that
-you are under this threshold by starting Elasticsearch with the JVM options
-<code class="literal">-XX:+UnlockDiagnosticVMOptions -XX:+PrintCompressedOopsMode</code> and looking for
-a line like the following:</p>
+<p>
+理想情况下，将 <code class="literal">Xmx</code> 和 <code class="literal">Xms</code> 设置为不超过基于零的压缩对象指针的阈值；确切的阈值各不相同，但 26 GB 在大多数系统上是安全的，但在某些系统上可能高达 30 GB。
+可以通过使用JVM 选项 <code class="literal">-XX:+UnlockDiagnosticVMOptions -XX:+PrintCompressedOopsMode</code> 启动Elasticsearch并查找如下代码行来验证是否低于该阈值：
+</p>
 <pre class="literallayout">heap address: 0x000000011be00000, size: 27648 MB, zero based Compressed Oops</pre>
 
-<p>showing that zero-based compressed oops are enabled. If zero-based compressed
-oops are not enabled then you will see a line like the following instead:</p>
+<p>
+显示启用了基于零的压缩对象指针。
+如果基于零的压缩对象指针未启用，你将看到如下所示的行:
+</p>
 <pre class="literallayout">heap address: 0x0000000118400000, size: 28672 MB, Compressed Oops with base: 0x00000001183ff000</pre>
 
 </li>
 </ul>
 </div>
-<p>The more heap available to Elasticsearch, the more memory it can use for its internal
-caches, but the less memory it leaves available for the operating system to use
-for the filesystem cache. Also, larger heaps can cause longer garbage
-collection pauses.</p>
-<p>Here is an example of how to set the heap size via a <code class="literal">jvm.options.d/</code> file:</p>
+<p>
+Elasticsearch 可用的堆越多，它可以用于内部缓存的内存就越多，但留给操作系统用于文件系统缓存的内存就越少。
+此外，较大的堆会导致较长的垃圾回收暂停时间。
+</p>
+<p>下面是一个如何通过 <code class="literal">jvm.options.d/</code> 文件设置堆大小的示例：</p>
 <div class="pre_wrapper lang-txt">
 <pre class="programlisting prettyprint lang-txt">-Xms2g <a id="CO26-1"></a><i class="conum" data-value="1"></i>
 -Xmx2g <a id="CO26-2"></a><i class="conum" data-value="2"></i></pre>
@@ -112,7 +112,7 @@ collection pauses.</p>
 <p><a href="#CO26-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Set the minimum heap size to 2g.</p>
+<p>将堆大小的最小值设置为 <code class="literal">2g</code>。</p>
 </td>
 </tr>
 <tr>
@@ -120,13 +120,15 @@ collection pauses.</p>
 <p><a href="#CO26-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Set the maximum heap size to 2g.</p>
+<p>将堆大小的最大值设置为 <code class="literal">2g</code>。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>It is also possible to set the heap size via an environment variable. This can
-be done by setting these values via <code class="literal">ES_JAVA_OPTS</code>:</p>
+<p>
+也可以通过环境变量来设置堆大小。
+这可以通过 <code class="literal">ES_JAVA_OPTS</code> 设置这些值来实现：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">ES_JAVA_OPTS="-Xms2g -Xmx2g" ./bin/elasticsearch <a id="CO27-1"></a><i class="conum" data-value="1"></i>
 ES_JAVA_OPTS="-Xms4000m -Xmx4000m" ./bin/elasticsearch <a id="CO27-2"></a><i class="conum" data-value="2"></i></pre>
@@ -138,7 +140,7 @@ ES_JAVA_OPTS="-Xms4000m -Xmx4000m" ./bin/elasticsearch <a id="CO27-2"></a><i cla
 <p><a href="#CO27-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Set the minimum and maximum heap size to 2 GB.</p>
+<p>设置堆大小的最大和最小值为 <code class="literal">2 GB</code>。</p>
 </td>
 </tr>
 <tr>
@@ -146,7 +148,7 @@ ES_JAVA_OPTS="-Xms4000m -Xmx4000m" ./bin/elasticsearch <a id="CO27-2"></a><i cla
 <p><a href="#CO27-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Set the minimum and maximum heap size to 4000 MB.</p>
+<p>设置堆大小的最大和最小值为 <code class="literal">4000 MB</code>。</p>
 </td>
 </tr>
 </table>
@@ -154,11 +156,10 @@ ES_JAVA_OPTS="-Xms4000m -Xmx4000m" ./bin/elasticsearch <a id="CO27-2"></a><i cla
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Configuring the heap for the <a class="xref" href="zip-windows.html#windows-service" title="Installing Elasticsearch as a Service on Windows">Windows service</a> is
-different than the above. The values initially populated for the Windows
-service can be configured as above but are different after the service has been
-installed. Consult the <a class="xref" href="zip-windows.html#windows-service" title="Installing Elasticsearch as a Service on Windows">Windows service documentation</a> for
-additional details.</p>
+<p>
+给 <a class="xref" href="zip-windows.html#windows-service" title="Installing Elasticsearch as a Service on Windows">Windows 服务</a> 配置堆的方式与上面的不同。
+最初为Windows服务设置的值可以如上所述进行配置，但在安装服务后会有所不同。更多详细信息，请参考 <a class="xref" href="zip-windows.html#windows-service" title="Installing Elasticsearch as a Service on Windows">Windows服务文档</a>。
+</p>
 </div>
 </div>
 </div>

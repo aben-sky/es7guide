@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Configuring system settings | ElasticSearch 7.7 权威指南中文版</title>
+	<title>配置系统设置 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,55 +32,59 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="system-config.html">Important System Configuration</a></span>
+<span class="breadcrumb-node">重要的系统配置</span>
 »
-<span class="breadcrumb-node">Configuring system settings</span>
+<span class="breadcrumb-node">配置系统设置</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="system-config.html">« Important System Configuration</a>
+<a href="system-config.html">« 重要的系统配置</a>
 </span>
 <span class="next">
-<a href="setup-configuration-memory.html">Disable swapping »</a>
+<a href2="setup-configuration-memory.html">Disable swapping »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="setting-system-settings"></a>Configuring system settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/sysconfig/configuring.asciidoc">edit</a>
+<a id="setting-system-settings"></a>配置系统设置
 </h2>
 </div></div></div>
-<p>Where to configure systems settings depends on which package you have used to
-install Elasticsearch, and which operating system you are using.</p>
-<p>When using the <code class="literal">.zip</code> or <code class="literal">.tar.gz</code> packages, system settings can be configured:</p>
+<p>
+在哪里配置系统设置取决于你用来安装 Elasticsearch 的软件包以及你使用的操作系统。
+</p>
+<p>
+使用 <code class="literal">.zip</code> 或 <code class="literal">.tar.gz</code> 包时，可以配置系统设置为：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-temporarily with <a class="xref" href="setting-system-settings.html#ulimit" title="ulimit"><code class="literal">ulimit</code></a>, or
+临时配置用 <a class="xref" href="setting-system-settings.html#ulimit" title="ulimit"><code class="literal">ulimit</code></a>，或者
 </li>
 <li class="listitem">
-permanently in <a class="xref" href="setting-system-settings.html#limits.conf" title="/etc/security/limits.conf"><code class="literal">/etc/security/limits.conf</code></a>.
+在 <a class="xref" href="setting-system-settings.html#limits.conf" title="/etc/security/limits.conf"><code class="literal">/etc/security/limits.conf</code></a> 中永久配置。
 </li>
 </ul>
 </div>
-<p>When using the RPM or Debian packages, most system settings are set in the
-<a class="xref" href="setting-system-settings.html#sysconfig" title="Sysconfig file">system configuration file</a>. However, systems which use systemd
-require that system limits are specified in a
-<a class="xref" href="setting-system-settings.html#systemd" title="Systemd configuration">systemd configuration file</a>.</p>
+<p>
+当使用RPM 或 Debian包时，大部分设置在 <a class="xref" href="setting-system-settings.html#sysconfig" title="Sysconfig file">系统配置文件</a> 中。
+但是，使用 systemd 的系统要求在<a class="xref" href="setting-system-settings.html#systemd" title="Systemd configuration">systemd配置文件</a> 中指定系统限制。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="ulimit"></a><code class="literal">ulimit</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/sysconfig/configuring.asciidoc">edit</a>
+<a id="ulimit"></a><code class="literal">ulimit</code>
 </h3>
 </div></div></div>
-<p>On Linux systems, <code class="literal">ulimit</code> can be used to change resource limits on a
-temporary basis. Limits usually need to be set as <code class="literal">root</code> before switching to
-the user that will run Elasticsearch.  For example, to set the number of
-open file handles (<code class="literal">ulimit -n</code>) to 65,536, you can do the following:</p>
+<p>
+在Linux系统上， <code class="literal">ulimit</code> 可用于临时更改资源限制。
+在切换到运行 Elasticsearch 的用户之前，通常需要将限制以 <code class="literal">root</code> 身份运行。
+例如，要将打开文件句柄的数量(<code class="literal">ulimit -n</code>)设置为 65,536，可以执行以下操作:
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo su  <a id="CO28-1"></a><i class="conum" data-value="1"></i>
 ulimit -n 65535 <a id="CO28-2"></a><i class="conum" data-value="2"></i>
@@ -93,7 +97,7 @@ su elasticsearch <a id="CO28-3"></a><i class="conum" data-value="3"></i></pre>
 <p><a href="#CO28-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Become <code class="literal">root</code>.</p>
+<p>切换到 <code class="literal">root</code> 权限。</p>
 </td>
 </tr>
 <tr>
@@ -101,7 +105,7 @@ su elasticsearch <a id="CO28-3"></a><i class="conum" data-value="3"></i></pre>
 <p><a href="#CO28-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Change the max number of open files.</p>
+<p>更改打开文件的最大数量。</p>
 </td>
 </tr>
 <tr>
@@ -109,38 +113,40 @@ su elasticsearch <a id="CO28-3"></a><i class="conum" data-value="3"></i></pre>
 <p><a href="#CO28-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Become the <code class="literal">elasticsearch</code> user in order to start Elasticsearch.</p>
+<p>切换到 <code class="literal">elasticsearch</code> 用户以启动 Elasticsearch。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>The new limit is only applied during the current session.</p>
-<p>You can consult all currently applied limits with <code class="literal">ulimit -a</code>.</p>
+<p>新限制仅在当前会话期间生效。</p>
+<p>可以通过 <code class="literal">ulimit -a</code>查阅所有当前应用的限制。</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="limits.conf"></a><code class="literal">/etc/security/limits.conf</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/sysconfig/configuring.asciidoc">edit</a>
+<a id="limits.conf"></a><code class="literal">/etc/security/limits.conf</code>
 </h3>
 </div></div></div>
-<p>On Linux systems, persistent limits can be set for a particular user by
-editing the <code class="literal">/etc/security/limits.conf</code> file. To set the maximum number of
-open files for the <code class="literal">elasticsearch</code> user to 65,535, add the following line to
-the <code class="literal">limits.conf</code> file:</p>
+<p>
+在 Linux 系统上，可以通过编辑 <code class="literal">/etc/security/limits.conf</code> 文件为特定用户设置永久限制。
+要将用户 <code class="literal">elasticsearch</code> 打开文件的最大数量设置为 65,535，请在 <code class="literal">limits.conf</code> 文件中添加以下行：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">elasticsearch  -  nofile  65535</pre>
 </div>
-<p>This change will only take effect the next time the <code class="literal">elasticsearch</code> user opens
-a new session.</p>
+<p>
+此更改仅在下次以用户 <code class="literal">elasticsearch</code> 身份打开新会话时生效。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<h3>Ubuntu and <code class="literal">limits.conf</code>
+<h3>Ubuntu 和 <code class="literal">limits.conf</code>
 </h3>
-<p>Ubuntu ignores the <code class="literal">limits.conf</code> file for processes started by <code class="literal">init.d</code>.  To
-enable the <code class="literal">limits.conf</code> file, edit <code class="literal">/etc/pam.d/su</code> and uncomment the
-following line:</p>
+<p>
+Ubuntu忽略由 <code class="literal">init.d</code> 启动的进程的 <code class="literal">limits.conf</code>文件。
+要启用 <code class="literal">limits.conf</code> 文件，编辑 <code class="literal">/etc/pam.d/su</code> 并注释掉下面的行：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh"># session    required   pam_limits.so</pre>
 </div>
@@ -151,12 +157,12 @@ following line:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="sysconfig"></a>Sysconfig file<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/sysconfig/configuring.asciidoc">edit</a>
+<a id="sysconfig"></a>Sysconfig 文件
 </h3>
 </div></div></div>
-<p>When using the RPM or Debian packages, system settings and environment
-variables can be specified in the system configuration file, which is located
-in:</p>
+<p>
+当使用 RPM 或 Debian 包时，可以在系统配置文件中指定系统设置和环境变量，该文件位于：
+</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -191,31 +197,32 @@ Debian
 </tbody>
 </table>
 </div>
-<p>However, for systems which uses <code class="literal">systemd</code>, system limits need to be specified
-via <a class="xref" href="setting-system-settings.html#systemd" title="Systemd configuration">systemd</a>.</p>
+<p>
+但是，对于使用 <code class="literal">systemd</code> 的系统，系统限制需要使用 <a class="xref" href="setting-system-settings.html#systemd" title="Systemd configuration">systemd</a> 去指定。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="systemd"></a>Systemd configuration<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/sysconfig/configuring.asciidoc">edit</a>
+<a id="systemd"></a>Systemd 配置
 </h3>
 </div></div></div>
-<p>When using the RPM or Debian packages on systems that use
-<a href="https://en.wikipedia.org/wiki/Systemd" class="ulink" target="_top">systemd</a>, system limits must be
-specified via systemd.</p>
-<p>The systemd service file (<code class="literal">/usr/lib/systemd/system/elasticsearch.service</code>)
-contains the limits that are applied by default.</p>
-<p>To override them, add a file called
-<code class="literal">/etc/systemd/system/elasticsearch.service.d/override.conf</code> (alternatively,
-you may run <code class="literal">sudo systemctl edit elasticsearch</code> which opens the file
-automatically inside your default editor). Set any changes in this file,
-such as:</p>
+<p>
+当在使用 <a href="https://en.wikipedia.org/wiki/Systemd" class="ulink" target="_top">systemd</a> 的系统上使用 RPM 或 Debian 包时，必须通过 <code class="literal">systemd</code> 指定系统限制。
+</p>
+<p>
+systemd 服务文件(<code class="literal">/usr/lib/systemd/system/elasticsearch.service</code>) 包含默认情况下应用的限制。
+</p>
+<p>
+要覆盖这些设置，添加一个叫 <code class="literal">/etc/systemd/system/elasticsearch.service.d/override.conf</code> 的文件 (或者，你可以运行 <code class="literal">sudo systemctl edit elasticsearch</code> ，它会在你的默认编辑器中自动打开文件)。
+在此文件中设置任何更改，例如：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">[Service]
 LimitMEMLOCK=infinity</pre>
 </div>
-<p>Once finished, run the following command to reload units:</p>
+<p>完成后，运行以下命令来重新加载:</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo systemctl daemon-reload</pre>
 </div>
@@ -224,10 +231,10 @@ LimitMEMLOCK=infinity</pre>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="system-config.html">« Important System Configuration</a>
+<a href="system-config.html">« 重要的系统配置</a>
 </span>
 <span class="next">
-<a href="setup-configuration-memory.html">Disable swapping »</a>
+<a href2="setup-configuration-memory.html">Disable swapping »</a>
 </span>
 </div>
 </div>

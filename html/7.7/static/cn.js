@@ -311,19 +311,19 @@ var esNavLinks = [
                     {
                         "url": "error-file-path.html",
                         "text": "JVM致命错误日志",
-                        "title": "JVM fatal error logs"
+                        "title": "JVM致命错误日志"
                     }
                 ]
             },
             {
                 "url": "system-config.html",
                 "text": "重要的系统配置",
-                "title": "Important System Configuration",
+                "title": "重要的系统配置",
                 "sub": [
                     {
                         "url": "setting-system-settings.html",
                         "text": "配置系统设置",
-                        "title": "Configuring system settings"
+                        "title": "配置系统设置"
                     },
                     {
                         "url": "setup-configuration-memory.html",

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Disable swapping | ElasticSearch 7.7 权威指南中文版</title>
+	<title>禁用交换(swapping) | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,156 +32,157 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="system-config.html">Important System Configuration</a></span>
+<span class="breadcrumb-node">重要的系统配置</span>
 »
-<span class="breadcrumb-node">Disable swapping</span>
+<span class="breadcrumb-node">禁用交换(swapping)</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="setting-system-settings.html">« Configuring system settings</a>
+<a href="setting-system-settings.html">« 配置系统设置</a>
 </span>
 <span class="next">
-<a href="file-descriptors.html">File Descriptors »</a>
+<a href2="file-descriptors.html">File Descriptors »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="setup-configuration-memory"></a>Disable swapping<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/sysconfig/swap.asciidoc">edit</a>
+<a id="setup-configuration-memory"></a>禁用交换(swapping)
 </h2>
 </div></div></div>
-<p>Most operating systems try to use as much memory as possible for file system
-caches and eagerly swap out unused application memory. This can result in parts
-of the JVM heap or even its executable pages being swapped out to disk.</p>
-<p>Swapping is very bad for performance, for node stability, and should be avoided
-at all costs. It can cause garbage collections to last for <span class="strong strong"><strong>minutes</strong></span> instead
-of milliseconds and can cause nodes to respond slowly or even to disconnect
-from the cluster. In a resilient distributed system, it’s more effective to let
-the operating system kill the node.</p>
-<p>There are three approaches to disabling swapping. The preferred option is to
-completely disable swap. If this is not an option, whether or not to prefer
-minimizing swappiness versus memory locking is dependent on your environment.</p>
+<p>
+大多数操作系统都试图将尽可能多的内存用于文件系统缓存，并急切地交换出未使用的应用程序内存。
+这可能导致部分 JVM 堆甚至其可执行页面被换出到磁盘。
+</p>
+<p>
+交换(swapping) 对性能和节点稳定性非常不利，应该不惜一切代价避免。
+这可能导致垃圾回收持续几<span class="strong strong"><strong>分钟</strong></span>而不是几毫秒，并可能导致节点响应缓慢，甚至与群集断开连接。
+在弹性分布式系统中，让操作系统杀死节点更有效。
+</p>
+<p>
+有三种方法可以禁用交换。
+首选的选项是完全禁用交换。  
+如果这不是一个选项，那么是否更倾向于最小化交换性而不是内存锁定取决于你的环境。  
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="disable-swap-files"></a>Disable all swap files<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/sysconfig/swap.asciidoc">edit</a>
+<a id="disable-swap-files"></a>禁用所有交换文件
 </h3>
 </div></div></div>
-<p>Usually Elasticsearch is the only service running on a box, and its memory usage
-is controlled by the JVM options. There should be no need to have swap enabled.</p>
-<p>On Linux systems, you can disable swap temporarily by running:</p>
+<p>
+通常 Elasticsearch 是唯一运行在机器上的服务，它的内存使用由 JVM 选项控制。
+应该不需要启用交换。
+</p>
+<p>在Linux系统上，您可以通过运行以下命令来临时禁用交换：</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo swapoff -a</pre>
 </div>
-<p>This doesn’t require a restart of Elasticsearch.</p>
-<p>To disable it permanently, you will need to edit the <code class="literal">/etc/fstab</code> file and
-comment out any lines that contain the word <code class="literal">swap</code>.</p>
-<p>On Windows, the equivalent can be achieved by disabling the paging file entirely
-via <code class="literal">System Properties → Advanced → Performance → Advanced → Virtual memory</code>.</p>
+<p>这不需要重启 Elasticsearch。</p>
+<p>
+要永久禁用它，需要编辑 <code class="literal">/etc/fstab</code> 文件并注释掉任何包含单词 <code class="literal">swap</code> 的行。
+</p>
+<p>
+在 Windows 上，可以通过 <code class="literal">System Properties → Advanced → Performance → Advanced → Virtual memory</code> 完全禁用分页文件来实现相同的效果。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="swappiness"></a>Configure <code class="literal">swappiness</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/sysconfig/swap.asciidoc">edit</a>
+<a id="swappiness"></a>配置 <code class="literal">交换性(swappiness)</code>
 </h3>
 </div></div></div>
-<p>Another option available on Linux systems is to ensure that the sysctl value
-<code class="literal">vm.swappiness</code> is set to <code class="literal">1</code>. This reduces the kernel’s tendency to swap and
-should not lead to swapping under normal circumstances, while still allowing the
-whole system to swap in emergency conditions.</p>
+<p>
+Linux系统上的另一个选项是确保 sysctl 值 <code class="literal">vm.swappiness</code> 设置为 <code class="literal">1</code>。
+这降低了内核交换的倾向，并且在正常情况下不会导致交换，同时仍然允许整个系统在紧急情况下进行交换。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="bootstrap-memory_lock"></a>Enable <code class="literal">bootstrap.memory_lock</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/sysconfig/swap.asciidoc">edit</a>
+<a id="bootstrap-memory_lock"></a>启用 <code class="literal">bootstrap.memory_lock</code>
 </h3>
 </div></div></div>
-<p>Another option is to use
-<a href="http://opengroup.org/onlinepubs/007908799/xsh/mlockall.html" class="ulink" target="_top">mlockall</a> on
-Linux/Unix systems, or
-<a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa366895%28v=vs.85%29.aspx" class="ulink" target="_top">VirtualLock</a>
-on Windows, to try to lock the process address space into RAM, preventing any
-Elasticsearch memory from being swapped out. This can be done, by adding this
-line to the <code class="literal">config/elasticsearch.yml</code> file:</p>
+<p>
+另一种选择是在Linux/Unix系统上使用<a href="http://opengroup.org/onlinepubs/007908799/xsh/mlockall.html" class="ulink" target="_top">mlockall</a>，或者在 Windows 上使用 <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa366895%28v=vs.85%29.aspx" class="ulink" target="_top">VirtualLock</a>，尝试将进程地址空间锁定到 RAM 中，防止任何 Elasticsearch 内存被换出。
+这可以通过将下面这一行添加到 <code class="literal">config/elasticsearch.yml</code> 文件中来实现：
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">bootstrap.memory_lock: true</pre>
 </div>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p><code class="literal">mlockall</code> might cause the JVM or shell session to exit if it tries to
-allocate more memory than is available!</p>
+<p>如果试图分配比可用内存更多的内存，<code class="literal">mlockall</code> 可能会导致 JVM 或 shell 会话退出！</p>
 </div>
 </div>
-<p>After starting Elasticsearch, you can see whether this setting was applied
-successfully by checking the value of <code class="literal">mlockall</code> in the output from this
-request:</p>
+<p>
+启动 Elasticsearch 后，可以通过检查下面这个请求输出中的 <code class="literal">mlockall</code> 值来查看该设置是否成功应用：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET _nodes?filter_path=**.mlockall</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/36.console"></div>
-<p>If you see that <code class="literal">mlockall</code> is <code class="literal">false</code>, then it means that the <code class="literal">mlockall</code>
-request has failed.  You will also see a line with more information in the logs
-with the words <code class="literal">Unable to lock JVM Memory</code>.</p>
-<p>The most probable reason, on Linux/Unix systems, is that the user running
-Elasticsearch doesn’t have permission to lock memory.  This can be granted as
-follows:</p>
+<p>
+如果你看到<code class="literal">mlockall</code> 为 <code class="literal">false</code>，那么这意味着 <code class="literal">mlockall</code> 请求已经失败。
+你还会在日志中看到一行包含更多信息的文字：<code class="literal">Unable to lock JVM Memory</code>。
+</p>
+<p>
+在Linux/Unix系统上，最可能的原因是运行 Elasticsearch 的用户没有锁定内存的权限。
+可以按以下方式授予权限：
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<code class="literal">.zip</code> and <code class="literal">.tar.gz</code>
+使用 <code class="literal">.zip</code> 和 <code class="literal">.tar.gz</code> 归档文件安装的：
 </span>
 </dt>
 <dd>
-Set <a class="xref" href="setting-system-settings.html#ulimit" title="ulimit"><code class="literal">ulimit -l unlimited</code></a> as root before starting Elasticsearch,
-or set <code class="literal">memlock</code> to <code class="literal">unlimited</code> in
-<a class="xref" href="setting-system-settings.html#limits.conf" title="/etc/security/limits.conf"><code class="literal">/etc/security/limits.conf</code></a>.
+在启动 Elasticsearch 前, 以 root 身份设置 <a class="xref" href="setting-system-settings.html#ulimit" title="ulimit"><code class="literal">ulimit -l unlimited</code></a>，或者在 <a class="xref" href="setting-system-settings.html#limits.conf" title="/etc/security/limits.conf"><code class="literal">/etc/security/limits.conf</code></a> 文件中设置 <code class="literal">memlock</code> 为 <code class="literal">unlimited</code>。
 </dd>
 <dt>
 <span class="term">
-RPM and Debian
+使用 RPM 和 Debian 包安装的：
 </span>
 </dt>
 <dd>
-Set <code class="literal">MAX_LOCKED_MEMORY</code> to <code class="literal">unlimited</code> in the
-<a class="xref" href="setting-system-settings.html#sysconfig" title="Sysconfig file">system configuration file</a> (or see below for systems using
-<code class="literal">systemd</code>).
+在 <a class="xref" href="setting-system-settings.html#sysconfig" title="Sysconfig file">系统配置文件</a> 中设置 <code class="literal">MAX_LOCKED_MEMORY</code> 为 <code class="literal">unlimited</code> (或者参见下面使用<code class="literal">systemd</code>的系统)。
 </dd>
 <dt>
 <span class="term">
-Systems using <code class="literal">systemd</code>
+使用 <code class="literal">systemd</code> 的系统：
 </span>
 </dt>
 <dd>
-Set <code class="literal">LimitMEMLOCK</code> to <code class="literal">infinity</code> in the <a class="xref" href="setting-system-settings.html#systemd" title="Systemd configuration">systemd configuration</a>.
+在 <a class="xref" href="setting-system-settings.html#systemd" title="Systemd configuration">systemd 配置</a> 中设置 <code class="literal">LimitMEMLOCK</code> 为 <code class="literal">infinity</code> 。
 </dd>
 </dl>
 </div>
-<p>Another possible reason why <code class="literal">mlockall</code> can fail is that
-<a class="xref" href="executable-jna-tmpdir.html" title="JNA temporary directory not mounted with noexec">the JNA temporary directory (usually a sub-directory of
-<code class="literal">/tmp</code>) is mounted with the <code class="literal">noexec</code> option</a>. This can be solved by specifying
-a new temporary directory for JNA using the <code class="literal">ES_JAVA_OPTS</code> environment variable:</p>
+<p>
+另一个可能导致 <code class="literal">mlockall</code> 失败的原因是 <a class="xref" href="executable-jna-tmpdir.html" title="JNA temporary directory not mounted with noexec">JNA临时目录(通常是<code class="literal">/tmp</code>的一个子目录) 是使用选项 <code class="literal">noexec</code> 挂载的</a>。
+这可以通过使用 <code class="literal">ES_JAVA_OPTS</code>环境变量为 JNA 指定一个新的临时目录来解决:
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">export ES_JAVA_OPTS="$ES_JAVA_OPTS -Djna.tmpdir=&lt;path&gt;"
 ./bin/elasticsearch</pre>
 </div>
-<p>or setting this JVM flag in the jvm.options configuration file.</p>
+<p>或者在 jvm.options 配置文件中设置这个 JVM 标志。</p>
 </div>
 
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="setting-system-settings.html">« Configuring system settings</a>
+<a href="setting-system-settings.html">« 配置系统设置</a>
 </span>
 <span class="next">
-<a href="file-descriptors.html">File Descriptors »</a>
+<a href2="file-descriptors.html">File Descriptors »</a>
 </span>
 </div>
 </div>

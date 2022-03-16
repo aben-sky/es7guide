@@ -327,8 +327,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "setup-configuration-memory.html",
-                        "text": "禁止交换(swapping)",
-                        "title": "Disable swapping"
+                        "text": "禁用交换(swapping)",
+                        "title": "禁用交换(swapping)"
                     },
                     {
                         "url": "file-descriptors.html",

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Virtual memory | ElasticSearch 7.7 权威指南中文版</title>
+	<title>虚拟内存 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,47 +32,52 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="system-config.html">Important System Configuration</a></span>
+<span class="breadcrumb-node">重要的系统配置</span>
 »
-<span class="breadcrumb-node">Virtual memory</span>
+<span class="breadcrumb-node">虚拟内存</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="file-descriptors.html">« File Descriptors</a>
+<a href="file-descriptors.html">« 文件描述符</a>
 </span>
 <span class="next">
-<a href="max-number-of-threads.html">Number of threads »</a>
+<a href="max-number-of-threads.html">线程数量 »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="vm-max-map-count"></a>Virtual memory<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/sysconfig/virtual-memory.asciidoc">edit</a>
+<a id="vm-max-map-count"></a>虚拟内存 (Virtual memory)
 </h2>
 </div></div></div>
-<p>Elasticsearch uses a <a class="xref" href="index-modules-store.html#mmapfs"><code class="literal">mmapfs</code></a> directory by
-default to store its indices.  The default operating system limits on mmap
-counts is likely to be too low, which may result in out of memory exceptions.</p>
-<p>On Linux, you can increase the limits by running the following command as
-<code class="literal">root</code>:</p>
+<p>
+默认情况下，Elasticsearch 使用 <a class="xref" href="index-modules-store.html#mmapfs"><code class="literal">mmapfs</code></a> 目录来存储索引。
+操作系统对 mmap 计数的默认的限制可能太低，这可能导致内存不足异常。
+</p>
+<p>
+在 Linux 上，可以通过以 <code class="literal">root</code> 用户身份运行以下命令来增加限制：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sysctl -w vm.max_map_count=262144</pre>
 </div>
-<p>To set this value permanently, update the <code class="literal">vm.max_map_count</code> setting in
-<code class="literal">/etc/sysctl.conf</code>.  To verify after rebooting, run <code class="literal">sysctl vm.max_map_count</code>.</p>
-<p>The RPM and Debian packages will configure this setting automatically.  No
-further configuration is required.</p>
+<p>
+要永久设置此值，请更新 <code class="literal">/etc/sysctl.conf</code> 中的 <code class="literal">vm.max_map_count</code> 设置。
+要在重启后进行验证，请运行命令 <code class="literal">sysctl vm.max_map_count</code>。
+</p>
+<p>
+RPM和Debian包会自动配置这个设置，不需要进一步的配置。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="file-descriptors.html">« File Descriptors</a>
+<a href="file-descriptors.html">« 文件描述符</a>
 </span>
 <span class="next">
-<a href="max-number-of-threads.html">Number of threads »</a>
+<a href="max-number-of-threads.html">线程数量 »</a>
 </span>
 </div>
 </div>

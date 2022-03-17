@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Bootstrap Checks | ElasticSearch 7.7 权威指南中文版</title>
+	<title>引导检查 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,101 +32,88 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-node">Bootstrap Checks</span>
+<span class="breadcrumb-node">引导检查</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="executable-jna-tmpdir.html">« JNA temporary directory not mounted with <code class="literal">noexec</code></a>
+<a href="executable-jna-tmpdir.html">« 不使用<code class="literal">noexec</code>挂载JNA临时目录</a>
 </span>
 <span class="next">
-<a href="_heap_size_check.html">Heap size check »</a>
+<a href="_heap_size_check.html">堆大小检查 »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="bootstrap-checks"></a>Bootstrap Checks<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/bootstrap-checks.asciidoc">edit</a>
+<a id="bootstrap-checks"></a>引导检查 (Bootstrap Checks)
 </h2>
 </div></div></div>
-<p>Collectively, we have a lot of experience with users suffering
-unexpected issues because they have not configured
-<a class="xref" href="important-settings.html" title="Important Elasticsearch configuration">important settings</a>. In previous versions of
-Elasticsearch, misconfiguration of some of these settings were logged
-as warnings. Understandably, users sometimes miss these log messages.
-To ensure that these settings receive the attention that they deserve,
-Elasticsearch has bootstrap checks upon startup.</p>
-<p>These bootstrap checks inspect a variety of Elasticsearch and system
-settings and compare them to values that are safe for the operation of
-Elasticsearch. If Elasticsearch is in development mode, any bootstrap
-checks that fail appear as warnings in the Elasticsearch log. If
-Elasticsearch is in production mode, any bootstrap checks that fail will
-cause Elasticsearch to refuse to start.</p>
-<p>There are some bootstrap checks that are always enforced to prevent
-Elasticsearch from running with incompatible settings. These checks are
-documented individually.</p>
+<p>
+总的来说，我们有很多用户因为没有配置  <a class="xref" href="important-settings.html" title="Important Elasticsearch configuration">Elasticsearch的重要设置</a> 而遭遇意外问题的经验。
+在以前版本的 Elasticsearch 中，这些设置的错误配置会被记录为警告。
+用户有时会错过这些日志消息，这是可以理解的。
+为了确保这些设置得到应有的重视，Elasticsearch 在启动时会进行引导检查。
+</p>
+<p>
+这些引导检查会检查各种 Elasticsearch 的和系统的设置，并将它们与 Elasticsearch 操作的安全值进行比较。
+如果 Elasticsearch 处于开发模式，任何失败的引导检查都会在 Elasticsearch 日志中显示为警告。
+如果 Elasticsearch 处于生产模式，任何失败的引导检查都将导致 Elasticsearch 拒绝启动。
+</p>
+<p>
+为了防止 Elasticsearch 在不兼容的设置下运行，会强制执行一些引导检查。
+这些检查被单独记录。
+</p>
 <h3>
-<a id="dev-vs-prod-mode"></a>Development vs. production mode<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/bootstrap-checks.asciidoc">edit</a>
+<a id="dev-vs-prod-mode"></a>开发模式 vs 生产模式
 </h3>
-<p>By default, Elasticsearch binds to loopback addresses for <a class="xref" href="modules-http.html" title="HTTP">HTTP</a>
-and <a class="xref" href="modules-transport.html" title="Transport">transport (internal)</a> communication. This is fine for
-downloading and playing with Elasticsearch as well as everyday development, but
-it’s useless for production systems. To join a cluster, an Elasticsearch node
-must be reachable via transport communication. To join a cluster via a
-non-loopback address, a node must bind transport to a non-loopback address and
-not be using <a class="xref" href="bootstrap-checks.html#single-node-discovery" title="Single-node discovery">single-node discovery</a>. Thus, we consider
-an Elasticsearch node to be in development mode if it can not form a cluster
-with another machine via a non-loopback address, and is otherwise in production
-mode if it can join a cluster via non-loopback addresses.</p>
-<p>Note that HTTP and transport can be configured independently via
-<a class="xref" href="modules-http.html" title="HTTP"><code class="literal">http.host</code></a> and <a class="xref" href="modules-transport.html" title="Transport"><code class="literal">transport.host</code></a>; this
-can be useful for configuring a single node to be reachable via HTTP for testing
-purposes without triggering production mode.</p>
+<p>
+默认情况下，Elasticsearch 绑定到回环地址进行 <a class="xref" href="modules-http.html" title="HTTP">HTTP</a> 和 <a class="xref" href="modules-transport.html" title="Transport">transport (<span class="remark">传输,</span> 内部的)</a> 通信。
+这对于下载和玩 Elasticsearch 以及日常开发来说很好，但对于生产系统来说没用。
+
+要加入集群，Elasticsearch 节点必须可以通过 transport 通信进行访问。
+
+要通过非回环地址加入群集，节点必须将 transport 绑定到非回环地址，并且不能使用<a class="xref" href="bootstrap-checks.html#single-node-discovery" title="Single-node discovery">单节点发现(single-node discovery)</a>。
+
+因此，我们认为，如果一个 Elasticsearch 节点不能通过非回环地址与另一台机器组成一个集群，那么它就处于开发模式；否则，如果它可以通过非回环地址加入一个集群，那么它就处于生产模式。
+</p>
+<p>
+注意，HTTP 和 transport 可以通过<a class="xref" href="modules-http.html" title="HTTP"><code class="literal">http.host</code></a> 和 <a class="xref" href="modules-transport.html" title="Transport"><code class="literal">transport.host</code></a> 单独配置；
+这对于在不触发生产模式的情况下将单个节点配置为可通过 HTTP 访问以进行测试非常有用。
+</p>
 <h3>
-<a id="single-node-discovery"></a>Single-node discovery<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/bootstrap-checks.asciidoc">edit</a>
+<a id="single-node-discovery"></a>单节点发现 (Single-node discovery)
 </h3>
-<p>We recognize that some users need to bind transport to an external interface for
-testing their usage of the transport client. For this situation, we provide the
-discovery type <code class="literal">single-node</code> (configure it by setting <code class="literal">discovery.type</code> to
-<code class="literal">single-node</code>); in this situation, a node will elect itself master and will not
-join a cluster with any other node.</p>
+<p>
+我们认识到，一些用户需要将 transport 绑定到外部接口，以测试它们对 transport 客户端的使用。
+
+针对这种情况，我们提供发现类型 <code class="literal">single-node</code> (通过将 <code class="literal">discovery.type</code> 设置为 <code class="literal">single-node</code>)；
+在这种情况下，一个节点将选举自己为主节点，而不会与任何其他节点一起加入集群。
+</p>
 <h3>
-<a id="_forcing_the_bootstrap_checks"></a>Forcing the bootstrap checks<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/bootstrap-checks.asciidoc">edit</a>
+<a id="_forcing_the_bootstrap_checks"></a>强制引导检查
 </h3>
-<p>If you are running a single node in production, it is possible to evade the
-bootstrap checks (either by not binding transport to an external interface, or
-by binding transport to an external interface and setting the discovery type to
-<code class="literal">single-node</code>). For this situation, you can force execution of the bootstrap
-checks by setting the system property <code class="literal">es.enforce.bootstrap.checks</code> to <code class="literal">true</code>
-(set this in <a class="xref" href="jvm-options.html" title="Setting JVM options">Setting JVM options</a>, or by adding <code class="literal">-Des.enforce.bootstrap.checks=true</code>
-to the environment variable <code class="literal">ES_JAVA_OPTS</code>). We strongly encourage you to do
-this if you are in this specific situation. This system property can be used to
-force execution of the bootstrap checks independent of the node configuration.</p>
+<p>
+如果你在生产环境中运行单个节点，则有可能规避引导检查(不将 transport 绑定到外部接口，或者将 transport 绑定到外部接口并将发现类型设置为 <code class="literal">single-node</code>)。
 
+对于这种情况，可以通过将系统属性 <code class="literal">es.enforce.bootstrap.checks</code> 设置为 <code class="literal">true</code> (在 <a class="xref" href="jvm-options.html" title="Setting JVM options">设置 JVM 选项</a> 中进行设置，或者将 <code class="literal">-Des.enforce.bootstrap.checks=true</code> 添加到环境变量 <code class="literal">ES_JAVA_OPTS</code>中) 来强制执行引导检查。
 
+如果你处于这种特殊情况，强烈建议你这样做。
 
-
-
-
-
-
-
-
-
-
-
+此系统属性可用于强制执行独立于节点配置的引导检查。
+</p>
 
 
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="executable-jna-tmpdir.html">« JNA temporary directory not mounted with <code class="literal">noexec</code></a>
+<a href="executable-jna-tmpdir.html">« 不使用<code class="literal">noexec</code>挂载JNA临时目录</a>
 </span>
 <span class="next">
-<a href="_heap_size_check.html">Heap size check »</a>
+<a href="_heap_size_check.html">堆大小检查 »</a>
 </span>
 </div>
 </div>

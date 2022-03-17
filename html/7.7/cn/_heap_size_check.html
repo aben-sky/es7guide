@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Heap size check | ElasticSearch 7.7 权威指南中文版</title>
+	<title>堆大小检查 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,17 +32,17 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="bootstrap-checks.html">Bootstrap Checks</a></span>
+<span class="breadcrumb-link"><a href="bootstrap-checks.html">引导检查</a></span>
 »
-<span class="breadcrumb-node">Heap size check</span>
+<span class="breadcrumb-node">堆大小检查</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="bootstrap-checks.html">« Bootstrap Checks</a>
+<a href2="bootstrap-checks.html">« 引导检查</a>
 </span>
 <span class="next">
 <a href="_file_descriptor_check.html">File descriptor check »</a>
@@ -51,25 +51,26 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="_heap_size_check"></a>Heap size check<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/bootstrap-checks.asciidoc">edit</a>
+<a id="_heap_size_check"></a>堆大小检查 (Heap size check)
 </h2>
 </div></div></div>
-<p>If a JVM is started with unequal initial and max heap size, it can be
-prone to pauses as the JVM heap is resized during system usage. To avoid
-these resize pauses, it’s best to start the JVM with the initial heap
-size equal to the maximum heap size. Additionally, if
-<a class="xref" href="setup-configuration-memory.html#bootstrap-memory_lock" title="Enable bootstrap.memory_lock"><code class="literal">bootstrap.memory_lock</code></a> is enabled, the JVM
-will lock the initial size of the heap on startup. If the initial heap
-size is not equal to the maximum heap size, after a resize it will not
-be the case that all of the JVM heap is locked in memory. To pass the
-heap size check, you must configure the <a class="xref" href="heap-size.html" title="Setting the heap size">heap size</a>.</p>
+<p>
+如果 JVM 以不相等的初始堆大小和最大堆大小启动，那么在系统使用期间调整 JVM 堆大小时，很容易出现暂停。
+
+为了避免这些调整大小的停顿，最好用等于最大堆大小的初始堆大小来启动 JVM。
+此外，如果启用了 <a class="xref" href="setup-configuration-memory.html#bootstrap-memory_lock" title="Enable bootstrap.memory_lock"><code class="literal">bootstrap.memory_lock</code></a>，JVM 将在启动时锁定堆的初始大小。
+
+如果初始堆大小不等于最大堆大小，那么在调整大小后，所有的 JVM 堆都不会被锁定在内存中。
+
+要通过堆大小检查，您必须配置 <a class="xref" href="heap-size.html" title="Setting the heap size">堆大小</a>。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="bootstrap-checks.html">« Bootstrap Checks</a>
+<a href="bootstrap-checks.html">« 引导检查</a>
 </span>
 <span class="next">
-<a href="_file_descriptor_check.html">File descriptor check »</a>
+<a href2="_file_descriptor_check.html">File descriptor check »</a>
 </span>
 </div>
 </div>

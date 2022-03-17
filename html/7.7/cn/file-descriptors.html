@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>File Descriptors | ElasticSearch 7.7 权威指南中文版</title>
+	<title>文件描述符 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,50 +32,54 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="system-config.html">Important System Configuration</a></span>
+<span class="breadcrumb-node">重要的系统配置</span>
 »
-<span class="breadcrumb-node">File Descriptors</span>
+<span class="breadcrumb-node">文件描述符</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="setup-configuration-memory.html">« Disable swapping</a>
+<a href="setup-configuration-memory.html">« 禁用交换(swapping)</a>
 </span>
 <span class="next">
-<a href="vm-max-map-count.html">Virtual memory »</a>
+<a href="vm-max-map-count.html">虚拟内存 »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="file-descriptors"></a>File Descriptors<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/sysconfig/file-descriptors.asciidoc">edit</a>
+<a id="file-descriptors"></a>文件描述符 (File Descriptors)
 </h2>
 </div></div></div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>This is only relevant for Linux and macOS and can be safely ignored if running
-Elasticsearch on Windows. On Windows that JVM uses an
-<a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa363858(v=vs.85).aspx" class="ulink" target="_top">API</a>
-limited only by available resources.</p>
+<p>
+这仅与 Linux 和 macOS 相关，如果在 Windows 上运行 Elasticsearch，可以安全地忽略它。
+在 Windows 上，JVM 使用的 <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa363858(v=vs.85).aspx" class="ulink" target="_top">API</a> 只受可用资源的限制。
+</p>
 </div>
 </div>
-<p>Elasticsearch uses a lot of file descriptors or file handles.  Running out of
-file descriptors can be disastrous and will most probably lead to data loss.
-Make sure to increase the limit on the number of open files descriptors for
-the user running Elasticsearch to 65,536 or higher.</p>
-<p>For the <code class="literal">.zip</code> and <code class="literal">.tar.gz</code> packages, set <a class="xref" href="setting-system-settings.html#ulimit" title="ulimit"><code class="literal">ulimit -n 65535</code></a> as
-root before starting Elasticsearch,   or set <code class="literal">nofile</code> to <code class="literal">65535</code> in
-<a class="xref" href="setting-system-settings.html#limits.conf" title="/etc/security/limits.conf"><code class="literal">/etc/security/limits.conf</code></a>.</p>
-<p>On macOS, you must also pass the JVM option <code class="literal">-XX:-MaxFDLimit</code>
-to Elasticsearch in order for it to make use of the higher file descriptor limit.</p>
-<p>RPM and Debian packages already default the maximum number of file
-descriptors to 65535 and do not require further configuration.</p>
-<p>You can check the <code class="literal">max_file_descriptors</code> configured for each node
-using the <a class="xref" href="cluster-nodes-stats.html" title="Nodes stats API">Nodes stats</a> API, with:</p>
+<p>
+Elasticsearch使用了大量的文件描述符或文件句柄。
+用完文件描述符可能是灾难性的，并且很可能导致数据丢失。
+确保将运行Elasticsearch的用户的打开文件描述符的数量限制增加到 65,536 或更高。
+</p>
+<p>
+对于使用 <code class="literal">.zip</code> 和 <code class="literal">.tar.gz</code> 包的，在启动 Elasticsearch 前以 root 身份设置 <a class="xref" href="setting-system-settings.html#ulimit" title="ulimit"><code class="literal">ulimit -n 65535</code></a>，或者在 <a class="xref" href="setting-system-settings.html#limits.conf" title="/etc/security/limits.conf"><code class="literal">/etc/security/limits.conf</code></a> 中设置 <code class="literal">nofile</code> 为 <code class="literal">65535</code>。
+</p>
+<p>
+在 macOS 上，还必须将 JVM 选项 <code class="literal">-XX:-MaxFDLimit</code> 传给 Elasticsearch，以便它能够利用更高的文件描述符限制。
+</p>
+<p>
+RPM 和 Debian 包已经将文件描述符的最大数量默认为 65535，不需要进一步配置。
+</p>
+<p>
+可以使用 <a class="xref" href="cluster-nodes-stats.html" title="Nodes stats API">Nodes stats</a> API 检查为每个节点配置的 <code class="literal">max_file_descriptors</code>，如下所示：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET _nodes/stats/process?filter_path=**.max_file_descriptors</pre>
 </div>
@@ -83,10 +87,10 @@ using the <a class="xref" href="cluster-nodes-stats.html" title="Nodes stats API
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="setup-configuration-memory.html">« Disable swapping</a>
+<a href="setup-configuration-memory.html">« 禁用交换(swapping)</a>
 </span>
 <span class="next">
-<a href="vm-max-map-count.html">Virtual memory »</a>
+<a href="vm-max-map-count.html">虚拟内存 »</a>
 </span>
 </div>
 </div>

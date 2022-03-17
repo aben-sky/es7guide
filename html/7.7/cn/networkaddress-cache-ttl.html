@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>DNS cache settings | ElasticSearch 7.7 权威指南中文版</title>
+	<title>DNS缓存设置 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,51 +32,44 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="system-config.html">Important System Configuration</a></span>
+<span class="breadcrumb-node">重要的系统配置</span>
 »
-<span class="breadcrumb-node">DNS cache settings</span>
+<span class="breadcrumb-node">DNS缓存设置</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="max-number-of-threads.html">« Number of threads</a>
+<a href="max-number-of-threads.html">« 线程数量</a>
 </span>
 <span class="next">
-<a href="executable-jna-tmpdir.html">JNA temporary directory not mounted with <code class="literal">noexec</code> »</a>
+<a href="executable-jna-tmpdir.html">不使用<code class="literal">noexec</code>挂载JNA临时目录 »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="networkaddress-cache-ttl"></a>DNS cache settings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/sysconfig/dns-cache.asciidoc">edit</a>
+<a id="networkaddress-cache-ttl"></a>DNS缓存设置 (DNS cache settings)
 </h2>
 </div></div></div>
-<p>Elasticsearch runs with a security manager in place. With a security manager in
-place, the JVM defaults to caching positive hostname resolutions indefinitely
-and defaults to caching negative hostname resolutions for ten
-seconds. Elasticsearch overrides this behavior with default values to cache
-positive lookups for sixty seconds, and to cache negative lookups for ten
-seconds. These values should be suitable for most environments, including
-environments where DNS resolutions vary with time. If not, you can edit the
-values <code class="literal">es.networkaddress.cache.ttl</code> and <code class="literal">es.networkaddress.cache.negative.ttl</code>
-in the <a class="xref" href="jvm-options.html" title="Setting JVM options">JVM options</a>. Note that the values
-<a href="http://docs.oracle.com/javase/8/docs/technotes/guides/net/properties.html" class="ulink" target="_top"><code class="literal">networkaddress.cache.ttl=&lt;timeout&gt;</code></a>
-and
-<a href="http://docs.oracle.com/javase/8/docs/technotes/guides/net/properties.html" class="ulink" target="_top"><code class="literal">networkaddress.cache.negative.ttl=&lt;timeout&gt;</code></a>
-in the
-<a href="http://docs.oracle.com/javase/8/docs/technotes/guides/security/PolicyFiles.html" class="ulink" target="_top">Java
-security policy</a> are ignored by Elasticsearch unless you remove the settings for
-<code class="literal">es.networkaddress.cache.ttl</code> and <code class="literal">es.networkaddress.cache.negative.ttl</code>.</p>
+<p>
+Elasticsearch运行时有一个安全管理器。
+有了安全管理器后，JVM默认会无限期地缓存正向的主机名解析，而反向的主机名解析默认只会缓存10秒。
+Elasticsearch 用默认值覆盖这种行为，将正向查找缓存60秒，反向查找缓存10秒。
+这些值应该适用于大多数环境，包括 DNS 解析随时间变化的环境。
+如果没有，可以在 <a class="xref" href="jvm-options.html" title="Setting JVM options">JVM 选项</a> 中修改 <code class="literal">es.networkaddress.cache.ttl</code> 和 <code class="literal">es.networkaddress.cache.negative.ttl</code> 。
+
+请注意，<a href="http://docs.oracle.com/javase/8/docs/technotes/guides/security/PolicyFiles.html" class="ulink" target="_top">Java 安全策略</a> 中的 <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/net/properties.html" class="ulink" target="_top"><code class="literal">networkaddress.cache.ttl=&lt;timeout&gt;</code></a> 和 <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/net/properties.html" class="ulink" target="_top"><code class="literal">networkaddress.cache.negative.ttl=&lt;timeout&gt;</code></a> 的值被 Elasticsearch 忽略，除非你删除 <code class="literal">es.networkaddress.cache.ttl</code> 和 <code class="literal">es.networkaddress.cache.negative.ttl</code> 设置。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="max-number-of-threads.html">« Number of threads</a>
+<a href="max-number-of-threads.html">« 线程数量</a>
 </span>
 <span class="next">
-<a href="executable-jna-tmpdir.html">JNA temporary directory not mounted with <code class="literal">noexec</code> »</a>
+<a href="executable-jna-tmpdir.html">不使用<code class="literal">noexec</code>挂载JNA临时目录 »</a>
 </span>
 </div>
 </div>

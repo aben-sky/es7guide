@@ -333,39 +333,39 @@ var esNavLinks = [
                     {
                         "url": "file-descriptors.html",
                         "text": "文件描述符",
-                        "title": "File Descriptors"
+                        "title": "文件描述符"
                     },
                     {
                         "url": "vm-max-map-count.html",
                         "text": "虚拟内存",
-                        "title": "Virtual memory"
+                        "title": "虚拟内存"
                     },
                     {
                         "url": "max-number-of-threads.html",
                         "text": "线程数量",
-                        "title": "Number of threads"
+                        "title": "线程数量"
                     },
                     {
                         "url": "networkaddress-cache-ttl.html",
                         "text": "DNS缓存设置",
-                        "title": "DNS cache settings"
+                        "title": "DNS缓存设置"
                     },
                     {
                         "url": "executable-jna-tmpdir.html",
-                        "text": "JNA临时目录的挂载未使用<code class=\"literal\">noexec</code>",
-                        "title": "JNA temporary directory not mounted with `noexec`"
+                        "text": "不使用noexec挂载JNA临时目录",
+                        "title": "不使用noexec挂载JNA临时目录"
                     }
                 ]
             },
             {
                 "url": "bootstrap-checks.html",
-                "text": "引导检查(bootstrap checks)",
-                "title": "Bootstrap Checks",
+                "text": "引导检查",
+                "title": "引导检查",
                 "sub": [
                     {
                         "url": "_heap_size_check.html",
-                        "text": "堆大小(heap size)检查",
-                        "title": "Heap size check"
+                        "text": "堆大小检查",
+                        "title": "堆大小检查"
                     },
                     {
                         "url": "_file_descriptor_check.html",

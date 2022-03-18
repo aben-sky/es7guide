@@ -370,32 +370,32 @@ var esNavLinks = [
                     {
                         "url": "_file_descriptor_check.html",
                         "text": "文件描述符检查",
-                        "title": "File descriptor check"
+                        "title": "文件描述符检查"
                     },
                     {
                         "url": "_memory_lock_check.html",
-                        "text": "内存锁定检查",
-                        "title": "Memory lock check"
+                        "text": "内存锁检查",
+                        "title": "内存锁检查"
                     },
                     {
                         "url": "max-number-threads-check.html",
                         "text": "最大线程数检查",
-                        "title": "Maximum number of threads check"
+                        "title": "最大线程数检查"
                     },
                     {
                         "url": "_max_file_size_check.html",
-                        "text": "文件大小最大值检查",
-                        "title": "Max file size check"
+                        "text": "最大文件大小检查",
+                        "title": "最大文件大小检查"
                     },
                     {
                         "url": "max-size-virtual-memory-check.html",
-                        "text": "虚拟内存最大值检查",
-                        "title": "Maximum size virtual memory check"
+                        "text": "最大虚拟内存检查",
+                        "title": "最大虚拟内存检查"
                     },
                     {
                         "url": "_maximum_map_count_check.html",
-                        "text": "map数量最大值检查",
-                        "title": "Maximum map count check"
+                        "text": "最大映射数量检查",
+                        "title": "最大映射数量检查"
                     },
                     {
                         "url": "_client_jvm_check.html",

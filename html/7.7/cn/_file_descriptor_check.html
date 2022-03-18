@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>File descriptor check | ElasticSearch 7.7 权威指南中文版</title>
+	<title>文件描述符检查 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,44 +32,47 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="bootstrap-checks.html">Bootstrap Checks</a></span>
+<span class="breadcrumb-link"><a href="bootstrap-checks.html">引导检查</a></span>
 »
-<span class="breadcrumb-node">File descriptor check</span>
+<span class="breadcrumb-node">文件描述符检查</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="_heap_size_check.html">« Heap size check</a>
+<a href="_heap_size_check.html">« 堆大小检查</a>
 </span>
 <span class="next">
-<a href="_memory_lock_check.html">Memory lock check »</a>
+<a href="_memory_lock_check.html">内存锁检查 »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="_file_descriptor_check"></a>File descriptor check<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/bootstrap-checks.asciidoc">edit</a>
+<a id="_file_descriptor_check"></a>文件描述符检查 (File descriptor check)
 </h2>
 </div></div></div>
-<p>File descriptors are a Unix construct for tracking open "files". In Unix
-though, <a href="https://en.wikipedia.org/wiki/Everything_is_a_file" class="ulink" target="_top">everything is
-a file</a>. For example, "files" could be a physical file, a virtual file
-(e.g., <code class="literal">/proc/loadavg</code>), or network sockets. Elasticsearch requires
-lots of file descriptors (e.g., every shard is composed of multiple
-segments and other files, plus connections to other nodes, etc.). This
-bootstrap check is enforced on OS X and Linux. To pass the file
-descriptor check, you might have to configure <a class="xref" href="file-descriptors.html" title="File Descriptors">file
-descriptors</a>.</p>
+<p>
+文件描述符是用于跟踪打开的"文件"的 Unix 构造。
+但在 Unix 中， <a href="https://en.wikipedia.org/wiki/Everything_is_a_file" class="ulink" target="_top">一切都是一个文件</a>。
+
+例如，"文件"可以是物理文件、虚拟文件（例如 <code class="literal">/proc/loadavg</code>）或 网络套接字。
+
+Elasticsearch 需要大量的文件描述符(例如，每个分片由多个段和其他文件组成，以及到其他节点的连接，等等)。
+
+这个引导检查在 OS X 和 Linux 上是强制的。
+
+要通过文件描述符检查，你可能需要配置<a class="xref" href="file-descriptors.html" title="File Descriptors">文件描述符</a>。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="_heap_size_check.html">« Heap size check</a>
+<a href="_heap_size_check.html">« 堆大小检查</a>
 </span>
 <span class="next">
-<a href="_memory_lock_check.html">Memory lock check »</a>
+<a href="_memory_lock_check.html">内存锁检查 »</a>
 </span>
 </div>
 </div>

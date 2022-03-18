@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Maximum number of threads check | ElasticSearch 7.7 权威指南中文版</title>
+	<title>最大线程数检查 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,47 +32,50 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="bootstrap-checks.html">Bootstrap Checks</a></span>
+<span class="breadcrumb-link"><a href="bootstrap-checks.html">引导检查</a></span>
 »
-<span class="breadcrumb-node">Maximum number of threads check</span>
+<span class="breadcrumb-node">最大线程数检查</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="_memory_lock_check.html">« Memory lock check</a>
+<a href="_memory_lock_check.html">« 内存锁检查</a>
 </span>
 <span class="next">
-<a href="_max_file_size_check.html">Max file size check »</a>
+<a href="_max_file_size_check.html">最大文件大小检查 »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="max-number-threads-check"></a>Maximum number of threads check<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/bootstrap-checks.asciidoc">edit</a>
+<a id="max-number-threads-check"></a>最大线程数检查 (Maximum number of threads check)
 </h2>
 </div></div></div>
-<p>Elasticsearch executes requests by breaking the request down into stages
-and handing those stages off to different thread pool executors. There
-are different <a class="xref" href="modules-threadpool.html" title="Thread pools">thread pool executors</a> for a variety
-of tasks within Elasticsearch. Thus, Elasticsearch needs the ability to
-create a lot of threads. The maximum number of threads check ensures
-that the Elasticsearch process has the rights to create enough threads
-under normal use. This check is enforced only on Linux. If you are on
-Linux, to pass the maximum number of threads check, you must configure
-your system to allow the Elasticsearch process the ability to create at
-least 4096 threads. This can be done via <code class="literal">/etc/security/limits.conf</code>
-using the <code class="literal">nproc</code> setting (note that you might have to increase the
-limits for the <code class="literal">root</code> user too).</p>
+<p>
+Elasticsearch 通过将请求分解成几个阶段并将这些阶段交给不同的线程池执行器来执行请求。
+
+对于 Elasticsearch 中的各种任务，有不同的<a class="xref" href="modules-threadpool.html" title="Thread pools">线程池执行器 (thread pool executors)</a>。
+
+因此，Elasticsearch 需要创建大量线程的能力。
+
+最大线程数检查确保 Elasticsearch 进程有权在正常使用情况下创建足够的线程。
+
+这种检查只在 Linux 上强制执行。
+
+如果是在 Linux 上，要通过最大线程数检查，必须配置系统以允许 Elasticsearch 进程能够创建至少 4096 个线程。
+
+这可以通过在配置文件 <code class="literal">/etc/security/limits.conf</code> 中使用 <code class="literal">nproc</code> 设置来实现（注意，可能还需要增加 <code class="literal">root</code> 用户的限制）。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="_memory_lock_check.html">« Memory lock check</a>
+<a href="_memory_lock_check.html">« 内存锁检查</a>
 </span>
 <span class="next">
-<a href="_max_file_size_check.html">Max file size check »</a>
+<a href="_max_file_size_check.html">最大文件大小检查 »</a>
 </span>
 </div>
 </div>

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Maximum size virtual memory check | ElasticSearch 7.7 权威指南中文版</title>
+	<title>最大虚拟内存检查 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,46 +32,50 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="bootstrap-checks.html">Bootstrap Checks</a></span>
+<span class="breadcrumb-link"><a href="bootstrap-checks.html">引导检查</a></span>
 »
-<span class="breadcrumb-node">Maximum size virtual memory check</span>
+<span class="breadcrumb-node">最大虚拟内存检查</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="_max_file_size_check.html">« Max file size check</a>
+<a href="_max_file_size_check.html">« 最大文件大小检查</a>
 </span>
 <span class="next">
-<a href="_maximum_map_count_check.html">Maximum map count check »</a>
+<a href="_maximum_map_count_check.html">最大映射数量检查 »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="max-size-virtual-memory-check"></a>Maximum size virtual memory check<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/bootstrap-checks.asciidoc">edit</a>
+<a id="max-size-virtual-memory-check"></a>最大虚拟内存检查 (Maximum size virtual memory check)
 </h2>
 </div></div></div>
-<p>Elasticsearch and Lucene use <code class="literal">mmap</code> to great effect to map portions of
-an index into the Elasticsearch address space. This keeps certain index
-data off the JVM heap but in memory for blazing fast access. For this to
-be effective, the Elasticsearch should have unlimited address space. The
-maximum size virtual memory check enforces that the Elasticsearch
-process has unlimited address space and is enforced only on Linux. To
-pass the maximum size virtual memory check, you must configure your
-system to allow the Elasticsearch process the ability to have unlimited
-address space. This can be done via adding <code class="literal">&lt;user&gt; - as unlimited</code>
-to <code class="literal">/etc/security/limits.conf</code>. This may require you to increase the limits
-for the <code class="literal">root</code> user too.</p>
+<p>
+Elasticsearch 和 Lucene 使用 <code class="literal">mmap</code> 将部分索引映射到 Elasticsearch 地址空间，效果非常好。
+
+这使得某些索引数据不在 JVM 堆中，而是在内存中，以实现极快的访问速度。
+
+为了做到这一点，Elasticsearch 应该有无限的地址空间。
+
+最大虚拟内存检查强制 Elasticsearch 进程具有无限的地址空间，并且仅在 Linux 上强制执行。
+
+要通过最大虚拟内存检查，必须配置系统，以允许 Elasticsearch 进程拥有无限的地址空间。
+
+这可以通过向配置文件 <code class="literal">/etc/security/limits.conf</code> 中添加 <code class="literal">&lt;user&gt; - as unlimited</code> 来实现。
+
+这可能还需要增加 <code class="literal">root</code> 用户的限制。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="_max_file_size_check.html">« Max file size check</a>
+<a href="_max_file_size_check.html">« 最大文件大小检查</a>
 </span>
 <span class="next">
-<a href="_maximum_map_count_check.html">Maximum map count check »</a>
+<a href="_maximum_map_count_check.html">最大映射数量检查 »</a>
 </span>
 </div>
 </div>

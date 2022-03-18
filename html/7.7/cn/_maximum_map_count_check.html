@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Maximum map count check | ElasticSearch 7.7 权威指南中文版</title>
+	<title>最大映射数量检查 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,45 +32,47 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="bootstrap-checks.html">Bootstrap Checks</a></span>
+<span class="breadcrumb-link"><a href="bootstrap-checks.html">引导检查</a></span>
 »
-<span class="breadcrumb-node">Maximum map count check</span>
+<span class="breadcrumb-node">最大映射数量检查</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="max-size-virtual-memory-check.html">« Maximum size virtual memory check</a>
+<a href="max-size-virtual-memory-check.html">« 最大虚拟内存检查</a>
 </span>
 <span class="next">
-<a href="_client_jvm_check.html">Client JVM check »</a>
+<a href2="_client_jvm_check.html">Client JVM check »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="_maximum_map_count_check"></a>Maximum map count check<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/bootstrap-checks.asciidoc">edit</a>
+<a id="_maximum_map_count_check"></a>最大映射数量检查 (Maximum map count check)
 </h2>
 </div></div></div>
-<p>Continuing from the previous <a class="xref" href="max-size-virtual-memory-check.html" title="Maximum size virtual memory check">point</a>, to
-use <code class="literal">mmap</code> effectively, Elasticsearch also requires the ability to
-create many memory-mapped areas. The maximum map count check checks that
-the kernel allows a process to have at least 262,144 memory-mapped areas
-and is enforced on Linux only. To pass the maximum map count check, you
-must configure <code class="literal">vm.max_map_count</code> via <code class="literal">sysctl</code> to be at least <code class="literal">262144</code>.</p>
-<p>Alternatively, the maximum map count check is only needed if you are using
-<code class="literal">mmapfs</code> or <code class="literal">hybridfs</code> as the <a class="xref" href="index-modules-store.html" title="Store">store type</a> for your
-indices. If you <a class="xref" href="index-modules-store.html#allow-mmap">do not allow</a> the use of <code class="literal">mmap</code> then this
-bootstrap check will not be enforced.</p>
+<p>
+继续上个 <a class="xref" href="max-size-virtual-memory-check.html" title="Maximum size virtual memory check">知识点</a>，为了有效地使用 <code class="literal">mmap</code>，Elasticsearch 还需要创建许多内存映射区域的能力。
+
+最大映射数量检查会检查内核是否允许一个进程拥有至少 262,144 个内存映射区域，并且仅在 Linux 上强制执行。
+
+要通过最大映射数量检查，必须通过 <code class="literal">sysctl</code> 将 <code class="literal">vm.max_map_count</code> 至少配置为 <code class="literal">262144</code>。
+</p>
+<p>
+或者，只有在使用 <code class="literal">mmapfs</code> 或 <code class="literal">hybridfs</code> 作为索引的<a class="xref" href="index-modules-store.html" title="Store">存储类型</a>时，才需要最大映射数量检查。
+
+如果你 <a class="xref" href="index-modules-store.html#allow-mmap">不允许</a> 使用 <code class="literal">mmap</code> ，则不会强制执行此引导检查。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="max-size-virtual-memory-check.html">« Maximum size virtual memory check</a>
+<a href="max-size-virtual-memory-check.html">« 最大虚拟内存检查</a>
 </span>
 <span class="next">
-<a href="_client_jvm_check.html">Client JVM check »</a>
+<a href2="_client_jvm_check.html">Client JVM check »</a>
 </span>
 </div>
 </div>

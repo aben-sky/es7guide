@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Max file size check | ElasticSearch 7.7 权威指南中文版</title>
+	<title>最大文件大小检查 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,45 +32,46 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="bootstrap-checks.html">Bootstrap Checks</a></span>
+<span class="breadcrumb-link"><a href="bootstrap-checks.html">引导检查</a></span>
 »
-<span class="breadcrumb-node">Max file size check</span>
+<span class="breadcrumb-node">最大文件大小检查</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="max-number-threads-check.html">« Maximum number of threads check</a>
+<a href="max-number-threads-check.html">« 最大线程数检查</a>
 </span>
 <span class="next">
-<a href="max-size-virtual-memory-check.html">Maximum size virtual memory check »</a>
+<a href="max-size-virtual-memory-check.html">最大虚拟内存检查 »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="_max_file_size_check"></a>Max file size check<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/bootstrap-checks.asciidoc">edit</a>
+<a id="_max_file_size_check"></a>最大文件大小检查 (Max file size check)
 </h2>
 </div></div></div>
-<p>The segment files that are the components of individual shards and the translog
-generations that are components of the translog can get large (exceeding
-multiple gigabytes). On systems where the max size of files that can be created
-by the Elasticsearch process is limited, this can lead to failed
-writes. Therefore, the safest option here is that the max file size is unlimited
-and that is what the max file size bootstrap check enforces. To pass the max
-file check, you must configure your system to allow the Elasticsearch process
-the ability to write files of unlimited size. This can be done via
-<code class="literal">/etc/security/limits.conf</code> using the <code class="literal">fsize</code> setting to <code class="literal">unlimited</code> (note that
-you might have to increase the limits for the <code class="literal">root</code> user too).</p>
+<p>
+作为单个分片组件的 段文件<span class="reamrk">(segment files)</span> 和作为事务日志组件的 事务日志<span class="reamrk">(translog)</span> 生成可能会变得很大(超过数GB)。
+
+在 Elasticsearch 进程可以创建的最大文件大小有限的系统上，这可能会导致写入失败。
+
+因此，此处最安全的选项是最大文件大小不受限制，而这正是最大文件大小引导检查强制执行的。
+
+要通过最大文件检查，必须配置系统，以允许 Elasticsearch 进程能够写入无限大的文件。
+
+这可以通过在配置文件 <code class="literal">/etc/security/limits.conf</code> 中将 <code class="literal">fsize</code> 设置为 <code class="literal">unlimited</code> 来实现（注意，可能还需要增加 <code class="literal">root</code> 用户的限制）。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="max-number-threads-check.html">« Maximum number of threads check</a>
+<a href="max-number-threads-check.html">« 最大线程数检查</a>
 </span>
 <span class="next">
-<a href="max-size-virtual-memory-check.html">Maximum size virtual memory check »</a>
+<a href="max-size-virtual-memory-check.html">最大虚拟内存检查 »</a>
 </span>
 </div>
 </div>

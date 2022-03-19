@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Use serial collector check | ElasticSearch 7.7 权威指南中文版</title>
+	<title>使用串行回收器检查 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,48 +32,50 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="bootstrap-checks.html">Bootstrap Checks</a></span>
+<span class="breadcrumb-link"><a href="bootstrap-checks.html">引导检查</a></span>
 »
-<span class="breadcrumb-node">Use serial collector check</span>
+<span class="breadcrumb-node">使用串行回收器检查</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="_client_jvm_check.html">« Client JVM check</a>
+<a href="_client_jvm_check.html">« 客户端JVM检查</a>
 </span>
 <span class="next">
-<a href="_system_call_filter_check.html">System call filter check »</a>
+<a href="_system_call_filter_check.html">系统调用过滤器检查 »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="_use_serial_collector_check"></a>Use serial collector check<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/bootstrap-checks.asciidoc">edit</a>
+<a id="_use_serial_collector_check"></a>使用串行回收器检查 (Use serial collector check)
 </h2>
 </div></div></div>
-<p>There are various garbage collectors for the OpenJDK-derived JVMs
-targeting different workloads. The serial collector in particular is
-best suited for single logical CPU machines or extremely small heaps,
-neither of which are suitable for running Elasticsearch. Using the
-serial collector with Elasticsearch can be devastating for performance.
-The serial collector check ensures that Elasticsearch is not configured
-to run with the serial collector. To pass the serial collector check,
-you must not start Elasticsearch with the serial collector (whether it’s
-from the defaults for the JVM that you’re using, or you’ve explicitly
-specified it with <code class="literal">-XX:+UseSerialGC</code>). Note that the default JVM
-configuration that ships with Elasticsearch configures Elasticsearch to
-use the G1GC garbage collector with JDK14 and later versions. For earlier
-JDK versions, the configuration defaults to the CMS collector.</p>
+<p>
+对于不同的工作负载，OpenJDK 派生的 JVM 有不同的垃圾回收器。
+
+串行收集器特别适合于 单个逻辑CPU的机器 或 极小的堆，它们都不适合运行 Elasticsearch。
+
+将串行收集器与 Elasticsearch 一起使用会对性能产生毁灭性的影响。
+
+串行收集器检查确保 Elasticsearch 没有配置为与串行收集器一起运行。
+
+要通过串行收集器检查，不能使用串行收集器启动 Elasticsearch (无论它是来自你正在使用的 JVM 的缺省值，还是已经用 <code class="literal">-XX:+UseSerialGC</code>明确指定了它)。
+
+注意，Elasticsearch 附带的默认 JVM 配置将 Elasticsearch 配置为在 JDK14 和更高版本中使用 G1GC 垃圾回收器。
+
+对于早期的 JDK 版本，配置默认为 CMS 回收器。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="_client_jvm_check.html">« Client JVM check</a>
+<a href="_client_jvm_check.html">« 客户端JVM检查</a>
 </span>
 <span class="next">
-<a href="_system_call_filter_check.html">System call filter check »</a>
+<a href="_system_call_filter_check.html">系统调用过滤器检查 »</a>
 </span>
 </div>
 </div>

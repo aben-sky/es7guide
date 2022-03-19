@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Discovery configuration check | ElasticSearch 7.7 权威指南中文版</title>
+	<title>发现配置检查 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,38 +32,40 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="bootstrap-checks.html">Bootstrap Checks</a></span>
+<span class="breadcrumb-link"><a href="bootstrap-checks.html">引导检查</a></span>
 »
-<span class="breadcrumb-node">Discovery configuration check</span>
+<span class="breadcrumb-node">发现配置检查</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="_all_permission_check.html">« All permission check</a>
+<a href="_all_permission_check.html">« 全部权限检查</a>
 </span>
 <span class="next">
-<a href="bootstrap-checks-xpack.html">Bootstrap Checks for X-Pack »</a>
+<a href2="bootstrap-checks-xpack.html">Bootstrap Checks for X-Pack »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="_discovery_configuration_check"></a>Discovery configuration check<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/bootstrap-checks.asciidoc">edit</a>
+<a id="_discovery_configuration_check"></a>发现配置检查 (Discovery configuration check)
 </h2>
 </div></div></div>
-<p>By default, when Elasticsearch first starts up it will try and discover other
-nodes running on the same host. If no elected master can be discovered within a
-few seconds then Elasticsearch will form a cluster that includes any other
-nodes that were discovered. It is useful to be able to form this cluster
-without any extra configuration in development mode, but this is unsuitable for
-production because it’s possible to form multiple clusters and lose data as a
-result.</p>
-<p>This bootstrap check ensures that discovery is not running with the default
-configuration. It can be satisfied by setting at least one of the following
-properties:</p>
+<p>
+默认情况下，当 Elasticsearch 第一次启动时，它会尝试 发现(discovery) 运行在同一主机上的其他节点。
+
+如果在几秒钟内没有发现被选举的主节点，那么 Elasticsearch 将形成一个集群，其中包括任何其他被发现的节点。
+
+在开发模式下，能够在没有任何额外配置的情况下形成这个集群是有用的，但是这不适合于生产，因为可能形成多个集群并因此丢失数据。
+</p>
+<p>
+此引导检查确保 发现(discovery) 没有使用默认的配置运行。
+
+这可以通过设置以下属性中的至少一个来满足：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
@@ -80,10 +82,10 @@ properties:</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="_all_permission_check.html">« All permission check</a>
+<a href="_all_permission_check.html">« 全部权限检查</a>
 </span>
 <span class="next">
-<a href="bootstrap-checks-xpack.html">Bootstrap Checks for X-Pack »</a>
+<a href2="bootstrap-checks-xpack.html">Bootstrap Checks for X-Pack »</a>
 </span>
 </div>
 </div>

@@ -400,42 +400,42 @@ var esNavLinks = [
                     {
                         "url": "_client_jvm_check.html",
                         "text": "客户端JVM检查",
-                        "title": "Client JVM check"
+                        "title": "客户端JVM检查"
                     },
                     {
                         "url": "_use_serial_collector_check.html",
-                        "text": "使用串行回收器(serial collector)检查",
-                        "title": "Use serial collector check"
+                        "text": "使用串行回收器检查",
+                        "title": "使用串行回收器检查"
                     },
                     {
                         "url": "_system_call_filter_check.html",
                         "text": "系统调用过滤器检查",
-                        "title": "System call filter check"
+                        "title": "系统调用过滤器检查"
                     },
                     {
                         "url": "_onerror_and_onoutofmemoryerror_checks.html",
-                        "text": "OnError和OnOutOfMemoryError检查",
-                        "title": "OnError and OnOutOfMemoryError checks"
+                        "text": "OnError 和 OnOutOfMemoryError 检查",
+                        "title": "OnError 和 OnOutOfMemoryError 检查"
                     },
                     {
                         "url": "_early_access_check.html",
-                        "text": "提前获取(early-access)检查",
-                        "title": "Early-access check"
+                        "text": "抢先体验检查",
+                        "title": "抢先体验检查"
                     },
                     {
                         "url": "_g1gc_check.html",
                         "text": "垃圾优先的垃圾回收器(G1GC)检查",
-                        "title": "G1GC check"
+                        "title": "垃圾优先的垃圾回收器(G1GC)检查"
                     },
                     {
                         "url": "_all_permission_check.html",
-                        "text": "全部的权限检查",
-                        "title": "All permission check"
+                        "text": "全部权限检查",
+                        "title": "全部权限检查"
                     },
                     {
                         "url": "_discovery_configuration_check.html",
-                        "text": "发现(discovery)配置检查",
-                        "title": "Discovery configuration check"
+                        "text": "发现配置检查",
+                        "title": "发现配置检查"
                     }
                 ]
             },

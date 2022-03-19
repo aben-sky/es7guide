@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>G1GC check | ElasticSearch 7.7 权威指南中文版</title>
+	<title>垃圾优先的垃圾回收器(G1GC)检查 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,40 +32,42 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="bootstrap-checks.html">Bootstrap Checks</a></span>
+<span class="breadcrumb-link"><a href="bootstrap-checks.html">引导检查</a></span>
 »
-<span class="breadcrumb-node">G1GC check</span>
+<span class="breadcrumb-node">垃圾优先的垃圾回收器(G1GC)检查</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="_early_access_check.html">« Early-access check</a>
+<a href="_early_access_check.html">« 抢先体验检查</a>
 </span>
 <span class="next">
-<a href="_all_permission_check.html">All permission check »</a>
+<a href="_all_permission_check.html">全部权限检查 »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="_g1gc_check"></a>G1GC check<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/bootstrap-checks.asciidoc">edit</a>
+<a id="_g1gc_check"></a>垃圾优先的垃圾回收器(G1GC)检查
 </h2>
 </div></div></div>
-<p>Early versions of the HotSpot JVM that shipped with JDK 8 are known to
-have issues that can lead to index corruption when the G1GC collector is
-enabled.  The versions impacted are those earlier than the version of
-HotSpot that shipped with JDK 8u40. The G1GC check detects these early
-versions of the HotSpot JVM.</p>
+<p>
+已知 JDK 8 附带的 HotSpot JVM 的早期版本在启用 G1GC 回收器时会出现导致索引损坏的问题。
+
+受影响的版本是那些早于 JDK 8u40 附带的 HotSpot 版本。
+
+G1GC 检查检测这些早期版本的 HotSpot JVM。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="_early_access_check.html">« Early-access check</a>
+<a href="_early_access_check.html">« 抢先体验检查</a>
 </span>
 <span class="next">
-<a href="_all_permission_check.html">All permission check »</a>
+<a href="_all_permission_check.html">全部权限检查 »</a>
 </span>
 </div>
 </div>

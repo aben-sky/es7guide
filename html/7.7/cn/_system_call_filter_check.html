@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>System call filter check | ElasticSearch 7.7 权威指南中文版</title>
+	<title>系统调用过滤器检查 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,45 +32,44 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="bootstrap-checks.html">Bootstrap Checks</a></span>
+<span class="breadcrumb-link"><a href="bootstrap-checks.html">引导检查</a></span>
 »
-<span class="breadcrumb-node">System call filter check</span>
+<span class="breadcrumb-node">系统调用过滤器检查</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="_use_serial_collector_check.html">« Use serial collector check</a>
+<a href="_use_serial_collector_check.html">« 使用串行回收器检查</a>
 </span>
 <span class="next">
-<a href="_onerror_and_onoutofmemoryerror_checks.html">OnError and OnOutOfMemoryError checks »</a>
+<a href="_onerror_and_onoutofmemoryerror_checks.html">OnError 和 OnOutOfMemoryError 检查 »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="_system_call_filter_check"></a>System call filter check<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/bootstrap-checks.asciidoc">edit</a>
+<a id="_system_call_filter_check"></a>系统调用过滤器检查 (System call filter check)
 </h2>
 </div></div></div>
-<p>Elasticsearch installs system call filters of various flavors depending
-on the operating system (e.g., seccomp on Linux). These system call
-filters are installed to prevent the ability to execute system calls
-related to forking as a defense mechanism against arbitrary code
-execution attacks on Elasticsearch. The system call filter check ensures
-that if system call filters are enabled, then they were successfully
-installed. To pass the system call filter check you must either fix any
-configuration errors on your system that prevented system call filters
-from installing (check your logs), or <span class="strong strong"><strong>at your own risk</strong></span> disable system
-call filters by setting <code class="literal">bootstrap.system_call_filter</code> to <code class="literal">false</code>.</p>
+<p>
+Elasticsearch 根据操作系统安装各种风格的系统调用过滤器(例如 Linux 上的 seccomp)。
+
+安装这些系统调用过滤器是为了防止执行与 forking 相关的系统调用，作为抵御Elasticsearch 上任意代码执行攻击的防御机制。
+
+系统调用过滤器检查确保如果启用了系统调用过滤器，则成功安装了它们。  
+
+要通过系统调用过滤器检查，你必须修复系统上阻止安装系统调用过滤器的任何配置错误(检查您的日志)，或者，如果你要<span class="strong strong"><strong>自己承担风险</strong></span> 则可以通过将 <code class="literal">bootstrap.system_call_filter</code>设置为 <code class="literal">false</code> 来禁用系统调用过滤器。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="_use_serial_collector_check.html">« Use serial collector check</a>
+<a href="_use_serial_collector_check.html">« 使用串行回收器检查</a>
 </span>
 <span class="next">
-<a href="_onerror_and_onoutofmemoryerror_checks.html">OnError and OnOutOfMemoryError checks »</a>
+<a href="_onerror_and_onoutofmemoryerror_checks.html">OnError 和 OnOutOfMemoryError 检查 »</a>
 </span>
 </div>
 </div>

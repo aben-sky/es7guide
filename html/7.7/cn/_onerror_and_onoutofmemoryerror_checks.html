@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>OnError and OnOutOfMemoryError checks | ElasticSearch 7.7 权威指南中文版</title>
+	<title>OnError 和 OnOutOfMemoryError 检查 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,48 +32,50 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="bootstrap-checks.html">Bootstrap Checks</a></span>
+<span class="breadcrumb-link"><a href="bootstrap-checks.html">引导检查</a></span>
 »
-<span class="breadcrumb-node">OnError and OnOutOfMemoryError checks</span>
+<span class="breadcrumb-node">OnError 和 OnOutOfMemoryError 检查</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="_system_call_filter_check.html">« System call filter check</a>
+<a href="_system_call_filter_check.html">« 系统调用过滤器检查</a>
 </span>
 <span class="next">
-<a href="_early_access_check.html">Early-access check »</a>
+<a href="_early_access_check.html">提前获取检查 »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="_onerror_and_onoutofmemoryerror_checks"></a>OnError and OnOutOfMemoryError checks<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/bootstrap-checks.asciidoc">edit</a>
+<a id="_onerror_and_onoutofmemoryerror_checks"></a>OnError 和 OnOutOfMemoryError 检查
 </h2>
 </div></div></div>
-<p>The JVM options <code class="literal">OnError</code> and <code class="literal">OnOutOfMemoryError</code> enable executing
-arbitrary commands if the JVM encounters a fatal error (<code class="literal">OnError</code>) or an
-<code class="literal">OutOfMemoryError</code> (<code class="literal">OnOutOfMemoryError</code>). However, by default,
-Elasticsearch system call filters (seccomp) are enabled and these
-filters prevent forking. Thus, using <code class="literal">OnError</code> or <code class="literal">OnOutOfMemoryError</code>
-and system call filters are incompatible. The <code class="literal">OnError</code> and
-<code class="literal">OnOutOfMemoryError</code> checks prevent Elasticsearch from starting if
-either of these JVM options are used and system call filters are
-enabled. This check is always enforced. To pass this check do not enable
-<code class="literal">OnError</code> nor <code class="literal">OnOutOfMemoryError</code>; instead, upgrade to Java 8u92 and
-use the JVM flag <code class="literal">ExitOnOutOfMemoryError</code>. While this does not have the
-full capabilities of <code class="literal">OnError</code> nor <code class="literal">OnOutOfMemoryError</code>, arbitrary
-forking will not be supported with seccomp enabled.</p>
+<p>
+如果 JVM 遇到 致命错误(<code class="literal">OnError</code>)或<code class="literal">OutOfMemoryError</code> (<code class="literal">OnOutOfMemoryError</code>)，JVM 选项 <code class="literal">OnError</code> 和 <code class="literal">OnOutOfMemoryError</code> 允许执行任意命令。
+
+然而，默认情况下，Elasticsearch 系统调用过滤器(seccomp)是启用的，这些过滤器可以防止 forking。
+
+因此，使用<code class="literal">OnError</code> 或 <code class="literal">OnOutOfMemoryError</code> 和 系统调用过滤器是不兼容的。
+
+<code class="literal">OnError</code> 和 <code class="literal">OnOutOfMemoryError</code> 检查会阻止 Elasticsearch 在使用这些 JVM 选项中的任何一个并且启用了系统调用过滤器的情况下启动。
+
+这项检查始终是强制性的。
+
+若要通过此检查，请不要启用 <code class="literal">OnError</code> 和 <code class="literal">OnOutOfMemoryError</code>；相反，升级到 Java 8u92 并使用 JVM 标志 <code class="literal">ExitOnOutOfMemoryError</code>。
+
+虽然它不具备 <code class="literal">OnError</code> 或 <code class="literal">OnOutOfMemoryError</code>的全部功能，但在启用 seccomp 的情况下，不支持任意 forking。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="_system_call_filter_check.html">« System call filter check</a>
+<a href="_system_call_filter_check.html">« 系统调用过滤器检查</a>
 </span>
 <span class="next">
-<a href="_early_access_check.html">Early-access check »</a>
+<a href="_early_access_check.html">提前获取检查 »</a>
 </span>
 </div>
 </div>

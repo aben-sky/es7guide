@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Starting Elasticsearch | ElasticSearch 7.7 权威指南中文版</title>
+	<title>启动Elasticsearch | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,271 +32,324 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-node">Starting Elasticsearch</span>
+<span class="breadcrumb-node">启动Elasticsearch</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="bootstrap-checks-xpack.html">« Bootstrap Checks for X-Pack</a>
+<a href="bootstrap-checks-xpack.html">« X-Pack引导检查</a>
 </span>
 <span class="next">
-<a href="stopping-elasticsearch.html">Stopping Elasticsearch »</a>
+<a href2="stopping-elasticsearch.html">Stopping Elasticsearch »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="starting-elasticsearch"></a>Starting Elasticsearch<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/starting.asciidoc">edit</a>
+<a id="starting-elasticsearch"></a>启动Elasticsearch
 </h2>
 </div></div></div>
-<p>The method for starting Elasticsearch varies depending on how you installed it.</p>
+<p>启动 Elasticsearch 的方法因安装方式而异。</p>
 <h3>
-<a id="start-targz"></a>Archive packages (<code class="literal">.tar.gz</code>)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/starting.asciidoc">edit</a>
+<a id="start-targz"></a>归档安装包 (<code class="literal">.tar.gz</code>)
 </h3>
-<p>If you installed Elasticsearch with a <code class="literal">.tar.gz</code> package, you can start Elasticsearch from the
-command line.</p>
+<p>
+如果你是使用 <code class="literal">.tar.gz</code>包 安装的 Elasticsearch，可以从命令行启动 Elasticsearch。
 <h4>
-<a id="_running_elasticsearch_from_the_command_line"></a>Running Elasticsearch from the command line<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/targz-start.asciidoc">edit</a>
+<a id="_running_elasticsearch_from_the_command_line"></a>从命令行运行 Elasticsearch
 </h4>
-<p>Elasticsearch can be started from the command line as follows:</p>
+<p>可以从命令行启动 Elasticsearch，如下所示：</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">./bin/elasticsearch</pre>
 </div>
-<p>If you have password-protected the Elasticsearch keystore, you will be prompted
-to enter the keystore’s password. See <a class="xref" href="secure-settings.html" title="Secure settings">Secure settings</a> for more
-details.</p>
-<p>By default, Elasticsearch runs in the foreground, prints its logs to the
-standard output (<code class="literal">stdout</code>), and can be stopped by pressing <code class="literal">Ctrl-C</code>.</p>
+<p>
+如果你对 Elasticsearch 密钥库进行了密码保护，系统会提示你输入密钥库的密码。
+更多详细信息请参考 <a class="xref" href="secure-settings.html" title="Secure settings">安全设置</a>。
+</p>
+<p>
+默认情况下，Elasticsearch 在前台运行，将其日志打印到标准输出(<code class="literal">STDOUT</code>)，并且可以通过按 <code class="literal">Ctrl-C</code> 来停止。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>All scripts packaged with Elasticsearch require a version of Bash
-that supports arrays and assume that Bash is available at <code class="literal">/bin/bash</code>.
-As such, Bash should be available at this path either directly or via a
-symbolic link.</p>
+<p>
+所有与 Elasticsearch 打包在一起的脚本都需要一个支持数组的 Bash 版本，并假设 Bash 的存放位置是 <code class="literal">/bin/bash</code>。
+
+因此，Bash 应该可以直接或通过符号链接在这个路径上使用。
+</p>
 </div>
 </div>
 <h4>
-<a id="_running_as_a_daemon"></a>Running as a daemon<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/targz-daemon.asciidoc">edit</a>
+<a id="_running_as_a_daemon"></a>作为守护程序运行
 </h4>
-<p>To run Elasticsearch as a daemon, specify <code class="literal">-d</code> on the command line, and record
-the process ID in a file using the <code class="literal">-p</code> option:</p>
+<p>
+要将 Elasticsearch 作为守护进程运行，请在命令行中指定 <code class="literal">-d</code> ，并使用 <code class="literal">-p</code> 选项将进程 ID 记录在一个文件中:
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">./bin/elasticsearch -d -p pid</pre>
 </div>
-<p>If you have password-protected the Elasticsearch keystore, you will be prompted
-to enter the keystore’s password. See <a class="xref" href="secure-settings.html" title="Secure settings">Secure settings</a> for more
-details.</p>
-<p>Log messages can be found in the <code class="literal">$ES_HOME/logs/</code> directory.</p>
-<p>To shut down Elasticsearch, kill the process ID recorded in the <code class="literal">pid</code> file:</p>
+<p>
+如果你对 Elasticsearch 密钥库进行了密码保护，系统会提示你输入密钥库的密码。
+更多详细信息请参考 <a class="xref" href="secure-settings.html" title="Secure settings">安全设置</a>。
+</p>
+<p>日志信息可以在<code class="literal">$ES_HOME/logs/</code> 目录中找到。</p>
+<p>
+要关闭 Elasticsearch，终止 <code class="literal">pid</code> 文件中记录的进程 ID：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">pkill -F pid</pre>
 </div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The startup scripts provided in the <a class="xref" href="rpm.html" title="Install Elasticsearch with RPM">RPM</a> and <a class="xref" href="deb.html" title="Install Elasticsearch with Debian Package">Debian</a>
-packages take care of starting and stopping the Elasticsearch process for you.</p>
+<p>
+ <a class="xref" href="rpm.html" title="Install Elasticsearch with RPM">RPM</a> 和 <a class="xref" href="deb.html" title="Install Elasticsearch with Debian Package">Debian</a> 包中提供的启动脚本负责启动和停止 Elasticsearch 进程。
+</p>
 </div>
 </div>
 <h3>
-<a id="start-zip"></a>Archive packages (<code class="literal">.zip</code>)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/starting.asciidoc">edit</a>
+<a id="start-zip"></a>归档安装包 (<code class="literal">.zip</code>)
 </h3>
-<p>If you installed Elasticsearch on Windows with a <code class="literal">.zip</code> package, you can start Elasticsearch from
-the command line. If you want Elasticsearch to start automatically at boot time without
-any user interaction, <a class="xref" href="zip-windows.html#windows-service" title="Installing Elasticsearch as a Service on Windows">install Elasticsearch as a service</a>.</p>
+<p>
+如果你是在 Windows 上使用 <code class="literal">.zip</code>包 安装的 Elasticsearch，可以从命令行启动 Elasticsearch。
+
+如果你想让 Elasticsearch 在系统启动时自动启动，不需要任何用户交互，那么请 <a class="xref" href="zip-windows.html#windows-service" title="Installing Elasticsearch as a Service on Windows">在 Windows 上把 Elasticsearch 作为服务安装</a>。
+</p>
 <h4>
-<a id="_running_elasticsearch_from_the_command_line_2"></a>Running Elasticsearch from the command line<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/zip-windows-start.asciidoc">edit</a>
+<a id="_running_elasticsearch_from_the_command_line_2"></a>从命令行运行 Elasticsearch
 </h4>
-<p>Elasticsearch can be started from the command line as follows:</p>
+<p>可以从命令行启动 Elasticsearch，如下所示：</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">.\bin\elasticsearch.bat</pre>
 </div>
-<p>If you have password-protected the Elasticsearch keystore, you will be prompted to
-enter the keystore’s password. See <a class="xref" href="secure-settings.html" title="Secure settings">Secure settings</a> for more details.</p>
-<p>By default, Elasticsearch runs in the foreground, prints its logs to <code class="literal">STDOUT</code>,
-and can be stopped by pressing <code class="literal">Ctrl-C</code>.</p>
+<p>
+如果你对 Elasticsearch 密钥库进行了密码保护，系统会提示你输入密钥库的密码。
+更多详细信息请参考 <a class="xref" href="secure-settings.html" title="Secure settings">安全设置</a>。
+</p>
+<p>
+默认情况下，Elasticsearch 在前台运行，将其日志打印到标准输出(<code class="literal">STDOUT</code>)，并且可以通过按 <code class="literal">Ctrl-C</code> 来停止。
+</p>
 <h3>
-<a id="start-deb"></a>Debian packages<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/starting.asciidoc">edit</a>
+<a id="start-deb"></a>Debian安装包
 </h3>
-<p>Elasticsearch is not started automatically after installation. How to start
-and stop Elasticsearch depends on whether your system uses SysV <code class="literal">init</code> or
-<code class="literal">systemd</code> (used by newer distributions).  You can tell which is being used by
-running this command:</p>
+<p>
+安装后不会自动启动 Elasticsearch。
+
+如何启动和停止 Elasticsearch 取决于你的系统使用 SysV <code class="literal">init</code> 还是 <code class="literal">systemd</code>(在较新的发行版中使用)。
+
+可以通过运行以下命令来判断哪个正在被使用:
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">ps -p 1</pre>
 </div>
 <h4>
-<a id="start-es-deb-init"></a>Running Elasticsearch with SysV <code class="literal">init</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/deb-init.asciidoc">edit</a>
+<a id="start-es-deb-init"></a>使用 SysV <code class="literal">init</code> 运行 Elasticsearch
 </h4>
-<p>Use the <code class="literal">update-rc.d</code> command to configure Elasticsearch to start automatically
-when the system boots up:</p>
+<p>使用 <code class="literal">update-rc.d</code> 命令将 Elasticsearch 配置为在系统启动时自动启动：</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo update-rc.d elasticsearch defaults 95 10</pre>
 </div>
-<p>Elasticsearch can be started and stopped using the <code class="literal">service</code> command:</p>
+<p>可以使用 <code class="literal">service</code> 命令启动和停止 Elasticsearch：</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo -i service elasticsearch start
 sudo -i service elasticsearch stop</pre>
 </div>
-<p>If Elasticsearch fails to start for any reason, it will print the reason for
-failure to STDOUT. Log files can be found in <code class="literal">/var/log/elasticsearch/</code>.</p>
+<p>
+如果 Elasticsearch 由于任何原因无法启动，它会将失败的原因打印到 STDOUT。
+
+日志文件可以在 <code class="literal">/var/log/elasticsearch/</code> 位置找到。
+</p>
 <h4>
-<a id="start-es-deb-systemd"></a>Running Elasticsearch with <code class="literal">systemd</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/systemd.asciidoc">edit</a>
+<a id="start-es-deb-systemd"></a>使用 <code class="literal">systemd</code> 运行 Elasticsearch
 </h4>
-<p>To configure Elasticsearch to start automatically when the system boots up,
-run the following commands:</p>
+<p>要将 Elasticsearch 配置为在系统启动时自动启动，请运行以下命令：</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo /bin/systemctl daemon-reload
 sudo /bin/systemctl enable elasticsearch.service</pre>
 </div>
-<p>Elasticsearch can be started and stopped as follows:</p>
+<p>Elasticsearch 可按如下方式启动和停止：</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo systemctl start elasticsearch.service
 sudo systemctl stop elasticsearch.service</pre>
 </div>
-<p>These commands provide no feedback as to whether Elasticsearch was started
-successfully or not. Instead, this information will be written in the log
-files located in <code class="literal">/var/log/elasticsearch/</code>.</p>
-<p>If you have password-protected your Elasticsearch keystore, you will need to provide
-<code class="literal">systemd</code> with the keystore password using a local file and systemd environment
-variables. This local file should be protected while it exists and may be
-safely deleted once Elasticsearch is up and running.</p>
+<p>
+这些命令不提供关于 Elasticsearch 是否成功启动的反馈。
+相反，这些信息将被写入位于 <code class="literal">/var/log/elasticsearch/</code> 的日志文件中。
+</p>
+<p>
+如果你对 Elasticsearch 密钥库进行了密码保护，则需要使用本地文件和 systemd 环境变量向 <code class="literal">systemd</code> 提供密钥库密码。
+
+该本地文件在存在时应受到保护，一旦 Elasticsearch 启动并运行，可以安全地删除该文件。
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">echo "keystore_password" &gt; /path/to/my_pwd_file.tmp
 chmod 600 /path/to/my_pwd_file.tmp
 sudo systemctl set-environment ES_KEYSTORE_PASSPHRASE_FILE=/path/to/my_pwd_file.tmp
 sudo systemctl start elasticsearch.service</pre>
 </div>
-<p>By default the Elasticsearch service doesn’t log information in the <code class="literal">systemd</code>
-journal. To enable <code class="literal">journalctl</code> logging, the <code class="literal">--quiet</code> option must be removed
- from the <code class="literal">ExecStart</code> command line in the <code class="literal">elasticsearch.service</code> file.</p>
-<p>When <code class="literal">systemd</code> logging is enabled, the logging information are available using
-the <code class="literal">journalctl</code> commands:</p>
-<p>To tail the journal:</p>
+<p>
+默认情况下，Elasticsearch 服务不在 <code class="literal">systemd</code>  日志中记录信息。
+要启用<code class="literal">journalctl</code> 日志记录，必须从 <code class="literal">elasticsearch.service</code> 文件的 <code class="literal">ExecStart</code> 命令行中删除 <code class="literal">--quiet</code> 选项。
+</p>
+<p>
+启用 <code class="literal">systemd</code> 日志记录时，可以使用 <code class="literal">journalctl</code> 命令获得日志记录信息:
+</p>
+<p>
+要跟踪日志，执行：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo journalctl -f</pre>
 </div>
-<p>To list journal entries for the elasticsearch service:</p>
+<p>
+要列出 elasticsearch 服务的日志条目：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo journalctl --unit elasticsearch</pre>
 </div>
-<p>To list journal entries for the elasticsearch service starting from a given time:</p>
+<p>
+要列出从给定时间开始的 elasticsearch 服务的日志条目：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo journalctl --unit elasticsearch --since  "2016-10-30 18:17:16"</pre>
 </div>
-<p>Check <code class="literal">man journalctl</code> or <a href="https://www.freedesktop.org/software/systemd/man/journalctl.html" class="ulink" target="_top">https://www.freedesktop.org/software/systemd/man/journalctl.html</a> for
-more command line options.</p>
+<p>
+更多命令行选项，请查看 <code class="literal">man journalctl</code> 或者 <a href="https://www.freedesktop.org/software/systemd/man/journalctl.html" class="ulink" target="_top">https://www.freedesktop.org/software/systemd/man/journalctl.html</a>。
+</p>
 <h3>
-<a id="start-docker"></a>Docker images<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/starting.asciidoc">edit</a>
+<a id="start-docker"></a>Docker 镜像
 </h3>
-<p>If you installed a Docker image, you can start Elasticsearch from the command line. There
-are different methods depending on whether you’re using development mode or
-production mode. See <a class="xref" href="docker-cli-run.html" title="Docker Run">Docker Run</a>.</p>
+<p>
+如果安装了 Docker 镜像，可以从命令行启动 Elasticsearch。
+
+根据你使用的是开发模式还是生产模式，方法不同。
+
+参考 <a class="xref" href="docker-cli-run.html" title="Docker Run">Docker Run</a>。
+</p>
 <h3>
-<a id="start-msi"></a>MSI packages<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/starting.asciidoc">edit</a>
+<a id="start-msi"></a>Windows MSI 安装包
 </h3>
-<p>If you installed Elasticsearch on Windows using the <code class="literal">.msi</code> package, you can start Elasticsearch
-from the command line. If you want it to start automatically at boot time
-without any user interaction,
-<a class="xref" href="windows.html#msi-installer-windows-service" title="Installing Elasticsearch as a Service on Windows">install Elasticsearch as a Windows service</a>.</p>
+<p>
+如果你是在 Windows 上使用 <code class="literal">.msi</code> 安装包安装的 Elasticsearch，可以从命令行启动 Elasticsearch。
+
+如果你想让它在没有任何用户交互的情况下在系统启动时自动启动，请 <a class="xref" href="windows.html#msi-installer-windows-service" title="Installing Elasticsearch as a Service on Windows">在 Windows 上将 Elasticsearch 作为服务安装</a>。
+</p>
 <h4>
-<a id="_running_elasticsearch_from_the_command_line_3"></a>Running Elasticsearch from the command line<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/msi-windows-start.asciidoc">edit</a>
+<a id="_running_elasticsearch_from_the_command_line_3"></a>从命令行运行 Elasticsearch
 </h4>
-<p>Once installed, Elasticsearch can be started from the command line, if not installed as a service
-and configured to start when installation completes, as follows:</p>
+<p>
+如果没有作为服务安装并配置为在安装完成时启动，则可以在安装后从命令行启动 Elasticsearch，如下所示：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">.\bin\elasticsearch.exe</pre>
 </div>
-<p>The command line terminal will display output similar to the following:</p>
+<p>命令行终端将显示类似如下的输出：</p>
 <div class="imageblock">
 <div class="content">
 <img src="../static/images/msi_installer/elasticsearch_exe.png" alt="elasticsearch exe">
 </div>
 </div>
-<p>By default, Elasticsearch runs in the foreground, prints its logs to <code class="literal">STDOUT</code> in addition
-to the <code class="literal">&lt;cluster name&gt;.log</code> file within <code class="literal">LOGSDIRECTORY</code>, and can be stopped by pressing <code class="literal">Ctrl-C</code>.</p>
+<p>
+默认情况下，Elasticsearch 在前台运行，除了 <code class="literal">LOGSDIRECTORY</code> 目录中的 <code class="literal">&lt;cluster name&gt;.log</code> 文件之外，其还将日志打印到 <code class="literal">STDOUT</code>，且可以通过按 <code class="literal">Ctrl-C</code> 来停止。
+</p>
 <h3>
-<a id="start-rpm"></a>RPM packages<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/starting.asciidoc">edit</a>
+<a id="start-rpm"></a>RPM 安装包
 </h3>
-<p>Elasticsearch is not started automatically after installation. How to start
-and stop Elasticsearch depends on whether your system uses SysV <code class="literal">init</code> or
-<code class="literal">systemd</code> (used by newer distributions).  You can tell which is being used by
-running this command:</p>
+<p>
+安装后不会自动启动 Elasticsearch。
+
+如何启动和停止 Elasticsearch 取决于你的系统使用 SysV <code class="literal">init</code> 还是 <code class="literal">systemd</code>(在较新的发行版中使用)。
+
+可以通过运行以下命令来判断哪个正在被使用:
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">ps -p 1</pre>
 </div>
 <h4>
-<a id="start-es-rpm-init"></a>Running Elasticsearch with SysV <code class="literal">init</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/rpm-init.asciidoc">edit</a>
+<a id="start-es-rpm-init"></a>使用 SysV <code class="literal">init</code> 运行 Elasticsearch
 </h4>
-<p>Use the <code class="literal">chkconfig</code> command to configure Elasticsearch to start automatically
-when the system boots up:</p>
+<p>
+使用 <code class="literal">chkconfig</code> 命令将 Elasticsearch 配置为在系统启动时自动启动：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo chkconfig --add elasticsearch</pre>
 </div>
-<p>Elasticsearch can be started and stopped using the <code class="literal">service</code> command:</p>
+<p>可以使用 <code class="literal">service</code> 命令启动和停止Elasticsearch：</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo -i service elasticsearch start
 sudo -i service elasticsearch stop</pre>
 </div>
-<p>If Elasticsearch fails to start for any reason, it will print the reason for
-failure to STDOUT. Log files can be found in <code class="literal">/var/log/elasticsearch/</code>.</p>
+<p>
+如果 Elasticsearch 由于任何原因无法启动，它会将失败的原因打印到 STDOUT。
+
+日志文件可以在 <code class="literal">/var/log/elasticsearch/</code> 位置找到。
+</p>
 <h4>
-<a id="start-es-rpm-systemd"></a>Running Elasticsearch with <code class="literal">systemd</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/install/systemd.asciidoc">edit</a>
+<a id="start-es-rpm-systemd"></a>使用 <code class="literal">systemd</code> 运行 Elasticsearch
 </h4>
-<p>To configure Elasticsearch to start automatically when the system boots up,
-run the following commands:</p>
+<p>要将 Elasticsearch 配置为在系统启动时自动启动，请运行以下命令：</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo /bin/systemctl daemon-reload
 sudo /bin/systemctl enable elasticsearch.service</pre>
 </div>
-<p>Elasticsearch can be started and stopped as follows:</p>
+<p>Elasticsearch 可按如下方式启动和停止：</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo systemctl start elasticsearch.service
 sudo systemctl stop elasticsearch.service</pre>
 </div>
-<p>These commands provide no feedback as to whether Elasticsearch was started
-successfully or not. Instead, this information will be written in the log
-files located in <code class="literal">/var/log/elasticsearch/</code>.</p>
-<p>If you have password-protected your Elasticsearch keystore, you will need to provide
-<code class="literal">systemd</code> with the keystore password using a local file and systemd environment
-variables. This local file should be protected while it exists and may be
-safely deleted once Elasticsearch is up and running.</p>
+<p>
+这些命令不提供关于 Elasticsearch 是否成功启动的反馈。
+相反，这些信息将被写入位于 <code class="literal">/var/log/elasticsearch/</code> 的日志文件中。
+</p>
+<p>
+如果你对 Elasticsearch 密钥库进行了密码保护，则需要使用本地文件和 systemd 环境变量向 <code class="literal">systemd</code> 提供密钥库密码。
+
+该本地文件在存在时应受到保护，一旦 Elasticsearch 启动并运行，可以安全地删除该文件。
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">echo "keystore_password" &gt; /path/to/my_pwd_file.tmp
 chmod 600 /path/to/my_pwd_file.tmp
 sudo systemctl set-environment ES_KEYSTORE_PASSPHRASE_FILE=/path/to/my_pwd_file.tmp
 sudo systemctl start elasticsearch.service</pre>
 </div>
-<p>By default the Elasticsearch service doesn’t log information in the <code class="literal">systemd</code>
-journal. To enable <code class="literal">journalctl</code> logging, the <code class="literal">--quiet</code> option must be removed
- from the <code class="literal">ExecStart</code> command line in the <code class="literal">elasticsearch.service</code> file.</p>
-<p>When <code class="literal">systemd</code> logging is enabled, the logging information are available using
-the <code class="literal">journalctl</code> commands:</p>
-<p>To tail the journal:</p>
+
+<p>
+默认情况下，Elasticsearch 服务不在 <code class="literal">systemd</code>  日志中记录信息。
+要启用<code class="literal">journalctl</code> 日志记录，必须从 <code class="literal">elasticsearch.service</code> 文件的 <code class="literal">ExecStart</code> 命令行中删除 <code class="literal">--quiet</code> 选项。
+</p>
+<p>
+启用 <code class="literal">systemd</code> 日志记录时，可以使用 <code class="literal">journalctl</code> 命令获得日志记录信息:
+</p>
+<p>
+要跟踪日志，执行：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo journalctl -f</pre>
 </div>
-<p>To list journal entries for the elasticsearch service:</p>
+<p>
+要列出 elasticsearch 服务的日志条目：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo journalctl --unit elasticsearch</pre>
 </div>
-<p>To list journal entries for the elasticsearch service starting from a given time:</p>
+<p>
+要列出从给定时间开始的 elasticsearch 服务的日志条目：
+</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo journalctl --unit elasticsearch --since  "2016-10-30 18:17:16"</pre>
 </div>
-<p>Check <code class="literal">man journalctl</code> or <a href="https://www.freedesktop.org/software/systemd/man/journalctl.html" class="ulink" target="_top">https://www.freedesktop.org/software/systemd/man/journalctl.html</a> for
-more command line options.</p>
+<p>
+更多命令行选项，请查看 <code class="literal">man journalctl</code> 或者 <a href="https://www.freedesktop.org/software/systemd/man/journalctl.html" class="ulink" target="_top">https://www.freedesktop.org/software/systemd/man/journalctl.html</a>。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="bootstrap-checks-xpack.html">« Bootstrap Checks for X-Pack</a>
+<a href="bootstrap-checks-xpack.html">« X-Pack引导检查</a>
 </span>
 <span class="next">
-<a href="stopping-elasticsearch.html">Stopping Elasticsearch »</a>
+<a href2="stopping-elasticsearch.html">Stopping Elasticsearch »</a>
 </span>
 </div>
 </div>

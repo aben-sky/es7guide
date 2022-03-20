@@ -447,7 +447,7 @@ var esNavLinks = [
             {
                 "url": "starting-elasticsearch.html",
                 "text": "启动Elasticsearch",
-                "title": "Starting Elasticsearch"
+                "title": "启动Elasticsearch"
             },
             {
                 "url": "stopping-elasticsearch.html",

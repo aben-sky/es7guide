@@ -441,8 +441,8 @@ var esNavLinks = [
             },
             {
                 "url": "bootstrap-checks-xpack.html",
-                "text": "X-Pack的引导检查",
-                "title": "Bootstrap Checks for X-Pack"
+                "text": "X-Pack引导检查",
+                "title": "X-Pack引导检查"
             },
             {
                 "url": "starting-elasticsearch.html",

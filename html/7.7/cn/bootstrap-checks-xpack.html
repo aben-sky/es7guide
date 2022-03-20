@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Bootstrap Checks for X-Pack | ElasticSearch 7.7 权威指南中文版</title>
+	<title>X-Pack引导检查 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,15 +32,15 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-node">Bootstrap Checks for X-Pack</span>
+<span class="breadcrumb-node">X-Pack引导检查</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="_discovery_configuration_check.html">« Discovery configuration check</a>
+<a href="_discovery_configuration_check.html">« 发现配置检查</a>
 </span>
 <span class="next">
 <a href="starting-elasticsearch.html">Starting Elasticsearch »</a>
@@ -49,74 +49,93 @@
 <div class="chapter xpack">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="bootstrap-checks-xpack"></a>Bootstrap Checks for X-Pack<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/bootstrap-checks-xes.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
+<a id="bootstrap-checks-xpack"></a>X-Pack引导检查
 </h2>
 </div></div></div>
-<p>In addition to the <a class="xref" href="bootstrap-checks.html" title="Bootstrap Checks">Elasticsearch bootstrap checks</a>, there are
-checks that are specific to X-Pack features.</p>
+<p>除了 <a class="xref" href="bootstrap-checks.html" title="Bootstrap Checks">Elasticsearch 引导检查</a>，还有专门针对X-Pack功能的检查。</p>
 <h3>
-<a id="_encrypt_sensitive_data_check"></a>Encrypt sensitive data check<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/bootstrap-checks-xes.asciidoc">edit</a>
+<a id="_encrypt_sensitive_data_check"></a>加密敏感数据检查
 </h3>
-<p>If you use Watcher and have chosen to encrypt sensitive data (by setting
-<code class="literal">xpack.watcher.encrypt_sensitive_data</code> to <code class="literal">true</code>), you must also place a key in
-the secure settings store.</p>
-<p>To pass this bootstrap check, you must set the <code class="literal">xpack.watcher.encryption_key</code>
-on each node in the cluster. For more information, see <a class="xref" href="encrypting-data.html" title="Encrypting sensitive data in Watcher"><em>Encrypting sensitive data in Watcher</em></a>.</p>
+<p>
+如果你使用 Watcher 并已选择加密敏感数据(通过将 <code class="literal">xpack.watcher.encrypt_sensitive_data</code> 设置为 <code class="literal">true</code>)，则还必须在安全设置存储中放置一个密钥。
+</p>
+<p>
+要通过这个引导检查，必须在集群的每个节点上设置 <code class="literal">xpack.watcher.encryption_key</code> 。
+
+更多信息请参考 <a class="xref" href="encrypting-data.html" title="Encrypting sensitive data in Watcher" rel="nofollow"><em>在Watcher中加密敏感信息</em></a>。
+</p>
 <h3>
-<a id="_pki_realm_check"></a>PKI realm check<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/bootstrap-checks-xes.asciidoc">edit</a>
+<a id="_pki_realm_check"></a>PKI 领域(realm)检查 
 </h3>
-<p>If you use Elasticsearch security features and a Public Key Infrastructure (PKI) realm,
-you must configure Transport Layer Security (TLS) on your cluster and enable
-client authentication on the network layers (either transport or http). For more
-information, see <a class="xref" href="pki-realm.html" title="PKI user authentication">PKI user authentication</a> and <a class="xref" href="ssl-tls.html" title="Setting up TLS on a cluster">Setting up TLS on a cluster</a>.</p>
-<p>To pass this bootstrap check, if a PKI realm is enabled, you must configure TLS
-and enable client authentication on at least one network communication layer.</p>
+<p>
+如果使用了 Elasticsearch 安全功能 和 公钥基础设施(Public Key Infrastructure, PKI)领域，则必须在集群上配置传输层安全性(Transport Layer Security, TLS),并在网络层(传输层或http)上启用客户端身份验证。
+
+更多信息请参考 <a class="xref" href="pki-realm.html" title="PKI user authentication">PKI用户身份验证</a> 和 <a class="xref" href="ssl-tls.html" title="Setting up TLS on a cluster">在集群上设置TLS</a>。
+</p>
+<p>
+要通过这个引导检查，如果启用了 PKI 领域，则必须在至少一个网络通信层上配置 TLS 并启用客户端身份验证。
+</p>
 <h3>
-<a id="_role_mappings_check"></a>Role mappings check<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/bootstrap-checks-xes.asciidoc">edit</a>
+<a id="_role_mappings_check"></a>角色映射检查 (Role mappings check)
 </h3>
-<p>If you authenticate users with realms other than <code class="literal">native</code> or <code class="literal">file</code> realms, you
-must create role mappings. These role mappings define which roles are assigned
-to each user.</p>
-<p>If you use files to manage the role mappings, you must configure a YAML file
-and copy it to each node in the cluster. By default, role mappings are stored in
-<code class="literal">ES_PATH_CONF/role_mapping.yml</code>. Alternatively, you can specify a
-different role mapping file for each type of realm and specify its location in
-the <code class="literal">elasticsearch.yml</code> file. For more information, see
-<a class="xref" href="mapping-roles.html#mapping-roles-file" title="Using role mapping files">Using role mapping files</a>.</p>
-<p>To pass this bootstrap check, the role mapping files must exist and must be
-valid. The Distinguished Names (DNs) that are listed in the role mappings files
-must also be valid.</p>
+<p>
+如果你不使用<code class="literal">本地(native)</code> 或 <code class="literal">文件(file)</code> 领域对用户进行身份验证，则必须创建角色映射。
+
+这些角色映射定义了分配给每个用户的角色。
+</p>
+<p>
+如果使用 <code class="literal">文件</code> 来管理角色映射，则必须配置一个 YAML 文件，并将其复制到集群中的每个节点。
+
+默认情况下，角色映射存储在 <code class="literal">ES_PATH_CONF/role_mapping.yml</code> 中。
+
+或者，你也可以为每种类型的领域指定不同的角色映射文件，并在 <code class="literal">elasticsearch.yml</code> 配置文件中指定其位置。
+
+更多信息请参考 <a class="xref" href="mapping-roles.html#mapping-roles-file" title="Using role mapping files">使用角色映射文件</a>。
+</p>
+<p>
+要通过这个引导检查，角色映射文件必须存在并且有效。
+
+角色映射文件中列出的 专有名称(Distinguished Names，DNs) 也必须是有效的。
+</p>
 <h3>
-<a id="bootstrap-checks-tls"></a>SSL/TLS check<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/bootstrap-checks-xes.asciidoc">edit</a>
+<a id="bootstrap-checks-tls"></a>SSL/TLS 检查
 </h3>
-<p>If you enable Elasticsearch security features, unless you have a trial license, you
-must configure SSL/TLS for internode-communication.</p>
+<p>
+如果启用了 Elasticsearch 安全功能，除非有试用许可证，否则必须为节点间通信配置 SSL/TLS。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Single-node clusters that use a loopback interface do not have this
-requirement.  For more information, see
-<a class="xref" href="encrypting-communications.html" title="Encrypting communications"><em>Encrypting communications</em></a>.</p>
+<p>
+对于使用回环接口的单节点集群没有此要求。
+
+更多信息请参考 <a class="xref" href="encrypting-communications.html" title="Encrypting communications" rel="nofollow"><em>加密通信</em></a>。
+</p>
 </div>
 </div>
-<p>To pass this bootstrap check, you must
-<a class="xref" href="ssl-tls.html" title="Setting up TLS on a cluster">set up SSL/TLS in your cluster</a>.</p>
+<p>
+要通过这个引导检查，必须 <a class="xref" href="ssl-tls.html" title="Setting up TLS on a cluster" rel="nofollow">在集群中设置SSL/TLS</a>。
+</p>
 <h3>
-<a id="_token_ssl_check"></a>Token SSL check<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/bootstrap-checks-xes.asciidoc">edit</a>
+<a id="_token_ssl_check"></a>令牌(token) SSL 检查
 </h3>
-<p>If you use Elasticsearch security features and the built-in token service is enabled,
-you must configure your cluster to use SSL/TLS for the HTTP interface. HTTPS is
-required in order to use the token service.</p>
-<p>In particular, if <code class="literal">xpack.security.authc.token.enabled</code> is
-set to <code class="literal">true</code> in the <code class="literal">elasticsearch.yml</code> file, you must also set
-<code class="literal">xpack.security.http.ssl.enabled</code> to <code class="literal">true</code>. For more information about these
-settings, see <a class="xref" href="security-settings.html" title="Security settings in Elasticsearch">Security settings</a> and <a class="xref" href="modules-http.html" title="HTTP">HTTP</a>.</p>
-<p>To pass this bootstrap check, you must enable HTTPS or disable the built-in
-token service.</p>
+<p>
+如果使用了 Elasticsearch 安全功能，并且启用了内置的令牌服务，则必须配置集群以便让 HTTP 接口使用 SSL/TLS。
+
+必须有 HTTPS 才能使用令牌服务。
+</p>
+<p>
+特别是，如果在 <code class="literal">elasticsearch.yml</code> 配置文件中将 <code class="literal">xpack.security.authc.token.enabled</code> 设置为 <code class="literal">true</code>，则还必须将 <code class="literal">xpack.security.http.ssl.enabled</code> 设置为 <code class="literal">true</code>。
+
+有关这些设置的更多信息请参考 <a class="xref" href="security-settings.html" title="Security settings in Elasticsearch">安全设置</a> 额 <a class="xref" href="modules-http.html" title="HTTP">HTTP</a>。
+</p>
+<p>
+要通过这个引导检查，必须启用 HTTPS 或 禁用内置的令牌服务。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="_discovery_configuration_check.html">« Discovery configuration check</a>
+<a href="_discovery_configuration_check.html">« 发现配置检查</a>
 </span>
 <span class="next">
 <a href="starting-elasticsearch.html">Starting Elasticsearch »</a>

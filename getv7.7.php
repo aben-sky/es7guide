@@ -312,9 +312,10 @@ function convertToLocalFiles($language = 'en') {
 }
 
 //补充单个文件
-//getOriginalHtml('modules-snapshots.html');//抓取单个文档
-//convertToLocalFile('modules-snapshots.html', 'en');
-//convertToLocalFile('modules-snapshots.html', 'cn');
+//$rt = getOriginalHtml('docker-cli-run.html');//抓取单个文档
+//var_dump($rt);
+//convertToLocalFile('docker-cli-run.html', 'en');
+//convertToLocalFile('docker-cli-run.html', 'cn');
 //exit;
 
 
@@ -322,9 +323,11 @@ function convertToLocalFiles($language = 'en') {
 //getOriginalHtmls();
 
 //原文档转换到本地文档
-//convertToLocalFile('actions-pagerduty.html');//单个转换测试
-//convertToLocalFile('query-dsl-function-score-query.html', 'en');//单个转换测试: 带完整地址的图片
-convertToLocalFiles('en');//生成本地英文版本
+convertToLocalFile('docker-cli-run.html');//单个转换测试
+convertToLocalFile('docker-cli-run.html', 'en');//单个转换测试: 带完整地址的图片
+convertToLocalFile('docker-cli-run.html', 'cn');//单个转换测试: 带完整地址的图片
 
-//生成中文版(后续会以英文版为基础进行翻译)
-convertToLocalFiles('cn');
+////生成本地英文版本
+//convertToLocalFiles('en');
+////生成中文版(后续会以英文版为基础进行翻译)
+//convertToLocalFiles('cn');

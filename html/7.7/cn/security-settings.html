@@ -252,7 +252,7 @@
 <dd>
 用于文档级安全的 <code class="literal">位组 (BitSet)</code> 的缓存的生存时间(ttl, time-to-live)。
 文档级安全查询可能依赖于 Lucene BitSet 对象，这些对象会被自动缓存以提高性能。
-默认会将 <code class="literal">168h</code> (7天)未使用的条目过期。
+默认会将 <code class="literal">168h</code> (7天)未使用的记录过期。
 </dd>
 <dt>
 <span class="term">
@@ -262,7 +262,7 @@
 <dd>
 用于文档级安全的 <code class="literal">位组 (BitSet)</code> 的缓存可使用的最大内存。
 文档级安全查询可能依赖于 Lucene BitSet 对象，这些对象会被自动缓存以提高性能。
-默认为 <code class="literal">50mb</code>，超过此内存，最近最少使用的条目将被清除。
+默认为 <code class="literal">50mb</code>，超过此内存，最近最少使用的记录将被清除。
 </dd>
 </dl>
 </div>
@@ -673,7 +673,7 @@
 </span>
 </dt>
 <dd>
-指定用于搜索目录的过滤器，以尝试将条目与用户提供的用户名相匹配。
+指定用于搜索目录的过滤器，以尝试将记录与用户提供的用户名相匹配。
 默认值为 <code class="literal">(uid={0})</code>。
 <code class="literal">{0}</code> 会被替换为搜索时提供的用户名。
 </dd>
@@ -3207,9 +3207,9 @@ socket超时时间(SO_TIMEOUT)，单位为毫秒，这是等待数据的超时�
 
 <a class="xref" href="certutil.html" title="elasticsearch-certutil"><code class="literal">elasticsearch-certutil</code> 工具</a> 以及 Java的<code class="literal">keytool</code>被设计用于生成 PKCS#12 文件，这些文件既可用作密钥库，也可用作信任库，但对于使用其他工具创建的容器文件，情况可能并非如此。
 
-通常，PKCS#12 文件只包含机密和私有的条目。
+通常，PKCS#12 文件只包含机密和私有的信息。
 
-要确认 PKCS#12 容器中包含可信证书("anchor")条目，请在 <code class="literal">openssl pkcs12 -info</code> 输出中查找  <code class="literal">2.16.840.1.113894.746875.1.1: &lt;Unsupported tag 6&gt;</code> ，或在 <code class="literal">keytool -list</code> 输出中查找 <code class="literal">trustedCertEntry</code>
+要确认 PKCS#12 容器中包含可信证书("anchor")信息，请在 <code class="literal">openssl pkcs12 -info</code> 输出中查找  <code class="literal">2.16.840.1.113894.746875.1.1: &lt;Unsupported tag 6&gt;</code> ，或在 <code class="literal">keytool -list</code> 输出中查找 <code class="literal">trustedCertEntry</code>
 </p>
 </div>
 </div>

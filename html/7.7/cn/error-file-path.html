@@ -57,7 +57,7 @@
 <p>
 默认情况下，Elasticsearch 配置 JVM 将致命错误日志写入默认日志目录(<a class="xref" href="rpm.html" title="Install Elasticsearch with RPM">RPM</a> 和 <a class="xref" href="deb.html" title="Install Elasticsearch with Debian Package">Debian</a> 包发行版 下是 <code class="literal">/var/log/elasticsearch</code>，而 <a class="xref" href="targz.html" title="Install Elasticsearch from archive on Linux or MacOS">tar</a> 和 <a class="xref" href="zip-windows.html" title="Install Elasticsearch with .zip on Windows">zip</a> 归档发行版 则是在 Elasticsearch 安装根目录下的 <code class="literal">logs</code> 目录)。
 这些是 JVM 遇到致命错误(例如，段错误)时产生的日志。
-如果此路径不适合接收日志，您应该修改 <a class="xref" href="jvm-options.html" title="Setting JVM options"><code class="literal">jvm.options</code></a> 中的 <code class="literal">-XX:ErrorFile=...</code> 条目。
+如果此路径不适合接收日志，应该修改 <a class="xref" href="jvm-options.html" title="Setting JVM options"><code class="literal">jvm.options</code></a> 中的 <code class="literal">-XX:ErrorFile=...</code> 记录。
 </p>
 </div>
 <div class="navfooter">

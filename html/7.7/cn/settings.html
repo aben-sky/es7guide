@@ -146,7 +146,7 @@ network.host: ${ES_NETWORK_HOST}</pre>
 </div>
 <h3>
 <a id="cluster-setting-types"></a>
-群集和节点设置类型
+集群和节点设置类型
 </h3>
 <p>
 可以根据集群和节点设置的配置方式对它们进行分类：
@@ -161,7 +161,7 @@ network.host: ${ES_NETWORK_HOST}</pre>
 </dt>
 <dd>
 <p>
-可以使用 <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">群集更新设置 API</a> 配置和更新正在运行的群集上的动态设置。
+可以使用 <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">集群更新设置 API</a> 配置和更新正在运行的集群上的动态设置。
 </p>
 <p>
 您还可以使用 <code class="literal">elasticsearch.yml</code> 在未启动或关闭的节点上本地配置动态设置。
@@ -171,7 +171,7 @@ network.host: ${ES_NETWORK_HOST}</pre>
 <div class="admon_content">
 <p>
 最好使用 集群更新设置API 来设置动态的、集群范围的设置，并且只对本地配置使用<code class="literal">elasticsearch.yml</code>。
-使用 群集更新设置API 可以确保所有节点上的配置都是相同的。
+使用 集群更新设置API 可以确保所有节点上的配置都是相同的。
 
 如果你意外地在不同节点上的配置文件<code class="literal">elasticsearch.yml</code>中设置了不同的配置，则很难注意到差异。
 </p>

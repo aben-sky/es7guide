@@ -76,7 +76,7 @@
 
 要加入集群，Elasticsearch 节点必须可以通过 transport 通信进行访问。
 
-要通过非回环地址加入群集，节点必须将 transport 绑定到非回环地址，并且不能使用<a class="xref" href="bootstrap-checks.html#single-node-discovery" title="Single-node discovery">单节点发现(single-node discovery)</a>。
+要通过非回环地址加入集群，节点必须将 transport 绑定到非回环地址，并且不能使用<a class="xref" href="bootstrap-checks.html#single-node-discovery" title="Single-node discovery">单节点发现(single-node discovery)</a>。
 
 因此，我们认为，如果一个 Elasticsearch 节点不能通过非回环地址与另一台机器组成一个集群，那么它就处于开发模式；否则，如果它可以通过非回环地址加入一个集群，那么它就处于生产模式。
 </p>

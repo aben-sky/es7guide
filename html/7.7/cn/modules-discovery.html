@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Discovery and cluster formation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>发现及集群形成 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,117 +32,107 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-node">Discovery and cluster formation</span>
+<span class="breadcrumb-node">发现及集群形成</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="stopping-elasticsearch.html">« Stopping Elasticsearch</a>
+<a href="stopping-elasticsearch.html">« 停止Elasticsearch</a>
 </span>
 <span class="next">
-<a href="modules-discovery-hosts-providers.html">Discovery »</a>
+<a href2="modules-discovery-hosts-providers.html">Discovery »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="modules-discovery"></a>Discovery and cluster formation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/discovery.asciidoc">edit</a>
+<a id="modules-discovery"></a>发现及集群形成 (Discovery and cluster formation)
 </h2>
 </div></div></div>
-<p>The discovery and cluster formation processes are responsible for discovering
-nodes, electing a master, forming a cluster, and publishing the cluster state
-each time it changes. All communication between nodes is done using the
-<a class="xref" href="modules-transport.html" title="Transport">transport</a> layer.</p>
-<p>The following processes and settings are part of discovery and cluster
-formation:</p>
+<p>
+发现和集群形成过程负责发现节点、选举主节点、形成集群以及在每次集群状态发生变化时发布集群状态。
+
+节点之间的所有通信都是通过 <a class="xref" href="modules-transport.html" title="Transport">传输(transport)</a>层 完成的。
+</p>
+<p>
+以下过程和设置是发现和集群形成的一部分：
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<a class="xref" href="modules-discovery-hosts-providers.html" title="Discovery">Discovery</a>
+<a class="xref" href="modules-discovery-hosts-providers.html" title="Discovery">发现 (Discovery)</a>
 </span>
 </dt>
 <dd>
-Discovery is the process where nodes find each other when the master is
-unknown, such as when a node has just started up or when the previous
-master has failed.
+发现，是当主节点未知时，例如当一个节点刚刚启动或者当前一个主节点出现故障时，节点找到彼此的过程。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="modules-discovery-quorums.html" title="Quorum-based decision making">Quorum-based decision making</a>
+<a class="xref" href="modules-discovery-quorums.html" title="Quorum-based decision making">基于法定人数的决策 (Quorum-based decision making)</a>
 </span>
 </dt>
 <dd>
-How Elasticsearch uses a quorum-based voting mechanism to
-make decisions even if some nodes are unavailable.
+Elasticsearch 如何使用基于法定人数的选举机制做出决策，即使某些节点不可用。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="modules-discovery-voting.html" title="Voting configurations">Voting configurations</a>
+<a class="xref" href="modules-discovery-voting.html" title="Voting configurations">选举配置 (Voting configurations)</a>
 </span>
 </dt>
 <dd>
-How Elasticsearch automatically updates voting configurations as nodes leave and join
-a cluster.
+Elasticsearch 如何在节点离开和加入集群时自动更新选举配置。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="modules-discovery-bootstrap-cluster.html" title="Bootstrapping a cluster">Bootstrapping a cluster</a>
+<a class="xref" href="modules-discovery-bootstrap-cluster.html" title="Bootstrapping a cluster">引导集群 (Bootstrapping a cluster)</a>
 </span>
 </dt>
 <dd>
-Bootstrapping a cluster is required when an Elasticsearch cluster starts up
-for the very first time. In <a class="xref" href="bootstrap-checks.html#dev-vs-prod-mode" title="Development vs. production mode">development mode</a>, with no
-discovery settings configured, this is automatically performed by the nodes
-themselves. As this auto-bootstrapping is
-<a class="xref" href="modules-discovery-quorums.html" title="Quorum-based decision making">inherently unsafe</a>, running a node in
-<a class="xref" href="bootstrap-checks.html#dev-vs-prod-mode" title="Development vs. production mode">production mode</a> requires bootstrapping to be
-explicitly configured via the
-<a class="xref" href="modules-discovery-bootstrap-cluster.html" title="Bootstrapping a cluster"><code class="literal">cluster.initial_master_nodes</code>
-setting</a>.
+第一次启动 Elasticsearch 集群时，需要引导集群。
+
+在 <a class="xref" href="bootstrap-checks.html#dev-vs-prod-mode" title="Development vs. production mode">开发模式</a> 下，没有配置发现设置，这是由节点本身自动执行的。
+
+由于这种自动引导 <a class="xref" href="modules-discovery-quorums.html" title="Quorum-based decision making">本质上是不安全的</a>，因此在 <a class="xref" href="bootstrap-checks.html#dev-vs-prod-mode" title="Development vs. production mode">生产模式</a> 下运行节点需要通过 <a class="xref" href="modules-discovery-bootstrap-cluster.html" title="Bootstrapping a cluster"><code class="literal">cluster.initial_master_nodes</code>设置显式地配置引导。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="modules-discovery-adding-removing-nodes.html" title="Adding and removing nodes">Adding and removing master-eligible nodes</a>
+<a class="xref" href="modules-discovery-adding-removing-nodes.html" title="Adding and removing nodes">添加和删除符合主节点条件的节点 (Adding and removing master-eligible nodes)</a>
 </span>
 </dt>
 <dd>
-It is recommended to have a small and fixed number of master-eligible nodes
-in a cluster, and to scale the cluster up and down by adding and removing
-master-ineligible nodes only. However there are situations in which it may
-be desirable to add or remove some master-eligible nodes to or from a
-cluster. This section describes the process for adding or removing
-master-eligible nodes, including the extra steps that need to be performed
-when removing more than half of the master-eligible nodes at the same time.
+建议在一个集群中有少量固定数量的符合主节点条件的节点，并且只通过添加和删除不符合主节点条件的节点来扩大和缩小集群。
+
+但是，在某些情况下，可能需要在集群中添加或删除一些符合主节点条件的节点。
+
+本节介绍了添加或删除符合主节点条件的节点的过程，包括同时删除一半以上符合主节点条件的节点时需要额外执行的步骤。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="cluster-state-publishing.html" title="Publishing the cluster state">Publishing the cluster state</a>
+<a class="xref" href="cluster-state-publishing.html" title="Publishing the cluster state">发布集群状态 (Publishing the cluster state)</a>
 </span>
 </dt>
 <dd>
-Cluster state publishing is the process by which the elected master node
-updates the cluster state on all the other nodes in the cluster.
+集群状态的发布是选举出的主节点更新集群中所有其他节点上的集群状态的过程。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="cluster-fault-detection.html" title="Cluster fault detection">Cluster fault detection</a>
+<a class="xref" href="cluster-fault-detection.html" title="Cluster fault detection">集群故障检测 (Cluster fault detection)</a>
 </span>
 </dt>
 <dd>
-Elasticsearch performs health checks to detect and remove faulty nodes.
+Elasticsearch 执行健康检查，以检测和删除故障节点。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="modules-discovery-settings.html" title="Discovery and cluster formation settings">Settings</a>
+<a class="xref" href="modules-discovery-settings.html" title="Discovery and cluster formation settings">设置 (Settings)</a>
 </span>
 </dt>
 <dd>
-There are settings that enable users to influence the discovery, cluster
-formation, master election and fault detection processes.
+有一些设置使用户能够影响发现、集群形成、主节点选举和故障检测过程。
 </dd>
 </dl>
 </div>
@@ -155,10 +145,10 @@ formation, master election and fault detection processes.
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="stopping-elasticsearch.html">« Stopping Elasticsearch</a>
+<a href="stopping-elasticsearch.html">« 停止Elasticsearch</a>
 </span>
 <span class="next">
-<a href="modules-discovery-hosts-providers.html">Discovery »</a>
+<a href2="modules-discovery-hosts-providers.html">Discovery »</a>
 </span>
 </div>
 </div>

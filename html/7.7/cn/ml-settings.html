@@ -187,7 +187,7 @@
 因此，如果作业的估计内存使用量高于允许值，则在一个节点上运行的作业会更少。
 7.1 版之前，此设置是基于节点的非动态设置。
 在 7.1 版中，它成为集群范围的动态设置。
-因此，节点启动后对其值的更改只有在群集中的每个节点都运行 7.1 版或更高版本时才能使用。
+因此，节点启动后对其值的更改只有在集群中的每个节点都运行 7.1 版或更高版本时才能使用。
 最大允许值为 <code class="literal">512</code>。
 </dd>
 <dt>
@@ -237,7 +237,7 @@
 在打开第一个机器学习作业之前不需要 ML 节点的情况下非常有用。
 默认值为 <code class="literal">0</code>，最可可接受的值为 <code class="literal">3</code>。
 如果当前 ML 节点的数量 <code class="literal">&gt;=</code> 该设置，则认为不再有可用的延迟节点，因为已经提供了所需的节点数量。  
-当作业在此设置值为 <code class="literal">&gt;0</code> 的情况下打开，并且没有可以接受该作业的节点时，该作业将保持<code class="literal">OPENING</code>状态，直到新的 ML 节点添加到群集，然后该作业会被分配在该节点上运行。
+当作业在此设置值为 <code class="literal">&gt;0</code> 的情况下打开，并且没有可以接受该作业的节点时，该作业将保持<code class="literal">OPENING</code>状态，直到新的 ML 节点添加到集群，然后该作业会被分配在该节点上运行。
 </p>
 <div class="important admon">
 <div class="icon"></div>

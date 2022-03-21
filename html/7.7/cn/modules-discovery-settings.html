@@ -123,7 +123,7 @@ DNS查找依赖于 <a class="xref" href="networkaddress-cache-ttl.html" title="D
 </span>
 </dt>
 <dd>
-在全新的群集中设置初始的符合主节点条件的节点集。
+在全新的集群中设置初始的符合主节点条件的节点集。
 默认情况下，该列表为空，这意味着该节点希望加入一个已经启动的集群。
 参考 <a class="xref" href="discovery-settings.html#initial_master_nodes" title="cluster.initial_master_nodes"><code class="literal">cluster.initial_master_nodes</code></a>。
 </dd>
@@ -137,7 +137,7 @@ DNS查找依赖于 <a class="xref" href="networkaddress-cache-ttl.html" title="D
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>如果你调整了这些设置，群集可能无法正确的组建，或者可能变得不稳定或不能容忍某些故障。</p>
+<p>如果你调整了这些设置，集群可能无法正确的组建，或者可能变得不稳定或不能容忍某些故障。</p>
 </div>
 </div>
 <div class="variablelist">
@@ -150,7 +150,7 @@ DNS查找依赖于 <a class="xref" href="networkaddress-cache-ttl.html" title="D
 <dd>
 设置在记录集群未组建成功的警告之前，节点尝试组建集群的时间。
 默认为 <code class="literal">10s</code>。
-如果在 <code class="literal">discovery.cluster_formation_warning_timeout</code> 时间过去后仍未组建群集，则该节点将记录一条警告消息，该消息以短语<code class="literal">master not discovered</code>开头，描述发现过程的当前状态。
+如果在 <code class="literal">discovery.cluster_formation_warning_timeout</code> 时间过去后仍未组建集群，则该节点将记录一条警告消息，该消息以短语<code class="literal">master not discovered</code>开头，描述发现过程的当前状态。
 </dd>
 <dt>
 <span class="term">
@@ -299,7 +299,7 @@ DNS查找依赖于 <a class="xref" href="networkaddress-cache-ttl.html" title="D
 </span>
 </dt>
 <dd>
-设置主节点等待从滞后节点接收群集状态更新确认的时间。默认为 <code class="literal">90s</code>。如果一个节点在这段时间内没有成功更新集群状态，则该节点被认为已经失效并从集群中删除。参考 <a class="xref" href="cluster-state-publishing.html" title="Publishing the cluster state">发布集群状态</a>。
+设置主节点等待从滞后节点接收集群状态更新确认的时间。默认为 <code class="literal">90s</code>。如果一个节点在这段时间内没有成功更新集群状态，则该节点被认为已经失效并从集群中删除。参考 <a class="xref" href="cluster-state-publishing.html" title="Publishing the cluster state">发布集群状态</a>。
 </dd>
 <dt>
 <span class="term">
@@ -340,7 +340,7 @@ DNS查找依赖于 <a class="xref" href="networkaddress-cache-ttl.html" title="D
 </dt>
 <dd>
 <p>
-指定当群集中没有活动的主节点时拒绝哪些操作。该设置有两个有效值：
+指定当集群中没有活动的主节点时拒绝哪些操作。该设置有两个有效值：
 </p>
 <div class="variablelist">
 <dl class="variablelist">

@@ -129,7 +129,7 @@
 <p>
 这个设置不影响重启一个节点时本地主分片的恢复。
 
-具有未分配主分片副本的节点重启后，如果其分配 id 与群集状态下的活动的分配 id 之一匹配，则将立即恢复该主分片。
+具有未分配主分片副本的节点重启后，如果其分配 id 与集群状态下的活动的分配 id 之一匹配，则将立即恢复该主分片。
 </p>
 </dd>
 <dt>
@@ -622,7 +622,7 @@ cluster.routing.allocation.awareness.force.zone.values: zone1,zone2 <a id="CO8-1
 </h3>
 </div></div></div>
 <p>
-可以使用群集级别的分片分配过滤器来控制 Elasticearch 从任何索引中分配分片的位置。
+可以使用集群级别的分片分配过滤器来控制 Elasticearch 从任何索引中分配分片的位置。
 
 这些集群范围的过滤器与 <a class="xref" href="shard-allocation-filtering.html" title="Index-level shard allocation filtering">每个索引的分配过滤</a> 和 <a class="xref" href="modules-cluster.html#shard-allocation-awareness" title="Shard allocation awareness">分配感知</a> 一起应用。
 </p>
@@ -820,7 +820,7 @@ cluster.routing.allocation.awareness.force.zone.values: zone1,zone2 <a id="CO8-1
 <div class="icon"></div>
 <div class="admon_content">
 <p>
-不要依赖此设置来阻止对群集的更改。
+不要依赖此设置来阻止对集群的更改。
 任何有权访问 <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">集群更新设置</a> API 的用户都可以让集群再次可读写。
 </p>
 </div>
@@ -847,7 +847,7 @@ cluster.routing.allocation.awareness.force.zone.values: zone1,zone2 <a id="CO8-1
 </div>
 </div>
 <p>
-如果某项操作（如创建新索引、恢复索引的快照或打开关闭的索引）会导致群集中的分片数量超过此限制，则该操作将失败，并给出错误，指示分片限制。
+如果某项操作（如创建新索引、恢复索引的快照或打开关闭的索引）会导致集群中的分片数量超过此限制，则该操作将失败，并给出错误，指示分片限制。
 </p>
 <p>
 如果集群由于节点成员的变化或设置的变化已经超过限制，则所有创建或打开索引的操作都将失败，直到增加限制(如下所述),或者<a class="xref" href="indices-open-close.html" title="Open index API">关闭</a>或<a class="xref" href="indices-delete-index.html" title="Delete index API">删除</a>一些索引以使分片数低于这个限制。
@@ -868,7 +868,7 @@ cluster.routing.allocation.awareness.force.zone.values: zone1,zone2 <a id="CO8-1
 </span>
 </dt>
 <dd>
-控制群集中每个数据节点允许的分片数量。
+控制集群中每个数据节点允许的分片数量。
 </dd>
 </dl>
 </div>
@@ -881,7 +881,7 @@ cluster.routing.allocation.awareness.force.zone.values: zone1,zone2 <a id="CO8-1
 <div class="icon"></div>
 <div class="admon_content">
 <p>
-如果群集中没有数据节点，将不会强制实施该限制。如果在数据节点之前设置专用的主节点，将允许在集群创建期间创建索引。
+如果集群中没有数据节点，将不会强制实施该限制。如果在数据节点之前设置专用的主节点，将允许在集群创建期间创建索引。
 </p>
 </div>
 </div>
@@ -929,7 +929,7 @@ cluster.routing.allocation.awareness.force.zone.values: zone1,zone2 <a id="CO8-1
 </div></div></div>
 <p>
 集群状态维护 <em>索引墓碑 (index tombstones)</em>，以明确表示已被删除的索引。
-在群集状态下维护的 墓碑 数量由下面这个不能动态更新的属性控制:
+在集群状态下维护的 墓碑 数量由下面这个不能动态更新的属性控制:
 </p>
 <div class="variablelist">
 <dl class="variablelist">
@@ -939,7 +939,7 @@ cluster.routing.allocation.awareness.force.zone.values: zone1,zone2 <a id="CO8-1
 </span>
 </dt>
 <dd>
-索引墓碑可防止发生删除时不属于群集的节点加入群集并重新导入索引，就好像从未执行过删除一样 <span class="remark">(原文: Index tombstones prevent nodes that are not part of the cluster when a delete occurs from joining the cluster and reimporting the index as though the delete was never issued.)</span>。
+索引墓碑可防止发生删除时不属于集群的节点加入集群并重新导入索引，就好像从未执行过删除一样 <span class="remark">(原文: Index tombstones prevent nodes that are not part of the cluster when a delete occurs from joining the cluster and reimporting the index as though the delete was never issued.)</span>。
 
 为了防止集群状态变得过大，只保留最后的<code class="literal">cluster.indices.tombstones.size</code> 个删除，默认为 500。
 
@@ -1012,7 +1012,7 @@ cluster.routing.allocation.awareness.force.zone.values: zone1,zone2 <a id="CO8-1
 </div>
 <p>
 此设置不影响已经在执行的持久任务。
-只有新创建的持久任务或必须重新分配的任务(例如，节点离开群集后)才受此设置的影响。
+只有新创建的持久任务或必须重新分配的任务(例如，节点离开集群后)才受此设置的影响。
 </p>
 </dd>
 <dt>
@@ -1023,7 +1023,7 @@ cluster.routing.allocation.awareness.force.zone.values: zone1,zone2 <a id="CO8-1
 <dd>
 当集群状态发生重大变化时，主节点将自动检查是否需要分配持久任务。
 
-但是，可能有其他因素，如内存使用率，会影响持久任务是否可以分配给节点，但又不会导致群集状态发生变化。
+但是，可能有其他因素，如内存使用率，会影响持久任务是否可以分配给节点，但又不会导致集群状态发生变化。
 
 此设置控制为响应这些因素而执行分配检查的频率。
 

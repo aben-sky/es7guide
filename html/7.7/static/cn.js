@@ -452,12 +452,12 @@ var esNavLinks = [
             {
                 "url": "stopping-elasticsearch.html",
                 "text": "停止Elasticsearch",
-                "title": "Stopping Elasticsearch"
+                "title": "停止Elasticsearch"
             },
             {
                 "url": "modules-discovery.html",
-                "text": "发现(discovery)及集群信息",
-                "title": "Discovery and cluster formation",
+                "text": "发现及集群形成",
+                "title": "发现及集群形成",
                 "sub": [
                     {
                         "url": "modules-discovery-hosts-providers.html",

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Discovery | ElasticSearch 7.7 权威指南中文版</title>
+	<title>发现 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,85 +32,94 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="modules-discovery.html">Discovery and cluster formation</a></span>
+<span class="breadcrumb-link"><a href="modules-discovery.html">发现及集群形成</a></span>
 »
-<span class="breadcrumb-node">Discovery</span>
+<span class="breadcrumb-node">发现</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="modules-discovery.html">« Discovery and cluster formation</a>
+<a href="modules-discovery.html">« 发现及集群形成</a>
 </span>
 <span class="next">
-<a href="modules-discovery-quorums.html">Quorum-based decision making »</a>
+<a href2="modules-discovery-quorums.html">Quorum-based decision making »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="modules-discovery-hosts-providers"></a>Discovery<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/discovery/discovery.asciidoc">edit</a>
+<a id="modules-discovery-hosts-providers"></a>发现 (Discovery)
 </h2>
 </div></div></div>
-<p>Discovery is the process by which the cluster formation module finds other
-nodes with which to form a cluster. This process runs when you start an
-Elasticsearch node or when a node believes the master node failed and continues
-until the master node is found or a new master node is elected.</p>
-<p>This process starts with a list of <em>seed</em> addresses from one or more
-<a class="xref" href="modules-discovery-hosts-providers.html#built-in-hosts-providers" title="Seed hosts providers">seed hosts providers</a>, together with the addresses
-of any master-eligible nodes that were in the last-known cluster. The process
-operates in two phases: First, each node probes the seed addresses by
-connecting to each address and attempting to identify the node to which it is
-connected and to verify that it is master-eligible. Secondly, if successful, it
-shares with the remote node a list of all of its known master-eligible peers
-and the remote node responds with <em>its</em> peers in turn. The node then probes all
-the new nodes that it just discovered, requests their peers, and so on.</p>
-<p>If the node is not master-eligible then it continues this discovery process
-until it has discovered an elected master node. If no elected master is
-discovered then the node will retry after <code class="literal">discovery.find_peers_interval</code> which
-defaults to <code class="literal">1s</code>.</p>
-<p>If the node is master-eligible then it continues this discovery process until
-it has either discovered an elected master node or else it has discovered
-enough masterless master-eligible nodes to complete an election. If neither of
-these occur quickly enough then the node will retry after
-<code class="literal">discovery.find_peers_interval</code> which defaults to <code class="literal">1s</code>.</p>
+<p>
+发现是集群形成模块找到要与之形成集群的其他节点的过程。
+
+当你启动一个 Elasticsearch 节点时，或者当一个节点认为主节点出现故障时，这个过程就会运行，并继续运行直到找到主节点或选出新的主节点。
+</p>
+<p>
+该过程从来自一个或多个 <a class="xref" href="modules-discovery-hosts-providers.html#built-in-hosts-providers" title="Seed hosts providers">种子主机提供者(seed hosts providers)</a> 的<em>种子(seed)</em>地址列表开始，以及在最后已知的集群中的任何符合主节点条件的节点的地址。
+</p>
+<p>
+该过程分两个阶段进行：
+</p>
+<p>
+首先，每个节点通过连接到每个地址来探测种子地址，并试图识别它所连接的节点，并验证它是否是符合主节点条件的节点。
+</p>
+<p>
+其次，如果成功，它与远程节点共享其所有已知的符合主节点条件的对等节点的列表，远程节点依次与<em>其</em>对等节点进行响应。
+
+然后，该节点探测它刚刚发现的所有新节点，请求它们的对等节点，等等。
+</p>
+<p>
+如果该节点不符合主节点条件，则它继续这个发现过程，直到它发现了一个选举出的主节点。
+如果没有发现选举出的主节点，则节点将在 <code class="literal">discovery.find_peers_interval</code> 后重试，其默认值为 <code class="literal">1s</code>。
+</p>
+<p>
+如果该节点符合主节点条件，那么它继续这个发现过程，直到它发现了一个被选举的主节点，或者它发现了足够多的无主的但符合主节点条件的节点来完成一个选择。
+
+如果这两种情况都发生得不够快，那么节点将在 <code class="literal">discovery.find_peers_interval</code> 后重试，其默认值 <code class="literal">1s</code>。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="built-in-hosts-providers"></a>Seed hosts providers<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/discovery/discovery.asciidoc">edit</a>
+<a id="built-in-hosts-providers"></a>种子主机提供程序(seed hosts providers)
 </h3>
 </div></div></div>
-<p>By default the cluster formation module offers two seed hosts providers to
-configure the list of seed nodes: a <em>settings</em>-based and a <em>file</em>-based seed
-hosts provider.  It can be extended to support cloud environments and other
-forms of seed hosts providers via <a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/discovery.html" class="ulink" target="_top">discovery plugins</a>.
-Seed hosts providers are configured using the <code class="literal">discovery.seed_providers</code>
-setting, which defaults to the <em>settings</em>-based hosts provider. This setting
-accepts a list of different providers, allowing you to make use of multiple
-ways to find the seed hosts for your cluster.</p>
-<p>Each seed hosts provider yields the IP addresses or hostnames of the seed
-nodes. If it returns any hostnames then these are resolved to IP addresses
-using a DNS lookup. If a hostname resolves to multiple IP addresses then Elasticsearch
-tries to find a seed node at all of these addresses. If the hosts provider does
-not explicitly give the TCP port of the node by then, it will implicitly use the
-first port in the port range given by <code class="literal">transport.profiles.default.port</code>, or by
-<code class="literal">transport.port</code> if <code class="literal">transport.profiles.default.port</code> is not set. The number of
-concurrent lookups is controlled by
-<code class="literal">discovery.seed_resolver.max_concurrent_resolvers</code> which defaults to <code class="literal">10</code>, and
-the timeout for each lookup is controlled by <code class="literal">discovery.seed_resolver.timeout</code>
-which defaults to <code class="literal">5s</code>. Note that DNS lookups are subject to
-<a class="xref" href="networkaddress-cache-ttl.html" title="DNS cache settings">JVM DNS caching</a>.</p>
+<p>
+默认情况下，集群形成模块提供了两个种子主机提供程序来配置种子节点列表：基于 <em>设置(settings)</em> 的种子主机提供程序和基于<em>文件(file)</em>的种子主机提供程序。
+
+它可以通过 <a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/discovery.html" class="ulink" target="_top">发现插件(discovery plugins)</a> 扩展到支持云环境和其他形式的种子主机提供程序。
+
+种子主机提供程序是使用 <code class="literal">discovery.seed_providers</code> 设置配置的，该设置默认为基于<em>设置(settings)</em>的主机提供程序。
+
+此设置接受不同提供程序的列表，允许你利用多种方法来查找集群的种子主机。
+</p>
+<p>
+每个种子主机提供程序都产生种子节点的 IP 地址或主机名。
+
+如果它返回的是任意的主机名，则使用 DNS 查找将这些主机名解析为 IP 地址。
+
+如果一个主机名解析为多个 IP 地址，那么 Elasticsearch 会尝试在所有这些地址上找到一个种子节点。
+
+如果主机提供程序到那时还没有显式给出节点的 TCP 端口，它将隐式地使用 <code class="literal">transport.profiles.default.port</code>或 <code class="literal">transport.port</code> (如果未设置<code class="literal">transport.profiles.default.port</code>) 给出的端口范围中的第一个端口。
+
+并发查找的数量由 <code class="literal">discovery.seed_resolver.max_concurrent_resolvers</code>控制（默认值为 <code class="literal">10</code>），每次查找的超时时间由 <code class="literal">discovery.seed_resolver.timeout</code>控制（默认值为 <code class="literal">5s</code>）。
+
+请注意，DNS 查找受制于 <a class="xref" href="networkaddress-cache-ttl.html" title="DNS cache settings">JVM DNS缓存</a>。
+</p>
 <h5>
-<a id="settings-based-hosts-provider"></a>Settings-based seed hosts provider<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/discovery/discovery.asciidoc">edit</a>
+<a id="settings-based-hosts-provider"></a>基于设置的主机提供程序
 </h5>
-<p>The settings-based seed hosts provider uses a node setting to configure a
-static list of the addresses of the seed nodes. These addresses can be given as
-hostnames or IP addresses; hosts specified as hostnames are resolved to IP
-addresses during each round of discovery.</p>
-<p>The list of hosts is set using the <a class="xref" href="discovery-settings.html#unicast.hosts" title="discovery.seed_hosts"><code class="literal">discovery.seed_hosts</code></a>
-static setting. For example:</p>
+<p>
+基于设置的种子主机提供程序使用节点设置来配置种子节点地址的静态列表。
+这些地址可以是主机名或 IP 地址；在每一轮发现过程中，指定为主机名的主机被解析为 IP 地址。
+</p>
+<p>
+使用 <a class="xref" href="discovery-settings.html#unicast.hosts" title="discovery.seed_hosts"><code class="literal">discovery.seed_hosts</code></a> 静态设置来设置主机列表。例如：
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">discovery.seed_hosts:
    - 192.168.1.10:9300
@@ -124,8 +133,9 @@ static setting. For example:</p>
 <p><a href="#CO29-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The port will default to <code class="literal">transport.profiles.default.port</code> and fallback to
-<code class="literal">transport.port</code> if not specified.</p>
+<p>
+端口默认为 <code class="literal">transport.profiles.default.port</code>；如果未指定，则回退到 <code class="literal">transport.port</code>。
+</p>
 </td>
 </tr>
 <tr>
@@ -133,43 +143,46 @@ static setting. For example:</p>
 <p><a href="#CO29-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>If a hostname resolves to multiple IP addresses, Elasticsearch will attempt to
-connect to every resolved address.</p>
+<p>
+如果主机名解析为多个 IP 地址，Elasticsearch 将尝试连接到每个解析的地址。
+</p>
 </td>
 </tr>
 </table>
 </div>
 <h5>
-<a id="file-based-hosts-provider"></a>File-based seed hosts provider<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/discovery/discovery.asciidoc">edit</a>
+<a id="file-based-hosts-provider"></a>基于文件的种子主机提供程序
 </h5>
-<p>The file-based seed hosts provider configures a list of hosts via an external
-file.  Elasticsearch reloads this file when it changes, so that the list of seed nodes
-can change dynamically without needing to restart each node. For example, this
-gives a convenient mechanism for an Elasticsearch instance that is run in a Docker
-container to be dynamically supplied with a list of IP addresses to connect to
-when those IP addresses may not be known at node startup.</p>
-<p>To enable file-based discovery, configure the <code class="literal">file</code> hosts provider as follows
-in the <code class="literal">elasticsearch.yml</code> file:</p>
+<p>
+基于文件的种子主机提供程序通过一个外部文件配置主机列表。
+Elasticsearch 会在文件发生变化时重新加载这个文件，这样种子节点的列表就可以动态变化，而不需要重新启动每个节点。
+
+例如，这为在 Docker 容器中运行的 Elasticsearch 实例提供了一种方便的机制，当在节点启动但可能不知道 IP 地址时，可以动态地向该实例提供要连接的 IP 地址列表。
+</p>
+<p>
+要启用基于文件的发现，请在 <code class="literal">elasticsearch.yml</code> 文件中配置<code class="literal">文件(file)</code> 主机提供程序，如下所示：
+</p>
 <div class="pre_wrapper lang-yml">
 <pre class="programlisting prettyprint lang-yml">discovery.seed_providers: file</pre>
 </div>
-<p>Then create a file at <code class="literal">$ES_PATH_CONF/unicast_hosts.txt</code> in the format described
-below. Any time a change is made to the <code class="literal">unicast_hosts.txt</code> file the new
-changes will be picked up by Elasticsearch and the new hosts list will be used.</p>
-<p>Note that the file-based discovery plugin augments the unicast hosts list in
-<code class="literal">elasticsearch.yml</code>: if there are valid seed addresses in
-<code class="literal">discovery.seed_hosts</code> then Elasticsearch uses those addresses in addition to those
-supplied in <code class="literal">unicast_hosts.txt</code>.</p>
-<p>The <code class="literal">unicast_hosts.txt</code> file contains one node entry per line. Each node entry
-consists of the host (host name or IP address) and an optional transport port
-number. If the port number is specified, is must come immediately after the
-host (on the same line) separated by a <code class="literal">:</code>.  If the port number is not
-specified, Elasticsearch will implicitly use the first port in the port range given by
-<code class="literal">transport.profiles.default.port</code>, or by <code class="literal">transport.port</code> if
-<code class="literal">transport.profiles.default.port</code> is not set.</p>
-<p>For example, this is an example of <code class="literal">unicast_hosts.txt</code> for a cluster with four
-nodes that participate in discovery, some of which are not running on the
-default port:</p>
+<p>
+然后，在 <code class="literal">$ES_PATH_CONF/unicast_hosts.txt</code> 下创建一个文件，格式如下。
+无论何时对 <code class="literal">unicast_hosts.txt</code> 文件进行更改，Elasticsearch 都会获取新的更改，并使用新的主机列表。
+</p>
+<p>
+请注意，基于文件的发现插件扩充了 <code class="literal">elasticsearch.yml</code> 中的单播主机列表：
+如果 <code class="literal">discovery.seed_hosts</code> 中有有效的种子地址，那么除了 <code class="literal">unicast_hosts.txt</code> 中提供的地址之外，Elasticsearch 还会使用这些地址。
+</p>
+<p>
+<code class="literal">unicast_hosts.txt</code> 文件每行包含一个节点记录。
+每个节点记录由主机(主机名或 IP 地址)和可选的传输端口号组成。
+如果指定了端口号，则必须紧跟在主机之后(在同一行上)，由一个 <code class="literal">:</code> 分隔。
+
+如果未指定端口号，Elasticsearch 将隐式使用 <code class="literal">transport.profiles.default.port</code> 或 <code class="literal">transport.port</code>（如果未设置 <code class="literal">transport.profiles.default.port</code>）给出的端口范围中的第一个端口。
+</p>
+<p>
+例如，这是一个包含四个参与发现的节点的集群的 <code class="literal">unicast_hosts.txt</code> 示例，其中一些节点没有在默认端口上运行：
+</p>
 <div class="pre_wrapper lang-txt">
 <pre class="programlisting prettyprint lang-txt">10.10.10.5
 10.10.10.6:9305
@@ -177,36 +190,41 @@ default port:</p>
 # an IPv6 address
 [2001:0db8:85a3:0000:0000:8a2e:0370:7334]:9301</pre>
 </div>
-<p>Host names are allowed instead of IP addresses and are resolved by DNS as
-described above. IPv6 addresses must be given in brackets with the port, if
-needed, coming after the brackets.</p>
-<p>You can also add comments to this file. All comments must appear on their lines
-starting with <code class="literal">#</code> (i.e. comments cannot start in the middle of a line).</p>
+<p>
+如上所述，允许用主机名代替 IP 地址，并由 DNS 解析。
+IPv6 地址必须用括号括起来，如果需要，在括号后面加上端口。
+</p>
+<p>
+还可以向该文件添加注释。
+所有注释必须出现在以 <code class="literal">#</code> 开头的行中(也就是说，注释不能从行中间开始，必须占整行)。
+</p>
 <h5>
-<a id="ec2-hosts-provider"></a>EC2 hosts provider<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/discovery/discovery.asciidoc">edit</a>
+<a id="ec2-hosts-provider"></a>EC2 主机提供程序
 </h5>
-<p>The <a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/discovery-ec2.html" class="ulink" target="_top">EC2 discovery plugin</a> adds a hosts provider
-that uses the <a href="https://github.com/aws/aws-sdk-java" class="ulink" target="_top">AWS API</a> to find a list of
-seed nodes.</p>
+<p>
+<a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/discovery-ec2.html" class="ulink" target="_top">EC2 发现插件</a> 添加了一个主机提供程序，它使用 <a href="https://github.com/aws/aws-sdk-java" class="ulink" target="_top">AWS API</a> 来查找种子节点列表。
+</p>
 <h5>
-<a id="azure-classic-hosts-provider"></a>Azure Classic hosts provider<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/discovery/discovery.asciidoc">edit</a>
+<a id="azure-classic-hosts-provider"></a>Azure Classic 主机提供程序
 </h5>
-<p>The <a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/discovery-azure-classic.html" class="ulink" target="_top">Azure Classic discovery plugin</a> adds
-a hosts provider that uses the Azure Classic API find a list of seed nodes.</p>
+<p>
+<a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/discovery-azure-classic.html" class="ulink" target="_top">Azure Classic 发现插件</a> 添加了一个主机提供程序，它使用 Azure Classic API 来查找种子节点列表。
+</p>
 <h5>
-<a id="gce-hosts-provider"></a>Google Compute Engine hosts provider<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/discovery/discovery.asciidoc">edit</a>
+<a id="gce-hosts-provider"></a>Google Compute Engine 主机提供程序
 </h5>
-<p>The <a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/discovery-gce.html" class="ulink" target="_top">GCE discovery plugin</a> adds a hosts provider
-that uses the GCE API find a list of seed nodes.</p>
+<p>
+<a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/discovery-gce.html" class="ulink" target="_top">GCE discovery plugin</a> 添加了一个主机提供程序，它使用 GCE API 来查找种子节点列表。
+</p>
 </div>
 
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="modules-discovery.html">« Discovery and cluster formation</a>
+<a href="modules-discovery.html">« 发现及集群形成</a>
 </span>
 <span class="next">
-<a href="modules-discovery-quorums.html">Quorum-based decision making »</a>
+<a href2="modules-discovery-quorums.html">Quorum-based decision making »</a>
 </span>
 </div>
 </div>

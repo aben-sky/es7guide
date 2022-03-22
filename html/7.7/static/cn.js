@@ -461,8 +461,8 @@ var esNavLinks = [
                 "sub": [
                     {
                         "url": "modules-discovery-hosts-providers.html",
-                        "text": "发现(discovery)",
-                        "title": "Discovery"
+                        "text": "发现",
+                        "title": "发现"
                     },
                     {
                         "url": "modules-discovery-quorums.html",

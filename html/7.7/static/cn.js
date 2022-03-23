@@ -466,8 +466,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "modules-discovery-quorums.html",
-                        "text": "基于多数(quorum-based)的选举机制",
-                        "title": "Quorum-based decision making"
+                        "text": "基于法定人数的选举机制",
+                        "title": "基于法定人数的选举机制"
                     },
                     {
                         "url": "modules-discovery-voting.html",

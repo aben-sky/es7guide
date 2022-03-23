@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Quorum-based decision making | ElasticSearch 7.7 权威指南中文版</title>
+	<title>基于法定人数的选举机制 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,91 +32,101 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="modules-discovery.html">Discovery and cluster formation</a></span>
+<span class="breadcrumb-link"><a href="modules-discovery.html">发现和集群形成</a></span>
 »
-<span class="breadcrumb-node">Quorum-based decision making</span>
+<span class="breadcrumb-node">基于法定人数的选举机制</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="modules-discovery-hosts-providers.html">« Discovery</a>
+<a href="modules-discovery-hosts-providers.html">« 发现</a>
 </span>
 <span class="next">
-<a href="modules-discovery-voting.html">Voting configurations »</a>
+<a href2="modules-discovery-voting.html">Voting configurations »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="modules-discovery-quorums"></a>Quorum-based decision making<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/discovery/quorums.asciidoc">edit</a>
+<a id="modules-discovery-quorums"></a>基于法定人数的选举机制 (Quorum-based decision making)
 </h2>
 </div></div></div>
-<p>Electing a master node and changing the cluster state are the two fundamental
-tasks that master-eligible nodes must work together to perform. It is important
-that these activities work robustly even if some nodes have failed.
-Elasticsearch achieves this robustness by considering each action to have
-succeeded on receipt of responses from a <em>quorum</em>, which is a subset of the
-master-eligible nodes in the cluster. The advantage of requiring only a subset
-of the nodes to respond is that it means some of the nodes can fail without
-preventing the cluster from making progress. The quorums are carefully chosen so
-the cluster does not have a "split brain" scenario where it’s partitioned into
-two pieces such that each piece may make decisions that are inconsistent with
-those of the other piece.</p>
-<p>Elasticsearch allows you to add and remove master-eligible nodes to a running
-cluster. In many cases you can do this simply by starting or stopping the nodes
-as required. See <a class="xref" href="modules-discovery-adding-removing-nodes.html" title="Adding and removing nodes">Adding and removing nodes</a>.</p>
-<p>As nodes are added or removed Elasticsearch maintains an optimal level of fault
-tolerance by updating the cluster’s <a class="xref" href="modules-discovery-voting.html" title="Voting configurations">voting
-configuration</a>, which is the set of master-eligible nodes whose responses are
-counted when making decisions such as electing a new master or committing a new
-cluster state. A decision is made only after more than half of the nodes in the
-voting configuration have responded.  Usually the voting configuration is the
-same as the set of all the master-eligible nodes that are currently in the
-cluster. However, there are some situations in which they may be different.</p>
-<p>To be sure that the cluster remains available you <span class="strong strong"><strong>must not stop half or more
-of the nodes in the voting configuration at the same time</strong></span>. As long as more
-than half of the voting nodes are available the cluster can still work normally.
-This means that if there are three or four master-eligible nodes, the cluster
-can tolerate one of them being unavailable. If there are two or fewer
-master-eligible nodes, they must all remain available.</p>
-<p>After a node has joined or left the cluster the elected master must issue a
-cluster-state update that adjusts the voting configuration to match, and this
-can take a short time to complete. It is important to wait for this adjustment
-to complete before removing more nodes from the cluster.</p>
+<p>
+选举主节点和更改集群状态是符合主节点条件的节点必须协同工作才能执行的两项基本任务。
+
+重要的是，即使一些节点出现故障，这些活动也能正常工作。
+
+Elasticsearch通过在收到来自 <em>法定人数(quorum)</em>（集群中符合主节点条件的节点的子集）的响应时认为每个动作已经成功，从而来实现这种健壮性。
+
+只需要一部分节点响应的优点是，这意味着即使一些节点可能会出现故障，也不会妨碍集群形成的过程。
+
+法定人数是经过精心挑选的，因此集群不会出现“大脑分裂”的情况，即它被分成两部分，每一部分都可能做出与另一部分不一致的决定。
+</p>
+<p>
+Elasticsearch 允许在运行的集群中添加和删除符合主节点条件的节点。
+在很多情况下，只需根据需要启动或停止节点就可以做到这一点。
+
+参考 <a class="xref" href="modules-discovery-adding-removing-nodes.html" title="Adding and removing nodes">添加和删除节点</a>。
+</p>
+<p>
+随着节点的添加或删除，Elasticsearch 通过更新集群的<a class="xref" href="modules-discovery-voting.html" title="Voting configurations">投票配置(voting configuration)</a>来保持最佳的容错级别，投票配置是一组符合主节点条件的节点，在做出决策(如选举新的主节点或提交新的集群状态)时，会计入这些节点的响应。
+
+只有在投票配置中超过一半的节点已经响应之后，才做出决定。
+
+通常，投票配置与集群中当前所有符合主节点条件的节点集相同。
+
+但是，在某些情况下，它们可能会有所不同。
+</p>
+<p>
+为了确保集群保持可用，你<span class="strong strong"><strong>不能同时停止投票配置中一半或更多的节点</strong></span>。
+
+只要有一半以上的投票节点可用，集群仍然可以正常工作。
+
+这意味着，如果有三个或四个符合主节点条件的节点，集群可以容忍其中一个节点不可用。
+
+如果有两个或更少的符合主节点条件的节点，它们都必须保持可用。
+</p>
+<p>
+在一个节点加入或离开集群后，选出的主节点必须发出一个集群状态更新，以调整投票配置来匹配新的状态，这可能需要很短的时间来完成。
+
+在从集群中删除更多节点之前，请等待调整完成，这一点很重要。
+</p>
 <h4>
-<a id="_master_elections"></a>Master elections<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/discovery/quorums.asciidoc">edit</a>
+<a id="_master_elections"></a>主节点的选举 (Master elections)
 </h4>
-<p>Elasticsearch uses an election process to agree on an elected master node, both
-at startup and if the existing elected master fails. Any master-eligible node
-can start an election, and normally the first election that takes place will
-succeed. Elections only usually fail when two nodes both happen to start their
-elections at about the same time, so elections are scheduled randomly on each
-node to reduce the probability of this happening. Nodes will retry elections
-until a master is elected, backing off on failure, so that eventually an
-election will succeed (with arbitrarily high probability). The scheduling of
-master elections are controlled by the <a class="xref" href="modules-discovery-settings.html#master-election-settings">master
-election settings</a>.</p>
+<p>
+lasticsearch 使用一个选举过程来商定一个选出的主节点，无论是在启动时还是在现有的选出的主节点失效时。
+
+任何符合主节点条件的节点都可以发起选举，通常第一次选举会成功。
+
+只有当两个节点几乎同时发起选举时，选举才会失败，因此选举在每个节点上都是随机安排的，以降低这种情况发生的概率。
+
+节点将重试选举，直到选出一个主节点，失败时后退(backing off)，这样最终选举将成功(具有任意高的概率)。
+
+主选举的时间安排由 <a class="xref" href="modules-discovery-settings.html#master-election-settings">主节点选举设置</a> 控制。
+</p>
 <h4>
-<a id="_cluster_maintenance_rolling_restarts_and_migrations"></a>Cluster maintenance, rolling restarts and migrations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/discovery/quorums.asciidoc">edit</a>
+<a id="_cluster_maintenance_rolling_restarts_and_migrations"></a>集群维护、滚动重启和迁移 (Cluster maintenance, rolling restarts and migrations)
 </h4>
-<p>Many cluster maintenance tasks involve temporarily shutting down one or more
-nodes and then starting them back up again. By default Elasticsearch can remain
-available if one of its master-eligible nodes is taken offline, such as during a
-<a class="xref" href="rolling-upgrades.html" title="Rolling upgrades">rolling restart</a>. Furthermore, if multiple nodes are stopped
-and then started again then it will automatically recover, such as during a
-<a class="xref" href="restart-upgrade.html" title="Full cluster restart upgrade">full cluster restart</a>. There is no need to take any further
-action with the APIs described here in these cases, because the set of master
-nodes is not changing permanently.</p>
+<p>
+许多集群维护任务涉及临时关闭一个或多个节点，然后再次启动它们。
+
+默认情况下，如果其中一个符合主节点条件的节点离线，例如在 <a class="xref" href="rolling-upgrades.html" title="Rolling upgrades">滚动重启(rolling restart)</a> 期间，Elasticsearch 仍然可用。
+
+此外，如果多个节点停止后又重新启动，它将自动恢复，例如在 <a class="xref" href="restart-upgrade.html" title="Full cluster restart upgrade">整个集群重新启动</a> 期间。
+
+在这些情况下，不需要对这里描述的 API 采取任何进一步的行动，因为主节点集不会永久改变。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="modules-discovery-hosts-providers.html">« Discovery</a>
+<a href="modules-discovery-hosts-providers.html">« 发现</a>
 </span>
 <span class="next">
-<a href="modules-discovery-voting.html">Voting configurations »</a>
+<a href2="modules-discovery-voting.html">Voting configurations »</a>
 </span>
 </div>
 </div>

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Voting configurations | ElasticSearch 7.7 权威指南中文版</title>
+	<title>投票配置 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,54 +32,61 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="modules-discovery.html">Discovery and cluster formation</a></span>
+<span class="breadcrumb-link"><a href="modules-discovery.html">发现和集群形成</a></span>
 »
-<span class="breadcrumb-node">Voting configurations</span>
+<span class="breadcrumb-node">投票配置</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="modules-discovery-quorums.html">« Quorum-based decision making</a>
+<a href="modules-discovery-quorums.html">« 基于法定人数的选举机制</a>
 </span>
 <span class="next">
-<a href="modules-discovery-bootstrap-cluster.html">Bootstrapping a cluster »</a>
+<a href2="modules-discovery-bootstrap-cluster.html">Bootstrapping a cluster »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="modules-discovery-voting"></a>Voting configurations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/discovery/voting.asciidoc">edit</a>
+<a id="modules-discovery-voting"></a>投票配置 (Voting configurations)
 </h2>
 </div></div></div>
-<p>Each Elasticsearch cluster has a <em>voting configuration</em>, which is the set of
-<a class="xref" href="modules-node.html#master-node" title="Master-eligible node">master-eligible nodes</a> whose responses are counted when making
-decisions such as electing a new master or committing a new cluster state.
-Decisions are made only after a majority (more than half) of the nodes in the
-voting configuration respond.</p>
-<p>Usually the voting configuration is the same as the set of all the
-master-eligible nodes that are currently in the cluster. However, there are some
-situations in which they may be different.</p>
+<p>
+每个 Elasticsearch 集群都有一个<em>投票配置</em>，这是一组<a class="xref" href="modules-node.html#master-node" title="Master-eligible node">符合主节点条件的节点</a>，在做出决策(如选举新的主节点或提交新的集群状态)时，会计入这些节点的响应。
+
+只有在投票配置中的大多数(超过一半)节点响应后，才能做出决策。
+</p>
+<p>
+通常，投票配置与集群中当前所有符合主节点条件的节点集相同。
+但是，在某些情况下，它们可能会有所不同。
+</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>To ensure the cluster remains available, you <span class="strong strong"><strong>must not stop half or
-more of the nodes in the voting configuration at the same time</strong></span>. As long as more
-than half of the voting nodes are available, the cluster can work normally. For
-example, if there are three or four master-eligible nodes, the cluster
-can tolerate one unavailable node. If there are two or fewer master-eligible
-nodes, they must all remain available.</p>
+<p>
+为了确保集群保持可用，你<span class="strong strong"><strong>不能同时停止投票配置中一半或更多的节点</strong></span>。
+
+只要有一半以上的选举节点可用，集群仍然可以正常工作。
+
+这意味着，如果有三个或四个符合主节点条件的节点，集群可以容忍其中一个节点不可用。
+
+如果有两个或更少的符合主节点条件的节点，它们都必须保持可用。
+</p>
 </div>
 </div>
-<p>After a node joins or leaves the cluster, Elasticsearch reacts by automatically making
-corresponding changes to the voting configuration in order to ensure that the
-cluster is as resilient as possible. It is important to wait for this adjustment
-to complete before you remove more nodes from the cluster. For more information,
-see <a class="xref" href="modules-discovery-adding-removing-nodes.html" title="Adding and removing nodes">Adding and removing nodes</a>.</p>
-<p>The current voting configuration is stored in the cluster state so you can
-inspect its current contents as follows:</p>
+<p>
+节点加入或离开集群后，Elasticsearch 会自动对投票配置进行相应的更改，以确保集群尽可能具有弹性。
+
+在从集群中删除更多节点之前，请等待调整完成，这一点很重要。
+
+更多信息请参考 <a class="xref" href="modules-discovery-adding-removing-nodes.html" title="Adding and removing nodes">添加和移除节点</a>。
+</p>
+<p>
+当前投票配置存储在集群状态中，因此你可以按如下方式检查其当前内容：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_cluster/state?filter_path=metadata.cluster_coordination.last_committed_config</pre>
 </div>
@@ -87,118 +94,120 @@ inspect its current contents as follows:</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The current voting configuration is not necessarily the same as the set of
-all available master-eligible nodes in the cluster. Altering the voting
-configuration involves taking a vote, so it takes some time to adjust the
-configuration as nodes join or leave the cluster. Also, there are situations
-where the most resilient configuration includes unavailable nodes or does not
-include some available nodes. In these situations, the voting configuration
-differs from the set of available master-eligible nodes in the cluster.</p>
+<p>
+当前的投票配置不一定与集群中所有可用的符合主节点条件的节点集相同。
+更改投票配置涉及选举，因此当节点加入或离开集群时，需要一些时间来调整配置。
+此外，还存在最具弹性的配置包括不可用节点或不包括一些可用节点的情况。
+在这些情况下，投票配置不同于集群中可用的符合主节点条件的节点集。
+</p>
 </div>
 </div>
-<p>Larger voting configurations are usually more resilient, so Elasticsearch
-normally prefers to add master-eligible nodes to the voting configuration after
-they join the cluster. Similarly, if a node in the voting configuration
-leaves the cluster and there is another master-eligible node in the cluster that
-is not in the voting configuration then it is preferable to swap these two nodes
-over. The size of the voting configuration is thus unchanged but its
-resilience increases.</p>
-<p>It is not so straightforward to automatically remove nodes from the voting
-configuration after they have left the cluster. Different strategies have
-different benefits and drawbacks, so the right choice depends on how the cluster
-will be used. You can control whether the voting configuration automatically
-shrinks by using the
-<a class="xref" href="modules-discovery-settings.html" title="Discovery and cluster formation settings"><code class="literal">cluster.auto_shrink_voting_configuration</code> setting</a>.</p>
+<p>
+较大的投票配置通常更有弹性，因此 Elasticsearch 通常倾向于在加入集群后将符合主节点条件的节点添加到投票配置中。
+
+类似地，如果投票配置中的一个节点离开集群，而集群中有另一个符合主节点条件的节点不在投票配置中，那么最好交换这两个节点。
+
+因此，投票配置的大小保持不变，但其弹性增加了。
+</p>
+<p>
+在节点离开集群后，从投票配置中自动删除节点并不容易。
+不同的策略有不同的优点和缺点，因此正确的选择取决于如何使用集群。
+
+可以使用 <a class="xref" href="modules-discovery-settings.html" title="Discovery and cluster formation settings"><code class="literal">cluster.auto_shrink_voting_configuration</code></a> 设置来控制投票配置是否自动收缩。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If <code class="literal">cluster.auto_shrink_voting_configuration</code> is set to <code class="literal">true</code> (which is
-the default and recommended value) and there are at least three master-eligible
-nodes in the cluster, Elasticsearch remains capable of processing cluster state
-updates as long as all but one of its master-eligible nodes are healthy.</p>
+<p>
+如果 <code class="literal">cluster.auto_shrink_voting_configuration</code> 设置为 <code class="literal">true</code> (这是默认值，也是推荐值)，且集群中至少有三个符合主节点条件的节点，只要除了一个符合主节点条件的节点之外的所有节点都正常，Elasticsearch 就能够处理集群状态更新。
+</p>
 </div>
 </div>
-<p>There are situations in which Elasticsearch might tolerate the loss of multiple
-nodes, but this is not guaranteed under all sequences of failures. If the
-<code class="literal">cluster.auto_shrink_voting_configuration</code> setting is <code class="literal">false</code>, you must remove
-departed nodes from the voting configuration manually. Use the
-<a class="xref" href="voting-config-exclusions.html" title="Voting configuration exclusions API">voting exclusions API</a> to achieve the desired level
-of resilience.</p>
-<p>No matter how it is configured, Elasticsearch will not suffer from a
-"split-brain" inconsistency. The <code class="literal">cluster.auto_shrink_voting_configuration</code>
-setting affects only its availability in the event of the failure of some of its
-nodes and the administrative tasks that must be performed as nodes join and
-leave the cluster.</p>
+<p>
+在某些情况下，Elasticsearch 可能会容忍多个节点的丢失，但这并不能保证在所有故障序列下都是如此。
+
+如果 <code class="literal">cluster.auto_shrink_voting_configuration</code> 设置为 <code class="literal">false</code>，必须手动从投票配置中删除脱离的节点。
+
+使用 <a class="xref" href="voting-config-exclusions.html" title="Voting configuration exclusions API">选举排除 API</a> 实现所需的弹性级别。
+</p>
+<p>
+无论如何配置，Elasticsearch 都不会遭遇“大脑分裂”式的不一致。
+
+<code class="literal">cluster.auto_shrink_voting_configuration</code> 设置仅影响其某些节点出现故障时的可用性，以及节点加入和离开集群时必须执行的管理任务。
+</p>
 <h4>
-<a id="_even_numbers_of_master_eligible_nodes"></a>Even numbers of master-eligible nodes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/discovery/voting.asciidoc">edit</a>
+<a id="_even_numbers_of_master_eligible_nodes"></a>偶数个符合主机条件的节点 (Even numbers of master-eligible nodes)
 </h4>
-<p>There should normally be an odd number of master-eligible nodes in a cluster.
-If there is an even number, Elasticsearch leaves one of them out of the voting
-configuration to ensure that it has an odd size. This omission does not decrease
-the failure-tolerance of the cluster. In fact, improves it slightly: if the
-cluster suffers from a network partition that divides it into two equally-sized
-halves then one of the halves will contain a majority of the voting
-configuration and will be able to keep operating. If all of the votes from
-master-eligible nodes were counted, neither side would contain a strict majority
-of the nodes and so the cluster would not be able to make any progress.</p>
-<p>For instance if there are four master-eligible nodes in the cluster and the
-voting configuration contained all of them, any quorum-based decision would
-require votes from at least three of them. This situation means that the cluster
-can tolerate the loss of only a single master-eligible node. If this cluster
-were split into two equal halves, neither half would contain three
-master-eligible nodes and the cluster would not be able to make any progress.
-If the voting configuration contains only three of the four master-eligible
-nodes, however, the cluster is still only fully tolerant to the loss of one
-node, but quorum-based decisions require votes from two of the three voting
-nodes. In the event of an even split, one half will contain two of the three
-voting nodes so that half will remain available.</p>
+<p>
+一个集群中通常应该有奇数个符合主节点条件的节点。
+如果是偶数，Elasticsearch 会将其中一个排除在投票配置之外，以确保其大小为奇数。
+
+实际上，稍微改进了一下:如果集群受到网络分区的影响，网络分区将集群分成大小相等的两半，那么其中一半将包含大多数投票配置，并能够继续运行。
+
+如果来自符合主节点条件的节点的所有投票都被计算在内，则任何一方都不会包含绝对多数的节点，因此集群将无法取得任何进展。
+</p>
+<p>
+例如，如果集群中有四个符合主节点条件的节点，并且投票配置包含所有这些节点，则任何基于法定人数的决策都需要至少其中三个节点的投票。
+
+这种情况意味着集群只能容忍一个符合主节点条件的节点的丢失。
+
+如果将此集群分成相等的两半，则任何一半都不会包含三个符合主节点条件的节点，集群将无法取得任何进展。
+
+但是，如果投票配置只包含四个符合主节点条件的节点中的三个，虽然集群仍然只能完全容忍一个节点的丢失，但是基于法定人数的决策只需要来自三个表决节点中的两个的投票。
+
+在平均分割的情况下，其中一半将包含三个选举节点中的两个，因此另一半将保持可用。
+</p>
 <h4>
-<a id="_setting_the_initial_voting_configuration"></a>Setting the initial voting configuration<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/discovery/voting.asciidoc">edit</a>
+<a id="_setting_the_initial_voting_configuration"></a>设置初始投票配置
 </h4>
-<p>When a brand-new cluster starts up for the first time, it must elect its first
-master node. To do this election, it needs to know the set of master-eligible
-nodes whose votes should count. This initial voting configuration is known as
-the <em>bootstrap configuration</em> and is set in the
-<a class="xref" href="modules-discovery-bootstrap-cluster.html" title="Bootstrapping a cluster">cluster bootstrapping process</a>.</p>
-<p>It is important that the bootstrap configuration identifies exactly which nodes
-should vote in the first election. It is not sufficient to configure each node
-with an expectation of how many nodes there should be in the cluster. It is also
-important to note that the bootstrap configuration must come from outside the
-cluster: there is no safe way for the cluster to determine the bootstrap
-configuration correctly on its own.</p>
-<p>If the bootstrap configuration is not set correctly, when you start a brand-new
-cluster there is a risk that you will accidentally form two separate clusters
-instead of one. This situation can lead to data loss: you might start using both
-clusters before you notice that anything has gone wrong and it is impossible to
-merge them together later.</p>
+<p>
+当一个全新的集群第一次启动时，它必须选举它的第一个主节点。
+为了进行这种选举，它需要知道一组符合主节点条件的节点，这些节点的投票应该被计算在内。
+
+这种初始投票配置称为<em>引导配置 (bootstrap configuration)</em>，在 <a class="xref" href="modules-discovery-bootstrap-cluster.html" title="Bootstrapping a cluster">集群引导过程</a> 中设置。
+</p>
+<p>
+重要的是，引导配置准确地识别哪些节点应该在第一次选举中投票。
+
+还需要注意的是，引导配置必须来自集群外部：没有安全的方法让集群自己正确地确定引导配置。
+</p>
+<p>
+如果引导配置设置不正确，当你启动一个全新的集群时，可能会意外形成两个独立的集群，而不是一个。
+
+这种情况可能会导致数据丢失：你可能在发现有任何问题之前就开始使用这两个集群，并且以后不可能将它们合并在一起。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>To illustrate the problem with configuring each node to expect a certain
-cluster size, imagine starting up a three-node cluster in which each node knows
-that it is going to be part of a three-node cluster. A majority of three nodes
-is two, so normally the first two nodes to discover each other form a cluster
-and the third node joins them a short time later. However, imagine that four
-nodes were erroneously started instead of three. In this case, there are enough
-nodes to form two separate clusters. Of course if each node is started manually
-then it’s unlikely that too many nodes are started. If you’re using an automated
-orchestrator, however, it’s certainly possible to get into this situation--
-particularly if the orchestrator is not resilient to failures such as network
-partitions.</p>
+<p>
+为了说明将每个节点配置为特定集群大小的问题，假设启动一个三节点集群，其中每个节点都知道自己将成为三节点集群的一部分。
+
+三个节点中的大多数是两个节点，所以通常是最先发现彼此的两个节点形成一个集群，第三个节点在短时间后加入它们。
+
+但是，假设错误地启动了四个节点，而不是三个。
+
+在这种情况下，有足够的节点形成两个独立的集群。
+
+当然，如果每个节点都是手动启动的，那么就不太可能启动太多节点。
+
+但是，如果您使用的是自动化的 协调器(orchestrator)，则肯定有可能出现这种情况——特别是在协调器不能适应网络分区等故障的情况下。
+</p>
 </div>
 </div>
-<p>The initial quorum is only required the very first time a whole cluster starts
-up. New nodes joining an established cluster can safely obtain all the
-information they need from the elected master. Nodes that have previously been
-part of a cluster will have stored to disk all the information that is required
-when they restart.</p>
+<p>
+只有在整个集群第一次启动时才需要初始化法定人数。
+
+加入已建立的集群的新节点可以从已选出的主节点安全地获得它们需要的所有信息。
+
+以前属于群集的节点在重新启动时会将所需的所有信息存储到磁盘中。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="modules-discovery-quorums.html">« Quorum-based decision making</a>
+<a href="modules-discovery-quorums.html">« 基于法定人数的选举机制</a>
 </span>
 <span class="next">
-<a href="modules-discovery-bootstrap-cluster.html">Bootstrapping a cluster »</a>
+<a href2="modules-discovery-bootstrap-cluster.html">Bootstrapping a cluster »</a>
 </span>
 </div>
 </div>

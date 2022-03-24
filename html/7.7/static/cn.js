@@ -471,8 +471,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "modules-discovery-voting.html",
-                        "text": "选举机制配置",
-                        "title": "Voting configurations"
+                        "text": "投票配置",
+                        "title": "投票配置"
                     },
                     {
                         "url": "modules-discovery-bootstrap-cluster.html",

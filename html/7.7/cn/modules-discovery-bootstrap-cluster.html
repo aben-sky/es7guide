@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Bootstrapping a cluster | ElasticSearch 7.7 权威指南中文版</title>
+	<title>引导一个集群 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,145 +32,144 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="modules-discovery.html">Discovery and cluster formation</a></span>
+<span class="breadcrumb-link"><a href="modules-discovery.html">发现和集群形成</a></span>
 »
-<span class="breadcrumb-node">Bootstrapping a cluster</span>
+<span class="breadcrumb-node">引导一个集群</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="modules-discovery-voting.html">« Voting configurations</a>
+<a href="modules-discovery-voting.html">« 投票配置</a>
 </span>
 <span class="next">
-<a href="cluster-state-publishing.html">Publishing the cluster state »</a>
+<a href2="cluster-state-publishing.html">Publishing the cluster state »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="modules-discovery-bootstrap-cluster"></a>Bootstrapping a cluster<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/discovery/bootstrapping.asciidoc">edit</a>
+<a id="modules-discovery-bootstrap-cluster"></a>引导一个集群
 </h2>
 </div></div></div>
-<p>Starting an Elasticsearch cluster for the very first time requires the initial
-set of <a class="xref" href="modules-node.html#master-node" title="Master-eligible node">master-eligible nodes</a> to be explicitly defined on one or
-more of the master-eligible nodes in the cluster. This is known as <em>cluster
-bootstrapping</em>. This is only required the first time a cluster starts up: nodes
-that have already joined a cluster store this information in their data folder
-for use in a <a class="xref" href="restart-upgrade.html" title="Full cluster restart upgrade">full cluster restart</a>, and freshly-started nodes
-that are joining a running cluster obtain this information from the cluster’s
-elected master.</p>
-<p>The initial set of master-eligible nodes is defined in the
-<a class="xref" href="discovery-settings.html#initial_master_nodes" title="cluster.initial_master_nodes"><code class="literal">cluster.initial_master_nodes</code> setting</a>. This should be
-set to a list containing one of the following items for each master-eligible
-node:</p>
+<p>
+首次启动 Elasticsearch 集群时，需要在集群中的一个或多个 <a class="xref" href="modules-node.html#master-node" title="Master-eligible node">符合主节点条件的节点上</a> 显式定义符合主节点条件的初始节点集。
+
+这就是所谓的<em>集群引导 (cluster bootstrapping)</em>。
+
+这仅在集群第一次启动时需要：已经加入集群的节点将此信息存储在它们的数据文件夹中，以便在<a class="xref" href="restart-upgrade.html" title="Full cluster restart upgrade">集群完全重新启动</a>时使用，并且加入正在运行的集群的新启动的节点从集群选举出的主节点获得此信息。
+</p>
+<p>
+符合主节点条件的初始节点集在 <a class="xref" href="discovery-settings.html#initial_master_nodes" title="cluster.initial_master_nodes"><code class="literal">cluster.initial_master_nodes</code> 设置</a> 中定义。
+
+对于每个符合主节点条件的节点，这应设置为包含以下项目之一的列表：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-The <a class="xref" href="node.name.html" title="node.name">node name</a> of the node.
+节点的 <a class="xref" href="node.name.html" title="node.name">节点名称 (node.name)</a>。
 </li>
 <li class="listitem">
-The node’s hostname if <code class="literal">node.name</code> is not set, because <code class="literal">node.name</code> defaults
-to the node’s hostname. You must use either the fully-qualified hostname or
-the bare hostname <a class="xref" href="modules-discovery-bootstrap-cluster.html#modules-discovery-bootstrap-cluster-fqdns">depending on
-your system configuration</a>.
+节点的主机名称（如果 <code class="literal">node.name</code> 未设置），因为<code class="literal">node.name</code> 默认值为节点的主机名称。
+
+<a class="xref" href="modules-discovery-bootstrap-cluster.html#modules-discovery-bootstrap-cluster-fqdns">根据你的系统配置</a>，必须使用完全限定的主机名或裸主机名。
 </li>
 <li class="listitem">
-The IP address of the node’s <a class="xref" href="modules-transport.html" title="Transport">publish address</a>, if it is
-not possible to use the <code class="literal">node.name</code> of the node. This is normally the IP
-address to which <a class="xref" href="modules-network.html#common-network-settings" title="Commonly used network settings"><code class="literal">network.host</code></a> resolves but
-<a class="xref" href="modules-network.html#advanced-network-settings" title="Advanced network settings">this can be overridden</a>.
+节点IP地址的<a class="xref" href="modules-transport.html" title="Transport">发布地址</a>（如果不能使用节点的 <code class="literal">node.name</code>）。
+
+这通常是 <a class="xref" href="modules-network.html#common-network-settings" title="Commonly used network settings"><code class="literal">network.host</code></a> 解析的 IP 地址，但<a class="xref" href="modules-network.html#advanced-network-settings" title="Advanced network settings">可以被覆盖</a>。
 </li>
 <li class="listitem">
-The IP address and port of the node’s publish address, in the form <code class="literal">IP:PORT</code>,
-if it is not possible to use the <code class="literal">node.name</code> of the node and there are
-multiple nodes sharing a single IP address.
+节点发布地址的 IP 地址和端口，格式为 <code class="literal">IP:PORT</code> （如果无法使用节点的 <code class="literal">node.name</code>，并且有多个节点共享一个 IP 地址）。
 </li>
 </ul>
 </div>
-<p>When you start a master-eligible node, you can provide this setting on the
-command line or in the <code class="literal">elasticsearch.yml</code> file. After the cluster has formed,
-this setting is no longer required. It should not be set for master-ineligible
-nodes, master-eligible nodes joining an existing cluster, or cluster restarts.</p>
-<p>It is technically sufficient to set <code class="literal">cluster.initial_master_nodes</code> on a single
-master-eligible node in the cluster, and only to mention that single node in the
-setting’s value, but this provides no fault tolerance before the cluster has
-fully formed. It is therefore better to bootstrap using at least three
-master-eligible nodes, each with a <code class="literal">cluster.initial_master_nodes</code> setting
-containing all three nodes.</p>
+<p>
+当启动符合主节点条件的节点时，可以在命令行或 <code class="literal">elasticsearch.yml</code> 文件中提供此设置。
+
+集群形成后，不再需要此设置。
+
+不应该为不符合主节点条件的节点、符合主节点条件的节点加入现有集群 或 集群重新启动 设置该选项。
+</p>
+<p>
+在集群中的单个符合主节点条件的节点上设置 <code class="literal">cluster.initial_master_nodes</code> 在技术上是足够的，并且只需在设置值中提及该单个节点，但是这在集群完全形成之前不提供容错。
+
+因此，最好使用至少三个符合主节点条件的节点进行引导，每个节点的<code class="literal">cluster.initial_master_nodes</code> 设置包含所有的三个节点。
+</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>You must set <code class="literal">cluster.initial_master_nodes</code> to the same list of nodes
-on each node on which it is set in order to be sure that only a single cluster
-forms during bootstrapping and therefore to avoid the risk of data loss.</p>
+<p>
+必须在设置 <code class="literal">cluster.initial_master_nodes</code> 的每个节点上将它设置为相同的节点列表，以确保在引导过程中只形成一个集群，从而避免数据丢失的风险。
+</p>
 </div>
 </div>
-<p>For a cluster with 3 master-eligible nodes (with <a class="xref" href="node.name.html" title="node.name">node names</a>
-<code class="literal">master-a</code>, <code class="literal">master-b</code> and <code class="literal">master-c</code>) the configuration will look as follows:</p>
+<p>
+对于具有3个符合主节点条件的节点（<a class="xref" href="node.name.html" title="node.name">node names</a> 分别为 <code class="literal">master-a</code>，<code class="literal">master-b</code> 和 <code class="literal">master-c</code>）的集群，配置如下所示：
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">cluster.initial_master_nodes:
   - master-a
   - master-b
   - master-c</pre>
 </div>
-<p>Like all node settings, it is also possible to specify the initial set of master
-nodes on the command-line that is used to start Elasticsearch:</p>
+<p>
+像所有的节点设置一样，也可以在命令行上指定用于启动 Elasticsearch 的初始主节点集：
+</p>
 <div class="pre_wrapper lang-bash">
 <pre class="programlisting prettyprint lang-bash">$ bin/elasticsearch -Ecluster.initial_master_nodes=master-a,master-b,master-c</pre>
 </div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p><a id="modules-discovery-bootstrap-cluster-fqdns"></a> The node names used in the
-<code class="literal">cluster.initial_master_nodes</code> list must exactly match the <code class="literal">node.name</code>
-properties of the nodes. By default the node name is set to the machine’s
-hostname which may or may not be fully-qualified depending on your system
-configuration. If each node name is a fully-qualified domain name such as
-<code class="literal">master-a.example.com</code> then you must use fully-qualified domain names in the
-<code class="literal">cluster.initial_master_nodes</code> list too; conversely if your node names are bare
-hostnames (without the <code class="literal">.example.com</code> suffix) then you must use bare hostnames
-in the <code class="literal">cluster.initial_master_nodes</code> list. If you use a mix of fully-qualifed
-and bare hostnames, or there is some other mismatch between <code class="literal">node.name</code> and
-<code class="literal">cluster.initial_master_nodes</code>, then the cluster will not form successfully and
-you will see log messages like the following.</p>
+<p>
+<a id="modules-discovery-bootstrap-cluster-fqdns"></a>
+<code class="literal">cluster.initial_master_nodes</code>列表中使用的节点名称必须与节点的 <code class="literal">node.name</code> 属性完全匹配。
+
+默认情况下，节点名被设置为机器的主机名，根据你的系统配置，主机名可能是也可能不是完全限定的。
+
+如果每个节点名称都是完全限定的域名，如 <code class="literal">master-a.example.com</code> ，则你也必须在 <code class="literal">cluster.initial_master_nodes</code> 列表中使用完全限定的域名；
+
+相反，如果节点名称是裸主机名(没有 <code class="literal">.example.com</code> 后缀)，则也必须在 <code class="literal">cluster.initial_master_nodes</code> 列表中使用裸主机名。
+
+如果混合使用了完全限定的主机名和裸主机名，或者 <code class="literal">node.name</code> 和 <code class="literal">cluster.initial_master_nodes</code> 之间存在其他不匹配的问题，则集群将无法成功形成，你将会看到如下所示的日志消息：
+</p>
 <div class="pre_wrapper lang-text">
 <pre class="programlisting prettyprint lang-text">[master-a.example.com] master not discovered yet, this node has
 not previously joined a bootstrapped (v7+) cluster, and this
 node must discover master-eligible nodes [master-a, master-b] to
 bootstrap a cluster: have discovered [{master-b.example.com}{...</pre>
 </div>
-<p>This message shows the node names <code class="literal">master-a.example.com</code> and
-<code class="literal">master-b.example.com</code> as well as the <code class="literal">cluster.initial_master_nodes</code> entries
-<code class="literal">master-a</code> and <code class="literal">master-b</code>, and it is clear from this message that they do not
-match exactly.</p>
+<p>
+该消息显示了节点名 <code class="literal">master-a.example.com</code> 和 <code class="literal">master-b.example.com</code> 以及 <code class="literal">cluster.initial_master_nodes</code> 记录 <code class="literal">master-a</code> 和 <code class="literal">master-b</code>，从该消息可以清楚地看出，它们并不完全匹配。
+</p>
 </div>
 </div>
 <h4>
-<a id="_choosing_a_cluster_name"></a>Choosing a cluster name<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/discovery/bootstrapping.asciidoc">edit</a>
+<a id="_choosing_a_cluster_name"></a>选择一个集群名称
 </h4>
-<p>The <a class="xref" href="cluster.name.html" title="cluster.name"><code class="literal">cluster.name</code></a> setting enables you to create multiple
-clusters which are separated from each other. Nodes verify that they agree on
-their cluster name when they first connect to each other, and Elasticsearch
-will only form a cluster from nodes that all have the same cluster name. The
-default value for the cluster name is <code class="literal">elasticsearch</code>, but it is recommended to
-change this to reflect the logical name of the cluster.</p>
+<p>
+<a class="xref" href="cluster.name.html" title="cluster.name"><code class="literal">cluster.name</code></a> 设置使你能够创建多个彼此独立的集群。
+
+节点在第一次相互连接时，会验证它们是否同意自己的集群名称，而 Elasticsearch 只会将所有具有相同集群名称的节点组成一个集群。
+
+集群名称的默认值是 <code class="literal">elasticsearch</code>，建议修改为与集群的逻辑名称一致。
+</p>
 <h4>
-<a id="_auto_bootstrapping_in_development_mode"></a>Auto-bootstrapping in development mode<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/discovery/bootstrapping.asciidoc">edit</a>
+<a id="_auto_bootstrapping_in_development_mode"></a>开发模式下的自动引导 (Auto-bootstrapping in development mode)
 </h4>
-<p>If the cluster is running with a completely default configuration then it will
-automatically bootstrap a cluster based on the nodes that could be discovered to
-be running on the same host within a short time after startup. This means that
-by default it is possible to start up several nodes on a single machine and have
-them automatically form a cluster which is very useful for development
-environments and experimentation.  However, since nodes may not always
-successfully discover each other quickly enough this automatic bootstrapping
-cannot be relied upon and cannot be used in production deployments.</p>
-<p>If any of the following settings are configured then auto-bootstrapping will not
-take place, and you must configure <code class="literal">cluster.initial_master_nodes</code> as described
-in the <a class="xref" href="modules-discovery-bootstrap-cluster.html" title="Bootstrapping a cluster">section on cluster bootstrapping</a>:</p>
+<p>
+如果集群使用完全默认的配置运行，那么它将在启动后的短时间内 根据可能在同一主机上运行的节点自动引导出一个集群。  
+
+这意味着默认情况下，可以在一台机器上启动几个节点，并让它们自动形成一个集群，这对开发环境和实验非常有用。
+
+然而，由于节点可能并不总是足够快地成功发现彼此，因此不能依赖这种自动引导，也不能在生产部署中使用。  
+</p>
+<p>
+如果配置了以下任何设置，则自动引导将不会发生，必须按照 <a class="xref" href="modules-discovery-bootstrap-cluster.html" title="Bootstrapping a cluster">集群引导章节</a> 中所描述的去配置 <code class="literal">cluster.initial_master_nodes</code> ：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
@@ -187,30 +186,33 @@ in the <a class="xref" href="modules-discovery-bootstrap-cluster.html" title="Bo
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p><a id="modules-discovery-bootstrap-cluster-joining"></a> If you start an Elasticsearch node
-without configuring these settings then it will start up in development mode and
-auto-bootstrap itself into a new cluster. If you start some Elasticsearch nodes on
-different hosts then by default they will not discover each other and will form
-a different cluster on each host. Elasticsearch will not merge separate clusters together
-after they have formed, even if you subsequently try and configure all the nodes
-into a single cluster. This is because there is no way to merge these separate
-clusters together without a risk of data loss. You can tell that you have formed
-separate clusters by checking the cluster UUID reported by <code class="literal">GET /</code> on each node.
-If you intended to form a single cluster then you should start again:</p>
+<p>
+<a id="modules-discovery-bootstrap-cluster-joining"></a>
+如果你在没有配置这些设置的情况下启动一个 Elasticsearch 节点，那么它将在开发模式下启动并自动引导自己进入一个新的集群。
+
+如果你在不同的主机上启动一些 Elasticsearch 节点，那么默认情况下，它们不会发现彼此，并且会在每个主机上形成不同的集群。
+
+Elasticsearch 不会在单独的集群形成后将它们合并在一起，即使你随后尝试将所有节点配置到一个集群中。
+
+这是因为没有办法在没有数据丢失风险的情况下将这些独立的集群合并在一起。
+
+通过检查每个节点上的 <code class="literal">GET /</code> 报告的集群 UUID，你就能知道它们已经形成了单独的集群。
+
+如果你打算组成一个集群，那么你应该重新开始：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Shut down all the nodes.
+关闭所有节点。
 </li>
 <li class="listitem">
-Completely wipe each node by deleting the contents of their
-<a class="xref" href="modules-node.html#data-path" title="path.data">data folders</a>.
+通过删除 <a class="xref" href="modules-node.html#data-path" title="path.data">数据(data)文件夹</a> 的内容来彻底清除每个节点。
 </li>
 <li class="listitem">
-Configure <code class="literal">cluster.initial_master_nodes</code> as described above.
+按照上面描述的配置 <code class="literal">cluster.initial_master_nodes</code>。
 </li>
 <li class="listitem">
-Restart all the nodes and verify that they have formed a single cluster.
+重新启动所有节点，并验证它们是否已形成单个群集。
 </li>
 </ul>
 </div>
@@ -219,10 +221,10 @@ Restart all the nodes and verify that they have formed a single cluster.
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="modules-discovery-voting.html">« Voting configurations</a>
+<a href="modules-discovery-voting.html">« 投票配置</a>
 </span>
 <span class="next">
-<a href="cluster-state-publishing.html">Publishing the cluster state »</a>
+<a href2="cluster-state-publishing.html">Publishing the cluster state »</a>
 </span>
 </div>
 </div>

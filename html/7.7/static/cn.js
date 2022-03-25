@@ -476,8 +476,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "modules-discovery-bootstrap-cluster.html",
-                        "text": "启动一个集群",
-                        "title": "Bootstrapping a cluster"
+                        "text": "引导一个集群",
+                        "title": "引导一个集群"
                     },
                     {
                         "url": "cluster-state-publishing.html",

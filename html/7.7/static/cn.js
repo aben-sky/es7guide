@@ -494,7 +494,7 @@ var esNavLinks = [
             {
                 "url": "add-elasticsearch-nodes.html",
                 "text": "向集群中添加/移除节点",
-                "title": "Add and remove nodes in your cluster"
+                "title": "向集群中添加/移除节点"
             },
             {
                 "url": "restart-cluster.html",

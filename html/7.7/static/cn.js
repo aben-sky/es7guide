@@ -482,7 +482,7 @@ var esNavLinks = [
                     {
                         "url": "cluster-state-publishing.html",
                         "text": "发布集群状态",
-                        "title": "Publishing the cluster state"
+                        "title": "发布集群状态"
                     },
                     {
                         "url": "cluster-fault-detection.html",

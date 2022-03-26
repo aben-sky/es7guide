@@ -487,7 +487,7 @@ var esNavLinks = [
                     {
                         "url": "cluster-fault-detection.html",
                         "text": "集群故障检测",
-                        "title": "Cluster fault detection"
+                        "title": "集群故障检测"
                     }
                 ]
             },

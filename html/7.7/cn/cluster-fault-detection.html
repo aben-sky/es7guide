@@ -32,17 +32,17 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-link"><a href="modules-discovery.html">Discovery and cluster formation</a></span>
+<span class="breadcrumb-link"><a href="modules-discovery.html">发现和集群形成</a></span>
 »
-<span class="breadcrumb-node">Cluster fault detection</span>
+<span class="breadcrumb-node">集群故障检测</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="cluster-state-publishing.html">« Publishing the cluster state</a>
+<a href="cluster-state-publishing.html">« 发布集群状态</a>
 </span>
 <span class="next">
 <a href="add-elasticsearch-nodes.html">Add and remove nodes in your cluster »</a>
@@ -51,28 +51,31 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="cluster-fault-detection"></a>Cluster fault detection<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/discovery/fault-detection.asciidoc">edit</a>
+<a id="cluster-fault-detection"></a>集群故障检测 (Cluster fault detection)
 </h2>
 </div></div></div>
-<p>The elected master periodically checks each of the nodes in the cluster to
-ensure that they are still connected and healthy. Each node in the cluster also
-periodically checks the health of the elected master. These checks are known
-respectively as <em>follower checks</em> and <em>leader checks</em>.</p>
-<p>Elasticsearch allows these checks to occasionally fail or timeout without
-taking any action. It considers a node to be faulty only after a number of
-consecutive checks have failed. You can control fault detection behavior with
-<a class="xref" href="modules-discovery-settings.html" title="Discovery and cluster formation settings"><code class="literal">cluster.fault_detection.*</code> settings</a>.</p>
-<p>If the elected master detects that a node has disconnected, however, this
-situation is treated as an immediate failure. The master bypasses the timeout
-and retry setting values and attempts to remove the node from the cluster.
-Similarly, if a node detects that the elected master has disconnected, this
-situation is treated as an immediate failure. The node bypasses the timeout and
-retry settings and restarts its discovery phase to try and find or elect a new
-master.</p>
+<p>
+主节点会定期检查集群中的每个节点，以确保它们仍然保持连接和健康。
+集群中的每个节点也会定期检查所选主节点的健康状况。
+这些检查分别被称为<em>追随者检查(follower checks)</em>和<em>领导者检查(leader checks)</em>。
+</p>
+<p>
+Elasticsearch 允许这些检查偶尔失败或超时，而无需采取任何操作。  
+只有在多次连续检查失败后，它才认为节点有故障。
+可以使用 <a class="xref" href="modules-discovery-settings.html" title="Discovery and cluster formation settings"><code class="literal">cluster.fault_detection.*</code> 设置</a> 控制故障检测行为。
+</p>
+<p>
+但是，如果主节点检测到某个节点已经断开连接，这种情况将被视为即时故障。
+主节点绕过超时和重试设置的值，并尝试从集群中删除节点。
+
+类似地，如果一个节点检测到主节点已经断开，这种情况将被视为即时故障。
+
+该节点绕过超时和重试设置，并重新开始其发现阶段，以尝试找到或选举新的主节点。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="cluster-state-publishing.html">« Publishing the cluster state</a>
+<a href="cluster-state-publishing.html">« 发布集群状态</a>
 </span>
 <span class="next">
 <a href="add-elasticsearch-nodes.html">Add and remove nodes in your cluster »</a>

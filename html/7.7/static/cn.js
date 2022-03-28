@@ -498,8 +498,8 @@ var esNavLinks = [
             },
             {
                 "url": "restart-cluster.html",
-                "text": "Full-cluster重启和rolling重启",
-                "title": "Full-cluster restart and rolling restart"
+                "text": "全集群重启和滚动重启",
+                "title": "全集群重启和滚动重启"
             },
             {
                 "url": "modules-remote-clusters.html",

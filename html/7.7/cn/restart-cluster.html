@@ -69,7 +69,7 @@
 
 由于该节点将很快重新启动，因此不需要此 I/O。
 
-通过在关闭节点之前 <a class="xref" href="modules-cluster.html#cluster-routing-allocation-enable">禁用副本分配</a>，可以避免与时间赛跑:
+通过在关闭节点之前 <a class="xref" href="modules-cluster.html#cluster-routing-allocation-enable">禁用副本分配</a>，可以避免与时间赛跑：
 </p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT _cluster/settings
@@ -198,7 +198,6 @@ GET _cat/nodes</pre>
 <p><span class="strong strong"><strong>重新启用分配</strong></span></p>
 <p>
 当所有节点都加入集群并恢复其主分片时，通过将 <code class="literal">cluster.routing.allocation.enable</code> 恢复为默认值来重新启用分配：
-
 </p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT _cluster/settings
@@ -232,7 +231,7 @@ GET _cat/recovery</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/48.console"></div>
 <p>
-如果在停止节点之前关闭了所有机器学习作业，请打开作业并从 Kibana 启动数据馈送，或者使用 <a class="xref" href="ml-open-job.html" title="Open anomaly detection jobs API">open jobs (打开的作业)</a>和 <a class="xref" href="ml-start-datafeed.html" title="Start datafeeds API">start datafeed (启动数据供给)</a>API。
+如果在停止节点之前关闭了所有机器学习作业，请打开作业并从 Kibana 启动数据供给，或者使用 <a class="xref" href="ml-open-job.html" title="Open anomaly detection jobs API">open jobs (打开的作业)</a>和 <a class="xref" href="ml-start-datafeed.html" title="Start datafeeds API">start datafeed (启动数据供给)</a>API。
 </p>
 </li>
 </ol>
@@ -244,13 +243,13 @@ GET _cat/recovery</pre>
 <ol class="orderedlist">
 <li class="listitem">
 <p><span class="strong strong"><strong>禁用分片分配</strong></span></p>
-<p>When you shut down a node, the allocation process waits for
-<code class="literal">index.unassigned.node_left.delayed_timeout</code> (by default, one minute) before
-starting to replicate the shards on that node to other nodes in the cluster,
-which can involve a lot of I/O.  Since the node is shortly going to be
-restarted, this I/O is unnecessary. You can avoid racing the clock by
-<a class="xref" href="modules-cluster.html#cluster-routing-allocation-enable">disabling allocation</a> of replicas before
-shutting down the node:</p>
+<p>
+当你关闭一个节点时，分配进程会等待 <code class="literal">index.unassigned.node_left.delayed_timeout</code> (默认值为 1 分钟)，然后开始将该节点上的分片复制到集群中的其他节点，这可能会涉及大量 I/O。
+
+由于该节点将很快重新启动，因此不需要此 I/O。
+
+通过在关闭节点之前 <a class="xref" href="modules-cluster.html#cluster-routing-allocation-enable">禁用副本分配</a>，可以避免与时间赛跑：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT _cluster/settings
 {
@@ -262,80 +261,85 @@ shutting down the node:</p>
 <div class="console_widget" data-snippet="snippets/49.console"></div>
 </li>
 <li class="listitem">
-<p><span class="strong strong"><strong>Stop indexing and perform a synced flush.</strong></span></p>
-<p>Performing a <a class="xref" href="indices-synced-flush-api.html" title="Synced flush API">synced-flush</a> speeds up shard
-recovery.</p>
+<p><span class="strong strong"><strong>停止索引并执行同步刷新(flush)</strong></span></p>
+<p>执行一个 <a class="xref" href="indices-synced-flush-api.html" title="Synced flush API">同步刷新(synced-flush)</a> 可以加速分片恢复。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST _flush/synced</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/50.console"></div>
-<p>When you perform a synced flush, check the response to make sure there are
-no failures. Synced flush operations that fail due to pending indexing
-operations are listed in the response body, although the request itself
-still returns a 200 OK status. If there are failures, reissue the request.</p>
-<p>Note that synced flush is deprecated and will be removed in 8.0. A flush
-has the same effect as a synced flush on Elasticsearch 7.6 or later.</p>
+<p>
+执行同步刷新时，检查响应以确保没有失败。
+
+由于挂起的索引操作导致失败了的同步刷新操作会在响应正文中列出，尽管请求本身仍会返回 200 OK 状态。
+如果失败，重新发出请求。
+<p>
+请注意，同步刷新已过时，将在8.0中删除。
+Elasticsearch 7.6 或更高版本上的 刷新(flush) 与 同步刷新(synced flush) 效果相同。
+</p>
 </li>
 <li class="listitem">
-<p><span class="strong strong"><strong>Temporarily stop the tasks associated with active machine learning jobs and datafeeds.</strong></span> (Optional)</p>
-<p>Machine learning features require a platinum license or higher. For more information about Elastic
-license levels, see <a href="https://www.elastic.co/subscriptions" class="ulink" target="_top">the subscription page</a>.</p>
-<p>You have two options to handle machine learning jobs and datafeeds when you shut down a
-cluster:</p>
+<p><span class="strong strong"><strong>暂时停止与主动机器学习工作和数据供给相关的任务。</strong></span> (可选)</p>
+<p>
+机器学习功能需要白金级或更高级别的许可证。
+有关 Elastic 许可级别的更多信息，请参考 <a href="https://www.elastic.co/subscriptions" class="ulink" target="_top">订阅页面</a>。
+</p>
+<p>
+当关闭集群时，你有两种选择来处理机器学习作业和数据供给(datafeeds):
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<p>Temporarily halt the tasks associated with your machine learning jobs and datafeeds and
-prevent new jobs from opening by using the
-<a class="xref" href="ml-set-upgrade-mode.html" title="Set upgrade mode API">set upgrade mode API</a>:</p>
+<p>
+使用 <a class="xref" href="ml-set-upgrade-mode.html" title="Set upgrade mode API">设置升级模式(set upgrade mode) API</a> 暂时停止与机器学习作业和数据供给相关联的任务，并阻止新作业的打开：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST _ml/set_upgrade_mode?enabled=true</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/51.console"></div>
-<p>When you disable upgrade mode, the jobs resume using the last model state that
-was automatically saved. This option avoids the overhead of managing active jobs
-during the shutdown and is faster than explicitly stopping datafeeds and closing
-jobs.</p>
+<p>
+当禁用升级模式时，作业将继续使用自动保存的最后一个模型状态。  
+此选项避免了集群关闭期间管理活动作业的开销，并且比显式停止数据供给和关闭作业更快。
+</p>
 </li>
 <li class="listitem">
-<a href="https://www.elastic.co/guide/en/machine-learning/7.7/stopping-ml.html" class="ulink" target="_top">Stop all datafeeds and close all jobs</a>. This option
-saves the model state at the time of closure. When you reopen the jobs after the
-cluster restart, they use the exact same model. However, saving the latest model
-state takes longer than using upgrade mode, especially if you have a lot of jobs
-or jobs with large model states.
+<a href="https://www.elastic.co/guide/en/machine-learning/7.7/stopping-ml.html" class="ulink" target="_top">停止所有数据供给并关闭所有作业</a>。
+此选项保存关闭时的模型状态。
+当你在集群重新启动后重新打开作业时，它们使用完全相同的模型。
+
+但是，保存最新的模型状态比使用升级模式花费的时间更长，尤其是当你有许多作业或作业具有较大的模型状态时。
 </li>
 </ul>
 </div>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-If you perform a rolling restart, you can also leave your machine learning
-jobs running. When you shut down a machine learning node, its jobs automatically
-move to another node and restore the model states. This option enables your jobs
-to continue running during the shutdown but it puts increased load on the
-cluster.
+如果执行滚动重启，你也可以让机器学习作业继续运行。
+
+当你关闭机器学习节点时，它的作业会自动移动到另一个节点，并恢复模型状态。
+
+此选项使作业能够在关闭期间继续运行，但这会增加集群的负载。
 </li>
 </ul>
 </div>
 </li>
 <li class="listitem">
-<p><span class="strong strong"><strong>Shut down a single node in case of rolling restart.</strong></span></p>
+<p><span class="strong strong"><strong>在滚动重启的情况下关闭单个节点。</strong></span></p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<p>If you are running Elasticsearch with <code class="literal">systemd</code>:</p>
+<p>如果你是使用 <code class="literal">systemd</code> 运行的 Elasticsearch：</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo systemctl stop elasticsearch.service</pre>
 </div>
 </li>
 <li class="listitem">
-<p>If you are running Elasticsearch with SysV <code class="literal">init</code>:</p>
+<p>如果你是使用 SysV <code class="literal">init</code> 运行的 Elasticsearch：</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo -i service elasticsearch stop</pre>
 </div>
 </li>
 <li class="listitem">
-<p>If you are running Elasticsearch as a daemon:</p>
+<p>如果你是以守护进程方式运行的 Elasticsearch：</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">kill $(cat pid)</pre>
 </div>
@@ -344,22 +348,23 @@ cluster.
 </div>
 </li>
 <li class="listitem">
-<span class="strong strong"><strong>Perform any needed changes.</strong></span>
+<span class="strong strong"><strong>执行任何必要的更改。</strong></span>
 </li>
 <li class="listitem">
-<p><span class="strong strong"><strong>Restart the node you changed.</strong></span></p>
-<p>Start the node and confirm that it joins the cluster by checking the log file or
-by submitting a <code class="literal">_cat/nodes</code> request:</p>
+<p><span class="strong strong"><strong>重启你修改过的节点。</strong></span></p>
+<p>
+启动节点，并通过检查日志文件或提交一个 <code class="literal">_cat/nodes</code> 请求来确认它已加入集群:
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET _cat/nodes</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/52.console"></div>
 </li>
 <li class="listitem">
-<p><span class="strong strong"><strong>Reenable shard allocation.</strong></span></p>
-<p>Once the node has joined the cluster, remove the
-<code class="literal">cluster.routing.allocation.enable</code> setting to enable shard allocation and start
-using the node:</p>
+<p><span class="strong strong"><strong>重新启用分配。</strong></span></p>
+<p>
+节点加入集群后，删除<code class="literal">cluster.routing.allocation.enable</code> 设置以启用分片分配并开始使用节点：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT _cluster/settings
 {
@@ -371,21 +376,23 @@ using the node:</p>
 <div class="console_widget" data-snippet="snippets/53.console"></div>
 </li>
 <li class="listitem">
-<p><span class="strong strong"><strong>Repeat in case of rolling restart.</strong></span></p>
-<p>When the node has recovered and the cluster is stable, repeat these steps
-for each node that needs to be changed.</p>
+<p><span class="strong strong"><strong>在滚动重启的情况下重复上述步骤。</strong></span></p>
+<p>
+当节点恢复并且集群稳定后，对每个需要更改的节点重复这些步骤。
+</p>
 </li>
 <li class="listitem">
-<p><span class="strong strong"><strong>Restart machine learning jobs.</strong></span> (Optional)</p>
-<p>If you temporarily halted the tasks associated with your machine learning jobs, use the
-<a class="xref" href="ml-set-upgrade-mode.html" title="Set upgrade mode API">set upgrade mode API</a> to return them to active states:</p>
+<p><span class="strong strong"><strong>重新启动机器学习作业</strong></span> (可选)</p>
+<p>
+如果你暂时停止了与机器学习作业相关联的任务，请使用 <a class="xref" href="ml-set-upgrade-mode.html" title="Set upgrade mode API">set upgrade mode API</a> 将它们恢复到活动状态：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST _ml/set_upgrade_mode?enabled=false</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/54.console"></div>
-<p>If you closed all machine learning jobs before stopping the nodes, open the jobs and start
-the datafeeds from Kibana or with the <a class="xref" href="ml-open-job.html" title="Open anomaly detection jobs API">open jobs</a> and
-<a class="xref" href="ml-start-datafeed.html" title="Start datafeeds API">start datafeed</a> APIs.</p>
+<p>
+如果在停止节点之前关闭了所有机器学习作业，请打开作业并从 Kibana 启动数据供给，或者使用 <a class="xref" href="ml-open-job.html" title="Open anomaly detection jobs API">open jobs (打开的作业)</a>和 <a class="xref" href="ml-start-datafeed.html" title="Start datafeeds API">start datafeed (启动数据供给)</a>API。
+</p>
 </li>
 </ol>
 </div>

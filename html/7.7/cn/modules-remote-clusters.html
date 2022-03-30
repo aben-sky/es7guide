@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Remote clusters | ElasticSearch 7.7 权威指南中文版</title>
+	<title>远程集群 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,62 +32,72 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-node">Remote clusters</span>
+<span class="breadcrumb-node">远程集群</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="restart-cluster.html">« Full-cluster restart and rolling restart</a>
+<a href="restart-cluster.html">« 全集群重启和滚动重启</a>
 </span>
 <span class="next">
-<a href="setup-xpack.html">Set up X-Pack »</a>
+<a href="setup-xpack.html">安装X-Pack »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="modules-remote-clusters"></a>Remote clusters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/remote-clusters.asciidoc">edit</a>
+<a id="modules-remote-clusters"></a>远程集群 (Remote clusters)
 </h2>
 </div></div></div>
-<p>The <em>remote clusters</em> functionality enables you to establish unidirectional
-connections to a remote cluster. Remote clusters are required for
-<a class="xref" href="xpack-ccr.html" title="Cross-cluster replication">cross-cluster replication</a> and <a class="xref" href="modules-cross-cluster-search.html" title="Search across clusters">cross-cluster search</a>.</p>
-<p>Remote cluster connections work by configuring a remote cluster and connecting
-to a limited number of nodes in that remote cluster. There are two modes for
-remote cluster connections: <a class="xref" href="modules-remote-clusters.html#sniff-mode" title="Sniff mode">sniff mode</a> and
-<a class="xref" href="modules-remote-clusters.html#proxy-mode" title="Proxy mode">proxy mode</a>.</p>
-<p>All the communication required between different clusters
-goes through the <a class="xref" href="modules-transport.html" title="Transport">transport layer</a>. Remote cluster
-connections consist of uni-directional connections from the coordinating
-node to the remote remote connections.</p>
+<p>
+<em>远程集群(remote clusters)</em> 功能使你能够建立与远程集群的单向连接。
+<a class="xref" href="xpack-ccr.html" title="Cross-cluster replication">跨集群复制</a> 和 <a class="xref" href="modules-cross-cluster-search.html" title="Search across clusters">跨集群搜索</a> 需要远程集群。
+</p>
+<p>
+远程集群连接通过配置远程集群并连接到该远程集群中有限数量的节点来工作。
+远程集群连接有两种模式：<a class="xref" href="modules-remote-clusters.html#sniff-mode" title="Sniff mode">嗅探模式(sniff mode)</a> 和 <a class="xref" href="modules-remote-clusters.html#proxy-mode" title="Proxy mode">代理模式(proxy mode)</a>。
+</p>
+<p>
+不同集群之间所需的所有通信都要经过 <a class="xref" href="modules-transport.html" title="Transport">传输层</a>。
+
+远程集群连接由从协调节点到远程连接的单向连接组成。
+</p>
 <h3>
-<a id="sniff-mode"></a>Sniff mode<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/remote-clusters.asciidoc">edit</a>
+<a id="sniff-mode"></a>嗅探模式(sniff mode)
 </h3>
-<p>In sniff mode, a cluster is created using a name and a list of seed nodes. When
-a remote cluster is registered, its cluster state is retrieved from one of the
-seed nodes and up to three <em>gateway nodes</em> are selected as part of remote
-cluster requests. This mode requires that the gateway node’s publish addresses
-are accessible by the local cluster.</p>
-<p>Sniff mode is the default connection mode.</p>
+<p>
+在嗅探模式中，使用一个名称和一个种子节点列表来创建集群。
+  
+注册远程集群时，从其中一个种子节点检索其集群状态，并选择最多三个 <em>网关节点(gateway node)</em> 作为远程集群请求的一部分。
+
+此模式要求本地集群可以访问网关节点的发布地址。
+</p>
+<p>嗅探模式是默认的连接模式。</p>
 <h4>
-<a id="gateway-nodes-selection"></a>Gateway nodes selection<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/remote-clusters.asciidoc">edit</a>
+<a id="gateway-nodes-selection"></a>网关节点选择 (gateway nodes selection)
 </h4>
-<p>The <em>gateway nodes</em> selection depends on the following criteria:</p>
+<p>
+<em>g网关节点</em> 的选择取决于以下标准：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<span class="strong strong"><strong>version</strong></span>: Remote nodes must be compatible with the cluster they are
-registered to. This is subject to rules that are similar to those for
-<a class="xref" href="rolling-upgrades.html" title="Rolling upgrades"><em>Rolling upgrades</em></a>. Any node can communicate with any other node on the same
-major version (e.g. 7.0 can talk to any 7.x node). Only nodes on the last minor
-version of a certain major version can communicate with nodes on the following
-major version. Note that in the 6.x series, 6.8 can communicate with any 7.x
-node, while 6.7 can only communicate with 7.0. Version compatibility  is
-symmetric, meaning that if 6.7 can communicate with 7.0, 7.0 can also
-communicate with 6.7. The matrix below summarizes compatibility as described above.
+<span class="strong strong"><strong>version</strong></span>：远程节点必须与它们注册到的集群兼容。
+
+这受制于与 <a class="xref" href="rolling-upgrades.html" title="Rolling upgrades"><em>滚动升级(Rolling upgrades)</em></a>相似的规则。
+
+任何节点都可以与同一主版本上的任何其他节点通信(例如，7.0 可以与任何 7.x 版本的节点通信)。
+
+只有某个主要版本的最后一个次要版本上的节点才能与下一个主要版本上的节点通信。
+
+注意，在 6.x 系列中，6.8 可以与任何 7.x 节点通信，而 6.7 只能与 7.0 通信。
+
+版本兼容性是对称的，意味着如果 6.7 可以与 7.0 通信，那么 7.0 也可以与 6.7 通信。
+
+下表总结了如上所述的兼容性。
 </li>
 </ul>
 </div>
@@ -105,7 +115,7 @@ communicate with 6.7. The matrix below summarizes compatibility as described abo
 </colgroup>
 <tbody>
 <tr>
-<td align="center" valign="top"><p>Compatibility</p></td>
+<td align="center" valign="top"><p>兼容性</p></td>
 <td align="center" valign="top"><p>5.0→5.5</p></td>
 <td align="center" valign="top"><p>5.6</p></td>
 <td align="center" valign="top"><p>6.0→6.6</p></td>
@@ -190,38 +200,44 @@ communicate with 6.7. The matrix below summarizes compatibility as described abo
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<span class="strong strong"><strong>role</strong></span>: Dedicated master nodes never get selected.
+<span class="strong strong"><strong>角色(role)</strong></span>：专用主节点永远不会被选中。
 </li>
 <li class="listitem">
-<span class="strong strong"><strong>attributes</strong></span>: You can tag which nodes should be selected
-(see <a class="xref" href="modules-remote-clusters.html#remote-cluster-settings" title="Remote cluster settings for all modes">Remote cluster settings for all modes</a>), though such tagged nodes still have
-to satisfy the two above requirements.
+<span class="strong strong"><strong>属性(attributes)</strong></span>：
+你可以标记应该选择哪些节点(请参阅<a class="xref" href="modules-remote-clusters.html#remote-cluster-settings" title="Remote cluster settings for all modes">所有模式下的远程集群设置</a>)，尽管这样标记的节点仍然必须满足上述两个要求。
 </li>
 </ul>
 </div>
 <h3>
-<a id="proxy-mode"></a>Proxy mode<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/remote-clusters.asciidoc">edit</a>
+<a id="proxy-mode"></a>代理模式 (Proxy mode)
 </h3>
-<p>In proxy mode, a cluster is created using a name and a single proxy address. When
-a remote cluster is registered, a configurable number of socket connections are
-opened to the proxy address. The proxy is required to route those connections to
-the remote cluster. Proxy mode does not require remote cluster nodes to have
-accessible publish addresses.</p>
-<p>The proxy mode is not the default connection mode and must be configured. Similar
-to the sniff <a class="xref" href="modules-remote-clusters.html#gateway-nodes-selection" title="Gateway nodes selection">gateway nodes</a>, the remote
-connections are subject to the same version compatibility rules as
-<a class="xref" href="rolling-upgrades.html" title="Rolling upgrades"><em>Rolling upgrades</em></a>.</p>
+<p>
+在代理模式下，使用名称和单个代理地址创建集群。
+
+注册远程集群时，会向代理地址打开可配置数量的 socket 连接。
+
+代理需要将这些连接路由到远程集群。
+
+代理模式不要求远程集群节点具有可访问的发布地址。
+</p>
+<p>
+代理模式不是默认的连接模式，必须进行配置。
+
+与嗅探模式下的 <a class="xref" href="modules-remote-clusters.html#gateway-nodes-selection" title="Gateway nodes selection">网关节点</a> 类似，远程连接遵循与 <a class="xref" href="rolling-upgrades.html" title="Rolling upgrades"><em>滚动升级</em></a> 相同的版本兼容性规则。
+</p>
 <h4>
-<a id="configuring-remote-clusters"></a>Configuring remote clusters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/remote-clusters.asciidoc">edit</a>
+<a id="configuring-remote-clusters"></a>配置远程集群
 </h4>
-<p>You can configure remote clusters globally by using
-<a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">cluster settings</a>, which you can update dynamically.
-Alternatively, you can configure them locally on individual nodes by using the
- <code class="literal">elasticsearch.yml</code> file.</p>
-<p>If you specify the settings in <code class="literal">elasticsearch.yml</code> files, only the nodes with
-those settings can connect to the remote cluster. In other words, functionality
-that relies on remote cluster requests must be driven specifically from those
-nodes. For example:</p>
+<p>
+可以使用 <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">集群设置</a> 来全局配置远程集群，集群设置可以动态更新。
+
+或者，你可以使用 <code class="literal">elasticsearch.yml</code> 文件在单个节点上进行本地配置。
+</p>
+<p>
+如果在 <code class="literal">elasticsearch.yml</code> 文件中指定设置，则只有具有这些设置的节点才能连接到远程集群。
+
+换句话说，依赖于远程集群请求的功能必须由这些节点专门驱动。例如:
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">cluster:
     remote:
@@ -244,9 +260,11 @@ nodes. For example:</p>
 <p><a href="#CO30-1"><i class="conum" data-value="1"></i></a><a href="#CO30-4"></a><a href="#CO30-9"></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">cluster_one</code>, <code class="literal">cluster_two</code>, and <code class="literal">cluster_three</code> are arbitrary <em>cluster aliases</em>
-representing the connection to each cluster. These names are subsequently used to
-distinguish between local and remote indices.</p>
+<p>
+<code class="literal">cluster_one</code>、<code class="literal">cluster_two</code> 和 <code class="literal">cluster_three</code> 是代表到每个集群的连接的任意<em>集群别名</em>。
+
+这些名称随后用于区分本地索引和远程索引。
+</p>
 </td>
 </tr>
 <tr>
@@ -254,8 +272,9 @@ distinguish between local and remote indices.</p>
 <p><a href="#CO30-2"><i class="conum" data-value="2"></i></a><a href="#CO30-6"></a></p>
 </td>
 <td align="left" valign="top">
-<p>The hostname and <a class="xref" href="modules-transport.html" title="Transport">transport</a> port (default: 9300) of a
-seed node in the remote cluster.</p>
+<p>
+远程集群中种子节点的主机名和<a class="xref" href="modules-transport.html" title="Transport">传输</a>端口（默认值：9300）。
+</p>
 </td>
 </tr>
 <tr>
@@ -263,7 +282,7 @@ seed node in the remote cluster.</p>
 <p><a href="#CO30-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>A keep-alive ping is configured for <code class="literal">cluster_one</code>.</p>
+<p>为 <code class="literal">cluster_one</code> 配置了保持活动的 ping。</p>
 </td>
 </tr>
 <tr>
@@ -271,10 +290,13 @@ seed node in the remote cluster.</p>
 <p><a href="#CO30-5"><i class="conum" data-value="4"></i></a><a href="#CO30-10"></a></p>
 </td>
 <td align="left" valign="top">
-<p>The configured connection mode. By default, this is <a class="xref" href="modules-remote-clusters.html#sniff-mode" title="Sniff mode"><code class="literal">sniff</code></a>, so
-the mode is implicit for <code class="literal">cluster_one</code>. However, it can be explicitly configured
-as demonstrated by <code class="literal">cluster_two</code> and must be explicitly configured for
-<a class="xref" href="modules-remote-clusters.html#proxy-mode" title="Proxy mode">proxy mode</a> as demonstrated by <code class="literal">cluster_three</code>.</p>
+<p>
+配置的连接模式。
+
+默认情况下，它是 <a class="xref" href="modules-remote-clusters.html#sniff-mode" title="Sniff mode"><code class="literal">sniff</code></a>，因此该模式对于 <code class="literal">cluster_one</code> 隐式的。
+
+但是，它可以按 <code class="literal">cluster_two</code> 所示显式配置，并且必须按 <code class="literal">cluster_three</code> 所示显式配置为 <a class="xref" href="modules-remote-clusters.html#proxy-mode" title="Proxy mode">代理模式</a>。
+</p>
 </td>
 </tr>
 <tr>
@@ -282,7 +304,9 @@ as demonstrated by <code class="literal">cluster_two</code> and must be explicit
 <p><a href="#CO30-7"><i class="conum" data-value="5"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Compression is explicitly enabled for requests to <code class="literal">cluster_two</code>.</p>
+<p>
+对 <code class="literal">cluster_two</code> 的请求显式启用压缩。
+</p>
 </td>
 </tr>
 <tr>
@@ -290,7 +314,9 @@ as demonstrated by <code class="literal">cluster_two</code> and must be explicit
 <p><a href="#CO30-8"><i class="conum" data-value="6"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Disconnected remote clusters are optional for <code class="literal">cluster_two</code>.</p>
+<p>
+对于 <code class="literal">cluster_two</code>，断开连接的远程集群是可选的。
+</p>
 </td>
 </tr>
 <tr>
@@ -298,15 +324,19 @@ as demonstrated by <code class="literal">cluster_two</code> and must be explicit
 <p><a href="#CO30-11"><i class="conum" data-value="7"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The address for the proxy endpoint used to connect to <code class="literal">cluster_three</code>.</p>
+<p>
+用于连接 <code class="literal">cluster_three</code> 的代理端点的地址。
+</p>
 </td>
 </tr>
 </table>
 </div>
-<p>For more information about the optional transport settings, see
-<a class="xref" href="modules-transport.html" title="Transport">Transport</a>.</p>
-<p>If you use <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">cluster settings</a>, the remote clusters
-are available on every node in the cluster. For example:</p>
+<p>
+有关可选的传输设置的更多信息，参考 <a class="xref" href="modules-transport.html" title="Transport">传输</a>。
+</p>
+<p>
+如果使用 <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">集群设置</a>，远程集群在集群中的每个节点上都可用。例如:
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT _cluster/settings
 {
@@ -337,9 +367,11 @@ are available on every node in the cluster. For example:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/55.console"></div>
-<p>You can dynamically update the compression and ping schedule settings. However,
-you must re-include seeds or <code class="literal">proxy_address</code> in the settings update request.
-For example:</p>
+<p>
+可以动态更新 压缩 和 ping 时间表设置。
+
+但是，必须在更新设置的请求中重新包含  <code class="literal">seeds</code> 或 <code class="literal">proxy_address</code>。例如:
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT _cluster/settings
 {
@@ -373,12 +405,12 @@ For example:</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>When the compression or ping schedule settings change, all the existing
-node connections must close and re-open, which can cause in-flight requests to
-fail.</p>
+<p>
+当 压缩 或 ping 时间表设置更改时，所有现有节点连接必须关闭并重新打开，这可能会导致正在进行的请求失败。
+</p>
 </div>
 </div>
-<p>A remote cluster can be deleted from the cluster settings by setting its settings to <code class="literal">null</code> :</p>
+<p>通过将远程集群的设置设置为<code class="literal">null</code> ，可以将其从集群设置中删除:</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT _cluster/settings
 {
@@ -406,18 +438,21 @@ fail.</p>
 <p><a href="#CO31-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">cluster_two</code> would be removed from the cluster settings, leaving
-<code class="literal">cluster_one</code> and <code class="literal">cluster_three</code> intact.</p>
+<p>
+<code class="literal">cluster_two</code> 将从集群设置中删除，而 <code class="literal">cluster_one</code> 和 <code class="literal">cluster_three</code>保持不变。
+</p>
 </td>
 </tr>
 </table>
 </div>
 <h3>
-<a id="remote-cluster-settings"></a>Remote cluster settings for all modes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/remote-clusters.asciidoc">edit</a>
+<a id="remote-cluster-settings"></a>所有模式下的远程集群配置 (Remote cluster settings for all modes)
 </h3>
-<p>These settings apply to both <a class="xref" href="modules-remote-clusters.html#sniff-mode" title="Sniff mode">sniff mode</a> and
-<a class="xref" href="modules-remote-clusters.html#proxy-mode" title="Proxy mode">proxy mode</a>. <a class="xref" href="modules-remote-clusters.html#remote-cluster-sniff-settings" title="Remote cluster settings for sniff mode">Sniff mode settings</a>
-and <a class="xref" href="modules-remote-clusters.html#remote-cluster-proxy-settings" title="Remote cluster settings for proxy mode">proxy mode settings</a> are described below.</p>
+<p>
+这些设置适用于 <a class="xref" href="modules-remote-clusters.html#sniff-mode" title="Sniff mode">嗅探模式</a> 和 <a class="xref" href="modules-remote-clusters.html#proxy-mode" title="Proxy mode">代理模式</a>。
+
+<a class="xref" href="modules-remote-clusters.html#remote-cluster-sniff-settings" title="Remote cluster settings for sniff mode">嗅探模式设置</a>和<a class="xref" href="modules-remote-clusters.html#remote-cluster-proxy-settings" title="Remote cluster settings for proxy mode">代理模式设置</a>  设置如下：
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -426,8 +461,8 @@ and <a class="xref" href="modules-remote-clusters.html#remote-cluster-proxy-sett
 </span>
 </dt>
 <dd>
-The mode used for a remote cluster connection. The only supported modes are
-<code class="literal">sniff</code> and <code class="literal">proxy</code>.
+用于远程集群连接的模式。
+支持的模式仅限 <code class="literal">sniff</code> 和 <code class="literal">proxy</code>。
 </dd>
 <dt>
 <span class="term">
@@ -435,8 +470,7 @@ The mode used for a remote cluster connection. The only supported modes are
 </span>
 </dt>
 <dd>
-The time to wait for remote connections to be established when the node
-starts. The default is <code class="literal">30s</code>.
+节点启动时等待建立远程连接的时间。默认值为 <code class="literal">30s</code>。
 </dd>
 <dt>
 <span class="term">
@@ -444,11 +478,11 @@ starts. The default is <code class="literal">30s</code>.
 </span>
 </dt>
 <dd>
-By default, any node in the cluster can act as a cross-cluster client and
-connect to remote clusters. The <code class="literal">node.remote_cluster_client</code> setting can be
-set to <code class="literal">false</code> (defaults to <code class="literal">true</code>) to prevent certain nodes from connecting
-to remote clusters. Remote cluster requests must be sent to a node that is
-allowed to act as a cross-cluster client.
+默认情况下，集群中的任何节点都可以充当跨集群客户端，并连接到远程集群。
+
+<code class="literal">node.remote_cluster_client</code> 设置可以设置为 <code class="literal">false</code> (默认为 <code class="literal">true</code>)，以防止某些节点连接到远程集群。
+
+远程集群请求必须发送到允许充当跨集群客户端的节点。
 </dd>
 <dt>
 <span class="term">
@@ -456,11 +490,9 @@ allowed to act as a cross-cluster client.
 </span>
 </dt>
 <dd>
-Per cluster boolean setting that allows to skip specific clusters when no
-nodes belonging to them are available and they are the target of a remote
-cluster request. Default is <code class="literal">false</code>, meaning that all clusters are mandatory
-by default, but they can selectively be made optional by setting this setting
-to <code class="literal">true</code>.
+每个集群布尔值设置，当没有属于某个集群的节点可用且它们是远程集群请求的目标时，允许跳过特定集群。  
+
+默认值为 <code class="literal">false</code>，这意味着默认情况下所有集群都是强制的，但是通过将此设置设置为 <code class="literal">true</code>，可以有选择地将它们设置为可选的。
 </dd>
 <dt>
 <span class="term">
@@ -468,12 +500,11 @@ to <code class="literal">true</code>.
 </span>
 </dt>
 <dd>
-Sets the time interval between regular application-level ping messages that
-are sent to ensure that transport connections to nodes belonging to remote
-clusters are kept alive. If set to <code class="literal">-1</code>, application-level ping messages to
-this remote cluster are not sent. If unset, application-level ping messages
-are sent according to the global <code class="literal">transport.ping_schedule</code> setting, which
-defaults to <code class="literal">-1</code> meaning that pings are not sent.
+设置发送常规应用程序级 ping 消息的时间间隔，以确保到属于远程集群的节点的传输连接保持活动状态。
+
+如果设置为 <code class="literal">-1</code>，则不会向该远程集群发送应用程序级别的 ping 消息。
+
+如果未设置，则根据全局 <code class="literal">transport.ping_schedule</code> 设置发送应用程序级别的 ping 消息，默认值为 <code class="literal">-1</code>，表示不发送 ping。
 </dd>
 <dt>
 <span class="term">
@@ -481,16 +512,18 @@ defaults to <code class="literal">-1</code> meaning that pings are not sent.
 </span>
 </dt>
 <dd>
-Per cluster boolean setting that enables you to configure compression for
-requests to a specific remote cluster. This setting impacts only requests
-sent to the remote cluster. If the inbound request is compressed,
-Elasticsearch compresses the response. If unset, the global
-<code class="literal">transport.compress</code> is used as the fallback setting.
+每个集群布尔值设置，使你能够为特定远程集群的请求配置压缩。
+
+此设置仅影响发送到远程集群的请求。
+
+如果入站请求被压缩，Elasticsearch 会压缩响应。
+
+如果未设置，全局 <code class="literal">transport.compress</code> 将用作回退设置。
 </dd>
 </dl>
 </div>
 <h3>
-<a id="remote-cluster-sniff-settings"></a>Remote cluster settings for sniff mode<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/remote-clusters.asciidoc">edit</a>
+<a id="remote-cluster-sniff-settings"></a>嗅探模式的远程集群设置
 </h3>
 <div class="variablelist">
 <dl class="variablelist">
@@ -500,7 +533,7 @@ Elasticsearch compresses the response. If unset, the global
 </span>
 </dt>
 <dd>
-The list of seed nodes used to sniff the remote cluster state.
+用于探查远程集群状态的种子节点列表。
 </dd>
 <dt>
 <span class="term">
@@ -508,8 +541,7 @@ The list of seed nodes used to sniff the remote cluster state.
 </span>
 </dt>
 <dd>
-The number of gateway nodes to connect to for this remote cluster. The default
-is <code class="literal">3</code>.
+该远程集群要连接的网关节点数。默认值为 <code class="literal">3</code>。
 </dd>
 <dt>
 <span class="term">
@@ -517,15 +549,14 @@ is <code class="literal">3</code>.
 </span>
 </dt>
 <dd>
-A node attribute to filter out nodes that are eligible as a gateway node in
-the remote cluster. For instance a node can have a node attribute
-<code class="literal">node.attr.gateway: true</code> such that only nodes with this attribute will be
-connected to if <code class="literal">cluster.remote.node.attr</code> is set to <code class="literal">gateway</code>.
+一个节点属性，用于筛选出可作为远程集群中网关节点的节点。
+
+例如，节点可以具有节点属性 <code class="literal">node.attr.gateway: true</code> ，这样，如果 <code class="literal">cluster.remote.node.attr</code> 设置为 <code class="literal">gateway</code>，则只有具有该属性的节点才会连接到。
 </dd>
 </dl>
 </div>
 <h3>
-<a id="remote-cluster-proxy-settings"></a>Remote cluster settings for proxy mode<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/remote-clusters.asciidoc">edit</a>
+<a id="remote-cluster-proxy-settings"></a>代理模式下远程集群的配置
 </h3>
 <div class="variablelist">
 <dl class="variablelist">
@@ -535,7 +566,7 @@ connected to if <code class="literal">cluster.remote.node.attr</code> is set to 
 </span>
 </dt>
 <dd>
-The address used for all remote connections.
+用于所有远程连接的地址。
 </dd>
 <dt>
 <span class="term">
@@ -543,8 +574,7 @@ The address used for all remote connections.
 </span>
 </dt>
 <dd>
-The number of socket connections to open per remote cluster. The default is
-<code class="literal">18</code>.
+每个远程集群要打开的 socket 连接数。默认值为 <code class="literal">18</code>。
 </dd>
 </dl>
 </div>
@@ -556,27 +586,25 @@ The number of socket connections to open per remote cluster. The default is
 </span>
 </dt>
 <dd>
-An optional hostname string which is sent in the <code class="literal">server_name</code> field of
-the TLS Server Name Indication extension if
-<a class="xref" href="configuring-tls.html" title="Encrypting communications in Elasticsearch">TLS is enabled</a>. The TLS transport will fail to open
-remote connections if this field is not a valid hostname as defined by the
-TLS SNI specification.
+可选的主机名字符串，如果<a class="xref" href="configuring-tls.html" title="Encrypting communications in Elasticsearch">启用了 TLS</a>，则在 TLS 服务器名称指示<span class="remark">(TLS SNI, TLS Server Name Indication)</span> 扩展的 <code class="literal">server_name</code> 字段中发送。
+
+如果此字段不是 TLS SNI 规范定义的有效主机名，TLS 传输将无法打开远程连接。
 </dd>
 </dl>
 </div>
 <h3>
-<a id="retrieve-remote-clusters-info"></a>Retrieving remote clusters info<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/remote-clusters.asciidoc">edit</a>
+<a id="retrieve-remote-clusters-info"></a>检索远程集群信息
 </h3>
-<p>You can use the <a class="xref" href="cluster-remote-info.html" title="Remote cluster info API">remote cluster info API</a> to retrieve
-information about the configured remote clusters, as well as the remote nodes
-that the node is connected to.</p>
+<p>
+可以使用 <a class="xref" href="cluster-remote-info.html" title="Remote cluster info API">远程集群信息API</a> 来检索关于已配置的远程集群以及该节点所连接的远程节点的信息。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="restart-cluster.html">« Full-cluster restart and rolling restart</a>
+<a href="restart-cluster.html">« 全集群重启和滚动重启</a>
 </span>
 <span class="next">
-<a href="setup-xpack.html">Set up X-Pack »</a>
+<a href="setup-xpack.html">安装X-Pack »</a>
 </span>
 </div>
 </div>

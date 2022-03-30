@@ -504,12 +504,12 @@ var esNavLinks = [
             {
                 "url": "modules-remote-clusters.html",
                 "text": "远程集群",
-                "title": "Remote clusters"
+                "title": "远程集群"
             },
             {
                 "url": "setup-xpack.html",
                 "text": "安装X-Pack",
-                "title": "Set up X-Pack"
+                "title": "安装X-Pack"
             },
             {
                 "url": "setup-xpack-client.html",

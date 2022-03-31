@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Configuring X-Pack Java Clients | ElasticSearch 7.7 权威指南中文版</title>
+	<title>配置X-Pack的Java客户端 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,49 +32,55 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup.html">Set up Elasticsearch</a></span>
+<span class="breadcrumb-link"><a href="setup.html">安装和设置</a></span>
 »
-<span class="breadcrumb-node">Configuring X-Pack Java Clients</span>
+<span class="breadcrumb-node">配置X-Pack的Java客户端</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="setup-xpack.html">« Set up X-Pack</a>
+<a href="setup-xpack.html">« 安装X-Pack</a>
 </span>
 <span class="next">
-<a href="modules-plugins.html">Plugins »</a>
+<a href="modules-plugins.html">插件 »</a>
 </span>
 </div>
 <div class="chapter xpack">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="setup-xpack-client"></a>Configuring X-Pack Java Clients<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/setup/setup-xclient.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
+<a id="setup-xpack-client"></a>配置X-Pack的Java客户端
 </h2>
 </div></div></div>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<h3>Deprecated in 7.0.0.</h3>
-<p>The <code class="literal">TransportClient</code> is deprecated in favour of the <a href="https://www.elastic.co/guide/en/elasticsearch/client/java-rest/7.7/java-rest-high.html" class="ulink" target="_top">Java High Level REST Client</a> and will be removed in Elasticsearch 8.0. The <a href="https://www.elastic.co/guide/en/elasticsearch/client/java-rest/7.7/java-rest-high-level-migration.html" class="ulink" target="_top">migration guide</a> describes all the steps needed to migrate.</p>
+<h3>在 7.0.0 版本中废弃。</h3>
+<p>
+<code class="literal">TransportClient</code> 已被废弃，取而代之的是<a href="https://www.elastic.co/guide/en/elasticsearch/client/java-rest/7.7/java-rest-high.html" class="ulink" target="_top">Java 高级 REST 客户端</a>，并将在 Elasticsearch 8.0 中被移除。
+
+<a href="https://www.elastic.co/guide/en/elasticsearch/client/java-rest/7.7/java-rest-high-level-migration.html" class="ulink" target="_top">迁移指南</a> 描述了迁移所需的所有步骤。
+</p>
 </div>
 </div>
-<p>If you want to use a Java <a href="https://www.elastic.co/guide/en/elasticsearch/client/java-api/7.7/transport-client.html" class="ulink" target="_top">transport client</a> with a
-cluster where X-Pack is installed, then you must download and configure the
-X-Pack transport client.</p>
+<p>
+如果您想在安装了 X-Pack 的集群上使用 Java <a href="https://www.elastic.co/guide/en/elasticsearch/client/java-api/7.7/transport-client.html" class="ulink" target="_top">传输客户端</a>，那么你必须下载并配置X-Pack传输客户端。
+</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-Add the X-Pack transport JAR file to your <span class="strong strong"><strong>CLASSPATH</strong></span>. You can download the X-Pack
-distribution and extract the JAR file manually or you can get it from the
-<a href="https://artifacts.elastic.co/maven/org/elasticsearch/client/x-pack-transport/7.7.1/x-pack-transport-7.7.1.jar" class="ulink" target="_top">Elasticsearch Maven repository</a>.
-As with any dependency, you will also need its transitive dependencies. Refer to the
-<a href="https://artifacts.elastic.co/maven/org/elasticsearch/client/x-pack-transport/7.7.1/x-pack-transport-7.7.1.pom" class="ulink" target="_top">X-Pack POM file
-for your version</a> when downloading for offline usage.
+将 X-Pack transport JAR 文件添加到 <span class="strong strong"><strong>CLASSPATH</strong></span> 中。
+
+你可以下载 X-Pack 发行版并手动提取 JAR 文件，也可以从  <a href="https://artifacts.elastic.co/maven/org/elasticsearch/client/x-pack-transport/7.7.1/x-pack-transport-7.7.1.jar" class="ulink" target="_top">Elasticsearch Maven 仓库</a> 中获取。
+
+与任何依赖项一样，你也需要它的可传递依赖项。
+
+下载供离线使用时，请参考 <a href="https://artifacts.elastic.co/maven/org/elasticsearch/client/x-pack-transport/7.7.1/x-pack-transport-7.7.1.pom" class="ulink" target="_top">对应你的版本的 X-Pack POM 文件</a>。
 </li>
 <li class="listitem">
-<p>If you are using Maven, you need to add the X-Pack JAR file as a dependency in
-your project’s <code class="literal">pom.xml</code> file:</p>
+<p>
+如果你使用的是 Maven，那么需要将 X-Pack JAR 文件作为一个依赖项添加到项目的 <code class="literal">pom.xml</code> 文件中:
+</p>
 <div class="pre_wrapper lang-xml">
 <pre class="programlisting prettyprint lang-xml">&lt;project ...&gt;
      &lt;repositories&gt;
@@ -108,8 +114,9 @@ your project’s <code class="literal">pom.xml</code> file:</p>
 </div>
 </li>
 <li class="listitem">
-<p>If you are using Gradle, you need to add the X-Pack JAR file as a dependency in
-your <code class="literal">build.gradle</code> file:</p>
+<p>
+如果你使用的是 Gradle，你需要将 X-Pack JAR 文件作为一个依赖项添加到 <code class="literal">build.gradle</code> 文件中:
+</p>
 <div class="pre_wrapper lang-groovy">
 <pre class="programlisting prettyprint lang-groovy">repositories {
   /* ... Any other repositories ... */
@@ -129,14 +136,17 @@ dependencies {
 </div>
 </li>
 <li class="listitem">
-<p>If you are using a repository manager such as <a href="https://www.sonatype.com/nexus-repository-oss" class="ulink" target="_top">Nexus OSS</a> within your
-company, you need to add the repository as per the following screenshot:</p>
+<p>
+如果你在公司内使用 <a href="https://www.sonatype.com/nexus-repository-oss" class="ulink" target="_top">Nexus OSS</a> 等存储库管理器，你需要按照下面的屏幕截图添加存储库:
+</p>
 <div class="imageblock">
 <div class="content">
-<a class="image" href="images/nexus.png"><img src="../static/security/images/nexus.png" alt="Adding the Elastic repo in Nexus"></a>
+<a class="image" href="../static/security/images/nexus.png" rel="nofollow"><img src="../static/security/images/nexus.png" alt="Adding the Elastic repo in Nexus"></a>
 </div>
 </div>
-<p>Then in your project’s <code class="literal">pom.xml</code> if using maven, add the following repositories and dependencies definitions:</p>
+<p>
+然后，如果使用 maven，在项目的 <code class="literal">pom.xml</code> 中添加以下存储库和依赖项定义：
+</p>
 <div class="pre_wrapper lang-xml">
 <pre class="programlisting prettyprint lang-xml">&lt;dependencies&gt;
     &lt;dependency&gt;
@@ -162,18 +172,18 @@ company, you need to add the repository as per the following screenshot:</p>
 </div>
 </li>
 <li class="listitem">
-If you are using Elastic Stack security features, there are more configuration
-steps. See <a href="java-clients.html" class="ulink" target="_top">Java Client and security</a>.
+如果你使用了 Elastic Stack 的安全功能，还有更多的配置步骤。
+参考 <a href="java-clients.html" class="ulink" target="_top">Java 客户端和安全</a>。
 </li>
 </ol>
 </div>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="setup-xpack.html">« Set up X-Pack</a>
+<a href="setup-xpack.html">« 安装X-Pack</a>
 </span>
 <span class="next">
-<a href="modules-plugins.html">Plugins »</a>
+<a href="modules-plugins.html">插件 »</a>
 </span>
 </div>
 </div>

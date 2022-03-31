@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Upgrade Elasticsearch | ElasticSearch 7.7 权威指南中文版</title>
+	<title>升级Elasticsearch | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,56 +32,62 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-node">Upgrade Elasticsearch</span>
+<span class="breadcrumb-node">升级Elasticsearch</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="modules-plugins.html">« Plugins</a>
+<a href="modules-plugins.html">« 插件</a>
 </span>
 <span class="next">
-<a href="rolling-upgrades.html">Rolling upgrades »</a>
+<a href2="rolling-upgrades.html">Rolling upgrades »</a>
 </span>
 </div>
 <div class="part">
 <div class="titlepage"><div><div>
 <h1 class="title">
-<a id="setup-upgrade"></a>Upgrade Elasticsearch<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/upgrade.asciidoc">edit</a>
+<a id="setup-upgrade"></a>升级Elasticsearch
 </h1>
 </div></div></div>
 <div class="openblock partintro">
 <div class="content">
-<p>Elasticsearch can usually be upgraded using a <a class="xref" href="rolling-upgrades.html" title="Rolling upgrades">Rolling upgrade</a>
-process so upgrading does not interrupt service. Rolling upgrades are supported:</p>
+<p>
+Elasticsearch 通常可以使用<a class="xref" href="rolling-upgrades.html" title="Rolling upgrades">滚动升级 (rolling upgrade)</a>过程进行升级，因此升级不会中断服务。
+
+滚动升级支持：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Between minor versions
+次要版本之间
 </li>
 <li class="listitem">
-From 5.6 to 6.8
+从 5.6 到 6.8
 </li>
 <li class="listitem">
-From 6.8 to 7.7.1
+从 6.8 到 7.7.1
 </li>
 <li class="listitem">
-From any version since 7.7.0 to 7.7.1
+从 7.7.0 到 7.7.1 的任何版本 <span class="remark">(from any version since 7.7.0 to 7.7.1)</span>
 </li>
 </ul>
 </div>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>For rolling upgrades between major versions (e.g., 5.6 to 6.8), we recommend
-using the <a href="https://www.elastic.co/guide/en/kibana/7.7/upgrade-assistant.html" class="ulink" target="_top">Kibana Upgrade Assistant</a>.</p>
-<p>The upgrade assistant identifies deprecated settings in your cluster and guides
-you through the process of resolving issues, including reindexing.</p>
-<p>We also recommend checking your <a class="xref" href="logging.html#deprecation-logging" title="Deprecation logging">deprecation logs</a> for any
-other functionality that may have changed.</p>
+<p>
+对于主要版本之间的滚动升级(例如，从5.6到6.8)，我们建议使用 <a href="https://www.elastic.co/guide/en/kibana/7.7/upgrade-assistant.html" class="ulink" target="_top">Kibana 升级助手</a>。
+</p>
+<p>
+升级助手可识别集群中不推荐使用的设置，并指导你解决问题，包括重新索引。
+</p>
+<p>
+我们还建议检查<a class="xref" href="logging.html#deprecation-logging" title="Deprecation logging">弃用日志</a>，查看是否有任何其他可能已更改的功能。
+</p>
 </div>
 </div>
-<p>The following table shows the recommended upgrade paths to 7.7.1.</p>
+<p>下表显示了升级到 7.7.1 的推荐升级路径。</p>
 <div class="informaltable">
 <table border="1" cellpadding="4px">
 <colgroup>
@@ -90,22 +96,22 @@ other functionality that may have changed.</p>
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Upgrade from</th>
-<th align="left" valign="top">Recommended upgrade path to 7.7.1</th>
+<th align="left" valign="top">原版本</th>
+<th align="left" valign="top">到 7.7.1 的推荐升级路径</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left" valign="top"><p>A previous 7.7 version (e.g., 7.7.0)</p></td>
-<td align="left" valign="top"><p><a class="xref" href="rolling-upgrades.html" title="Rolling upgrades">Rolling upgrade</a> to 7.7.1</p></td>
+<td align="left" valign="top"><p>先前的7.7版本(例如7.7.0)</p></td>
+<td align="left" valign="top"><p><a class="xref" href="rolling-upgrades.html" title="Rolling upgrades">滚动升级</a> 到 7.7.1</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p>7.0–7.6</p></td>
-<td align="left" valign="top"><p><a class="xref" href="rolling-upgrades.html" title="Rolling upgrades">Rolling upgrade</a> to 7.7.1</p></td>
+<td align="left" valign="top"><p><a class="xref" href="rolling-upgrades.html" title="Rolling upgrades">滚动升级</a> 到 7.7.1</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p>6.8</p></td>
-<td align="left" valign="top"><p><a class="xref" href="rolling-upgrades.html" title="Rolling upgrades">Rolling upgrade</a> to 7.7.1</p></td>
+<td align="left" valign="top"><p><a class="xref" href="rolling-upgrades.html" title="Rolling upgrades">滚动升级</a> 到 7.7.1</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p>6.0–6.7</p></td>
@@ -113,10 +119,10 @@ other functionality that may have changed.</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/rolling-upgrades.html" class="ulink" target="_top">Rolling upgrade</a> to 6.8
+<a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/rolling-upgrades.html" class="ulink" target="_top">滚动升级</a> 到 6.8
 </li>
 <li class="listitem">
-<a class="xref" href="rolling-upgrades.html" title="Rolling upgrades">Rolling upgrade</a> to 7.7.1
+<a class="xref" href="rolling-upgrades.html" title="Rolling upgrades">滚动升级</a> 到 7.7.1
 </li>
 </ol>
 </div>
@@ -128,10 +134,10 @@ other functionality that may have changed.</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/rolling-upgrades.html" class="ulink" target="_top">Rolling upgrade</a> to 6.8
+<a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/rolling-upgrades.html" class="ulink" target="_top">滚动升级</a> 到 6.8
 </li>
 <li class="listitem">
-<a class="xref" href="rolling-upgrades.html" title="Rolling upgrades">Rolling upgrade</a> to 7.7.1
+<a class="xref" href="rolling-upgrades.html" title="Rolling upgrades">滚动升级</a> 到 7.7.1
 </li>
 </ol>
 </div>
@@ -143,13 +149,13 @@ other functionality that may have changed.</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/rolling-upgrades.html" class="ulink" target="_top">Rolling upgrade</a> to 5.6
+<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/rolling-upgrades.html" class="ulink" target="_top">滚动升级</a> 到 5.6
 </li>
 <li class="listitem">
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/rolling-upgrades.html" class="ulink" target="_top">Rolling upgrade</a> to 6.8
+<a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/rolling-upgrades.html" class="ulink" target="_top">滚动升级</a> 到 6.8
 </li>
 <li class="listitem">
-<a class="xref" href="rolling-upgrades.html" title="Rolling upgrades">Rolling upgrade</a> to 7.7.1
+<a class="xref" href="rolling-upgrades.html" title="Rolling upgrades">滚动升级</a> 到 7.7.1
 </li>
 </ol>
 </div>
@@ -161,29 +167,42 @@ other functionality that may have changed.</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The upgrade path from 6.8 to 7.0 is <span class="strong strong"><strong>not</strong></span> supported (both full cluster restart and rolling upgrade).</p>
+<p>
+<span class="strong strong"><strong>不</strong></span>支持从 6.8 升级到 7.0(包括完整集群重启和滚动升级)。
+</p>
 </div>
 </div>
-<p>To upgrade directly to 7.7.1 from 6.7 or earlier, you must shut down the
-cluster, install 7.7.1, and restart. For more information, see
-<a class="xref" href="restart-upgrade.html" title="Full cluster restart upgrade">Full cluster restart upgrade</a>.</p>
+<p>
+要从 6.7 或更低版本直接升级到 7.7.1，你必须关闭集群，安装 7.7.1，然后重新启动。
+
+更多信息请参考 <a class="xref" href="restart-upgrade.html" title="Full cluster restart upgrade">全集群重启升级</a>.
+</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>In-place downgrades to earlier versions are <span class="strong strong"><strong>not</strong></span> supported. To downgrade to an
-earlier version, <a class="xref" href="snapshots-restore-snapshot.html" title="Restore indices from a snapshot">restore a snapshot</a> taken prior
-to the version upgrade.</p>
+<p>
+<span class="strong strong"><strong>不</strong></span>支持就地直接降级到早期版本。
+
+要降级到早期版本，请找到一个升级之前的版本的快照并执行 <a class="xref" href="snapshots-restore-snapshot.html" title="Restore indices from a snapshot">快照恢复</a>。
+</p>
 </div>
 </div>
-<p>Elasticsearch can read indices created in the previous major version. If you
-have indices created in 5.x or before, you must reindex or delete them
-before upgrading to 7.7.1. Elasticsearch nodes will fail to start if
-incompatible indices are present. Snapshots of 5.x or earlier indices cannot be
-restored to a 7.x cluster even if they were created by a 6.x cluster. For
-information about upgrading old indices, see <a class="xref" href="reindex-upgrade.html" title="Reindex before upgrading">Reindex to upgrade</a>.</p>
-<p>When upgrading to a new version of Elasticsearch, you need to upgrade each
-of the products in your Elastic Stack. For more information, see the
-<a href="https://www.elastic.co/guide/en/elastic-stack/7.7/upgrading-elastic-stack.html" class="ulink" target="_top">Elastic Stack Installation and Upgrade Guide</a>.</p>
+<p>
+Elasticsearch 可以读取在以前的主要版本中创建的索引。
+
+如果在 5.x 或更早版本中创建了索引，则必须在升级到 7.7.1 之前重新索引或删除它们。
+
+如果存在不兼容的索引，Elasticsearch 节点将无法启动。
+
+5.x 或更低版本索引的快照不能恢复到 7.x 集群，即使它们是由 6.x 集群创建的。
+
+有关升级旧索引的信息，请参考 <a class="xref" href="reindex-upgrade.html" title="Reindex before upgrading">升级前重建索引</a>.
+</p>
+<p>
+当升级到新版本的 Elasticsearch 时，你需要升级 Elastic Stack 中的每个产品。
+
+有关更多信息，请参考 <a href="https://www.elastic.co/guide/en/elastic-stack/7.7/upgrading-elastic-stack.html" class="ulink" target="_top">Elastic Stack 安装和升级指南</a>。
+</p>
 </div>
 </div>
 
@@ -192,10 +211,10 @@ of the products in your Elastic Stack. For more information, see the
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="modules-plugins.html">« Plugins</a>
+<a href="modules-plugins.html">« 插件</a>
 </span>
 <span class="next">
-<a href="rolling-upgrades.html">Rolling upgrades »</a>
+<a href2="rolling-upgrades.html">Rolling upgrades »</a>
 </span>
 </div>
 </div>

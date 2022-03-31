@@ -514,19 +514,19 @@ var esNavLinks = [
             {
                 "url": "setup-xpack-client.html",
                 "text": "配置X-Pack的Java客户端",
-                "title": "Configuring X-Pack Java Clients"
+                "title": "配置X-Pack的Java客户端"
             },
             {
                 "url": "modules-plugins.html",
                 "text": "插件",
-                "title": "Plugins"
+                "title": "插件"
             }
         ]
     },
     {
         "url": "setup-upgrade.html",
-        "text": "Elasticsearch升级",
-        "title": "Upgrade Elasticsearch",
+        "text": "升级Elasticsearch",
+        "title": "升级Elasticsearch",
         "sub": [
             {
                 "url": "rolling-upgrades.html",

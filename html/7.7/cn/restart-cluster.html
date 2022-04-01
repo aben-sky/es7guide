@@ -100,19 +100,19 @@ Elasticsearch 7.6 或更高版本上的 刷新(flush) 与 同步刷新(synced fl
 </p>
 </li>
 <li class="listitem">
-<p><span class="strong strong"><strong>暂时停止与主动机器学习工作和实时数据源相关的任务。</strong></span> (可选)</p>
+<p><span class="strong strong"><strong>暂时停止与主动机器学习工作和数据馈送(datafeed)相关的任务。</strong></span> (可选)</p>
 <p>
 机器学习功能需要白金级或更高级别的许可证。
 有关 Elastic 许可级别的更多信息，请参考 <a href="https://www.elastic.co/subscriptions" class="ulink" target="_top">订阅页面</a>。
 </p>
 <p>
-当关闭集群时，你有两种选择来处理机器学习作业 和 实时数据源(datafeed)：
+当关闭集群时，你有两种选择来处理机器学习作业 和 数据馈送(datafeed)：
 </p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
 <p>
-使用 <a class="xref" href="ml-set-upgrade-mode.html" title="Set upgrade mode API">设置升级模式(set upgrade mode) API</a> 暂时停止与机器学习作业和实时数据源相关联的任务，并阻止新作业的打开：
+使用 <a class="xref" href="ml-set-upgrade-mode.html" title="Set upgrade mode API">设置升级模式(set upgrade mode) API</a> 暂时停止与机器学习作业和数据馈送(datafeed)相关联的任务，并阻止新作业的打开：
 </p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST _ml/set_upgrade_mode?enabled=true</pre>
@@ -120,11 +120,11 @@ Elasticsearch 7.6 或更高版本上的 刷新(flush) 与 同步刷新(synced fl
 <div class="console_widget" data-snippet="snippets/44.console"></div>
 <p>
 当禁用升级模式时，作业将继续使用自动保存的最后一个模型状态。  
-此选项避免了集群关闭期间管理活动作业的开销，并且比显式停止实时数据源和关闭作业更快。
+此选项避免了集群关闭期间管理活动作业的开销，并且比显式停止数据馈送和关闭作业更快。
 </p>
 </li>
 <li class="listitem">
-<a href="https://www.elastic.co/guide/en/machine-learning/7.7/stopping-ml.html" class="ulink" target="_top">停止所有实时数据源并关闭所有作业</a>。
+<a href="https://www.elastic.co/guide/en/machine-learning/7.7/stopping-ml.html" class="ulink" target="_top">停止所有数据馈送(datafeed)并关闭所有作业</a>。
 此选项保存关闭时的模型状态。
 当你在集群重新启动后重新打开作业时，它们使用完全相同的模型。
 
@@ -231,7 +231,7 @@ GET _cat/recovery</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/48.console"></div>
 <p>
-如果在停止节点之前关闭了所有机器学习作业，请打开作业并从 Kibana 启动实时数据源，或者使用 <a class="xref" href="ml-open-job.html" title="Open anomaly detection jobs API">open jobs</a> 和 <a class="xref" href="ml-start-datafeed.html" title="Start datafeeds API">start datafeed</a> API。
+如果在停止节点之前关闭了所有机器学习作业，请打开作业并从 Kibana 启动数据馈送，或者使用 <a class="xref" href="ml-open-job.html" title="Open anomaly detection jobs API">open jobs</a> 和 <a class="xref" href="ml-start-datafeed.html" title="Start datafeeds API">start datafeed</a> API。
 </p>
 </li>
 </ol>
@@ -278,19 +278,19 @@ Elasticsearch 7.6 或更高版本上的 刷新(flush) 与 同步刷新(synced fl
 </p>
 </li>
 <li class="listitem">
-<p><span class="strong strong"><strong>暂时停止与主动机器学习工作和实时数据源相关的任务。</strong></span> (可选)</p>
+<p><span class="strong strong"><strong>暂时停止与主动机器学习工作和数据馈送相关的任务。</strong></span> (可选)</p>
 <p>
 机器学习功能需要白金级或更高级别的许可证。
 有关 Elastic 许可级别的更多信息，请参考 <a href="https://www.elastic.co/subscriptions" class="ulink" target="_top">订阅页面</a>。
 </p>
 <p>
-当关闭集群时，你有两种选择来处理机器学习作业 和 实时数据源 (datafeed):
+当关闭集群时，你有两种选择来处理机器学习作业 和 数据馈送 (datafeed):
 </p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
 <p>
-使用 <a class="xref" href="ml-set-upgrade-mode.html" title="Set upgrade mode API">设置升级模式(set upgrade mode) API</a> 暂时停止与机器学习作业和实时数据源相关联的任务，并阻止新作业的打开：
+使用 <a class="xref" href="ml-set-upgrade-mode.html" title="Set upgrade mode API">设置升级模式(set upgrade mode) API</a> 暂时停止与机器学习作业和数据馈送相关联的任务，并阻止新作业的打开：
 </p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST _ml/set_upgrade_mode?enabled=true</pre>
@@ -298,11 +298,11 @@ Elasticsearch 7.6 或更高版本上的 刷新(flush) 与 同步刷新(synced fl
 <div class="console_widget" data-snippet="snippets/51.console"></div>
 <p>
 当禁用升级模式时，作业将继续使用自动保存的最后一个模型状态。  
-此选项避免了集群关闭期间管理活动作业的开销，并且比显式停止实时数据源和关闭作业更快。
+此选项避免了集群关闭期间管理活动作业的开销，并且比显式停止数据馈送和关闭作业更快。
 </p>
 </li>
 <li class="listitem">
-<a href="https://www.elastic.co/guide/en/machine-learning/7.7/stopping-ml.html" class="ulink" target="_top">停止所有实时数据源并关闭所有作业</a>。
+<a href="https://www.elastic.co/guide/en/machine-learning/7.7/stopping-ml.html" class="ulink" target="_top">停止所有数据馈送并关闭所有作业</a>。
 此选项保存关闭时的模型状态。
 当你在集群重新启动后重新打开作业时，它们使用完全相同的模型。
 
@@ -363,7 +363,7 @@ Elasticsearch 7.6 或更高版本上的 刷新(flush) 与 同步刷新(synced fl
 <li class="listitem">
 <p><span class="strong strong"><strong>重新启用分配。</strong></span></p>
 <p>
-节点加入集群后，删除<code class="literal">cluster.routing.allocation.enable</code> 设置以启用分片分配并开始使用节点：
+节点加入集群后，删除 <code class="literal">cluster.routing.allocation.enable</code> 设置以启用分片分配并开始使用节点：
 </p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT _cluster/settings
@@ -384,14 +384,14 @@ Elasticsearch 7.6 或更高版本上的 刷新(flush) 与 同步刷新(synced fl
 <li class="listitem">
 <p><span class="strong strong"><strong>重新启动机器学习作业</strong></span> (可选)</p>
 <p>
-如果你暂时停止了与机器学习作业相关联的任务，请使用 <a class="xref" href="ml-set-upgrade-mode.html" title="Set upgrade mode API">set upgrade mode API</a> 将它们恢复到活动状态：
+如果你暂时停止了与机器学习作业相关联的任务，请使用 <a class="xref" href="ml-set-upgrade-mode.html" title="Set upgrade mode API">设置升级模式(set upgrade mode) API</a> 将它们恢复到活动状态：
 </p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST _ml/set_upgrade_mode?enabled=false</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/54.console"></div>
 <p>
-如果在停止节点之前关闭了所有机器学习作业，请打开作业并从 Kibana 启动实时数据源，或者使用 <a class="xref" href="ml-open-job.html" title="Open anomaly detection jobs API">open jobs</a> 和 <a class="xref" href="ml-start-datafeed.html" title="Start datafeeds API">start datafeed</a> API。
+如果在停止节点之前关闭了所有机器学习作业，请打开作业并从 Kibana 启动数据馈送，或者使用 <a class="xref" href="ml-open-job.html" title="Open anomaly detection jobs API">open jobs</a> 和 <a class="xref" href="ml-start-datafeed.html" title="Start datafeeds API">start datafeed</a> API。
 </p>
 </li>
 </ol>

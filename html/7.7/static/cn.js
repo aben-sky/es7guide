@@ -531,7 +531,7 @@ var esNavLinks = [
             {
                 "url": "rolling-upgrades.html",
                 "text": "滚动升级",
-                "title": "Rolling upgrades"
+                "title": "滚动升级"
             },
             {
                 "url": "restart-upgrade.html",

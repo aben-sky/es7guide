@@ -32,125 +32,125 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup-upgrade.html">Upgrade Elasticsearch</a></span>
+<span class="breadcrumb-node">升级Elasticsearch</span>
 »
-<span class="breadcrumb-node">Rolling upgrades</span>
+<span class="breadcrumb-node">滚动升级</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="setup-upgrade.html">« Upgrade Elasticsearch</a>
+<a href="setup-upgrade.html">« 升级 Elasticsearch</a>
 </span>
 <span class="next">
-<a href="restart-upgrade.html">Full cluster restart upgrade »</a>
+<a href2="restart-upgrade.html">Full cluster restart upgrade »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="rolling-upgrades"></a>Rolling upgrades<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/upgrade/rolling_upgrade.asciidoc">edit</a>
+<a id="rolling-upgrades"></a>滚动升级 (Rolling upgrades)
 </h2>
 </div></div></div>
-<p>A rolling upgrade allows an Elasticsearch cluster to be upgraded one node at
-a time so upgrading does not interrupt service. Running multiple versions of
-Elasticsearch in the same cluster beyond the duration of an upgrade is
-not supported, as shards cannot be replicated from upgraded nodes to nodes
-running the older version.</p>
-<p>We strongly recommend that when you upgrade you divide your cluster’s nodes
-into the following two groups and upgrade the groups in this order:</p>
+<p>
+滚动升级允许 Elasticsearch 集群一次升级一个节点，因此升级过程中服务不会中断。
+
+不支持在升级期间在同一个集群中运行多个版本的 Elasticsearch，因为分片不能从升级的节点复制到运行旧版本的节点。
+</p>
+<p>
+强烈建议在升级时将集群的节点分成以下两组，并按以下顺序升级这些组：
+</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-Nodes that are not <a class="xref" href="modules-node.html#master-node" title="Master-eligible node">master-eligible</a>. You can retrieve a list
-of these nodes with <code class="literal">GET /_nodes/_all,master:false</code> or by finding all the nodes
-configured with <code class="literal">node.master: false</code>.
+<a class="xref" href="modules-node.html#master-node" title="Master-eligible node">不符合主节点要求</a> 的节点。
+
+可以使用 <code class="literal">GET /_nodes/_all,master:false</code> 或通过查找使用 <code class="literal">node.master: false</code> 配置的所有节点来检索这些节点的列表。
 </li>
 <li class="listitem">
-Master-eligible nodes, which are the remaining nodes. You can retrieve a list
-of these nodes with <code class="literal">GET /_nodes/master:true</code>.
+符合主节点要求的节点，即剩余的节点。可以用<code class="literal">GET /_nodes/master:true</code> 检索这些节点的列表。
 </li>
 </ol>
 </div>
-<p>You may upgrade the nodes within each of these groups in any order.</p>
-<p>Upgrading the nodes in this order ensures that the master-ineligible nodes are
-always running a version at least as new as the master-eligible nodes. Newer
-nodes can always join a cluster with an older master, but older nodes cannot
-always join a cluster with a newer master. By upgrading the master-eligible
-nodes last you ensure that all the master-ineligible nodes will be able to join
-the cluster whether the master-eligible nodes have been upgraded or not. If you
-upgrade any master-eligible nodes before the master-ineligible nodes then there
-is a risk that the older nodes will leave the cluster and will not be able to
-rejoin until they have been upgraded.</p>
-<p>Rolling upgrades are supported:</p>
+<p>你可以按任意顺序升级每组中的节点。</p>
+<p>
+以这种顺序升级节点确保了不符合主节点要求的节点总是运行至少与符合主节点要求的节点一样的新版本。
+
+较新的节点总是可以加入具有较旧主节点的集群，但是较旧的节点不是总能加入具有较新主节点的集群。
+
+通过最后升级符合主节点要求的节点，可以确保所有不符合主节点要求的节点都能够加入集群，无论符合主节点要求的节点是否已经升级。
+
+如果在升级不符合主节点要求的节点之前升级任何符合主节点要求的节点，则存在旧节点将离开集群并且在升级之前无法重新加入的风险。
+</p>
+<p>滚动升级支持：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Between minor versions
+次要版本之间
 </li>
 <li class="listitem">
-<a href="https://www.elastic.co/guide/en/elastic-stack/6.8/upgrading-elastic-stack.html" class="ulink" target="_top">From 5.6 to 6.8</a>
+<a href="https://www.elastic.co/guide/en/elastic-stack/6.8/upgrading-elastic-stack.html" class="ulink" target="_top">从 5.6 到 6.8</a>
 </li>
 <li class="listitem">
-From 6.8 to 7.7.1
+从 6.8 到 7.7.1
 </li>
 <li class="listitem">
-From any version since 7.7.0 to 7.7.1
+从 7.7.0 到 7.7.1 的任何版本 <span class="remark">(from any version since 7.7.0 to 7.7.1)</span>
 </li>
 </ul>
 </div>
-<p>Upgrading directly to 7.7.1 from 6.7 or earlier requires a
-<a class="xref" href="restart-upgrade.html" title="Full cluster restart upgrade">full cluster restart</a>.</p>
+<p>
+从 6.7 或更低版本直接升级到 7.7.1 需要 <a class="xref" href="restart-upgrade.html" title="Full cluster restart upgrade">全重启集群</a>。
+</p>
 <h3>
-<a id="_preparing_to_upgrade"></a>Preparing to upgrade<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/upgrade/preparing_to_upgrade.asciidoc">edit</a>
+<a id="_preparing_to_upgrade"></a>准备升级
 </h3>
-<p>It is important to prepare carefully before starting an upgrade. Once you have
-started to upgrade your cluster to version 7.7.1 you must complete the
-upgrade. As soon as the cluster contains nodes of version 7.7.1 it may make
-changes to its internal state that cannot be reverted. If you cannot complete
-the upgrade then you should discard the partially-upgraded cluster, deploy an
-empty cluster of the version before the upgrade, and restore its contents from
-a snapshot.</p>
-<p>Before you start to upgrade your cluster to version 7.7.1 you should do the
-following.</p>
+<p>
+在开始升级之前，认真准备非常重要。
+
+一旦开始将集群升级到版本 7.7.1，则必须完成升级。
+
+一旦集群包含 7.7.1 版本的节点，它可能会对其内部状态进行无法撤销的更改。
+
+如果无法完成升级，则应放弃这个已部分升级的集群，部署一个升级前的版本的空集群，并从快照恢复内容。
+</p>
+<p>
+在开始将集群升级到 7.7.1 版之前，你应该执行以下操作：
+</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-Check the <a class="xref" href="logging.html#deprecation-logging" title="Deprecation logging">deprecation log</a> to see if you are using any
-deprecated features and update your code accordingly.
+检查 <a class="xref" href="logging.html#deprecation-logging" title="Deprecation logging">弃用日志</a>，查看你是否正在使用任何弃用的功能，并相应地更新你的代码。
 </li>
 <li class="listitem">
-Review the <a class="xref" href="breaking-changes.html" title="Breaking changes">breaking changes</a> and make any necessary
-changes to your code and configuration for version 7.7.1.
+查看 <a class="xref" href="breaking-changes.html" title="Breaking changes">重大更改</a>，并为 7.7.1 版进行任何代码和配置必要的更改。
 </li>
 <li class="listitem">
-If you use any plugins, make sure there is a version of each plugin that is
-compatible with Elasticsearch version 7.7.1.
+如果你使用了插件，请确保每个插件都有一个与 Elasticsearch 7.7.1 版兼容的版本。
 </li>
 <li class="listitem">
-Test the upgrade in an isolated environment before upgrading your production
-cluster.
+升级生产集群之前，请在隔离环境中测试升级过程。
 </li>
 <li class="listitem">
-<a class="xref" href="modules-snapshots.html" title="Snapshot module">Back up your data by taking a snapshot!</a>
+<a class="xref" href="modules-snapshots.html" title="Snapshot module">使用快照备份数据！</a>
 </li>
 </ol>
 </div>
 <h3>
-<a id="_upgrading_your_cluster"></a>Upgrading your cluster<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/upgrade/rolling_upgrade.asciidoc">edit</a>
+<a id="_upgrading_your_cluster"></a>升级集群
 </h3>
-<p>To perform a rolling upgrade to 7.7.1:</p>
+<p>要执行到 7.7.1 的滚动升级：</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-<p><span class="strong strong"><strong>Disable shard allocation</strong></span>.</p>
-<p>When you shut down a node, the allocation process waits for
-<code class="literal">index.unassigned.node_left.delayed_timeout</code> (by default, one minute) before
-starting to replicate the shards on that node to other nodes in the cluster,
-which can involve a lot of I/O.  Since the node is shortly going to be
-restarted, this I/O is unnecessary. You can avoid racing the clock by
-<a class="xref" href="modules-cluster.html#cluster-routing-allocation-enable">disabling allocation</a> of replicas before
-shutting down the node:</p>
+<p><span class="strong strong"><strong>禁用分片分配</strong></span>。</p>
+<p>
+当你关闭一个节点时，分配进程会等待 <code class="literal">index.unassigned.node_left.delayed_timeout</code> (默认值为 1 分钟)，然后开始将该节点上的分片复制到集群中的其他节点，这可能会涉及大量 I/O。
+
+由于该节点将很快重新启动，因此不需要此 I/O。
+
+通过在关闭节点之前 <a class="xref" href="modules-cluster.html#cluster-routing-allocation-enable">禁用副本分配</a>，可以避免与时间赛跑：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT _cluster/settings
 {
@@ -162,75 +162,83 @@ shutting down the node:</p>
 <div class="console_widget" data-snippet="snippets/58.console"></div>
 </li>
 <li class="listitem">
-<p><span class="strong strong"><strong>Stop non-essential indexing and perform a synced flush.</strong></span> (Optional)</p>
-<p>While you can continue indexing during the upgrade, shard recovery
-is much faster if you temporarily stop non-essential indexing and perform a
-<a class="xref" href="indices-synced-flush-api.html" title="Synced flush API">synced-flush</a>.</p>
+<p><span class="strong strong"><strong>
+停止不必要的索引并执行 同步刷新(synced flush)。</strong></span> (可选)
+</p>
+<p>
+虽然你可以在升级期间继续索引，但如果你暂时停止不必要的索引并执行<a class="xref" href="indices-synced-flush-api.html" title="Synced flush API">同步刷新(synced-flush)</a>，分片恢复会快得多。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST _flush/synced</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/59.console"></div>
-<p>When you perform a synced flush, check the response to make sure there are
-no failures. Synced flush operations that fail due to pending indexing
-operations are listed in the response body, although the request itself
-still returns a 200 OK status. If there are failures, reissue the request.</p>
-<p>Note that synced flush is deprecated and will be removed in 8.0. A flush
-has the same effect as a synced flush on Elasticsearch 7.6 or later.</p>
+<p>
+执行同步刷新时，检查响应以确保没有失败。
+
+由于挂起的索引操作导致失败了的同步刷新操作会在响应正文中列出，尽管请求本身仍会返回 200 OK 状态。
+如果失败，重新发出请求。
+<p>
+请注意，同步刷新已过时，将在8.0中删除。
+Elasticsearch 7.6 或更高版本上的 刷新(flush) 与 同步刷新(synced flush) 效果相同。
+</p>
 </li>
 <li class="listitem">
-<p><span class="strong strong"><strong>Temporarily stop the tasks associated with active machine learning jobs and datafeeds.</strong></span> (Optional)</p>
-<p>If your machine learning indices were created before 6.x, you must
-<a class="xref" href="reindex-upgrade.html" title="Reindex before upgrading">reindex the indices</a>.</p>
-<p>If your machine learning indices were created in 6.x, you can:</p>
+<p><span class="strong strong"><strong>暂时停止与主动机器学习工作和数据馈送(datafeed)相关的任务。</strong></span> (可选)</p>
+<p>
+如果你的机器学习索引是在 6.x 之前创建的，你必须 <a class="xref" href="reindex-upgrade.html" title="Reindex before upgrading">重新索引这些索引</a>。
+</p>
+<p>如果你的机器学习索引是在 6.x 中创建的，你可以：<p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Leave your machine learning jobs running during the upgrade. When you shut down a
-machine learning node, its jobs automatically move to another node and restore the model
-states. This option enables your jobs to continue running during the upgrade but
-it puts increased load on the cluster.
+在升级过程中让机器学习作业继续运行。
+
+当你关闭机器学习节点时，它的作业会自动移动到另一个节点，并恢复模型状态。
+
+此选项使作业能够在关闭期间继续运行，但这会增加集群的负载。
 </li>
 <li class="listitem">
-<p>Temporarily halt the tasks associated with your machine learning jobs and datafeeds and
-prevent new jobs from opening by using the
-<a class="xref" href="ml-set-upgrade-mode.html" title="Set upgrade mode API">set upgrade mode API</a>:</p>
+<p>
+使用 <a class="xref" href="ml-set-upgrade-mode.html" title="Set upgrade mode API">设置升级模式(set upgrade mode) API</a> 暂时停止与机器学习作业和数据馈送(datafeed)相关联的任务，并阻止新作业打开:
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST _ml/set_upgrade_mode?enabled=true</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/60.console"></div>
-<p>When you disable upgrade mode, the jobs resume using the last model
-state that was automatically saved. This option avoids the overhead of managing
-active jobs during the upgrade and is faster than explicitly stopping datafeeds
-and closing jobs.</p>
+<p>
+当禁用升级模式时，作业将继续使用自动保存的最后一个模型状态。  
+此选项避免了升级期间管理活动作业的开销，并且比显式停止数据馈送和关闭作业更快。
+</p>
 </li>
 <li class="listitem">
-<a href="https://www.elastic.co/guide/en/machine-learning/7.7/stopping-ml.html" class="ulink" target="_top">Stop all datafeeds and close all jobs</a>. This option
-saves the model state at the time of closure. When you reopen the jobs after the
-upgrade, they use the exact same model. However, saving the latest model state
-takes longer than using upgrade mode, especially if you have a lot of jobs or
-jobs with large model states.
+<a href="https://www.elastic.co/guide/en/machine-learning/7.7/stopping-ml.html" class="ulink" target="_top">停止所有数据馈送(datafeed)并关闭所有作业</a>。
+此选项保存关闭时的模型状态。
+
+升级完成后重新打开作业时，它们使用完全相同的模型。
+
+但是，保存最新的模型状态比使用升级模式花费的时间更长，尤其是当你有许多作业或作业具有较大的模型状态时。
 </li>
 </ul>
 </div>
 </li>
 <li class="listitem">
-<p><a id="upgrade-node"></a> <span class="strong strong"><strong>Shut down a single node</strong></span>.</p>
+<p><a id="upgrade-node"></a> <span class="strong strong"><strong>关闭单个节点</strong></span>。</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<p>If you are running Elasticsearch with <code class="literal">systemd</code>:</p>
+<p>如果你是使用 <code class="literal">systemd</code> 运行的 Elasticsearch：</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo systemctl stop elasticsearch.service</pre>
 </div>
 </li>
 <li class="listitem">
-<p>If you are running Elasticsearch with SysV <code class="literal">init</code>:</p>
+<p>如果你是使用 SysV <code class="literal">init</code> 运行的 Elasticsearch：</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">sudo -i service elasticsearch stop</pre>
 </div>
 </li>
 <li class="listitem">
-<p>If you are running Elasticsearch as a daemon:</p>
+<p>如果你是以守护进程方式运行的 Elasticsearch：</p>
 <div class="pre_wrapper lang-sh">
 <pre class="programlisting prettyprint lang-sh">kill $(cat pid)</pre>
 </div>
@@ -239,102 +247,118 @@ jobs with large model states.
 </div>
 </li>
 <li class="listitem">
-<p><span class="strong strong"><strong>Upgrade the node you shut down.</strong></span></p>
-<p>To upgrade using a <a class="xref" href="deb.html" title="Install Elasticsearch with Debian Package">Debian</a> or <a class="xref" href="rpm.html" title="Install Elasticsearch with RPM">RPM</a> package:</p>
+<p><span class="strong strong"><strong>升级刚才关闭的那个节点。</strong></span></p>
+<p>
+要使用 <a class="xref" href="deb.html" title="Install Elasticsearch with Debian Package">Debian</a> 或 <a class="xref" href="rpm.html" title="Install Elasticsearch with RPM">RPM</a> 包升级：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Use <code class="literal">rpm</code> or <code class="literal">dpkg</code> to install the new package.  All files are
-installed in the appropriate location for the operating system
-and Elasticsearch config files are not overwritten.
+使用 <code class="literal">rpm</code> 或 <code class="literal">dpkg</code> 来安装新的软件包。
+
+所有文件都安装在操作系统的适当位置，并且不会覆盖 Elasticsearch 配置文件。
 </li>
 </ul>
 </div>
-<p>To upgrade using a zip or compressed tarball:</p>
+<p>要使用 zip 或压缩的 tarball 进行升级：</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-Extract the zip or tarball to a <em>new</em> directory. This is critical if you
-are not using external <code class="literal">config</code> and <code class="literal">data</code> directories.
+将 zip 或 tarball 解压缩到一个<em>新</em>目录。
+如果不使用外部 <code class="literal">config</code> 和 <code class="literal">data</code> 目录，这一点非常重要。
 </li>
 <li class="listitem">
-Set the <code class="literal">ES_PATH_CONF</code> environment variable to specify the location of
-your external <code class="literal">config</code> directory and <code class="literal">jvm.options</code> file. If you are not
-using an external <code class="literal">config</code> directory, copy your old configuration
-over to the new installation.
+设置 <code class="literal">ES_PATH_CONF</code> 环境变量，以指定外部 <code class="literal">config</code> 目录和 <code class="literal">jvm.options</code> 文件的位置。
+
+如果没有使用外部 <code class="literal">config</code> 目录，请将旧的配置复制到新的安装目录中。
 </li>
 <li class="listitem">
-<p>Set <code class="literal">path.data</code> in <code class="literal">config/elasticsearch.yml</code> to point to your external
-data directory. If you are not using an external <code class="literal">data</code> directory, copy
-your old data directory over to the new installation.<br></p>
+<p>
+将<code class="literal">config/elasticsearch.yml</code> 中的 <code class="literal">path.data</code> 设置为你的外部 <code class="literal">data</code> 目录。
+
+如果没有使用外部 <code class="literal">data</code> 目录，请将旧的数据目录复制到新的安装目录中。
+<br>
+</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If you use monitoring features, re-use the data directory when you upgrade
-Elasticsearch. Monitoring identifies unique Elasticsearch nodes by using the persistent UUID, which
-is stored in the data directory.</p>
+<p>
+如果使用了监控功能，请在升级 Elasticsearch 时重复使用数据目录。
+监控通过使用存储在数据目录中的持久 UUID 来识别唯一的 Elasticsearch 节点。
+</p>
 </div>
 </div>
 </li>
 <li class="listitem">
-Set <code class="literal">path.logs</code> in <code class="literal">config/elasticsearch.yml</code> to point to the location
-where you want to store your logs. If you do not specify this setting,
-logs are stored in the directory you extracted the archive to.
+将 <code class="literal">config/elasticsearch.yml</code> 中的 <code class="literal">path.logs</code> 设置为存储日志的位置。
+
+如果不指定此设置，日志将存储在归档文件解压缩到的目录中。
 </li>
 </ol>
 </div>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>When you extract the zip or tarball packages, the <code class="literal">elasticsearch-n.n.n</code>
-directory contains the Elasticsearch <code class="literal">config</code>, <code class="literal">data</code>, and <code class="literal">logs</code> directories.</p>
-<p>We recommend moving these directories out of the Elasticsearch directory
-so that there is no chance of deleting them when you upgrade Elasticsearch.
-To specify the new locations, use the <code class="literal">ES_PATH_CONF</code> environment
-variable and the <code class="literal">path.data</code> and <code class="literal">path.logs</code> settings. For more information,
-see <a class="xref" href="important-settings.html" title="Important Elasticsearch configuration">Important Elasticsearch configuration</a>.</p>
-<p>The <a class="xref" href="deb.html" title="Install Elasticsearch with Debian Package">Debian</a> and <a class="xref" href="rpm.html" title="Install Elasticsearch with RPM">RPM</a> packages place these directories in the
-appropriate place for each operating system. In production, we recommend
-installing using the deb or rpm package.</p>
+<p>
+当你提取 zip 或 tarball 包时， <code class="literal">elasticsearch-n.n.n</code> 目录包含 Elasticsearch <code class="literal">config</code>、<code class="literal">data</code> 和 <code class="literal">logs</code>目录。
+</p>
+<p>
+建议将这些目录移出 Elasticsearch 目录，这样在升级 Elasticsearch 时就没有机会删除它们。
+
+要指定新位置，请使用 <code class="literal">ES_PATH_CONF</code> 环境变量以及 <code class="literal">path.data</code> 和 <code class="literal">path.logs</code> 设置。
+
+更多信息请参考 <a class="xref" href="important-settings.html" title="Important Elasticsearch configuration">Elasticsearch的重要的配置</a>.
+</p>
+<p>
+<a class="xref" href="deb.html" title="Install Elasticsearch with Debian Package">Debian</a> 和 <a class="xref" href="rpm.html" title="Install Elasticsearch with RPM">RPM</a> 包将这些目录放在每个操作系统的适当位置。
+
+在生产环境中，我们建议使用 deb 或 rpm 包进行安装。
+</p>
 </div>
 </div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
 <a id="rolling-upgrades-bootstrapping"></a>
-<p>You should leave <code class="literal">cluster.initial_master_nodes</code> unset while performing a
-rolling upgrade. Each upgraded node is joining an existing cluster so there is
-no need for <a class="xref" href="modules-discovery-bootstrap-cluster.html" title="Bootstrapping a cluster">cluster bootstrapping</a>. You
-must configure <a class="xref" href="modules-discovery-hosts-providers.html#built-in-hosts-providers" title="Seed hosts providers">either <code class="literal">discovery.seed_hosts</code> or
-<code class="literal">discovery.seed_providers</code></a> on every node.</p>
+<p>
+在执行滚动升级时，应该保持 <code class="literal">cluster.initial_master_nodes</code> 未设置。
+
+每个升级后的节点都将加入现有集群，因此不需要 <a class="xref" href="modules-discovery-bootstrap-cluster.html" title="Bootstrapping a cluster">集群引导</a>。
+
+必须在所有节点上配置 <a class="xref" href="modules-discovery-hosts-providers.html#built-in-hosts-providers" title="Seed hosts providers"> <code class="literal">discovery.seed_hosts</code> 或 <code class="literal">discovery.seed_providers</code> （二选一）</a>。
+</p>
 </div>
 </div>
 </li>
 <li class="listitem">
-<p><span class="strong strong"><strong>Upgrade any plugins.</strong></span></p>
-<p>Use the <code class="literal">elasticsearch-plugin</code> script to install the upgraded version of each
-installed Elasticsearch plugin. All plugins must be upgraded when you upgrade
-a node.</p>
+<p><span class="strong strong"><strong>升级插件。</strong></span></p>
+<p>
+使用 <code class="literal">elasticsearch-plugin</code> 脚本安装每个已安装的 Elasticsearch 插件的升级版本。
+升级节点时，必须升级所有插件。
+</p>
 </li>
 <li class="listitem">
-If you use Elasticsearch security features to define realms, verify that your realm
-settings are up-to-date. The format of realm settings changed in version 7.0, in
-particular, the placement of the realm type changed. See
-<a class="xref" href="security-settings.html#realm-settings" title="Realm settings">Realm settings</a>.
+如果你使用了 Elasticsearch 安全功能来定义 <em>领域(realm)</em>，请验证你的领域设置是最新的。
+
+在 7.0 版中，领域设置的格式发生了变化，尤其是领域类型的位置发生了变化。
+
+参考<a class="xref" href="security-settings.html#realm-settings" title="Realm settings">领域设置</a>。
 </li>
 <li class="listitem">
-<p><span class="strong strong"><strong>Start the upgraded node.</strong></span></p>
-<p>Start the newly-upgraded node and confirm that it joins the cluster by checking
-the log file or by submitting a <code class="literal">_cat/nodes</code> request:</p>
+<p><span class="strong strong"><strong>启动升级后的节点。</strong></span></p>
+<p>
+启动刚升级的节点，并通过检查日志文件或提交一个 <code class="literal">_cat/nodes</code> 请求来确认它已加入集群:
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET _cat/nodes</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/61.console"></div>
 </li>
 <li class="listitem">
-<p><span class="strong strong"><strong>Reenable shard allocation.</strong></span></p>
-<p>Once the node has joined the cluster, remove the <code class="literal">cluster.routing.allocation.enable</code>
-setting to enable shard allocation and start using the node:</p>
+<p><span class="strong strong"><strong>重新启用分片分配。</strong></span></p>
+<p>
+节点加入集群后，删除 <code class="literal">cluster.routing.allocation.enable</code> 设置以启用分片分配并开始使用节点：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT _cluster/settings
 {
@@ -346,100 +370,119 @@ setting to enable shard allocation and start using the node:</p>
 <div class="console_widget" data-snippet="snippets/62.console"></div>
 </li>
 <li class="listitem">
-<p><span class="strong strong"><strong>Wait for the node to recover.</strong></span></p>
-<p>Before upgrading the next node, wait for the cluster to finish shard allocation.
-You can check progress by submitting a <a class="xref" href="cat-health.html" title="cat health API"><code class="literal">_cat/health</code></a> request:</p>
+<p><span class="strong strong"><strong>等待节点恢复。</strong></span></p>
+<p>
+在升级下一个节点之前，请等待集群完成分片分配。
+可以通过提交一个 <a class="xref" href="cat-health.html" title="cat health API"><code class="literal">_cat/health</code></a> 请求来检查进度：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET _cat/health?v</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/63.console"></div>
-<p>Wait for the <code class="literal">status</code> column to switch to <code class="literal">green</code>. Once the node is <code class="literal">green</code>, all
-primary and replica shards have been allocated.</p>
+<p>
+等待 <code class="literal">status</code> 列变成 <code class="literal">green</code>。
+
+一旦节点变成 <code class="literal">green</code>，所有主分片和副本分片都已分配。
+</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>During a rolling upgrade, primary shards assigned to a node running the new
-version cannot have their replicas assigned to a node with the old
-version. The new version might have a different data format that is
-not understood by the old version.</p>
-<p>If it is not possible to assign the replica shards to another node
-(there is only one upgraded node in the cluster), the replica
-shards remain unassigned and status stays <code class="literal">yellow</code>.</p>
-<p>In this case, you can proceed once there are no initializing or relocating shards
-(check the <code class="literal">init</code> and <code class="literal">relo</code> columns).</p>
-<p>As soon as another node is upgraded, the replicas can be assigned and the
-status will change to <code class="literal">green</code>.</p>
+<p>
+在滚动升级期间，分配给运行新版本的节点的主分片不能将其副本分配给运行旧版本的节点。
+
+新版本可能具有旧版本不理解的不同的数据格式。
+</p>
+<p>
+如果无法将副本分片分配给另一个节点(集群中只有一个升级后的节点)，副本分片将保持未分配状态，状态保持 <code class="literal">yellow</code>。
+</p>
+<p>
+在这种情况下，一旦没有初始化或重定位中的分片，就可以继续了(检查 <code class="literal">init</code> 和 <code class="literal">relo</code>列)。
+</p>
+<p>
+一旦另一个节点升级完成，就可以分配副本，并且状态将变为 <code class="literal">green</code>。
+</p>
 </div>
 </div>
-<p>Shards that were not <a class="xref" href="indices-synced-flush-api.html" title="Synced flush API">sync-flushed</a> might take longer to
-recover.  You can monitor the recovery status of individual shards by
-submitting a <a class="xref" href="cat-recovery.html" title="cat recovery API"><code class="literal">_cat/recovery</code></a> request:</p>
+<p>
+未 <a class="xref" href="indices-synced-flush-api.html" title="Synced flush API">同步刷新(sync-flushed)</a> 的分片可能需要更长时间才能恢复。
+
+可以通过提交一个 <a class="xref" href="cat-recovery.html" title="cat recovery API"><code class="literal">_cat/recovery</code></a> 请求来监控单个分片的恢复状态:
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET _cat/recovery</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/64.console"></div>
-<p>If you stopped indexing, it is safe to resume indexing as soon as
-recovery completes.</p>
+<p>
+如果升级前停止了索引，恢复完成后立即恢复索引是安全的。
+</p>
 </li>
 <li class="listitem">
-<p><span class="strong strong"><strong>Repeat</strong></span></p>
-<p>When  the node has recovered and the cluster is stable, repeat these steps
-for each node that needs to be updated. You can monitor the health of the cluster
-with a <a class="xref" href="cat-health.html" title="cat health API"><code class="literal">_cat/health</code></a> request:</p>
+<p><span class="strong strong"><strong>重复操作</strong></span></p>
+<p>
+当节点恢复且集群稳定后，对每个需要更新的节点重复这些步骤。
+
+可以使用 <a class="xref" href="cat-health.html" title="cat health API"><code class="literal">_cat/health</code></a> 请求来监视集群的运行状况:
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_cat/health?v</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/65.console"></div>
-<p>And check which nodes have been upgraded with a <a class="xref" href="cat-nodes.html" title="cat nodes API"><code class="literal">_cat/nodes</code></a> request:</p>
+<p>
+可以使用 <a class="xref" href="cat-nodes.html" title="cat nodes API"><code class="literal">_cat/nodes</code></a> 请求检查哪些节点已经升级:
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_cat/nodes?h=ip,name,version&amp;v</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/66.console"></div>
 </li>
 <li class="listitem">
-<p><span class="strong strong"><strong>Restart machine learning jobs.</strong></span></p>
-<p>If you temporarily halted the tasks associated with your machine learning jobs,
-use the <a class="xref" href="ml-set-upgrade-mode.html" title="Set upgrade mode API">set upgrade mode API</a> to return them to active
-states:</p>
+<p><span class="strong strong"><strong>重新启动机器学习作业。</strong></span></p>
+<p>
+如果你暂时停止了与机器学习作业相关联的任务，请使用 <a class="xref" href="ml-set-upgrade-mode.html" title="Set upgrade mode API">设置升级模式(set upgrade mode) API</a> 将它们恢复到活动状态：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST _ml/set_upgrade_mode?enabled=false</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/67.console"></div>
-<p>If you closed all machine learning jobs before the upgrade, open the jobs and start the
-datafeeds from Kibana or with the <a class="xref" href="ml-open-job.html" title="Open anomaly detection jobs API">open jobs</a> and
-<a class="xref" href="ml-start-datafeed.html" title="Start datafeeds API">start datafeed</a> APIs.</p>
+<p>
+如果在升级前关闭了所有机器学习作业，请打开作业并从 Kibana 启动数据馈送，或者使用 <a class="xref" href="ml-open-job.html" title="Open anomaly detection jobs API">open jobs</a> 和 <a class="xref" href="ml-start-datafeed.html" title="Start datafeeds API">start datafeed</a> API。
+</p>
 </li>
 </ol>
 </div>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>During a rolling upgrade, the cluster continues to operate normally. However,
-any new functionality is disabled or operates in a backward compatible mode
-until all nodes in the cluster are upgraded. New functionality becomes
-operational once the upgrade is complete and all nodes are running the new
-version. Once that has happened, there’s no way to return to operating in a
-backward compatible mode. Nodes running the previous major version will not be
-allowed to join the fully-updated cluster.</p>
-<p>In the unlikely case of a network malfunction during the upgrade process that
-isolates all remaining old nodes from the cluster, you must take the old nodes
-offline and upgrade them to enable them to join the cluster.</p>
-<p>If you stop half or more of the master-eligible nodes all at once during the
-upgrade then the cluster will become unavailable, meaning that the upgrade is
-no longer a <em>rolling</em> upgrade. If this happens, you should upgrade and restart
-all of the stopped master-eligible nodes to allow the cluster to form again, as
-if performing a <a class="xref" href="restart-upgrade.html" title="Full cluster restart upgrade">full-cluster restart upgrade</a>. It may also
-be necessary to upgrade all of the remaining old nodes before they can join the
-cluster after it re-forms.</p>
+<p>
+在滚动升级期间，集群继续正常运行。
+
+但是，在集群中的所有节点都完成升级之前，任何新功能都将被禁用或以向后兼容的模式运行。
+
+升级完成且所有节点都运行新版本后，新功能便可投入使用。
+
+一旦发生这种情况，就没有办法回到向后兼容的模式。
+
+不允许运行以前主要版本的节点加入完全更新的集群。
+</p>
+<p>
+如果在升级过程中出现网络故障，将所有剩余的旧节点与集群隔离，必须使旧节点脱机并升级，以使它们能够重新加入集群。
+</p>
+<p>
+如果在升级过程中一次停止一半或更多符合主节点要求的节点，则集群将变得不可用，这意味着此次升级不再是<em>滚动</em>升级。
+
+如果发生这种情况，你应该升级并重新启动所有停止的符合主节点要求的节点，以允许集群重新形成，就像执行 <a class="xref" href="restart-upgrade.html" title="Full cluster restart upgrade">全集群重启升级</a> 一样。
+
+可能还需要升级所有剩余的旧节点，然后它们才能在集群重组后加入集群。
+</p>
 </div>
 </div>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="setup-upgrade.html">« Upgrade Elasticsearch</a>
+<a href="setup-upgrade.html">« 升级 Elasticsearch</a>
 </span>
 <span class="next">
-<a href="restart-upgrade.html">Full cluster restart upgrade »</a>
+<a href2="restart-upgrade.html">Full cluster restart upgrade »</a>
 </span>
 </div>
 </div>

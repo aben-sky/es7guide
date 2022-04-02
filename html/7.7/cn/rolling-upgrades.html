@@ -43,7 +43,7 @@
 <a href="setup-upgrade.html">« 升级 Elasticsearch</a>
 </span>
 <span class="next">
-<a href2="restart-upgrade.html">Full cluster restart upgrade »</a>
+<a href="restart-upgrade.html">全集群重启升级 »</a>
 </span>
 </div>
 <div class="chapter">
@@ -63,24 +63,24 @@
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-<a class="xref" href="modules-node.html#master-node" title="Master-eligible node">不符合主节点要求</a> 的节点。
+<a class="xref" href="modules-node.html#master-node" title="Master-eligible node">不符合主节点条件</a> 的节点。
 
 可以使用 <code class="literal">GET /_nodes/_all,master:false</code> 或通过查找使用 <code class="literal">node.master: false</code> 配置的所有节点来检索这些节点的列表。
 </li>
 <li class="listitem">
-符合主节点要求的节点，即剩余的节点。可以用<code class="literal">GET /_nodes/master:true</code> 检索这些节点的列表。
+符合主节点条件的节点，即剩余的节点。可以用<code class="literal">GET /_nodes/master:true</code> 检索这些节点的列表。
 </li>
 </ol>
 </div>
 <p>你可以按任意顺序升级每组中的节点。</p>
 <p>
-以这种顺序升级节点确保了不符合主节点要求的节点总是运行至少与符合主节点要求的节点一样的新版本。
+以这种顺序升级节点确保了不符合主节点条件的节点总是运行至少与符合主节点条件的节点一样的新版本。
 
 较新的节点总是可以加入具有较旧主节点的集群，但是较旧的节点不是总能加入具有较新主节点的集群。
 
-通过最后升级符合主节点要求的节点，可以确保所有不符合主节点要求的节点都能够加入集群，无论符合主节点要求的节点是否已经升级。
+通过最后升级符合主节点条件的节点，可以确保所有不符合主节点条件的节点都能够加入集群，无论符合主节点条件的节点是否已经升级。
 
-如果在升级不符合主节点要求的节点之前升级任何符合主节点要求的节点，则存在旧节点将离开集群并且在升级之前无法重新加入的风险。
+如果在升级不符合主节点条件的节点之前升级任何符合主节点条件的节点，则存在旧节点将离开集群并且在升级之前无法重新加入的风险。
 </p>
 <p>滚动升级支持：</p>
 <div class="ulist itemizedlist">
@@ -100,7 +100,7 @@
 </ul>
 </div>
 <p>
-从 6.7 或更低版本直接升级到 7.7.1 需要 <a class="xref" href="restart-upgrade.html" title="Full cluster restart upgrade">全重启集群</a>。
+从 6.7 或更低版本直接升级到 7.7.1 需要 <a class="xref" href="restart-upgrade.html" title="Full cluster restart upgrade">全集群重启升级</a>。
 </p>
 <h3>
 <a id="_preparing_to_upgrade"></a>准备升级
@@ -468,9 +468,9 @@ Elasticsearch 7.6 或更高版本上的 刷新(flush) 与 同步刷新(synced fl
 如果在升级过程中出现网络故障，将所有剩余的旧节点与集群隔离，必须使旧节点脱机并升级，以使它们能够重新加入集群。
 </p>
 <p>
-如果在升级过程中一次停止一半或更多符合主节点要求的节点，则集群将变得不可用，这意味着此次升级不再是<em>滚动</em>升级。
+如果在升级过程中一次停止一半或更多符合主节点条件的节点，则集群将变得不可用，这意味着此次升级不再是<em>滚动</em>升级。
 
-如果发生这种情况，你应该升级并重新启动所有停止的符合主节点要求的节点，以允许集群重新形成，就像执行 <a class="xref" href="restart-upgrade.html" title="Full cluster restart upgrade">全集群重启升级</a> 一样。
+如果发生这种情况，你应该升级并重新启动所有停止的符合主节点条件的节点，以允许集群重新形成，就像执行 <a class="xref" href="restart-upgrade.html" title="Full cluster restart upgrade">全集群重启升级</a> 一样。
 
 可能还需要升级所有剩余的旧节点，然后它们才能在集群重组后加入集群。
 </p>
@@ -482,7 +482,7 @@ Elasticsearch 7.6 或更高版本上的 刷新(flush) 与 同步刷新(synced fl
 <a href="setup-upgrade.html">« 升级 Elasticsearch</a>
 </span>
 <span class="next">
-<a href2="restart-upgrade.html">Full cluster restart upgrade »</a>
+<a href="restart-upgrade.html">全集群重启升级 »</a>
 </span>
 </div>
 </div>

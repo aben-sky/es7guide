@@ -535,8 +535,8 @@ var esNavLinks = [
             },
             {
                 "url": "restart-upgrade.html",
-                "text": "Full cluster重启升级",
-                "title": "Full cluster restart upgrade"
+                "text": "全集群重启升级",
+                "title": "全集群重启升级"
             },
             {
                 "url": "reindex-upgrade.html",

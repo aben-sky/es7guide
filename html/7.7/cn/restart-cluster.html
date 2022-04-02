@@ -187,7 +187,7 @@ GET _cat/nodes</pre>
 <a class="xref" href="cat-health.html" title="cat health API"><code class="literal">_cat/health</code></a> API 最初报告 <code class="literal">red</code> 的 <code class="literal">status</code><span class="remark">(状态)</span>，表示尚未分配所有主分片。
 </p>
 <p>
-一旦节点恢复其本地碎片，集群 <code class="literal">status</code> 将切换为 <code class="literal">yellow</code>，表示所有主分片都已恢复，但并非所有副本分片都已分配。
+一旦节点恢复其本地分片，集群 <code class="literal">status</code> 将切换为 <code class="literal">yellow</code>，表示所有主分片都已恢复，但并非所有副本分片都已分配。
 
 这是意料之中的，因为尚未重新启用分配。
 

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Reindex before upgrading | ElasticSearch 7.7 权威指南中文版</title>
+	<title>在升级前重新索引 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,68 +32,75 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="setup-upgrade.html">Upgrade Elasticsearch</a></span>
+<span class="breadcrumb-node">升级Elasticsearch</span>
 »
-<span class="breadcrumb-node">Reindex before upgrading</span>
+<span class="breadcrumb-node">在升级前重新索引</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="restart-upgrade.html">« Full cluster restart upgrade</a>
+<a href="restart-upgrade.html">« 全集群重启升级</a>
 </span>
 <span class="next">
-<a href="reindex-upgrade-inplace.html">Reindex in place »</a>
+<a href="reindex-upgrade-inplace.html">原地重新索引 »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="reindex-upgrade"></a>Reindex before upgrading<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/upgrade/reindex_upgrade.asciidoc">edit</a>
+<a id="reindex-upgrade"></a>在升级前重新索引 (Reindex before upgrading)
 </h2>
 </div></div></div>
-<p>Elasticsearch can read indices created in the previous major version. If you
-have indices created in 5.x or before, you must reindex or delete them
-before upgrading to 7.7.1. Elasticsearch nodes will fail to start if
-incompatible indices are present. Snapshots of 5.x or earlier indices cannot be
-restored to a 7.x cluster even if they were created by a 6.x cluster.</p>
-<p>This restriction also applies to the internal indices that are used by
-Kibana and the X-Pack features. Therefore, before you can use Kibana and
-X-Pack features in 7.7.1, you must ensure the internal indices have a
-compatible index structure.</p>
-<p>You have two options for reindexing old indices:</p>
+<p>
+Elasticsearch 可以读取在以前的主要版本中创建的索引。
+
+如果在 5.x 或更早的版本中创建了索引，则必须在升级到 7.7.1 之前重新索引或删除它们。
+
+如果存在不兼容的索引，Elasticsearch 节点将无法启动。
+
+5.x 或更低版本索引的快照不能恢复到 7.x 集群，即使它们是由 6.x 集群创建的。
+</p>
+<p>
+这个限制也适用于 Kibana 和 X-Pack 功能使用的内部索引。
+
+因此，在 7.7.1 中使用 Kibana 和 X-Pack 功能之前，必须确保内部索引具有兼容的索引结构。
+</p>
+<p>你有两种重新索引旧索引的选择：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<a class="xref" href="reindex-upgrade-inplace.html" title="Reindex in place">Reindex in place</a> on your 6.x cluster before upgrading.
+升级前在 6.x 集群上 <a class="xref" href="reindex-upgrade-inplace.html" title="Reindex in place">原地重新索引(Reindex in place)</a>。
 </li>
 <li class="listitem">
-Create a new 7.7.1 cluster and <a class="xref" href="reindex-upgrade-remote.html" title="Reindex from a remote cluster">Reindex from remote</a>.
-This enables you to reindex indices that reside on clusters running any version of Elasticsearch.
+创建新的 7.7.1 集群并 <a class="xref" href="reindex-upgrade-remote.html" title="Reindex from a remote cluster">从远程重新索引</a>。
+
+这使你能够重新索引保存在任何版本的 Elasticsearch 集群上的索引。
 </li>
 </ul>
 </div>
 <div class="sidebar">
 <div class="titlepage"><div><div>
-<p class="title"><strong>Upgrading time-based indices</strong></p>
+<p class="title"><strong>升级基于时间的索引</strong></p>
 </div></div></div>
-<p>If you use time-based indices, you likely won’t need to carry
-pre-6.x indices forward to 7.7.1. Data in time-based indices
-generally becomes less useful as time passes and are
-deleted as they age past your retention period.</p>
-<p>Unless you have an unusually long retention period, you can just
-wait to upgrade to 6.x until all of your pre-6.x indices have
-been deleted.</p>
+<p>
+如果你使用了基于时间的索引，你可能不需要将 6.x 之前的索引移植到 7.7.1。
+
+基于时间的索引中的数据通常会随着时间的流逝而变得不那么有用，并且在保留期过后会被删除。
+</p>
+<p>
+除非你需要非常长的保留期，否则你可以等待升级到 6.x，直到删除所有 6.x 之前的索引。
+</p>
 </div>
 
 
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="restart-upgrade.html">« Full cluster restart upgrade</a>
+<a href="restart-upgrade.html">« 全集群重启升级</a>
 </span>
 <span class="next">
-<a href="reindex-upgrade-inplace.html">Reindex in place »</a>
+<a href="reindex-upgrade-inplace.html">原地重新索引 »</a>
 </span>
 </div>
 </div>

@@ -541,12 +541,12 @@ var esNavLinks = [
             {
                 "url": "reindex-upgrade.html",
                 "text": "在升级前重新索引",
-                "title": "Reindex before upgrading",
+                "title": "在升级前重新索引",
                 "sub": [
                     {
                         "url": "reindex-upgrade-inplace.html",
-                        "text": "无感知重建索引(Reindex in place)",
-                        "title": "Reindex in place"
+                        "text": "原地重新索引",
+                        "title": "原地重新索引"
                     },
                     {
                         "url": "reindex-upgrade-remote.html",

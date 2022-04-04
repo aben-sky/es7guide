@@ -550,8 +550,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "reindex-upgrade-remote.html",
-                        "text": "从一个远程集群重建索引",
-                        "title": "Reindex from a remote cluster"
+                        "text": "从远程集群重新索引",
+                        "title": "从远程集群重新索引"
                     }
                 ]
             }

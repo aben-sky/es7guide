@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Run a search | ElasticSearch 7.7 权威指南中文版</title>
+	<title>运行一个搜索 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,72 +32,82 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-your-data.html">Search your data</a></span>
+<span class="breadcrumb-node">搜索你的数据</span>
 »
-<span class="breadcrumb-node">Run a search</span>
+<span class="breadcrumb-node">运行一个搜索</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-your-data.html">« Search your data</a>
+<a href="search-your-data.html">« 搜索你的数据</a>
 </span>
 <span class="next">
-<a href="near-real-time.html">Near real-time search »</a>
+<a href2="near-real-time.html">Near real-time search »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="run-a-search"></a>Run a search<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/search/run-a-search.asciidoc">edit</a>
+<a id="run-a-search"></a>运行一个搜索
 </h2>
 </div></div></div>
-<p>You can use the <a class="xref" href="search-search.html" title="Search API">search API</a> to search data stored in
-one or more Elasticsearch indices.</p>
-<p>The API can runs two types of searches, depending on how you provide
-<a class="xref" href="search-your-data.html#search-query">queries</a>:</p>
+<p>
+你可以使用 <a class="xref" href="search-search.html" title="Search API">search API</a> 来搜索存储在一个或多个 Elasticsearch 索引中的数据。
+</p>
+<p>
+该 API 可以运行两种类型的搜索，具体取决于你提供的 <a class="xref" href="search-your-data.html#search-query">查询(query)</a>的方式:
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<a class="xref" href="run-a-search.html#run-uri-search" title="Run a URI search">URI searches</a>
+<a class="xref" href="run-a-search.html#run-uri-search" title="Run a URI search">URI 搜索</a>
 </span>
 </dt>
 <dd>
-Queries are provided through a query parameter. URI searches tend to be
-simpler and best suited for testing.
+查询是通过查询参数提供的。
+URI 搜索往往更简单，最适合测试使用。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="run-a-search.html#run-request-body-search" title="Run a request body search">Request body searches</a>
+<a class="xref" href="run-a-search.html#run-request-body-search" title="Run a request body search">请求体(request body)搜索</a>
 </span>
 </dt>
 <dd>
-Queries are provided through the JSON body of the API request. These queries
-are written in <a class="xref" href="query-dsl.html" title="Query DSL">Query DSL</a>. We recommend using request body
-searches in most production use cases.
+通过 API 请求的 JSON 主体 提供查询。
+
+这些查询是用 <a class="xref" href="query-dsl.html" title="Query DSL">Query DSL</a> 编写的。
+
+建议在大多数生产用例中使用 请求体(request body) 搜索。
 </dd>
 </dl>
 </div>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If you specify a query in both the URI and request body, the search API request
-runs only the URI query.</p>
+<p>
+如果在 URI 和请求主体中都指定了查询，则 search API 请求将仅运行 URI 查询。
+</p>
 </div>
 </div>
 <h3>
-<a id="run-uri-search"></a>Run a URI search<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/search/run-a-search.asciidoc">edit</a>
+<a id="run-uri-search"></a>运行一个 URI 搜索
 </h3>
-<p>You can use the search API’s <a class="xref" href="search-search.html#search-api-query-params-q"><code class="literal">q</code> query string
-parameter</a> to run a search in the request’s URI. The <code class="literal">q</code> parameter only accepts
-queries written in Lucene’s <a class="xref" href="query-dsl-query-string-query.html#query-string-syntax" title="Query string syntax">query string syntax</a>.</p>
+<p>
+你可以使用 search API 的 <a class="xref" href="search-search.html#search-api-query-params-q"><code class="literal">q</code> 查询字符串参数</a> 在请求的 URI 中运行搜索。
+
+参数 <code class="literal">q</code> 只接受用 Lucene 的 <a class="xref" href="query-dsl-query-string-query.html#query-string-syntax" title="Query string syntax">查询字符串语法</a> 编写的查询。
+</p>
 <details>
-<summary class="title"><span class="strong strong"><strong>Example</strong></span></summary>
+<summary class="title"><span class="strong strong"><strong>例子</strong></span></summary>
 <div class="content">
-<p>To get started, ingest or add some data to an Elasticsearch index.</p>
-<p>The following <a class="xref" href="docs-bulk.html" title="Bulk API">bulk API</a> request adds some example user log data to
-the <code class="literal">user_logs_000001</code> index.</p>
+<p>
+首先，在 Elasticsearch 索引中摄取或添加一些数据。
+</p>
+<p>
+下面的 <a class="xref" href="docs-bulk.html" title="Bulk API">bulk API</a> 请求将一些演示的用户日志数据添加到 <code class="literal">user_logs_000001</code> 索引中。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /user_logs_000001/_bulk?refresh
 {"index":{"_index" : "user_logs_000001", "_id" : "1"}}
@@ -108,15 +118,22 @@ the <code class="literal">user_logs_000001</code> index.</p>
 { "@timestamp": "2020-12-07T11:07:08.000Z", "user": { "id": "l7gk7f82" }, "message": "Logout successful" }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/76.console"></div>
-<p>You can now use the search API to run a URI search on this index.</p>
-<p>The following URI search matches documents with a <code class="literal">user.id</code> value of <code class="literal">l7gk7f82</code>.
-Note the query is specified using the <code class="literal">q</code> query string parameter.</p>
+<p>
+现在，你可以使用 search API 在这个索引上运行 URI 搜索。
+</p>
+<p>
+下面的 URI 搜索匹配 <code class="literal">user.id</code> 值为 <code class="literal">l7gk7f82</code>的文档。
+
+注意，这个查询是使用 <code class="literal">q</code> 查询字符串参数指定的。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /user_logs_000001/_search?q=user.id:8a4f500d</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/77.console"></div>
-<p>The API returns the following response. Note the <code class="literal">hits.hits</code> property contains
-the document that matched the query.</p>
+<p>
+API 返回以下响应。
+注意 <code class="literal">hits.hits</code> 属性包含与查询匹配的文档。
+</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   "took": 2,
@@ -154,17 +171,19 @@ the document that matched the query.</p>
 </div>
 </details>
 <h3>
-<a id="run-request-body-search"></a>Run a request body search<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/search/run-a-search.asciidoc">edit</a>
+<a id="run-request-body-search"></a>运行一个请求体搜索
 </h3>
-<p>You can use the search API’s <a class="xref" href="search-search.html#request-body-search-query"><code class="literal">query</code> request
-body parameter</a> to provide a query as a JSON object, written in
-<a class="xref" href="query-dsl.html" title="Query DSL">Query DSL</a>.</p>
+<p>
+你可以使用 search API 的 <a class="xref" href="search-search.html#request-body-search-query"><code class="literal">query</code> 请求主体参数</a>来提供一个 JSON 对象形式的查询，用 <a class="xref" href="query-dsl.html" title="Query DSL">Query DSL</a> 编写。
+</p>
 <details>
-<summary class="title"><span class="strong strong"><strong>Example</strong></span></summary>
+<summary class="title"><span class="strong strong"><strong>例子</strong></span></summary>
 <div class="content">
-<p>The following request body search uses the <a class="xref" href="query-dsl-match-query.html" title="Match query"><code class="literal">match</code></a>
-query to match documents with a <code class="literal">message</code> value of <code class="literal">login successful</code>. Note the
-<code class="literal">match</code> query is specified as a JSON object in the <code class="literal">query</code> parameter.</p>
+<p>
+下面的 请求体搜索 使用 <a class="xref" href="query-dsl-match-query.html" title="Match query"><code class="literal">match</code></a> 查询来匹配 <code class="literal">message</code> 值为 <code class="literal">login successful</code> 的文档。
+
+注意，<code class="literal">match</code> 查询在 <code class="literal">query</code> 参数中被指定为 JSON 对象。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /user_logs_000001/_search
 {
@@ -176,10 +195,12 @@ query to match documents with a <code class="literal">message</code> value of <c
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/78.console"></div>
-<p>The API returns the following response.</p>
-<p>The <code class="literal">hits.hits</code> property contains matching documents. By default, the response
-sorts these matching documents by <code class="literal">_score</code>, a <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance
-score</a> that measures how well each document matches the query.</p>
+<p>API返回以下响应。</p>
+<p>
+<code class="literal">hits.hits</code> 属性中包含匹配的文档。
+
+默认情况下，响应按照 <code class="literal">_score</code> 对这些匹配的文档进行排序，这是一个衡量每个文档与查询匹配程度的 <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">相关性评分(relevance score)</a>。
+</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   "took": 1,
@@ -243,15 +264,17 @@ score</a> that measures how well each document matches the query.</p>
 </div>
 </details>
 <h3>
-<a id="search-multiple-indices"></a>Search multiple indices<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/search/run-a-search.asciidoc">edit</a>
+<a id="search-multiple-indices"></a>搜索多个索引
 </h3>
-<p>To search multiple indices, add them as comma-separated values in the search API
-request path.</p>
+<p>
+要搜索多个索引，请将它们作为一个逗号分隔值添加到 search API 的请求路径中。
+</p>
 <details>
-<summary class="title"><span class="strong strong"><strong>Example</strong></span></summary>
+<summary class="title"><span class="strong strong"><strong>例子</strong></span></summary>
 <div class="content">
-<p>The following request searches the <code class="literal">user_logs_000001</code> and <code class="literal">user_logs_000002</code>
-indices.</p>
+<p>
+下面的请求在 <code class="literal">user_logs_000001</code> 和 <code class="literal">user_logs_000002</code> 索引中进行搜索。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /user_logs_000001,user_logs_000002/_search
 {
@@ -265,13 +288,15 @@ indices.</p>
 <div class="console_widget" data-snippet="snippets/79.console"></div>
 </div>
 </details>
-<p>You can also search multiple indices using an index pattern.</p>
+<p>
+你还可以使用 索引 模式(pattern) 搜索多个索引。
 <details>
-<summary class="title"><span class="strong strong"><strong>Example</strong></span></summary>
+<summary class="title"><span class="strong strong"><strong>例子</strong></span></summary>
 <div class="content">
-<p>The following request uses the index pattern <code class="literal">user_logs*</code> in place of the index
-name. The request searches any indices in the cluster that start with
-<code class="literal">user_logs</code>.</p>
+<p>
+以下请求使用 索引模式 <code class="literal">user_logs*</code> 代替索引名。
+该请求搜索集群中以 <code class="literal">user_logs</code> 开头的任何索引。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /user_logs*/_search
 {
@@ -285,12 +310,16 @@ name. The request searches any indices in the cluster that start with
 <div class="console_widget" data-snippet="snippets/80.console"></div>
 </div>
 </details>
-<p>To search all indices in a cluster, omit the index name from the request path.
-Alternatively, you can use <code class="literal">_all</code> or <code class="literal">*</code> in place of the index name.</p>
+<p>
+若要搜索集群中的所有索引，请在请求路径中忽略索引名称。
+
+或者，你也可以使用 <code class="literal">_all</code> 或 <code class="literal">*</code> 来代替索引名。
+</p>
 <details>
-<summary class="title"><span class="strong strong"><strong>Example</strong></span></summary>
+<summary class="title"><span class="strong strong"><strong>例子</strong></span></summary>
 <div class="content">
-<p>The following requests are equivalent and search all indices in the cluster.</p>
+<p>
+下面几个请求是等效的，都搜索集群中的所有索引：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -321,20 +350,25 @@ GET /*/_search
 </div>
 </details>
 <h3>
-<a id="paginate-search-results"></a>Paginate search results<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/search/request/from-size.asciidoc">edit</a>
+<a id="paginate-search-results"></a>搜索结果分页
 </h3>
-<p>By default, the search API returns the top 10 matching documents.</p>
-<p>To paginate through a larger set of results, you can use the search API’s <code class="literal">size</code>
-and <code class="literal">from</code> parameters. The <code class="literal">size</code> parameter is the number of matching documents
-to return. The <code class="literal">from</code> parameter is a zero-indexed offset from the beginning of
-the complete result set that indicates the document you want to start with.</p>
+<p>默认情况下，search API 返回前 10 个匹配的文档。</p>
+<p>
+要对大量结果进行分页，可以使用 search API 的 <code class="literal">size</code> 和 <code class="literal">from</code> 参数。
+
+参数 <code class="literal">size</code> 是要返回的匹配文档的数量。
+
+参数 <code class="literal">from</code> 是从一个完整结果集开头开始的索引为 0 的偏移量，该偏移量指示你想要开始的文档。  
+</p>
 <details>
-<summary class="title"><span class="strong strong"><strong>Example</strong></span></summary>
+<summary class="title"><span class="strong strong"><strong>例子</strong></span></summary>
 <div class="content">
-<p>The following search API request sets the <code class="literal">from</code> offset to <code class="literal">5</code>, meaning the
-request offsets, or skips, the first five matching documents.</p>
-<p>The <code class="literal">size</code> parameter is <code class="literal">20</code>, meaning the request can return up to 20 documents,
-starting at the offset.</p>
+<p>
+下面的 search API 请求将 <code class="literal">from</code> 偏移量设置为 <code class="literal">5</code>，这意味着请求会偏移或跳过前 5 个匹配的文档。
+</p>
+<p>
+参数 <code class="literal">size</code> 是 <code class="literal">20</code>，这意味着请求可以从偏移量开始返回多达 20 个文档。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -350,88 +384,97 @@ starting at the offset.</p>
 <div class="console_widget" data-snippet="snippets/82.console"></div>
 </div>
 </details>
-<p>By default, you cannot page through more than 10,000 documents using the <code class="literal">from</code>
-and <code class="literal">size</code> parameters. This limit is set using the
-<a class="xref" href="index-modules.html#index-max-result-window"><code class="literal">index.max_result_window</code></a> index setting.</p>
-<p>Deep paging or requesting many results at once can result in slow searches.
-Results are sorted before being returned. Because search requests usually span
-multiple shards, each shard must generate its own sorted results. These separate
-results must then be combined and sorted to ensure that the overall sort order
-is correct.</p>
-<p>As an alternative to deep paging, we recommend using
-<a class="xref" href="search-request-body.html#request-body-search-scroll" title="Scroll">scroll</a> or the
-<a class="xref" href="search-request-body.html#request-body-search-search-after" title="Search After"><code class="literal">search_after</code></a> parameter.</p>
+<p>
+默认情况下，不能使用 <code class="literal">from</code> 和 <code class="literal">size</code> 参数翻页超过 10,000 个文档。
+
+此限制是使用 <a class="xref" href="index-modules.html#index-max-result-window"><code class="literal">index.max_result_window</code></a> 索引设置来设置的。
+</p>
+<p>
+深度分页(deep paging) 或一次请求多个结果会导致搜索速度变慢。
+
+结果会在返回之前进行排序。
+
+因为搜索请求通常跨越多个分片，每个分片必须生成自己的排序结果。
+
+然后，必须将这些单独的结果进行组合然后再次排序，以确保整体的排序是正确的。
+</p>
+<p>
+作为深度分页的替代方法，建议使用 <a class="xref" href="search-request-body.html#request-body-search-scroll" title="Scroll">scroll</a> 或 <a class="xref" href="search-request-body.html#request-body-search-search-after" title="Search After"><code class="literal">search_after</code></a> 参数。
+</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Elasticsearch uses Lucene’s internal doc IDs as tie-breakers. These internal
-doc IDs can be completely different across replicas of the same
-data. When paginating, you might occasionally see that documents with the same
-sort values are not ordered consistently.</p>
+<p>
+Elasticsearch 使用 Lucene 的内部文档 ID 作为定因素。
+
+在相同数据的副本之间，这些内部文档 ID 可能完全不同。
+
+分页时，你可能偶尔会看到排序值相同的文档排序却不一致。
+</p>
 </div>
 </div>
 <h3>
-<a id="search-fields"></a>Retrieve selected fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/search/search-fields.asciidoc">edit</a>
+<a id="search-fields"></a>检索选定的字段 (retrieve selected fields)
 </h3>
-<p>By default, each hit in the search response includes the document
-<a class="xref" href="mapping-source-field.html" title="_source field"><code class="literal">_source</code></a>, which is the entire JSON object that was
-provided when indexing the document. If you only need certain source fields in
-the search response, you can use the <a class="xref" href="run-a-search.html#source-filtering" title="Source filtering">source filtering</a> to
-restrict what parts of the source are returned.</p>
-<p>Returning fields using only the document source has some limitations:</p>
+<p>
+默认情况下，搜索响应中的每个 命中(hit) 结果都包括文档的 <a class="xref" href="mapping-source-field.html" title="_source field"><code class="literal">_source</code></a>，这是在索引文档时提供的整个 JSON 对象。
+
+如果在搜索响应中只需要某些源字段，可以使用 <a class="xref" href="run-a-search.html#source-filtering" title="Source filtering">源过滤(source filtering)</a> 来限制返回源的哪些部分。
+</p>
+<p>
+仅使用文档源返回字段有一些限制：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-The <code class="literal">_source</code> field does not include <a class="xref" href="multi-fields.html" title="fields">multi-fields</a> or
-<a class="xref" href="alias.html" title="Alias datatype">field aliases</a>. Likewise, a field in the source does not contain
-values copied using the <a class="xref" href="copy-to.html" title="copy_to"><code class="literal">copy_to</code></a> mapping parameter.
+<code class="literal">_source</code> 字段不包括 <a class="xref" href="multi-fields.html" title="fields">多字段(multi-fields)</a> 和 <a class="xref" href="alias.html" title="Alias datatype">字段别名(field aliases)</a>。
+
+同样，源中的字段不包含使用 mapping 参数 <a class="xref" href="copy-to.html" title="copy_to"><code class="literal">copy_to</code></a> 复制的值。
 </li>
 <li class="listitem">
-Since the <code class="literal">_source</code> is stored as a single field in Lucene, the whole source
-object must be loaded and parsed, even if only a small number of fields are
-needed.
+由于 <code class="literal">_source</code> 在 Lucene 中作为单个字段存储，所以必须加载和解析整个源对象，即使只需要少量字段。
 </li>
 </ul>
 </div>
-<p>To avoid these limitations, you can:</p>
+<p>为了避免这些限制，你可以：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Use the <a class="xref" href="run-a-search.html#docvalue-fields" title="Doc value fields"><code class="literal">docvalue_fields</code></a>
-parameter to get values for selected fields. This can be a good
-choice when returning a fairly small number of fields that support doc values,
-such as keywords and dates.
+使用 <a class="xref" href="run-a-search.html#docvalue-fields" title="Doc value fields"><code class="literal">docvalue_fields</code></a> 参数去获取选定字段的值。
+
+当返回相当少量的支持 文档值(doc values) 的字段(如 keyword 和 date类型的字段)时，这会是一个不错的选择。
 </li>
 <li class="listitem">
-Use the <a class="xref" href="search-request-body.html#request-body-search-stored-fields" title="Stored Fields"><code class="literal">stored_fields</code></a> parameter to get the values for specific  stored fields. (Fields that use the <a class="xref" href="mapping-store.html" title="store"><code class="literal">store</code></a> mapping option.)
+使用 <a class="xref" href="search-request-body.html#request-body-search-stored-fields" title="Stored Fields"><code class="literal">stored_fields</code></a> 参数获取特定存储字段的值(使用 <a class="xref" href="mapping-store.html" title="store"><code class="literal">store</code></a> mapping 选项的字段)。
 </li>
 </ul>
 </div>
-<p>You can find more detailed information on each of these methods in the
-following sections:</p>
+<p>你可以在以下章节中找到有关这些方法的更详细信息：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<a class="xref" href="run-a-search.html#source-filtering" title="Source filtering">Source filtering</a>
+<a class="xref" href="run-a-search.html#source-filtering" title="Source filtering">源过滤 (Source filtering)</a>
 </li>
 <li class="listitem">
-<a class="xref" href="run-a-search.html#docvalue-fields" title="Doc value fields">Doc value fields</a>
+<a class="xref" href="run-a-search.html#docvalue-fields" title="Doc value fields">文档值字段 (Doc value fields)</a>
 </li>
 <li class="listitem">
-<a class="xref" href="run-a-search.html#stored-fields" title="Stored fields">Stored fields</a>
+<a class="xref" href="run-a-search.html#stored-fields" title="Stored fields">存储字段 (Stored fields)</a>
 </li>
 </ul>
 </div>
 <h3>
-<a id="source-filtering"></a>Source filtering<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/search/search-fields.asciidoc">edit</a>
+<a id="source-filtering"></a>源过滤 (Source filtering)
 </h3>
-<p>You can use the <code class="literal">_source</code> parameter to select what fields of the source are
-returned. This is called <em>source filtering</em>.</p>
+<p>
+你可以使用 <code class="literal">_source</code> 参数来选择返回源的哪些字段。这被称为<em>源过滤(source filtering)</em>。
+</p>
 <details>
-<summary class="title"><span class="strong strong"><strong>Example</strong></span></summary>
+<summary class="title"><span class="strong strong"><strong>例子</strong></span></summary>
 <div class="content">
-<p>The following search API request sets the <code class="literal">_source</code> request body parameter to
-<code class="literal">false</code>. The document source is not included in the response.</p>
+<p>
+下面的 search API 请求将 <code class="literal">_source</code> 请求主体参数设置为 <code class="literal">false</code>，响应中就不包括文档源了。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -444,9 +487,10 @@ returned. This is called <em>source filtering</em>.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/83.console"></div>
-<p>To return only a subset of source fields, specify a wildcard (<code class="literal">*</code>) pattern in
-the <code class="literal">_source</code> parameter. The following search API request returns the source for
-only the <code class="literal">obj</code> field and its properties.</p>
+<p>
+要仅返回源字段的子集，请在 <code class="literal">_source</code> 参数中指定通配符(<code class="literal">*</code>)模式。
+下面这个 search API 请求仅返回 <code class="literal">obj</code>字段及其属性的源。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -459,9 +503,10 @@ only the <code class="literal">obj</code> field and its properties.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/84.console"></div>
-<p>You can also specify an array of wildcard patterns in the <code class="literal">_source</code> field. The
-following search API request returns the source for only the <code class="literal">obj1</code> and
-<code class="literal">obj2</code> fields and their properties.</p>
+<p>
+你也可以在 <code class="literal">_source</code> 字段中指定一组通配符模式。
+下面这个 search API 请求仅返回 <code class="literal">obj1</code> 和 <code class="literal">obj2</code> 字段及其属性的源。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -474,15 +519,20 @@ following search API request returns the source for only the <code class="litera
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/85.console"></div>
-<p>For finer control, you can specify an object containing arrays of <code class="literal">includes</code> and
-<code class="literal">excludes</code> patterns in the <code class="literal">_source</code> parameter.</p>
-<p>If the <code class="literal">includes</code> property is specified, only source fields that match one of
-its patterns are returned. You can exclude fields from this subset using the
-<code class="literal">excludes</code> property.</p>
-<p>If the <code class="literal">includes</code> property is not specified, the entire document source is
-returned, excluding any fields that match a pattern in the <code class="literal">excludes</code> property.</p>
-<p>The following search API request returns the source for only the <code class="literal">obj1</code> and
-<code class="literal">obj2</code> fields and their properties, excluding any child <code class="literal">description</code> fields.</p>
+<p>
+为了更好地控制，你可以在 <code class="literal">_source</code> 参数中指定一个包含<code class="literal">includes</code> 和 <code class="literal">excludes</code> 模式数组的对象。
+</p>
+<p>
+如果指定了 <code class="literal">includes</code> 属性，则只返回与其模式之一匹配的源字段。
+
+你仍然可以使用 <code class="literal">excludes</code> 属性从该子集中排除字段。
+</p>
+<p>
+如果未指定 <code class="literal">includes</code> 属性，则返回整个文档源，但不包括与 <code class="literal">excludes</code> 属性中的模式匹配的任何字段。
+</p>
+<p>
+下面这个 search API 请求仅返回 <code class="literal">obj1</code> 和 <code class="literal">obj2</code> 字段及其属性的源，不包括任何子 <code class="literal">description</code> 字段。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -501,32 +551,37 @@ returned, excluding any fields that match a pattern in the <code class="literal"
 </div>
 </details>
 <h3>
-<a id="docvalue-fields"></a>Doc value fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/search/search-fields.asciidoc">edit</a>
+<a id="docvalue-fields"></a>文档值字段 (Doc value fields)
 </h3>
-<p>You can use the <a class="xref" href="run-a-search.html#docvalue-fields" title="Doc value fields"><code class="literal">docvalue_fields</code></a> parameter to return
-<a class="xref" href="doc-values.html" title="doc_values">doc values</a> for one or more fields in the search response.</p>
-<p>Doc values store the same values as the <code class="literal">_source</code> but in an on-disk,
-column-based structure that’s optimized for sorting and aggregations. Since each
-field is stored separately, Elasticsearch only reads the field values that were requested
-and can avoid loading the whole document <code class="literal">_source</code>.</p>
-<p>Doc values are stored for supported fields by default. However, doc values are
-not supported for <a class="xref" href="text.html" title="Text datatype"><code class="literal">text</code></a> or
-<a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/mapper-annotated-text-usage.html" class="ulink" target="_top"><code class="literal">text_annotated</code></a> fields.</p>
+<p>
+你可以使用 <a class="xref" href="run-a-search.html#docvalue-fields" title="Doc value fields"><code class="literal">docvalue_fields</code></a> 参数返回搜索响应中一个或多个字段的 <a class="xref" href="doc-values.html" title="doc_values">文档值(doc values)</a> 。
+</p>
+<p>
+文档值(doc values) 中存储的值与 <code class="literal">_source</code> 相同，但是它们 存储在磁盘上的基于列的结构中，该结构针对排序和聚合进行了优化。
+
+因为每个字段都是单独存储的，所以 Elasticsearch 只读取被请求的字段值，可以避免加载整个文档的 <code class="literal">_source</code>。
+</p>
+<p>
+默认情况下，为支持的字段存储 文档值(doc values)。
+
+但是，<a class="xref" href="text.html" title="Text datatype"><code class="literal">text</code></a> 或 <a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/mapper-annotated-text-usage.html" class="ulink" target="_top"><code class="literal">text_annotated</code></a> 类型的字段不支持 文档值(doc values)。
+</p>
 <details>
-<summary class="title"><span class="strong strong"><strong>Example</strong></span></summary>
+<summary class="title"><span class="strong strong"><strong>例子</strong></span></summary>
 <div class="content">
-<p>The following search request uses the <code class="literal">docvalue_fields</code> parameter to
-retrieve doc values for the following fields:</p>
+<p>
+下面这个搜索请求使用 <code class="literal">docvalue_fields</code> 参数检索以下字段的文档值(doc values)：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Fields with names starting with <code class="literal">my_ip</code>
+字段名以 <code class="literal">my_ip</code> 开头的字段
 </li>
 <li class="listitem">
 <code class="literal">my_keyword_field</code>
 </li>
 <li class="listitem">
-Fields with names ending with <code class="literal">_date_field</code>
+字段名以 <code class="literal">_date_field</code> 结尾的字段
 </li>
 </ul>
 </div>
@@ -556,7 +611,7 @@ Fields with names ending with <code class="literal">_date_field</code>
 <p><a href="#CO32-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Wildcard patten used to match field names, specified as a string.</p>
+<p>用于匹配字段名称的通配符模式，格式: 字符串。</p>
 </td>
 </tr>
 <tr>
@@ -564,7 +619,8 @@ Fields with names ending with <code class="literal">_date_field</code>
 <p><a href="#CO32-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Wildcard patten used to match field names, specified as an object.</p>
+<p>
+用于匹配字段名称的通配符模式，格式: 对象(object)。
 </td>
 </tr>
 <tr>
@@ -572,11 +628,15 @@ Fields with names ending with <code class="literal">_date_field</code>
 <p><a href="#CO32-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>With the object notation, you can use the <code class="literal">format</code> parameter to specify a
-format for the field’s returned doc values. <a class="xref" href="date.html" title="Date datatype">Date fields</a> support a
-<a class="xref" href="mapping-date-format.html" title="format">date <code class="literal">format</code></a>. <a class="xref" href="number.html" title="Numeric datatypes">Numeric fields</a> support a
-<a href="https://docs.oracle.com/javase/8/docs/api/java/text/DecimalFormat.html" class="ulink" target="_top">DecimalFormat
-pattern</a>. Other field datatypes do not support the <code class="literal">format</code> parameter.</p>
+<p>
+使用对象表示法，你以使用 <code class="literal">format</code>(格式) 参数来指定字段返回的文档值(doc values)的格式。
+
+<a class="xref" href="date.html" title="Date datatype">Date 字段</a> 支持 <a class="xref" href="mapping-date-format.html" title="format">date <code class="literal">格式(format)</code></a>。
+
+<a class="xref" href="number.html" title="Numeric datatypes">Numeric 字段</a> 支持 <a href="https://docs.oracle.com/javase/8/docs/api/java/text/DecimalFormat.html" class="ulink" target="_top">十进制格式模式(DecimalFormat pattern)</a>.
+
+其他字段类型不支持 <code class="literal">format</code> 参数。
+</p>
 </td>
 </tr>
 </table>
@@ -586,27 +646,30 @@ pattern</a>. Other field datatypes do not support the <code class="literal">form
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>You cannot use the <code class="literal">docvalue_fields</code> parameter to retrieve doc values for
-nested objects. If you specify a nested object, the search returns an empty
-array (<code class="literal">[ ]</code>) for the field. To access nested fields, use the
-<a class="xref" href="search-request-body.html#request-body-search-inner-hits" title="Inner hits"><code class="literal">inner_hits</code></a> parameter’s <code class="literal">docvalue_fields</code>
-property.</p>
+<p>
+不能使用 <code class="literal">docvalue_fields</code> 参数检索嵌套对象的文档值(doc values)。
+
+如果你指定了一个嵌套对象，搜索将为该字段返回一个空数组(<code class="literal">[ ]</code>)。
+
+若要访问嵌套字段，请使用 <a class="xref" href="search-request-body.html#request-body-search-inner-hits" title="Inner hits"><code class="literal">inner_hits</code></a> 参数的 <code class="literal">docvalue_fields</code> 属性。
+</p>
 </div>
 </div>
 <h3>
-<a id="stored-fields"></a>Stored fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/search/search-fields.asciidoc">edit</a>
+<a id="stored-fields"></a>存储字段 (Stored fields)
 </h3>
-<p>It’s also possible to store an individual field’s values by using the
-<a class="xref" href="mapping-store.html" title="store"><code class="literal">store</code></a> mapping option. You can use the
-<a class="xref" href="search-request-body.html#request-body-search-stored-fields" title="Stored Fields"><code class="literal">stored_fields</code></a> parameter to include
-these stored values in the search response.</p>
+<p>
+还可以使用 <a class="xref" href="mapping-store.html" title="store"><code class="literal">store</code></a> mapping 选项存储单个字段的值。
+
+你可以使用 <a class="xref" href="search-request-body.html#request-body-search-stored-fields" title="Stored Fields"><code class="literal">stored_fields</code></a> 参数在搜索响应中包含这些存储的值。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-your-data.html">« Search your data</a>
+<a href="search-your-data.html">« 搜索你的数据</a>
 </span>
 <span class="next">
-<a href="near-real-time.html">Near real-time search »</a>
+<a href2="near-real-time.html">Near real-time search »</a>
 </span>
 </div>
 </div>

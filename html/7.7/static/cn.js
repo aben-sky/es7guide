@@ -564,8 +564,8 @@ var esNavLinks = [
         "sub": [
             {
                 "url": "run-a-search.html",
-                "text": "运行搜索",
-                "title": "Run a search"
+                "text": "运行一个搜索",
+                "title": "运行一个搜索"
             },
             {
                 "url": "near-real-time.html",

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Search your data | ElasticSearch 7.7 权威指南中文版</title>
+	<title>搜索你的数据 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,13 +32,13 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-node">Search your data</span>
+<span class="breadcrumb-node">搜索你的数据</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="reindex-upgrade-remote.html">« Reindex from a remote cluster</a>
+<a href="reindex-upgrade-remote.html">« 从远程集群重新索引</a>
 </span>
 <span class="next">
 <a href="run-a-search.html">Run a search »</a>
@@ -47,53 +47,61 @@
 <div class="part">
 <div class="titlepage"><div><div>
 <h1 class="title">
-<a id="search-your-data"></a>Search your data<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/search/index.asciidoc">edit</a>
+<a id="search-your-data"></a>搜索你的数据
 </h1>
 </div></div></div>
 <div class="openblock partintro">
 <div class="content">
-<p><a id="search-query"></a>A <em>search query</em>, or <em>query</em>, is a request for information about data in one or
-more Elasticsearch indices.</p>
-<p>You can think of a query as a question, written in a way Elasticsearch understands.
-Depending on your data, you can use a query to get answers to questions like:</p>
+<p><a id="search-query"></a>
+<em>搜索查询(search query)</em>，或<em>查询(query)</em>，是对一个或多个 Elasticsearch 索引中的数据信息的请求。
+</p>
+<p>
+你可以把一个查询想象成一个问题，用 Elasticsearch 能理解的方式编写。
+
+根据你的数据，你可以使用查询来获得以下问题的答案：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-What pages on my website contain a specific word or phrase?
+我的网站上的哪些页面包含特定的单词或短语？
 </li>
 <li class="listitem">
-What processes on my server take longer than 500 milliseconds to respond?
+我的服务器上有哪些进程的响应时间超过 500 毫秒？
 </li>
 <li class="listitem">
-What users on my network ran <code class="literal">regsvr32.exe</code> within the last week?
+上周我的网络上有哪些用户运行了 <code class="literal">regsvr32.exe</code>？
 </li>
 <li class="listitem">
-How many of my products have a price greater than $20?
+我有多少产品的价格高于 $20？
 </li>
 </ul>
 </div>
-<p>A <em>search</em> consists of one or more queries that are combined and sent to Elasticsearch.
-Documents that match a search’s queries are returned in the <em>hits</em>, or
-<em>search results</em>, of the response.</p>
-<p>A search may also contain additional information used to better process its
-queries. For example, a search may be limited to a specific index or only return
-a specific number of results.</p>
+<p>
+<em>搜索(search)</em>由一个或多个查询组成，这些查询被组合起来并发送给 Elasticsearch。
+
+匹配搜索查询的文档将在响应的 <em>hits</em> 或 搜索结果 中返回。
+</p>
+<p>
+搜索还可以包含用于更好地处理其查询的附加信息。
+
+例如，搜索可能被限制在指定的索引上或只返回指定数量的结果。
+</p>
 <h3>
-<a id="search-toc"></a>In this section<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/search/index.asciidoc">edit</a>
+<a id="search-toc"></a>本章内容包括：
 </h3>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<a class="xref" href="run-a-search.html" title="Run a search"><em>Run a search</em></a>
+<a class="xref" href="run-a-search.html" title="Run a search"><em>运行一个搜索(search)</em></a>
 </li>
 <li class="listitem">
-<a class="xref" href="near-real-time.html" title="Near real-time search"><em>Near real-time search</em></a>
+<a class="xref" href="near-real-time.html" title="Near real-time search"><em>近实时搜索 (Near real-time search)</em></a>
 </li>
 <li class="listitem">
-<a class="xref" href="modules-cross-cluster-search.html" title="Search across clusters"><em>Search across clusters</em></a>
+<a class="xref" href="modules-cross-cluster-search.html" title="Search across clusters"><em>跨集群搜索</em></a>
 </li>
 <li class="listitem">
-<a class="xref" href="async-search-intro.html" title="Long-running searches"><em>Long-running searches</em></a>
+<a class="xref" href="async-search-intro.html" title="Long-running searches"><em>运行时间长的搜索 (Long-running searches)</em></a>
 </li>
 </ul>
 </div>
@@ -106,7 +114,7 @@ a specific number of results.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="reindex-upgrade-remote.html">« Reindex from a remote cluster</a>
+<a href="reindex-upgrade-remote.html">« 从远程集群重新索引</a>
 </span>
 <span class="next">
 <a href="run-a-search.html">Run a search »</a>

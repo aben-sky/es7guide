@@ -560,7 +560,7 @@ var esNavLinks = [
     {
         "url": "search-your-data.html",
         "text": "搜索你的数据",
-        "title": "Search your data",
+        "title": "搜索你的数据",
         "sub": [
             {
                 "url": "run-a-search.html",

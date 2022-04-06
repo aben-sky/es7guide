@@ -569,8 +569,8 @@ var esNavLinks = [
             },
             {
                 "url": "near-real-time.html",
-                "text": "接近实时的搜索",
-                "title": "Near real-time search"
+                "text": "近实时搜索",
+                "title": "近实时搜索"
             },
             {
                 "url": "async-search-intro.html",

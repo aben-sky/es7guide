@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Search across clusters | ElasticSearch 7.7 权威指南中文版</title>
+	<title>跨集群搜索 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,64 +32,70 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-your-data.html">Search your data</a></span>
+<span class="breadcrumb-node">搜索你的数据</span>
 »
-<span class="breadcrumb-node">Search across clusters</span>
+<span class="breadcrumb-node">跨集群搜索</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="async-search-intro.html">« Long-running searches</a>
+<a href="async-search-intro.html">« 运行耗时的搜索</a>
 </span>
 <span class="next">
-<a href="query-dsl.html">Query DSL »</a>
+<a href2="query-dsl.html">Query DSL »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="modules-cross-cluster-search"></a>Search across clusters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/cross-cluster-search.asciidoc">edit</a>
-</h2>
+<a id="modules-cross-cluster-search"></a>跨集群搜索 (Search across clusters)
 </div></div></div>
-<p><span class="strong strong"><strong>Cross-cluster search</strong></span> lets you run a single search request against one or more
-<a class="xref" href="modules-remote-clusters.html" title="Remote clusters">remote clusters</a>. For example, you can use a cross-cluster search to
-filter and analyze log data stored on clusters in different data centers.</p>
+<p>
+<span class="strong strong"><strong>跨集群搜索</strong></span> 允许你针对一个或多个 <a class="xref" href="modules-remote-clusters.html" title="Remote clusters">远程集群</a> 运行单个搜索请求。
+
+例如，你可以使用跨集群搜索来过滤和分析存储在不同数据中心的集群上的日志数据。
+</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Cross-cluster search requires <a class="xref" href="modules-remote-clusters.html" title="Remote clusters">remote clusters</a>.</p>
+<p>
+跨集群搜索需要 <a class="xref" href="modules-remote-clusters.html" title="Remote clusters">远程集群</a>。
+</p>
 </div>
 </div>
 <h3>
-<a id="ccs-supported-apis"></a>Supported APIs<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/cross-cluster-search.asciidoc">edit</a>
+<a id="ccs-supported-apis"></a>支持的 API
 </h3>
-<p>The following APIs support cross-cluster search:</p>
+<p>下面的几个 API 支持跨集群搜索：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<a class="xref" href="search-search.html" title="Search API">Search</a>
+<a class="xref" href="search-search.html" title="Search API">search (搜索)</a>
 </li>
 <li class="listitem">
-<a class="xref" href="search-multi-search.html" title="Multi Search API">Multi search</a>
+<a class="xref" href="search-multi-search.html" title="Multi Search API">multi search (搜索多个集群)</a>
 </li>
 <li class="listitem">
-<a class="xref" href="search-template.html" title="Search Template">Search template</a>
+<a class="xref" href="search-template.html" title="Search Template">search template (搜索模板)</a>
 </li>
 <li class="listitem">
-<a class="xref" href="multi-search-template.html" title="Multi Search Template">Multi search template</a>
+<a class="xref" href="multi-search-template.html" title="Multi Search Template">multi search template (搜索多个集群的模板)</a>
 </li>
 </ul>
 </div>
 <h3>
-<a id="ccs-example"></a>Cross-cluster search examples<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/cross-cluster-search.asciidoc">edit</a>
+<a id="ccs-example"></a>跨集群搜索的示例
 </h3>
 <h4>
-<a id="ccs-remote-cluster-setup"></a>Remote cluster setup<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/cross-cluster-search.asciidoc">edit</a>
+<a id="ccs-remote-cluster-setup"></a>远程集群设置
 </h4>
-<p>To perform a cross-cluster search, you must have at least one remote cluster configured.</p>
-<p>The following <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">cluster update settings</a> API request
-adds three remote clusters:<code class="literal">cluster_one</code>, <code class="literal">cluster_two</code>, and <code class="literal">cluster_three</code>.</p>
+<p>
+要执行跨集群搜索，必须至少配置一个远程集群。
+</p>
+<p>
+下面这个 <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">集群更新设置(cluster update settings)</a> API 请求添加了三个远程集群：<code class="literal">cluster_one</code>、<code class="literal">cluster_two</code> 和 <code class="literal">cluster_three</code>。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT _cluster/settings
 {
@@ -118,10 +124,11 @@ adds three remote clusters:<code class="literal">cluster_one</code>, <code class
 </div>
 <div class="console_widget" data-snippet="snippets/88.console"></div>
 <h4>
-<a id="ccs-search-remote-cluster"></a>Search a single remote cluster<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/cross-cluster-search.asciidoc">edit</a>
+<a id="ccs-search-remote-cluster"></a>搜索单个远程集群
 </h4>
-<p>The following <a class="xref" href="search-search.html" title="Search API">search</a> API request searches the
-<code class="literal">twitter</code> index on a single remote cluster, <code class="literal">cluster_one</code>.</p>
+<p>
+下面这个 <a class="xref" href="search-search.html" title="Search API">search</a> API 请求在远程集群 <code class="literal">cluster_one</code>上搜索索引 <code class="literal">twitter</code> 。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /cluster_one:twitter/_search
 {
@@ -133,7 +140,7 @@ adds three remote clusters:<code class="literal">cluster_one</code>, <code class
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/89.console"></div>
-<p>The API returns the following response:</p>
+<p>API 返回以下响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   "took": 150,
@@ -179,24 +186,24 @@ adds three remote clusters:<code class="literal">cluster_one</code>, <code class
 <p><a href="#CO33-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The search response body includes the name of the remote cluster in the
-<code class="literal">_index</code> parameter.</p>
+<p>搜索响应正文的 <code class="literal">_index</code> 参数中包含远程集群的名称。</p>
 </td>
 </tr>
 </table>
 </div>
 <h4>
-<a id="ccs-search-multi-remote-cluster"></a>Search multiple remote clusters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/cross-cluster-search.asciidoc">edit</a>
+<a id="ccs-search-multi-remote-cluster"></a>搜索多个远程集群
 </h4>
-<p>The following <a class="xref" href="search.html" title="Search APIs">search</a> API request searches the <code class="literal">twitter</code> index on
-three clusters:</p>
+<p>
+下面这个 <a class="xref" href="search.html" title="Search APIs">search</a> API 请求在三个集群上搜索索引 <code class="literal">twitter</code>：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Your local cluster
+两个远程集群： <code class="literal">cluster_one</code> 和 <code class="literal">cluster_two</code>
 </li>
 <li class="listitem">
-Two remote clusters, <code class="literal">cluster_one</code> and <code class="literal">cluster_two</code>
+本地集群
 </li>
 </ul>
 </div>
@@ -211,7 +218,7 @@ Two remote clusters, <code class="literal">cluster_one</code> and <code class="l
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/90.console"></div>
-<p>The API returns the following response:</p>
+<p>API 返回以下响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   "took": 150,
@@ -282,8 +289,9 @@ Two remote clusters, <code class="literal">cluster_one</code> and <code class="l
 <p><a href="#CO34-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>This document’s <code class="literal">_index</code> parameter doesn’t include a cluster name. This
-means the document came from the local cluster.</p>
+<p>
+这个文档的 <code class="literal">_index</code> 参数不包含集群名称，表示它来自本地集群。
+</p>
 </td>
 </tr>
 <tr>
@@ -291,7 +299,7 @@ means the document came from the local cluster.</p>
 <p><a href="#CO34-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>This document came from <code class="literal">cluster_one</code>.</p>
+<p>这个文档来自 <code class="literal">cluster_one</code>。</p>
 </td>
 </tr>
 <tr>
@@ -299,20 +307,23 @@ means the document came from the local cluster.</p>
 <p><a href="#CO34-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>This document came from <code class="literal">cluster_two</code>.</p>
+<p>这个文档来自 <code class="literal">cluster_two</code>。</p>
 </td>
 </tr>
 </table>
 </div>
 <h3>
-<a id="skip-unavailable-clusters"></a>Skip unavailable clusters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/cross-cluster-search.asciidoc">edit</a>
+<a id="skip-unavailable-clusters"></a>跳过不可用集群
 </h3>
-<p>By default, a cross-cluster search returns an error if <span class="strong strong"><strong>any</strong></span> cluster in the request is
-unavailable.</p>
-<p>To skip an unavailable cluster during a cross-cluster search, set the
-<a class="xref" href="cluster-remote-info.html#skip-unavailable"><code class="literal">skip_unavailable</code></a> cluster setting to <code class="literal">true</code>.</p>
-<p>The following <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">cluster update settings</a> API request
-changes <code class="literal">cluster_two</code>'s <code class="literal">skip_unavailable</code> setting to <code class="literal">true</code>.</p>
+<p>
+默认情况下，如果请求中的<span class="strong strong"><strong>任何</strong></span>集群不可用，跨集群搜索将返回错误。
+</p>
+<p>
+要在跨集群搜索期间跳过不可用的集群，请将集群设置 <a class="xref" href="cluster-remote-info.html#skip-unavailable"><code class="literal">skip_unavailable</code></a> 设置为 <code class="literal">true</code>。
+</p>
+<p>
+下面这个 <a class="xref" href="cluster-update-settings.html" title="Cluster update settings API">cluster update settings</a> API 请求将 <code class="literal">cluster_two</code> 的 <code class="literal">skip_unavailable</code> 设置更改为 <code class="literal">true</code>。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT _cluster/settings
 {
@@ -322,139 +333,168 @@ changes <code class="literal">cluster_two</code>'s <code class="literal">skip_un
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/91.console"></div>
-<p>If <code class="literal">cluster_two</code> is disconnected or unavailable during a cross-cluster search, Elasticsearch won’t
-include matching documents from that cluster in the final results.</p>
+<p>
+果在跨集群搜索期间 <code class="literal">cluster_two</code> 断开连接或不可用，Elasticsearch 将不会在最终结果中包含该集群匹配的文档。
+</p>
 <h3>
-<a id="ccs-gateway-seed-nodes"></a>Selecting gateway and seed nodes in sniff mode<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/cross-cluster-search.asciidoc">edit</a>
+<a id="ccs-gateway-seed-nodes"></a>在嗅探模式(sniff mode)下选择网关和种子节点
 </h3>
-<p>For remote clusters using the <a class="xref" href="modules-remote-clusters.html#sniff-mode" title="Sniff mode">sniff connection</a> mode, gateway and
-seed nodes need to be accessible from the local cluster via your network.</p>
-<p>By default, any non-<a class="xref" href="modules-node.html#master-node" title="Master-eligible node">master-eligible</a> node can act as a
-gateway node. If wanted, you can define the gateway nodes for a cluster by
-setting <code class="literal">cluster.remote.node.attr.gateway</code> to <code class="literal">true</code>.</p>
-<p>For cross-cluster search, we recommend you use gateway nodes that are capable of serving as
-<a class="xref" href="modules-node.html#coordinating-node" title="Coordinating node">coordinating nodes</a> for search requests. If
-wanted, the seed nodes for a cluster can be a subset of these gateway nodes.</p>
+<p>
+对于使用 <a class="xref" href="modules-remote-clusters.html#sniff-mode" title="Sniff mode">嗅探连接(sniff connection)</a> 模式的远程集群，需要通过你的网络从本地集群访问网关和种子节点。
+</p>
+<p>
+默认情况下，任何不<a class="xref" href="modules-node.html#master-node" title="Master-eligible node">符合主节点条件的节点</a>都可以充当网关节点。
+
+如果需要，可以通过将 <code class="literal">cluster.remote.node.attr.gateway</code> 设置为 <code class="literal">true</code>。
+</p>
+<p>
+对于跨集群搜索，我们建议你使用能够充当搜索请求 <a class="xref" href="modules-node.html#coordinating-node" title="Coordinating node">协调节点</a> 的网关节点。
+
+如果需要，集群的种子节点可以是这些网关节点的子集。
+</p>
 <h3>
-<a id="ccs-proxy-mode"></a>Cross-cluster search in proxy mode<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/cross-cluster-search.asciidoc">edit</a>
+<a id="ccs-proxy-mode"></a>代理模式(proxy mode)下的跨集群搜索
 </h3>
-<p><a class="xref" href="modules-remote-clusters.html#proxy-mode" title="Proxy mode">Proxy mode</a> remote cluster connections support cross-cluster search. All remote
-connections connect to the configured <code class="literal">proxy_address</code>. Any desired connection
-routing to gateway or <a class="xref" href="modules-node.html#coordinating-node" title="Coordinating node">coordinating nodes</a> must
-be implemented by the intermediate proxy at this configured address.</p>
+<p>
+<a class="xref" href="modules-remote-clusters.html#proxy-mode" title="Proxy mode">代理模式(Proxy mode)</a> 远程集群连接支持跨集群搜索。
+
+所有远程连接都连接到配置的 <code class="literal">proxy_address</code>。
+
+任何期望的到网关或<a class="xref" href="modules-node.html#coordinating-node" title="Coordinating node">协调节点</a>的连接路由必须由中间代理在这个配置的地址上实现。
+</p>
 <h3>
-<a id="ccs-network-delays"></a>How cross-cluster search handles network delays<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/cross-cluster-search.asciidoc">edit</a>
+<a id="ccs-network-delays"></a>跨集群搜索如何处理网络延迟
 </h3>
-<p>Because cross-cluster search involves sending requests to remote clusters, any network delays
-can impact search speed. To avoid slow searches, cross-cluster search offers two options for
-handling network delays:</p>
+<p>
+因为跨集群搜索涉及到向远程集群发送请求，所以任何网络延迟都会影响搜索速度。
+
+为了避免缓慢的搜索，跨集群搜索提供了两种处理网络延迟的选项：
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<a class="xref" href="modules-cross-cluster-search.html#ccs-min-roundtrips" title="Minimize network roundtrips">Minimize network roundtrips</a>
+<a class="xref" href="modules-cross-cluster-search.html#ccs-min-roundtrips" title="Minimize network roundtrips">最小化网络往返 (minimize network roundtrips)</a>
 </span>
 </dt>
 <dd>
 <p>
-By default, Elasticsearch reduces the number of network roundtrips between remote
-clusters. This reduces the impact of network delays on search speed. However,
-Elasticsearch can’t reduce network roundtrips for large search requests, such as those
-including a <a class="xref" href="search-request-body.html#request-body-search-scroll" title="Scroll">scroll</a> or
-<a class="xref" href="search-request-body.html#request-body-search-inner-hits" title="Inner hits">inner hits</a>.
+默认情况下，Elasticsearch 减少了远程集群之间的网络往返次数。
+
+这降低了网络延迟对搜索速度的影响。
+
+然而，Elasticsearch 无法减少大型搜索请求的网络往返次数，例如那些包含 <a class="xref" href="search-request-body.html#request-body-search-scroll" title="Scroll">滚动(scroll)</a> 或 <a class="xref" href="search-request-body.html#request-body-search-inner-hits" title="Inner hits">内部命中(inner hits)</a> 的请求。
 </p>
-<p>See <a class="xref" href="modules-cross-cluster-search.html#ccs-min-roundtrips" title="Minimize network roundtrips">Minimize network roundtrips</a> to learn how this option works.</p>
+<p>
+请参阅 <a class="xref" href="modules-cross-cluster-search.html#ccs-min-roundtrips" title="Minimize network roundtrips">最小化网络往返</a> 以了解该选项的工作原理。
+</p>
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="modules-cross-cluster-search.html#ccs-unmin-roundtrips" title="Don’t minimize network roundtrips">Don’t minimize network roundtrips</a>
+<a class="xref" href="modules-cross-cluster-search.html#ccs-unmin-roundtrips" title="Don’t minimize network roundtrips">不要最小化网络往返 (don’t minimize network roundtrips)</a>
 </span>
 </dt>
 <dd>
 <p>
-For search
-requests that include a scroll or inner hits, Elasticsearch sends multiple outgoing and
-ingoing requests to each remote cluster. You can also choose this option by
-setting the <a class="xref" href="search-search.html#ccs-minimize-roundtrips"><code class="literal">ccs_minimize_roundtrips</code></a> parameter to
-<code class="literal">false</code>. While typically slower, this approach may work well for networks with
-low latency.
+对于包含 滚动(scroll) 或 内部命中(inner hits) 的搜索请求，Elasticsearch 向每个远程集群发送多个传出和传入请求。
+
+你也可以通过将 <a class="xref" href="search-search.html#ccs-minimize-roundtrips"><code class="literal">ccs_minimize_roundtrips</code></a> 参数设置为 <code class="literal">false</code>来选择此选项。
+
+虽然这种方法通常较慢，但对于低延迟的网络来说可能效果很好。
 </p>
-<p>See <a class="xref" href="modules-cross-cluster-search.html#ccs-unmin-roundtrips" title="Don’t minimize network roundtrips">Don’t minimize network roundtrips</a> to learn how this option works.</p>
+<p>
+请参阅 <a class="xref" href="modules-cross-cluster-search.html#ccs-unmin-roundtrips" title="Don’t minimize network roundtrips">不要最小化网络往返</a> 以了解该选项的工作原理。
 </dd>
 </dl>
 </div>
 <h4>
-<a id="ccs-min-roundtrips"></a>Minimize network roundtrips<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/cross-cluster-search.asciidoc">edit</a>
+<a id="ccs-min-roundtrips"></a>最小化网络往返 (minimize network roundtrips)
 </h4>
-<p>Here’s how cross-cluster search works when you minimize network roundtrips.</p>
+<p>以下是当最大限度地减少网络往返时跨集群搜索的工作方式。</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-<p>You send a cross-cluster search request to your local cluster. A coordinating node in that
-cluster receives and parses the request.</p>
+<p>
+向本地集群发送跨集群搜索请求。
+该集群中的协调节点接收并解析该请求。
+</p>
 <p><span class="image"><img src="../static/images/ccs/ccs-min-roundtrip-client-request.svg" alt="ccs min roundtrip client request"></span></p>
 </li>
 <li class="listitem">
-<p>The coordinating node sends a single search request to each cluster, including
-the local cluster. Each cluster performs the search request independently,
-applying its own cluster-level settings to the request.</p>
+<p>
+协调节点向包括本地集群在内的每个集群发送单个搜索请求。
+每个集群独立执行搜索请求，对请求使用自己的集群级设置。
+</p>
 <p><span class="image"><img src="../static/images/ccs/ccs-min-roundtrip-cluster-search.svg" alt="ccs min roundtrip cluster search"></span></p>
 </li>
 <li class="listitem">
-<p>Each remote cluster sends its search results back to the coordinating node.</p>
+<p>每个远程集群将其搜索结果发送回协调节点。</p>
 <p><span class="image"><img src="../static/images/ccs/ccs-min-roundtrip-cluster-results.svg" alt="ccs min roundtrip cluster results"></span></p>
 </li>
 <li class="listitem">
-<p>After collecting results from each cluster, the coordinating node returns the
-final results in the cross-cluster search response.</p>
+<p>
+从每个集群收集结果后，协调节点在跨集群搜索响应中返回最终结果。
+</p>
 <p><span class="image"><img src="../static/images/ccs/ccs-min-roundtrip-client-response.svg" alt="ccs min roundtrip client response"></span></p>
 </li>
 </ol>
 </div>
 <h4>
-<a id="ccs-unmin-roundtrips"></a>Don’t minimize network roundtrips<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/modules/cross-cluster-search.asciidoc">edit</a>
+<a id="ccs-unmin-roundtrips"></a>不要最小化网络往返 (don’t minimize network roundtrips)
 </h4>
-<p>Here’s how cross-cluster search works when you don’t minimize network roundtrips.</p>
+<p>
+以下是没有最小化网络往返时，跨集群搜索是如何工作的。
+</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-<p>You send a cross-cluster search request to your local cluster. A coordinating node in that
-cluster receives and parses the request.</p>
+<p>
+向本地集群发送跨集群搜索请求。
+该集群中的协调节点接收并解析该请求。
+</p>
 <p><span class="image"><img src="../static/images/ccs/ccs-min-roundtrip-client-request.svg" alt="ccs min roundtrip client request"></span></p>
 </li>
 <li class="listitem">
-<p>The coordinating node sends a <a class="xref" href="search-shards.html" title="Search Shards API">search shards</a> API request to
-each remote cluster.</p>
+<p>
+协调节点向每个远程集群发送一个 <a class="xref" href="search-shards.html" title="Search Shards API">搜索分片(search shards)</a> API 请求。
+</p>
 <p><span class="image"><img src="../static/images/ccs/ccs-min-roundtrip-cluster-search.svg" alt="ccs min roundtrip cluster search"></span></p>
 </li>
 <li class="listitem">
-<p>Each remote cluster sends its response back to the coordinating node.
-This response contains information about the indices and shards the cross-cluster search
-request will be executed on.</p>
+<p>
+每个远程集群将其响应发送回协调节点。
+
+该响应包含关于跨集群搜索请求将在其上执行的索引和分片的信息。
+</p>
 <p><span class="image"><img src="../static/images/ccs/ccs-min-roundtrip-cluster-results.svg" alt="ccs min roundtrip cluster results"></span></p>
 </li>
 <li class="listitem">
-<p>The coordinating node sends a search request to each shard, including those in
-its own cluster. Each shard performs the search request independently.</p>
+<p>
+协调节点向每个分片发送搜索请求，包括它自己集群中的分片。
+每个分片独立地执行搜索请求。
+</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>When network roundtrips aren’t minimized, the search is executed as if all data
-were in the coordinating node’s cluster. We recommend updating cluster-level
-settings that limit searches, such as <code class="literal">action.search.shard_count.limit</code>,
-<code class="literal">pre_filter_shard_size</code>, and <code class="literal">max_concurrent_shard_requests</code>, to account for
-this. If these limits are too low, the search may be rejected.</p>
+<p>
+当网络往返没有最小化时去执行搜索，就好像所有数据都在协调节点所在的群集中。
+
+建议更新限制搜索的集群级设置，如 <code class="literal">action.search.shard_count.limit</code>, <code class="literal">pre_filter_shard_size</code> 和 <code class="literal">max_concurrent_shard_requests</code> 以解决这一问题。
+
+如果这些限制太低，搜索可能会被拒绝。
+</p>
 </div>
 </div>
 <p><span class="image"><img src="../static/images/ccs/ccs-dont-min-roundtrip-shard-search.svg" alt="ccs dont min roundtrip shard search"></span></p>
 </li>
 <li class="listitem">
-<p>Each shard sends its search results back to the coordinating node.</p>
+<p>每个分片将其搜索结果发送回协调节点。</p>
 <p><span class="image"><img src="../static/images/ccs/ccs-dont-min-roundtrip-shard-results.svg" alt="ccs dont min roundtrip shard results"></span></p>
 </li>
 <li class="listitem">
-<p>After collecting results from each cluster, the coordinating node returns the
-final results in the cross-cluster search response.</p>
+<p>
+从每个集群收集结果后，协调节点在跨集群搜索响应中返回最终结果。
+</p>
 <p><span class="image"><img src="../static/images/ccs/ccs-min-roundtrip-client-response.svg" alt="ccs min roundtrip client response"></span></p>
 </li>
 </ol>
@@ -462,10 +502,10 @@ final results in the cross-cluster search response.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="async-search-intro.html">« Long-running searches</a>
+<a href="async-search-intro.html">« 运行耗时的搜索</a>
 </span>
 <span class="next">
-<a href="query-dsl.html">Query DSL »</a>
+<a href2="query-dsl.html">Query DSL »</a>
 </span>
 </div>
 </div>

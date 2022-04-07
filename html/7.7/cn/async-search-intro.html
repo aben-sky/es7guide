@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Long-running searches | ElasticSearch 7.7 权威指南中文版</title>
+	<title>运行耗时的搜索 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,49 +32,51 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-your-data.html">Search your data</a></span>
+<span class="breadcrumb-node">搜索你的数据</span>
 »
-<span class="breadcrumb-node">Long-running searches</span>
+<span class="breadcrumb-node">运行耗时的搜索</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="near-real-time.html">« Near real-time search</a>
+<a href="near-real-time.html">« 近实时搜索</a>
 </span>
 <span class="next">
-<a href="modules-cross-cluster-search.html">Search across clusters »</a>
+<a href="modules-cross-cluster-search.html">跨集群搜索 »</a>
 </span>
 </div>
 <div class="chapter xpack">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="async-search-intro"></a>Long-running searches<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/async-search.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
+<a id="async-search-intro"></a>运行耗时的搜索 (Long-running searches)
 </h2>
 </div></div></div>
-<p>Elasticsearch generally allows you to quickly search across big amounts of data. There are
-situations where a search executes on many many shards, possibly against
-<a class="xref" href="frozen-indices.html" title="Frozen indices">frozen indices</a> and spanning multiple
-<a class="xref" href="modules-remote-clusters.html" title="Remote clusters">remote clusters</a>, for which
-results are not expected to be returned in milliseconds. When you need to
-execute long-running searches, synchronously
-waiting for its results to be returned is not ideal. Instead, Async search lets
-you submit a search request that gets executed <em>asynchronously</em>,
-monitor the progress of the request, and retrieve results at a later stage.
-You can also retrieve partial results as they become available but
-before the search has completed.</p>
-<p>You can submit an async search request using the <a class="xref" href="async-search.html#submit-async-search" title="Submit async search API">submit
-async search</a> API. The <a class="xref" href="async-search.html#get-async-search" title="Get async search">get async search</a> API allows you to
-monitor the progress of an async search request and retrieve its results. An
-ongoing async search can be deleted through the <a class="xref" href="async-search.html#delete-async-search" title="Delete async search">delete
-async search</a> API.</p>
+<p>
+Elasticsearch 通常允许你快速搜索大量数据。
+
+有些情况下，搜索会在很多很多的分片上执行，可能是针对 <a class="xref" href="frozen-indices.html" title="Frozen indices">冻结的索引(frozen indices)</a> ，并且跨越多个 <a class="xref" href="modules-remote-clusters.html" title="Remote clusters">远程集群</a>，对于这些情况，不要期望在几毫秒内返回结果。
+
+当你需要执行耗时的搜索时，同步等待其结果的返回并不理想。
+
+相反，异步搜索允许你提交 <em>异步(asynchronously)</em>执行的搜索请求，监控请求的进度，并在稍后阶段检索结果。
+
+你也可以在搜索完成之前检索可用的部分结果。
+</p>
+<p>
+你可以使用 <a class="xref" href="async-search.html#submit-async-search" title="Submit async search API">submit async search</a> API 提交异步搜索请求。
+
+<a class="xref" href="async-search.html#get-async-search" title="Get async search">get async search</a> API 允许你监控异步搜索请求的进度并检索其结果。
+
+可以 <a class="xref" href="async-search.html#delete-async-search" title="Delete async search">delete async search</a> API 删除正在运行中的异步搜索。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="near-real-time.html">« Near real-time search</a>
+<a href="near-real-time.html">« 近实时搜索</a>
 </span>
 <span class="next">
-<a href="modules-cross-cluster-search.html">Search across clusters »</a>
+<a href="modules-cross-cluster-search.html">跨集群搜索 »</a>
 </span>
 </div>
 </div>

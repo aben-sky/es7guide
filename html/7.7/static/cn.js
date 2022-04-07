@@ -575,12 +575,12 @@ var esNavLinks = [
             {
                 "url": "async-search-intro.html",
                 "text": "运行耗时的搜索",
-                "title": "Long-running searches"
+                "title": "运行耗时的搜索"
             },
             {
                 "url": "modules-cross-cluster-search.html",
                 "text": "跨集群搜索",
-                "title": "Search across clusters"
+                "title": "跨集群搜索"
             }
         ]
     },

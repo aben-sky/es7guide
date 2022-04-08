@@ -586,7 +586,7 @@ var esNavLinks = [
     },
     {
         "url": "query-dsl.html",
-        "text": "使用领域专用语言(DSL)进行查询",
+        "text": "Query DSL",
         "title": "Query DSL",
         "sub": [
             {

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Query DSL | ElasticSearch 7.7 权威指南中文版</title>
+	<title>使用领域专用语言(DSL)进行查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,120 +32,119 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
 <span class="breadcrumb-node">Query DSL</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="modules-cross-cluster-search.html">« Search across clusters</a>
+<a href="modules-cross-cluster-search.html">« 跨集群搜索</a>
 </span>
 <span class="next">
-<a href="query-filter-context.html">Query and filter context »</a>
+<a href2="query-filter-context.html">Query and filter context »</a>
 </span>
 </div>
 <div class="part">
 <div class="titlepage"><div><div>
 <h1 class="title">
-<a id="query-dsl"></a>Query DSL<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl.asciidoc">edit</a>
+<a id="query-dsl"></a>Query DSL: 使用领域专用语言进行查询
 </h1>
 </div></div></div>
 <div class="openblock partintro">
 <div class="content">
-<p>Elasticsearch provides a full Query DSL (Domain Specific Language) based on JSON to define queries.
-Think of the Query DSL as an AST (Abstract Syntax Tree) of queries, consisting of two types of
-clauses:</p>
+<p>
+Elasticsearch 提供了一个完整的基于 JSON 的 Query DSL（Domain Specific Language, 领域专用语言）来定义查询。
+
+可以把 Query DSL 想象成查询的 AST(Abstract Syntax Tree, 抽象语法树)，由两种类型的子句组成：
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-Leaf query clauses
+叶子查询子句 (leaf query clauses)
 </span>
 </dt>
 <dd>
-Leaf query clauses look for a particular value in a particular field, such as the
-<a class="xref" href="query-dsl-match-query.html" title="Match query"><code class="literal">match</code></a>, <a class="xref" href="query-dsl-term-query.html" title="Term query"><code class="literal">term</code></a> or
-<a class="xref" href="query-dsl-range-query.html" title="Range query"><code class="literal">range</code></a> queries.  These queries can be used
-by themselves.
+叶子查询子句查找特定字段中的特定值，例如 <a class="xref" href="query-dsl-match-query.html" title="Match query"><code class="literal">match</code></a>、<a class="xref" href="query-dsl-term-query.html" title="Term query"><code class="literal">term</code></a> 或 <a class="xref" href="query-dsl-range-query.html" title="Range query"><code class="literal">range</code></a> 查询。
+
+这些查询可以单独使用。
 </dd>
 <dt>
 <span class="term">
-Compound query clauses
+复合查询子句 (compound query clauses)
 </span>
 </dt>
 <dd>
-Compound query clauses wrap other leaf <span class="strong strong"><strong>or</strong></span> compound queries and are used to combine
-multiple queries in a logical fashion (such as the
-<a class="xref" href="query-dsl-bool-query.html" title="Boolean query"><code class="literal">bool</code></a> or <a class="xref" href="query-dsl-dis-max-query.html" title="Disjunction max query"><code class="literal">dis_max</code></a> query),
-or to alter their behaviour (such as the
-<a class="xref" href="query-dsl-constant-score-query.html" title="Constant score query"><code class="literal">constant_score</code></a> query).
+复合查询子句包裹其他叶子查询 <span class="strong strong"><strong>或</strong></span> 复合查询，用于以逻辑方式组合多个查询(如 <a class="xref" href="query-dsl-bool-query.html" title="Boolean query"><code class="literal">bool</code></a> 或 <a class="xref" href="query-dsl-dis-max-query.html" title="Disjunction max query"><code class="literal">dis_max</code></a>查询)，或改变它们的行为(如 <a class="xref" href="query-dsl-constant-score-query.html" title="Constant score query"><code class="literal">constant_score</code></a> 查询)。
 </dd>
 </dl>
 </div>
-<p>Query clauses behave differently depending on whether they are used in
-<a class="xref" href="query-filter-context.html" title="Query and filter context">query context or filter context</a>.</p>
+<p>
+根据查询子句是用于 <a class="xref" href="query-filter-context.html" title="Query and filter context">查询上下文还是过滤(filter)上下文</a>，它们的行为会有所不同。
+</p>
 <div class="variablelist">
 <a id="query-dsl-allow-expensive-queries"></a>
 <dl class="variablelist">
 <dt>
 <span class="term">
-Allow expensive queries
+允许耗资源的查询
 </span>
 </dt>
 <dd>
 <p>
-Certain types of queries will generally execute slowly due to the way they are implemented, which can affect
-the stability of the cluster. Those queries can be categorised as follows:
+某些类型的查询通常会因其实现方式而执行缓慢，这会影响集群的稳定性。
+
+这些查询可以分类如下：
 </p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<p>Queries that need to do linear scans to identify matches:</p>
+<p>需要进行线性扫描来识别匹配的查询：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<a class="xref" href="query-dsl-script-query.html" title="Script query"><code class="literal">script queries</code></a>
+<a class="xref" href="query-dsl-script-query.html" title="Script query"><code class="literal">script 查询</code></a>
 </li>
 </ul>
 </div>
 </li>
 <li class="listitem">
-<p>Queries that have a high up-front cost:</p>
+<p>具有较高的前期成本的查询：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<a class="xref" href="query-dsl-fuzzy-query.html" title="Fuzzy query"><code class="literal">fuzzy queries</code></a>
+<a class="xref" href="query-dsl-fuzzy-query.html" title="Fuzzy query"><code class="literal">fuzzy 查询</code></a>
 </li>
 <li class="listitem">
-<a class="xref" href="query-dsl-regexp-query.html" title="Regexp query"><code class="literal">regexp queries</code></a>
+<a class="xref" href="query-dsl-regexp-query.html" title="Regexp query"><code class="literal">regexp 查询</code></a>
 </li>
 <li class="listitem">
-<a class="xref" href="query-dsl-prefix-query.html" title="Prefix query"><code class="literal">prefix queries</code></a> without <a class="xref" href="index-prefixes.html" title="index_prefixes"><code class="literal">index_prefixes</code></a>
+不带 <a class="xref" href="index-prefixes.html" title="index_prefixes"><code class="literal">index_prefixes</code></a> 的 <a class="xref" href="query-dsl-prefix-query.html" title="Prefix query"><code class="literal">prefix 查询</code></a> 
 </li>
 <li class="listitem">
-<a class="xref" href="query-dsl-wildcard-query.html" title="Wildcard query"><code class="literal">wildcard queries</code></a>
+<a class="xref" href="query-dsl-wildcard-query.html" title="Wildcard query"><code class="literal">wildcard 查询</code></a>
 </li>
 <li class="listitem">
-<a class="xref" href="query-dsl-range-query.html" title="Range query"><code class="literal">range queries&gt;&gt; on &lt;&lt;text, `text</code></a> and <a class="xref" href="keyword.html" title="Keyword datatype"><code class="literal">keyword</code></a> fields
+在 <a class="xref" href="text.html.html" title="Text datatype"><code class="literal">text</code></a> 和 <a class="xref" href="keyword.html" title="Keyword datatype"><code class="literal">keyword</code></a> 字段上的 <a class="xref" href="query-dsl-range-query.html" title="Range query">range 查询</a> 
 </li>
 </ul>
 </div>
 </li>
 <li class="listitem">
-<a class="xref" href="joining-queries.html" title="Joining queries"><code class="literal">Joining queries</code></a>
+<a class="xref" href="joining-queries.html" title="Joining queries"><code class="literal">连接查询 (Joining queries)</code></a>
 </li>
 <li class="listitem">
-Queries on <a class="xref" href="geo-shape.html#prefix-trees" title="Prefix trees">deprecated geo shapes</a>
+对 <a class="xref" href="geo-shape.html#prefix-trees" title="Prefix trees">已弃用的地理形状</a> 的查询
 </li>
 <li class="listitem">
-<p>Queries that may have a high per-document cost:</p>
+<p>每个文档的成本可能很高的查询：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<a class="xref" href="query-dsl-script-score-query.html" title="Script score query"><code class="literal">script score queries</code></a>
+<a class="xref" href="query-dsl-script-score-query.html" title="Script score query"><code class="literal">script score 查询</code></a>
 </li>
 <li class="listitem">
-<a class="xref" href="query-dsl-percolate-query.html" title="Percolate query"><code class="literal">percolate queries</code></a>
+<a class="xref" href="query-dsl-percolate-query.html" title="Percolate query"><code class="literal">percolate 查询</code></a>
 </li>
 </ul>
 </div>
@@ -155,8 +154,9 @@ Queries on <a class="xref" href="geo-shape.html#prefix-trees" title="Prefix tree
 </dd>
 </dl>
 </div>
-<p>The execution of such queries can be prevented by setting the value of the <code class="literal">search.allow_expensive_queries</code>
-setting to <code class="literal">false</code> (defaults to <code class="literal">true</code>).</p>
+<p>
+通过将 <code class="literal">search.allow_expensive_queries</code>设置为<code class="literal">false</code> (默认为 <code class="literal">true</code>)，可以防止执行此类查询。
+</p>
 </div>
 </div>
 
@@ -175,10 +175,10 @@ setting to <code class="literal">false</code> (defaults to <code class="literal"
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="modules-cross-cluster-search.html">« Search across clusters</a>
+<a href="modules-cross-cluster-search.html">« 跨集群搜索</a>
 </span>
 <span class="next">
-<a href="query-filter-context.html">Query and filter context »</a>
+<a href2="query-filter-context.html">Query and filter context »</a>
 </span>
 </div>
 </div>

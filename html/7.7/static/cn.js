@@ -591,8 +591,8 @@ var esNavLinks = [
         "sub": [
             {
                 "url": "query-filter-context.html",
-                "text": "查询并过滤内容",
-                "title": "Query and filter context"
+                "text": "query 和 filter 上下文",
+                "title": "query 和 filter 上下文"
             },
             {
                 "url": "compound-queries.html",

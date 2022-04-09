@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Query and filter context | ElasticSearch 7.7 权威指南中文版</title>
+	<title>query 和 filter 上下文 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,89 +32,97 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-node">Query DSL</span>
 »
-<span class="breadcrumb-node">Query and filter context</span>
+<span class="breadcrumb-node">query 和 filter 上下文</span>
 </div>
 <div class="navheader">
 <span class="prev">
 <a href="query-dsl.html">« Query DSL</a>
 </span>
 <span class="next">
-<a href="compound-queries.html">Compound queries »</a>
+<a href2="compound-queries.html">Compound queries »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-filter-context"></a>Query and filter context<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/query_filter_context.asciidoc">edit</a>
+<a id="query-filter-context"></a>query 和 filter 上下文
 </h2>
 </div></div></div>
 <h3>
-<a id="relevance-scores"></a>Relevance scores<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/query_filter_context.asciidoc">edit</a>
+<a id="relevance-scores"></a>相关性评分 (relevance scores)
 </h3>
-<p>By default, Elasticsearch sorts matching search results by <span class="strong strong"><strong>relevance
-score</strong></span>, which measures how well each document matches a query.</p>
-<p>The relevance score is a positive floating point number, returned in the
-<code class="literal">_score</code> meta-field of the <a class="xref" href="search-request-body.html" title="Request Body Search">search</a> API. The higher the
-<code class="literal">_score</code>, the more relevant the document. While each query type can calculate
-relevance scores differently, score calculation also depends on whether the
-query clause is run in a <span class="strong strong"><strong>query</strong></span> or <span class="strong strong"><strong>filter</strong></span> context.</p>
+<p>
+默认情况下，Elasticsearch 根据 <span class="strong strong"><strong>相关性评分(relevance score)</strong></span> 对匹配到的搜索结果进行排序，这个分数用来衡量每个文档与查询的匹配程度。
+</p>
+<p>
+相关性分数是一个正浮点数，在 <a class="xref" href="search-request-body.html" title="Request Body Search">search</a> API 返回结果的 <code class="literal">_score</code> 元字段中。
+
+<code class="literal">_score</code>越高，文档的相关性就越强。
+
+虽然每种查询类型都可以不同地计算关联分数，但分数计算也取决于查询子句是在 <span class="strong strong"><strong>query</strong></span> 上下文中运行还是在 <span class="strong strong"><strong>filter</strong></span> 上下文中运行。
+</p>
 <h3>
-<a id="query-context"></a>Query context<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/query_filter_context.asciidoc">edit</a>
+<a id="query-context"></a>query 的上下文
 </h3>
-<p>In the query context, a query clause answers the question “<em>How well does this
-document match this query clause?</em>” Besides deciding whether or not the
-document matches, the query clause also calculates a relevance score in the
-<code class="literal">_score</code> meta-field.</p>
-<p>Query context is in effect whenever a query clause is passed to a <code class="literal">query</code>
-parameter, such as the <code class="literal">query</code> parameter in the
-<a class="xref" href="search-search.html#request-body-search-query">search</a> API.</p>
+<p>
+在 query 上下文中，查询子句回答“<em>此文档与此查询子句的匹配程度如何？</em>”。
+
+除了决定文档是否匹配之外，查询子句还计算文档的相关性得分（在元字段 <code class="literal">_score</code> 中显示）。
+</p>
+<p>
+query 上下文在查询子句传递给 <code class="literal">query</code> 参数(例如 <a class="xref" href="search-search.html#request-body-search-query">search</a> API 中的 <code class="literal">query</code> 参数)时生效。
+</p>
 <h3>
-<a id="filter-context"></a>Filter context<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/query_filter_context.asciidoc">edit</a>
+<a id="filter-context"></a>filter 的上下文
 </h3>
-<p>In a filter context, a query clause answers the question “<em>Does this
-document match this query clause?</em>”  The answer is a simple Yes or No — no
-scores are calculated.  Filter context is mostly used for filtering structured
-data, e.g.</p>
+<p>
+在 filter 上下文中，查询子句回答“<em>此文档与此查询子句匹配吗？</em>”。
+
+答案是简单的"是"或"否"--不会计算分数。
+
+filter 上下文主要用于过滤结构化数据，比如：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<em>Does this <code class="literal">timestamp</code> fall into the range 2015 to 2016?</em>
+<em>这个 <code class="literal">timestamp</code> 是否落在 2015 - 2016 范围内?</em>
 </li>
 <li class="listitem">
-<em>Is the <code class="literal">status</code>  field set to <code class="literal">"published"</code></em>?
+<em><code class="literal">status</code> 字段是否设置为<code class="literal">"published"</code></em>?
 </li>
 </ul>
 </div>
-<p>Frequently used filters will be cached automatically by Elasticsearch, to
-speed up performance.</p>
-<p>Filter context is in effect whenever a query clause is passed to a <code class="literal">filter</code>
-parameter, such as the <code class="literal">filter</code> or <code class="literal">must_not</code> parameters in the
-<a class="xref" href="query-dsl-bool-query.html" title="Boolean query"><code class="literal">bool</code></a> query, the <code class="literal">filter</code> parameter in the
-<a class="xref" href="query-dsl-constant-score-query.html" title="Constant score query"><code class="literal">constant_score</code></a> query, or the
-<a class="xref" href="search-aggregations-bucket-filter-aggregation.html" title="Filter Aggregation"><code class="literal">filter</code></a> aggregation.</p>
+<p>
+Elasticearch 会自动缓存经常使用的 filter，以提高性能。
+</p>
+<p>
+每当查询子句传递给 filter 参数时，过滤器上下文就生效，例如 <a class="xref" href="query-dsl-bool-query.html" title="Boolean query"><code class="literal">bool</code></a> 查询中的 <code class="literal">filter</code> 或 <code class="literal">must_not</code> 参数，<a class="xref" href="query-dsl-constant-score-query.html" title="Constant score query"><code class="literal">constant_score</code></a> 查询中的 <code class="literal">filter</code> 参数，或者 <a class="xref" href="search-aggregations-bucket-filter-aggregation.html" title="Filter Aggregation"><code class="literal">filter</code></a> 聚合。
+</p>
 <h3>
-<a id="query-filter-context-ex"></a>Example of query and filter contexts<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/query_filter_context.asciidoc">edit</a>
+<a id="query-filter-context-ex"></a>关于 query 和 filter 上下文的例子
 </h3>
-<p>Below is an example of query clauses being used in query and filter context
-in the <code class="literal">search</code> API.  This query will match documents where all of the following
-conditions are met:</p>
+<p>
+下面是一个在 <code class="literal">search</code> API 中的 query 和 filter 上下文中使用的查询子句的示例。
+
+该查询将匹配满足以下所有条件的文档：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-The <code class="literal">title</code> field contains the word <code class="literal">search</code>.
+字段 <code class="literal">title</code> 包含单词 <code class="literal">search</code>。
 </li>
 <li class="listitem">
-The <code class="literal">content</code> field contains the word <code class="literal">elasticsearch</code>.
+字段 <code class="literal">content</code> 包含单词 <code class="literal">elasticsearch</code>。
 </li>
 <li class="listitem">
-The <code class="literal">status</code> field contains the exact word <code class="literal">published</code>.
+字段 <code class="literal">status</code> 完全匹配 <code class="literal">published</code>。
 </li>
 <li class="listitem">
-The <code class="literal">publish_date</code> field contains a date from 1 Jan 2015 onwards.
+字段 <code class="literal">publish_date</code> 包含从 2015-1-1 之后（大于）的日期。
 </li>
 </ul>
 </div>
@@ -143,7 +151,7 @@ The <code class="literal">publish_date</code> field contains a date from 1 Jan 2
 <p><a href="#CO35-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">query</code> parameter indicates query context.</p>
+<p><code class="literal">query</code> 参数指示查询上下文。</p>
 </td>
 </tr>
 <tr>
@@ -151,9 +159,9 @@ The <code class="literal">publish_date</code> field contains a date from 1 Jan 2
 <p><a href="#CO35-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">bool</code> and two <code class="literal">match</code> clauses are used in query context,
-which means that they are used to score how well each document
-matches.</p>
+<p>
+<code class="literal">bool</code> 和两个 <code class="literal">match</code> 子句用于 query 上下文，这表示它们用于对每个文档的匹配程度进行评分。
+</p>
 </td>
 </tr>
 <tr>
@@ -161,10 +169,13 @@ matches.</p>
 <p><a href="#CO35-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">filter</code> parameter indicates filter context. Its <code class="literal">term</code> and
-<code class="literal">range</code> clauses are used in filter context. They will filter out
-documents which do not match, but they will
-not affect the score for matching documents.</p>
+<p>
+<code class="literal">filter</code> 参数指示 filter 上下文。
+
+其中 <code class="literal">term</code> 和 <code class="literal">range</code> 子句用于 filter 上下文。
+
+它们将过滤掉不匹配的文档，但不会影响匹配文档的得分。
+</p>
 </td>
 </tr>
 </table>
@@ -172,18 +183,19 @@ not affect the score for matching documents.</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Scores calculated for queries in query context are represented
-as single precision floating point numbers; they have only
-24 bits for significand’s precision. Score calculations that exceed the
-significand’s precision will be converted to floats with loss of precision.</p>
+<p>
+在 query 上下文中为查询计算的分数是一个单精度浮点数；它们的有效精度只有24位。
+
+超过有效精度的分数值将被转换为失去精度的浮点数。
+</p>
 </div>
 </div>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Use query clauses in query context for conditions which should affect the
-score of matching documents (i.e. how well does the document match), and use
-all other query clauses in filter context.</p>
+<p>
+在 query 上下文中使用查询子句，用于应该参与计算匹配文档得分的条件(即文档匹配的好坏)，而所有其他查询子句(不需要计算得分的)应该放在 filter 上下文中。
+</p>
 </div>
 </div>
 </div>
@@ -192,7 +204,7 @@ all other query clauses in filter context.</p>
 <a href="query-dsl.html">« Query DSL</a>
 </span>
 <span class="next">
-<a href="compound-queries.html">Compound queries »</a>
+<a href2="compound-queries.html">Compound queries »</a>
 </span>
 </div>
 </div>

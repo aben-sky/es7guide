@@ -597,7 +597,7 @@ var esNavLinks = [
             {
                 "url": "compound-queries.html",
                 "text": "复合查询",
-                "title": "Compound queries",
+                "title": "复合查询",
                 "sub": [
                     {
                         "url": "query-dsl-bool-query.html",

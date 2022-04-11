@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Boolean query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>bool 查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,33 +32,38 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></s<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-node">Query DSL</span>
 »
-<span class="breadcrumb-link"><a href="compound-queries.html">Compound queries</a></span>
+<span class="breadcrumb-node">复合查询</span>
 »
-<span class="breadcrumb-node">Boolean query</span>
+<span class="breadcrumb-node">bool 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="compound-queries.html">« Compound queries</a>
+<a href="compound-queries.html">« 复合查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-boosting-query.html">Boosting query »</a>
+<a href2="query-dsl-boosting-query.html">Boosting query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-bool-query"></a>Boolean query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/bool-query.asciidoc">edit</a>
+<a id="query-dsl-bool-query"></a>bool 查询
 </h2>
 </div></div></div>
 
-<p>A query that matches documents matching boolean combinations of other
-queries. The bool query maps to Lucene <code class="literal">BooleanQuery</code>. It is built using
-one or more boolean clauses, each clause with a typed occurrence. The
-occurrence types are:</p>
+<p>
+匹配与其他查询的布尔(bool)组合相匹配的文档的查询。
+
+bool 查询映射到 Lucene 的 <code class="literal">BooleanQuery</code>。
+
+它使用一个或多个布尔子句构建，每个子句都有一个类型的出现。
+
+出现的类型包括：
+</p>
 <div class="informaltable">
 <table border="1" cellpadding="4px">
 <colgroup>
@@ -67,40 +72,49 @@ occurrence types are:</p>
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Occur</th>
-<th align="left" valign="top">Description</th>
+<th align="left" valign="top">出现</th>
+<th align="left" valign="top">描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">must</code></p></td>
-<td align="left" valign="top"><p>The clause (query) must appear in matching documents and will
-contribute to the score.</p></td>
+<td align="left" valign="top"><p>
+该子句(查询)必须出现在匹配的文档中，并且将参与计算得分。
+</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">filter</code></p></td>
-<td align="left" valign="top"><p>The clause (query) must appear in matching documents. However unlike
-<code class="literal">must</code> the score of the query will be ignored. Filter clauses are executed
-in <a class="xref" href="query-filter-context.html" title="Query and filter context">filter context</a>, meaning that scoring is ignored
-and clauses are considered for caching.</p></td>
+<td align="left" valign="top"><p>
+该子句(查询)必须出现在匹配的文档中。
+
+然而，与 <code class="literal">must</code> 不同，该查询的分数将被忽略。
+
+filter 子句在 <a class="xref" href="query-filter-context.html" title="Query and filter context">filter 的上下文</a>中执行，这意味着该字句的评分会被忽略，但会考虑对该字句进行缓存。
+</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">should</code></p></td>
-<td align="left" valign="top"><p>The clause (query) should appear in the matching document.</p></td>
+<td align="left" valign="top"><p>
+该子句(查询) 应该(should) 出现在匹配的文档中。
+</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">must_not</code></p></td>
-<td align="left" valign="top"><p>The clause (query) must not appear in the matching
-documents.  Clauses are executed in <a class="xref" href="query-filter-context.html" title="Query and filter context">filter context</a> meaning
-that scoring is ignored and clauses are considered for caching. Because scoring is
-ignored, a score of <code class="literal">0</code> for all documents is returned.</p></td>
+<td align="left" valign="top"><p>
+该子句(查询)不能出现在匹配的文档中。
+
+该子句在 <a class="xref" href="query-filter-context.html" title="Query and filter context">filter 的上下文</a>中执行，这意味着该字句的评分会被忽略，但会考虑对该字句进行缓存。
+
+因为评分被忽略，所以所有文档都返回<code class="literal">0</code>分。
+</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>The <code class="literal">bool</code> query takes a <em>more-matches-is-better</em> approach, so the score from
-each matching <code class="literal">must</code> or <code class="literal">should</code> clause will be added together to provide the
-final <code class="literal">_score</code> for each document.</p>
+<p>
+bool 查询采用<em>越匹配越好(more-matches-is-better)</em>的方法，因此每个匹配的 <code class="literal">must</code> 或 <code class="literal">should</code> 子句的分数将被加在一起，以提供每个文档的最终的<code class="literal">_score</code>。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST _search
 {
@@ -131,29 +145,37 @@ final <code class="literal">_score</code> for each document.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="bool-min-should-match"></a>Using <code class="literal">minimum_should_match</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/bool-query.asciidoc">edit</a>
+<a id="bool-min-should-match"></a>使用 <code class="literal">minimum_should_match</code>
 </h3>
 </div></div></div>
-<p>You can use the <code class="literal">minimum_should_match</code> parameter to specify the number or
-percentage of <code class="literal">should</code> clauses returned documents <em>must</em> match.</p>
-<p>If the <code class="literal">bool</code> query includes at least one <code class="literal">should</code> clause and no <code class="literal">must</code> or
-<code class="literal">filter</code> clauses, the default value is <code class="literal">1</code>.
-Otherwise, the default value is <code class="literal">0</code>.</p>
-<p>For other valid values, see the
-<a class="xref" href="query-dsl-minimum-should-match.html" title="minimum_should_match parameter"><code class="literal">minimum_should_match</code> parameter</a>.</p>
+<p>
+可以使用 <code class="literal">minimum_should_match</code> 参数来指定返回文档 <em>必须(must)</em> 匹配的<code class="literal">should</code>子句的数量或百分比。
+</p>
+<p>
+如果 <code class="literal">bool</code> 查询至少包含一个 <code class="literal">should</code> 子句，并且没有 <code class="literal">must</code> 或 <code class="literal">filter</code> 子句，则默认值为 <code class="literal">1</code>。
+
+否则，默认值为 <code class="literal">0</code>。
+</p>
+<p>
+关于其他可用的值, 参考 <a class="xref" href="query-dsl-minimum-should-match.html" title="minimum_should_match parameter"><code class="literal">minimum_should_match</code> 参数</a>。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="score-bool-filter"></a>Scoring with <code class="literal">bool.filter</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/bool-query.asciidoc">edit</a>
-</h3>
+<a id="score-bool-filter"></a>用 <code class="literal">bool.filter</code> 评分
 </div></div></div>
-<p>Queries specified under the <code class="literal">filter</code> element have no effect on scoring — scores are returned as <code class="literal">0</code>.  Scores are only affected by the query that has
-been specified.  For instance, all three of the following queries return
-all documents where the <code class="literal">status</code> field contains the term <code class="literal">active</code>.</p>
-<p>This first query assigns a score of <code class="literal">0</code> to all documents, as no scoring
-query has been specified:</p>
+<p>
+<code class="literal">filter</code> 元素下指定的查询对评分没有影响，因为返回的分数都是 <code class="literal">0</code>。
+
+分数只受已指定的查询的影响。
+
+例如，以下三个查询都返回 <code class="literal">status</code> 字段包含词项 <code class="literal">active</code> 的所有文档。
+</p>
+<p>
+第一个查询为所有文档分配 <code class="literal">0</code> 分，因为没有指定计分的查询：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET _search
 {
@@ -169,8 +191,9 @@ query has been specified:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/94.console"></div>
-<p>This <code class="literal">bool</code> query has a <code class="literal">match_all</code> query, which assigns a score of <code class="literal">1.0</code> to
-all documents.</p>
+<p>
+下面这个 <code class="literal">bool</code> 查询有一个 <code class="literal">match_all</code> 查询，它给所有文档分配 <code class="literal">1.0</code> 分。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET _search
 {
@@ -189,9 +212,10 @@ all documents.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/95.console"></div>
-<p>This <code class="literal">constant_score</code> query behaves in exactly the same way as the second example above.
-The <code class="literal">constant_score</code> query assigns a score of <code class="literal">1.0</code> to all documents matched
-by the filter.</p>
+<p>
+
+第三个例子, 下面这个 <code class="literal">constant_score</code> 查询的行为与上面的第二个示例完全相同。<code class="literal">constant_score</code> 查询将分数 <code class="literal">1.0</code> 分配给与过滤器匹配的所有文档。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET _search
 {
@@ -212,22 +236,21 @@ by the filter.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_using_named_queries_to_see_which_clauses_matched"></a>Using named queries to see which clauses matched<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/bool-query.asciidoc">edit</a>
+<a id="_using_named_queries_to_see_which_clauses_matched"></a>使用命名查询(named queries)查看哪些子句匹配
 </h3>
 </div></div></div>
-<p>If you need to know which of the clauses in the bool query matched the documents
-returned from the query, you can use
-<a class="xref" href="search-request-body.html#request-body-search-queries-and-filters" title="Named Queries">named queries</a> to assign a name to
-each clause.</p>
+<p>
+如果需要知道 bool 查询中的哪个子句与查询返回的文档相匹配，可以使用 <a class="xref" href="search-request-body.html#request-body-search-queries-and-filters" title="Named Queries">命名查询(named queries)</a> 为每个子句指定一个名称。
+</p>
 </div>
 
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="compound-queries.html">« Compound queries</a>
+<a href="compound-queries.html">« 复合查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-boosting-query.html">Boosting query »</a>
+<a href2="query-dsl-boosting-query.html">Boosting query »</a>
 </span>
 </div>
 </div>

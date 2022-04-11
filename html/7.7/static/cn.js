@@ -601,8 +601,8 @@ var esNavLinks = [
                 "sub": [
                     {
                         "url": "query-dsl-bool-query.html",
-                        "text": "布尔查询(boolean query)",
-                        "title": "Boolean"
+                        "text": "bool 查询",
+                        "title": "bool 查询"
                     },
                     {
                         "url": "query-dsl-boosting-query.html",

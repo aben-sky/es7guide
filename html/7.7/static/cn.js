@@ -606,8 +606,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-boosting-query.html",
-                        "text": "提升权重(boosting)",
-                        "title": "Boosting"
+                        "text": "boosting查询",
+                        "title": "boosting查询"
                     },
                     {
                         "url": "query-dsl-constant-score-query.html",

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Boosting query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>boosting查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,38 +32,39 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-node">Query DSL</span>
 »
-<span class="breadcrumb-link"><a href="compound-queries.html">Compound queries</a></span>
+<span class="breadcrumb-node">复合查询</span>
 »
-<span class="breadcrumb-node">Boosting query</span>
+<span class="breadcrumb-node">boosting查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-bool-query.html">« Boolean query</a>
+<a href="query-dsl-bool-query.html">« bool查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-constant-score-query.html">Constant score query »</a>
+<a href2="query-dsl-constant-score-query.html">Constant score query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-boosting-query"></a>Boosting query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/boosting-query.asciidoc">edit</a>
+<a id="query-dsl-boosting-query"></a>boosting查询
 </h2>
 </div></div></div>
 
-<p>Returns documents matching a <code class="literal">positive</code> query while reducing the
-<a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance score</a> of documents that also match a
-<code class="literal">negative</code> query.</p>
-<p>You can use the <code class="literal">boosting</code> query to demote certain documents without
-excluding them from the search results.</p>
+<p>
+返回匹配 <code class="literal">positive</code>(肯定) 查询的文档，同时降低匹配 <code class="literal">negative</code>(否定) 查询的文档的 <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">相关性评分</a> 。
+</p>
+<p>
+可以使用 <code class="literal">boosting</code> 查询来降级某些文档(降低其相关性评分)，但不会将它们从搜索结果中排除。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="boosting-query-ex-request"></a>Example request<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/boosting-query.asciidoc">edit</a>
+<a id="boosting-query-ex-request"></a>请求示例
 </h3>
 </div></div></div>
 <div class="pre_wrapper lang-console">
@@ -92,7 +93,7 @@ excluding them from the search results.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="boosting-top-level-params"></a>Top-level parameters for <code class="literal">boosting</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/boosting-query.asciidoc">edit</a>
+<a id="boosting-top-level-params"></a>用于 <code class="literal">boosting</code> 的顶级参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -103,8 +104,7 @@ excluding them from the search results.</p>
 </span>
 </dt>
 <dd>
-(Required, query object) Query you wish to run. Any returned documents must
-match this query.
+(必填, query 对象) 你想运行的查询。 任何返回的文档都必须与该查询匹配。
 </dd>
 <dt>
 <span class="term">
@@ -112,18 +112,19 @@ match this query.
 </span>
 </dt>
 <dd>
-<p>(Required, query object) Query used to decrease the <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance
-score</a> of matching documents.</p>
-<p>If a returned document matches the <code class="literal">positive</code> query and this query, the
-<code class="literal">boosting</code> query calculates the final <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance score</a> for
-the document as follows:</p>
+<p>
+(必填, query 对象) 用于降低匹配文档的 <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">相关性评分</a> 的查询。
+</p>
+<p>
+如果返回的文档匹配 <code class="literal">positive</code> 查询和该查询，则 <code class="literal">boosting</code> 查询像下面这样计算该文档的最终 <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">相关性评分</a> :
+</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-Take the original relevance score from the <code class="literal">positive</code> query.
+从 <code class="literal">positive</code> 查询中获取原始相关性评分。
 </li>
 <li class="listitem">
-Multiply the score by the <code class="literal">negative_boost</code> value.
+将该分数值乘以 <code class="literal">negative_boost</code> 值。
 </li>
 </ol>
 </div>
@@ -134,9 +135,7 @@ Multiply the score by the <code class="literal">negative_boost</code> value.
 </span>
 </dt>
 <dd>
-(Required, float) Floating point number between <code class="literal">0</code> and <code class="literal">1.0</code> used to decrease
-the <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance scores</a> of documents matching the
-<code class="literal">negative</code> query.
+(必填, float) 一个介于 <code class="literal">0</code> 和 <code class="literal">1.0</code> 之间的浮点数，用于降低与 <code class="literal">negative</code> 查询匹配的文档的 <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">相关性评分</a>。
 </dd>
 </dl>
 </div>
@@ -145,10 +144,10 @@ the <a class="xref" href="query-filter-context.html#relevance-scores" title="Rel
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-bool-query.html">« Boolean query</a>
+<a href="query-dsl-bool-query.html">« bool查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-constant-score-query.html">Constant score query »</a>
+<a href2="query-dsl-constant-score-query.html">Constant score query »</a>
 </span>
 </div>
 </div>

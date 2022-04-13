@@ -601,27 +601,27 @@ var esNavLinks = [
                 "sub": [
                     {
                         "url": "query-dsl-bool-query.html",
-                        "text": "bool",
-                        "title": "bool"
+                        "text": "bool (布尔)",
+                        "title": "bool (布尔)"
                     },
                     {
                         "url": "query-dsl-boosting-query.html",
-                        "text": "boosting",
-                        "title": "boosting"
+                        "text": "boosting (提高得分)",
+                        "title": "boosting (提高得分)"
                     },
                     {
                         "url": "query-dsl-constant-score-query.html",
-                        "text": "constant_score",
-                        "title": "constant_score"
+                        "text": "constant_score (常量得分)",
+                        "title": "constant_score (常量得分)"
                     },
                     {
                         "url": "query-dsl-dis-max-query.html",
-                        "text": "分离最大化(disjunction max)",
-                        "title": "Disjunction max"
+                        "text": "dis_max (逻辑或最大值)",
+                        "title": "dis_max (逻辑或最大值)"
                     },
                     {
                         "url": "query-dsl-function-score-query.html",
-                        "text": "评分函数(function score)",
+                        "text": "函数评分(function score)",
                         "title": "Function score"
                     }
                 ]

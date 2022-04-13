@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Constant score query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>constant_score查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,32 +32,32 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-node">Query DSL</span>
 »
-<span class="breadcrumb-link"><a href="compound-queries.html">Compound queries</a></span>
+<span class="breadcrumb-node">复合查询</span>
 »
-<span class="breadcrumb-node">Constant score query</span>
+<span class="breadcrumb-node">constant_score查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-boosting-query.html">« Boosting query</a>
+<a href="query-dsl-boosting-query.html">« boosting查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-dis-max-query.html">Disjunction max query »</a>
+<a href2="query-dsl-dis-max-query.html">Disjunction max query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-constant-score-query"></a>Constant score query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/constant-score-query.asciidoc">edit</a>
+<a id="query-dsl-constant-score-query"></a>constant_score查询
 </h2>
 </div></div></div>
 
-<p>Wraps a <a class="xref" href="query-dsl-bool-query.html" title="Boolean query">filter query</a> and returns every matching
-document with a <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance score</a> equal to the <code class="literal">boost</code>
-parameter value.</p>
+<p>
+包裹一个 <a class="xref" href="query-dsl-bool-query.html" title="Boolean query">filter 查询</a> 并返回每个匹配的文档，其 <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">相关性评分</a> 等于参数 <code class="literal">boost</code> 的值。  
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -75,7 +75,7 @@ parameter value.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="constant-score-top-level-params"></a>Top-level parameters for <code class="literal">constant_score</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/constant-score-query.asciidoc">edit</a>
+<a id="constant-score-top-level-params"></a><code class="literal">constant_score</code> 的顶级参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -86,10 +86,15 @@ parameter value.</p>
 </span>
 </dt>
 <dd>
-<p>(Required, query object) <a class="xref" href="query-dsl-bool-query.html" title="Boolean query">Filter query</a> you wish to run.
-Any returned documents must match this query.</p>
-<p>Filter queries do not calculate <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance scores</a>. To
-speed up performance, Elasticsearch automatically caches frequently used filter queries.</p>
+<p>(必填, query 对象) 你想运行的 <a class="xref" href="query-dsl-bool-query.html" title="Boolean query">filter 查询</a>。
+
+任何返回的文档都必须匹配此查询。
+</p>
+<p>
+filter 查询不会计算 <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">相关性评分</a>。
+
+为了提高性能，Elasticsearch 会自动缓存常用的 filter 查询。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -97,9 +102,10 @@ speed up performance, Elasticsearch automatically caches frequently used filter 
 </span>
 </dt>
 <dd>
-(Optional, float) Floating point number used as the constant
-<a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance score</a> for every document matching the
-<code class="literal">filter</code> query. Defaults to <code class="literal">1.0</code>.
+(可选, float) 
+用于匹配 <code class="literal">filter</code> 查询的每个文档的常量 <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">相关性评分</a> 的浮点数。  
+
+默认值为 <code class="literal">1.0</code>。
 </dd>
 </dl>
 </div>
@@ -108,10 +114,10 @@ speed up performance, Elasticsearch automatically caches frequently used filter 
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-boosting-query.html">« Boosting query</a>
+<a href="query-dsl-boosting-query.html">« boosting查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-dis-max-query.html">Disjunction max query »</a>
+<a href2="query-dsl-dis-max-query.html">Disjunction max query »</a>
 </span>
 </div>
 </div>

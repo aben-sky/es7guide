@@ -601,18 +601,18 @@ var esNavLinks = [
                 "sub": [
                     {
                         "url": "query-dsl-bool-query.html",
-                        "text": "bool 查询",
-                        "title": "bool 查询"
+                        "text": "bool",
+                        "title": "bool"
                     },
                     {
                         "url": "query-dsl-boosting-query.html",
-                        "text": "boosting查询",
-                        "title": "boosting查询"
+                        "text": "boosting",
+                        "title": "boosting"
                     },
                     {
                         "url": "query-dsl-constant-score-query.html",
-                        "text": "固定评分值(constant score)",
-                        "title": "Constant score"
+                        "text": "constant_score",
+                        "title": "constant_score"
                     },
                     {
                         "url": "query-dsl-dis-max-query.html",

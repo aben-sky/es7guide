@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Function score query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>function_score (函数评分) 查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,37 +32,40 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-node">Query DSL</span>
 »
-<span class="breadcrumb-link"><a href="compound-queries.html">Compound queries</a></span>
+<span class="breadcrumb-node">复合查询</span>
 »
-<span class="breadcrumb-node">Function score query</span>
+<span class="breadcrumb-node">function_score (函数评分) 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-dis-max-query.html">« Disjunction max query</a>
+<a href="query-dsl-dis-max-query.html">« dis_max 查询</a>
 </span>
 <span class="next">
-<a href="full-text-queries.html">Full text queries »</a>
+<a href2="full-text-queries.html">Full text queries »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-function-score-query"></a>Function score query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/function-score-query.asciidoc">edit</a>
+<a id="query-dsl-function-score-query"></a>function_score (函数评分) 查询
 </h2>
 </div></div></div>
 
-<p>The <code class="literal">function_score</code> allows you to modify the score of documents that are
-retrieved by a query. This can be useful if, for example, a score
-function is computationally expensive and it is sufficient to compute
-the score on a filtered set of documents.</p>
-<p>To use <code class="literal">function_score</code>, the user has to define a query and one or
-more functions, that compute a new score for each document returned
-by the query.</p>
-<p><code class="literal">function_score</code> can be used with only one function like this:</p>
+<p>
+<code class="literal">function_score</code> 允许你修改查询检索到的文档的分数。  
+
+例如，如果一个评分函数的计算开销很大，并且它足以计算经过筛选的一组文档的分数，那么这就很有用了。  
+</p>
+<p>
+要使用 <code class="literal">function_score</code>，用户必须定义一个查询和一个或多个函数，这些函数为查询返回的每个文档计算一个新分数。  
+</p>
+<p>
+<code class="literal">function_score</code> 只能用于一个函数，如下所示：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -84,14 +87,14 @@ by the query.</p>
 <p><a href="#CO36-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>See <a class="xref" href="query-dsl-function-score-query.html#score-functions">Function score</a> for a list of supported functions.</p>
+<p>受支持的函数列表请参考 <a class="xref" href="query-dsl-function-score-query.html#score-functions">函数评分</a>。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>Furthermore, several functions can be combined. In this case one can
-optionally choose to apply the function only if a document matches a
-given filtering query</p>
+<p>
+此外，几个功能可以组合。在这种情况下，我们可以选择只在文档匹配指定的 filter 查询时应用该函数。  
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -126,7 +129,7 @@ given filtering query</p>
 <p><a href="#CO37-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Boost for the whole query.</p>
+<p>整个查询的提高(boost)。</p>
 </td>
 </tr>
 <tr>
@@ -134,7 +137,7 @@ given filtering query</p>
 <p><a href="#CO37-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>See <a class="xref" href="query-dsl-function-score-query.html#score-functions">Function score</a> for a list of supported functions.</p>
+<p>受支持的函数列表请参考 <a class="xref" href="query-dsl-function-score-query.html#score-functions">函数评分</a>。</p>
 </td>
 </tr>
 </table>
@@ -142,13 +145,16 @@ given filtering query</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The scores produced by the filtering query of each function do not matter.</p>
+<p>每个函数的 filter 查询产生的分数并不重要。</p>
 </div>
 </div>
-<p>If no filter is given with a function this is equivalent to specifying
-<code class="literal">"match_all": {}</code></p>
-<p>First, each document is scored by the defined functions. The parameter
-<code class="literal">score_mode</code> specifies how the computed scores are combined:</p>
+<p>
+如果函数中没有给出任何 filter，这相当于指定 <code class="literal">"match_all": {}</code>。  
+</p>
+<p>
+首先，每个文档由定义的函数评分。  
+参数 <code class="literal">score_mode</code> 指定如何组合计算出的分数： 
+</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -164,7 +170,7 @@ given filtering query</p>
 </td>
 <td valign="top">
 <p>
-scores are multiplied (default)
+分数相乘（默认）
 </p>
 </td>
 </tr>
@@ -176,7 +182,7 @@ scores are multiplied (default)
 </td>
 <td valign="top">
 <p>
-scores are summed
+分数相加，求和
 </p>
 </td>
 </tr>
@@ -188,7 +194,7 @@ scores are summed
 </td>
 <td valign="top">
 <p>
-scores are averaged
+分数的平均值
 </p>
 </td>
 </tr>
@@ -200,8 +206,7 @@ scores are averaged
 </td>
 <td valign="top">
 <p>
-the first function that has a matching filter
-is applied
+应用第一个具有匹配 filter 的函数
 </p>
 </td>
 </tr>
@@ -213,7 +218,7 @@ is applied
 </td>
 <td valign="top">
 <p>
-maximum score is used
+取分数最大值
 </p>
 </td>
 </tr>
@@ -225,25 +230,34 @@ maximum score is used
 </td>
 <td valign="top">
 <p>
-minimum score is used
+取分数最小值
 </p>
 </td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>Because scores can be on different scales (for example, between 0 and 1 for decay functions but arbitrary for <code class="literal">field_value_factor</code>) and also
-because sometimes a different impact of functions on the score is desirable, the score of each function can be adjusted with a user defined
-<code class="literal">weight</code>. The <code class="literal">weight</code> can be defined per function in the <code class="literal">functions</code> array (example above) and is multiplied with the score computed by
-the respective function.
-If weight is given without any other function declaration, <code class="literal">weight</code> acts as a function that simply returns the <code class="literal">weight</code>.</p>
-<p>In case <code class="literal">score_mode</code> is set to <code class="literal">avg</code> the individual scores will be combined by a <span class="strong strong"><strong>weighted</strong></span> average.
-For example, if two functions return score 1 and 2 and their respective weights are 3 and 4, then their scores will be combined as
-<code class="literal">(1*3+2*4)/(3+4)</code> and <span class="strong strong"><strong>not</strong></span> <code class="literal">(1*3+2*4)/2</code>.</p>
-<p>The new score can be restricted to not exceed a certain limit by setting
-the <code class="literal">max_boost</code> parameter. The default for <code class="literal">max_boost</code> is FLT_MAX.</p>
-<p>The newly computed score is combined with the score of the
-query. The parameter <code class="literal">boost_mode</code> defines how:</p>
+<p>
+因为分数可以在不同的范围内(例如，衰减函数<span class="remark">(decay function)</span>在0到1之间，而 <code class="literal">field_value_factor</code> 是任意的)，而且有时函数对分数的不同影响是可取的，所以可以使用用户定义的 <code class="literal">weight</code>(权重) 来调整每个函数的分数。  
+
+<code class="literal">weight</code>可以在 <code class="literal">functions</code>数组(上面的例子)中按每个函数定义，并与相应函数计算的分数相乘。 
+
+
+如果给定 weight 时没有任何其他函数声明，<code class="literal">weight</code> 就会作为一个函数返回<code class="literal">weight</code> 。  
+</p>
+<p>
+如果 <code class="literal">score_mode</code> 被设置为 <code class="literal">avg</code>，则单个分数将被 <span class="strong strong"><strong>weighted(加权)</strong></span> 平均。  
+
+例如，如果两个函数返回 1 和 2 分，它们各自的权重分别为 3 和 4，那么它们的得分将合并为 <code class="literal">(1*3+2*4)/(3+4)</code> 而<span class="strong strong"><strong>不是</strong></span> <code class="literal">(1*3+2*4)/2</code>。  
+</p>
+<p>
+通过设置 <code class="literal">max_boost</code> 参数，可以限制新的分数不超过某个限制。
+
+<code class="literal">max_boost</code> 的默认值是 FLT_MAX。
+</p>
+<p>
+新计算的分数与查询的分数相结合。 参数 <code class="literal">boost_mode</code> 定义了如何操作：
+</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -259,7 +273,7 @@ query. The parameter <code class="literal">boost_mode</code> defines how:</p>
 </td>
 <td valign="top">
 <p>
-query score and function score is multiplied (default)
+查询分数和函数分数相乘（默认）
 </p>
 </td>
 </tr>
@@ -271,7 +285,7 @@ query score and function score is multiplied (default)
 </td>
 <td valign="top">
 <p>
-only function score is used, the query score is ignored
+只使用函数分数，而忽略查询分数
 </p>
 </td>
 </tr>
@@ -283,7 +297,7 @@ only function score is used, the query score is ignored
 </td>
 <td valign="top">
 <p>
-query score and function score are added
+查询分数和函数分数相加
 </p>
 </td>
 </tr>
@@ -295,7 +309,7 @@ query score and function score are added
 </td>
 <td valign="top">
 <p>
-average
+平均值
 </p>
 </td>
 </tr>
@@ -307,7 +321,7 @@ average
 </td>
 <td valign="top">
 <p>
-max of query score and function score
+查询分数和函数分数的最大值
 </p>
 </td>
 </tr>
@@ -319,22 +333,30 @@ max of query score and function score
 </td>
 <td valign="top">
 <p>
-min of query score and function score
+查询分数和函数分数的最小值
 </p>
 </td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>By default, modifying the score does not change which documents match. To exclude
-documents that do not meet a certain score threshold the <code class="literal">min_score</code> parameter can be set to the desired score threshold.</p>
+<p>
+默认情况下，修改分数不会改变匹配的文档。  
+
+要排除不满足某个分数阈值的文档，可以将参数 <code class="literal">min_score</code> 设置为所需的分数阈值。  
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>For <code class="literal">min_score</code> to work, <span class="strong strong"><strong>all</strong></span> documents returned by the query need to be scored and then filtered out one by one.</p>
+<p>
+要让 <code class="literal">min_score</code> 起作用，需要对查询返回的<span class="strong strong"><strong>所有</strong></span>文档进行评分，然后逐一过滤掉。
+</p>
 </div>
 </div>
-<p><a id="score-functions"></a>The <code class="literal">function_score</code> query provides several types of score functions.</p>
+<p>
+<a id="score-functions"></a>
+<code class="literal">function_score</code> 查询提供了以下几种评分函数。
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
@@ -350,20 +372,21 @@ documents that do not meet a certain score threshold the <code class="literal">m
 <a class="xref" href="query-dsl-function-score-query.html#function-field-value-factor" title="Field Value factor"><code class="literal">field_value_factor</code></a>
 </li>
 <li class="listitem">
-<a class="xref" href="query-dsl-function-score-query.html#function-decay" title="Decay functions">decay functions</a>: <code class="literal">gauss</code>, <code class="literal">linear</code>, <code class="literal">exp</code>
+<a class="xref" href="query-dsl-function-score-query.html#function-decay" title="Decay functions">衰减函数 (decay function)</a>: <code class="literal">gauss</code>, <code class="literal">linear</code>, <code class="literal">exp</code>
 </li>
 </ul>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="function-script-score"></a>Script score<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/function-score-query.asciidoc">edit</a>
+<a id="function-script-score"></a>脚本评分 (Script score)
 </h3>
 </div></div></div>
-<p>The <code class="literal">script_score</code> function allows you to wrap another query and customize
-the scoring of it optionally with a computation derived from other numeric
-field values in the doc using a script expression. Here is a
-simple sample:</p>
+<p>
+<code class="literal">script_score</code> 函数允许包裹另一个查询，并使用脚本表达式使用从文档中的其他 数值(numeric) 字段值派生的计算定制该查询的评分。 
+
+这里是一个简单的例子:
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -385,18 +408,26 @@ simple sample:</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>In Elasticsearch, all document scores are positive 32-bit floating point numbers.</p>
-<p>If the <code class="literal">script_score</code> function produces a score with greater precision, it is
-converted to the nearest 32-bit float.</p>
-<p>Similarly, scores must be non-negative. Otherwise, Elasticsearch returns an error.</p>
+<p>
+在 Elasticsearch 中，所有文档的评分都是一个 32 位的浮点数。  
+</p>
+<p>
+如果 <code class="literal">script_score</code> 函数生成了一个精度更高的分数，那么它将被转换为最接近的 32 位浮点数。  
+</p>
+<p>
+同样，分数必须是非负的。 否则，Elasticsearch 返回一个错误。  
+</p>
 </div>
 </div>
-<p>On top of the different scripting field values and expression, the
-<code class="literal">_score</code> script parameter can be used to retrieve the score based on the
-wrapped query.</p>
-<p>Scripts compilation is cached for faster execution. If the script has
-parameters that it needs to take into account, it is preferable to reuse the
-same script, and provide parameters to it:</p>
+<p>
+在不同的脚本字段值和表达式之上，可以使用 <code class="literal">_score</code> 脚本参数根据包裹的查询来检索分数。  
+</p>
+<p>
+
+Scripts compilation is cached for faster execution.
+
+If the script has parameters that it needs to take into account, it is preferable to reuse the same script, and provide parameters to it:
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -419,9 +450,12 @@ same script, and provide parameters to it:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/103.console"></div>
-<p>Note that unlike the <code class="literal">custom_score</code> query, the
-score of the query is multiplied with the result of the script scoring. If
-you wish to inhibit this, set <code class="literal">"boost_mode": "replace"</code></p>
+<p>
+
+Note that unlike the <code class="literal">custom_score</code> query, the score of the query is multiplied with the result of the script scoring.
+
+If you wish to inhibit this, set <code class="literal">"boost_mode": "replace"</code>
+</p>
 </div>
 
 <div class="section">
@@ -1161,10 +1195,10 @@ return 1.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-dis-max-query.html">« Disjunction max query</a>
+<a href="query-dsl-dis-max-query.html">« dis_max 查询</a>
 </span>
 <span class="next">
-<a href="full-text-queries.html">Full text queries »</a>
+<a href2="full-text-queries.html">Full text queries »</a>
 </span>
 </div>
 </div>

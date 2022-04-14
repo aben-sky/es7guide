@@ -621,8 +621,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-function-score-query.html",
-                        "text": "函数评分(function score)",
-                        "title": "Function score"
+                        "text": "function_score (函数评分)",
+                        "title": "function_score (函数评分)"
                     }
                 ]
             },

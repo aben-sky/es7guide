@@ -423,10 +423,9 @@
 在不同的脚本字段值和表达式之上，可以使用 <code class="literal">_score</code> 脚本参数根据包裹的查询来检索分数。  
 </p>
 <p>
+脚本编译被缓存以更快地执行。  
 
-Scripts compilation is cached for faster execution.
-
-If the script has parameters that it needs to take into account, it is preferable to reuse the same script, and provide parameters to it:
+如果脚本有需要考虑的参数，最好重用同一个脚本，并为其提供 <code class="literal">params</code>(参数):
 </p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
@@ -451,23 +450,25 @@ If the script has parameters that it needs to take into account, it is preferabl
 </div>
 <div class="console_widget" data-snippet="snippets/103.console"></div>
 <p>
+请注意，与 <code class="literal">custom_score</code> 查询不同，查询的分数会乘以脚本评分的结果。
 
-Note that unlike the <code class="literal">custom_score</code> query, the score of the query is multiplied with the result of the script scoring.
-
-If you wish to inhibit this, set <code class="literal">"boost_mode": "replace"</code>
+如果你希望禁止这种情况，请设置 <code class="literal">"boost_mode": "replace"</code>。
 </p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="function-weight"></a>Weight<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/function-score-query.asciidoc">edit</a>
+<a id="function-weight"></a>权重 (weight)
 </h3>
 </div></div></div>
-<p>The <code class="literal">weight</code> score allows you to multiply the score by the provided
-<code class="literal">weight</code>. This can sometimes be desired since boost value set on
-specific queries gets normalized, while for this score function it does
-not. The number value is of type float.</p>
+<p>
+<code class="literal">weight</code> 分数允许你将分数乘以指定的 <code class="literal">weight</code> 值。
+
+这有时是需要的，因为在特定查询上设置的 boost(提升)值 被归一化了，而对于这个评分函数却没有。
+
+number 值的类型是 float。
+</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">"weight" : number</pre>
 </div>
@@ -476,29 +477,29 @@ not. The number value is of type float.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="function-random"></a>Random<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/function-score-query.asciidoc">edit</a>
+<a id="function-random"></a>随机 (random)
 </h3>
 </div></div></div>
-<p>The <code class="literal">random_score</code> generates scores that are uniformly distributed from 0 up to
-but not including 1. By default, it uses the internal Lucene doc ids as a
-source of randomness, which is very efficient but unfortunately not
-reproducible since documents might be renumbered by merges.</p>
-<p>In case you want scores to be reproducible, it is possible to provide a <code class="literal">seed</code>
-and <code class="literal">field</code>. The final score will then be computed based on this seed, the
-minimum value of <code class="literal">field</code> for the considered document and a salt that is computed
-based on the index name and shard id so that documents that have the same
-value but are stored in different indexes get different scores. Note that
-documents that are within the same shard and have the same value for <code class="literal">field</code>
-will however get the same score, so it is usually desirable to use a field that
-has unique values for all documents. A good default choice might be to use the
-<code class="literal">_seq_no</code> field, whose only drawback is that scores will change if the document
-is updated since update operations also update the value of the <code class="literal">_seq_no</code> field.</p>
+<p>
+<code class="literal">random_score</code> 生成从 0 到 1 (不包括1) 均匀分布的分数。
+
+默认情况下，它使用内部 Lucene 文档 id 作为随机数种子(seed)，这非常有效，但不幸的是不可再现的，因为文档可能会被合并而重新编号。
+</p>
+<p>
+如果你希望分数是可再现的，可以提供一个 <code class="literal">seed</code><span class="remark">(种子)</span> 和 <code class="literal">field</code><span class="remark">(字段)</span>。
+
+然后，将基于该种子、所考虑文档的 <code class="literal">field</code><span class="remark">(字段)</span> 的最小值以及基于索引名称和分片id计算的 盐(salt) 来计算最终得分，以便具有相同值但存储在不同索引中的文档获得不同的得分。
+
+请注意，在同一个分片中并且具有相同 <code class="literal">field</code> 值的文档将获得相同的分数，因此通常希望对所有文档使用具有唯一值的字段。
+
+一个好的默认选择可能是使用 <code class="literal">_seq_no</code> 字段，其唯一的缺点是如果文档被更新，分数将会改变，因为更新操作也会更新 <code class="literal">_seq_no</code> 字段的值。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>It was possible to set a seed without setting a field, but this has been
-deprecated as this requires loading fielddata on the <code class="literal">_id</code> field which consumes
-a lot of memory.</p>
+<p>
+可以在不设置字段的情况下设置种子，但这已被废弃，因为这需要在 <code class="literal">_id</code> 字段上加载 fielddata(字段的数据)，这会消耗大量内存。
+</p>
 </div>
 </div>
 <div class="pre_wrapper lang-console">
@@ -520,16 +521,19 @@ a lot of memory.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="function-field-value-factor"></a>Field Value factor<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/function-score-query.asciidoc">edit</a>
+<a id="function-field-value-factor"></a>字段值因子 (field value factor)
 </h3>
 </div></div></div>
-<p>The <code class="literal">field_value_factor</code> function allows you to use a field from a document to
-influence the score. It’s similar to using the <code class="literal">script_score</code> function, however,
-it avoids the overhead of scripting. If used on a multi-valued field, only the
-first value of the field is used in calculations.</p>
-<p>As an example, imagine you have a document indexed with a numeric <code class="literal">likes</code>
-field and wish to influence the score of a document with this field, an example
-doing so would look like:</p>
+<p>
+<code class="literal">field_value_factor</code> 函数允许你使用文档中的字段来影响分数。
+
+它类似于使用 <code class="literal">script_score</code> 函数，但是它避免了脚本的开销。
+
+如果用于 多值(multi-valued) 字段，则计算中仅使用字段的第一个值。
+</p>
+<p>
+例如，假设你有一个用数字 <code class="literal">likes</code> 字段索引的文档，并希望用该字段影响文档的评分，以下就是一个示例：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -546,9 +550,13 @@ doing so would look like:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/105.console"></div>
-<p>Which will translate into the following formula for scoring:</p>
+<p>
+上面的代码将转化为以下评分公式：
+</p>
 <p><code class="literal">sqrt(1.2 * doc['likes'].value)</code></p>
-<p>There are a number of options for the <code class="literal">field_value_factor</code> function:</p>
+<p>
+函数 <code class="literal">field_value_factor</code> 有多个选项：
+</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -564,7 +572,7 @@ doing so would look like:</p>
 </td>
 <td valign="top">
 <p>
-Field to be extracted from the document.
+要从文档中提取的字段。
 </p>
 </td>
 </tr>
@@ -576,7 +584,7 @@ Field to be extracted from the document.
 </td>
 <td valign="top">
 <p>
-Optional factor to multiply the field value with, defaults to <code class="literal">1</code>.
+与字段值相乘的可选因子，默认值为 <code class="literal">1</code>。
 </p>
 </td>
 </tr>
@@ -588,9 +596,9 @@ Optional factor to multiply the field value with, defaults to <code class="liter
 </td>
 <td valign="top">
 <p>
-Modifier to apply to the field value, can be one of: <code class="literal">none</code>, <code class="literal">log</code>,
-<code class="literal">log1p</code>, <code class="literal">log2p</code>, <code class="literal">ln</code>, <code class="literal">ln1p</code>, <code class="literal">ln2p</code>, <code class="literal">square</code>, <code class="literal">sqrt</code>, or <code class="literal">reciprocal</code>.
-Defaults to <code class="literal">none</code>.
+应用于字段值的修饰符，可以是下列值之一：<code class="literal">none</code>、<code class="literal">log</code>、<code class="literal">log1p</code>、<code class="literal">log2p</code>、<code class="literal">ln</code>、<code class="literal">ln1p</code>、<code class="literal">ln2p</code>、<code class="literal">square</code>、<code class="literal">sqrt</code> 或 <code class="literal">reciprocal</code>。
+
+默认值为 <code class="literal">none</code>。
 </p>
 </td>
 </tr>
@@ -605,54 +613,78 @@ Defaults to <code class="literal">none</code>.
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Modifier</th>
-<th align="left" valign="top">Meaning</th>
+<th align="left" valign="top">修饰符</th>
+<th align="left" valign="top">意义</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">none</code></p></td>
-<td align="left" valign="top"><p>Do not apply any multiplier to the field value</p></td>
+<td align="left" valign="top"><p>
+不要对字段值应用任何乘数
+</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">log</code></p></td>
-<td align="left" valign="top"><p>Take the <a href="https://en.wikipedia.org/wiki/Common_logarithm" class="ulink" target="_top">common logarithm</a> of the field value.
-          Because this function will return a negative value and cause an error if used on values
-          between 0 and 1, it is recommended to use <code class="literal">log1p</code> instead.</p></td>
+<td align="left" valign="top">
+<p>
+取字段值的<a href="https://en.wikipedia.org/wiki/Common_logarithm" class="ulink" target="_top" rel="nofollow">常用对数(common logarithm)</a> 。
+
+由于该函数用于 0 到 1 之间的值时会返回负值，这会导致错误，所以建议使用 <code class="literal">log1p</code> 以代替之。
+</p>
+</td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">log1p</code></p></td>
-<td align="left" valign="top"><p>Add 1 to the field value and take the common logarithm</p></td>
+<td align="left" valign="top"><p>
+将字段值加 1，取常用对数
+</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">log2p</code></p></td>
-<td align="left" valign="top"><p>Add 2 to the field value and take the common logarithm</p></td>
+<td align="left" valign="top"><p>
+将字段值加 2，取常用对数
+</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">ln</code></p></td>
-<td align="left" valign="top"><p>Take the <a href="https://en.wikipedia.org/wiki/Natural_logarithm" class="ulink" target="_top">natural logarithm</a> of the field value.
-         Because this function will return a negative value and cause an error if used on values
-         between 0 and 1, it is recommended to use <code class="literal">ln1p</code> instead.</p></td>
+<td align="left" valign="top">
+<p>
+取字段值的<a href="https://en.wikipedia.org/wiki/Natural_logarithm" class="ulink" target="_top">自然对数(natural logarithm)</a>。
+
+由于该函数用于 0 到 1 之间的值时会返回负值，这会导致错误，因此建议使用 <code class="literal">ln1p</code> 以代替之。
+</p>
+</td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">ln1p</code></p></td>
-<td align="left" valign="top"><p>Add 1 to the field value and take the natural logarithm</p></td>
+<td align="left" valign="top"><p>
+将字段值加 1，取自然对数
+</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">ln2p</code></p></td>
-<td align="left" valign="top"><p>Add 2 to the field value and take the natural logarithm</p></td>
+<td align="left" valign="top"><p>
+将字段值加 2，取自然对数
+</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">square</code></p></td>
-<td align="left" valign="top"><p>Square the field value (multiply it by itself)</p></td>
+<td align="left" valign="top"><p>
+字段值的平方(乘以它本身)
+</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">sqrt</code></p></td>
-<td align="left" valign="top"><p>Take the <a href="https://en.wikipedia.org/wiki/Square_root" class="ulink" target="_top">square root</a> of the field value</p></td>
+<td align="left" valign="top"><p>
+取字段值的 <a href="https://en.wikipedia.org/wiki/Square_root" class="ulink" target="_top">平方根(square root)</a>
+</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">reciprocal</code></p></td>
-<td align="left" valign="top"><p><a href="https://en.wikipedia.org/wiki/Multiplicative_inverse" class="ulink" target="_top">Reciprocate</a> the field value, same as <code class="literal">1/x</code> where <code class="literal">x</code> is the field’s value</p></td>
+<td align="left" valign="top"><p>
+字段值的<a href="https://en.wikipedia.org/wiki/Multiplicative_inverse" class="ulink" target="_top">倒数(reciprocate)</a> ，与 <code class="literal">1/x</code> 相同，其中 <code class="literal">x</code> 是字段的值
+</p></td>
 </tr>
 </tbody>
 </table>
@@ -665,28 +697,32 @@ Defaults to <code class="literal">none</code>.
 </span>
 </dt>
 <dd>
-Value used if the document doesn’t have that field. The modifier
-and factor are still applied to it as though it were read from the document.
+文档没有该字段时使用的值。
+
+修饰符和因子仍然应用于它，就好像它是从文档中读取的一样。
 </dd>
 </dl>
 </div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Scores produced by the <code class="literal">field_value_score</code> function must be
-non-negative, otherwise an error will be thrown. The <code class="literal">log</code> and <code class="literal">ln</code> modifiers
-will produce negative values if used on values between 0 and 1. Be sure to limit
-the values of the field with a range filter to avoid this, or use <code class="literal">log1p</code> and
-<code class="literal">ln1p</code>.</p>
+<p>
+<code class="literal">field_value_score</code> 函数生成的分数值必须是非负的，否则将会引起错误。
+
+如果 <code class="literal">log</code> 和 <code class="literal">ln</code> 修饰符用于 0 到 1 之间的值，将产生负值。
+
+确保使用范围过滤器限制字段的值以避免这种情况，或者使用 <code class="literal">log1p</code> 和 <code class="literal">ln1p</code>。
+</p>
 </div>
 </div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Keep in mind that taking the log() of 0, or the square root of a
-negative number is an illegal operation, and an exception will be thrown. Be
-sure to limit the values of the field with a range filter to avoid this, or use
-<code class="literal">log1p</code> and <code class="literal">ln1p</code>.</p>
+<p>
+请记住，取 0 的 log() 或 负数的平方根是非法操作，将会引发异常。
+
+确保使用范围过滤器限制字段的值以避免这种情况，或者使用 <code class="literal">log1p</code> 和 <code class="literal">ln1p</code>。
+</p>
 </div>
 </div>
 </div>
@@ -694,18 +730,21 @@ sure to limit the values of the field with a range filter to avoid this, or use
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="function-decay"></a>Decay functions<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/function-score-query.asciidoc">edit</a>
+<a id="function-decay"></a>衰减函数 (decay functions)
 </h3>
 </div></div></div>
-<p>Decay functions score a document with a function that decays depending
-on the distance of a numeric field value of the document from a user
-given origin. This is similar to a range query, but with smooth edges
-instead of boxes.</p>
-<p>To use distance scoring on a query that has numerical fields, the user
-has to define an <code class="literal">origin</code> and a <code class="literal">scale</code> for each field. The <code class="literal">origin</code>
-is needed to define the “central point” from which the distance
-is calculated, and the <code class="literal">scale</code> to define the rate of decay. The
-decay function is specified as</p>
+<p>
+衰减函数(decay functions) 使用根据文档的数值字段值与用户给定原点的距离衰减的函数对文档进行评分。
+
+这类似于 范围查询(range query)，但是使用平滑的边缘而不是方框。
+</p>
+<p>
+要对具有数值字段的查询使用距离评分，用户必须为每个字段定义 <code class="literal">origin</code> <span class="remark">(原点)</span>和 <code class="literal">scale</code><span class="remark">(范围)</span>。
+
+需要使用 <code class="literal">origin</code> <span class="remark">(原点)</span> 来定义计算距离的“中心点”，使用 <code class="literal">scale</code><span class="remark">(范围)</span> 来定义衰减率。
+
+衰减函数可以这样定义：
+</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">"DECAY_FUNCTION": { <a id="CO38-1"></a><i class="conum" data-value="1"></i>
     "FIELD_NAME": { <a id="CO38-2"></a><i class="conum" data-value="2"></i>
@@ -723,7 +762,9 @@ decay function is specified as</p>
 <p><a href="#CO38-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">DECAY_FUNCTION</code> should be one of <code class="literal">linear</code>, <code class="literal">exp</code>, or <code class="literal">gauss</code>.</p>
+<p>
+<code class="literal">DECAY_FUNCTION</code> 应为 <code class="literal">linear</code>、<code class="literal">exp</code> 或 <code class="literal">gauss</code>。
+</p>
 </td>
 </tr>
 <tr>
@@ -731,15 +772,20 @@ decay function is specified as</p>
 <p><a href="#CO38-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The specified field must be a numeric, date, or geo-point field.</p>
+<p>指定的字段必须是 numeric、date 或 geo-point 类型的。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>In the above example, the field is a <a class="xref" href="geo-point.html" title="Geo-point datatype"><code class="literal">geo_point</code></a> and origin can
-be provided in geo format. <code class="literal">scale</code> and <code class="literal">offset</code> must be given with a unit in
-this case. If your field is a date field, you can set <code class="literal">scale</code> and <code class="literal">offset</code> as
-days, weeks, and so on. Example:</p>
+<p>
+在上面的例子中，字段是 <a class="xref" href="geo-point.html" title="Geo-point datatype"><code class="literal">geo_point</code></a> 类型，origin 可以以 geo 格式提供。
+
+在这种情况下，<code class="literal">scale</code> 和 <code class="literal">offset</code> 必须使用上例中的单位。
+
+如果你的字段是 date 类型，可以将 <code class="literal">scale</code> 和 <code class="literal">offset</code> 设置为天(d)、周(w)等。
+
+示例：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -765,8 +811,11 @@ days, weeks, and so on. Example:</p>
 <p><a href="#CO39-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The date format of the origin depends on the <a class="xref" href="mapping-date-format.html" title="format"><code class="literal">format</code></a> defined in
-your mapping. If you do not define the origin, the current time is used.</p>
+<p>
+origin 的日期格式取决于 mapping 中定义的<a class="xref" href="mapping-date-format.html" title="format"><code class="literal">格式(format)</code></a>。
+
+如果没有定义origin，则使用当前时间。
+</p>
 </td>
 </tr>
 <tr>
@@ -774,7 +823,7 @@ your mapping. If you do not define the origin, the current time is used.</p>
 <p><a href="#CO39-2"><i class="conum" data-value="2"></i></a><a href="#CO39-3"></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">offset</code> and <code class="literal">decay</code> parameters are optional.</p>
+<p>参数 <code class="literal">offset</code> 和 <code class="literal">decay</code> 时可选的。</p>
 </td>
 </tr>
 </table>
@@ -794,10 +843,15 @@ your mapping. If you do not define the origin, the current time is used.</p>
 </td>
 <td valign="top">
 <p>
-The point of origin used for calculating distance. Must be given as a
-number for numeric field, date for date fields and geo point for geo fields.
-Required for geo and numeric field. For date fields the default is <code class="literal">now</code>. Date
-math (for example <code class="literal">now-1h</code>) is supported for origin.
+用于计算距离的原点。
+
+对于 numeric 字段，必须以数字形式给出；对于 date 字段，必须以日期形式给出；对于 geo 段，必须以地理点形式给出。
+
+对于 geo 和 numeric 字段是必需的。
+
+对于 date 字段，默认值为 <code class="literal">现在(now)</code>。
+
+原点支持日期计算(例如 <code class="literal">now-1h</code>)。
 </p>
 </td>
 </tr>
@@ -809,10 +863,15 @@ math (for example <code class="literal">now-1h</code>) is supported for origin.
 </td>
 <td valign="top">
 <p>
-Required for all types. Defines the distance from origin + offset at which the computed
-score will equal <code class="literal">decay</code> parameter. For geo fields: Can be defined as number+unit (1km, 12m,…​).
-Default unit is meters. For date fields: Can to be defined as a number+unit ("1h", "10d",…​).
-Default unit is milliseconds. For numeric field: Any number.
+所有类型都需要。
+
+定义从 origin + offset 的距离，在该距离处计算的分数将等于参数 <code class="literal">decay</code>。<br/>
+
+对于 geo 字段：可以定义为 数字 + 单位（如："1km"，"12m"，...)，默认单位是 <code class="literal">m</code> (米)。<br/>
+
+对于 date 字段：可以定义为 数字 + 单位（如："1h"，"10d"...​），默认单位是  <code class="literal">ms</code> (毫秒)。<br/>
+
+对于 numeric 字段: 可以是任意数值。
 </p>
 </td>
 </tr>
@@ -824,9 +883,9 @@ Default unit is milliseconds. For numeric field: Any number.
 </td>
 <td valign="top">
 <p>
-If an <code class="literal">offset</code> is defined, the decay function will only compute the
-decay function for documents with a distance greater than the defined
-<code class="literal">offset</code>. The default is 0.
+如果定义了 <code class="literal">offset</code>，衰减函数将只计算距离大于定义的 <code class="literal">offset</code> 的文档衰减。
+
+默认值为 <code class="literal">0</code>。
 </p>
 </td>
 </tr>
@@ -838,9 +897,9 @@ decay function for documents with a distance greater than the defined
 </td>
 <td valign="top">
 <p>
-The <code class="literal">decay</code> parameter defines how documents are scored at the distance
-given at <code class="literal">scale</code>. If no <code class="literal">decay</code> is defined, documents at the distance
-<code class="literal">scale</code> will be scored 0.5.
+参数 <code class="literal">decay</code> 定义了如何在 <code class="literal">scale</code> 给定的距离上对文档进行评分。
+
+如果没有定义 <code class="literal">decay</code>，则在 <code class="literal">scale</code> 距离上的文档将被评分为 <code class="literal">0.5</code>。
 </p>
 </td>
 </tr>

@@ -939,7 +939,7 @@ origin 的日期格式取决于 mapping 中定义的<a class="xref" href="mappin
 其中，要计算<span class="image"><img src="../static/images/sigma.png" alt="sigma"></span>以确保分数在距离 <code class="literal">origin</code>+-<code class="literal">offset</code> 的 <code class="literal">scale</code> 距离处取值为 <code class="literal">decay</code>：
 </p>
 <p><span class="image"><img src="../static/images/sigma_calc.png" alt="sigma calc"></span></p>
-<p>有关 <code class="literal">gauss</code> 函数生成的曲线的图形的演示，请参考 <a class="xref" href="query-dsl-function-score-query.html#gauss-decay" title="Normal decay, keyword gauss">正态衰减，关键词 <code class="literal">gauss</code></a>。</p>
+<p>有关 <code class="literal">gauss</code> 函数生成的曲线的图形的演示，请参考 <a class="xref" href="query-dsl-function-score-query.html#gauss-decay" title="Normal decay, keyword gauss">正态衰减，关键字 <code class="literal">gauss</code></a>。</p>
 </dd>
 <dt>
 <span class="term">
@@ -953,7 +953,7 @@ origin 的日期格式取决于 mapping 中定义的<a class="xref" href="mappin
 其中，参数<span class="image"><img src="../static/images/lambda.png" alt="lambda"></span>再次被计算以确保分数在距离 <code class="literal">origin</code>+-<code class="literal">offset</code> 的 <code class="literal">scale</code> 距离处取值为 <code class="literal">decay</code>：
 </p>
 <p><span class="image"><img src="../static/images/lambda_calc.png" alt="lambda calc"></span></p>
-<p>有关 <code class="literal">exp</code> 函数生成的曲线的图形的演示，请参考 <a class="xref" href="query-dsl-function-score-query.html#exp-decay" title="Exponential decay, keyword exp">指数衰减，关键词 <code class="literal">exp</code></a>。</p>
+<p>有关 <code class="literal">exp</code> 函数生成的曲线的图形的演示，请参考 <a class="xref" href="query-dsl-function-score-query.html#exp-decay" title="Exponential decay, keyword exp">指数衰减，关键字 <code class="literal">exp</code></a>。</p>
 </dd>
 <dt>
 <span class="term">
@@ -967,24 +967,29 @@ origin 的日期格式取决于 mapping 中定义的<a class="xref" href="mappin
 其中，参数 <code class="literal">s</code> 再次被计算以确保分数在距离 <code class="literal">origin</code>+-<code class="literal">offset</code> 的 <code class="literal">scale</code> 距离处取值为 <code class="literal">decay</code>：
 </p>
 <p><span class="image"><img src="../static/images/s_calc.png" alt="s calc"></span></p>
-<p>In contrast to the normal and exponential decay, this function actually
-sets the score to 0 if the field value exceeds twice the user given
-scale value.</p>
+<p>
+与正态和指数衰减相反，如果字段值超过用户给定 scale 值的两倍，此函数实际上将分数设置为0。
+</p>
 </dd>
 </dl>
 </div>
-<p>For single functions the three decay functions together with their parameters can be visualized like this (the field in this example called "age"):</p>
+<p>
+对于单个函数，三个衰减函数以及它们的参数可以像下面这样可视化(在这个例子中称为 “age”<span class="remark">(年龄)</span> 的字段):
+</p>
 <p><span class="image"><img src="../static/images/decay_2d.png" alt="decay 2d" width="600"></span></p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_multi_values_fields"></a>Multi-values fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/function-score-query.asciidoc">edit</a>
+<a id="_multi_values_fields"></a>多值字段 (multi-values fields)
 </h4>
 </div></div></div>
-<p>If a field used for computing the decay contains multiple values, per default the value closest to the origin is chosen for determining the distance.
-This can be changed by setting <code class="literal">multi_value_mode</code>.</p>
+<p>
+如果用于计算衰减的字段包含多个值，默认情况下会选择最接近原点(origin)的值来确定距离。
+
+这可以通过设置 <code class="literal">multi_value_mode</code> 来改变。
+</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -1000,7 +1005,7 @@ This can be changed by setting <code class="literal">multi_value_mode</code>.</p
 </td>
 <td valign="top">
 <p>
-Distance is the minimum distance
+取最小距离作为距离值
 </p>
 </td>
 </tr>
@@ -1012,7 +1017,7 @@ Distance is the minimum distance
 </td>
 <td valign="top">
 <p>
-Distance is the maximum distance
+取最大距离作为距离值
 </p>
 </td>
 </tr>
@@ -1024,7 +1029,7 @@ Distance is the maximum distance
 </td>
 <td valign="top">
 <p>
-Distance is the average distance
+取平均距离作为距离值
 </p>
 </td>
 </tr>
@@ -1036,14 +1041,14 @@ Distance is the average distance
 </td>
 <td valign="top">
 <p>
-Distance is the sum of all distances
+取所有距离的和作为距离值
 </p>
 </td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>Example:</p>
+<p>示例：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">    "DECAY_FUNCTION": {
         "FIELD_NAME": {
@@ -1060,26 +1065,33 @@ Distance is the sum of all distances
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_detailed_example"></a>Detailed example<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/function-score-query.asciidoc">edit</a>
+<a id="_detailed_example"></a>详细示例
 </h3>
 </div></div></div>
-<p>Suppose you are searching for a hotel in a certain town. Your budget is
-limited. Also, you would like the hotel to be close to the town center,
-so the farther the hotel is from the desired location the less likely
-you are to check in.</p>
-<p>You would like the query results that match your criterion (for
-example, "hotel, Nancy, non-smoker") to be scored with respect to
-distance to the town center and also the price.</p>
-<p>Intuitively, you would like to define the town center as the origin and
-maybe you are willing to walk 2km to the town center from the hotel.<br>
-In this case your <span class="strong strong"><strong>origin</strong></span> for the location field is the town center
-and the <span class="strong strong"><strong>scale</strong></span> is ~2km.</p>
-<p>If your budget is low, you would probably prefer something cheap above
-something expensive.  For the price field, the <span class="strong strong"><strong>origin</strong></span> would be 0 Euros
-and the <span class="strong strong"><strong>scale</strong></span> depends on how much you are willing to pay, for example 20 Euros.</p>
-<p>In this example, the fields might be called "price" for the price of the
-hotel and "location" for the coordinates of this hotel.</p>
-<p>The function for <code class="literal">price</code> in this case would be</p>
+<p>
+假如你正在某个城市寻找一家酒店，而你的预算有限。
+
+此外，你希望酒店靠近市中心，因此酒店离理想位置越远，入住的可能性就越小。
+</p>
+<p>
+你希望匹配你的标准(例如，“hotel, Nancy, non-smoker”)的查询结果根据到市中心的距离以及价格进行评分。
+</p>
+<p>
+直觉上，你可能希望将市中心定义为起点，并且可能愿意从酒店步行 2km 到市中心。
+<br>
+在这种情况下，位置字段的 <span class="strong strong"><strong>origin</strong></span> 是城镇中心，<span class="strong strong"><strong>scale</strong></span> 为 2km。
+</p>
+<p>
+如果你的预算很低，你可能更喜欢便宜的东西而不是贵的东西。
+
+对于 price(价格) 字段， <span class="strong strong"><strong>origin</strong></span> 为 0 欧元，<span class="strong strong"><strong>scale</strong></span> 取决于你愿意支付的金额，例如 20 欧元。
+</p>
+<p>
+在本例中，对于酒店的价格，字段可能被称为 "price"，而对于该酒店的坐标，字段可能被称为 "location"。
+</p>
+<p>
+在这种情况下， <code class="literal">price</code> 的函数是：
+</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">"gauss": { <a id="CO40-1"></a><i class="conum" data-value="1"></i>
     "price": {
@@ -1095,12 +1107,14 @@ hotel and "location" for the coordinates of this hotel.</p>
 <p><a href="#CO40-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>This decay function could also be <code class="literal">linear</code> or <code class="literal">exp</code>.</p>
+<p>
+这个衰减函数也可以是 <code class="literal">linear</code> 或 <code class="literal">exp</code>。
+</p>
 </td>
 </tr>
 </table>
 </div>
-<p>and for <code class="literal">location</code>:</p>
+<p>对于 <code class="literal">location</code>：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">"gauss": { <a id="CO41-1"></a><i class="conum" data-value="1"></i>
     "location": {
@@ -1116,13 +1130,16 @@ hotel and "location" for the coordinates of this hotel.</p>
 <p><a href="#CO41-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>This decay function could also be <code class="literal">linear</code> or <code class="literal">exp</code>.</p>
+<p>
+这个衰减函数也可以是 <code class="literal">linear</code> 或 <code class="literal">exp</code>。
+</p>
 </td>
 </tr>
 </table>
 </div>
-<p>Suppose you want to multiply these two functions on the original score,
-the request would look like this:</p>
+<p>
+假设你想将这两个函数在原始分数上相乘，则请求如下所示：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -1157,16 +1174,18 @@ the request would look like this:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/107.console"></div>
-<p>Next, we show how the computed score looks like for each of the three
-possible decay functions.</p>
+<p>
+接下来，我们展示了三种可能的衰减函数的计算分数。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="gauss-decay"></a>Normal decay, keyword <code class="literal">gauss</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/function-score-query.asciidoc">edit</a>
+<a id="gauss-decay"></a>正态衰减，关键字 <code class="literal">gauss</code>
 </h4>
 </div></div></div>
-<p>When choosing <code class="literal">gauss</code> as the decay function in the above example, the
-contour and surface plot of the multiplier looks like this:</p>
+<p>
+在上面的示例中，当选择 <code class="literal">gauss</code> 作为衰减函数时，乘数的等高线和曲面图如下所示:
+</p>
 <div class="imageblock">
 <div class="content">
 <img src="../static/images/f.cloud.github.com/assets/4320215/768157/cd0e18a6-e898-11e2-9b3c-f0145078bd6f.png" alt="cd0e18a6 e898 11e2 9b3c f0145078bd6f" width="700px">
@@ -1177,7 +1196,7 @@ contour and surface plot of the multiplier looks like this:</p>
 <img src="../static/images/f.cloud.github.com/assets/4320215/768160/ec43c928-e898-11e2-8e0d-f3c4519dbd89.png" alt="ec43c928 e898 11e2 8e0d f3c4519dbd89" width="700px">
 </div>
 </div>
-<p>Suppose your original search results matches three hotels :</p>
+<p>假设原始搜索结果匹配三家酒店：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
@@ -1187,25 +1206,26 @@ contour and surface plot of the multiplier looks like this:</p>
 "Drink n Drive"
 </li>
 <li class="listitem">
-"BnB Bellevue".
+"BnB Bellevue"
 </li>
 </ul>
 </div>
-<p>"Drink n Drive" is pretty far from your defined location (nearly 2 km)
-and is not too cheap (about 13 Euros) so it gets a low factor a factor
-of 0.56. "BnB Bellevue" and "Backback Nap" are both pretty close to the
-defined location but "BnB Bellevue" is cheaper, so it gets a multiplier
-of 0.86 whereas "Backpack Nap" gets a value of 0.66.</p>
+<p>
+"Drink n Drive" 离你定义的位置相当远(将近 2km)，而且不太便宜(约 13 欧元)，所以它的因子很低，为 0.56。
+
+"BnB Bellevue"和"Backback Nap"都非常接近定义的位置，但"BnB Bellevue"更便宜，因此它的因子为 0.86，而"Backpack Nap"的因子值为 0.66。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="exp-decay"></a>Exponential decay, keyword <code class="literal">exp</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/function-score-query.asciidoc">edit</a>
+<a id="exp-decay"></a>指数衰减，关键字 <code class="literal">exp</code>
 </h4>
 </div></div></div>
-<p>When choosing <code class="literal">exp</code> as the decay function in the above example, the
-contour and surface plot of the multiplier looks like this:</p>
+<p>
+在上面的示例中，当选择 <code class="literal">exp</code> 作为衰减函数时，乘数的等高线和曲面图如下所示:
+</p>
 <div class="imageblock">
 <div class="content">
 <img src="../static/images/f.cloud.github.com/assets/4320215/768161/082975c0-e899-11e2-86f7-174c3a729d64.png" alt="082975c0 e899 11e2 86f7 174c3a729d64" width="700px">
@@ -1221,11 +1241,12 @@ contour and surface plot of the multiplier looks like this:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="linear-decay"></a>Linear decay, keyword <code class="literal">linear</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/function-score-query.asciidoc">edit</a>
+<a id="linear-decay"></a>线性衰减，关键字 <code class="literal">linear</code>
 </h4>
 </div></div></div>
-<p>When choosing <code class="literal">linear</code> as the decay function in the above example, the
-contour and surface plot of the multiplier looks like this:</p>
+<p>
+在上面的示例中，当选择 <code class="literal">linear</code> 作为衰减函数时，乘数的等高线和曲面图如下所示:
+</p>
 <div class="imageblock">
 <div class="content">
 <img src="../static/images/f.cloud.github.com/assets/4320215/768164/1775b0ca-e899-11e2-9f4a-776b406305c6.png" alt="1775b0ca e899 11e2 9f4a 776b406305c6" width="700px">
@@ -1243,20 +1264,23 @@ contour and surface plot of the multiplier looks like this:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_supported_fields_for_decay_functions"></a>Supported fields for decay functions<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/function-score-query.asciidoc">edit</a>
+<a id="_supported_fields_for_decay_functions"></a>衰减函数支持的字段
 </h3>
 </div></div></div>
-<p>Only numeric, date, and geo-point fields are supported.</p>
+<p>
+只支持 numeric、date 和 geo-point 字段。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_what_if_a_field_is_missing"></a>What if a field is missing?<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/function-score-query.asciidoc">edit</a>
+<a id="_what_if_a_field_is_missing"></a>如果一个字段缺失，怎么办？
 </h3>
 </div></div></div>
-<p>If the numeric field is missing in the document, the function will
-return 1.</p>
+<p>
+如果文档中缺少 numeric 字段，该函数将返回 1。
+</p>
 </div>
 
 </div>

@@ -629,7 +629,7 @@ var esNavLinks = [
             {
                 "url": "full-text-queries.html",
                 "text": "全文查询",
-                "title": "Full text queries",
+                "title": "全文查询",
                 "sub": [
                     {
                         "url": "query-dsl-intervals-query.html",

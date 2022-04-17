@@ -175,7 +175,7 @@
 </span>
 </dt>
 <dd>
-(必填, string) 你想在指定的 <code class="literal">&lt;field&gt;</code> 中搜索的文本.
+(必填，string) 你想在指定的 <code class="literal">&lt;field&gt;</code> 中搜索的文本.
 </dd>
 <dt>
 <span class="term">
@@ -197,7 +197,7 @@
 </span>
 </dt>
 <dd>
-(可选, boolean) 如果为 <code class="literal">true</code>，匹配的词项必须按其指定的顺序出现。默认值为 <code class="literal">false</code>。
+(可选，boolean) 如果为 <code class="literal">true</code>，匹配的词项必须按其指定的顺序出现。默认值为 <code class="literal">false</code>。
 </dd>
 <dt>
 <span class="term">
@@ -205,7 +205,7 @@
 </span>
 </dt>
 <dd>
-(可选, string) 用于分析 <code class="literal">query</code> 中的 词项(term) 的 <a class="xref" href="analysis.html" title="Text analysis">analyzer(分析器)</a>。
+(可选，string) 用于分析 <code class="literal">query</code> 中的 词项(term) 的 <a class="xref" href="analysis.html" title="Text analysis">analyzer(分析器)</a>。
 
 默认为 <code class="literal">&lt;field&gt;</code> 的顶级 分析器(analyzer)。
 </dd>
@@ -215,7 +215,7 @@
 </span>
 </dt>
 <dd>
-(可选, <a class="xref" href="query-dsl-intervals-query.html#interval_filter" title="filter rule parameters">interval filter</a> 规则对象) 一个可选的 interval
+(可选，<a class="xref" href="query-dsl-intervals-query.html#interval_filter" title="filter rule parameters">interval filter</a> 规则对象) 一个可选的 interval
 filter。
 </dd>
 <dt>
@@ -224,7 +224,7 @@ filter。
 </span>
 </dt>
 <dd>
-(可选, string)
+(可选，string)
 
 如果指定了，则匹配此 field 而不是顶级 <code class="literal">&lt;field&gt;</code> 的间隔。
 
@@ -261,7 +261,7 @@ filter。
 </span>
 </dt>
 <dd>
-(必填, string) 你希望在顶级 <code class="literal">&lt;field&gt;</code> 中查找的词项的开始字符。
+(必填，string) 你希望在顶级 <code class="literal">&lt;field&gt;</code> 中查找的词项的开始字符。
 </dd>
 <dt>
 <span class="term">
@@ -269,7 +269,7 @@ filter。
 </span>
 </dt>
 <dd>
-(可选, string) 用于归一化 <code class="literal">prefix</code> 的 <a class="xref" href="analysis.html" title="Text analysis">analyzer(分析器)</a>。
+(可选，string) 用于归一化 <code class="literal">prefix</code> 的 <a class="xref" href="analysis.html" title="Text analysis">analyzer(分析器)</a>。
 
 默认为 <code class="literal">&lt;field&gt;</code> 的顶级 分析器(analyzer)。
 </dd>
@@ -279,7 +279,7 @@ filter。
 </span>
 </dt>
 <dd>
-<p>(可选, string) 如果指定了，则匹配此 field 而不是顶级 <code class="literal">&lt;field&gt;</code> 的间隔。
+<p>(可选，string) 如果指定了，则匹配此 field 而不是顶级 <code class="literal">&lt;field&gt;</code> 的间隔。
 </p>
 <p>
 如果没有单独指定一个 <code class="literal">analyzer</code>，会使用字段的 搜索分析器(search analyzer) 对 <code class="literal">prefix</code> 进行归一化。
@@ -311,7 +311,7 @@ filter。
 </dt>
 <dd>
 <p>
-(必填, string) 用于查找匹配的词项的通配符模式。
+(必填，string) 用于查找匹配的词项的通配符模式。
 </p>
 <p>该参数支持两个通配符操作符：</p>
 <div class="ulist itemizedlist">
@@ -341,7 +341,7 @@ filter。
 </span>
 </dt>
 <dd>
-(可选, string) 用于归一化 <code class="literal">pattern</code> 的 <a class="xref" href="analysis.html" title="Text analysis">analyzer(分析器)</a>。
+(可选，string) 用于归一化 <code class="literal">pattern</code> 的 <a class="xref" href="analysis.html" title="Text analysis">analyzer(分析器)</a>。
 
 默认为 <code class="literal">&lt;field&gt;</code> 的顶级 分析器(analyzer)。
 </dd>
@@ -351,11 +351,12 @@ filter。
 </span>
 </dt>
 <dd>
-<p>(可选, string) 
+<p>(可选，string) 
 如果指定了，则匹配此 field 而不是顶级 <code class="literal">&lt;field&gt;</code> 的间隔。
 </p>
 <p>
 如果没有单独指定一个 <code class="literal">analyzer</code>，会使用字段的 搜索分析器(search analyzer) 对 <code class="literal">pattern</code> 进行归一化。
+</p>
 </dd>
 </dl>
 </div>
@@ -364,12 +365,16 @@ filter。
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="intervals-fuzzy"></a><code class="literal">fuzzy</code> rule parameters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/intervals-query.asciidoc">edit</a>
+<a id="intervals-fuzzy"></a><code class="literal">fuzzy</code>(模糊) 规则参数
 </h3>
 </div></div></div>
-<p>The <code class="literal">fuzzy</code> rule matches terms that are similar to the provided term, within an
-edit distance defined by <a class="xref" href="common-options.html#fuzziness" title="Fuzziness">Fuzziness</a>.  If the fuzzy expansion matches more than
-128 terms, Elasticsearch returns an error.</p>
+<p>
+<code class="literal">fuzzy</code> 规则在由 <a class="xref" href="common-options.html#fuzziness" title="Fuzziness">fuzziness</a> 定义的编辑距离内匹配与所提供的词项相似的词项。
+
+如果模糊扩展匹配超过 128 项，Elasticsearch 将返回错误。
+
+<br/><span class="remark">译者注: 请先了解 "编辑距离" (edit distance) 的有关概念。</span>
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -378,7 +383,7 @@ edit distance defined by <a class="xref" href="common-options.html#fuzziness" ti
 </span>
 </dt>
 <dd>
-(Required, string) The term to match
+(必填，string) 要匹配的词项。
 </dd>
 <dt>
 <span class="term">
@@ -386,8 +391,7 @@ edit distance defined by <a class="xref" href="common-options.html#fuzziness" ti
 </span>
 </dt>
 <dd>
-(Optional, integer) Number of beginning characters left unchanged when creating
-expansions. Defaults to <code class="literal">0</code>.
+(可选，integer) 创建扩展时，开头字符保持不变的个数。默认为 <code class="literal">0</code>。
 </dd>
 <dt>
 <span class="term">
@@ -395,8 +399,7 @@ expansions. Defaults to <code class="literal">0</code>.
 </span>
 </dt>
 <dd>
-(Optional, boolean) Indicates whether edits include transpositions of two
-adjacent characters (ab → ba). Defaults to <code class="literal">true</code>.
+(可选，boolean) 指示编辑是否包括两个相邻字符的换位(ab → ba)。默认为 <code class="literal">true</code>。
 </dd>
 <dt>
 <span class="term">
@@ -404,8 +407,11 @@ adjacent characters (ab → ba). Defaults to <code class="literal">true</code>.
 </span>
 </dt>
 <dd>
-(Optional, string) Maximum edit distance allowed for matching. See <a class="xref" href="common-options.html#fuzziness" title="Fuzziness">Fuzziness</a>
-for valid values and more information.  Defaults to <code class="literal">auto</code>.
+(可选，string) 匹配时允许的最大编辑距离。
+
+默认值为 <code class="literal">auto</code>。
+
+有关有效值和更多信息请参考 <a class="xref" href="common-options.html#fuzziness" title="Fuzziness">fuzziness</a>。
 </dd>
 <dt>
 <span class="term">
@@ -413,8 +419,9 @@ for valid values and more information.  Defaults to <code class="literal">auto</
 </span>
 </dt>
 <dd>
-(Optional, string) <a class="xref" href="analysis.html" title="Text analysis">analyzer</a> used to normalize the <code class="literal">term</code>.
-Defaults to the top-level <code class="literal">&lt;field&gt;</code> 's analyzer.
+(可选，string) 用于对 <code class="literal">term</code> 进行归一化的 <a class="xref" href="analysis.html" title="Text analysis">analyzer</a>(分析器)。
+
+默认为顶级 <code class="literal">&lt;field&gt;</code> 的分析器(analyzer)。
 </dd>
 <dt>
 <span class="term">
@@ -422,10 +429,10 @@ Defaults to the top-level <code class="literal">&lt;field&gt;</code> 's analyzer
 </span>
 </dt>
 <dd>
-<p>(Optional, string) If specified, match intervals from this field rather than the
-top-level <code class="literal">&lt;field&gt;</code>.</p>
-<p>The <code class="literal">term</code> is normalized using the search analyzer from this field, unless
-<code class="literal">analyzer</code> is specified separately.</p>
+<p>(可选，string) 如果指定了，则匹配此 field 而不是顶级 <code class="literal">&lt;field&gt;</code> 的间隔。
+</p>
+<p>
+如果没有单独指定一个 <code class="literal">analyzer</code>，会使用字段的 搜索分析器(search analyzer) 对 <code class="literal">term</code> 进行归一化。
 </dd>
 </dl>
 </div>
@@ -434,10 +441,12 @@ top-level <code class="literal">&lt;field&gt;</code>.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="intervals-all_of"></a><code class="literal">all_of</code> rule parameters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/intervals-query.asciidoc">edit</a>
+<a id="intervals-all_of"></a><code class="literal">all_of</code>(全部) 规则参数
 </h3>
 </div></div></div>
-<p>The <code class="literal">all_of</code> rule returns matches that span a combination of other rules.</p>
+<p>
+<code class="literal">all_of</code> 规则返回跨越其他规则组合的匹配。
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -446,8 +455,9 @@ top-level <code class="literal">&lt;field&gt;</code>.</p>
 </span>
 </dt>
 <dd>
-(Required, array of rule objects) An array of rules to combine. All rules must
-produce a match in a document for the overall source to match.
+(必填，规则对象数组) 要组合的规则数组。
+
+所有规则都必须在文档中产生一个匹配项，以便整个源文件匹配。  
 </dd>
 <dt>
 <span class="term">
@@ -455,11 +465,13 @@ produce a match in a document for the overall source to match.
 </span>
 </dt>
 <dd>
-<p>(Optional, integer) Maximum number of positions between the matching terms.
-Intervals produced by the rules further apart than this are not considered
-matches. Defaults to <code class="literal">-1</code>.</p>
-<p>If unspecified or set to <code class="literal">-1</code>, there is no width restriction on the match. If
-set to <code class="literal">0</code>, the terms must appear next to each other.</p>
+<p>(可选，integer) 匹配词项之间的最大位置数。由规则产生的间隔比这更远则不会被认为是匹配的。默认值为 <code class="literal">-1</code>。
+</p>
+<p>
+如果未指定或设置为 <code class="literal">-1</code>，则匹配没有宽度限制。
+
+如果设置为 <code class="literal">0</code>，这些词项必须相邻出现。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -467,8 +479,7 @@ set to <code class="literal">0</code>, the terms must appear next to each other.
 </span>
 </dt>
 <dd>
-(Optional, boolean) If <code class="literal">true</code>, intervals produced by the rules should appear in
-the order in which they are specified. Defaults to <code class="literal">false</code>.
+(可选，boolean) 如果为 <code class="literal">true</code>，匹配的词项必须按其指定的顺序出现。默认值为 <code class="literal">false</code>。
 </dd>
 <dt>
 <span class="term">
@@ -476,8 +487,7 @@ the order in which they are specified. Defaults to <code class="literal">false</
 </span>
 </dt>
 <dd>
-(Optional, <a class="xref" href="query-dsl-intervals-query.html#interval_filter" title="filter rule parameters">interval filter</a> rule object) Rule used to filter
-returned intervals.
+(可选，<a class="xref" href="query-dsl-intervals-query.html#interval_filter" title="filter rule parameters">interval filter</a> 规则对象) 用于过滤返回的间隔的规则。
 </dd>
 </dl>
 </div>
@@ -486,10 +496,10 @@ returned intervals.
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="intervals-any_of"></a><code class="literal">any_of</code> rule parameters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/intervals-query.asciidoc">edit</a>
+<a id="intervals-any_of"></a><code class="literal">any_of</code>(任意一个) 规则参数
 </h3>
 </div></div></div>
-<p>The <code class="literal">any_of</code> rule returns intervals produced by any of its sub-rules.</p>
+<p><code class="literal">any_of</code> 规则返回由其任意一个子规则产生的间隔。</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -498,7 +508,7 @@ returned intervals.
 </span>
 </dt>
 <dd>
-(Required, array of rule objects) An array of rules to match.
+(必填，规则对象的数组) 要匹配的规则的数组。
 </dd>
 <dt>
 <span class="term">
@@ -506,8 +516,7 @@ returned intervals.
 </span>
 </dt>
 <dd>
-(Optional, <a class="xref" href="query-dsl-intervals-query.html#interval_filter" title="filter rule parameters">interval filter</a> rule object) Rule used to filter
-returned intervals.
+(可选，<a class="xref" href="query-dsl-intervals-query.html#interval_filter" title="filter rule parameters">interval filter</a> 规则对象) 用于过滤返回的间隔的规则。
 </dd>
 </dl>
 </div>
@@ -516,11 +525,14 @@ returned intervals.
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="interval_filter"></a><code class="literal">filter</code> rule parameters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/intervals-query.asciidoc">edit</a>
+<a id="interval_filter"></a><code class="literal">filter</code>(过滤) 规则参数
 </h3>
 </div></div></div>
-<p>The <code class="literal">filter</code> rule returns intervals based on a query. See
-<a class="xref" href="query-dsl-intervals-query.html#interval-filter-rule-ex" title="Filter example">Filter example</a> for an example.</p>
+<p>
+<code class="literal">filter</code> 规则根据 查询(query) 返回间隔。
+
+有关示例请参考 <a class="xref" href="query-dsl-intervals-query.html#interval-filter-rule-ex" title="Filter example">filter 示例</a>。
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -529,8 +541,9 @@ returned intervals.
 </span>
 </dt>
 <dd>
-(Optional, query object) Query used to return intervals that follow an interval
-from the <code class="literal">filter</code> rule.
+(可选，query 对象) 用于返回 <code class="literal">filter</code> 规则中某个间隔之后的间隔的查询。
+
+<span class="remark">(原文: Query used to return intervals that follow an interval from the filter rule.)</span>
 </dd>
 <dt>
 <span class="term">
@@ -538,8 +551,7 @@ from the <code class="literal">filter</code> rule.
 </span>
 </dt>
 <dd>
-(Optional, query object) Query used to return intervals that occur before an
-interval from the <code class="literal">filter</code> rule.
+(可选，query 对象) 用于返回 <code class="literal">filter</code> 规则中某个间隔之前发生的间隔的查询。
 </dd>
 <dt>
 <span class="term">
@@ -547,8 +559,7 @@ interval from the <code class="literal">filter</code> rule.
 </span>
 </dt>
 <dd>
-(Optional, query object) Query used to return intervals contained by an interval
-from the <code class="literal">filter</code> rule.
+(可选，query 对象) 用于从 <code class="literal">filter</code> 规则中返回间隔所包含的间隔的查询。
 </dd>
 <dt>
 <span class="term">
@@ -556,8 +567,7 @@ from the <code class="literal">filter</code> rule.
 </span>
 </dt>
 <dd>
-(Optional, query object) Query used to return intervals that contain an interval
-from the <code class="literal">filter</code> rule.
+(可选，query 对象) 用于返回包含 <code class="literal">filter</code> 规则中的间隔的间隔的查询。
 </dd>
 <dt>
 <span class="term">
@@ -565,8 +575,7 @@ from the <code class="literal">filter</code> rule.
 </span>
 </dt>
 <dd>
-(Optional, query object) Query used to return intervals that are <span class="strong strong"><strong>not</strong></span>
-contained by an interval from the <code class="literal">filter</code> rule.
+(可选，query 对象) 用于返回 <code class="literal">filter</code> 规则中的间隔<span class="strong strong"><strong>不</strong></span>包含的间隔的查询。
 </dd>
 <dt>
 <span class="term">
@@ -574,8 +583,8 @@ contained by an interval from the <code class="literal">filter</code> rule.
 </span>
 </dt>
 <dd>
-(Optional, query object) Query used to return intervals that do <span class="strong strong"><strong>not</strong></span> contain
-an interval from the <code class="literal">filter</code> rule.
+(可选，query 对象) 
+用于返回<span class="strong strong"><strong>不</strong></span>包含 <code class="literal">filter</code> 规则中间隔的间隔的查询。
 </dd>
 <dt>
 <span class="term">
@@ -583,8 +592,8 @@ an interval from the <code class="literal">filter</code> rule.
 </span>
 </dt>
 <dd>
-(Optional, query object) Query used to return intervals that do <span class="strong strong"><strong>not</strong></span> overlap
-with an interval from the <code class="literal">filter</code> rule.
+(可选，query 对象) 
+用于返回与 <code class="literal">filter</code> 规则中的间隔<span class="strong strong"><strong>不</strong></span>重叠的间隔的查询。
 </dd>
 <dt>
 <span class="term">
@@ -592,8 +601,8 @@ with an interval from the <code class="literal">filter</code> rule.
 </span>
 </dt>
 <dd>
-(Optional, query object) Query used to return intervals that overlap with an
-interval from the <code class="literal">filter</code> rule.
+(可选，query 对象) 
+用于返回与 <code class="literal">filter</code> 规则中的间隔重叠的间隔的查询。
 </dd>
 <dt>
 <span class="term">
@@ -601,9 +610,12 @@ interval from the <code class="literal">filter</code> rule.
 </span>
 </dt>
 <dd>
-(Optional, <a class="xref" href="modules-scripting-using.html" title="How to use scripts">script object</a>) Script used to return
-matching documents. This script must return a boolean value, <code class="literal">true</code> or <code class="literal">false</code>.
-See <a class="xref" href="query-dsl-intervals-query.html#interval-script-filter" title="Script filters">Script filters</a> for an example.
+(可选，<a class="xref" href="modules-scripting-using.html" title="How to use scripts">脚本对象</a>)
+用于返回匹配文档的脚本。
+
+这个脚本必须返回一个布尔值，<code class="literal">true</code> 或 <code class="literal">false</code>。
+
+有关示例请参考 <a class="xref" href="query-dsl-intervals-query.html#interval-script-filter" title="Script filters">脚本过滤器(script filters)</a>。
 </dd>
 </dl>
 </div>
@@ -612,18 +624,20 @@ See <a class="xref" href="query-dsl-intervals-query.html#interval-script-filter"
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="intervals-query-note"></a>Notes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/intervals-query.asciidoc">edit</a>
+<a id="intervals-query-note"></a>注意
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="interval-filter-rule-ex"></a>Filter example<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/intervals-query.asciidoc">edit</a>
+<a id="interval-filter-rule-ex"></a>filter 示例
 </h4>
 </div></div></div>
-<p>The following search includes a <code class="literal">filter</code> rule. It returns documents that have
-the words <code class="literal">hot</code> and <code class="literal">porridge</code> within 10 positions of each other, without the
-word <code class="literal">salty</code> in between:</p>
+<p>
+下面这个例子包含一个 <code class="literal">filter</code> 规则。
+
+它返回的文档中，单词 <code class="literal">hot</code> 和 <code class="literal">porridge</code> 的位置相差不超过 10 个，且中间没有单词 <code class="literal">salty</code>：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST _search
 {
@@ -652,12 +666,14 @@ word <code class="literal">salty</code> in between:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="interval-script-filter"></a>Script filters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/intervals-query.asciidoc">edit</a>
+<a id="interval-script-filter"></a>脚本过滤器 (script filters)
 </h4>
 </div></div></div>
-<p>You can use a script to filter intervals based on their start position, end
-position, and internal gap count. The following <code class="literal">filter</code> script uses the
-<code class="literal">interval</code> variable with the <code class="literal">start</code>, <code class="literal">end</code>, and <code class="literal">gaps</code> methods:</p>
+<p>
+可以使用脚本根据间隔的开始(start)位置、结束(end)位置和内部间隙(gap)计数来过滤间隔。
+
+下面这个 <code class="literal">filter</code> 脚本将 <code class="literal">interval</code> 变量与 <code class="literal">start</code>、<code class="literal">end</code> 和 <code class="literal">gaps</code>方法一起使用：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST _search
 {
@@ -683,14 +699,15 @@ position, and internal gap count. The following <code class="literal">filter</co
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="interval-minimization"></a>Minimization<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/intervals-query.asciidoc">edit</a>
+<a id="interval-minimization"></a>最小限度(minimization)
 </h4>
 </div></div></div>
-<p>The intervals query always minimizes intervals, to ensure that queries can
-run in linear time. This can sometimes cause surprising results, particularly
-when using <code class="literal">max_gaps</code> restrictions or filters. For example, take the
-following query, searching for <code class="literal">salty</code> contained within the phrase <code class="literal">hot
-porridge</code>:</p>
+<p>
+intervals 查询总是最小化间隔，以确保查询可以线性时间运行。
+
+这有时会导致令人惊讶的结果，尤其是在使用 <code class="literal">max_gaps</code> 限制或 filter 时。
+
+例如，以下面的查询为例，搜索包含在短语 <code class="literal">hot porridge</code> 中的 <code class="literal">salty</code>：
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST _search
 {
@@ -713,16 +730,16 @@ porridge</code>:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/111.console"></div>
-<p>This query does <span class="strong strong"><strong>not</strong></span> match a document containing the phrase <code class="literal">hot porridge is
-salty porridge</code>, because the intervals returned by the match query for <code class="literal">hot
-porridge</code> only cover the initial two terms in this document, and these do not
-overlap the intervals covering <code class="literal">salty</code>.</p>
-<p>Another restriction to be aware of is the case of <code class="literal">any_of</code> rules that contain
-sub-rules which overlap. In particular, if one of the rules is a strict
-prefix of the other, then the longer rule can never match, which can
-cause surprises when used in combination with <code class="literal">max_gaps</code>. Consider the
-following query, searching for <code class="literal">the</code> immediately followed by <code class="literal">big</code> or <code class="literal">big bad</code>,
-immediately followed by <code class="literal">wolf</code>:</p>
+<p>
+该查询与包含短语 <code class="literal">hot porridge is salty porridge</code> 的文档<span class="strong strong"><strong>不</strong></span>匹配，因为 <code class="literal">hot porridge</code> 的匹配查询返回的间隔仅覆盖该文档中的前两个词项，并且这些词项与覆盖 <code class="literal">salty</code> 的间隔不重叠。
+</p>
+<p>
+另一个需要注意的限制是包含重叠子规则的 <code class="literal">any_of</code> 规则的情况。
+
+特别是，如果其中一个规则是另一个规则的严格 前缀(prefix)，那么更长的规则永远不会匹配，这在与 <code class="literal">max_gaps</code> 结合使用时会导致意外。
+
+考虑下面这个查询，搜索 <code class="literal">the</code>， 后面紧接着 <code class="literal">big</code> 或  <code class="literal">big bad</code>，然后后面再紧接着 <code class="literal">wolf</code>：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST _search
 {
@@ -748,12 +765,15 @@ immediately followed by <code class="literal">wolf</code>:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/112.console"></div>
-<p>Counter-intuitively, this query does <span class="strong strong"><strong>not</strong></span> match the document <code class="literal">the big bad
-wolf</code>, because the <code class="literal">any_of</code> rule in the middle only produces intervals
-for <code class="literal">big</code> - intervals for <code class="literal">big bad</code> being longer than those for <code class="literal">big</code>, while
-starting at the same position, and so being minimized away. In these cases,
-it’s better to rewrite the query so that all of the options are explicitly
-laid out at the top level:</p>
+<p>
+与直觉相反，这个查询与文档 <code class="literal">the big bad wolf</code> <span class="strong strong"><strong>不</strong></span> 匹配，
+
+因为中间的 <code class="literal">any_of</code> 规则只产生 <code class="literal">big</code>的区间 - <code class="literal">big bad</code> 的区间比 <code class="literal">big</code>的区间长，
+
+同时从相同的位置开始，因此被最小化。
+
+在这些情况下，最好重写查询，以便所有选项都显式地显示在顶层：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST _search
 {

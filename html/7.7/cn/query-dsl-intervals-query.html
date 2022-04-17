@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Intervals query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>intervals 查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,46 +32,53 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-node">Query DSL</span>
 »
-<span class="breadcrumb-link"><a href="full-text-queries.html">Full text queries</a></span>
-»
-<span class="breadcrumb-node">Intervals query</span>
+<span class="breadcrumb-node">全文查询</span>
+<span class="breadcrumb-node">intervals 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="full-text-queries.html">« Full text queries</a>
+<a href="full-text-queries.html">« 全文查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-match-query.html">Match query »</a>
+<a href2="query-dsl-match-query.html">Match query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-intervals-query"></a>Intervals query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/intervals-query.asciidoc">edit</a>
+<a id="query-dsl-intervals-query"></a>intervals 查询
 </h2>
 </div></div></div>
 
-<p>Returns documents based on the order and proximity of matching terms.</p>
-<p>The <code class="literal">intervals</code> query uses <span class="strong strong"><strong>matching rules</strong></span>, constructed from a small set of
-definitions. These rules are then applied to terms from a specified <code class="literal">field</code>.</p>
-<p>The definitions produce sequences of minimal intervals that span terms in a
-body of text. These intervals can be further combined and filtered by
-parent sources.</p>
+<p>
+根据匹配 词项(term) 的顺序和接近程度返回文档。
+</p>
+<p>
+<code class="literal">intervals</code> 查询使用<span class="strong strong"><strong>匹配规则(matching rules)</strong></span>，这些规则由一小组定义构成。
+
+然后将这些规则应用于指定 <code class="literal">字段(field)</code> 中的 词项(term)。
+</p>
+<p>
+这些定义产生的最小区间序列跨越了文本主体中的词项(term)。
+
+这些 间隔(interval) 可以由父源进一步组合和过滤。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="intervals-query-ex-request"></a>Example request<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/intervals-query.asciidoc">edit</a>
+<a id="intervals-query-ex-request"></a>请求示例
 </h3>
 </div></div></div>
-<p>The following <code class="literal">intervals</code> search returns documents containing <code class="literal">my
-favorite food</code> immediately followed by <code class="literal">hot water</code> or <code class="literal">cold porridge</code> in the
-<code class="literal">my_text</code> field.</p>
-<p>This search would match a <code class="literal">my_text</code> value of <code class="literal">my favorite food is cold
-porridge</code> but not <code class="literal">when it's cold my favorite food is porridge</code>.</p>
+<p>
+下面这个 <code class="literal">intervals</code> 搜索返回字段 <code class="literal">my_text</code> 中包含 <code class="literal">my favorite food</code> 的文档，且 <code class="literal">my favorite food</code> 后面紧跟着 <code class="literal">hot water</code> 或 <code class="literal">cold porridge</code>。
+</p>
+<p>
+这个搜索会匹配字段 <code class="literal">my_text</code> 的值为 <code class="literal">my favorite food is cold porridge</code> 的文档，但不会匹配 <code class="literal">when it's cold my favorite food is porridge</code>。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST _search
 {
@@ -109,7 +116,7 @@ porridge</code> but not <code class="literal">when it's cold my favorite food is
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="intervals-top-level-params"></a>Top-level parameters for <code class="literal">intervals</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/intervals-query.asciidoc">edit</a>
+<a id="intervals-top-level-params"></a><code class="literal">intervals</code>的顶级参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -121,29 +128,30 @@ porridge</code> but not <code class="literal">when it's cold my favorite food is
 </span>
 </dt>
 <dd>
-<p>(Required, rule object) Field you wish to search.</p>
-<p>The value of this parameter is a rule object used to match documents
-based on matching terms, order, and proximity.</p>
-<p>Valid rules include:</p>
+<p>(必填，规则<span class="remark">(rule)</span>对象) 你想搜索的字段。</p>
+<p>
+该参数的值是一个规则(rule)对象，用于根据匹配的词项(term)、顺序(order)和接近性(proximity)来匹配文档。
+</p>
+<p>可用的规则(rule)包括：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<a class="xref" href="query-dsl-intervals-query.html#intervals-match" title="match rule parameters"><code class="literal">match</code></a>
+<a class="xref" href="query-dsl-intervals-query.html#intervals-match" title="match rule parameters"><code class="literal">match</code></a> (匹配)
 </li>
 <li class="listitem">
-<a class="xref" href="query-dsl-intervals-query.html#intervals-prefix" title="prefix rule parameters"><code class="literal">prefix</code></a>
+<a class="xref" href="query-dsl-intervals-query.html#intervals-prefix" title="prefix rule parameters"><code class="literal">prefix</code></a> (前缀)
 </li>
 <li class="listitem">
-<a class="xref" href="query-dsl-intervals-query.html#intervals-wildcard" title="wildcard rule parameters"><code class="literal">wildcard</code></a>
+<a class="xref" href="query-dsl-intervals-query.html#intervals-wildcard" title="wildcard rule parameters"><code class="literal">wildcard</code></a> (通配符)
 </li>
 <li class="listitem">
-<a class="xref" href="query-dsl-intervals-query.html#intervals-fuzzy" title="fuzzy rule parameters"><code class="literal">fuzzy</code></a>
+<a class="xref" href="query-dsl-intervals-query.html#intervals-fuzzy" title="fuzzy rule parameters"><code class="literal">fuzzy</code></a> (模糊)
 </li>
 <li class="listitem">
-<a class="xref" href="query-dsl-intervals-query.html#intervals-all_of" title="all_of rule parameters"><code class="literal">all_of</code></a>
+<a class="xref" href="query-dsl-intervals-query.html#intervals-all_of" title="all_of rule parameters"><code class="literal">all_of</code></a> (全部)
 </li>
 <li class="listitem">
-<a class="xref" href="query-dsl-intervals-query.html#intervals-any_of" title="any_of rule parameters"><code class="literal">any_of</code></a>
+<a class="xref" href="query-dsl-intervals-query.html#intervals-any_of" title="any_of rule parameters"><code class="literal">any_of</code></a> (任意一个)
 </li>
 </ul>
 </div>
@@ -155,10 +163,10 @@ based on matching terms, order, and proximity.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="intervals-match"></a><code class="literal">match</code> rule parameters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/intervals-query.asciidoc">edit</a>
+<a id="intervals-match"></a><code class="literal">match</code>(匹配) 规则参数
 </h3>
 </div></div></div>
-<p>The <code class="literal">match</code> rule matches analyzed text.</p>
+<p><code class="literal">match</code> 匹配规则匹配 已分析的文本(analyzed text)。</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -167,7 +175,7 @@ based on matching terms, order, and proximity.</p>
 </span>
 </dt>
 <dd>
-(Required, string) Text you wish to find in the provided <code class="literal">&lt;field&gt;</code>.
+(必填, string) 你想在指定的 <code class="literal">&lt;field&gt;</code> 中搜索的文本.
 </dd>
 <dt>
 <span class="term">
@@ -175,11 +183,13 @@ based on matching terms, order, and proximity.</p>
 </span>
 </dt>
 <dd>
-<p>(Optional, integer) Maximum number of positions between the matching terms.
-Terms further apart than this are not considered matches. Defaults to
-<code class="literal">-1</code>.</p>
-<p>If unspecified or set to <code class="literal">-1</code>, there is no width restriction on the match. If
-set to <code class="literal">0</code>, the terms must appear next to each other.</p>
+<p>(可选, integer) 匹配词项之间的最大位置数。比这更远的词项不会被视为匹配。默认值为 <code class="literal">-1</code>。
+</p>
+<p>
+如果未指定或设置为 <code class="literal">-1</code>，则匹配没有宽度限制。
+
+如果设置为 <code class="literal">0</code>，这些词项必须相邻出现。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -187,9 +197,7 @@ set to <code class="literal">0</code>, the terms must appear next to each other.
 </span>
 </dt>
 <dd>
-(Optional, boolean)
-If <code class="literal">true</code>, matching terms must appear in their specified order. Defaults to
-<code class="literal">false</code>.
+(可选, boolean) 如果为 <code class="literal">true</code>，匹配的词项必须按其指定的顺序出现。默认值为 <code class="literal">false</code>。
 </dd>
 <dt>
 <span class="term">
@@ -197,8 +205,9 @@ If <code class="literal">true</code>, matching terms must appear in their specif
 </span>
 </dt>
 <dd>
-(Optional, string) <a class="xref" href="analysis.html" title="Text analysis">analyzer</a> used to analyze terms in the <code class="literal">query</code>.
-Defaults to the top-level <code class="literal">&lt;field&gt;</code>'s analyzer.
+(可选, string) 用于分析 <code class="literal">query</code> 中的 词项(term) 的 <a class="xref" href="analysis.html" title="Text analysis">analyzer(分析器)</a>。
+
+默认为 <code class="literal">&lt;field&gt;</code> 的顶级 分析器(analyzer)。
 </dd>
 <dt>
 <span class="term">
@@ -206,8 +215,8 @@ Defaults to the top-level <code class="literal">&lt;field&gt;</code>'s analyzer.
 </span>
 </dt>
 <dd>
-(Optional, <a class="xref" href="query-dsl-intervals-query.html#interval_filter" title="filter rule parameters">interval filter</a> rule object) An optional interval
-filter.
+(可选, <a class="xref" href="query-dsl-intervals-query.html#interval_filter" title="filter rule parameters">interval filter</a> 规则对象) 一个可选的 interval
+filter。
 </dd>
 <dt>
 <span class="term">
@@ -215,12 +224,15 @@ filter.
 </span>
 </dt>
 <dd>
-(Optional, string) If specified, then match intervals from this
-field rather than the top-level <code class="literal">&lt;field&gt;</code>. Terms are analyzed using the
-search analyzer from this field. This allows you to search across multiple
-fields as if they were all the same field; for example, you could index the same
-text into stemmed and unstemmed fields, and search for stemmed tokens near
-unstemmed ones.
+(可选, string)
+
+如果指定了，则匹配此 field 而不是顶级 <code class="literal">&lt;field&gt;</code> 的间隔。
+
+使用 搜索分析器(search analyzer) 分析该字段中的词项(term)。
+
+这将允许你跨多个字段进行搜索，就好像它们是同一个字段；
+
+例如，你可以将相同的文本索引到 带词干(stemmed) 和 不带词干(unstemmed) 的字段，并在不带词干的字段附近搜索带词干的 词元(token)。
 </dd>
 </dl>
 </div>
@@ -229,14 +241,18 @@ unstemmed ones.
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="intervals-prefix"></a><code class="literal">prefix</code> rule parameters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/intervals-query.asciidoc">edit</a>
+<a id="intervals-prefix"></a><code class="literal">prefix</code>(前缀) 规则参数
 </h3>
 </div></div></div>
-<p>The <code class="literal">prefix</code> rule matches terms that start with a specified set of characters.
-This prefix can expand to match at most 128 terms. If the prefix matches more
-than 128 terms, Elasticsearch returns an error. You can use the
-<a class="xref" href="index-prefixes.html" title="index_prefixes"><code class="literal">index-prefixes</code></a> option in the field mapping to avoid this
-limit.</p>
+<p>
+<code class="literal">prefix</code>(前缀) 规则匹配以指定字符集开头的词项。
+
+这个前缀最多可以扩展到匹配 128 个词项。
+
+如果前缀匹配超过 128 个词项，Elasticsearch 将返回一个错误。
+
+可以在字段映射中使用 <a class="xref" href="index-prefixes.html" title="index_prefixes"><code class="literal">index-prefixes</code></a> 选项来避免这个限制。
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -245,8 +261,7 @@ limit.</p>
 </span>
 </dt>
 <dd>
-(Required, string) Beginning characters of terms you wish to find in the
-top-level <code class="literal">&lt;field&gt;</code>.
+(必填, string) 你希望在顶级 <code class="literal">&lt;field&gt;</code> 中查找的词项的开始字符。
 </dd>
 <dt>
 <span class="term">
@@ -254,8 +269,9 @@ top-level <code class="literal">&lt;field&gt;</code>.
 </span>
 </dt>
 <dd>
-(Optional, string) <a class="xref" href="analysis.html" title="Text analysis">analyzer</a> used to normalize the <code class="literal">prefix</code>.
-Defaults to the top-level <code class="literal">&lt;field&gt;</code>'s analyzer.
+(可选, string) 用于归一化 <code class="literal">prefix</code> 的 <a class="xref" href="analysis.html" title="Text analysis">analyzer(分析器)</a>。
+
+默认为 <code class="literal">&lt;field&gt;</code> 的顶级 分析器(analyzer)。
 </dd>
 <dt>
 <span class="term">
@@ -263,10 +279,11 @@ Defaults to the top-level <code class="literal">&lt;field&gt;</code>'s analyzer.
 </span>
 </dt>
 <dd>
-<p>(Optional, string) If specified, then match intervals from this field rather
-than the top-level <code class="literal">&lt;field&gt;</code>.</p>
-<p>The <code class="literal">prefix</code> is normalized using the search analyzer from this field, unless a
-separate <code class="literal">analyzer</code> is specified.</p>
+<p>(可选, string) 如果指定了，则匹配此 field 而不是顶级 <code class="literal">&lt;field&gt;</code> 的间隔。
+</p>
+<p>
+如果没有单独指定一个 <code class="literal">analyzer</code>，会使用字段的 搜索分析器(search analyzer) 对 <code class="literal">prefix</code> 进行归一化。
+</p>
 </dd>
 </dl>
 </div>
@@ -275,12 +292,16 @@ separate <code class="literal">analyzer</code> is specified.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="intervals-wildcard"></a><code class="literal">wildcard</code> rule parameters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/intervals-query.asciidoc">edit</a>
+<a id="intervals-wildcard"></a><code class="literal">wildcard</code>(通配符) 规则参数
 </h3>
 </div></div></div>
-<p>The <code class="literal">wildcard</code> rule matches terms using a wildcard pattern. This pattern can
-expand to match at most 128 terms. If the pattern matches more than 128 terms,
-Elasticsearch returns an error.</p>
+<p>
+<code class="literal">wildcard</code> 规则使用一个通配符模式匹配词项。
+
+这个模式最多可以扩展到匹配 128 个词项。
+
+如果前缀匹配超过 128 个词项，Elasticsearch 将返回一个错误。
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -290,24 +311,27 @@ Elasticsearch returns an error.</p>
 </dt>
 <dd>
 <p>
-(Required, string) Wildcard pattern used to find matching terms.
+(必填, string) 用于查找匹配的词项的通配符模式。
 </p>
-<p>This parameter supports two wildcard operators:</p>
+<p>该参数支持两个通配符操作符：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">?</code>, which matches any single character
+<code class="literal">?</code>，它匹配任意的单个字符
 </li>
 <li class="listitem">
-<code class="literal">*</code>, which can match zero or more characters, including an empty one
+<code class="literal">*</code>，它可以匹配零个或多个字符，包括一个空字符
 </li>
 </ul>
 </div>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Avoid beginning patterns with <code class="literal">*</code> or <code class="literal">?</code>. This can increase
-the iterations needed to find matching terms and slow search performance.</p>
+<p>
+避免模式以 <code class="literal">*</code> 或 <code class="literal">?</code>开头。
+
+这可能会增加查找匹配词项所需的迭代次数，并降低搜索性能。
+</p>
 </div>
 </div>
 </dd>
@@ -317,8 +341,9 @@ the iterations needed to find matching terms and slow search performance.</p>
 </span>
 </dt>
 <dd>
-(Optional, string) <a class="xref" href="analysis.html" title="Text analysis">analyzer</a> used to normalize the <code class="literal">pattern</code>.
-Defaults to the top-level <code class="literal">&lt;field&gt;</code>'s analyzer.
+(可选, string) 用于归一化 <code class="literal">pattern</code> 的 <a class="xref" href="analysis.html" title="Text analysis">analyzer(分析器)</a>。
+
+默认为 <code class="literal">&lt;field&gt;</code> 的顶级 分析器(analyzer)。
 </dd>
 <dt>
 <span class="term">
@@ -326,10 +351,11 @@ Defaults to the top-level <code class="literal">&lt;field&gt;</code>'s analyzer.
 </span>
 </dt>
 <dd>
-<p>(Optional, string) If specified, match intervals from this field rather than the
-top-level <code class="literal">&lt;field&gt;</code>.</p>
-<p>The <code class="literal">pattern</code> is normalized using the search analyzer from this field, unless
-<code class="literal">analyzer</code> is specified separately.</p>
+<p>(可选, string) 
+如果指定了，则匹配此 field 而不是顶级 <code class="literal">&lt;field&gt;</code> 的间隔。
+</p>
+<p>
+如果没有单独指定一个 <code class="literal">analyzer</code>，会使用字段的 搜索分析器(search analyzer) 对 <code class="literal">pattern</code> 进行归一化。
 </dd>
 </dl>
 </div>
@@ -759,10 +785,10 @@ laid out at the top level:</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="full-text-queries.html">« Full text queries</a>
+<a href="full-text-queries.html">« 全文查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-match-query.html">Match query »</a>
+<a href2="query-dsl-match-query.html">Match query »</a>
 </span>
 </div>
 </div>

@@ -633,27 +633,27 @@ var esNavLinks = [
                 "sub": [
                     {
                         "url": "query-dsl-intervals-query.html",
-                        "text": "间隔查询(intervals)",
-                        "title": "Intervals"
+                        "text": "intervals",
+                        "title": "intervals"
                     },
                     {
                         "url": "query-dsl-match-query.html",
-                        "text": "匹配查询(match)",
-                        "title": "Match"
+                        "text": "match",
+                        "title": "match"
                     },
                     {
                         "url": "query-dsl-match-bool-prefix-query.html",
-                        "text": "前缀匹配查询(match_boolean_prefix)",
+                        "text": "match_boolean_prefix",
                         "title": "Match boolean prefix"
                     },
                     {
                         "url": "query-dsl-match-query-phrase.html",
-                        "text": "短语匹配(match_phrase)",
+                        "text": "match_phrase",
                         "title": "Match phrase"
                     },
                     {
                         "url": "query-dsl-match-query-phrase-prefix.html",
-                        "text": "短语前缀匹配(match_phrase_prefix)",
+                        "text": "match_phrase_prefix",
                         "title": "Match phrase prefix"
                     },
                     {

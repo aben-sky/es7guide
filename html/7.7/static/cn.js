@@ -586,8 +586,8 @@ var esNavLinks = [
     },
     {
         "url": "query-dsl.html",
-        "text": "Query DSL",
-        "title": "Query DSL",
+        "text": "查询 DSL",
+        "title": "查询 DSL",
         "sub": [
             {
                 "url": "query-filter-context.html",

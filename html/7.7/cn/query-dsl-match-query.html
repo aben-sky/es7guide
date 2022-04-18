@@ -32,37 +32,41 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-node"><a href="query-dsl.html">查询 DSL</a></span>
 »
-<span class="breadcrumb-link"><a href="full-text-queries.html">Full text queries</a></span>
+<span class="breadcrumb-node"><a href="full-text-queries.html">全文查询</a></span>
 »
-<span class="breadcrumb-node">Match query</span>
+<span class="breadcrumb-node">match 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-intervals-query.html">« Intervals query</a>
+<a href="query-dsl-intervals-query.html">« intervals 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-match-bool-prefix-query.html">Match boolean prefix query »</a>
+<a href2="query-dsl-match-bool-prefix-query.html">Match boolean prefix query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-match-query"></a>Match query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/match-query.asciidoc">edit</a>
+<a id="query-dsl-match-query"></a>match 查询
 </h2>
 </div></div></div>
 
-<p>Returns documents that match a provided text, number, date or boolean value. The
-provided text is analyzed before matching.</p>
-<p>The <code class="literal">match</code> query is the standard query for performing a full-text search,
-including options for fuzzy matching.</p>
+<p>
+返回与提供的文本、数字、日期或布尔值相 匹配(match) 的文档。
+
+匹配前会分析提供的文本。
+</p>
+<p>
+<code class="literal">match</code> 查询是执行全文搜索的标准查询，包括一些 模糊(fuzzy) 匹配选项。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="match-query-ex-request"></a>Example request<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/match-query.asciidoc">edit</a>
+<a id="match-query-ex-request"></a>请求示例
 </h3>
 </div></div></div>
 <div class="pre_wrapper lang-console">
@@ -83,7 +87,7 @@ including options for fuzzy matching.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="match-top-level-params"></a>Top-level parameters for <code class="literal">match</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/match-query.asciidoc">edit</a>
+<a id="match-top-level-params"></a><code class="literal">match</code>的顶级参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -94,7 +98,7 @@ including options for fuzzy matching.</p>
 </span>
 </dt>
 <dd>
-(Required, object) Field you wish to search.
+(必填, object) 你想搜索的字段。
 </dd>
 </dl>
 </div>
@@ -103,7 +107,7 @@ including options for fuzzy matching.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="match-field-params"></a>Parameters for <code class="literal">&lt;field&gt;</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/match-query.asciidoc">edit</a>
+<a id="match-field-params"></a><code class="literal">&lt;field&gt;</code>的参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -114,11 +118,12 @@ including options for fuzzy matching.</p>
 </span>
 </dt>
 <dd>
-<p>(Required) Text, number, boolean value or date you wish to find in the provided
-<code class="literal">&lt;field&gt;</code>.</p>
-<p>The <code class="literal">match</code> query <a class="xref" href="analysis.html" title="Text analysis">analyzes</a> any provided text before performing a
-search. This means the <code class="literal">match</code> query can search <a class="xref" href="text.html" title="Text datatype"><code class="literal">text</code></a> fields for
-analyzed tokens rather than an exact term.</p>
+<p>(必填) 你希望在提供的 <code class="literal">&lt;field&gt;</code> 中查找的文本(text)、数字(number)、布尔值(bool)或日期(date)。</p>
+<p>
+<code class="literal">match</code> 查询会在执行搜索前 <a class="xref" href="analysis.html" title="Text analysis">analyzes</a> 任何提供的文本。
+
+这意味着 <code class="literal">match</code> 查询可以在 <a class="xref" href="text.html" title="Text datatype"><code class="literal">text</code></a> 字段中搜索已分析的 词元(token)，而不是精确的 词项(term)。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -126,10 +131,11 @@ analyzed tokens rather than an exact term.</p>
 </span>
 </dt>
 <dd>
-(Optional, string) <a class="xref" href="analysis.html" title="Text analysis">Analyzer</a> used to convert the text in the <code class="literal">query</code>
-value into tokens. Defaults to the <a class="xref" href="specify-analyzer.html#specify-index-time-analyzer" title="How Elasticsearch determines the index analyzer">index-time
-analyzer</a> mapped for the <code class="literal">&lt;field&gt;</code>. If no analyzer is mapped, the index’s
-default analyzer is used.
+(可选, string) <a class="xref" href="analysis.html" title="Text analysis">analyzer(分析器)</a> 用于将 <code class="literal">query</code> 中的文本转换为 词元(token)。 
+
+默认为映射到<code class="literal">&lt;field&gt;</code>的 <a class="xref" href="specify-analyzer.html#specify-index-time-analyzer" title="How Elasticsearch determines the index analyzer">索引时使用的分析器(index-time analyzer)</a>。
+
+如果没有映射分析器，则使用索引的默认分析器。
 </dd>
 <dt>
 <span class="term">
@@ -137,10 +143,13 @@ default analyzer is used.
 </span>
 </dt>
 <dd>
-<p>(Optional, boolean) If <code class="literal">true</code>, <a class="xref" href="query-dsl-match-query-phrase.html" title="Match phrase query">match phrase</a>
-queries are automatically created for multi-term synonyms. Defaults to <code class="literal">true</code>.</p>
-<p>See <a class="xref" href="query-dsl-match-query.html#query-dsl-match-query-synonyms" title="Synonyms">Use synonyms with match query</a> for an
-example.</p>
+<p>(可选, boolean) 如果为 <code class="literal">true</code>，将自动为 多词项同义词(multi-term synonyms) 创建 <a class="xref" href="query-dsl-match-query-phrase.html" title="Match phrase query">match phrase(短语匹配)</a> 查询。
+
+默认值为 <code class="literal">true</code>。
+</p>
+<p>
+有关示例请参考 <a class="xref" href="query-dsl-match-query.html#query-dsl-match-query-synonyms" title="Synonyms">在match查询中使用同义词</a>。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -148,9 +157,11 @@ example.</p>
 </span>
 </dt>
 <dd>
-(Optional, string) Maximum edit distance allowed for matching. See <a class="xref" href="common-options.html#fuzziness" title="Fuzziness">Fuzziness</a>
-for valid values and more information. See <a class="xref" href="query-dsl-match-query.html#query-dsl-match-query-fuzziness" title="Fuzziness in the match query">Fuzziness in the match query</a>
-for an example.
+(可选, string) 匹配时允许的最大编辑距离。
+
+可用的值及更多信息请参考 <a class="xref" href="common-options.html#fuzziness" title="Fuzziness">模糊性(fuzziness)</a>。
+
+有关示例请参考 <a class="xref" href="query-dsl-match-query.html#query-dsl-match-query-fuzziness" title="Fuzziness in the match query">match查询中的模糊性</a>。
 </dd>
 <dt>
 <span class="term">
@@ -158,8 +169,7 @@ for an example.
 </span>
 </dt>
 <dd>
-(Optional, integer) Maximum number of terms to which the query will
-expand. Defaults to <code class="literal">50</code>.
+(可选, integer) 查询可以扩展到的最大 词项(term) 数。默认值为 <code class="literal">50</code>。
 </dd>
 <dt>
 <span class="term">
@@ -167,8 +177,7 @@ expand. Defaults to <code class="literal">50</code>.
 </span>
 </dt>
 <dd>
-(Optional, integer) Number of beginning characters left unchanged for fuzzy
-matching. Defaults to <code class="literal">0</code>.
+(可选, integer) 模糊匹配的起始字符保持不变的分数。默认值为 <code class="literal">0</code>。
 </dd>
 <dt>
 <span class="term">
@@ -176,8 +185,7 @@ matching. Defaults to <code class="literal">0</code>.
 </span>
 </dt>
 <dd>
-(Optional, boolean) If <code class="literal">true</code>, edits for fuzzy matching include
-transpositions of two adjacent characters (ab → ba). Defaults to <code class="literal">true</code>.
+(可选, boolean) 如果为 <code class="literal">true</code>，模糊匹配的编辑包括两个相邻字符的交换(ab → ba)。默认值为 <code class="literal">true</code>。
 </dd>
 <dt>
 <span class="term">
@@ -185,20 +193,24 @@ transpositions of two adjacent characters (ab → ba). Defaults to <code class="
 </span>
 </dt>
 <dd>
-<p>(Optional, string) Method used to rewrite the query. See the
-<a class="xref" href="query-dsl-multi-term-rewrite.html" title="rewrite parameter"><code class="literal">rewrite</code> parameter</a> for valid values and more
-information.</p>
-<p>If the <code class="literal">fuzziness</code> parameter is not <code class="literal">0</code>, the <code class="literal">match</code> query uses a <code class="literal">rewrite</code>
-method of <code class="literal">top_terms_blended_freqs_${max_expansions}</code> by default.</p>
+<p>(可选, string) 用于重写查询的方法。
+
+可用的值及更多信息请参考  <a class="xref" href="query-dsl-multi-term-rewrite.html" title="rewrite parameter"><code class="literal">rewrite</code> 参数</a>。
+</p>
+<p>
+如果参数 <code class="literal">fuzziness</code> 的值不是 <code class="literal">0</code>，默认情况下，<code class="literal">match</code> 查询使用的 <code class="literal">rewrite</code> 方法是 <code class="literal">top_terms_blended_freqs_${max_expansions}</code>。
+</p>
 </dd>
 <dt>
 <span class="term">
-<code class="literal">lenient</code>
+<code class="literal">lenient</code> 宽容的
 </span>
 </dt>
 <dd>
-(Optional, boolean) If <code class="literal">true</code>, format-based errors, such as providing a text
-<code class="literal">query</code> value for a <a class="xref" href="number.html" title="Numeric datatypes">numeric</a> field, are ignored. Defaults to <code class="literal">false</code>.
+(可选, boolean) 
+如果为 <code class="literal">true</code>，则忽略基于格式的错误，例如为 <a class="xref" href="number.html" title="Numeric datatypes">numeric</a> 字段提供 text 格式的 <code class="literal">query</code> 值。
+
+默认值为 <code class="literal">false</code>。
 </dd>
 <dt>
 <span class="term">
@@ -206,18 +218,16 @@ method of <code class="literal">top_terms_blended_freqs_${max_expansions}</code>
 </span>
 </dt>
 <dd>
-<p>(Optional, string) Boolean logic used to interpret text in the <code class="literal">query</code> value.
-Valid values are:</p>
+<p>(可选, string) 用于解释 <code class="literal">query</code> 值中文本的布尔逻辑。有效值有：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<code class="literal">OR</code> (Default)
+<code class="literal">OR</code> (默认值)
 </span>
 </dt>
 <dd>
-For example, a <code class="literal">query</code> value of <code class="literal">capital of Hungary</code> is interpreted as <code class="literal">capital
-OR of OR Hungary</code>.
+例如，查询值 <code class="literal">capital of Hungary</code> 被解释为 <code class="literal">capital OR of OR Hungary</code>。
 </dd>
 <dt>
 <span class="term">
@@ -225,8 +235,7 @@ OR of OR Hungary</code>.
 </span>
 </dt>
 <dd>
-For example, a <code class="literal">query</code> value of <code class="literal">capital of Hungary</code> is interpreted as <code class="literal">capital
-AND of AND Hungary</code>.
+例如，查询值 <code class="literal">capital of Hungary</code> 被解释为 <code class="literal">capital AND of AND Hungary</code>。
 </dd>
 </dl>
 </div>
@@ -237,9 +246,11 @@ AND of AND Hungary</code>.
 </span>
 </dt>
 <dd>
-<p>(Optional, string) Minimum number of clauses that must match for a document to
-be returned. See the <a class="xref" href="query-dsl-minimum-should-match.html" title="minimum_should_match parameter"><code class="literal">minimum_should_match</code>
-parameter</a> for valid values and more information.</p>
+<p>(可选, string)
+要返回的文档必须匹配的最小子句数。
+
+可用的值及更多信息请参考 <a class="xref" href="query-dsl-minimum-should-match.html" title="minimum_should_match parameter"><code class="literal">minimum_should_match</code> 参数</a>。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -247,17 +258,17 @@ parameter</a> for valid values and more information.</p>
 </span>
 </dt>
 <dd>
-<p>(Optional, string) Indicates whether no documents are returned if the <code class="literal">analyzer</code>
-removes all tokens, such as when using a <code class="literal">stop</code> filter. Valid values are:</p>
+<p>(可选, string)
+指示如果 <code class="literal">analyzer</code> 删除所有 词元(token) (例如使用 <code class="literal">stop</code> 过滤器时)，是否不返回任何文档。有效值有：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<code class="literal">none</code> (Default)
+<code class="literal">none</code> (默认值)
 </span>
 </dt>
 <dd>
-No documents are returned if the <code class="literal">analyzer</code> removes all tokens.
+如果 <code class="literal">analyzer</code> 删除所有 词元(token)，则不返回任何文档。
 </dd>
 <dt>
 <span class="term">
@@ -265,8 +276,7 @@ No documents are returned if the <code class="literal">analyzer</code> removes a
 </span>
 </dt>
 <dd>
-Returns all documents, similar to a <a class="xref" href="query-dsl-match-all-query.html" title="Match all query"><code class="literal">match_all</code></a>
-query.
+返回所有文档, 与 <a class="xref" href="query-dsl-match-all-query.html" title="Match all query"><code class="literal">match_all</code></a> 查询类似。
 </dd>
 </dl>
 </div>
@@ -496,10 +506,10 @@ By default the parameter <code class="literal">auto_generate_synonyms_phrase_que
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-intervals-query.html">« Intervals query</a>
+<a href="query-dsl-intervals-query.html">« intervals 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-match-bool-prefix-query.html">Match boolean prefix query »</a>
+<a href2="query-dsl-match-bool-prefix-query.html">Match boolean prefix query »</a>
 </span>
 </div>
 </div>

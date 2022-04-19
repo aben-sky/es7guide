@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Match boolean prefix query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>match boolean prefix 查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,33 +32,38 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-node"><a href="query-dsl.html">查询 DSL</a></span>
 »
-<span class="breadcrumb-link"><a href="full-text-queries.html">Full text queries</a></span>
+<span class="breadcrumb-node"><a href="full-text-queries.html">全文查询</a></span>
 »
-<span class="breadcrumb-node">Match boolean prefix query</span>
+<span class="breadcrumb-node">match boolean prefix 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-match-query.html">« Match query</a>
+<a href="query-dsl-match-query.html">« match 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-match-query-phrase.html">Match phrase query »</a>
+<a href2="query-dsl-match-query-phrase.html">Match phrase query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-match-bool-prefix-query"></a>Match boolean prefix query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/match-bool-prefix-query.asciidoc">edit</a>
+<a id="query-dsl-match-bool-prefix-query"></a>match boolean prefix 查询
 </h2>
 </div></div></div>
 
-<p>A <code class="literal">match_bool_prefix</code> query analyzes its input and constructs a
-<a class="xref" href="query-dsl-bool-query.html" title="Boolean query"><code class="literal">bool</code> query</a> from the terms. Each term except the last
-is used in a <code class="literal">term</code> query. The last term is used in a <code class="literal">prefix</code> query. A
-<code class="literal">match_bool_prefix</code> query such as</p>
+<p>
+<code class="literal">match_bool_prefix</code> 查询分析它的输入内容，并根据这些词项构造一个 <a class="xref" href="query-dsl-bool-query.html" title="Boolean query"><code class="literal">bool</code></a> 查询。
+
+除最后一个词项外，每个词项都用于 <code class="literal">term</code> 查询。
+
+最后一个词项用于 <code class="literal">prefix</code> 查询。
+
+<code class="literal">match_bool_prefix</code> 查询像这样：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -70,8 +75,9 @@ is used in a <code class="literal">term</code> query. The last term is used in a
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/121.console"></div>
-<p>where analysis produces the terms <code class="literal">quick</code>, <code class="literal">brown</code>, and <code class="literal">f</code> is similar to the
-following <code class="literal">bool</code> query</p>
+<p>
+其分析后产生的词项<code class="literal">quick</code>、<code class="literal">brown</code> 和 <code class="literal">f</code> 类似于下面的 <code class="literal">bool</code> 查询：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -87,23 +93,24 @@ following <code class="literal">bool</code> query</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/122.console"></div>
-<p>An important difference between the <code class="literal">match_bool_prefix</code> query and
-<a class="xref" href="query-dsl-match-query-phrase-prefix.html" title="Match phrase prefix query"><code class="literal">match_phrase_prefix</code></a> is that the
-<code class="literal">match_phrase_prefix</code> query matches its terms as a phrase, but the
-<code class="literal">match_bool_prefix</code> query can match its terms in any position. The example
-<code class="literal">match_bool_prefix</code> query above could match a field containing
-<code class="literal">quick brown fox</code>, but it could also match <code class="literal">brown fox quick</code>. It could also
-match a field containing the term <code class="literal">quick</code>, the term <code class="literal">brown</code> and a term
-starting with <code class="literal">f</code>, appearing in any position.</p>
+<p>
+<code class="literal">match_bool_prefix</code> 查询和 <a class="xref" href="query-dsl-match-query-phrase-prefix.html" title="Match phrase prefix query"><code class="literal">match_phrase_prefix</code></a> 查询一个重要的区别是：<code class="literal">match_phrase_prefix</code> 查询将其词项作为短语进行匹配，而 <code class="literal">match_bool_prefix</code> 查询可以在任何位置匹配其词项。
+
+上面的 <code class="literal">match_bool_prefix</code> 查询示例可以匹配包含<code class="literal">quick brown fox</code>的字段，但也可以匹配 <code class="literal">brown fox quick</code>。
+
+它还可以匹配任何位置出现的包含词项<code class="literal">quick</code>、词项 <code class="literal">brown</code> 及以 <code class="literal">f</code>开头的词项的字段。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_parameters"></a>Parameters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/match-bool-prefix-query.asciidoc">edit</a>
+<a id="_parameters"></a>参数
 </h3>
 </div></div></div>
-<p>By default, <code class="literal">match_bool_prefix</code> queries' input text will be analyzed using the
-analyzer from the queried field’s mapping. A different search analyzer can be
-configured with the <code class="literal">analyzer</code> parameter</p>
+<p>
+默认情况下，将使用查询的字段在其映射中定义的分析器去分析<code class="literal">match_bool_prefix</code> 查询的输入文本。
+
+可以使用 <code class="literal">analyzer</code> 参数配置一个不同的搜索(时使用的)分析器：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -118,27 +125,25 @@ configured with the <code class="literal">analyzer</code> parameter</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/123.console"></div>
-<p><code class="literal">match_bool_prefix</code> queries support the
-<a class="xref" href="query-dsl-minimum-should-match.html" title="minimum_should_match parameter"><code class="literal">minimum_should_match</code></a> and <code class="literal">operator</code>
-parameters as described for the
-<a class="xref" href="query-dsl-match-query.html#query-dsl-match-query-boolean" title="How the match query works"><code class="literal">match</code> query</a>, applying the setting to the
-constructed <code class="literal">bool</code> query. The number of clauses in the constructed <code class="literal">bool</code>
-query will in most cases be the number of terms produced by analysis of the
-query text.</p>
-<p>The <a class="xref" href="query-dsl-match-query.html#query-dsl-match-query-fuzziness" title="Fuzziness in the match query"><code class="literal">fuzziness</code></a>, <code class="literal">prefix_length</code>,
-<code class="literal">max_expansions</code>, <code class="literal">fuzzy_transpositions</code>, and <code class="literal">fuzzy_rewrite</code> parameters can
-be applied to the <code class="literal">term</code> subqueries constructed for all terms but the final
-term. They do not have any effect on the prefix query constructed for the
-final term.</p>
+<p>
+<code class="literal">match_bool_prefix</code> 查询支持 <a class="xref" href="query-dsl-match-query.html#query-dsl-match-query-boolean" title="How the match query works"><code class="literal">match</code>查询</a> 中描述的<a class="xref" href="query-dsl-minimum-should-match.html" title="minimum_should_match parameter"><code class="literal">minimum_should_match</code></a> 和 <code class="literal">operator</code> 参数,将设置应用于构造的 <code class="literal">bool</code> 查询。
+
+在大多数情况下，构造的 <code class="literal">bool</code> 查询中的子句数将是通过分析查询文本产生的词项数。
+</p>
+<p>
+<a class="xref" href="query-dsl-match-query.html#query-dsl-match-query-fuzziness" title="Fuzziness in the match query"><code class="literal">fuzziness</code></a>、<code class="literal">prefix_length</code>、<code class="literal">max_expansions</code>、<code class="literal">fuzzy_transpositions</code> 和 <code class="literal">fuzzy_rewrite</code> 参数可以应用于除了最后一个词项之外的所有词项构建的 <code class="literal">term</code> 子查询。
+
+它们对为最后一个词项构建的 prefix 查询没有任何影响。
+</p>
 </div>
 
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-match-query.html">« Match query</a>
+<a href="query-dsl-match-query.html">« match 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-match-query-phrase.html">Match phrase query »</a>
+<a href2="query-dsl-match-query-phrase.html">Match phrase query »</a>
 </span>
 </div>
 </div>

@@ -644,7 +644,7 @@ var esNavLinks = [
                     {
                         "url": "query-dsl-match-bool-prefix-query.html",
                         "text": "match_boolean_prefix",
-                        "title": "Match boolean prefix"
+                        "title": "match_boolean_prefix"
                     },
                     {
                         "url": "query-dsl-match-query-phrase.html",

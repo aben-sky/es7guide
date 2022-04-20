@@ -649,7 +649,7 @@ var esNavLinks = [
                     {
                         "url": "query-dsl-match-query-phrase.html",
                         "text": "match_phrase",
-                        "title": "Match phrase"
+                        "title": "match_phrase"
                     },
                     {
                         "url": "query-dsl-match-query-phrase-prefix.html",

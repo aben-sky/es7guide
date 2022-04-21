@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Match phrase prefix query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>match phrase prefix 查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,42 +32,46 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-node"><a href="query-dsl.html">查询 DSL</a></span>
 »
-<span class="breadcrumb-link"><a href="full-text-queries.html">Full text queries</a></span>
+<span class="breadcrumb-node"><a href="full-text-queries.html">全文查询</a></span>
 »
-<span class="breadcrumb-node">Match phrase prefix query</span>
+<span class="breadcrumb-node">match phrase prefix 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-match-query-phrase.html">« Match phrase query</a>
+<a href="query-dsl-match-query-phrase.html">« match phrase 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-multi-match-query.html">Multi-match query »</a>
+<a href2="query-dsl-multi-match-query.html">Multi-match query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-match-query-phrase-prefix"></a>Match phrase prefix query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/match-phrase-prefix-query.asciidoc">edit</a>
+<a id="query-dsl-match-query-phrase-prefix"></a>match phrase prefix 查询<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/match-phrase-prefix-query.asciidoc">edit</a>
 </h2>
 </div></div></div>
 
-<p>Returns documents that contain the words of a provided text, in the <span class="strong strong"><strong>same
-order</strong></span> as provided. The last term of the provided text is treated as a
-<a class="xref" href="query-dsl-prefix-query.html" title="Prefix query">prefix</a>, matching any words that begin with that term.</p>
+<p>
+返回包含所提供文本中的单词的文档，这些单词在文档中的出现<span class="strong strong"><strong>顺序</strong></span>与所提供的文本<span class="strong strong"><strong>相同</strong></span>。
+
+所提供文本的最后一个词项被视为 <a class="xref" href="query-dsl-prefix-query.html" title="Prefix query">prefix</a>(前缀)，匹配以该单词开头的任何词项。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="match-phrase-prefix-query-ex-request"></a>Example request<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/match-phrase-prefix-query.asciidoc">edit</a>
+<a id="match-phrase-prefix-query-ex-request"></a>请求示例
 </h3>
 </div></div></div>
-<p>The following search returns documents that contain phrases beginning with
-<code class="literal">quick brown f</code> in the <code class="literal">message</code> field.</p>
-<p>This search would match a <code class="literal">message</code> value of <code class="literal">quick brown fox</code> or <code class="literal">two quick
-brown ferrets</code> but not <code class="literal">the fox is quick and brown</code>.</p>
+<p>
+以下搜索将返回 <code class="literal">message</code> 字段中包含以 <code class="literal">quick brown f</code> 开头的短语的文档。
+</p>
+<p>
+这个搜索将匹配字段 <code class="literal">message</code> 的值为 <code class="literal">quick brown fox</code> 或 <code class="literal">two quick brown ferrets</code> 的，但是不会匹配 <code class="literal">the fox is quick and brown</code>。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -86,7 +90,8 @@ brown ferrets</code> but not <code class="literal">the fox is quick and brown</c
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="match-phrase-prefix-top-level-params"></a>Top-level parameters for <code class="literal">match_phrase_prefix</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/match-phrase-prefix-query.asciidoc">edit</a>
+<a id="match-phrase-prefix-top-level-params"></a><code class="literal">match_phrase_prefix</code>的顶级参数
+
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -97,7 +102,7 @@ brown ferrets</code> but not <code class="literal">the fox is quick and brown</c
 </span>
 </dt>
 <dd>
-(Required, object) Field you wish to search.
+(必填, object) 你想搜索的字段。
 </dd>
 </dl>
 </div>
@@ -106,7 +111,7 @@ brown ferrets</code> but not <code class="literal">the fox is quick and brown</c
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="match-phrase-prefix-field-params"></a>Parameters for <code class="literal">&lt;field&gt;</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/match-phrase-prefix-query.asciidoc">edit</a>
+<a id="match-phrase-prefix-field-params"></a><code class="literal">&lt;field&gt;</code>的参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -117,10 +122,12 @@ brown ferrets</code> but not <code class="literal">the fox is quick and brown</c
 </span>
 </dt>
 <dd>
-<p>(Required, string) Text you wish to find in the provided <code class="literal">&lt;field&gt;</code>.</p>
-<p>The <code class="literal">match_phrase_prefix</code> query <a class="xref" href="analysis.html" title="Text analysis">analyzes</a> any provided text into
-tokens before performing a search. The last term of this text is treated as a
-<a class="xref" href="query-dsl-prefix-query.html" title="Prefix query">prefix</a>, matching any words that begin with that term.</p>
+<p>(必填, string) 您希望在提供的 <code class="literal">&lt;field&gt;</code> 中查找的文本。</p>
+<p>
+在执行搜索之前，<code class="literal">match_phrase_prefix</code> 查询会将任何提供的文本<a class="xref" href="analysis.html" title="Text analysis">analyze(分析)</a> 为 词元(token)。
+
+该文本的最后一个词项被视为<a class="xref" href="query-dsl-prefix-query.html" title="Prefix query">prefix</a>(前缀)，匹配以该词项开头的任何单词。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -128,10 +135,12 @@ tokens before performing a search. The last term of this text is treated as a
 </span>
 </dt>
 <dd>
-(Optional, string) <a class="xref" href="analysis.html" title="Text analysis">Analyzer</a> used to convert text in the <code class="literal">query</code>
-value into tokens. Defaults to the <a class="xref" href="specify-analyzer.html#specify-index-time-analyzer" title="How Elasticsearch determines the index analyzer">index-time
-analyzer</a> mapped for the <code class="literal">&lt;field&gt;</code>. If no analyzer is mapped, the index’s
-default analyzer is used.
+(可选, string)
+<a class="xref" href="analysis.html" title="Text analysis">analyzer(分析器)</a> 用来将 <code class="literal">query</code> 中的文本转换为 词元(token)。
+
+默认为映射到 <code class="literal">&lt;field&gt;</code> 的 <a class="xref" href="specify-analyzer.html#specify-index-time-analyzer" title="How Elasticsearch determines the index analyzer">索引时使用的分析器(index-time analyzer)</a>。
+
+如果没有映射分析器，则使用索引的默认分析器。
 </dd>
 <dt>
 <span class="term">
@@ -139,8 +148,7 @@ default analyzer is used.
 </span>
 </dt>
 <dd>
-(Optional, integer) Maximum number of terms to which the last provided term of
-the <code class="literal">query</code> value will expand. Defaults to <code class="literal">50</code>.
+(可选, integer) <code class="literal">query</code> 值的最后一个提供的词项将扩展到的最大词项数。默认值为 <code class="literal">50</code>。
 </dd>
 <dt>
 <span class="term">
@@ -148,8 +156,7 @@ the <code class="literal">query</code> value will expand. Defaults to <code clas
 </span>
 </dt>
 <dd>
-(Optional, integer) Maximum number of positions allowed between matching tokens.
-Defaults to <code class="literal">0</code>. Transposed terms have a slop of <code class="literal">2</code>.
+(可选, integer) 匹配词元(token)之间允许的最大位置数。默认为 <code class="literal">0</code>。颠倒顺序的词项的 slop 为 <code class="literal">2</code>。
 </dd>
 <dt>
 <span class="term">
@@ -157,17 +164,16 @@ Defaults to <code class="literal">0</code>. Transposed terms have a slop of <cod
 </span>
 </dt>
 <dd>
-<p>(Optional, string) Indicates whether no documents are returned if the <code class="literal">analyzer</code>
-removes all tokens, such as when using a <code class="literal">stop</code> filter. Valid values are:</p>
+<p>(可选, string) 指示如果 <code class="literal">analyzer</code> 删除所有 词元(token) (例如使用 <code class="literal">stop</code> 过滤器时)，是否不返回任何文档。有效值有：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<code class="literal">none</code> (Default)
+<code class="literal">none</code> (默认值)
 </span>
 </dt>
 <dd>
-No documents are returned if the <code class="literal">analyzer</code> removes all tokens.
+如果 <code class="literal">analyzer</code> 删除所有 词元(token)，则不返回任何文档。
 </dd>
 <dt>
 <span class="term">
@@ -175,8 +181,7 @@ No documents are returned if the <code class="literal">analyzer</code> removes a
 </span>
 </dt>
 <dd>
-Returns all documents, similar to a <a class="xref" href="query-dsl-match-all-query.html" title="Match all query"><code class="literal">match_all</code></a>
-query.
+返回所有文档, 与 <a class="xref" href="query-dsl-match-all-query.html" title="Match all query"><code class="literal">match_all</code></a> 查询类似。
 </dd>
 </dl>
 </div>
@@ -188,29 +193,33 @@ query.
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="match-phrase-prefix-query-notes"></a>Notes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/match-phrase-prefix-query.asciidoc">edit</a>
+<a id="match-phrase-prefix-query-notes"></a>注意
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="match-phrase-prefix-autocomplete"></a>Using the match phrase prefix query for search autocompletion<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/match-phrase-prefix-query.asciidoc">edit</a>
+<a id="match-phrase-prefix-autocomplete"></a>使用匹配短语前缀查询进行搜索自动完成(search autocompletion)
 </h4>
 </div></div></div>
-<p>While easy to set up, using the <code class="literal">match_phrase_prefix</code> query for search
-autocompletion can sometimes produce confusing results.</p>
-<p>For example, consider the query string <code class="literal">quick brown f</code>. This query works by
-creating a phrase query out of <code class="literal">quick</code> and <code class="literal">brown</code> (i.e. the term <code class="literal">quick</code> must
-exist and must be followed by the term <code class="literal">brown</code>). Then it looks at the sorted
-term dictionary to find the first 50 terms that begin with <code class="literal">f</code>, and adds these
-terms to the phrase query.</p>
-<p>The problem is that the first 50 terms may not include the term <code class="literal">fox</code> so the
-phrase <code class="literal">quick brown fox</code> will not be found. This usually isn’t a problem as
-the user will continue to type more letters until the word they are looking
-for appears.</p>
-<p>For better solutions for <em>search-as-you-type</em> see the
-<a class="xref" href="search-suggesters.html#completion-suggester" title="Completion Suggester">completion suggester</a> and
-the <a class="xref" href="search-as-you-type.html" title="Search-as-you-type datatype"><code class="literal">search_as_you_type</code> field type</a>.</p>
+<p>
+虽然很容易设置，但使用 <code class="literal">match_phrase_prefix</code> 查询进行搜索自动完成有时会产生令人困惑的结果。
+</p>
+<p>
+例如，考虑查询字符串 <code class="literal">quick brown f</code>。
+
+这个查询的工作原理是用 <code class="literal">quick</code> 和 <code class="literal">brown</code> 创建一个短语查询(也就是说，词项 <code class="literal">quick</code> 必须存在，并且后面必须跟有词项 <code class="literal">brown</code>)。
+
+然后，它查看已排序的词项字典，查找以 <code class="literal">f</code> 开头的前50个词项语，并将这些词项添加到短语查询中。
+</p>
+<p>
+问题是，前50个词项可能不包括词项 <code class="literal">fox</code>，因此将找不到短语 <code class="literal">quick brown fox</code>。
+
+这通常不是问题，因为用户会继续输入更多的字母，直到他们要找的单词出现。
+</p>
+<p>
+有关<em>输入即搜索(search-as-you-type)</em>的更好解决方案，请参阅 <a class="xref" href="search-suggesters.html#completion-suggester" title="Completion Suggester">完成建议(completion suggester)</a> 和 <a class="xref" href="search-as-you-type.html" title="Search-as-you-type datatype"><code class="literal">search_as_you_type</code> 字段类型</a>。
+</p>
 </div>
 
 </div>
@@ -218,10 +227,10 @@ the <a class="xref" href="search-as-you-type.html" title="Search-as-you-type dat
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-match-query-phrase.html">« Match phrase query</a>
+<a href="query-dsl-match-query-phrase.html">« match phrase 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-multi-match-query.html">Multi-match query »</a>
+<a href2="query-dsl-multi-match-query.html">Multi-match query »</a>
 </span>
 </div>
 </div>

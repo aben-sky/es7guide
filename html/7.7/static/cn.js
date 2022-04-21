@@ -654,11 +654,11 @@ var esNavLinks = [
                     {
                         "url": "query-dsl-match-query-phrase-prefix.html",
                         "text": "match_phrase_prefix",
-                        "title": "Match phrase prefix"
+                        "title": "match_phrase_prefix"
                     },
                     {
                         "url": "query-dsl-multi-match-query.html",
-                        "text": "多字段匹配(multi_match)",
+                        "text": "multi_match",
                         "title": "Multi-match"
                     },
                     {

@@ -659,7 +659,7 @@ var esNavLinks = [
                     {
                         "url": "query-dsl-multi-match-query.html",
                         "text": "multi_match",
-                        "title": "Multi-match"
+                        "title": "multi_match"
                     },
                     {
                         "url": "query-dsl-common-terms-query.html",

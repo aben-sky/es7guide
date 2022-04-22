@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Multi-match query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>multi-match 查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,31 +32,32 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-node"><a href="query-dsl.html">查询 DSL</a></span>
 »
-<span class="breadcrumb-link"><a href="full-text-queries.html">Full text queries</a></span>
+<span class="breadcrumb-node"><a href="full-text-queries.html">全文查询</a></span>
 »
-<span class="breadcrumb-node">Multi-match query</span>
+<span class="breadcrumb-node">multi-match 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-match-query-phrase-prefix.html">« Match phrase prefix query</a>
+<a href="query-dsl-match-query-phrase-prefix.html">« match phrase prefix 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-common-terms-query.html">Common Terms Query »</a>
+<a href2="query-dsl-common-terms-query.html">Common Terms Query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-multi-match-query"></a>Multi-match query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/multi-match-query.asciidoc">edit</a>
+<a id="query-dsl-multi-match-query"></a>multi-match 查询
 </h2>
 </div></div></div>
 
-<p>The <code class="literal">multi_match</code> query builds on the <a class="xref" href="query-dsl-match-query.html" title="Match query"><code class="literal">match</code> query</a>
-to allow multi-field queries:</p>
+<p>
+<code class="literal">multi_match</code> 查询建立在 <a class="xref" href="query-dsl-match-query.html" title="Match query"><code class="literal">match</code> 查询</a>的基础上，以允许 多字段(multi-field) 查询:
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -76,7 +77,7 @@ to allow multi-field queries:</p>
 <p><a href="#CO42-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The query string.</p>
+<p>要查询的字符串。</p>
 </td>
 </tr>
 <tr>
@@ -84,15 +85,15 @@ to allow multi-field queries:</p>
 <p><a href="#CO42-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The fields to be queried.</p>
+<p>要查询的字段。</p>
 </td>
 </tr>
 </table>
 </div>
 <h4>
-<a id="field-boost"></a><code class="literal">fields</code> and per-field boosting<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/multi-match-query.asciidoc">edit</a>
+<a id="field-boost"></a><code class="literal">fields</code> 和 字段增强(per-field boosting)
 </h4>
-<p>Fields can be specified with wildcards, eg:</p>
+<p>可以使用通配符指定字段名称，比如：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -112,12 +113,12 @@ to allow multi-field queries:</p>
 <p><a href="#CO43-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Query the <code class="literal">title</code>, <code class="literal">first_name</code> and <code class="literal">last_name</code> fields.</p>
+<p>查询<code class="literal">title</code>、<code class="literal">first_name</code> 和 <code class="literal">last_name</code> 字段。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>Individual fields can be boosted with the caret (<code class="literal">^</code>) notation:</p>
+<p>单个字段可以用脱字符号(<code class="literal">^</code>)来增强：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -137,15 +138,19 @@ to allow multi-field queries:</p>
 <p><a href="#CO44-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">subject</code> field is three times as important as the <code class="literal">message</code> field.</p>
+<p>
+字段 <code class="literal">subject</code> 的重要性是 <code class="literal">message</code> 的 <code class="literal">3</code> 倍。
 </td>
 </tr>
 </table>
 </div>
-<p>If no <code class="literal">fields</code> are provided, the <code class="literal">multi_match</code> query defaults to the <code class="literal">index.query.default_field</code>
-index settings, which in turn defaults to <code class="literal">*</code>. <code class="literal">*</code> extracts all fields in the mapping that
-are eligible to term queries and filters the metadata fields. All extracted fields are then
-combined to build a query.</p>
+<p>
+如果未指定 <code class="literal">fields</code>，则 <code class="literal">multi_match</code> 查询默认使用  <code class="literal">index.query.default_field</code> 索引设置，该设置又默认为 <code class="literal">*</code>。
+
+<code class="literal">*</code> 提取映射中符合条件查询的所有字段，并过滤元数据字段。
+
+然后将所有提取的字段组合起来构建一个查询。
+</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
@@ -761,10 +766,10 @@ type.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-match-query-phrase-prefix.html">« Match phrase prefix query</a>
+<a href="query-dsl-match-query-phrase-prefix.html">« match phrase prefix 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-common-terms-query.html">Common Terms Query »</a>
+<a href2="query-dsl-common-terms-query.html">Common Terms Query »</a>
 </span>
 </div>
 </div>

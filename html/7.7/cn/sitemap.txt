@@ -124,3 +124,4 @@ query-dsl-match-query.html
 query-dsl-match-bool-prefix-query.html
 query-dsl-match-query-phrase.html
 query-dsl-match-query-phrase-prefix.html
+query-dsl-multi-match-query.html

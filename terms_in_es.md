@@ -31,7 +31,6 @@
 - unigram: 每一个单词
 - bigrams: 单词对. (前缀bi来自拉丁语bis, 意为twice)
 - trigrams: 三个单词. (前缀tri来自拉丁语tres或tria, 意为three)
-- shingles:  (不翻译)
 - postings list: 倒排表
 - inverted index: 倒排索引
 - instant search: 即时搜索

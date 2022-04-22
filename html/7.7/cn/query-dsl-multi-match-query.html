@@ -154,16 +154,19 @@
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>There is a limit on the number of fields that can be queried
-at once. It is defined by the <code class="literal">indices.query.bool.max_clause_count</code> <a class="xref" href="search-settings.html" title="Search settings">Search settings</a>
-which defaults to 1024.</p>
+<p>
+一次可以查询的字段数量是有限制的。
+
+它由 <code class="literal">indices.query.bool.max_clause_count</code> <a class="xref" href="search-settings.html" title="Search settings">搜索设置</a> 定义的，默认为 1024。
+</p>
 </div>
 </div>
 <h4>
-<a id="multi-match-types"></a>Types of <code class="literal">multi_match</code> query:<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/multi-match-query.asciidoc">edit</a>
+<a id="multi-match-types"></a><code class="literal">multi_match</code>查询的类型：
 </h4>
-<p>The way the <code class="literal">multi_match</code> query is executed internally depends on the <code class="literal">type</code>
-parameter, which can be set to:</p>
+<p>
+<code class="literal">multi_match</code> 查询在内部执行的方式取决于参数 <code class="literal">type</code>，该参数可设置为:
+</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -179,8 +182,8 @@ parameter, which can be set to:</p>
 </td>
 <td valign="top">
 <p>
-(<span class="strong strong"><strong>default</strong></span>) Finds documents which match any field, but
-uses the  <code class="literal">_score</code> from the best field.  See <a class="xref" href="query-dsl-multi-match-query.html#type-best-fields" title="best_fields"><code class="literal">best_fields</code></a>.
+(<span class="strong strong"><strong>默认</strong></span>) 
+查找与任何字段匹配的文档，但使用最佳字段的  <code class="literal">_score</code>。参见 <a class="xref" href="query-dsl-multi-match-query.html#type-best-fields" title="best_fields"><code class="literal">best_fields</code></a>。
 </p>
 </td>
 </tr>
@@ -192,8 +195,7 @@ uses the  <code class="literal">_score</code> from the best field.  See <a class
 </td>
 <td valign="top">
 <p>
-Finds documents which match any field and combines
-the <code class="literal">_score</code> from each field.  See <a class="xref" href="query-dsl-multi-match-query.html#type-most-fields" title="most_fields"><code class="literal">most_fields</code></a>.
+查找与任何字段匹配的文档，并合并每个字段的 <code class="literal">_score</code>。参见 <a class="xref" href="query-dsl-multi-match-query.html#type-most-fields" title="most_fields"><code class="literal">most_fields</code></a>。
 </p>
 </td>
 </tr>
@@ -205,9 +207,11 @@ the <code class="literal">_score</code> from each field.  See <a class="xref" hr
 </td>
 <td valign="top">
 <p>
-Treats fields with the same <code class="literal">analyzer</code> as though they
-were one big field. Looks for each word in <span class="strong strong"><strong>any</strong></span>
-field. See <a class="xref" href="query-dsl-multi-match-query.html#type-cross-fields" title="cross_fields"><code class="literal">cross_fields</code></a>.
+用相同的 <code class="literal">analyzer</code> 处理字段，就好像它们是一个大字段。
+
+在 <span class="strong strong"><strong>任何</strong></span> 字段中查找每个单词。
+
+参见 <a class="xref" href="query-dsl-multi-match-query.html#type-cross-fields" title="cross_fields"><code class="literal">cross_fields</code></a>。
 </p>
 </td>
 </tr>
@@ -219,8 +223,9 @@ field. See <a class="xref" href="query-dsl-multi-match-query.html#type-cross-fie
 </td>
 <td valign="top">
 <p>
-Runs a <code class="literal">match_phrase</code> query on each field and uses the <code class="literal">_score</code>
-from the best field.  See <a class="xref" href="query-dsl-multi-match-query.html#type-phrase" title="phrase and phrase_prefix"><code class="literal">phrase</code> and <code class="literal">phrase_prefix</code></a>.
+对每个字段运行 <code class="literal">match_phrase</code> 查询，并使用最佳字段(best field)的 <code class="literal">_score</code>。
+
+参见 <a class="xref" href="query-dsl-multi-match-query.html#type-phrase" title="phrase and phrase_prefix"><code class="literal">phrase</code> 和 <code class="literal">phrase_prefix</code></a>。
 </p>
 </td>
 </tr>
@@ -232,8 +237,9 @@ from the best field.  See <a class="xref" href="query-dsl-multi-match-query.html
 </td>
 <td valign="top">
 <p>
-Runs a <code class="literal">match_phrase_prefix</code> query on each field and uses
-the <code class="literal">_score</code> from the best field.  See <a class="xref" href="query-dsl-multi-match-query.html#type-phrase" title="phrase and phrase_prefix"><code class="literal">phrase</code> and <code class="literal">phrase_prefix</code></a>.
+对每个字段运行 <code class="literal">match_phrase_prefix</code> 查询，并使用最佳字段(best field)的 <code class="literal">_score</code>。
+
+参见 <a class="xref" href="query-dsl-multi-match-query.html#type-phrase" title="phrase and phrase_prefix"><code class="literal">phrase</code> 和 <code class="literal">phrase_prefix</code></a>。
 </p>
 </td>
 </tr>
@@ -245,9 +251,9 @@ the <code class="literal">_score</code> from the best field.  See <a class="xref
 </td>
 <td valign="top">
 <p>
-Creates a <code class="literal">match_bool_prefix</code> query on each field and
-combines the <code class="literal">_score</code> from each field. See
-<a class="xref" href="query-dsl-multi-match-query.html#type-bool-prefix" title="bool_prefix"><code class="literal">bool_prefix</code></a>.
+在每个字段上创建 <code class="literal">match_bool_prefix</code> 查询，并组合每个字段的 <code class="literal">_score</code>。
+
+参见 <a class="xref" href="query-dsl-multi-match-query.html#type-bool-prefix" title="bool_prefix"><code class="literal">bool_prefix</code></a>。
 </p>
 </td>
 </tr>
@@ -257,15 +263,19 @@ combines the <code class="literal">_score</code> from each field. See
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="type-best-fields"></a><code class="literal">best_fields</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/multi-match-query.asciidoc">edit</a>
+<a id="type-best-fields"></a><code class="literal">best_fields</code>
 </h3>
 </div></div></div>
-<p>The <code class="literal">best_fields</code> type is most useful when you are searching for multiple
-words best found in the same field. For instance “brown fox” in a single
-field is more meaningful than “brown” in one field and “fox” in the other.</p>
-<p>The <code class="literal">best_fields</code> type generates a <a class="xref" href="query-dsl-match-query.html" title="Match query"><code class="literal">match</code> query</a> for
-each field and wraps them in a <a class="xref" href="query-dsl-dis-max-query.html" title="Disjunction max query"><code class="literal">dis_max</code></a> query, to
-find the single best matching field.  For instance, this query:</p>
+<p>
+<code class="literal">best_fields</code> 类型在搜索同一字段中最容易找到的多个单词时最有用。  
+
+例如，一个字段里的“brown fox”比一个字段里的“brown”和另一个字段里的“fox”更有意义。
+</p>
+<p>
+<code class="literal">best_fields</code> 类型为每个字段生成一个<a class="xref" href="query-dsl-match-query.html" title="Match query"><code class="literal">match</code> 查询</a>，并将它们包裹在一个 <a class="xref" href="query-dsl-dis-max-query.html" title="Disjunction max query"><code class="literal">dis_max</code></a> 查询中，以找到单个最佳匹配字段。
+
+比如下面这个查询
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -280,7 +290,7 @@ find the single best matching field.  For instance, this query:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/130.console"></div>
-<p>would be executed as:</p>
+<p>在执行时会被转换为：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -296,34 +306,34 @@ find the single best matching field.  For instance, this query:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/131.console"></div>
-<p>Normally the <code class="literal">best_fields</code> type uses the score of the <span class="strong strong"><strong>single</strong></span> best matching
-field, but if <code class="literal">tie_breaker</code> is specified, then it calculates the score as
-follows:</p>
+<p>
+通常，<code class="literal">best_fields</code> 类型使用<span class="strong strong"><strong>单个</strong></span>最佳匹配字段的分数，但如果指定了<code class="literal">tie_breaker</code>，则它会按如下方式计算分数：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-the score from the best matching field
+最佳匹配字段的分数
 </li>
 <li class="listitem">
-plus <code class="literal">tie_breaker * _score</code> for all other matching fields
+给所有其他匹配的字段加上 <code class="literal">tie_breaker * _score</code>
 </li>
 </ul>
 </div>
-<p>Also, accepts <code class="literal">analyzer</code>, <code class="literal">boost</code>, <code class="literal">operator</code>, <code class="literal">minimum_should_match</code>,
-<code class="literal">fuzziness</code>, <code class="literal">lenient</code>, <code class="literal">prefix_length</code>, <code class="literal">max_expansions</code>, <code class="literal">rewrite</code>, <code class="literal">zero_terms_query</code>,
- <code class="literal">cutoff_frequency</code>, <code class="literal">auto_generate_synonyms_phrase_query</code> and <code class="literal">fuzzy_transpositions</code>,
-  as explained in <a class="xref" href="query-dsl-match-query.html" title="Match query">match query</a>.</p>
+<p>
+此外，接受 <code class="literal">analyzer</code>、<code class="literal">boost</code>、<code class="literal">operator</code>、<code class="literal">minimum_should_match</code>、<code class="literal">fuzziness</code>、<code class="literal">lenient</code>、<code class="literal">prefix_length</code>、<code class="literal">max_expansions</code>、<code class="literal">rewrite</code>、<code class="literal">zero_terms_query</code>、<code class="literal">cutoff_frequency</code>、<code class="literal">auto_generate_synonyms_phrase_query</code> 及 <code class="literal">fuzzy_transpositions</code>，如 <a class="xref" href="query-dsl-match-query.html" title="Match query">match 查询</a> 中所述。
+  </p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
 <h3>
-<code class="literal">operator</code> and <code class="literal">minimum_should_match</code><a id="operator-min"></a>
+<code class="literal">operator</code> 和 <code class="literal">minimum_should_match</code><a id="operator-min"></a>
 </h3>
-<p>The <code class="literal">best_fields</code> and <code class="literal">most_fields</code> types are <em>field-centric</em> — they generate
-a <code class="literal">match</code> query <span class="strong strong"><strong>per field</strong></span>.  This means that the <code class="literal">operator</code> and
-<code class="literal">minimum_should_match</code> parameters are applied to each field individually,
-which is probably not what you want.</p>
-<p>Take this query for example:</p>
+<p>
+<code class="literal">best_fields</code> 和 <code class="literal">most_fields</code> 类型是<em>以字段为中心(field-centric)</em>的，它们为<span class="strong strong"><strong>每个字段</strong></span>生成一个 <code class="literal">match</code> 查询。
+
+这意味着 <code class="literal">operator</code> 和 <code class="literal">minimum_should_match</code> 参数分别应用于每个字段，这可能不是你想要的。
+</p>
+<p>以下面这个查询为例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -345,18 +355,19 @@ which is probably not what you want.</p>
 <p><a href="#CO45-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>All terms must be present.</p>
+<p>所有词项必须都出现。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>This query is executed as:</p>
+<p>该查询按如下方式执行：</p>
 <pre class="literallayout">  (+first_name:will +first_name:smith)
 | (+last_name:will  +last_name:smith)</pre>
-
-<p>In other words, <span class="strong strong"><strong>all terms</strong></span> must be present <span class="strong strong"><strong>in a single field</strong></span> for a document
-to match.</p>
-<p>See <a class="xref" href="query-dsl-multi-match-query.html#type-cross-fields" title="cross_fields"><code class="literal">cross_fields</code></a> for a better solution.</p>
+<p>
+换句话说，<span class="strong strong"><strong>所有词项</strong></span>必须出现在<span class="strong strong"><strong>一个字段</strong></span>中，文档才能匹配。
+</p>
+<p>
+更好的解决方案请参考 <a class="xref" href="query-dsl-multi-match-query.html#type-cross-fields" title="cross_fields"><code class="literal">cross_fields</code></a>。</p>
 </div>
 </div>
 </div>
@@ -364,17 +375,19 @@ to match.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="type-most-fields"></a><code class="literal">most_fields</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/multi-match-query.asciidoc">edit</a>
+<a id="type-most-fields"></a><code class="literal">most_fields</code>
 </h3>
 </div></div></div>
-<p>The <code class="literal">most_fields</code> type is most useful when querying multiple fields that
-contain the same text analyzed in different ways.  For instance, the main
-field may contain synonyms, stemming and terms without diacritics. A second
-field may contain the original terms, and a third field might contain
-shingles. By combining scores from all three fields we can match as many
-documents as possible with the main field, but use the second and third fields
-to push the most similar results to the top of the list.</p>
-<p>This query:</p>
+<p>
+当查询包含以不同方式分析的相同文本的多个字段时，<code class="literal">most_fields</code> 类型最有用。
+
+例如，主字段可能包含同义词(synonyms)、词干(stemming)和不带发音符号(diacritics)的词项。
+
+第二个字段可能包含原始的(original)词项(term)，第三个字段可能包含 shingles<span class="remark">(不知道该怎么翻译)</span>。
+
+通过组合所有三个字段的分数，我们可以将尽可能多的文档与主字段匹配，但使用第二个和第三个字段将最相似的结果推到列表的顶部。
+</p>
+<p>下面这个查询</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -388,7 +401,7 @@ to push the most similar results to the top of the list.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/133.console"></div>
-<p>would be executed as:</p>
+<p>在执行时会被转换为：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -404,24 +417,24 @@ to push the most similar results to the top of the list.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/134.console"></div>
-<p>The score from each <code class="literal">match</code> clause is added together, then divided by the
-number of <code class="literal">match</code> clauses.</p>
-<p>Also, accepts <code class="literal">analyzer</code>, <code class="literal">boost</code>, <code class="literal">operator</code>, <code class="literal">minimum_should_match</code>,
-<code class="literal">fuzziness</code>, <code class="literal">lenient</code>, <code class="literal">prefix_length</code>, <code class="literal">max_expansions</code>, <code class="literal">rewrite</code>, <code class="literal">zero_terms_query</code>
-and <code class="literal">cutoff_frequency</code>, as explained in <a class="xref" href="query-dsl-match-query.html" title="Match query">match query</a>, but
-<span class="strong strong"><strong>see <a class="xref" href="query-dsl-multi-match-query.html#operator-min" title="operator and minimum_should_match"><code class="literal">operator</code> and <code class="literal">minimum_should_match</code></a></strong></span>.</p>
+<p>
+每个 <code class="literal">match</code> 子句的得分相加，然后除以 <code class="literal">match</code> 子句的数量。
+</p>
+<p>
+此外，接受<code class="literal">analyzer</code>、<code class="literal">boost</code>、<code class="literal">operator</code>、<code class="literal">minimum_should_match</code>、<code class="literal">fuzziness</code>、<code class="literal">lenient</code>、<code class="literal">prefix_length</code>、<code class="literal">max_expansions</code>、<code class="literal">rewrite</code>、<code class="literal">zero_terms_query</code> 及 <code class="literal">cutoff_frequency</code>，如 <a class="xref" href="query-dsl-match-query.html" title="Match query">match 查询</a> 中所述，但是 <span class="strong strong"><strong>请参见 <a class="xref" href="query-dsl-multi-match-query.html#operator-min" title="operator and minimum_should_match"><code class="literal">operator</code> 和 <code class="literal">minimum_should_match</code></a></strong></span>。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="type-phrase"></a><code class="literal">phrase</code> and <code class="literal">phrase_prefix</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/multi-match-query.asciidoc">edit</a>
+<a id="type-phrase"></a><code class="literal">phrase</code> 和 <code class="literal">phrase_prefix</code>
 </h3>
 </div></div></div>
-<p>The <code class="literal">phrase</code> and <code class="literal">phrase_prefix</code> types behave just like <a class="xref" href="query-dsl-multi-match-query.html#type-best-fields" title="best_fields"><code class="literal">best_fields</code></a>,
-but they use a <code class="literal">match_phrase</code> or <code class="literal">match_phrase_prefix</code> query instead of a
-<code class="literal">match</code> query.</p>
-<p>This query:</p>
+<p>
+<code class="literal">phrase</code> 和 <code class="literal">phrase_prefix</code> 类型的行为类似于<a class="xref" href="query-dsl-multi-match-query.html#type-best-fields" title="best_fields"><code class="literal">best_fields</code></a>，但是它们使用 <code class="literal">match_phrase</code> 或 <code class="literal">match_phrase_prefix</code>查询而不是 <code class="literal">match</code> 查询。
+</p>
+<p>下面这个查询</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -435,7 +448,7 @@ but they use a <code class="literal">match_phrase</code> or <code class="literal
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/135.console"></div>
-<p>would be executed as:</p>
+<p>在执行时会被转换为：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -450,16 +463,20 @@ but they use a <code class="literal">match_phrase</code> or <code class="literal
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/136.console"></div>
-<p>Also, accepts <code class="literal">analyzer</code>, <a class="xref" href="mapping-boost.html" title="boost"><code class="literal">boost</code></a>, <code class="literal">lenient</code> and <code class="literal">zero_terms_query</code> as explained
-in <a class="xref" href="query-dsl-match-query.html" title="Match query">Match</a>, as well as <code class="literal">slop</code> which is explained in <a class="xref" href="query-dsl-match-query-phrase.html" title="Match phrase query">Match phrase</a>.
-Type <code class="literal">phrase_prefix</code> additionally accepts <code class="literal">max_expansions</code>.</p>
+<p>
+此外，还接受 <a class="xref" href="query-dsl-match-query.html" title="Match query">match</a> 中所述的 <code class="literal">analyzer</code>、<a class="xref" href="mapping-boost.html" title="boost"><code class="literal">boost</code></a>、<code class="literal">lenient</code> 及 <code class="literal">zero_terms_query</code>，以及 <a class="xref" href="query-dsl-match-query-phrase.html" title="Match phrase query">match phrase</a> 中介绍的 <code class="literal">slop</code> 。
+
+<code class="literal">phrase_prefix</code> 类型还接受 <code class="literal">max_expansions</code>。
+</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
 <h3>
-<code class="literal">phrase</code>, <code class="literal">phrase_prefix</code> and <code class="literal">fuzziness</code><a id="phrase-fuzziness"></a>
+<code class="literal">phrase</code>, <code class="literal">phrase_prefix</code> 和 <code class="literal">fuzziness</code><a id="phrase-fuzziness"></a>
 </h3>
-<p>The <code class="literal">fuzziness</code> parameter cannot be used with the <code class="literal">phrase</code> or <code class="literal">phrase_prefix</code> type.</p>
+<p>
+参数 <code class="literal">fuzziness</code> 不能与 <code class="literal">phrase</code> 和 <code class="literal">phrase_prefix</code> 一起使用。
+</p>
 </div>
 </div>
 </div>
@@ -467,37 +484,43 @@ Type <code class="literal">phrase_prefix</code> additionally accepts <code class
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="type-cross-fields"></a><code class="literal">cross_fields</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/multi-match-query.asciidoc">edit</a>
+<a id="type-cross-fields"></a><code class="literal">cross_fields</code>
 </h3>
 </div></div></div>
-<p>The <code class="literal">cross_fields</code> type is particularly useful with structured documents where
-multiple fields <span class="strong strong"><strong>should</strong></span> match.  For instance, when querying the <code class="literal">first_name</code>
-and <code class="literal">last_name</code> fields for “Will Smith”, the best match is likely to have
-“Will” in one field and “Smith” in the other.</p>
+<p>
+<code class="literal">cross_fields</code> 类型对于多个字段<span class="strong strong"><strong>should(应该)</strong></span>匹配的结构化文档特别有用。
+
+例如，当在 <code class="literal">first_name</code> 和 <code class="literal">last_name</code>字段查询“Will Smith”时，最佳匹配可能是一个字段中有“Will ”,另一个字段中有“Smith”。
+</p>
 <div class="sidebar">
 <div class="titlepage"></div>
-<p>This sounds like a job for <a class="xref" href="query-dsl-multi-match-query.html#type-most-fields" title="most_fields"><code class="literal">most_fields</code></a> but there are two problems
-with that approach. The first problem is that <code class="literal">operator</code> and
-<code class="literal">minimum_should_match</code> are applied per-field, instead of per-term (see
-<a class="xref" href="query-dsl-multi-match-query.html#operator-min" title="operator and minimum_should_match">explanation above</a>).</p>
-<p>The second problem is to do with relevance: the different term frequencies in
-the <code class="literal">first_name</code> and <code class="literal">last_name</code> fields   can produce unexpected results.</p>
-<p>For instance, imagine we have two people: “Will Smith” and “Smith Jones”.
-“Smith” as a last name is very common (and so is of low importance) but
-“Smith” as a first name is very uncommon (and so is of great importance).</p>
-<p>If we do a search for “Will Smith”, the “Smith Jones” document will
-probably appear above the better matching “Will Smith” because the score of
-<code class="literal">first_name:smith</code> has trumped the combined scores of <code class="literal">first_name:will</code> plus
-<code class="literal">last_name:smith</code>.</p>
+<p>
+这听起来像是 <a class="xref" href="query-dsl-multi-match-query.html#type-most-fields" title="most_fields"><code class="literal">most_fields</code></a> 的工作，但是那个方法有两个问题。
+</p>
+<p>
+第一个问题是 <code class="literal">operator</code> 和 <code class="literal">minimum_should_match</code> 是按字段应用的，而不是按词项应用的(见 <a class="xref" href="query-dsl-multi-match-query.html#operator-min" title="operator and minimum_should_match">上面的解释</a>)。
+</p>
+<p>
+第二个问题与相关性有关：<code class="literal">first_name</code> 和 <code class="literal">last_name</code> 字段中不同的词频可能会产生意外的结果。
+</p>
+<p>
+例如，假设我们有两个人：“Will Smith“ 和 “Smith Jones“。
+
+“Smith“ 作为 姓(last name) 是很常见的(因此不太重要)，但是“Smith“作为 名(first name) 是很少见的(因此非常重要)。
+</p>
+<p>
+如果我们搜索“Will Smith“，文档“Smith Jones”可能会出现在更匹配的“Will Smith”之上，因为 <code class="literal">first_name:smith</code> 的分数已经超过了 <code class="literal">first_name:will</code> 加上<code class="literal">last_name:smith</code> 的组合分数。
+</p>
 </div>
-<p>One way of dealing with these types of queries is simply to index the
-<code class="literal">first_name</code> and <code class="literal">last_name</code> fields into a single <code class="literal">full_name</code> field.  Of
-course, this can only be done at index time.</p>
-<p>The <code class="literal">cross_field</code> type tries to solve these problems at query time by taking a
-<em>term-centric</em> approach.  It first analyzes the query string into individual
-terms, then looks for each term in any of the fields, as though they were one
-big field.</p>
-<p>A query like:</p>
+<p>
+处理这些类型的查询的一种方法是简单地将 <code class="literal">first_name</code>和 <code class="literal">last_name</code> 字段索引到单个<code class="literal">full_name</code>字段中。当然，这只能在索引时完成。
+</p>
+<p>
+<code class="literal">cross_field</code> 类型试图通过采用<em>以词项为中心(term-centric)</em>的方法在查询时解决这些问题。
+
+它首先将查询字符串分析成单个词项，然后在任何字段中查找每个词项，就好像它们是一个大字段一样。
+</p>
+<p>像下面这样的一个查询</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -512,20 +535,25 @@ big field.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/137.console"></div>
-<p>is executed as:</p>
+<p>会被执行为：</p>
 <pre class="literallayout">+(first_name:will  last_name:will)
 +(first_name:smith last_name:smith)</pre>
 
-<p>In other words, <span class="strong strong"><strong>all terms</strong></span> must be present <span class="strong strong"><strong>in at least one field</strong></span> for a
-document to match.  (Compare this to
-<a class="xref" href="query-dsl-multi-match-query.html#operator-min" title="operator and minimum_should_match">the logic used for <code class="literal">best_fields</code> and <code class="literal">most_fields</code></a>.)</p>
-<p>That solves one of the two problems. The problem of differing term frequencies
-is solved by <em>blending</em> the term frequencies for all fields in order to even
-out the differences.</p>
-<p>In practice, <code class="literal">first_name:smith</code> will be treated as though it has the same
-frequencies as <code class="literal">last_name:smith</code>, plus one. This will make matches on
-<code class="literal">first_name</code> and <code class="literal">last_name</code> have comparable scores, with a tiny advantage
-for <code class="literal">last_name</code> since it is the most likely field that contains <code class="literal">smith</code>.</p>
+<p>
+换句话说，<span class="strong strong"><strong>所有词项</strong></span> 必须出现在<span class="strong strong"><strong>至少一个字段</strong></span>中，文档才能匹配。
+
+(将这与 <a class="xref" href="query-dsl-multi-match-query.html#operator-min" title="operator and minimum_should_match">用于 <code class="literal">best_fields</code> 和 <code class="literal">most_fields</code> 的逻辑</a> 进行比较。)
+</p>
+<p>
+
+That solves one of the two problems. The problem of differing term frequencies is solved by <em>blending</em> the term frequencies for all fields in order to even out the differences.
+</p>
+<p>
+
+In practice, <code class="literal">first_name:smith</code> will be treated as though it has the same frequencies as <code class="literal">last_name:smith</code>, plus one. 
+
+This will make matches on <code class="literal">first_name</code> and <code class="literal">last_name</code> have comparable scores, with a tiny advantage for <code class="literal">last_name</code> since it is the most likely field that contains <code class="literal">smith</code>.
+</p>
 <p>Note that <code class="literal">cross_fields</code> is usually only useful on short string fields
 that all have a <code class="literal">boost</code> of <code class="literal">1</code>. Otherwise boosts, term freqs and length
 normalization contribute to the score in such a way that the blending of term

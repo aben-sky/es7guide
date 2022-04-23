@@ -34,9 +34,9 @@
 <div class="breadcrumbs">
 <span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-node"><a href="query-dsl.html">查询 DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询 DSL</a></span>
 »
-<span class="breadcrumb-node"><a href="full-text-queries.html">全文查询</a></span>
+<span class="breadcrumb-link"><a href="full-text-queries.html">全文查询</a></span>
 »
 <span class="breadcrumb-node">match 查询</span>
 </div>
@@ -446,7 +446,7 @@
 匹配查询支持 <code class="literal">cutoff_frequency</code> ，它允许指定一个绝对或相对的文档频率，其中高频词项被移到可选的子查询中，并且只有在 <code class="literal">or</code> 运算符时有一个低频(低于截止值)词项匹配 或 <code class="literal">and</code> 运算符时所有低频词项都匹配 时才被计分。
 </p>
 <p>
-该查询允许在运行时动态处理 <code class="literal">stopwords</code>(停止词) ，它是独立于域(domain)的，并且不需要停用词文件。
+该查询允许在运行时动态处理 <code class="literal">stopwords</code>(停止词) ，它是独立于域(domain)的，并且不需要停止词文件。
 
 它防止对高频词项进行评分/迭代，并且仅在更重要/更低频率的词项匹配文档时才考虑这些词项。
 

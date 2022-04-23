@@ -545,40 +545,45 @@
 (将这与 <a class="xref" href="query-dsl-multi-match-query.html#operator-min" title="operator and minimum_should_match">用于 <code class="literal">best_fields</code> 和 <code class="literal">most_fields</code> 的逻辑</a> 进行比较。)
 </p>
 <p>
+这解决了两个问题中的一个。
 
-That solves one of the two problems. The problem of differing term frequencies is solved by <em>blending</em> the term frequencies for all fields in order to even out the differences.
+不同词频的问题通过<em>混合(blending)</em>所有字段的词频以消除差异来解决。
 </p>
 <p>
+实际上，<code class="literal">first_name:smith</code> 将被视为与<code class="literal">last_name:smith</code> + 1 具有相同的频率。
 
-In practice, <code class="literal">first_name:smith</code> will be treated as though it has the same frequencies as <code class="literal">last_name:smith</code>, plus one. 
-
-This will make matches on <code class="literal">first_name</code> and <code class="literal">last_name</code> have comparable scores, with a tiny advantage for <code class="literal">last_name</code> since it is the most likely field that contains <code class="literal">smith</code>.
+这将使 <code class="literal">first_name</code> 和 <code class="literal">last_name</code> 的匹配项具有可比较的分数，<code class="literal">last_name</code> 有一点优势，因为它是最有可能包含<code class="literal">smith</code>的字段。
 </p>
-<p>Note that <code class="literal">cross_fields</code> is usually only useful on short string fields
-that all have a <code class="literal">boost</code> of <code class="literal">1</code>. Otherwise boosts, term freqs and length
-normalization contribute to the score in such a way that the blending of term
-statistics is not meaningful anymore.</p>
-<p>If you run the above query through the <a class="xref" href="search-validate.html" title="Validate API">Validate API</a>, it returns this
-explanation:</p>
+<p>
+请注意，<code class="literal">cross_fields</code> 通常只对 <code class="literal">boost</code> 都为 <code class="literal">1</code> 的短字符串字段有用。
+
+否则 boost、词频和长度归一化会以这样的一种方式影响分数，以至于词项统计数据的混合不再有意义。
+</p>
+<p>
+如果你通过 <a class="xref" href="search-validate.html" title="Validate API">Validate API</a> 运行上述查询，它将返回如下解释:
+</p>
 <pre class="literallayout">+blended("will",  fields: [first_name, last_name])
 +blended("smith", fields: [first_name, last_name])</pre>
 
-<p>Also, accepts <code class="literal">analyzer</code>, <code class="literal">boost</code>, <code class="literal">operator</code>, <code class="literal">minimum_should_match</code>,
-<code class="literal">lenient</code>, <code class="literal">zero_terms_query</code> and <code class="literal">cutoff_frequency</code>, as explained in
-<a class="xref" href="query-dsl-match-query.html" title="Match query">match query</a>.</p>
+<p>
+此外，还接受 <code class="literal">analyzer</code>、<code class="literal">boost</code>、<code class="literal">operator</code>、<code class="literal">minimum_should_match</code>、<code class="literal">lenient</code>、<code class="literal">zero_terms_query</code> 及 <code class="literal">cutoff_frequency</code>，如 <a class="xref" href="query-dsl-match-query.html" title="Match query">match 查询</a> 中所述。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="cross-field-analysis"></a><code class="literal">cross_field</code> and analysis<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/multi-match-query.asciidoc">edit</a>
+<a id="cross-field-analysis"></a><code class="literal">cross_field</code> 和分析(analysis)
 </h4>
 </div></div></div>
-<p>The <code class="literal">cross_field</code> type can only work in term-centric mode on fields that have
-the same analyzer. Fields with the same analyzer are grouped together as in
-the example above.  If there are multiple groups, they are combined with a
-<code class="literal">bool</code> query.</p>
-<p>For instance, if we have a <code class="literal">first</code> and <code class="literal">last</code> field which have
-the same analyzer, plus a <code class="literal">first.edge</code> and <code class="literal">last.edge</code> which
-both use an <code class="literal">edge_ngram</code> analyzer, this query:</p>
+<p>
+<code class="literal">cross_field</code> 类型只能在具有相同分析器的字段上以词项为中心(term-centric)的模式下工作。
+
+如上例所示，具有相同分析器的字段被分组在一起。
+
+如果有多个组，它们将与一个 <code class="literal">bool</code> 查询组合在一起。
+</p>
+<p>
+例如，如果字段 <code class="literal">first</code> 和 <code class="literal">last</code> 具有相同的分析器，加上 <code class="literal">first.edge</code> 和 <code class="literal">last.edge</code> 都使用 <code class="literal">edge_ngram</code> 分析器，则下面这个查询
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -595,7 +600,7 @@ both use an <code class="literal">edge_ngram</code> analyzer, this query:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/138.console"></div>
-<p>would be executed as:</p>
+<p>将被执行为：</p>
 <pre class="literallayout">    blended("jon", fields: [first, last])
 | (
     blended("j",   fields: [first.edge, last.edge])
@@ -603,15 +608,15 @@ both use an <code class="literal">edge_ngram</code> analyzer, this query:</p>
     blended("jon", fields: [first.edge, last.edge])
 )</pre>
 
-<p>In other words, <code class="literal">first</code> and <code class="literal">last</code> would be grouped together and
-treated as a single field, and <code class="literal">first.edge</code> and <code class="literal">last.edge</code> would be
-grouped together and treated as a single field.</p>
-<p>Having multiple groups is fine, but when combined with <code class="literal">operator</code> or
-<code class="literal">minimum_should_match</code>, it can suffer from the <a class="xref" href="query-dsl-multi-match-query.html#operator-min" title="operator and minimum_should_match">same problem</a>
-as <code class="literal">most_fields</code> or <code class="literal">best_fields</code>.</p>
-<p>You can easily rewrite this query yourself as two separate <code class="literal">cross_fields</code>
-queries combined with a <code class="literal">bool</code> query, and apply the <code class="literal">minimum_should_match</code>
-parameter to just one of them:</p>
+<p>
+换句话说，<code class="literal">first</code> 和 <code class="literal">last</code> 将被分组在一起并被视为单个字段，<code class="literal">first.edge</code> and <code class="literal">last.edge</code> 将被分组在一起并被视为单个字段。
+</p>
+<p>
+拥有多个组是可以的，但是当与 <code class="literal">operator</code> 或 <code class="literal">minimum_should_match</code> 结合使用时，它可能会遇到与<code class="literal">most_fields</code> 或 <code class="literal">best_fields</code> <a class="xref" href="query-dsl-multi-match-query.html#operator-min" title="operator and minimum_should_match">相同的问题</a>。
+</p>
+<p>
+可以很容易地将该查询重写为两个单独的 <code class="literal">cross_fields</code> 查询与一个 <code class="literal">bool</code> 查询的组合，并将 <code class="literal">minimum_should_match</code> 参数应用于其中一个查询:
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -646,14 +651,16 @@ parameter to just one of them:</p>
 <p><a href="#CO46-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Either <code class="literal">will</code> or <code class="literal">smith</code> must be present in either of the <code class="literal">first</code>
-or <code class="literal">last</code> fields</p>
+<p>
+<code class="literal">will</code> 或 <code class="literal">smith</code> 必须出现在 <code class="literal">first</code> 或 <code class="literal">last</code> 字段中
+</p>
 </td>
 </tr>
 </table>
 </div>
-<p>You can force all fields into the same group by specifying the <code class="literal">analyzer</code>
-parameter in the query.</p>
+<p>
+通过在查询中指定 <code class="literal">analyzer</code> 参数，可以强制将所有字段归入同一组。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -675,12 +682,12 @@ parameter in the query.</p>
 <p><a href="#CO47-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Use the <code class="literal">standard</code> analyzer for all fields.</p>
+<p>对所有字段使用 <code class="literal">standard</code> 分析器。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>which will be executed as:</p>
+<p>它将被执行为：</p>
 <pre class="literallayout">blended("will",  fields: [first, first.edge, last.edge, last])
 blended("smith", fields: [first, first.edge, last.edge, last])</pre>
 
@@ -689,13 +696,16 @@ blended("smith", fields: [first, first.edge, last.edge, last])</pre>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="tie-breaker"></a><code class="literal">tie_breaker</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/multi-match-query.asciidoc">edit</a>
+<a id="tie-breaker"></a><code class="literal">tie_breaker</code>
 </h4>
 </div></div></div>
-<p>By default, each per-term <code class="literal">blended</code> query will use the best score returned by
-any field in a group, then these scores are added together to give the final
-score. The <code class="literal">tie_breaker</code> parameter can change the default behaviour of the
-per-term <code class="literal">blended</code> queries. It accepts:</p>
+<p>
+默认情况下，每个按词项 <code class="literal">blended</code>(混合的) 查询将使用组中任何字段返回的最佳分数，然后将这些分数相加得到最终分数。
+
+参数 <code class="literal">tie_breaker</code> 可以更改按词项 <code class="literal">blended</code>(混合的) 查询的默认行为。
+
+它接受：
+</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -711,8 +721,7 @@ per-term <code class="literal">blended</code> queries. It accepts:</p>
 </td>
 <td valign="top">
 <p>
-Take the single best score out of (eg) <code class="literal">first_name:will</code>
-and <code class="literal">last_name:will</code> (<span class="strong strong"><strong>default</strong></span>)
+取单个最佳分数（<span class="strong strong"><strong>默认</strong></span>）。（比如从<code class="literal">first_name:will</code>和<code class="literal">last_name:will</code>中取最佳分数）
 </p>
 </td>
 </tr>
@@ -724,8 +733,7 @@ and <code class="literal">last_name:will</code> (<span class="strong strong"><st
 </td>
 <td valign="top">
 <p>
-Add together the scores for (eg) <code class="literal">first_name:will</code> and
-<code class="literal">last_name:will</code>
+将分数相加。（比如把<code class="literal">first_name:will</code>和<code class="literal">last_name:will</code>的分数相加）
 </p>
 </td>
 </tr>
@@ -737,8 +745,7 @@ Add together the scores for (eg) <code class="literal">first_name:will</code> an
 </td>
 <td valign="top">
 <p>
-Take the single best score plus <code class="literal">tie_breaker</code> multiplied
-by each of the scores from other matching fields.
+将单个最佳分数加上 <code class="literal">tie_breaker</code> 乘以其他匹配字段中的每个分数。
 </p>
 </td>
 </tr>
@@ -749,9 +756,9 @@ by each of the scores from other matching fields.
 <div class="icon"></div>
 <div class="admon_content">
 <h3>
-<code class="literal">cross_fields</code> and <code class="literal">fuzziness</code><a id="crossfields-fuzziness"></a>
+<code class="literal">cross_fields</code>和<code class="literal">fuzziness</code><a id="crossfields-fuzziness"></a>
 </h3>
-<p>The <code class="literal">fuzziness</code> parameter cannot be used with the <code class="literal">cross_fields</code> type.</p>
+<p>参数<code class="literal">fuzziness</code>不能与<code class="literal">cross_fields</code>类型一起使用。</p>
 </div>
 </div>
 </div>
@@ -761,12 +768,12 @@ by each of the scores from other matching fields.
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="type-bool-prefix"></a><code class="literal">bool_prefix</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/multi-match-query.asciidoc">edit</a>
+<a id="type-bool-prefix"></a><code class="literal">bool_prefix</code>
 </h3>
 </div></div></div>
-<p>The <code class="literal">bool_prefix</code> type’s scoring behaves like <a class="xref" href="query-dsl-multi-match-query.html#type-most-fields" title="most_fields"><code class="literal">most_fields</code></a>, but using a
-<a class="xref" href="query-dsl-match-bool-prefix-query.html" title="Match boolean prefix query"><code class="literal">match_bool_prefix</code> query</a> instead of a
-<code class="literal">match</code> query.</p>
+<p>
+<code class="literal">bool_prefix</code>类型的评分行为类似于<a class="xref" href="query-dsl-multi-match-query.html#type-most-fields" title="most_fields"><code class="literal">most_fields</code></a>，但使用 <a class="xref" href="query-dsl-match-bool-prefix-query.html" title="Match boolean prefix query"><code class="literal">match_bool_prefix</code> 查询</a> 而不是 <code class="literal">match</code> 查询。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -780,15 +787,14 @@ by each of the scores from other matching fields.
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/141.console"></div>
-<p>The <code class="literal">analyzer</code>, <code class="literal">boost</code>, <code class="literal">operator</code>, <code class="literal">minimum_should_match</code>, <code class="literal">lenient</code>,
-<code class="literal">zero_terms_query</code>, and <code class="literal">auto_generate_synonyms_phrase_query</code> parameters as
-explained in <a class="xref" href="query-dsl-match-query.html" title="Match query">match query</a> are supported. The
-<code class="literal">fuzziness</code>, <code class="literal">prefix_length</code>, <code class="literal">max_expansions</code>, <code class="literal">rewrite</code>, and
-<code class="literal">fuzzy_transpositions</code> parameters are supported for the terms that are used to
-construct term queries, but do not have an effect on the prefix query
-constructed from the final term.</p>
-<p>The <code class="literal">slop</code> and <code class="literal">cutoff_frequency</code> parameters are not supported by this query
-type.</p>
+<p>
+支持 <a class="xref" href="query-dsl-match-query.html" title="Match query">match 查询</a> 中所述的参数 <code class="literal">analyzer</code>、<code class="literal">boost</code>、<code class="literal">operator</code>、<code class="literal">minimum_should_match</code>、<code class="literal">lenient</code>、<code class="literal">zero_terms_query</code> 及 <code class="literal">auto_generate_synonyms_phrase_query</code>。
+
+用于构建词项<span class="remark">(term, "条件"??)</span>查询的词项支持<code class="literal">fuzziness</code>、<code class="literal">prefix_length</code>、<code class="literal">max_expansions</code>、<code class="literal">rewrite</code> 及 <code class="literal">fuzzy_transpositions</code> 参数，但这些参数对从最终的词项构建的前缀查询没有作用。
+</p>
+<p>
+该查询类型不支持<code class="literal">slop</code> 和 <code class="literal">cutoff_frequency</code> 参数。
+</p>
 </div>
 
 </div>

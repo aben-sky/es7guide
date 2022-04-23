@@ -663,8 +663,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-common-terms-query.html",
-                        "text": "common 查询 (7.3.0废弃)",
-                        "title": "Common Terms Query"
+                        "text": "common 词项查询 (7.3.0废弃)",
+                        "title": "common 词项查询 (7.3.0废弃)"
                     },
                     {
                         "url": "query-dsl-query-string-query.html",

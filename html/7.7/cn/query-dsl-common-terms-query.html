@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Common Terms Query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>common 词项查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,91 +32,99 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询 DSL</a></span>
 »
-<span class="breadcrumb-link"><a href="full-text-queries.html">Full text queries</a></span>
+<span class="breadcrumb-link"><a href="full-text-queries.html">全文查询</a></span>
 »
-<span class="breadcrumb-node">Common Terms Query</span>
+<span class="breadcrumb-node">common 词项查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-multi-match-query.html">« Multi-match query</a>
+<a href="query-dsl-multi-match-query.html">« multi-match 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-query-string-query.html">Query string query »</a>
+<a href2="query-dsl-query-string-query.html">Query string query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-common-terms-query"></a>Common Terms Query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/common-terms-query.asciidoc">edit</a>
+<a id="query-dsl-common-terms-query"></a>常用词项查询(common terms query)
 </h2>
 </div></div></div>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<h3>Deprecated in 7.3.0.</h3>
-<p>Use <a class="xref" href="query-dsl-match-query.html" title="Match query">Match</a> instead, which skips blocks of documents efficiently, without any configuration, provided that the total number of hits is not tracked.</p>
+<h3>在7.3.0中废弃。</h3>
+<p> 请改用<a class="xref" href="query-dsl-match-query.html" title="match query">match查询</a>，它可以有效地跳过文档块，而无需任何配置，前提是不跟踪命中的总数。</p>
 </div>
 </div>
-<p>The <code class="literal">common</code> terms query is a modern alternative to stopwords which
-improves the precision and recall of search results (by taking stopwords
-into account), without sacrificing performance.</p>
+<p>
+<code class="literal">common</code> 词项查询是停止词的现代替代方法，它提高了搜索结果的精确度和召回率(通过将停止词考虑在内)，而不牺牲性能。
+</p>
 <h4>
-<a id="_the_problem"></a>The problem<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/common-terms-query.asciidoc">edit</a>
+<a id="_the_problem"></a>问题
 </h4>
-<p>Every term in a query has a cost. A search for <code class="literal">"The brown fox"</code>
-requires three term queries, one for each of <code class="literal">"the"</code>, <code class="literal">"brown"</code> and
-<code class="literal">"fox"</code>, all of which are executed against all documents in the index.
-The query for <code class="literal">"the"</code> is likely to match many documents and thus has a
-much smaller impact on relevance than the other two terms.</p>
-<p>Previously, the solution to this problem was to ignore terms with high
-frequency. By treating <code class="literal">"the"</code> as a <em>stopword</em>, we reduce the index size
-and reduce the number of term queries that need to be executed.</p>
-<p>The problem with this approach is that, while stopwords have a small
-impact on relevance, they are still important. If we remove stopwords,
-we lose precision, (eg we are unable to distinguish between <code class="literal">"happy"</code>
-and <code class="literal">"not happy"</code>) and we lose recall (eg text like <code class="literal">"The The"</code> or
-<code class="literal">"To be or not to be"</code> would simply not exist in the index).</p>
+<p>
+查询中的每一个词项都有成本。
+
+搜索 <code class="literal">"The brown fox"</code> 需要三个词项查询，分别针对<code class="literal">"the"</code>、<code class="literal">"brown"</code> 和 <code class="literal">"fox"</code>，所有这些词项都要对索引中的所有文档执行匹配。
+
+对 <code class="literal">"the"</code> 的查询可能匹配许多文档，因此对相关性的影响比其他两个词项小得多。
+</p>
+<p>
+以前解决这个问题的方法是忽略高频词。
+
+通过将<code class="literal">"the"</code>视为<em>stopword</em>(停止词)，减小了索引的大小，并减少了需要执行的词项查询的数量。
+</p>
+<p>
+这种方法的问题是，虽然停止词对相关性的影响很小，但它们仍然很重要。
+
+如果我们删除了停止词，我们就失去了精确性（例如，我们无法区分<code class="literal">"happy"</code> 与 <code class="literal">"not happy"</code>），我们也失去了回调（例如，像 <code class="literal">"The The"</code> 或 <code class="literal">"To be or not to be"</code> 这样的文本根本不会存在于索引中）。
+</p>
 <h4>
-<a id="_the_solution"></a>The solution<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/common-terms-query.asciidoc">edit</a>
+<a id="_the_solution"></a>解决方案
 </h4>
-<p>The <code class="literal">common</code> terms query divides the query terms into two groups: more
-important (ie <em>low frequency</em> terms) and less important (ie <em>high
-frequency</em> terms which would previously have been stopwords).</p>
-<p>First it searches for documents which match the more important terms.
-These are the terms which appear in fewer documents and have a greater
-impact on relevance.</p>
-<p>Then, it executes a second query for the less important terms — terms
-which appear frequently and have a low impact on relevance. But instead
-of calculating the relevance score for <span class="strong strong"><strong>all</strong></span> matching documents, it only
-calculates the <code class="literal">_score</code> for documents already matched by the first
-query. In this way the high frequency terms can improve the relevance
-calculation without paying the cost of poor performance.</p>
-<p>If a query consists only of high frequency terms, then a single query is
-executed as an <code class="literal">AND</code> (conjunction) query, in other words all terms are
-required. Even though each individual term will match many documents,
-the combination of terms narrows down the resultset to only the most
-relevant. The single query can also be executed as an <code class="literal">OR</code> with a
-specific
-<a class="xref" href="query-dsl-minimum-should-match.html" title="minimum_should_match parameter"><code class="literal">minimum_should_match</code></a>,
-in this case a high enough value should probably be used.</p>
-<p>Terms are allocated to the high or low frequency groups based on the
-<code class="literal">cutoff_frequency</code>, which can be specified as an absolute frequency
-(<code class="literal">&gt;=1</code>) or as a relative frequency (<code class="literal">0.0 .. 1.0</code>). (Remember that document
-frequencies are computed on a per shard level as explained in the blog post
-<a href="https://www.elastic.co/guide/en/elasticsearch/guide/2.x/relevance-is-broken.html" class="ulink" target="_top">Relevance is broken</a>.)</p>
-<p>Perhaps the most interesting property of this query is that it adapts to
-domain specific stopwords automatically. For example, on a video hosting
-site, common terms like <code class="literal">"clip"</code> or <code class="literal">"video"</code> will automatically behave
-as stopwords without the need to maintain a manual list.</p>
+<p>
+<code class="literal">common</code> 词项查询将要查询的词项分为两组：更重要的（即低频词项）和不太重要的（即以前是停止词的高频词项）。
+</p>
+<p>
+首先，它搜索与更重要的词项匹配的文档（第一次查询）。
+
+这些词项出现在更少的文档中，而对相关性有更大的影响。
+</p>
+<p>
+然后，对不太重要的词项执行第二次查询，这些词项经常出现，对相关性的影响很小。
+
+但是，它不会计算<span class="strong strong"><strong>所有</strong></span>匹配的文档的相关性评分，而是只计算第一个查询中已经匹配的文档的 <code class="literal">_score</code>。
+
+通过这种方式，高频词项可以在不付出性能低下的代价的情况下改进相关性计算。  
+</p>
+<p>
+如果一个查询只包含高频词，那么单个查询将作为 <code class="literal">AND</code>（与）查询执行，换句话说，所有词项都是必需的。
+
+尽管每个单独的词项会匹配许多文档，但是词项的组合将结果集缩小到仅最相关的文档。
+
+单个查询也可以通过指定参数 <a class="xref" href="query-dsl-minimum-should-match.html" title="minimum_should_match parameter"><code class="literal">minimum_should_match</code></a> 作为 <code class="literal">OR</code> 来执行，在这种情况下，应该（给该参数）使用足够高的值。
+</p>
+<p>
+根据 <code class="literal">cutoff_frequency</code> 将词项分配给高频组或低频组，可将其指定为绝对频率(<code class="literal">&gt;=1</code>)或相对频率(<code class="literal">0.0 ~ 1.0</code>)。
+
+(请记住，文档频率是在每个分片级别上计算的，正如在博客 <a href="https://www.elastic.co/guide/en/elasticsearch/guide/2.x/relevance-is-broken.html" class="ulink" target="_top">相关性被打破了</a> 中所解释的那样。)
+</p>
+<p>
+也许这个查询最有趣的特性是它能自动适应特定领域的停止词。
+
+例如，在一个视频托管网站上，像 <code class="literal">"clip"</code> 或 <code class="literal">"video"</code> 这样的常用词项会自动作为停止词，而不需要手动维护一个列表。
+</p>
 <h4>
-<a id="_examples_2"></a>Examples<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/common-terms-query.asciidoc">edit</a>
+<a id="_examples_2"></a>示例
 </h4>
-<p>In this example, words that have a document frequency greater than 0.1%
-(eg <code class="literal">"this"</code> and <code class="literal">"is"</code>) will be treated as <em>common terms</em>.</p>
+<p>
+在本例中，文档频率大于0.1%的单词（例如<code class="literal">"this"</code> 和 <code class="literal">"is"</code>）将被视为常用词。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -131,12 +139,12 @@ as stopwords without the need to maintain a manual list.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/142.console"></div>
-<p>The number of terms which should match can be controlled with the
-<a class="xref" href="query-dsl-minimum-should-match.html" title="minimum_should_match parameter"><code class="literal">minimum_should_match</code></a>
-(<code class="literal">high_freq</code>, <code class="literal">low_freq</code>), <code class="literal">low_freq_operator</code> (default <code class="literal">"or"</code>) and
-<code class="literal">high_freq_operator</code> (default <code class="literal">"or"</code>) parameters.</p>
-<p>For low frequency terms, set the <code class="literal">low_freq_operator</code> to <code class="literal">"and"</code> to make
-all terms required:</p>
+<p>
+应该匹配的词项的数量可以用参数 <a class="xref" href="query-dsl-minimum-should-match.html" title="minimum_should_match parameter"><code class="literal">minimum_should_match</code></a> (<code class="literal">high_freq</code>, <code class="literal">low_freq</code>)，<code class="literal">low_freq_operator</code> (默认为 <code class="literal">"or"</code>) 和 <code class="literal">high_freq_operator</code> (默认为 <code class="literal">"or"</code>) 来控制。
+</p>
+<p>
+对于低频词项，将  <code class="literal">low_freq_operator</code> 设置为<code class="literal">"and"</code>，以使所有术语都是必需的：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -152,7 +160,7 @@ all terms required:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/143.console"></div>
-<p>which is roughly equivalent to:</p>
+<p>这大致相当于：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -173,10 +181,9 @@ all terms required:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/144.console"></div>
-<p>Alternatively use
-<a class="xref" href="query-dsl-minimum-should-match.html" title="minimum_should_match parameter"><code class="literal">minimum_should_match</code></a>
-to specify a minimum number or percentage of low frequency terms which
-must be present, for instance:</p>
+<p>
+或者，使用 <a class="xref" href="query-dsl-minimum-should-match.html" title="minimum_should_match parameter"><code class="literal">minimum_should_match</code></a> 指定必须出现的低频词项的最小数量或百分比，例如：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -192,7 +199,7 @@ must be present, for instance:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/145.console"></div>
-<p>which is roughly equivalent to:</p>
+<p>这大致相当于：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -218,11 +225,11 @@ must be present, for instance:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/146.console"></div>
-<p>A different
-<a class="xref" href="query-dsl-minimum-should-match.html" title="minimum_should_match parameter"><code class="literal">minimum_should_match</code></a>
-can be applied for low and high frequency terms with the additional
-<code class="literal">low_freq</code> and <code class="literal">high_freq</code> parameters. Here is an example when providing
-additional parameters (note the change in structure):</p>
+<p>
+不同的 <a class="xref" href="query-dsl-minimum-should-match.html" title="minimum_should_match parameter"><code class="literal">minimum_should_match</code></a>参数值 可通过额外的 <code class="literal">low_freq</code> 和 <code class="literal">high_freq</code> 参数应用于低频和高频项。
+
+以下是提供额外参数时的一个示例（注意结构上的变化）：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -241,7 +248,7 @@ additional parameters (note the change in structure):</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/147.console"></div>
-<p>which is roughly equivalent to:</p>
+<p>这大致相当于：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -273,11 +280,11 @@ additional parameters (note the change in structure):</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/148.console"></div>
-<p>In this case it means the high frequency terms have only an impact on
-relevance when there are at least three of them. But the most
-interesting use of the
-<a class="xref" href="query-dsl-minimum-should-match.html" title="minimum_should_match parameter"><code class="literal">minimum_should_match</code></a>
-for high frequency terms is when there are only high frequency terms:</p>
+<p>
+在本例中，这意味着高频词项只有在至少有三个词项时才会对相关性产生影响。  
+
+但是，对于高频词项，<a class="xref" href="query-dsl-minimum-should-match.html" title="minimum_should_match parameter"><code class="literal">minimum_should_match</code></a> 最有趣的用途是在只有高频词项的情况下：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -296,7 +303,7 @@ for high frequency terms is when there are only high frequency terms:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/149.console"></div>
-<p>which is roughly equivalent to:</p>
+<p>这大致相当于：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -314,17 +321,19 @@ for high frequency terms is when there are only high frequency terms:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/150.console"></div>
-<p>The high frequency generated query is then slightly less restrictive
-than with an <code class="literal">AND</code>.</p>
-<p>The <code class="literal">common</code> terms query also supports <code class="literal">boost</code> and <code class="literal">analyzer</code> as
-parameters.</p>
+<p>
+因此，与使用 <code class="literal">AND</code>相比，高频（词项）生成的查询限制略少。
+</p>
+<p>
+<code class="literal">common</code> 词项查询还支持 <code class="literal">boost</code> 和 <code class="literal">analyzer</code>作为参数。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-multi-match-query.html">« Multi-match query</a>
+<a href="query-dsl-multi-match-query.html">« multi-match 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-query-string-query.html">Query string query »</a>
+<a href2="query-dsl-query-string-query.html">Query string query »</a>
 </span>
 </div>
 </div>

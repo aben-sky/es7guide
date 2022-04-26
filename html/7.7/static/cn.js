@@ -673,8 +673,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-simple-query-string-query.html",
-                        "text": "simple_query_string 查询",
-                        "title": "Simple query string"
+                        "text": "simple_query_string",
+                        "title": "simple_query_string"
                     }
                 ]
             },

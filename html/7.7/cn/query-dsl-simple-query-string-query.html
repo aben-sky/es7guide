@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Simple query string query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>simple_query_string查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,43 +32,44 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询 DSL</a></span>
 »
-<span class="breadcrumb-link"><a href="full-text-queries.html">Full text queries</a></span>
+<span class="breadcrumb-link"><a href="full-text-queries.html">全文查询</a></span>
 »
-<span class="breadcrumb-node">Simple query string query</span>
+<span class="breadcrumb-node">simple_query_string查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-query-string-query.html">« Query string query</a>
+<a href="query-dsl-query-string-query.html">« query_string查询</a>
 </span>
 <span class="next">
-<a href="geo-queries.html">Geo queries »</a>
+<a href2="geo-queries.html">Geo queries »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-simple-query-string-query"></a>Simple query string query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/simple-query-string-query.asciidoc">edit</a>
+<a id="query-dsl-simple-query-string-query"></a>simple_query_string 查询
 </h2>
 </div></div></div>
 
-<p>Returns documents based on a provided query string, using a parser with a
-limited but fault-tolerant syntax.</p>
-<p>This query uses a <a class="xref" href="query-dsl-simple-query-string-query.html#simple-query-string-syntax" title="Simple query string syntax">simple syntax</a> to parse and
-split the provided query string into terms based on special operators. The query
-then <a class="xref" href="analysis.html" title="Text analysis">analyzes</a> each term independently before returning matching
-documents.</p>
-<p>While its syntax is more limited than the
-<a class="xref" href="query-dsl-query-string-query.html" title="Query string query"><code class="literal">query_string</code> query</a>, the <code class="literal">simple_query_string</code>
-query does not return errors for invalid syntax. Instead, it ignores any invalid
-parts of the query string.</p>
+<p>使用一个语法有限但可以容错的解析器，根据提供的查询字符串返回文档。</p>
+<p>
+这个查询使用一个<a class="xref" href="query-dsl-simple-query-string-query.html#simple-query-string-syntax" title="Simple query string syntax">简单的语法</a>来解析给定的查询字符串，并根据特殊的操作符将其拆分成多个词项。
+
+然后，在返回匹配的文档之前，查询会单独<a class="xref" href="analysis.html" title="Text analysis">分析</a>每个词项。
+</p>
+<p>
+虽然它的语法比<a class="xref" href="query-dsl-query-string-query.html" title="Query string query"><code class="literal">query_string</code>查询</a>更有限，但<code class="literal">simple_query_string</code>查询不会因为无效语法而返回错误。
+
+相反，它会忽略查询字符串的任何无效部分。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="simple-query-string-query-ex-request"></a>Example request<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/simple-query-string-query.asciidoc">edit</a>
+<a id="simple-query-string-query-ex-request"></a>请求示例
 </h3>
 </div></div></div>
 <div class="pre_wrapper lang-console">
@@ -89,7 +90,7 @@ parts of the query string.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="simple-query-string-top-level-params"></a>Top-level parameters for <code class="literal">simple_query_string</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/simple-query-string-query.asciidoc">edit</a>
+<a id="simple-query-string-top-level-params"></a><code class="literal">simple_query_string</code>的顶级参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -100,7 +101,7 @@ parts of the query string.</p>
 </span>
 </dt>
 <dd>
-(Required, string) Query string you wish to parse and use for search. See <a class="xref" href="query-dsl-simple-query-string-query.html#simple-query-string-syntax" title="Simple query string syntax">Simple query string syntax</a>.
+(必需的, string) search. 要解析并用于搜索的查询字符串。参考 <a class="xref" href="query-dsl-simple-query-string-query.html#simple-query-string-syntax" title="Simple query string syntax">简单查询字符串语法</a>.
 </dd>
 <dt>
 <span class="term">
@@ -108,20 +109,27 @@ parts of the query string.</p>
 </span>
 </dt>
 <dd>
-<p>(Optional, array of strings) Array of fields you wish to search.</p>
-<p>This field accepts wildcard expressions. You also can boost relevance scores for
-matches to particular fields using a caret (<code class="literal">^</code>) notation. See
-<a class="xref" href="query-dsl-simple-query-string-query.html#simple-query-string-boost" title="Wildcards and per-field boosts in the fields parameter">Wildcards and per-field boosts in the <code class="literal">fields</code> parameter</a> for examples.</p>
-<p>Defaults to the <code class="literal">index.query.default_field</code> index setting, which has a default
-value of <code class="literal">*</code>. The <code class="literal">*</code> value extracts all fields that are eligible to term
-queries and filters the metadata fields. All extracted fields are then combined
-to build a query if no <code class="literal">prefix</code> is specified.</p>
+<p>(可选, array of strings) 要搜索的字段的数组。</p>
+<p>
+该字段接受通配符表达式。还可以使用脱字符号(<code class="literal">^</code>)来提高匹配时的特定字段的相关性分数。
+
+有关示例请参考 <a class="xref" href="query-dsl-simple-query-string-query.html#simple-query-string-boost" title="Wildcards and per-field boosts in the fields parameter"><code class="literal">fields</code>参数中的通配符和按字段增强</a>。
+</p>
+<p>
+默认为 <code class="literal">index.query.default_field</code> 索引设置，其默认值为 <code class="literal">*</code>。
+
+<code class="literal">*</code> 值提取符合条件查询的所有字段，并过滤元数据字段。
+
+如果没有指定<code class="literal">prefix</code>，那么将所有提取的字段组合起来构建一个查询。
+</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>There is a limit on the number of fields that can be queried at once.
-It is defined by the <code class="literal">indices.query.bool.max_clause_count</code>
-<a class="xref" href="search-settings.html" title="Search settings">search setting</a>, which defaults to <code class="literal">1024</code>.</p>
+<p>
+一次可以查询的字段数量是有限制的。
+
+它由<code class="literal">indices.query.bool.max_clause_count</code> <a class="xref" href="search-settings.html" title="Search settings">搜索设置</a>定义，默认为<code class="literal">1024</code>。
+</p>
 </div>
 </div>
 </dd>
@@ -131,18 +139,16 @@ It is defined by the <code class="literal">indices.query.bool.max_clause_count</
 </span>
 </dt>
 <dd>
-<p>(Optional, string) Default boolean logic used to interpret text in the query
-string if no operators are specified. Valid values are:</p>
+<p>(可选, string) 未指定运算符时，用于解释查询字符串中的文本的默认的布尔逻辑。有效值有：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<code class="literal">OR</code> (Default)
+<code class="literal">OR</code> (默认)
 </span>
 </dt>
 <dd>
-For example, a query string of <code class="literal">capital of Hungary</code> is interpreted as <code class="literal">capital
-OR of OR Hungary</code>.
+比如，查询字符串 <code class="literal">capital of Hungary</code> 被解释为 <code class="literal">capital OR of OR Hungary</code>。
 </dd>
 <dt>
 <span class="term">
@@ -150,8 +156,7 @@ OR of OR Hungary</code>.
 </span>
 </dt>
 <dd>
-For example, a query string of <code class="literal">capital of Hungary</code> is interpreted as <code class="literal">capital
-AND of AND Hungary</code>.
+比如，查询字符串 <code class="literal">capital of Hungary</code> 被解释为 <code class="literal">capital AND of AND Hungary</code>。
 </dd>
 </dl>
 </div>
@@ -165,10 +170,9 @@ AND of AND Hungary</code>.
 <span class="Admonishment Admonishment--change">
 [<span class="Admonishment-version u-mono u-strikethrough">6.0.0</span>]
 <span class="Admonishment-detail">
-Deprecated in 6.0.0. set <code class="literal">fields</code> to <code class="literal">*</code> instead
+在6.0.0中废弃。使用设置 <code class="literal">fields</code> 为 <code class="literal">*</code> 来代替
 </span>
-</span>(Optional, boolean) If <code class="literal">true</code>,
-search all searchable fields in the index’s field mapping.
+</span>(可选, boolean) 如果为<code class="literal">true</code>，则搜索索引字段映射中的所有可搜索字段。
 </dd>
 <dt>
 <span class="term">
@@ -176,8 +180,7 @@ search all searchable fields in the index’s field mapping.
 </span>
 </dt>
 <dd>
-(Optional, boolean) If <code class="literal">true</code>, the query attempts to analyze wildcard terms in
-the query string. Defaults to <code class="literal">false</code>.
+(可选, boolean) 如果为 <code class="literal">true</code>，查询将尝试分析查询字符串中的通配符。默认为 <code class="literal">false</code>。
 </dd>
 <dt>
 <span class="term">
@@ -185,10 +188,11 @@ the query string. Defaults to <code class="literal">false</code>.
 </span>
 </dt>
 <dd>
-(Optional, string) <a class="xref" href="analysis.html" title="Text analysis">Analyzer</a> used to convert text in the
-query string into tokens. Defaults to the
-<a class="xref" href="specify-analyzer.html#specify-index-time-analyzer" title="How Elasticsearch determines the index analyzer">index-time analyzer</a> mapped for the
-<code class="literal">default_field</code>. If no analyzer is mapped, the index’s default analyzer is used.
+(可选, string) 用于将查询字符串中的文本转换为词元(token)的<a class="xref" href="analysis.html" title="Text analysis">分析器</a> 。
+
+默认为字段 <code class="literal">default_field</code> 所映射的 <a class="xref" href="specify-analyzer.html#specify-index-time-analyzer" title="How Elasticsearch determines the index analyzer">索引时使用的分析器</a>。
+
+如果没有映射分析器，则使用索引的默认分析器。
 </dd>
 <dt>
 <span class="term">
@@ -196,9 +200,11 @@ query string into tokens. Defaults to the
 </span>
 </dt>
 <dd>
-(Optional, boolean) If <code class="literal">true</code>, <a class="xref" href="query-dsl-match-query-phrase.html" title="Match phrase query">match phrase</a>
-queries are automatically created for multi-term synonyms. Defaults to <code class="literal">true</code>.
-See <a class="xref" href="query-dsl-simple-query-string-query.html#simple-query-string-synonyms" title="Synonyms">Synonyms</a> for an example.
+(可选, boolean) 如果为 <code class="literal">true</code>，将自动为多词项同义词创建 <a class="xref" href="query-dsl-match-query-phrase.html" title="Match phrase query">匹配短语(match phrase)</a> 查询。
+
+默认为 <code class="literal">true</code>。
+
+有关示例请参考 <a class="xref" href="query-dsl-simple-query-string-query.html#simple-query-string-synonyms" title="Synonyms">同义词</a>。
 </dd>
 <dt>
 <span class="term">
@@ -206,9 +212,11 @@ See <a class="xref" href="query-dsl-simple-query-string-query.html#simple-query-
 </span>
 </dt>
 <dd>
-(Optional, string) List of enabled operators for the
-<a class="xref" href="query-dsl-simple-query-string-query.html#simple-query-string-syntax" title="Simple query string syntax">simple query string syntax</a>. Defaults to <code class="literal">ALL</code>
-(all operators). See <a class="xref" href="query-dsl-simple-query-string-query.html#supported-flags" title="Limit operators">Limit operators</a> for valid values.
+(可选, string) <a class="xref" href="query-dsl-simple-query-string-query.html#simple-query-string-syntax" title="Simple query string syntax">简单查询字符串语法</a>启用的运算符的列表。
+
+默认为 <code class="literal">ALL</code> (所有运算符)。
+
+有效值请参考 <a class="xref" href="query-dsl-simple-query-string-query.html#supported-flags" title="Limit operators">有限运算符</a>。
 </dd>
 <dt>
 <span class="term">
@@ -216,8 +224,7 @@ See <a class="xref" href="query-dsl-simple-query-string-query.html#simple-query-
 </span>
 </dt>
 <dd>
-(Optional, integer) Maximum number of terms to which the query expands for fuzzy
-matching. Defaults to <code class="literal">50</code>.
+(可选, integer) 模糊匹配查询能扩展到的最大词项数。默认为<code class="literal">50</code>。
 </dd>
 <dt>
 <span class="term">
@@ -225,8 +232,7 @@ matching. Defaults to <code class="literal">50</code>.
 </span>
 </dt>
 <dd>
-(Optional, integer) Number of beginning characters left unchanged for fuzzy
-matching. Defaults to <code class="literal">0</code>.
+(可选, integer) 模糊匹配的起始字符保持不变的字符数量。默认为 <code class="literal">0</code>。
 </dd>
 <dt>
 <span class="term">
@@ -234,8 +240,7 @@ matching. Defaults to <code class="literal">0</code>.
 </span>
 </dt>
 <dd>
-(Optional, boolean) If <code class="literal">true</code>, edits for fuzzy matching include
-transpositions of two adjacent characters (ab → ba). Defaults to <code class="literal">true</code>.
+(可选, boolean) 如果为<code class="literal">true</code>，模糊匹配的编辑可以包含两个相邻字符的交换(ab → ba)。默认为 <code class="literal">true</code>。
 </dd>
 <dt>
 <span class="term">
@@ -243,8 +248,8 @@ transpositions of two adjacent characters (ab → ba). Defaults to <code class="
 </span>
 </dt>
 <dd>
-(Optional, boolean) If <code class="literal">true</code>, format-based errors, such as providing a text
-value for a <a class="xref" href="number.html" title="Numeric datatypes">numeric</a> field, are ignored. Defaults to <code class="literal">false</code>.
+(可选, boolean) 如果为 <code class="literal">true</code>，则忽略基于格式的错误，例如为 <a class="xref" href="number.html" title="Numeric datatypes">numeric</a> 字段提供 text 值。
+默认为 <code class="literal">false</code>。
 </dd>
 <dt>
 <span class="term">
@@ -252,9 +257,9 @@ value for a <a class="xref" href="number.html" title="Numeric datatypes">numeric
 </span>
 </dt>
 <dd>
-(Optional, string) Minimum number of clauses that must match for a document to
-be returned. See the <a class="xref" href="query-dsl-minimum-should-match.html" title="minimum_should_match parameter"><code class="literal">minimum_should_match</code>
-parameter</a> for valid values and more information.
+(可选, string) 要返回的文档必须匹配的最小子句数。
+
+有效值及更多信息请参考 <a class="xref" href="query-dsl-minimum-should-match.html" title="minimum_should_match parameter"><code class="literal">minimum_should_match</code>参数</a>。
 </dd>
 <dt>
 <span class="term">
@@ -262,9 +267,8 @@ parameter</a> for valid values and more information.
 </span>
 </dt>
 <dd>
-<p>(Optional, string) Suffix appended to quoted text in the query string.</p>
-<p>You can use this suffix to use a different analysis method for exact matches.
-See <a class="xref" href="mixing-exact-search-with-stemming.html" title="Mixing exact search with stemming">Mixing exact search with stemming</a>.</p>
+<p>(可选, string) 查询字符串中附加到引用文本的后缀。</p>
+<p>可以使用此后缀来使用不同的分析方法进行精确匹配。参考 <a class="xref" href="mixing-exact-search-with-stemming.html" title="Mixing exact search with stemming">将精确搜索与词干混合</a>。</p>
 </dd>
 </dl>
 </div>
@@ -273,41 +277,41 @@ See <a class="xref" href="mixing-exact-search-with-stemming.html" title="Mixing 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="simple-query-string-query-notes"></a>Notes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/simple-query-string-query.asciidoc">edit</a>
+<a id="simple-query-string-query-notes"></a>注意
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="simple-query-string-syntax"></a>Simple query string syntax<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/simple-query-string-query.asciidoc">edit</a>
+<a id="simple-query-string-syntax"></a>简单查询字符串语法
 </h4>
 </div></div></div>
-<p>The <code class="literal">simple_query_string</code> query supports the following operators:</p>
+<p><code class="literal">simple_query_string</code>查询支持以下几个运算符：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">+</code> signifies AND operation
+<code class="literal">+</code> 表示 AND 操作
 </li>
 <li class="listitem">
-<code class="literal">|</code> signifies OR operation
+<code class="literal">|</code> 表示 OR 操作
 </li>
 <li class="listitem">
-<code class="literal">-</code> negates a single token
+<code class="literal">-</code> 取消单个词元
 </li>
 <li class="listitem">
-<code class="literal">"</code> wraps a number of tokens to signify a phrase for searching
+<code class="literal">"</code> 包裹一些词元以表示一个要搜索的短语
 </li>
 <li class="listitem">
-<code class="literal">*</code> at the end of a term signifies a prefix query
+<code class="literal">*</code> 在词项的末尾表示前缀查询
 </li>
 <li class="listitem">
-<code class="literal">(</code> and <code class="literal">)</code> signify precedence
+<code class="literal">(</code> 和 <code class="literal">)</code> 表示优先
 </li>
 <li class="listitem">
-<code class="literal">~N</code> after a word signifies edit distance (fuzziness)
+<code class="literal">~N</code> 在一个词的后面时表示编辑距离(模糊性)
 </li>
 <li class="listitem">
-<code class="literal">~N</code> after a phrase signifies slop amount
+<code class="literal">~N</code> 在一个短语后时表示溢出量
 </li>
 </ul>
 </div>
@@ -570,7 +574,7 @@ By default the parameter <code class="literal">auto_generate_synonyms_phrase_que
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-query-string-query.html">« Query string query</a>
+<a href="query-dsl-query-string-query.html">« query_string查询</a>
 </span>
 <span class="next">
 <a href="geo-queries.html">Geo queries »</a>

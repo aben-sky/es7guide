@@ -872,10 +872,11 @@ age:(+&gt;=10 +&lt;20)</pre>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/155.console"></div>
-<p>Simple wildcard can also be used to search "within" specific inner
-elements of the document. For example, if we have a <code class="literal">city</code> object with
-several fields (or inner object with fields) in it, we can automatically
-search on all "city" fields:</p>
+<p>
+简单通配符也可以用于“在”文档指定的内部元素中搜索。
+
+例如，如果有一个包含多个字段的 <code class="literal">city</code> 对象(或包含几个字段的内部对象)，则可以自动搜索所有"city"字段：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -888,9 +889,7 @@ search on all "city" fields:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/156.console"></div>
-<p>Another option is to provide the wildcard fields search in the query
-string itself (properly escaping the <code class="literal">*</code> sign), for example:
-<code class="literal">city.\*:something</code>:</p>
+<p>另一个选项是在查询字符串本身中提供通配符字段搜索(正确转义 <code class="literal">*</code> 标志)，例如：<code class="literal">city.\*:something</code>：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -905,13 +904,10 @@ string itself (properly escaping the <code class="literal">*</code> sign), for e
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Since <code class="literal">\</code> (backslash) is a special character in json strings, it needs to
-be escaped, hence the two backslashes in the above <code class="literal">query_string</code>.</p>
+<p>由于 <code class="literal">\</code> (反斜杠)是 json 字符串中的一个特殊字符，因此需要转义，因此在上面的 <code class="literal">query_string</code>中有两个反斜杠。</p>
 </div>
 </div>
-<p>The fields parameter can also include pattern based field names,
-allowing to automatically expand to the relevant fields (dynamically
-introduced fields included). For example:</p>
+<p>fields 参数还可以包括基于模式的字段名，允许自动展开到相关字段(包括动态引入的字段)。例如：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -929,11 +925,10 @@ introduced fields included). For example:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h5 class="title">
-<a id="query-string-multi-field-parms"></a>Additional parameters for multiple field searches<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/query-string-query.asciidoc">edit</a>
+<a id="query-string-multi-field-parms"></a>多字段搜索的附加参数
 </h5>
 </div></div></div>
-<p>When running the <code class="literal">query_string</code> query against multiple fields, the
-following additional parameters are supported.</p>
+<p>当对多个字段运行 <code class="literal">query_string</code> 查询时，支持下列附加参数。</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -942,19 +937,18 @@ following additional parameters are supported.</p>
 </span>
 </dt>
 <dd>
-<p>(Optional, string) Determines how the query matches and scores documents. Valid
-values are:</p>
+<p>(可选, string) 确定查询如何对文档进行匹配和评分。有效值有：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<code class="literal">best_fields</code> (Default)
+<code class="literal">best_fields</code> (默认)
 </span>
 </dt>
 <dd>
-Finds documents which match any field and uses the highest
-<a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores"><code class="literal">_score</code></a> from any matching field. See
-<a class="xref" href="query-dsl-multi-match-query.html#type-best-fields" title="best_fields"><code class="literal">best_fields</code></a>.
+查找与任何字段匹配的文档，并使用任何匹配字段中的最高的 <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores"><code class="literal">_score</code></a>。
+
+参见 <a class="xref" href="query-dsl-multi-match-query.html#type-best-fields" title="best_fields"><code class="literal">best_fields</code></a>。
 </dd>
 <dt>
 <span class="term">
@@ -962,8 +956,9 @@ Finds documents which match any field and uses the highest
 </span>
 </dt>
 <dd>
-Creates a <code class="literal">match_bool_prefix</code> query on each field and combines the <code class="literal">_score</code> from
-each field. See <a class="xref" href="query-dsl-multi-match-query.html#type-bool-prefix" title="bool_prefix"><code class="literal">bool_prefix</code></a>.
+在每个字段上创建 <code class="literal">match_bool_prefix</code> 查询，并组合每个字段的 <code class="literal">_score</code>。
+
+参见 <a class="xref" href="query-dsl-multi-match-query.html#type-bool-prefix" title="bool_prefix"><code class="literal">bool_prefix</code></a>。
 </dd>
 <dt>
 <span class="term">
@@ -971,8 +966,11 @@ each field. See <a class="xref" href="query-dsl-multi-match-query.html#type-bool
 </span>
 </dt>
 <dd>
-Treats fields with the same <code class="literal">analyzer</code> as though they were one big field. Looks
-for each word in <span class="strong strong"><strong>any</strong></span> field. See <a class="xref" href="query-dsl-multi-match-query.html#type-cross-fields" title="cross_fields"><code class="literal">cross_fields</code></a>.
+用相同的 <code class="literal">analyzer</code> 处理字段，就好像它们是一个大字段。
+
+在 <span class="strong strong"><strong>任何</strong></span> 字段中查找每个单词。
+
+参见 <a class="xref" href="query-dsl-multi-match-query.html#type-cross-fields" title="cross_fields"><code class="literal">cross_fields</code></a>。
 </dd>
 <dt>
 <span class="term">
@@ -980,8 +978,7 @@ for each word in <span class="strong strong"><strong>any</strong></span> field. 
 </span>
 </dt>
 <dd>
-Finds documents which match any field and combines the <code class="literal">_score</code> from each field.
-See <a class="xref" href="query-dsl-multi-match-query.html#type-most-fields" title="most_fields"><code class="literal">most_fields</code></a>.
+查找与任何字段匹配的文档，并合并每个字段的 <code class="literal">_score</code>。参见 <a class="xref" href="query-dsl-multi-match-query.html#type-most-fields" title="most_fields"><code class="literal">most_fields</code></a>。
 </dd>
 <dt>
 <span class="term">
@@ -989,8 +986,11 @@ See <a class="xref" href="query-dsl-multi-match-query.html#type-most-fields" tit
 </span>
 </dt>
 <dd>
-Runs a <code class="literal">match_phrase</code> query on each field and uses the <code class="literal">_score</code> from the best
-field. See <a class="xref" href="query-dsl-multi-match-query.html#type-phrase" title="phrase and phrase_prefix"><code class="literal">phrase</code> and <code class="literal">phrase_prefix</code></a>.
+See <a class="xref" href="query-dsl-multi-match-query.html#type-phrase" title="phrase and phrase_prefix"><code class="literal">phrase</code> and <code class="literal">phrase_prefix</code></a>.
+
+对每个字段运行 <code class="literal">match_phrase</code> 查询，并使用最佳字段(best field)的 <code class="literal">_score</code>。
+
+参见 <a class="xref" href="query-dsl-multi-match-query.html#type-phrase" title="phrase and phrase_prefix"><code class="literal">phrase</code> 和 <code class="literal">phrase_prefix</code></a>。
 </dd>
 <dt>
 <span class="term">
@@ -998,14 +998,13 @@ field. See <a class="xref" href="query-dsl-multi-match-query.html#type-phrase" t
 </span>
 </dt>
 <dd>
-Runs a <code class="literal">match_phrase_prefix</code> query on each field and uses the <code class="literal">_score</code> from the
-best field. See <a class="xref" href="query-dsl-multi-match-query.html#type-phrase" title="phrase and phrase_prefix"><code class="literal">phrase</code> and <code class="literal">phrase_prefix</code></a>.
+对每个字段运行 <code class="literal">match_phrase_prefix</code> 查询，并使用最佳字段(best field)的 <code class="literal">_score</code>。
+
+参见 <a class="xref" href="query-dsl-multi-match-query.html#type-phrase" title="phrase and phrase_prefix"><code class="literal">phrase</code> 和 <code class="literal">phrase_prefix</code></a>。
 </dd>
 </dl>
 </div>
-<p>NOTE:
-Additional top-level <code class="literal">multi_match</code> parameters may be available based on the
-<a class="xref" href="query-dsl-multi-match-query.html#multi-match-types" title="Types of multi_match query:"><code class="literal">type</code></a> value.</p>
+<p>注意：根据 <a class="xref" href="query-dsl-multi-match-query.html#multi-match-types" title="Types of multi_match query:"><code class="literal">type</code></a> 的值，<code class="literal">multi_match</code> 可能有额外的顶级参数。</p>
 </dd>
 </dl>
 </div>
@@ -1016,13 +1015,18 @@ Additional top-level <code class="literal">multi_match</code> parameters may be 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="query-string-synonyms"></a>Synonyms and the <code class="literal">query_string</code> query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/query-string-query.asciidoc">edit</a>
+<a id="query-string-synonyms"></a>同义词与<code class="literal">query_string</code>查询
 </h4>
 </div></div></div>
-<p>The <code class="literal">query_string</code> query supports multi-terms synonym expansion with the <a class="xref" href="analysis-synonym-graph-tokenfilter.html" title="Synonym graph token filter">synonym_graph</a> token filter. When this filter is used, the parser creates a phrase query for each multi-terms synonyms.
-For example, the following synonym: <code class="literal">ny, new york</code> would produce:</p>
+<p>
+<code class="literal">query_string</code> 查询支持 <a class="xref" href="analysis-synonym-graph-tokenfilter.html" title="Synonym graph token filter">synonym_graph</a> 词元过滤器(token filter)的多词项同义词扩展。
+
+当使用该过滤器时，解析器将为每个多词项同义词创建一个短语查询。
+
+例如，同义词 <code class="literal">ny, new york</code> 将产生：
+</p>
 <p><code class="literal">(ny OR ("new york"))</code></p>
-<p>It is also possible to match multi terms synonyms with conjunctions instead:</p>
+<p>还可以用"逻辑与"匹配多个词项同义词代替：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -1036,21 +1040,26 @@ For example, the following synonym: <code class="literal">ny, new york</code> wo
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/159.console"></div>
-<p>The example above creates a boolean query:</p>
+<p>上面的示例创建了一个bool查询：</p>
 <p><code class="literal">(ny OR (new AND york)) city</code></p>
-<p>that matches documents with the term <code class="literal">ny</code> or the conjunction <code class="literal">new AND york</code>.
-By default the parameter <code class="literal">auto_generate_synonyms_phrase_query</code> is set to <code class="literal">true</code>.</p>
+<p>
+它将文档与词项 <code class="literal">ny</code> 或 逻辑与<code class="literal">new AND york</code> 相匹配。
+
+默认情况下，参数 <code class="literal">auto_generate_synonyms_phrase_query</code> 设置为 <code class="literal">true</code>。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="query-string-min-should-match"></a>How <code class="literal">minimum_should_match</code> works<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/query-string-query.asciidoc">edit</a>
+<a id="query-string-min-should-match"></a><code class="literal">minimum_should_match</code> 是如何工作的
 </h4>
 </div></div></div>
-<p>The <code class="literal">query_string</code> splits the query around each operator to create a boolean
-query for the entire input. You can use <code class="literal">minimum_should_match</code> to control how
-many "should" clauses in the resulting query should match.</p>
+<p>
+<code class="literal">query_string</code> 根据每个运算符拆分查询，从而为整个输入创建布尔查询。
+
+可以使用<code class="literal">minimum_should_match</code>来控制结果查询中应该匹配的“should”子句的数量。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -1066,16 +1075,15 @@ many "should" clauses in the resulting query should match.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/160.console"></div>
-<p>The example above creates a boolean query:</p>
+<p>上面的例子创建了一个bool查询：</p>
 <p><code class="literal">(title:this title:that title:thus)~2</code></p>
-<p>that matches documents with at least two of the terms <code class="literal">this</code>, <code class="literal">that</code> or <code class="literal">thus</code>
-in the single field <code class="literal">title</code>.</p>
+<p>它将返回单个字段<code class="literal">title</code>与至少<code class="literal">this</code>、<code class="literal">that</code> 或 <code class="literal">thus</code> 中的2个词项匹配的文档。</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="query-string-min-should-match-multi"></a>How <code class="literal">minimum_should_match</code> works for multiple fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/query-string-query.asciidoc">edit</a>
+<a id="query-string-min-should-match-multi"></a><code class="literal">minimum_should_match</code> 如何处理多个字段的匹配
 </h4>
 </div></div></div>
 <div class="pre_wrapper lang-console">
@@ -1094,10 +1102,13 @@ in the single field <code class="literal">title</code>.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/161.console"></div>
-<p>The example above creates a boolean query:</p>
+<p>上面的例子创建了一个bool查询：</p>
 <p><code class="literal">((content:this content:that content:thus) | (title:this title:that title:thus))</code></p>
-<p>that matches documents with the disjunction max over the fields <code class="literal">title</code> and
-<code class="literal">content</code>. Here the <code class="literal">minimum_should_match</code> parameter can’t be applied.</p>
+<p>
+它使用"逻辑或"最大限度的通过<code class="literal">title</code>和<code class="literal">content</code>字段去匹配文档。
+
+这里无法应用<code class="literal">minimum_should_match</code>参数。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -1114,21 +1125,19 @@ in the single field <code class="literal">title</code>.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/162.console"></div>
-<p>Adding explicit operators forces each term to be considered as a separate clause.</p>
-<p>The example above creates a boolean query:</p>
+<p>添加显式运算符(<code class="literal">OR</code>)强制每个词项被视为一个单独的子句。</p>
+<p>上面的例子创建了一个bool查询：</p>
 <p><code class="literal">((content:this | title:this) (content:that | title:that) (content:thus | title:thus))~2</code></p>
-<p>that matches documents with at least two of the three "should" clauses, each of
-them made of the disjunction max over the fields for each term.</p>
+<p>这使文档至少与三个“should”子句中的两个匹配，每个子句都是由每个词项的字段上的最大"逻辑或"构成的。</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="query-string-min-should-match-cross"></a>How <code class="literal">minimum_should_match</code> works for cross-field searches<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/query-string-query.asciidoc">edit</a>
+<a id="query-string-min-should-match-cross"></a><code class="literal">minimum_should_match</code> 如何处理跨字段搜索
 </h4>
 </div></div></div>
-<p>A <code class="literal">cross_fields</code> value in the <code class="literal">type</code> field indicates fields with the same
-analyzer are grouped together when the input is analyzed.</p>
+<p>字段<code class="literal">type</code>的值为<code class="literal">cross_fields</code>时，对在分析输入时使用了相同分析器的字段进行分组。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -1146,9 +1155,9 @@ analyzer are grouped together when the input is analyzed.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/163.console"></div>
-<p>The example above creates a boolean query:</p>
+<p>上面的例子创建了一个bool查询：</p>
 <p><code class="literal">(blended(terms:[field2:this, field1:this]) blended(terms:[field2:that, field1:that]) blended(terms:[field2:thus, field1:thus]))~2</code></p>
-<p>that matches documents with at least two of the three per-term blended queries.</p>
+<p>这将匹配与三个词项混合(blended)查询中的至少两个匹配的文档。</p>
 </div>
 
 </div>
@@ -1156,18 +1165,17 @@ analyzer are grouped together when the input is analyzed.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_notes"></a>Notes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/query-string-query.asciidoc">edit</a>
+<a id="_notes"></a>注意
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_allow_expensive_queries"></a>Allow expensive queries<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/query-string-query.asciidoc">edit</a>
+<a id="_allow_expensive_queries"></a>允许高成本的查询
 </h4>
 </div></div></div>
-<p>Query string query can be internally be transformed to a <a class="xref" href="query-dsl-prefix-query.html" title="Prefix query"><code class="literal">prefix query</code></a> which means
-that if the prefix queries are disabled as explained <a class="xref" href="query-dsl-prefix-query.html#prefix-query-allow-expensive-queries" title="Allow expensive queries">here</a> the query will not be
-executed and an exception will be thrown.</p>
+<p>
+查询字符串查询可以在内部转换为<a class="xref" href="query-dsl-prefix-query.html" title="Prefix query"><code class="literal">prefix查询</code></a>，这意味着如果如<a class="xref" href="query-dsl-prefix-query.html#prefix-query-allow-expensive-queries" title="Allow expensive queries">这里</a>所解释的那样禁用前缀查询，则查询字符串查询将不会被执行并抛出异常。</p>
 </div>
 
 </div>

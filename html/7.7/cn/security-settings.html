@@ -162,7 +162,7 @@
 </span>
 </dt>
 <dd>
-与匿名用户关联的角色。必填。
+与匿名用户关联的角色。必需的。
 </dd>
 <dt>
 <span class="term">
@@ -535,7 +535,7 @@
 </dt>
 <dd>
 <p>
-<code class="literal">ldap[s]://&lt;server&gt;:&lt;port&gt;</code> 格式的一个或多个 LDAP url地址。必填。
+<code class="literal">ldap[s]://&lt;server&gt;:&lt;port&gt;</code> 格式的一个或多个 LDAP url地址。必需的。
 </p>
 <p>
 如果要提供多个 url 地址，使用 YAML 数组 (<code class="literal">["ldap://server1:636", "ldap://server2:636"]</code>) 或者逗号分隔的字符串 (<code class="literal">"ldap://server1:636, ldap://server2:636"</code>)。
@@ -1194,7 +1194,7 @@ LDAP 搜索的超时时间。
 </dt>
 <dd>
 Active Directory 的 域名(domain name)。 
-如果 <code class="literal">url</code> 和 <code class="literal">user_search.base_dn</code> 设置未指定，集群可以从该设置中获取这些值。必填。
+如果 <code class="literal">url</code> 和 <code class="literal">user_search.base_dn</code> 设置未指定，集群可以从该设置中获取这些值。必需的。
 </dd>
 <dt>
 <span class="term">
@@ -2537,7 +2537,7 @@ IdP 时钟和 Elasticsearch 节点时钟之间可以容忍的最大偏差量。
 <dd>
 指定 Kerberos 密钥表文件的路径，该文件包含此 Elasticsearch 节点使用的服务主体。
 它必须是 Elasticsearch 配置目录中的一个位置，并且该文件必须具有读取权限。
-必填。
+必需的。
 </dd>
 <dt>
 <span class="term">

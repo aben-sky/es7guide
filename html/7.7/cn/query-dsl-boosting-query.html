@@ -104,7 +104,7 @@
 </span>
 </dt>
 <dd>
-(必填, query 对象) 你想运行的查询。 任何返回的文档都必须与该查询匹配。
+(必需的, query 对象) 你想运行的查询。 任何返回的文档都必须与该查询匹配。
 </dd>
 <dt>
 <span class="term">
@@ -113,7 +113,7 @@
 </dt>
 <dd>
 <p>
-(必填, query 对象) 用于降低匹配文档的 <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">相关性评分</a> 的查询。
+(必需的, query 对象) 用于降低匹配文档的 <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">相关性评分</a> 的查询。
 </p>
 <p>
 如果返回的文档匹配 <code class="literal">positive</code> 查询和该查询，则 <code class="literal">boosting</code> 查询像下面这样计算该文档的最终 <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">相关性评分</a> :
@@ -135,7 +135,7 @@
 </span>
 </dt>
 <dd>
-(必填, float) 一个介于 <code class="literal">0</code> 和 <code class="literal">1.0</code> 之间的浮点数，用于降低与 <code class="literal">negative</code> 查询匹配的文档的 <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">相关性评分</a>。
+(必需的, float) 一个介于 <code class="literal">0</code> 和 <code class="literal">1.0</code> 之间的浮点数，用于降低与 <code class="literal">negative</code> 查询匹配的文档的 <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">相关性评分</a>。
 </dd>
 </dl>
 </div>

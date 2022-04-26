@@ -125,3 +125,5 @@ query-dsl-match-bool-prefix-query.html
 query-dsl-match-query-phrase.html
 query-dsl-match-query-phrase-prefix.html
 query-dsl-multi-match-query.html
+query-dsl-common-terms-query.html
+query-dsl-query-string-query.html

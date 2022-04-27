@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Geo-bounding box query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>geo_bounding_box查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,31 +32,30 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询 DSL</a></span>
 »
-<span class="breadcrumb-link"><a href="geo-queries.html">Geo queries</a></span>
+<span class="breadcrumb-link"><a href="geo-queries.html">地理位置(geo)查询</a></span>
 »
-<span class="breadcrumb-node">Geo-bounding box query</span>
+<span class="breadcrumb-node">geo_bounding_box查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="geo-queries.html">« Geo queries</a>
+<a href="geo-queries.html">« 地理位置(geo)查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-geo-distance-query.html">Geo-distance query »</a>
+<a href2="query-dsl-geo-distance-query.html">Geo-distance query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-geo-bounding-box-query"></a>Geo-bounding box query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-bounding-box-query.asciidoc">edit</a>
+<a id="query-dsl-geo-bounding-box-query"></a>地理位置边界框(geo_bounding_box)查询
 </h2>
 </div></div></div>
 
-<p>A query allowing to filter hits based on a point location using a
-bounding box. Assuming the following indexed document:</p>
+<p>允许使用一个边界框基于点位置过滤命中的查询。假设以下索引的文档:</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /my_locations
 {
@@ -84,8 +83,7 @@ PUT /my_locations/_doc/1
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/170.console"></div>
-<p>Then the following simple query can be executed with a
-<code class="literal">geo_bounding_box</code> filter:</p>
+<p>然后，可以使用<code class="literal">geo_bounding_box</code>过滤器执行下面这个简单的查询：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_locations/_search
 {
@@ -114,7 +112,7 @@ PUT /my_locations/_doc/1
 </div>
 <div class="console_widget" data-snippet="snippets/171.console"></div>
 <h4>
-<a id="_query_options"></a>Query Options<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-bounding-box-query.asciidoc">edit</a>
+<a id="_query_options"></a>查询选型
 </h4>
 <div class="informaltable">
 <table border="1" cellpadding="4px">
@@ -124,37 +122,38 @@ PUT /my_locations/_doc/1
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Option</th>
-<th align="left" valign="top">Description</th>
+<th align="left" valign="top">选项</th>
+<th align="left" valign="top">描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">_name</code></p></td>
-<td align="left" valign="top"><p>Optional name field to identify the filter</p></td>
+<td align="left" valign="top"><p>可选，用以识别过滤器的字段名称</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">validation_method</code></p></td>
-<td align="left" valign="top"><p>Set to <code class="literal">IGNORE_MALFORMED</code> to
-accept geo points with invalid latitude or longitude, set to
-<code class="literal">COERCE</code> to also try to infer correct latitude or longitude. (default is <code class="literal">STRICT</code>).</p></td>
+<td align="left" valign="top"><p>设置为<code class="literal">IGNORE_MALFORMED</code>以接受无效的纬度或经度值的 geo point，设置为<code class="literal">COERCE</code>以尝试推断正确的纬度或经度。(默认为 <code class="literal">STRICT</code>)。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">type</code></p></td>
-<td align="left" valign="top"><p>Set to one of <code class="literal">indexed</code> or <code class="literal">memory</code> to defines whether this filter will
-be executed in memory or indexed. See <a class="xref" href="query-dsl-geo-bounding-box-query.html#geo-bbox-type" title="Type">Type</a> below for further details
-Default is <code class="literal">memory</code>.</p></td>
+<td align="left" valign="top"><p>
+设置为<code class="literal">indexed</code>或<code class="literal">memory</code>之一，以定义该过滤器是在索引中执行还是在内存中执行。
+
+更多细节见下面的<a class="xref" href="query-dsl-geo-bounding-box-query.html#geo-bbox-type" title="Type">类型</a>。
+
+默认为 <code class="literal">memory</code>（即：在内存中执行）。
+</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <h4>
-<a id="query-dsl-geo-bounding-box-query-accepted-formats"></a>Accepted Formats<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-bounding-box-query.asciidoc">edit</a>
+<a id="query-dsl-geo-bounding-box-query-accepted-formats"></a>接受的格式
 </h4>
-<p>In much the same way the geo_point type can accept different
-representations of the geo point, the filter can accept it as well:</p>
+<p>与 geo_point 类型可以接受地理坐标点的不同表示方式非常相似，过滤器也可以接受它：</p>
 <h5>
-<a id="_lat_lon_as_properties"></a>Lat Lon As Properties<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-bounding-box-query.asciidoc">edit</a>
+<a id="_lat_lon_as_properties"></a>作为 lat lon 属性
 </h5>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_locations/_search
@@ -184,10 +183,9 @@ representations of the geo point, the filter can accept it as well:</p>
 </div>
 <div class="console_widget" data-snippet="snippets/172.console"></div>
 <h5>
-<a id="_lat_lon_as_array"></a>Lat Lon As Array<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-bounding-box-query.asciidoc">edit</a>
+<a id="_lat_lon_as_array"></a>作为 lat lon 数组
 </h5>
-<p>Format in <code class="literal">[lon, lat]</code>, note, the order of lon/lat here in order to
-conform with <a href="http://geojson.org/" class="ulink" target="_top">GeoJSON</a>.</p>
+<p>格式为<code class="literal">[lon, lat]</code>，注意，此处 lon/lat 的顺序是为了符合<a href="http://geojson.org/" class="ulink" target="_top">GeoJSON</a>。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_locations/_search
 {
@@ -210,9 +208,9 @@ conform with <a href="http://geojson.org/" class="ulink" target="_top">GeoJSON</
 </div>
 <div class="console_widget" data-snippet="snippets/173.console"></div>
 <h5>
-<a id="_lat_lon_as_string"></a>Lat Lon As String<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-bounding-box-query.asciidoc">edit</a>
+<a id="_lat_lon_as_string"></a>作为 lat lon 字符串
 </h5>
-<p>Format in <code class="literal">lat,lon</code>.</p>
+<p>格式为<code class="literal">lat,lon</code>。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_locations/_search
 {
@@ -235,7 +233,7 @@ conform with <a href="http://geojson.org/" class="ulink" target="_top">GeoJSON</
 </div>
 <div class="console_widget" data-snippet="snippets/174.console"></div>
 <h5>
-<a id="_bounding_box_as_well_known_text_wkt"></a>Bounding Box as Well-Known Text (WKT)<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-bounding-box-query.asciidoc">edit</a>
+<a id="_bounding_box_as_well_known_text_wkt"></a>作为知名文本(Well-Known Text, WKT)的边界框
 </h5>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_locations/_search
@@ -258,7 +256,7 @@ conform with <a href="http://geojson.org/" class="ulink" target="_top">GeoJSON</
 </div>
 <div class="console_widget" data-snippet="snippets/175.console"></div>
 <h5>
-<a id="_geohash"></a>Geohash<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-bounding-box-query.asciidoc">edit</a>
+<a id="_geohash"></a>geohash
 </h5>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_locations/_search
@@ -281,15 +279,12 @@ conform with <a href="http://geojson.org/" class="ulink" target="_top">GeoJSON</
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/176.console"></div>
-<p>When geohashes are used to specify the bounding the edges of the
-bounding box, the geohashes are treated as rectangles. The bounding
-box is defined in such a way that its top left corresponds to the top
-left corner of the geohash specified in the <code class="literal">top_left</code> parameter and
-its bottom right is defined as the bottom right of the geohash
-specified in the <code class="literal">bottom_right</code> parameter.</p>
-<p>In order to specify a bounding box that would match entire area of a
-geohash the geohash can be specified in both <code class="literal">top_left</code> and
-<code class="literal">bottom_right</code> parameters:</p>
+<p>
+当 geohash 用于指定边界框的边界时，geohash 被视为矩形。
+
+边界框的定义方式是：其左上角对应于<code class="literal">top_left</code>参数中指定的 geohash 的左上角，其右下角定义为<code class="literal">bottom_right</code>参数中指定的 geohash 的右下角。
+</p>
+<p>为了指定与 geohash 的整个区域相匹配的边界框，可以在<code class="literal">top_left</code>和<code class="literal">bottom_right</code>参数中指定 geohash：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_locations/_search
 {
@@ -304,18 +299,19 @@ geohash the geohash can be specified in both <code class="literal">top_left</cod
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/177.console"></div>
-<p>In this example, the geohash <code class="literal">dr</code> will produce the bounding box
-query with the top left corner at <code class="literal">45.0,-78.75</code> and the bottom right
-corner at <code class="literal">39.375,-67.5</code>.</p>
+<p>
+在本例中，geohash <code class="literal">dr</code>将生成边界框查询，其左上角为<code class="literal">45.0,-78.75</code>，右下角为<code class="literal">39.375,-67.5</code>。<span class="remark">(为什么呢????)</span>
+</p>
 <h4>
-<a id="_vertices"></a>Vertices<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-bounding-box-query.asciidoc">edit</a>
+<a id="_vertices"></a>顶点(Vertices)
 </h4>
-<p>The vertices of the bounding box can either be set by <code class="literal">top_left</code> and
-<code class="literal">bottom_right</code> or by <code class="literal">top_right</code> and <code class="literal">bottom_left</code> parameters. More
-over the names <code class="literal">topLeft</code>, <code class="literal">bottomRight</code>, <code class="literal">topRight</code> and <code class="literal">bottomLeft</code>
-are supported. Instead of setting the values pairwise, one can use
-the simple names <code class="literal">top</code>, <code class="literal">left</code>, <code class="literal">bottom</code> and <code class="literal">right</code> to set the
-values separately.</p>
+<p>
+边界框的顶点可以由<code class="literal">top_left</code>和<code class="literal">bottom_right</code> 或 <code class="literal">top_right</code>和<code class="literal">bottom_left</code> 参数设置。
+
+除了这种下划线连接的名称格式，还支持小驼峰格式：<code class="literal">topLeft</code>、<code class="literal">bottomRight</code>、<code class="literal">topRight</code> 和 <code class="literal">bottomLeft</code>。
+
+也可以使用简单的名称<code class="literal">top</code>、<code class="literal">left</code>、<code class="literal">bottom</code>和<code class="literal">right</code>来分别设置值，而不是成对设置值。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_locations/_search
 {
@@ -340,25 +336,29 @@ values separately.</p>
 </div>
 <div class="console_widget" data-snippet="snippets/178.console"></div>
 <h4>
-<a id="_geo_point_type"></a>geo_point Type<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-bounding-box-query.asciidoc">edit</a>
+<a id="_geo_point_type"></a>geo_point类型
 </h4>
-<p>The filter <span class="strong strong"><strong>requires</strong></span> the <code class="literal">geo_point</code> type to be set on the relevant
-field.</p>
+<p>过滤器<span class="strong strong"><strong>要求</strong></span>在相关字段中设置<code class="literal">geo_point</code>类型。</p>
 <h4>
-<a id="_multi_location_per_document"></a>Multi Location Per Document<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-bounding-box-query.asciidoc">edit</a>
+<a id="_multi_location_per_document"></a>一个文档包含多个位置
 </h4>
-<p>The filter can work with multiple locations / points per document. Once
-a single location / point matches the filter, the document will be
-included in the filter</p>
+<p>
+过滤器可以处理每个文档的多个位置/坐标点。
+
+一旦单个位置/坐标点与过滤器匹配，该文档就将包含在过滤器中。
+</p>
 <h4>
-<a id="geo-bbox-type"></a>Type<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-bounding-box-query.asciidoc">edit</a>
+<a id="geo-bbox-type"></a>类型
 </h4>
-<p>The type of the bounding box execution by default is set to <code class="literal">memory</code>,
-which means in memory checks if the doc falls within the bounding box
-range. In some cases, an <code class="literal">indexed</code> option will perform faster (but note
-that the <code class="literal">geo_point</code> type must have lat and lon indexed in this case).
-Note, when using the indexed option, multi locations per document field
-are not supported. Here is an example:</p>
+<p>
+默认情况下，边界框执行的类型设置为<code class="literal">memory</code>，这意味着在内存中检查文档是否落在边界框范围内。
+
+在某些情况下，<code class="literal">indexed</code>选项的执行速度会更快(但请注意，在这种情况下，<code class="literal">geo_point</code>类型必须有 lat 和 lon 索引)。
+
+请注意，使用<code class="literal">indexed</code>选项时，不支持文档的每个字段有多个位置。
+
+这里有一个例子：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_locations/_search
 {
@@ -388,32 +388,36 @@ are not supported. Here is an example:</p>
 </div>
 <div class="console_widget" data-snippet="snippets/179.console"></div>
 <h4>
-<a id="_ignore_unmapped"></a>Ignore Unmapped<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-bounding-box-query.asciidoc">edit</a>
+<a id="_ignore_unmapped"></a>忽略未映射的字段 (ignore unmapped)
 </h4>
-<p>When set to <code class="literal">true</code> the <code class="literal">ignore_unmapped</code> option will ignore an unmapped field
-and will not match any documents for this query. This can be useful when
-querying multiple indexes which might have different mappings. When set to
-<code class="literal">false</code> (the default value) the query will throw an exception if the field
-is not mapped.</p>
+<p>
+如果<code class="literal">ignore_unmapped</code>选项设置为<code class="literal">true</code>，将忽略未映射的字段，并且不会匹配此查询的任何文档。
+
+这在查询可能具有不同映射的多个索引时非常有用。
+
+当设置为<code class="literal">false</code>(默认值)时，如果字段未映射，查询将抛出异常。
+</p>
 <h4>
-<a id="_notes_on_precision"></a>Notes on Precision<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-bounding-box-query.asciidoc">edit</a>
+<a id="_notes_on_precision"></a>关于精度的提示
 </h4>
-<p>Geopoints have limited precision and are always rounded down during index time.
-During the query time, upper boundaries of the bounding boxes are rounded down,
-while lower boundaries are rounded up. As a result, the points along on the
-lower bounds (bottom and left edges of the bounding box) might not make it into
-the bounding box due to the rounding error. At the same time points alongside
-the upper bounds (top and right edges) might be selected by the query even if
-they are located slightly outside the edge. The rounding error should be less
-than 4.20e-8 degrees on the latitude and less than 8.39e-8 degrees on the
-longitude, which translates to less than 1cm error even at the equator.</p>
+<p>
+地理坐标点的精度有限，并且在索引时总是向下舍入。
+
+在查询期间，边界框的上边界被向下舍入，而下边界被向上舍入。
+
+因此，由于舍入误差，下边界(边界框的底部和左侧边缘)上的点可能不会进入边界框。
+
+同时，沿着上边界(顶部和右侧边缘)的点可能被查询选中，即使它们位于边缘的稍外侧。
+
+舍入误差在纬度上应小于4.20e-8度，在经度上应小于8.39e-8度，这意味着即使在赤道上误差也小于1厘米。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="geo-queries.html">« Geo queries</a>
+<a href="geo-queries.html">« 地理位置(geo)查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-geo-distance-query.html">Geo-distance query »</a>
+<a href2="query-dsl-geo-distance-query.html">Geo-distance query »</a>
 </span>
 </div>
 </div>

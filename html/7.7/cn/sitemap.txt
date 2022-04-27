@@ -128,3 +128,4 @@ https://www.pipiho.com/es/7.7/cn/query-dsl-multi-match-query.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-common-terms-query.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-query-string-query.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-simple-query-string-query.html
+https://www.pipiho.com/es/7.7/cn/geo-queries.html

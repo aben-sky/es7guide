@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Geo queries | ElasticSearch 7.7 权威指南中文版</title>
+	<title>地理位置(geo)查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,75 +32,71 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询 DSL</a></span>
 »
-<span class="breadcrumb-node">Geo queries</span>
+<span class="breadcrumb-node">地理位置(geo)查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-simple-query-string-query.html">« Simple query string query</a>
+<a href="query-dsl-simple-query-string-query.html">« simple_query_string查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-geo-bounding-box-query.html">Geo-bounding box query »</a>
+<a href="query-dsl-geo-bounding-box-query.html">geo_bounding_box查询 »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="geo-queries"></a>Geo queries<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-queries.asciidoc">edit</a>
+<a id="geo-queries"></a>地理位置(geo)查询
 </h2>
 </div></div></div>
-<p>Elasticsearch supports two types of geo data:
-<a class="xref" href="geo-point.html" title="Geo-point datatype"><code class="literal">geo_point</code></a> fields which support lat/lon pairs, and
-<a class="xref" href="geo-shape.html" title="Geo-shape datatype"><code class="literal">geo_shape</code></a> fields, which support points,
-lines, circles, polygons, multi-polygons, etc.</p>
-<p>The queries in this group are:</p>
+<p>
+Elasticsearch 支持两种geo数据类型：支持纬度(lat)/经度(lon)的字段<a class="xref" href="geo-point.html" title="Geo-point datatype"><code class="literal">geo_point</code></a>，以及支持点(points)、线(lines)、圆(circles)、多边形(polygons), 多个多边形(multi-polygons)等的字段 <a class="xref" href="geo-shape.html" title="Geo-shape datatype"><code class="literal">geo_shape</code></a>。
+</p>
+<p>该组中的查询包括：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-geo-bounding-box-query.html" title="Geo-bounding box query"><code class="literal">geo_bounding_box</code></a> query
+<a class="xref" href="query-dsl-geo-bounding-box-query.html" title="Geo-bounding box query"><code class="literal">geo_bounding_box</code></a> 查询
 </span>
 </dt>
 <dd>
-Finds documents with geo-points that fall into the specified rectangle.
+查找 geo-points 落在指定矩形内的文档。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-geo-distance-query.html" title="Geo-distance query"><code class="literal">geo_distance</code></a> query
+<a class="xref" href="query-dsl-geo-distance-query.html" title="Geo-distance query"><code class="literal">geo_distance</code></a> 查询
 </span>
 </dt>
 <dd>
-Finds documents with geo-points within the specified distance of a central point.
+查找 geo-points 在中心点指定距离内的文档。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-geo-polygon-query.html" title="Geo-polygon query"><code class="literal">geo_polygon</code></a> query
+<a class="xref" href="query-dsl-geo-polygon-query.html" title="Geo-polygon query"><code class="literal">geo_polygon</code></a> 查询
 </span>
 </dt>
 <dd>
-Find documents with geo-points within the specified polygon.
+查找 geo-points 在指定的多边形内的文档。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-geo-shape-query.html" title="Geo-shape query"><code class="literal">geo_shape</code></a> query
+<a class="xref" href="query-dsl-geo-shape-query.html" title="Geo-shape query"><code class="literal">geo_shape</code></a> 查询
 </span>
 </dt>
 <dd>
 <p>
-Finds documents with:
+查找有以下类型的文档：
 </p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">geo-shapes</code> which either intersect, are contained by, or do not intersect
-with the specified geo-shape
-</li>
+<code class="literal">geo-shapes</code>: 与指定的地理形状相交、被包含或不相交</li>
 <li class="listitem">
-<code class="literal">geo-points</code> which intersect the specified
-geo-shape
+<code class="literal">geo-points</code>: 与指定的地理形状相交
 </li>
 </ul>
 </div>
@@ -114,10 +110,10 @@ geo-shape
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-simple-query-string-query.html">« Simple query string query</a>
+<a href="query-dsl-simple-query-string-query.html">« simple_query_string查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-geo-bounding-box-query.html">Geo-bounding box query »</a>
+<a href="query-dsl-geo-bounding-box-query.html">geo_bounding_box查询 »</a>
 </span>
 </div>
 </div>

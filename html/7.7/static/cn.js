@@ -680,13 +680,13 @@ var esNavLinks = [
             },
             {
                 "url": "geo-queries.html",
-                "text": "Geo查询",
-                "title": "Geo queries",
+                "text": "地理位置(geo)查询",
+                "title": "地理位置(geo)查询",
                 "sub": [
                     {
                         "url": "query-dsl-geo-bounding-box-query.html",
-                        "text": "Geo-边界框(bounding box)",
-                        "title": "Geo-bounding box"
+                        "text": "geo_bounding_box",
+                        "title": "geo_bounding_box"
                     },
                     {
                         "url": "query-dsl-geo-distance-query.html",

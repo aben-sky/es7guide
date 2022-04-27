@@ -311,14 +311,12 @@
 <code class="literal">~N</code> 在一个词的后面时表示编辑距离(模糊性)
 </li>
 <li class="listitem">
-<code class="literal">~N</code> 在一个短语后时表示溢出量
+<code class="literal">~N</code> 在一个短语后时表示溢出(slop)量
 </li>
 </ul>
 </div>
-<p>To use one of these characters literally, escape it with a preceding backslash
-(<code class="literal">\</code>).</p>
-<p>The behavior of these operators may differ depending on the <code class="literal">default_operator</code>
-value. For example:</p>
+<p>要按字面意思使用其中一个字符，请在前面加一个反斜杠(<code class="literal">\</code>)进行转义。</p>
+<p>根据<code class="literal">default_operator</code>值的不同，这些运算符的行为可能会有所不同。例如:</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -331,24 +329,27 @@ value. For example:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/165.console"></div>
-<p>This search is intended to only return documents containing <code class="literal">foo</code> or <code class="literal">bar</code> that
-also do <span class="strong strong"><strong>not</strong></span> contain <code class="literal">baz</code>. However because of a <code class="literal">default_operator</code> of <code class="literal">OR</code>,
-this search actually returns documents that contain <code class="literal">foo</code> or <code class="literal">bar</code> and any
-documents that don’t contain <code class="literal">baz</code>. To return documents as intended, change the
-query string to <code class="literal">foo bar +-baz</code>.</p>
+<p>
+该搜索请求旨在仅返回包含<code class="literal">foo</code>或<code class="literal">bar</code>但<span class="strong strong"><strong>不</strong></span>包含<code class="literal">baz</code>的文档。
+
+然而，由于<code class="literal">default_operator</code>的值为<code class="literal">OR</code>，该搜索实际上返回包含<code class="literal">foo</code>或<code class="literal">bar</code>的文档以及不包含<code class="literal">baz</code>的任何文档。
+
+要按预期返回文档，请将查询字符串改为 <code class="literal">foo bar +-baz</code>。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="supported-flags"></a>Limit operators<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/simple-query-string-query.asciidoc">edit</a>
+<a id="supported-flags"></a>限制查询中可以使用的运算符
 </h4>
 </div></div></div>
-<p>You can use the <code class="literal">flags</code> parameter to limit the supported operators for the
-simple query string syntax.</p>
-<p>To explicitly enable only specific operators, use a <code class="literal">|</code> separator. For example,
-a <code class="literal">flags</code> value of <code class="literal">OR|AND|PREFIX</code> disables all operators except <code class="literal">OR</code>, <code class="literal">AND</code>,
-and <code class="literal">PREFIX</code>.</p>
+<p>可以使用<code class="literal">flags</code>参数来限制简单查询字符串语法支持的运算符。</p>
+<p>
+若要显式地仅启用特定的操作符，请使用<code class="literal">|</code>分隔符。  
+
+例如，<code class="literal">flags</code>值为<code class="literal">OR|AND|PREFIX</code>时会禁用除<code class="literal">OR</code>、<code class="literal">AND</code> 和 <code class="literal">PREFIX</code>之外的所有运算符。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -364,19 +365,19 @@ and <code class="literal">PREFIX</code>.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h5 class="title">
-<a id="supported-flags-values"></a>Valid values<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/simple-query-string-query.asciidoc">edit</a>
+<a id="supported-flags-values"></a>有效值
 </h5>
 </div></div></div>
-<p>The available flags are:</p>
+<p>flags 的有效值有：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<code class="literal">ALL</code> (Default)
+<code class="literal">ALL</code> (默认)
 </span>
 </dt>
 <dd>
-Enables all optional operators.
+启用所有可选的运算符。
 </dd>
 <dt>
 <span class="term">
@@ -384,7 +385,7 @@ Enables all optional operators.
 </span>
 </dt>
 <dd>
-Enables the <code class="literal">+</code> AND operator.
+启用 <code class="literal">+</code> (AND，和/与) 运算符。
 </dd>
 <dt>
 <span class="term">
@@ -392,7 +393,7 @@ Enables the <code class="literal">+</code> AND operator.
 </span>
 </dt>
 <dd>
-Enables <code class="literal">\</code> as an escape character.
+启用<code class="literal">\</code>作为转义字符。
 </dd>
 <dt>
 <span class="term">
@@ -400,8 +401,7 @@ Enables <code class="literal">\</code> as an escape character.
 </span>
 </dt>
 <dd>
-Enables the <code class="literal">~N</code> operator after a word, where <code class="literal">N</code> is an integer denoting the
-allowed edit distance for matching. See <a class="xref" href="common-options.html#fuzziness" title="Fuzziness">Fuzziness</a>.
+启用单词后的<code class="literal">~N</code>运算符，其中<code class="literal">N</code>是表示匹配时允许的编辑距离的整数。参考<a class="xref" href="common-options.html#fuzziness" title="Fuzziness">模糊性</a>。
 </dd>
 <dt>
 <span class="term">
@@ -409,8 +409,7 @@ allowed edit distance for matching. See <a class="xref" href="common-options.htm
 </span>
 </dt>
 <dd>
-Enables the <code class="literal">~N</code> operator, after a phrase where <code class="literal">N</code> is the maximum number of
-positions allowed between matching tokens. Synonymous to <code class="literal">SLOP</code>.
+启用短语后的<code class="literal">~N</code>运算符，其中<code class="literal">N</code>是匹配词元之间允许的最大位置数。与<code class="literal">SLOP</code>同义。
 </dd>
 <dt>
 <span class="term">
@@ -418,7 +417,7 @@ positions allowed between matching tokens. Synonymous to <code class="literal">S
 </span>
 </dt>
 <dd>
-Disables all operators.
+禁用所有运算符。
 </dd>
 <dt>
 <span class="term">
@@ -426,7 +425,7 @@ Disables all operators.
 </span>
 </dt>
 <dd>
-Enables the <code class="literal">-</code> NOT operator.
+启用 <code class="literal">-</code> (NOT，非) 运算符。
 </dd>
 <dt>
 <span class="term">
@@ -434,7 +433,7 @@ Enables the <code class="literal">-</code> NOT operator.
 </span>
 </dt>
 <dd>
-Enables the <code class="literal">\|</code> OR operator.
+启用 <code class="literal">\|</code> (OR，或)运算符。
 </dd>
 <dt>
 <span class="term">
@@ -442,7 +441,7 @@ Enables the <code class="literal">\|</code> OR operator.
 </span>
 </dt>
 <dd>
-Enables the <code class="literal">"</code> quotes operator used to search for phrases.
+启用用于搜索短语的<code class="literal">"</code>引号运算符。
 </dd>
 <dt>
 <span class="term">
@@ -450,7 +449,7 @@ Enables the <code class="literal">"</code> quotes operator used to search for ph
 </span>
 </dt>
 <dd>
-Enables the <code class="literal">(</code> and <code class="literal">)</code> operators to control operator precedence.
+允许 <code class="literal">(</code> 和 <code class="literal">)</code> 运算符控制运算符优先级。
 </dd>
 <dt>
 <span class="term">
@@ -458,7 +457,7 @@ Enables the <code class="literal">(</code> and <code class="literal">)</code> op
 </span>
 </dt>
 <dd>
-Enables the <code class="literal">*</code> prefix operator.
+启用 <code class="literal">*</code> 前缀运算符。
 </dd>
 <dt>
 <span class="term">
@@ -466,8 +465,7 @@ Enables the <code class="literal">*</code> prefix operator.
 </span>
 </dt>
 <dd>
-Enables the <code class="literal">~N</code> operator, after a phrase where <code class="literal">N</code> is maximum number of
-positions allowed between matching tokens. Synonymous to <code class="literal">NEAR</code>.
+启用短语后的<code class="literal">~N</code>运算符，其中<code class="literal">N</code>是匹配词元之间允许的最大位置数。与<code class="literal">NEAR</code>同义。
 </dd>
 <dt>
 <span class="term">
@@ -475,7 +473,7 @@ positions allowed between matching tokens. Synonymous to <code class="literal">N
 </span>
 </dt>
 <dd>
-Enables whitespace as split characters.
+启用空格作为分割字符。
 </dd>
 </dl>
 </div>
@@ -486,10 +484,10 @@ Enables whitespace as split characters.
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="simple-query-string-boost"></a>Wildcards and per-field boosts in the <code class="literal">fields</code> parameter<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/simple-query-string-query.asciidoc">edit</a>
+<a id="simple-query-string-boost"></a><code class="literal">fields</code>参数中的通配符和按字段增强
 </h4>
 </div></div></div>
-<p>Fields can be specified with wildcards, eg:</p>
+<p>可以用通配符指定字段，例如：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -509,12 +507,12 @@ Enables whitespace as split characters.
 <p><a href="#CO48-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Query the <code class="literal">title</code>, <code class="literal">first_name</code> and <code class="literal">last_name</code> fields.</p>
+<p>查询<code class="literal">title</code>、<code class="literal">first_name</code> 和 <code class="literal">last_name</code> 字段。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>Individual fields can be boosted with the caret (<code class="literal">^</code>) notation:</p>
+<p>单个字段可以用脱字符号(<code class="literal">^</code>)来增强：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -534,7 +532,7 @@ Enables whitespace as split characters.
 <p><a href="#CO49-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">subject</code> field is three times as important as the <code class="literal">message</code> field.</p>
+<p>字段<code class="literal">subject</code>的重要性是<code class="literal">message</code>的 3 倍。</p>
 </td>
 </tr>
 </table>
@@ -544,13 +542,18 @@ Enables whitespace as split characters.
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="simple-query-string-synonyms"></a>Synonyms<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/simple-query-string-query.asciidoc">edit</a>
+<a id="simple-query-string-synonyms"></a>同义词
 </h4>
 </div></div></div>
-<p>The <code class="literal">simple_query_string</code> query supports multi-terms synonym expansion with the <a class="xref" href="analysis-synonym-graph-tokenfilter.html" title="Synonym graph token filter">synonym_graph</a> token filter. When this filter is used, the parser creates a phrase query for each multi-terms synonyms.
-For example, the following synonym: <code class="literal">"ny, new york" would produce:</code></p>
+<p>
+<code class="literal">simple_query_string</code>查询通过<a class="xref" href="analysis-synonym-graph-tokenfilter.html" title="Synonym graph token filter">synonym_graph</a>词元过滤器(token filter)支持多词项同义词扩展。
+
+使用这个过滤器时，解析器为每个多词项同义词创建一个短语查询。
+
+例如，下面的同义词 <code class="literal">"ny, new york"</code>将产生产生：
+</p>
 <p><code class="literal">(ny OR ("new york"))</code></p>
-<p>It is also possible to match multi terms synonyms with conjunctions instead:</p>
+<p>也可以用逻辑与来匹配多词项同义词：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -563,10 +566,12 @@ For example, the following synonym: <code class="literal">"ny, new york" would p
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/169.console"></div>
-<p>The example above creates a boolean query:</p>
+<p>上面的例子创建了一个 bool 查询：</p>
 <p><code class="literal">(ny OR (new AND york)) city)</code></p>
-<p>that matches documents with the term <code class="literal">ny</code> or the conjunction <code class="literal">new AND york</code>.
-By default the parameter <code class="literal">auto_generate_synonyms_phrase_query</code> is set to <code class="literal">true</code>.</p>
+<p>
+它匹配带有词项 <code class="literal">ny</code> 或 逻辑与 <code class="literal">new AND york</code> 的文档。
+默认情况下，参数 <code class="literal">auto_generate_synonyms_phrase_query</code> 设置为 <code class="literal">true</code>。
+</p>
 </div>
 
 </div>
@@ -577,7 +582,7 @@ By default the parameter <code class="literal">auto_generate_synonyms_phrase_que
 <a href="query-dsl-query-string-query.html">« query_string查询</a>
 </span>
 <span class="next">
-<a href="geo-queries.html">Geo queries »</a>
+<a href2="geo-queries.html">Geo queries »</a>
 </span>
 </div>
 </div>

@@ -131,3 +131,4 @@ https://www.pipiho.com/es/7.7/cn/query-dsl-simple-query-string-query.html
 https://www.pipiho.com/es/7.7/cn/geo-queries.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-geo-bounding-box-query.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-geo-distance-query.html
+https://www.pipiho.com/es/7.7/cn/query-dsl-geo-polygon-query.html

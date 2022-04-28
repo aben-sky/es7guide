@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Geo-polygon query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>地理位置多边形(geo-polygon)查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,31 +32,30 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询 DSL</a></span>
 »
-<span class="breadcrumb-link"><a href="geo-queries.html">Geo queries</a></span>
+<span class="breadcrumb-link"><a href="geo-queries.html">地理位置(geo)查询</a></span>
 »
-<span class="breadcrumb-node">Geo-polygon query</span>
+<span class="breadcrumb-node">地理位置多边形(geo-polygon)查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-geo-distance-query.html">« Geo-distance query</a>
+<a href="query-dsl-geo-distance-query.html">« 地理位置距离(geo_distance)查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-geo-shape-query.html">Geo-shape query »</a>
+<a href2="query-dsl-geo-shape-query.html">Geo-shape query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-geo-polygon-query"></a>Geo-polygon query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-polygon-query.asciidoc">edit</a>
+<a id="query-dsl-geo-polygon-query"></a>地理位置多边形(geo-polygon)查询
 </h2>
 </div></div></div>
 
-<p>A query returning hits that only fall within a polygon of
-points. Here is an example:</p>
+<p>返回地理位置坐标点仅落在多边形内的文档。这里有一个例子：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -82,7 +81,7 @@ points. Here is an example:</p>
 </div>
 <div class="console_widget" data-snippet="snippets/186.console"></div>
 <h4>
-<a id="_query_options_2"></a>Query Options<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-polygon-query.asciidoc">edit</a>
+<a id="_query_options_2"></a>查询选项
 </h4>
 <div class="informaltable">
 <table border="1" cellpadding="4px">
@@ -92,33 +91,29 @@ points. Here is an example:</p>
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Option</th>
-<th align="left" valign="top">Description</th>
+<th align="left" valign="top">选项</th>
+<th align="left" valign="top">描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">_name</code></p></td>
-<td align="left" valign="top"><p>Optional name field to identify the filter</p></td>
+<td align="left" valign="top"><p>可选，用来标识过滤器名称的字段</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">validation_method</code></p></td>
-<td align="left" valign="top"><p>Set to <code class="literal">IGNORE_MALFORMED</code> to accept geo points with
-invalid latitude or longitude, <code class="literal">COERCE</code> to try and infer correct latitude
-or longitude, or <code class="literal">STRICT</code> (default is <code class="literal">STRICT</code>).</p></td>
+<td align="left" valign="top"><p>设置为<code class="literal">IGNORE_MALFORMED</code>以接受无效的纬度或经度值的 geo point，设置为<code class="literal">COERCE</code>以尝试推断正确的纬度或经度。(默认为 <code class="literal">STRICT</code>)。</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <h4>
-<a id="_allowed_formats"></a>Allowed Formats<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-polygon-query.asciidoc">edit</a>
+<a id="_allowed_formats"></a>允许的格式
 </h4>
 <h5>
-<a id="_lat_long_as_array"></a>Lat Long as Array<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-polygon-query.asciidoc">edit</a>
+<a id="_lat_long_as_array"></a>作为 lat lon 数组
 </h5>
-<p>Format as <code class="literal">[lon, lat]</code></p>
-<p>Note: the order of lon/lat here must
-conform with <a href="http://geojson.org/" class="ulink" target="_top">GeoJSON</a>.</p>
+<p>格式为<code class="literal">[lon, lat]</code>。注意，此处 lon/lat 的顺序是为了符合<a href="http://geojson.org/" class="ulink" target="_top">GeoJSON</a>。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -144,9 +139,9 @@ conform with <a href="http://geojson.org/" class="ulink" target="_top">GeoJSON</
 </div>
 <div class="console_widget" data-snippet="snippets/187.console"></div>
 <h5>
-<a id="_lat_lon_as_string_3"></a>Lat Lon as String<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-polygon-query.asciidoc">edit</a>
+<a id="_lat_lon_as_string_3"></a>作为 lat lon 字符串
 </h5>
-<p>Format in <code class="literal">lat,lon</code>.</p>
+<p>格式为<code class="literal">lat,lon</code>。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -172,7 +167,7 @@ conform with <a href="http://geojson.org/" class="ulink" target="_top">GeoJSON</
 </div>
 <div class="console_widget" data-snippet="snippets/188.console"></div>
 <h5>
-<a id="_geohash_3"></a>Geohash<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-polygon-query.asciidoc">edit</a>
+<a id="_geohash_3"></a>geohash
 </h5>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
@@ -199,25 +194,26 @@ conform with <a href="http://geojson.org/" class="ulink" target="_top">GeoJSON</
 </div>
 <div class="console_widget" data-snippet="snippets/189.console"></div>
 <h4>
-<a id="_geo_point_type_3"></a>geo_point Type<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-polygon-query.asciidoc">edit</a>
+<a id="_geo_point_type_3"></a>geo_point 类型
 </h4>
-<p>The query <span class="strong strong"><strong>requires</strong></span> the <a class="xref" href="geo-point.html" title="Geo-point datatype"><code class="literal">geo_point</code></a> type to be set on the
-relevant field.</p>
+<p>查询<span class="strong strong"><strong>要求</strong></span>在相关字段中设置<a class="xref" href="geo-point.html" title="Geo-point datatype"><code class="literal">geo_point</code></a>类型。</p>
 <h4>
-<a id="_ignore_unmapped_3"></a>Ignore Unmapped<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-polygon-query.asciidoc">edit</a>
+<a id="_ignore_unmapped_3"></a>忽略未映射的字段 (ignore unmapped)
 </h4>
-<p>When set to <code class="literal">true</code> the <code class="literal">ignore_unmapped</code> option will ignore an unmapped field
-and will not match any documents for this query. This can be useful when
-querying multiple indexes which might have different mappings. When set to
-<code class="literal">false</code> (the default value) the query will throw an exception if the field
-is not mapped.</p>
+<p>
+如果<code class="literal">ignore_unmapped</code>选项设置为<code class="literal">true</code>，将忽略未映射的字段，并且此查询不会匹配任何文档。
+
+这在查询可能具有不同映射的多个索引时非常有用。
+
+当设置为<code class="literal">false</code>(默认值)时，如果字段未映射，查询将抛出异常。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-geo-distance-query.html">« Geo-distance query</a>
+<a href="query-dsl-geo-distance-query.html">« 地理位置距离(geo_distance)查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-geo-shape-query.html">Geo-shape query »</a>
+<a href2="query-dsl-geo-shape-query.html">Geo-shape query »</a>
 </span>
 </div>
 </div>

@@ -695,8 +695,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-geo-polygon-query.html",
-                        "text": "Geo-多边形(polygon)",
-                        "title": "Geo-polygon"
+                        "text": "地理位置多边形(geo-polygon)查询",
+                        "title": "地理位置多边形(geo-polygon)查询"
                     },
                     {
                         "url": "query-dsl-geo-shape-query.html",

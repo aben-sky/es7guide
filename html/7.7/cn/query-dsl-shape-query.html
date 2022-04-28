@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Shape query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>形状(shape)查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,46 +32,40 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询 DSL</a></span>
 »
-<span class="breadcrumb-link"><a href="shape-queries.html">Shape queries</a></span>
+<span class="breadcrumb-link"><a href="shape-queries.html">形状查询</a></span>
 »
-<span class="breadcrumb-node">Shape query</span>
+<span class="breadcrumb-node">形状(shape)查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="shape-queries.html">« Shape queries</a>
+<a href="shape-queries.html">« 形状查询</a>
 </span>
 <span class="next">
-<a href="joining-queries.html">Joining queries »</a>
+<a href2="joining-queries.html">Joining queries »</a>
 </span>
 </div>
 <div class="section xpack">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-shape-query"></a>Shape query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/shape-query.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
+<a id="query-dsl-shape-query"></a>形状(shape)查询<a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
 </h2>
 </div></div></div>
 
-<p>Queries documents that contain fields indexed using the <code class="literal">shape</code> type.</p>
-<p>Requires the <a class="xref" href="shape.html" title="Shape datatype"><code class="literal">shape</code> Mapping</a>.</p>
-<p>The query supports two ways of defining the target shape, either by
-providing a whole shape definition, or by referencing the name, or id, of a shape
-pre-indexed in another index. Both formats are defined below with
-examples.</p>
+<p>查询包含使用<code class="literal">shape</code>类型索引的字段的文档。</p>
+<p>要求<a class="xref" href="shape.html" title="Shape datatype"><code class="literal">shape</code>映射</a>。</p>
+<p>该查询支持两种定义目标形状的方法，要么提供完整的形状定义，要么引用在另一个索引中预索引的形状的名称或id。这两种格式都在下面用例子进行了定义。</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_inline_shape_definition_2"></a>Inline Shape Definition<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/shape-query.asciidoc">edit</a>
+<a id="_inline_shape_definition_2"></a>内联形状定义
 </h3>
 </div></div></div>
-<p>Similar to the <code class="literal">geo_shape</code> query, the <code class="literal">shape</code> query uses
-<a href="http://www.geojson.org" class="ulink" target="_top">GeoJSON</a> or
-<a href="https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry" class="ulink" target="_top">Well Known Text</a>
-(WKT) to represent shapes.</p>
-<p>Given the following index:</p>
+<p>与<code class="literal">geo_shape</code>查询类似，<code class="literal">shape</code>查询使用<a href="http://www.geojson.org" class="ulink" target="_top">GeoJSON</a>或<a href="https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry" class="ulink" target="_top">众所周知的文本</a>(WKT)来表示形状。</p>
+<p>我们来建立一个名为example的索引，新增并索引一个id为1的文档</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /example
 {
@@ -84,6 +78,7 @@ examples.</p>
     }
 }
 
+# 新增并索引一个id为1的文档
 PUT /example/_doc/1?refresh=wait_for
 {
     "name": "Lucky Landing",
@@ -94,8 +89,7 @@ PUT /example/_doc/1?refresh=wait_for
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/197.console"></div>
-<p>The following query will find the point using the Elasticsearch’s
-<code class="literal">envelope</code> GeoJSON extension:</p>
+<p>下面这个查询将使用Elasticsearch的<code class="literal">envelope</code>GeoJSON扩展查找坐标点：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /example/_search
 {
@@ -118,37 +112,38 @@ PUT /example/_doc/1?refresh=wait_for
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_pre_indexed_shape_2"></a>Pre-Indexed Shape<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/shape-query.asciidoc">edit</a>
+<a id="_pre_indexed_shape_2"></a>预索引的形状(pre-indexed shape)
 </h3>
 </div></div></div>
-<p>The Query also supports using a shape which has already been indexed in
-another index. This is particularly useful for when
-you have a pre-defined list of shapes which are useful to your
-application and you want to reference this using a logical name (for
-example <em>New Zealand</em>) rather than having to provide their coordinates
-each time. In this situation it is only necessary to provide:</p>
+<p>
+该查询还支持使用已经在另一个索引中索引了的形状。
+
+当你有一个预定义的形状列表，并且想使用逻辑名称(例如 <em>New Zealand</em>)引用该列表，而不是每次都必须提供坐标时，特别有用。
+
+在这种情况下，只需提供：
+</p>
+
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">id</code> - The ID of the document that containing the pre-indexed shape.
+<code class="literal">id</code> - 预索引形状的文档ID。
 </li>
 <li class="listitem">
-<code class="literal">index</code> - Name of the index where the pre-indexed shape is. Defaults
-to <em>shapes</em>.
+<code class="literal">index</code> - 预索引形状所在的索引的名称。默认为<em>shapes</em>。
 </li>
 <li class="listitem">
-<code class="literal">path</code> - The field specified as path containing the pre-indexed shape.
-Defaults to <em>shape</em>.
+<code class="literal">path</code> - 指定包含预索引形状的路径的字段。默认为<em>shape</em>。
 </li>
 <li class="listitem">
-<code class="literal">routing</code> - The routing of the shape document if required.
+<code class="literal">routing</code> - 形状文档的路由(如果需要)。
 </li>
 </ul>
 </div>
-<p>The following is an example of using the Filter with a pre-indexed
-shape:</p>
+<p>下面是一个将过滤用于预索引形状的示例。我们先建立一个名为shapes的索引，然后索引一个文档进去，文档ID为footprint。这里还用到了最上面建立的example索引。</p>
 <div class="pre_wrapper lang-console">
-<pre class="programlisting prettyprint lang-console">PUT /shapes
+<pre class="programlisting prettyprint lang-console">
+# 建索引
+PUT /shapes
 {
     "mappings": {
         "properties": {
@@ -159,6 +154,7 @@ shape:</p>
     }
 }
 
+# 添加并索引一个文档,id为footprint
 PUT /shapes/_doc/footprint
 {
     "geometry": {
@@ -167,6 +163,7 @@ PUT /shapes/_doc/footprint
     }
 }
 
+# 搜索
 GET /example/_search
 {
     "query": {
@@ -188,47 +185,45 @@ GET /example/_search
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_spatial_relations_2"></a>Spatial Relations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/shape-query.asciidoc">edit</a>
+<a id="_spatial_relations_2"></a>空间关系 (spatial relations)
 </h3>
 </div></div></div>
-<p>The following is a complete list of spatial relation operators available:</p>
+<p>以下是可用空间关系运算符的完整列表：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">INTERSECTS</code> - (default) Return all documents whose <code class="literal">shape</code> field
-intersects the query geometry.
+<code class="literal">INTERSECTS</code> - (默认) 返回<code class="literal">shape</code>字段与查询几何形状 相交 的所有文档。
 </li>
 <li class="listitem">
-<code class="literal">DISJOINT</code> - Return all documents whose <code class="literal">shape</code> field
-has nothing in common with the query geometry.
+<code class="literal">DISJOINT</code> - 返回<code class="literal">shape</code>字段与查询几何形状 完全不同 的所有文档。
 </li>
 <li class="listitem">
-<code class="literal">WITHIN</code> - Return all documents whose <code class="literal">shape</code> field
-is within the query geometry.
+<code class="literal">WITHIN</code> - 返回<code class="literal">shape</code>字段 包含于 查询几何形状中的所有文档。
 </li>
 <li class="listitem">
-<code class="literal">CONTAINS</code> - Return all documents whose <code class="literal">shape</code> field
-contains the query geometry.
+<code class="literal">CONTAINS</code> - 返回<code class="literal">shape</code>字段 包含 查询几何形状中的所有文档。
 </li>
 </ul>
 </div>
 <h4>
-<a id="_ignore_unmapped_5"></a>Ignore Unmapped<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/shape-query.asciidoc">edit</a>
+<a id="_ignore_unmapped_5"></a>忽略未映射的字段 (ignore unmapped)
 </h4>
-<p>When set to <code class="literal">true</code> the <code class="literal">ignore_unmapped</code> option will ignore an unmapped field
-and will not match any documents for this query. This can be useful when
-querying multiple indexes which might have different mappings. When set to
-<code class="literal">false</code> (the default value) the query will throw an exception if the field
-is not mapped.</p>
+<p>
+如果<code class="literal">ignore_unmapped</code>选项设置为<code class="literal">true</code>，将忽略未映射的字段，并且此查询不会匹配任何文档。
+
+这在查询可能具有不同映射的多个索引时非常有用。
+
+当设置为<code class="literal">false</code>(默认值)时，如果字段未映射，查询将抛出异常。
+</p>
 </div>
 
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="shape-queries.html">« Shape queries</a>
+<a href="shape-queries.html">« 形状查询</a>
 </span>
 <span class="next">
-<a href="joining-queries.html">Joining queries »</a>
+<a href2="joining-queries.html">Joining queries »</a>
 </span>
 </div>
 </div>

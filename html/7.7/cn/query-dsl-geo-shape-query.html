@@ -45,7 +45,7 @@
 <a href="query-dsl-geo-polygon-query.html">« 地理位置多边形(geo-polygon)查询</a>
 </span>
 <span class="next">
-<a href2="shape-queries.html">Shape queries »</a>
+<a href="shape-queries.html">形状查询 »</a>
 </span>
 </div>
 <div class="section">
@@ -225,7 +225,7 @@ PUT /example_points/_doc/1?refresh
 <code class="literal">index</code> - 预索引形状所在的索引的名称。默认为<em>shapes</em>。
 </li>
 <li class="listitem">
-<code class="literal">path</code> - 指定为包含预索引形状的路径的字段。默认为<em>shape</em>。
+<code class="literal">path</code> - 指定包含预索引形状的路径的字段。默认为<em>shape</em>。
 </li>
 <li class="listitem">
 <code class="literal">routing</code> - 形状文档的路由(如果需要)。
@@ -297,7 +297,6 @@ GET /example/_search
 </li>
 <li class="listitem">
 <code class="literal">WITHIN</code> - 返回<code class="literal">geo_shape</code>字段 包含于 查询几何形状中的所有文档。
-geometry.
 </li>
 <li class="listitem">
 <code class="literal">CONTAINS</code> - 返回<code class="literal">geo_shape</code>字段 包含 查询几何形状中的所有文档。
@@ -398,7 +397,7 @@ PUT /test/_doc/1
 <a href="query-dsl-geo-polygon-query.html">« 地理位置多边形(geo-polygon)查询</a>
 </span>
 <span class="next">
-<a href2="shape-queries.html">Shape queries »</a>
+<a href="shape-queries.html">形状查询 »</a>
 </span>
 </div>
 </div>

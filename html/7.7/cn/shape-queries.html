@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Shape queries | ElasticSearch 7.7 权威指南中文版</title>
+	<title>形状查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,42 +32,41 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询 DSL</a></span>
 »
-<span class="breadcrumb-node">Shape queries</span>
+<span class="breadcrumb-node">形状查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-geo-shape-query.html">« Geo-shape query</a>
+<a href="query-dsl-geo-shape-query.html">« 地理位置形状(geo_shape)查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-shape-query.html">Shape query »</a>
+<a href="query-dsl-shape-query.html">形状(shape)查询 »</a>
 </span>
 </div>
 <div class="chapter xpack">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="shape-queries"></a>Shape queries<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/shape-queries.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
+<a id="shape-queries"></a>形状查询<a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
 </h2>
 </div></div></div>
-<p>Like <a class="xref" href="geo-shape.html" title="Geo-shape datatype"><code class="literal">geo_shape</code></a> Elasticsearch supports the ability to index
-arbitrary two dimension (non Geospatial) geometries making it possible to
-map out virtual worlds, sporting venues, theme parks, and CAD diagrams. The
-<a class="xref" href="shape.html" title="Shape datatype"><code class="literal">shape</code></a> field type supports points, lines, polygons, multi-polygons,
-envelope, etc.</p>
-<p>The queries in this group are:</p>
+<p>
+与<a class="xref" href="geo-shape.html" title="Geo-shape datatype"><code class="literal">geo_shape</code></a>一样，Elasticsearch支持对任意二维(非地理空间)几何图形进行索引，从而可以绘制出虚拟世界、体育场馆、主题公园和CAD图。  
+
+<a class="xref" href="shape.html" title="Shape datatype"><code class="literal">shape</code></a>字段类型支持点(point)、线(line)、多边形(polygon)、多重多边形( multi-polygon)、包络线(envelope)等。
+</p>
+<p>该组中的查询有：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-shape-query.html" title="Shape query"><code class="literal">shape</code></a> query
+<a class="xref" href="query-dsl-shape-query.html" title="Shape query"><code class="literal">shape</code></a> 查询
 </span>
 </dt>
 <dd>
-Finds documents with shapes that either intersect, are within, or do not
-intersect a specified shape.
+查找形状与指定形状相交、位于指定形状内或不相交的文档。
 </dd>
 </dl>
 </div>
@@ -75,10 +74,10 @@ intersect a specified shape.
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-geo-shape-query.html">« Geo-shape query</a>
+<a href="query-dsl-geo-shape-query.html">« 地理位置形状(geo_shape)查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-shape-query.html">Shape query »</a>
+<a href="query-dsl-shape-query.html">形状(shape)查询 »</a>
 </span>
 </div>
 </div>

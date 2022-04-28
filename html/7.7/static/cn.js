@@ -695,8 +695,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-geo-polygon-query.html",
-                        "text": "地理位置多边形(geo-polygon)查询",
-                        "title": "地理位置多边形(geo-polygon)查询"
+                        "text": "地理位置多边形(geo_polygon)查询",
+                        "title": "地理位置多边形(geo_polygon)查询"
                     },
                     {
                         "url": "query-dsl-geo-shape-query.html",
@@ -707,13 +707,13 @@ var esNavLinks = [
             },
             {
                 "url": "shape-queries.html",
-                "text": "形状(shape)查询",
-                "title": "Shape queries",
+                "text": "形状查询",
+                "title": "形状查询",
                 "sub": [
                     {
                         "url": "query-dsl-shape-query.html",
-                        "text": "形状(shape)",
-                        "title": "Shape"
+                        "text": "形状(shape)查询",
+                        "title": "形状(shape)查询"
                     }
                 ]
             },

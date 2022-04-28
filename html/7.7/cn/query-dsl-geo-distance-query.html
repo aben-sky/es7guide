@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Geo-distance query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>地理位置距离(geo_distance)查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,32 +32,30 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询 DSL</a></span>
 »
-<span class="breadcrumb-link"><a href="geo-queries.html">Geo queries</a></span>
+<span class="breadcrumb-link"><a href="geo-queries.html">地理位置(geo)查询</a></span>
 »
-<span class="breadcrumb-node">Geo-distance query</span>
+<span class="breadcrumb-node">地理位置距离(geo_distance)查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-geo-bounding-box-query.html">« Geo-bounding box query</a>
+<a href="query-dsl-geo-bounding-box-query.html">« 地理位置边界框(geo_bounding_box)查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-geo-polygon-query.html">Geo-polygon query »</a>
+<a href2="query-dsl-geo-polygon-query.html">Geo-polygon query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-geo-distance-query"></a>Geo-distance query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-distance-query.asciidoc">edit</a>
+<a id="query-dsl-geo-distance-query"></a>地理位置距离(geo_distance)查询
 </h2>
 </div></div></div>
 
-<p>Filters documents that include only hits that exists within a specific
-distance from a geo point. Assuming the following mapping and indexed
-document:</p>
+<p>过滤仅包含与一个地理位置坐标在指定距离内匹配的文档。假设有以下映射和索引文档：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /my_locations
 {
@@ -85,8 +83,7 @@ PUT /my_locations/_doc/1
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/180.console"></div>
-<p>Then the following simple query can be executed with a <code class="literal">geo_distance</code>
-filter:</p>
+<p>然后，可以使用<code class="literal">geo_distance</code>过滤器执行下面这个简单的查询：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /my_locations/_search
 {
@@ -110,12 +107,11 @@ filter:</p>
 </div>
 <div class="console_widget" data-snippet="snippets/181.console"></div>
 <h4>
-<a id="_accepted_formats"></a>Accepted Formats<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-distance-query.asciidoc">edit</a>
+<a id="_accepted_formats"></a>接受的格式
 </h4>
-<p>In much the same way the <code class="literal">geo_point</code> type can accept different
-representations of the geo point, the filter can accept it as well:</p>
+<p>与<code class="literal">geo_point</code>类型可以接受地理坐标点的不同表示方式非常相似，过滤器也可以接受它：</p>
 <h5>
-<a id="_lat_lon_as_properties_2"></a>Lat Lon As Properties<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-distance-query.asciidoc">edit</a>
+<a id="_lat_lon_as_properties_2"></a>作为 lat lon 属性
 </h5>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /my_locations/_search
@@ -140,10 +136,9 @@ representations of the geo point, the filter can accept it as well:</p>
 </div>
 <div class="console_widget" data-snippet="snippets/182.console"></div>
 <h5>
-<a id="_lat_lon_as_array_2"></a>Lat Lon As Array<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-distance-query.asciidoc">edit</a>
+<a id="_lat_lon_as_array_2"></a>作为 lat lon 数组
 </h5>
-<p>Format in <code class="literal">[lon, lat]</code>, note, the order of lon/lat here in order to
-conform with <a href="http://geojson.org/" class="ulink" target="_top">GeoJSON</a>.</p>
+<p>格式为<code class="literal">[lon, lat]</code>，注意，此处 lon/lat 的顺序是为了符合<a href="http://geojson.org/" class="ulink" target="_top">GeoJSON</a>。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /my_locations/_search
 {
@@ -164,9 +159,9 @@ conform with <a href="http://geojson.org/" class="ulink" target="_top">GeoJSON</
 </div>
 <div class="console_widget" data-snippet="snippets/183.console"></div>
 <h5>
-<a id="_lat_lon_as_string_2"></a>Lat Lon As String<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-distance-query.asciidoc">edit</a>
+<a id="_lat_lon_as_string_2"></a>作为 lat lon 字符串
 </h5>
-<p>Format in <code class="literal">lat,lon</code>.</p>
+<p>格式为<code class="literal">lat,lon</code>。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /my_locations/_search
 {
@@ -187,7 +182,7 @@ conform with <a href="http://geojson.org/" class="ulink" target="_top">GeoJSON</
 </div>
 <div class="console_widget" data-snippet="snippets/184.console"></div>
 <h5>
-<a id="_geohash_2"></a>Geohash<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-distance-query.asciidoc">edit</a>
+<a id="_geohash_2"></a>geohash
 </h5>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /my_locations/_search
@@ -209,9 +204,9 @@ conform with <a href="http://geojson.org/" class="ulink" target="_top">GeoJSON</
 </div>
 <div class="console_widget" data-snippet="snippets/185.console"></div>
 <h4>
-<a id="_options"></a>Options<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-distance-query.asciidoc">edit</a>
+<a id="_options"></a>选项
 </h4>
-<p>The following are options allowed on the filter:</p>
+<p>以下是过滤器上允许的选项：</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -227,9 +222,11 @@ conform with <a href="http://geojson.org/" class="ulink" target="_top">GeoJSON</
 </td>
 <td valign="top">
 <p>
-The radius of the circle centred on the specified location. Points which
-fall into this circle are considered to be matches. The <code class="literal">distance</code> can be
-specified in various units. See <a class="xref" href="common-options.html#distance-units" title="Distance Units">Distance Units</a>.
+以指定位置为圆心的圆的半径。
+
+落入这个圆内的点被认为是匹配的。
+
+可以用各种单位指定<code class="literal">distance</code>。参考<a class="xref" href="common-options.html#distance-units" title="Distance Units">距离单位</a>。
 </p>
 </td>
 </tr>
@@ -241,7 +238,7 @@ specified in various units. See <a class="xref" href="common-options.html#distan
 </td>
 <td valign="top">
 <p>
-How to compute the distance. Can either be <code class="literal">arc</code> (default), or <code class="literal">plane</code> (faster, but inaccurate on long distances and close to the poles).
+如何计算距离。可以是<code class="literal">arc</code>(弧形。默认值)，也可以是<code class="literal">plane</code>(平面。计算更快，但在长距离和接近极点时不准确)。
 </p>
 </td>
 </tr>
@@ -253,7 +250,7 @@ How to compute the distance. Can either be <code class="literal">arc</code> (def
 </td>
 <td valign="top">
 <p>
-Optional name field to identify the query
+可选，指定要查询的字段。
 </p>
 </td>
 </tr>
@@ -265,9 +262,7 @@ Optional name field to identify the query
 </td>
 <td valign="top">
 <p>
-Set to <code class="literal">IGNORE_MALFORMED</code> to accept geo points with invalid latitude or
-longitude, set to <code class="literal">COERCE</code> to additionally try and infer correct
-coordinates (default is <code class="literal">STRICT</code>).
+设置为<code class="literal">IGNORE_MALFORMED</code>以接受无效的纬度或经度值的 geo point，设置为<code class="literal">COERCE</code>以尝试推断正确的纬度或经度。(默认为 <code class="literal">STRICT</code>)。
 </p>
 </td>
 </tr>
@@ -275,31 +270,35 @@ coordinates (default is <code class="literal">STRICT</code>).
 </table>
 </div>
 <h4>
-<a id="_geo_point_type_2"></a>geo_point Type<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-distance-query.asciidoc">edit</a>
+<a id="_geo_point_type_2"></a>geo_point 类型
 </h4>
-<p>The filter <span class="strong strong"><strong>requires</strong></span> the <code class="literal">geo_point</code> type to be set on the relevant
-field.</p>
+<p>过滤器<span class="strong strong"><strong>要求</strong></span>在相关字段中设置<code class="literal">geo_point</code>类型。</p>
 <h4>
-<a id="_multi_location_per_document_2"></a>Multi Location Per Document<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-distance-query.asciidoc">edit</a>
+<a id="_multi_location_per_document_2"></a>一个文档包含多个位置
 </h4>
-<p>The <code class="literal">geo_distance</code> filter can work with multiple locations / points per
-document. Once a single location / point matches the filter, the
-document will be included in the filter.</p>
+<p>
+<code class="literal">geo_distance</code>过滤器可以处理每个文档的多个位置/坐标点。
+
+一旦单个位置/坐标点与过滤器匹配，该文档就将包含在过滤器中。
+</p>
 <h4>
-<a id="_ignore_unmapped_2"></a>Ignore Unmapped<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/geo-distance-query.asciidoc">edit</a>
+<a id="_ignore_unmapped_2"></a>忽略未映射的字段 (ignore unmapped)
 </h4>
-<p>When set to <code class="literal">true</code> the <code class="literal">ignore_unmapped</code> option will ignore an unmapped field
-and will not match any documents for this query. This can be useful when
-querying multiple indexes which might have different mappings. When set to
-<code class="literal">false</code> (the default value) the query will throw an exception if the field
-is not mapped.</p>
+
+<p>
+如果<code class="literal">ignore_unmapped</code>选项设置为<code class="literal">true</code>，将忽略未映射的字段，并且此查询不会匹配任何文档。
+
+这在查询可能具有不同映射的多个索引时非常有用。
+
+当设置为<code class="literal">false</code>(默认值)时，如果字段未映射，查询将抛出异常。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-geo-bounding-box-query.html">« Geo-bounding box query</a>
+<a href="query-dsl-geo-bounding-box-query.html">« 地理位置边界框(geo_bounding_box)查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-geo-polygon-query.html">Geo-polygon query »</a>
+<a href2="query-dsl-geo-polygon-query.html">Geo-polygon query »</a>
 </span>
 </div>
 </div>

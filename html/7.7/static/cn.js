@@ -638,43 +638,43 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-match-query.html",
-                        "text": "match",
-                        "title": "match"
+                        "text": "匹配(match)",
+                        "title": "匹配(match)"
                     },
                     {
                         "url": "query-dsl-match-bool-prefix-query.html",
-                        "text": "match_boolean_prefix",
-                        "title": "match_boolean_prefix"
+                        "text": "布尔前缀匹配(match_bool_prefix)",
+                        "title": "布尔前缀匹配(match_bool_prefix"
                     },
                     {
                         "url": "query-dsl-match-query-phrase.html",
-                        "text": "match_phrase",
-                        "title": "match_phrase"
+                        "text": "短语匹配(match_phrase)",
+                        "title": "短语匹配(match_phrase)"
                     },
                     {
                         "url": "query-dsl-match-query-phrase-prefix.html",
-                        "text": "match_phrase_prefix",
-                        "title": "match_phrase_prefix"
+                        "text": "短语前缀匹配(match_phrase_prefix)",
+                        "title": "短语前缀匹配(match_phrase_prefix)"
                     },
                     {
                         "url": "query-dsl-multi-match-query.html",
-                        "text": "multi_match",
-                        "title": "multi_match"
+                        "text": "多字段匹配(multi_match)",
+                        "title": "多字段匹配(multi_match)"
                     },
                     {
                         "url": "query-dsl-common-terms-query.html",
-                        "text": "common (7.3.0废弃)",
-                        "title": "common (7.3.0废弃)"
+                        "text": "常用(common)词项查询</a>(7.3.0废弃)",
+                        "title": "常用(common)词项查询</a>(7.3.0废弃)"
                     },
                     {
                         "url": "query-dsl-query-string-query.html",
-                        "text": "query_string",
-                        "title": "query_string"
+                        "text": "查询字符串(query_string)",
+                        "title": "查询字符串(query_string)"
                     },
                     {
                         "url": "query-dsl-simple-query-string-query.html",
-                        "text": "simple_query_string",
-                        "title": "simple_query_string"
+                        "text": "简单查询字符串(simple_query_string)",
+                        "title": "简单查询字符串(simple_query_string)"
                     }
                 ]
             },
@@ -685,13 +685,13 @@ var esNavLinks = [
                 "sub": [
                     {
                         "url": "query-dsl-geo-bounding-box-query.html",
-                        "text": "geo_bounding_box",
-                        "title": "geo_bounding_box"
+                        "text": "地理位置边界框(geo_bounding_box)查询",
+                        "title": "地理位置边界框(geo_bounding_box)查询"
                     },
                     {
                         "url": "query-dsl-geo-distance-query.html",
-                        "text": "Geo-距离",
-                        "title": "Geo-distance"
+                        "text": "地理位置距离(geo_distance)查询",
+                        "title": "地理位置距离(geo_distance)查询"
                     },
                     {
                         "url": "query-dsl-geo-polygon-query.html",

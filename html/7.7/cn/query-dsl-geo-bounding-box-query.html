@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>geo_bounding_box查询 | ElasticSearch 7.7 权威指南中文版</title>
+	<title>地理位置边界框(geo_bounding_box)查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -38,14 +38,14 @@
 »
 <span class="breadcrumb-link"><a href="geo-queries.html">地理位置(geo)查询</a></span>
 »
-<span class="breadcrumb-node">geo_bounding_box查询</span>
+<span class="breadcrumb-node">地理位置边界框(geo_bounding_box)查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
 <a href="geo-queries.html">« 地理位置(geo)查询</a>
 </span>
 <span class="next">
-<a href2="query-dsl-geo-distance-query.html">Geo-distance query »</a>
+<a href="query-dsl-geo-distance-query.html">地理位置距离(geo_distance)查询 »</a>
 </span>
 </div>
 <div class="section">
@@ -112,7 +112,7 @@ PUT /my_locations/_doc/1
 </div>
 <div class="console_widget" data-snippet="snippets/171.console"></div>
 <h4>
-<a id="_query_options"></a>查询选型
+<a id="_query_options"></a>查询选项
 </h4>
 <div class="informaltable">
 <table border="1" cellpadding="4px">
@@ -151,7 +151,7 @@ PUT /my_locations/_doc/1
 <h4>
 <a id="query-dsl-geo-bounding-box-query-accepted-formats"></a>接受的格式
 </h4>
-<p>与 geo_point 类型可以接受地理坐标点的不同表示方式非常相似，过滤器也可以接受它：</p>
+<p>与<code class="literal">geo_point</code>类型可以接受地理坐标点的不同表示方式非常相似，过滤器也可以接受它：</p>
 <h5>
 <a id="_lat_lon_as_properties"></a>作为 lat lon 属性
 </h5>
@@ -336,7 +336,7 @@ PUT /my_locations/_doc/1
 </div>
 <div class="console_widget" data-snippet="snippets/178.console"></div>
 <h4>
-<a id="_geo_point_type"></a>geo_point类型
+<a id="_geo_point_type"></a>geo_point 类型
 </h4>
 <p>过滤器<span class="strong strong"><strong>要求</strong></span>在相关字段中设置<code class="literal">geo_point</code>类型。</p>
 <h4>
@@ -391,7 +391,7 @@ PUT /my_locations/_doc/1
 <a id="_ignore_unmapped"></a>忽略未映射的字段 (ignore unmapped)
 </h4>
 <p>
-如果<code class="literal">ignore_unmapped</code>选项设置为<code class="literal">true</code>，将忽略未映射的字段，并且不会匹配此查询的任何文档。
+如果<code class="literal">ignore_unmapped</code>选项设置为<code class="literal">true</code>，将忽略未映射的字段，并且此查询不会匹配任何文档。
 
 这在查询可能具有不同映射的多个索引时非常有用。
 
@@ -417,7 +417,7 @@ PUT /my_locations/_doc/1
 <a href="geo-queries.html">« 地理位置(geo)查询</a>
 </span>
 <span class="next">
-<a href2="query-dsl-geo-distance-query.html">Geo-distance query »</a>
+<a href="query-dsl-geo-distance-query.html">地理位置距离(geo_distance)查询 »</a>
 </span>
 </div>
 </div>

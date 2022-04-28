@@ -700,8 +700,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-geo-shape-query.html",
-                        "text": "Geo-形状(shape)",
-                        "title": "Geo-shape"
+                        "text": "地理位置形状(geo_shape)查询",
+                        "title": "地理位置形状(geo_shape)查询"
                     }
                 ]
             },

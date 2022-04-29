@@ -729,8 +729,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-has-child-query.html",
-                        "text": "子文档匹配的父文档查询(has child)",
-                        "title": "Has child"
+                        "text": "has_child查询",
+                        "title": "has_child查询"
                     },
                     {
                         "url": "query-dsl-has-parent-query.html",

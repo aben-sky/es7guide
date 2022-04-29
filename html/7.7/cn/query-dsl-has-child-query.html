@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Has child query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>has_child查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,53 +32,60 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询 DSL</a></span>
 »
-<span class="breadcrumb-link"><a href="joining-queries.html">Joining queries</a></span>
+<span class="breadcrumb-link"><a href="joining-queries.html">联结查询</a></span>
 »
-<span class="breadcrumb-node">Has child query</span>
+<span class="breadcrumb-node">has_child查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-nested-query.html">« Nested query</a>
+<a href="query-dsl-nested-query.html">« 嵌套(nested)查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-has-parent-query.html">Has parent query »</a>
+<a href2="query-dsl-has-parent-query.html">Has parent query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-has-child-query"></a>Has child query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/has-child-query.asciidoc">edit</a>
+<a id="query-dsl-has-child-query"></a>has_child 查询
 </h2>
 </div></div></div>
 
-<p>Returns parent documents whose <a class="xref" href="parent-join.html" title="Join datatype">joined</a> child documents match a
-provided query. You can create parent-child relationships between documents in
-the same index using a <a class="xref" href="parent-join.html" title="Join datatype">join</a> field mapping.</p>
+<p>
+返回与其<a class="xref" href="parent-join.html" title="Join datatype">联结的(joined)</a>且匹配查询的子文档的父文档。
+
+可以使用<a class="xref" href="parent-join.html" title="Join datatype">join</a>字段映射在同一索引中的文档之间创建父子关系。
+</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Because it performs a join, the <code class="literal">has_child</code> is slow compared to other queries.
-Its performance degrades as the number of matching child documents pointing to
-unique parent documents increases. Each <code class="literal">has_child</code> query in a search can
-increase query time significantly.</p>
-<p>If you care about query performance, do not use this query. If you need to use
-the <code class="literal">has_child</code> query, use it as rarely as possible.</p>
+<p>
+因为它要执行联结，所以与其他查询相比，<code class="literal">has_child</code>比较慢。
+
+随着指向唯一父文档的匹配的子文档数量的增加，其性能会下降。
+
+搜索中的每个<code class="literal">has_child</code>查询都会显著地增加查询时间。
+</p>
+<p>
+如果你在乎查询性能，请不要使用此查询。
+如果你确实需要使用<code class="literal">has_child</code>查询，请尽量少用。
+</p>
 </div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="has-child-query-ex-request"></a>Example request<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/has-child-query.asciidoc">edit</a>
+<a id="has-child-query-ex-request"></a>请求示例
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="has-child-index-setup"></a>Index setup<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/has-child-query.asciidoc">edit</a>
+<a id="has-child-index-setup"></a>创建索引
 </h4>
 </div></div></div>
 <p>To use the <code class="literal">has_child</code> query, your index must include a <a class="xref" href="parent-join.html" title="Join datatype">join</a>
@@ -289,10 +296,10 @@ sorts returned documents by the <code class="literal">click_count</code> field o
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-nested-query.html">« Nested query</a>
+<a href="query-dsl-nested-query.html">« 嵌套(nested)查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-has-parent-query.html">Has parent query »</a>
+<a href2="query-dsl-has-parent-query.html">Has parent query »</a>
 </span>
 </div>
 </div>

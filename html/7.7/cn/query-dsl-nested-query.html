@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Nested query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>嵌套(nested)查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,47 +32,48 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询 DSL</a></span>
 »
-<span class="breadcrumb-link"><a href="joining-queries.html">Joining queries</a></span>
+<span class="breadcrumb-link"><a href="joining-queries.html">联结查询</a></span>
 »
-<span class="breadcrumb-node">Nested query</span>
+<span class="breadcrumb-node">嵌套(nested)查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="joining-queries.html">« Joining queries</a>
+<a href="joining-queries.html">« 联结查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-has-child-query.html">Has child query »</a>
+<a href2="query-dsl-has-child-query.html">Has child query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-nested-query"></a>Nested query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/nested-query.asciidoc">edit</a>
+<a id="query-dsl-nested-query"></a>嵌套(nested)查询
 </h2>
 </div></div></div>
 
-<p>Wraps another query to search <a class="xref" href="nested.html" title="Nested datatype">nested</a> fields.</p>
-<p>The <code class="literal">nested</code> query searches nested field objects as if they were indexed as
-separate documents. If an object matches the search, the <code class="literal">nested</code> query returns
-the root parent document.</p>
+<p>包裹另一个查询以搜索<a class="xref" href="nested.html" title="Nested datatype">nested(嵌套)</a>字段。</p>
+<p>
+<code class="literal">nested</code>查询搜索嵌套的字段对象，就好像它们被索引为单独的文档一样。  
+
+如果对象与搜索匹配，<code class="literal">nested</code>查询将返回根父文档。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="nested-query-ex-request"></a>Example request<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/nested-query.asciidoc">edit</a>
+<a id="nested-query-ex-request"></a>请求示例
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="nested-query-index-setup"></a>Index setup<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/nested-query.asciidoc">edit</a>
+<a id="nested-query-index-setup"></a>准备一个索引
 </h4>
 </div></div></div>
-<p>To use the <code class="literal">nested</code> query, your index must include a <a class="xref" href="nested.html" title="Nested datatype">nested</a> field
-mapping. For example:</p>
+<p>若要使用<code class="literal">nested</code>查询，索引必须包含<a class="xref" href="nested.html" title="Nested datatype">nested</a>字段映射。例如：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /my_index
 {
@@ -91,7 +92,7 @@ mapping. For example:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="nested-query-ex-query"></a>Example query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/nested-query.asciidoc">edit</a>
+<a id="nested-query-ex-query"></a>查询示例
 </h4>
 </div></div></div>
 <div class="pre_wrapper lang-console">
@@ -121,7 +122,7 @@ mapping. For example:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="nested-top-level-params"></a>Top-level parameters for <code class="literal">nested</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/nested-query.asciidoc">edit</a>
+<a id="nested-top-level-params"></a><code class="literal">nested</code>的顶级参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -132,7 +133,7 @@ mapping. For example:</p>
 </span>
 </dt>
 <dd>
-(Required, string) Path to the nested object you wish to search.
+(必需, string) 要搜索的嵌套对象的路径。
 </dd>
 <dt>
 <span class="term">
@@ -140,15 +141,16 @@ mapping. For example:</p>
 </span>
 </dt>
 <dd>
-<p>(Required, query object) Query you wish to run on nested objects in the <code class="literal">path</code>.
-If an object matches the search, the <code class="literal">nested</code> query returns the root parent
-document.</p>
-<p>You can search nested fields using dot notation that includes the complete path,
-such as <code class="literal">obj1.name</code>.</p>
-<p>Multi-level nesting is automatically supported, and detected, resulting in an
-inner nested query to automatically match the relevant nesting level, rather
-than root, if it exists within another nested query.</p>
-<p>See <a class="xref" href="query-dsl-nested-query.html#multi-level-nested-query-ex" title="Multi-level nested queries">Multi-level nested queries</a> for an example.</p>
+<p>(必需, query object) 要在指定的<code class="literal">path</code>中的嵌套对象上运行的查询。 
+如果一个对象与搜索匹配，<code class="literal">nested</code>查询将返回根父文档。
+</p>
+<p>可以使用包含完整路径的点符号来搜索嵌套字段，例如<code class="literal">obj1.name</code>。</p>
+<p>
+自动支持和检测多级嵌套，导致内部嵌套查询自动匹配相关的嵌套层级，而不是根(如果它存在于另一个嵌套查询中)。-- TODO 待根据后面的内容修正
+
+Multi-level nesting is automatically supported, and detected, resulting in an inner nested query to automatically match the relevant nesting level, rather than root, if it exists within another nested query.
+</p>
+<p>有关示例请参考 <a class="xref" href="query-dsl-nested-query.html#multi-level-nested-query-ex" title="Multi-level nested queries">多级嵌套查询</a>。</p>
 </dd>
 <dt>
 <span class="term">
@@ -156,18 +158,16 @@ than root, if it exists within another nested query.</p>
 </span>
 </dt>
 <dd>
-<p>(Optional, string) Indicates how scores for matching child objects affect the
-root parent document’s <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance score</a>. Valid values
-are:</p>
+<p>(可选, string) 指示匹配子对象的分数如何影响根父文档的<a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">相关性评分</a>。有效值有：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<code class="literal">avg</code> (Default)
+<code class="literal">avg</code> (默认)
 </span>
 </dt>
 <dd>
-Use the mean relevance score of all matching child objects.
+使用所有匹配子对象的相关性评分的平均分。
 </dd>
 <dt>
 <span class="term">
@@ -175,7 +175,7 @@ Use the mean relevance score of all matching child objects.
 </span>
 </dt>
 <dd>
-Uses the highest relevance score of all matching child objects.
+使用所有匹配子对象的相关性评分的最高分。
 </dd>
 <dt>
 <span class="term">
@@ -183,7 +183,7 @@ Uses the highest relevance score of all matching child objects.
 </span>
 </dt>
 <dd>
-Uses the lowest relevance score of all matching child objects.
+使用所有匹配子对象的相关性评分的最低分。
 </dd>
 <dt>
 <span class="term">
@@ -191,8 +191,7 @@ Uses the lowest relevance score of all matching child objects.
 </span>
 </dt>
 <dd>
-Do not use the relevance scores of matching child objects. The query assigns
-parent documents a score of <code class="literal">0</code>.
+不使用匹配子对象的相关性评分。该查询为父文档分配的分数为 <code class="literal">0</code>。
 </dd>
 <dt>
 <span class="term">
@@ -200,7 +199,7 @@ parent documents a score of <code class="literal">0</code>.
 </span>
 </dt>
 <dd>
-Add together the relevance scores of all matching child objects.
+将所有匹配子对象的相关性评分相加。
 </dd>
 </dl>
 </div>
@@ -211,11 +210,9 @@ Add together the relevance scores of all matching child objects.
 </span>
 </dt>
 <dd>
-<p>(Optional, boolean) Indicates whether to ignore an unmapped <code class="literal">path</code> and not
-return any documents instead of an error. Defaults to <code class="literal">false</code>.</p>
-<p>If <code class="literal">false</code>, Elasticsearch returns an error if the <code class="literal">path</code> is an unmapped field.</p>
-<p>You can use this parameter to query multiple indices that may not contain the
-field <code class="literal">path</code>.</p>
+<p>(可选, boolean) 指示是否忽略未映射的<code class="literal">path</code>并且不返回任何文档而不是错误。默认为 <code class="literal">false</code>。</p>
+<p>如果设置为<code class="literal">false</code>，则当<code class="literal">path</code>是未映射的字段时，Elasticsearch 会抛出错误。</p>
+<p>可以使用此参数来查询可能不包含<code class="literal">path</code>路径的多个索引。</p>
 </dd>
 </dl>
 </div>
@@ -224,19 +221,20 @@ field <code class="literal">path</code>.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="nested-query-notes"></a>Notes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/nested-query.asciidoc">edit</a>
+<a id="nested-query-notes"></a>注意
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="multi-level-nested-query-ex"></a>Multi-level nested queries<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/nested-query.asciidoc">edit</a>
+<a id="multi-level-nested-query-ex"></a>多级嵌套查询 (multi-level nested queries)
 </h4>
 </div></div></div>
-<p>To see how multi-level nested queries work,
-first you need an index that has nested fields.
-The following request defines mappings for the <code class="literal">drivers</code> index
-with nested <code class="literal">make</code> and <code class="literal">model</code> fields.</p>
+<p>
+要了解多级嵌套查询是如何工作的，首先你需要一个包含嵌套字段的索引。
+
+下面这个请求定义了具有嵌套字段<code class="literal">make</code>和<code class="literal">model</code>的名为<code class="literal">drivers</code>的索引的映射。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /drivers
 {
@@ -266,9 +264,11 @@ with nested <code class="literal">make</code> and <code class="literal">model</c
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/202.console"></div>
-<p>Next, index some documents to the <code class="literal">drivers</code> index.</p>
+<p>接下来，添加并索引几个文档到索引<code class="literal">drivers</code>中：</p>
 <div class="pre_wrapper lang-console">
-<pre class="programlisting prettyprint lang-console">PUT /drivers/_doc/1
+<pre class="programlisting prettyprint lang-console">
+# 添加第1个文档，指定id为1
+PUT /drivers/_doc/1
 {
   "driver" : {
         "last_name" : "McQueen",
@@ -285,6 +285,7 @@ with nested <code class="literal">make</code> and <code class="literal">model</c
     }
 }
 
+# 添加第2个文档，指定id为2
 PUT /drivers/_doc/2?refresh
 {
   "driver" : {
@@ -303,8 +304,7 @@ PUT /drivers/_doc/2?refresh
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/203.console"></div>
-<p>You can now use a multi-level nested query
-to match documents based on the <code class="literal">make</code> and <code class="literal">model</code> fields.</p>
+<p>现在，你可以使用多级嵌套查询来根据<code class="literal">make</code>和<code class="literal">model</code>字段匹配文档：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /drivers/_search
 {
@@ -329,7 +329,7 @@ to match documents based on the <code class="literal">make</code> and <code clas
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/204.console"></div>
-<p>The search request returns the following response:</p>
+<p>搜索请求返回如下响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   "took" : 5,
@@ -379,10 +379,10 @@ to match documents based on the <code class="literal">make</code> and <code clas
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="joining-queries.html">« Joining queries</a>
+<a href="joining-queries.html">« 联结查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-has-child-query.html">Has child query »</a>
+<a href2="query-dsl-has-child-query.html">Has child query »</a>
 </span>
 </div>
 </div>

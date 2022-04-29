@@ -719,13 +719,13 @@ var esNavLinks = [
             },
             {
                 "url": "joining-queries.html",
-                "text": "联结(joining)查询",
-                "title": "Joining queries",
+                "text": "联结查询",
+                "title": "联结查询",
                 "sub": [
                     {
                         "url": "query-dsl-nested-query.html",
-                        "text": "嵌套(nested)",
-                        "title": "Nested"
+                        "text": "嵌套(nested)查询",
+                        "title": "嵌套(nested)查询"
                     },
                     {
                         "url": "query-dsl-has-child-query.html",

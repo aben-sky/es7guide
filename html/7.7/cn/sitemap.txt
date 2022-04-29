@@ -135,3 +135,5 @@ https://www.pipiho.com/es/7.7/cn/query-dsl-geo-polygon-query.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-geo-shape-query.html
 https://www.pipiho.com/es/7.7/cn/shape-queries.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-shape-query.html
+https://www.pipiho.com/es/7.7/cn/joining-queries.html
+https://www.pipiho.com/es/7.7/cn/query-dsl-nested-query.html

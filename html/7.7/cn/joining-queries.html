@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Joining queries | ElasticSearch 7.7 权威指南中文版</title>
+	<title>联结查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,58 +32,57 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询 DSL</a></span>
 »
-<span class="breadcrumb-node">Joining queries</span>
+<span class="breadcrumb-node">联结查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-shape-query.html">« Shape query</a>
+<a href="query-dsl-shape-query.html">« 形状(shape)查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-nested-query.html">Nested query »</a>
+<a href="query-dsl-nested-query.html">嵌套(nested)查询 »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="joining-queries"></a>Joining queries<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/joining-queries.asciidoc">edit</a>
+<a id="joining-queries"></a>联结查询 (joining queries)
 </h2>
 </div></div></div>
-<p>Performing full SQL-style joins in a distributed system like Elasticsearch is
-prohibitively expensive.  Instead, Elasticsearch offers two forms of join
-which are designed to scale horizontally.</p>
+<p>
+在像 Elasticsearch 这样的分布式系统中执行完全 SQL 风格的联结(join)的成本是非常高的。
+相反，Elasticsearch 提供了两种水平扩展的联结形式。
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-nested-query.html" title="Nested query"><code class="literal">nested</code> query</a>
+<a class="xref" href="query-dsl-nested-query.html" title="Nested query"><code class="literal">nested</code>(嵌套) 查询</a>
 </span>
 </dt>
 <dd>
-Documents may contain fields of type <a class="xref" href="nested.html" title="Nested datatype"><code class="literal">nested</code></a>. These
-fields are used to index arrays of objects, where each object can be queried
-(with the <code class="literal">nested</code> query) as an independent document.
+文档可能包含 <a class="xref" href="nested.html" title="Nested datatype"><code class="literal">nested</code></a>(嵌套) 类型的字段。
+
+这些字段用于索引对象数组，其中每个对象都可以作为独立的文档进行查询(使用<code class="literal">nested</code>查询)。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-has-child-query.html" title="Has child query"><code class="literal">has_child</code></a> and <a class="xref" href="query-dsl-has-parent-query.html" title="Has parent query"><code class="literal">has_parent</code></a> queries
+<a class="xref" href="query-dsl-has-child-query.html" title="Has child query"><code class="literal">has_child</code></a> 和 <a class="xref" href="query-dsl-has-parent-query.html" title="Has parent query"><code class="literal">has_parent</code></a> 查询
 </span>
 </dt>
 <dd>
-A <a class="xref" href="parent-join.html" title="Join datatype"><code class="literal">join</code> field relationship</a> can exist between
-documents within a single index. The <code class="literal">has_child</code> query returns parent
-documents whose child documents match the specified query, while the
-<code class="literal">has_parent</code> query returns child documents whose parent document matches the
-specified query.
+单个索引中的文档之间可以存在<a class="xref" href="parent-join.html" title="Join datatype"><code class="literal">join</code>字段关系</a>。
+
+<code class="literal">has_child</code>查询返回其子文档与指定查询匹配的父文档，而<code class="literal">has_parent</code>查询返回其父文档与指定查询匹配的子文档。
 </dd>
 </dl>
 </div>
-<p>Also see the <a class="xref" href="query-dsl-terms-query.html#query-dsl-terms-lookup" title="Terms lookup">terms-lookup mechanism</a> in the <code class="literal">terms</code>
-query, which allows you to build a <code class="literal">terms</code> query from values contained in
-another document.</p>
+<p>
+另请参考<code class="literal">terms</code>查询中的<a class="xref" href="query-dsl-terms-query.html#query-dsl-terms-lookup" title="Terms lookup">词项查找机制</a>，它允许你从另一个文档中包含的值构建<code class="literal">terms</code>查询。
+</p>
 
 
 
@@ -92,10 +91,10 @@ another document.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-shape-query.html">« Shape query</a>
+<a href="query-dsl-shape-query.html">« 形状(shape)查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-nested-query.html">Nested query »</a>
+<a href="query-dsl-nested-query.html">嵌套(nested)查询 »</a>
 </span>
 </div>
 </div>

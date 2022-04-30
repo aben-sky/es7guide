@@ -88,8 +88,7 @@
 <a id="has-child-index-setup"></a>创建索引
 </h4>
 </div></div></div>
-<p>To use the <code class="literal">has_child</code> query, your index must include a <a class="xref" href="parent-join.html" title="Join datatype">join</a>
-field mapping. For example:</p>
+<p>若要使用<code class="literal">has_child</code>查询，索引中必须包含 <a class="xref" href="parent-join.html" title="Join datatype">join</a> 字段映射。例如：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /my_index
 {
@@ -111,7 +110,7 @@ field mapping. For example:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="has-child-query-ex-query"></a>Example query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/has-child-query.asciidoc">edit</a>
+<a id="has-child-query-ex-query"></a>查询示例
 </h4>
 </div></div></div>
 <div class="pre_wrapper lang-console">
@@ -138,7 +137,7 @@ field mapping. For example:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="has-child-top-level-params"></a>Top-level parameters for <code class="literal">has_child</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/has-child-query.asciidoc">edit</a>
+<a id="has-child-top-level-params"></a><code class="literal">has_child</code>的顶级参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -149,8 +148,7 @@ field mapping. For example:</p>
 </span>
 </dt>
 <dd>
-(Required, string) Name of the child relationship mapped for the
-<a class="xref" href="parent-join.html" title="Join datatype">join</a> field.
+(必需, string) 为 <a class="xref" href="parent-join.html" title="Join datatype">join</a> 字段映射的子关系的名称。
 </dd>
 <dt>
 <span class="term">
@@ -158,9 +156,7 @@ field mapping. For example:</p>
 </span>
 </dt>
 <dd>
-(Required, query object) Query you wish to run on child documents of the <code class="literal">type</code>
-field. If a child document matches the search, the query returns the parent
-document.
+(必需, query object) 希望在 <code class="literal">type</code> 字段的子文档上运行的查询。如果子文档与搜索匹配，查询将返回父文档。
 </dd>
 <dt>
 <span class="term">
@@ -168,11 +164,15 @@ document.
 </span>
 </dt>
 <dd>
-<p>(Optional, boolean) Indicates whether to ignore an unmapped <code class="literal">type</code> and not
-return any documents instead of an error. Defaults to <code class="literal">false</code>.</p>
-<p>If <code class="literal">false</code>, Elasticsearch returns an error if the <code class="literal">type</code> is unmapped.</p>
-<p>You can use this parameter to query multiple indices that may not contain the
-<code class="literal">type</code>.</p>
+<p>
+(可选, boolean) 指示是否忽略未映射的 <code class="literal">type</code> 并且不返回任何文档而不是错误。默认为 <code class="literal">false</code>。
+</p>
+<p>
+如果为 <code class="literal">false</code>，当 <code class="literal">type</code> 未映射时 Elasticsearch 会返回错误。
+</p>
+<p>
+可以使用此参数来查询可能不包含 <code class="literal">type</code> 的多个索引。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -180,9 +180,9 @@ return any documents instead of an error. Defaults to <code class="literal">fals
 </span>
 </dt>
 <dd>
-(Optional, integer) Maximum number of child documents that match the <code class="literal">query</code>
-allowed for a returned parent document. If the parent document exceeds this
-limit, it is excluded from the search results.
+(可选, integer) 允许的返回的父文档中与<code class="literal">query</code>相匹配的子文档的最大数量。
+
+如果父文档中的与该查询匹配的子文档的数量超过此数量，它将从搜索结果中排除。
 </dd>
 <dt>
 <span class="term">
@@ -190,9 +190,9 @@ limit, it is excluded from the search results.
 </span>
 </dt>
 <dd>
-(Optional, integer) Minimum number of child documents that match the <code class="literal">query</code>
-required to match the query for a returned parent document. If the parent
-document does not meet this limit, it is excluded from the search results.
+(可选, integer) 允许的返回的父文档中与<code class="literal">query</code>相匹配的子文档的最小数量。
+
+如果父文档中的与该查询匹配的子文档的数量未达到此数量，它将从搜索结果中排除。
 </dd>
 <dt>
 <span class="term">
@@ -200,19 +200,16 @@ document does not meet this limit, it is excluded from the search results.
 </span>
 </dt>
 <dd>
-<p>(Optional, string) Indicates how scores for matching child documents affect the
-root parent document’s <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance score</a>. Valid values
-are:</p>
+<p>(可选, string) 指示匹配子文档的分数如何影响根父文档的 <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">相关性评分</a>。有效值有：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<code class="literal">none</code> (Default)
+<code class="literal">none</code> (默认)
 </span>
 </dt>
 <dd>
-Do not use the relevance scores of matching child documents. The query assigns
-parent documents a score of <code class="literal">0</code>.
+不使用匹配子文档的相关性分数。该查询为父文档分配 <code class="literal">0</code>分。
 </dd>
 <dt>
 <span class="term">
@@ -220,7 +217,7 @@ parent documents a score of <code class="literal">0</code>.
 </span>
 </dt>
 <dd>
-Use the mean relevance score of all matching child documents.
+取所有匹配子文档的相关性分数的平均值。
 </dd>
 <dt>
 <span class="term">
@@ -228,7 +225,7 @@ Use the mean relevance score of all matching child documents.
 </span>
 </dt>
 <dd>
-Uses the highest relevance score of all matching child documents.
+取所有匹配子文档的相关性分数的最大值。
 </dd>
 <dt>
 <span class="term">
@@ -236,7 +233,7 @@ Uses the highest relevance score of all matching child documents.
 </span>
 </dt>
 <dd>
-Uses the lowest relevance score of all matching child documents.
+取所有匹配子文档的相关性分数的最小值。
 </dd>
 <dt>
 <span class="term">
@@ -244,7 +241,7 @@ Uses the lowest relevance score of all matching child documents.
 </span>
 </dt>
 <dd>
-Add together the relevance scores of all matching child documents.
+把所有匹配子文档的相关性分数相加。
 </dd>
 </dl>
 </div>
@@ -256,20 +253,23 @@ Add together the relevance scores of all matching child documents.
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="has-child-query-notes"></a>Notes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/has-child-query.asciidoc">edit</a>
+<a id="has-child-query-notes"></a>注意
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="has-child-query-performance"></a>Sorting<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/has-child-query.asciidoc">edit</a>
+<a id="has-child-query-performance"></a>排序
 </h4>
 </div></div></div>
-<p>You cannot sort the results of a <code class="literal">has_child</code> query using standard
-<a class="xref" href="search-request-body.html#request-body-search-sort" title="Sort">sort options</a>.</p>
-<p>If you need to sort returned documents by a field in their child documents, use
-a <code class="literal">function_score</code> query and sort by <code class="literal">_score</code>. For example, the following query
-sorts returned documents by the <code class="literal">click_count</code> field of their child documents.</p>
+<p>
+不能使用标准 <a class="xref" href="search-request-body.html#request-body-search-sort" title="Sort">排序选项</a> 对 <code class="literal">has_child</code> 查询的结果进行排序。
+</p>
+<p>
+如果需要按子文档中的字段对返回的文档进行排序，请使用 <code class="literal">function_score</code> 查询并按 <code class="literal">_score</code>排序。
+
+例如，下面这个查询按子文档的 <code class="literal">click_count</code> 字段对返回的文档进行排序：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {

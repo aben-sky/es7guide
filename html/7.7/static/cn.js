@@ -739,8 +739,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-parent-id-query.html",
-                        "text": "parent_id 查询",
-                        "title": "Parent ID"
+                        "text": "parent_id查询",
+                        "title": "parent_id查询"
                     },
                     {
                         "url": "_notes_3.html",

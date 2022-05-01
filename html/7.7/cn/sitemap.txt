@@ -140,3 +140,4 @@ https://www.pipiho.com/es/7.7/cn/joining-queries.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-nested-query.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-has-child-query.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-has-parent-query.html
+https://www.pipiho.com/es/7.7/cn/query-dsl-parent-id-query.html

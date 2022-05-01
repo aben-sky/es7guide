@@ -744,15 +744,15 @@ var esNavLinks = [
                     },
                     {
                         "url": "_notes_3.html",
-                        "text": "说明",
-                        "title": "Notes"
+                        "text": "注意",
+                        "title": "注意"
                     }
                 ]
             },
             {
                 "url": "query-dsl-match-all-query.html",
-                "text": "匹配所有(match_all)",
-                "title": "Match all"
+                "text": "匹配所有(match_all)查询",
+                "title": "匹配所有(match_all)查询"
             },
             {
                 "url": "span-queries.html",

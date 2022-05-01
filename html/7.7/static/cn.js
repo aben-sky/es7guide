@@ -757,7 +757,7 @@ var esNavLinks = [
             {
                 "url": "span-queries.html",
                 "text": "跨度(span)查询",
-                "title": "Span queries",
+                "title": "跨度(span)查询",
                 "sub": [
                     {
                         "url": "query-dsl-span-containing-query.html",

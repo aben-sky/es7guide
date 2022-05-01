@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Has parent query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>has_parent 查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,54 +32,59 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询 DSL</a></span>
 »
-<span class="breadcrumb-link"><a href="joining-queries.html">Joining queries</a></span>
+<span class="breadcrumb-link"><a href="joining-queries.html">联结查询</a></span>
 »
-<span class="breadcrumb-node">Has parent query</span>
+<span class="breadcrumb-node">has_parent 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-has-child-query.html">« Has child query</a>
+<a href="query-dsl-has-child-query.html">« has_child 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-parent-id-query.html">Parent ID query »</a>
+<a href2="query-dsl-parent-id-query.html">Parent ID query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-has-parent-query"></a>Has parent query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/has-parent-query.asciidoc">edit</a>
+<a id="query-dsl-has-parent-query"></a>has_parent 查询
 </h2>
 </div></div></div>
 
-<p>Returns child documents whose <a class="xref" href="parent-join.html" title="Join datatype">joined</a> parent document matches a
-provided query. You can create parent-child relationships between documents in
-the same index using a <a class="xref" href="parent-join.html" title="Join datatype">join</a> field mapping.</p>
+<p>
+返回与其 <a class="xref" href="parent-join.html" title="Join datatype">联结的(joined)</a> 且匹配查询的父文档的子文档。
+
+可以使用 <a class="xref" href="parent-join.html" title="Join datatype">join</a> 字段映射在同一索引中的文档之间创建父子关系。
+</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Because it performs a join, the <code class="literal">has_parent</code> query is slow compared to other queries.
-Its performance degrades as the number of matching parent documents increases.
-Each <code class="literal">has_parent</code> query in a search can increase query time significantly.</p>
+<p>
+因为它要执行联结，所以与其他查询相比，<code class="literal">has_parent</code>比较慢。
+
+随着匹配父文档数量的增加，其性能会下降。
+
+搜索中的每个<code class="literal">has_parent</code>查询都会显著地增加查询时间。
+</p>
 </div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="has-parent-query-ex-request"></a>Example request<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/has-parent-query.asciidoc">edit</a>
+<a id="has-parent-query-ex-request"></a>请求示例
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="has-parent-index-setup"></a>Index setup<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/has-parent-query.asciidoc">edit</a>
+<a id="has-parent-index-setup"></a>创建索引
 </h4>
 </div></div></div>
-<p>To use the <code class="literal">has_parent</code> query, your index must include a <a class="xref" href="parent-join.html" title="Join datatype">join</a>
-field mapping. For example:</p>
+<p>要使用 <code class="literal">has_parent</code> 查询，索引必须包含 <a class="xref" href="parent-join.html" title="Join datatype">join</a> 字段映射。例如：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /my-index
 {
@@ -104,7 +109,7 @@ field mapping. For example:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="has-parent-query-ex-query"></a>Example query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/has-parent-query.asciidoc">edit</a>
+<a id="has-parent-query-ex-query"></a>查询示例
 </h4>
 </div></div></div>
 <div class="pre_wrapper lang-console">
@@ -132,7 +137,7 @@ field mapping. For example:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="has-parent-top-level-params"></a>Top-level parameters for <code class="literal">has_parent</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/has-parent-query.asciidoc">edit</a>
+<a id="has-parent-top-level-params"></a><code class="literal">has_parent</code>的顶级参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -143,8 +148,7 @@ field mapping. For example:</p>
 </span>
 </dt>
 <dd>
-(Required, string) Name of the parent relationship mapped for the
-<a class="xref" href="parent-join.html" title="Join datatype">join</a> field.
+(必需, string) 为 <a class="xref" href="parent-join.html" title="Join datatype">join</a> 字段映射的父关系的名称。
 </dd>
 <dt>
 <span class="term">
@@ -152,9 +156,7 @@ field mapping. For example:</p>
 </span>
 </dt>
 <dd>
-(Required, query object) Query you wish to run on parent documents of the
-<code class="literal">parent_type</code> field. If a parent document matches the search, the query returns
-its child documents.
+(必需, query object) 希望在 <code class="literal">parent_type</code> 字段的父文档上运行的查询。如果父文档与搜索匹配，查询将返回子文档。
 </dd>
 <dt>
 <span class="term">
@@ -162,14 +164,16 @@ its child documents.
 </span>
 </dt>
 <dd>
-<p>(Optional, boolean) Indicates whether the <a class="xref" href="query-filter-context.html" title="Query and filter context">relevance
-score</a> of a matching parent document is aggregated into its child documents.
-Defaults to <code class="literal">false</code>.</p>
-<p>If <code class="literal">false</code>, Elasticsearch ignores the relevance score of the parent document. Elasticsearch also
-assigns each child document a relevance score equal to the <code class="literal">query</code>'s <code class="literal">boost</code>,
-which defaults to <code class="literal">1</code>.</p>
-<p>If <code class="literal">true</code>, the relevance score of the matching parent document is aggregated
-into its child documents' relevance scores.</p>
+<p>(可选, boolean) 指示匹配父文档的 <a class="xref" href="query-filter-context.html" title="Query and filter context">相关性评分</a> 是否聚合到其子文档中。默认为<code class="literal">false</code>。
+</p>
+<p>
+如果为<code class="literal">false</code>，Elasticsearch 将忽略父文档的相关性评分。
+
+Elasticsearch 还为每个子文档分配一个与 <code class="literal">query</code> 的 <code class="literal">boost</code>值相等的相关性评分，默认为 <code class="literal">1</code>。
+</p>
+<p>
+如果为 <code class="literal">true</code>，则匹配父文档的相关性评分被聚合到其子文档的相关性评分中。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -177,11 +181,15 @@ into its child documents' relevance scores.</p>
 </span>
 </dt>
 <dd>
-<p>(Optional, boolean) Indicates whether to ignore an unmapped <code class="literal">parent_type</code> and
-not return any documents instead of an error. Defaults to <code class="literal">false</code>.</p>
-<p>If <code class="literal">false</code>, Elasticsearch returns an error if the <code class="literal">parent_type</code> is unmapped.</p>
-<p>You can use this parameter to query multiple indices that may not contain the
-<code class="literal">parent_type</code>.</p>
+<p>
+(可选, boolean) 指示是否忽略未映射的 <code class="literal">parent_type</code> 并且不返回任何文档而不是错误。默认为 <code class="literal">false</code>。
+</p>
+<p>
+如果为 <code class="literal">false</code>，当 <code class="literal">parent_type</code> 未映射时 Elasticsearch 会返回错误。
+</p>
+<p>
+可以使用此参数来查询可能不包含 <code class="literal">parent_type</code> 的多个索引。
+</p>
 </dd>
 </dl>
 </div>
@@ -190,20 +198,23 @@ not return any documents instead of an error. Defaults to <code class="literal">
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="has-parent-query-notes"></a>Notes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/has-parent-query.asciidoc">edit</a>
+<a id="has-parent-query-notes"></a>注意
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="has-parent-query-performance"></a>Sorting<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/has-parent-query.asciidoc">edit</a>
+<a id="has-parent-query-performance"></a>排序
 </h4>
 </div></div></div>
-<p>You cannot sort the results of a <code class="literal">has_parent</code> query using standard
-<a class="xref" href="search-request-body.html#request-body-search-sort" title="Sort">sort options</a>.</p>
-<p>If you need to sort returned documents by a field in their parent documents, use
-a <code class="literal">function_score</code> query and sort by <code class="literal">_score</code>. For example, the following query
-sorts returned documents by the <code class="literal">view_count</code> field of their parent documents.</p>
+<p>
+不能使用标准 <a class="xref" href="search-request-body.html#request-body-search-sort" title="Sort">排序选项</a> 对 <code class="literal">has_parent</code> 查询的结果进行排序。
+</p>
+<p>
+如果需要按父文档中的字段对返回的文档进行排序，请使用 <code class="literal">function_score</code> 查询并按 <code class="literal">_score</code>排序。
+
+例如，下面这个查询按父文档的 <code class="literal">view_count</code> 字段对返回的文档进行排序：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -230,10 +241,10 @@ sorts returned documents by the <code class="literal">view_count</code> field of
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-has-child-query.html">« Has child query</a>
+<a href="query-dsl-has-child-query.html">« has_child 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-parent-id-query.html">Parent ID query »</a>
+<a href2="query-dsl-parent-id-query.html">Parent ID query »</a>
 </span>
 </div>
 </div>

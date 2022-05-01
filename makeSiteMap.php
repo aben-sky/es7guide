@@ -18,7 +18,7 @@ function makeSiteMap($index_path, $target_file_name) {
     $pattern = '/<a(.*?)href="(.*?)"(.*?)>(.*?)<\/a>/i';
     preg_match_all($pattern, $html, $matches);
     $arr = $matches[2];
-    $arr_link = [];
+    $arr_link = ['https://www.pipiho.com/es/7.7/cn/index.html'];
     foreach ($arr AS $link) {
         //去掉相对链接和外部链接
         if (preg_match('/^(http:|https:|\.\.)/', $link)) {

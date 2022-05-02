@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Span field masking query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>field_masking_span 查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,33 +32,43 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询 DSL</a></span>
 »
-<span class="breadcrumb-link"><a href="span-queries.html">Span queries</a></span>
+<span class="breadcrumb-link"><a href="span-queries.html">跨度(span)查询</a></span>
 »
-<span class="breadcrumb-node">Span field masking query</span>
+<span class="breadcrumb-node">field_masking_span 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-span-containing-query.html">« Span containing query</a>
+<a href="query-dsl-span-containing-query.html">« span_containing 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-span-first-query.html">Span first query »</a>
+<a href="query-dsl-span-first-query.html">span_first 查询 »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-span-field-masking-query"></a>Span field masking query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/span-field-masking-query.asciidoc">edit</a>
+<a id="query-dsl-span-field-masking-query"></a>field_masking_span 查询
 </h2>
 </div></div></div>
 
-<p>Wrapper to allow span queries to participate in composite single-field span queries by <em>lying</em> about their search field. The span field masking query maps to Lucene’s <code class="literal">SpanFieldMaskingQuery</code></p>
-<p>This can be used to support queries like <code class="literal">span-near</code> or <code class="literal">span-or</code> across different fields, which is not ordinarily permitted.</p>
-<p>Span field masking query is invaluable in conjunction with <span class="strong strong"><strong>multi-fields</strong></span> when same content is indexed with multiple analyzers. For instance we could index a field with the standard analyzer which breaks text up into words, and again with the english analyzer which stems words into their root form.</p>
-<p>Example:</p>
+<p>
+包装器(wrapper)，允许 span 查询通过<em>谎报</em>其搜索字段来参与复合单字段的 span 查询。
+
+span 字段遮盖(masking)查询对应 Lucene 的 <code class="literal">SpanFieldMaskingQuery</code>。
+</p>
+<p>
+这可以用来支持 <code class="literal">span-near</code> 或 <code class="literal">span-or</code>  跨不同字段的查询，而这通常是不允许的。
+</p>
+<p>
+当使用多个分析器对相同的内容进行索引时，span 字段遮盖查询与<span class="strong strong"><strong>多字段(multi-fields)</strong></span>结合使用是非常宝贵的。
+
+例如，我们可以用 standard 分析器将文本分解成单词，再用 english 分析器将单词词干化成词根形式来索引字段。
+</p>
+<p>示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -88,14 +98,18 @@
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/219.console"></div>
-<p>Note: as span field masking query returns the masked field, scoring will be done using the norms of the field name supplied. This may lead to unexpected scoring behaviour.</p>
+<p>
+注意：当 span 字段遮盖查询返回遮盖字段时，将使用提供的字段名的规范进行评分。
+
+这可能会导致意外的评分行为。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-span-containing-query.html">« Span containing query</a>
+<a href="query-dsl-span-containing-query.html">« span_containing 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-span-first-query.html">Span first query »</a>
+<a href="query-dsl-span-first-query.html">span_first 查询 »</a>
 </span>
 </div>
 </div>

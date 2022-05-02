@@ -685,23 +685,23 @@ var esNavLinks = [
                 "sub": [
                     {
                         "url": "query-dsl-geo-bounding-box-query.html",
-                        "text": "地理位置边界框(geo_bounding_box)查询",
-                        "title": "地理位置边界框(geo_bounding_box)查询"
+                        "text": "地理位置边界框(geo_bounding_box)",
+                        "title": "地理位置边界框(geo_bounding_box)"
                     },
                     {
                         "url": "query-dsl-geo-distance-query.html",
-                        "text": "地理位置距离(geo_distance)查询",
-                        "title": "地理位置距离(geo_distance)查询"
+                        "text": "地理位置距离(geo_distance)",
+                        "title": "地理位置距离(geo_distance)"
                     },
                     {
                         "url": "query-dsl-geo-polygon-query.html",
-                        "text": "地理位置多边形(geo_polygon)查询",
-                        "title": "地理位置多边形(geo_polygon)查询"
+                        "text": "地理位置多边形(geo_polygon)",
+                        "title": "地理位置多边形(geo_polygon)"
                     },
                     {
                         "url": "query-dsl-geo-shape-query.html",
-                        "text": "地理位置形状(geo_shape)查询",
-                        "title": "地理位置形状(geo_shape)查询"
+                        "text": "地理位置形状(geo_shape)",
+                        "title": "地理位置形状(geo_shape)"
                     }
                 ]
             },
@@ -712,35 +712,35 @@ var esNavLinks = [
                 "sub": [
                     {
                         "url": "query-dsl-shape-query.html",
-                        "text": "形状(shape)查询",
-                        "title": "形状(shape)查询"
+                        "text": "形状(shape)",
+                        "title": "形状(shape)"
                     }
                 ]
             },
             {
                 "url": "joining-queries.html",
-                "text": "联结查询",
-                "title": "联结查询",
+                "text": "联结(join)",
+                "title": "联结(join)",
                 "sub": [
                     {
                         "url": "query-dsl-nested-query.html",
-                        "text": "嵌套(nested)查询",
-                        "title": "嵌套(nested)查询"
+                        "text": "嵌套(nested)",
+                        "title": "嵌套(nested)"
                     },
                     {
                         "url": "query-dsl-has-child-query.html",
-                        "text": "has_child查询",
-                        "title": "has_child查询"
+                        "text": "has_child",
+                        "title": "has_child"
                     },
                     {
                         "url": "query-dsl-has-parent-query.html",
-                        "text": "has_parent查询",
-                        "title": "has_parent查询"
+                        "text": "has_parent",
+                        "title": "has_parent"
                     },
                     {
                         "url": "query-dsl-parent-id-query.html",
-                        "text": "parent_id查询",
-                        "title": "parent_id查询"
+                        "text": "parent_id",
+                        "title": "parent_id"
                     },
                     {
                         "url": "_notes_3.html",
@@ -751,28 +751,28 @@ var esNavLinks = [
             },
             {
                 "url": "query-dsl-match-all-query.html",
-                "text": "匹配所有(match_all)查询",
-                "title": "匹配所有(match_all)查询"
+                "text": "匹配所有(match_all)",
+                "title": "匹配所有(match_all)"
             },
             {
                 "url": "span-queries.html",
-                "text": "跨度(span)查询",
-                "title": "跨度(span)查询",
+                "text": "跨度(span)",
+                "title": "跨度(span)",
                 "sub": [
                     {
                         "url": "query-dsl-span-containing-query.html",
-                        "text": "包含另一个span查询(span_containing)",
-                        "title": "Span containing"
+                        "text": "span_containing",
+                        "title": "span_containing"
                     },
                     {
                         "url": "query-dsl-span-field-masking-query.html",
-                        "text": "Span field masking",
-                        "title": "Span field masking"
+                        "text": "field_masking_span",
+                        "title": "field_masking_span"
                     },
                     {
                         "url": "query-dsl-span-first-query.html",
-                        "text": "Span first",
-                        "title": "Span first"
+                        "text": "span_first",
+                        "title": "span_first"
                     },
                     {
                         "url": "query-dsl-span-multi-term-query.html",

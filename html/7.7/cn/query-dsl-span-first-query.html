@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Span first query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>span_first 查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,17 +32,17 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询 DSL</a></span>
 »
-<span class="breadcrumb-link"><a href="span-queries.html">Span queries</a></span>
+<span class="breadcrumb-link"><a href="span-queries.html">跨度(span)查询</a></span>
 »
-<span class="breadcrumb-node">Span first query</span>
+<span class="breadcrumb-node">span_first 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-span-field-masking-query.html">« Span field masking query</a>
+<a href="query-dsl-span-field-masking-query.html">« field_masking_span 查询</a>
 </span>
 <span class="next">
 <a href="query-dsl-span-multi-term-query.html">Span multi-term query »</a>
@@ -51,12 +51,16 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-span-first-query"></a>Span first query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/span-first-query.asciidoc">edit</a>
+<a id="query-dsl-span-first-query"></a>span_first 查询
 </h2>
 </div></div></div>
 
-<p>Matches spans near the beginning of a field. The span first query maps
-to Lucene <code class="literal">SpanFirstQuery</code>. Here is an example:</p>
+<p>
+匹配字段开头附近的 span。
+span_first 查询对应 Lucene 的 <code class="literal">SpanFirstQuery</code>。
+
+这里有一个例子：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -71,12 +75,15 @@ to Lucene <code class="literal">SpanFirstQuery</code>. Here is an example:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/220.console"></div>
-<p>The <code class="literal">match</code> clause can be any other span type query. The <code class="literal">end</code> controls
-the maximum end position permitted in a match.</p>
+<p>
+<code class="literal">match</code> 子句可以是任何其他 span 类型的查询。
+
+<code class="literal">end</code> 控制匹配中允许的最大终点位置。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-span-field-masking-query.html">« Span field masking query</a>
+<a href="query-dsl-span-field-masking-query.html">« field_masking_span 查询</a>
 </span>
 <span class="next">
 <a href="query-dsl-span-multi-term-query.html">Span multi-term query »</a>

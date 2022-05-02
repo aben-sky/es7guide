@@ -144,3 +144,10 @@ https://www.pipiho.com/es/7.7/cn/query-dsl-parent-id-query.html
 https://www.pipiho.com/es/7.7/cn/_notes_3.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-match-all-query.html
 https://www.pipiho.com/es/7.7/cn/span-queries.html
+https://www.pipiho.com/es/7.7/cn/query-dsl-span-containing-query.html
+https://www.pipiho.com/es/7.7/cn/query-dsl-span-field-masking-query.html
+https://www.pipiho.com/es/7.7/cn/query-dsl-span-first-query.html
+https://www.pipiho.com/es/7.7/cn/query-dsl-span-multi-term-query.html
+https://www.pipiho.com/es/7.7/cn/query-dsl-span-near-query.html
+https://www.pipiho.com/es/7.7/cn/query-dsl-span-not-query.html
+https://www.pipiho.com/es/7.7/cn/query-dsl-span-or-query.html

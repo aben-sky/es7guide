@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Span not query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>span_not 查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,49 +32,50 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询领域特定语言(Query DSL)</a></span>
 »
-<span class="breadcrumb-link"><a href="span-queries.html">Span queries</a></span>
+<span class="breadcrumb-link"><a href="span-queries.html">跨度(span)查询</a></span>
 »
-<span class="breadcrumb-node">Span not query</span>
+<span class="breadcrumb-node">span_not 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-span-near-query.html">« Span near query</a>
+<a href="query-dsl-span-near-query.html">« span_near 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-span-or-query.html">Span or query »</a>
+<a href="query-dsl-span-or-query.html">span_or 查询 »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-span-not-query"></a>Span not query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/span-not-query.asciidoc">edit</a>
+<a id="query-dsl-span-not-query"></a>span_not 查询<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/span-not-query.asciidoc">edit</a>
 </h2>
 </div></div></div>
 
-<p>Removes matches which overlap with another span query or which are
-within x tokens before (controlled by the parameter <code class="literal">pre</code>) or y tokens
-after (controlled by the parameter <code class="literal">post</code>) another SpanQuery. The span not
-query maps to Lucene <code class="literal">SpanNotQuery</code>. Here is an example:</p>
+<p>
+删除与另一个 span 查询重叠的匹配项，或者位于另一个 span 查询之前的 x 标记(由参数 <code class="literal">pre</code> 控制) 或 之后的 y 标记(由参数 <code class="literal">post</code> 控制) 内的匹配项。
+
+span_not 查询对应 Lucene 的 <code class="literal">SpanNotQuery</code>。这里有一个例子：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
     "query": {
-        "span_not" : {
-            "include" : {
-                "span_term" : { "field1" : "hoya" }
+        "span_not": {
+            "include": {
+                "span_term": {"field1": "hoya"}
             },
-            "exclude" : {
-                "span_near" : {
-                    "clauses" : [
-                        { "span_term" : { "field1" : "la" } },
-                        { "span_term" : { "field1" : "hoya" } }
+            "exclude": {
+                "span_near": {
+                    "clauses": [
+                        {"span_term": {"field1": "la"}},
+                        {"span_term": {"field1": "hoya"}}
                     ],
-                    "slop" : 0,
-                    "in_order" : true
+                    "slop": 0,
+                    "in_order": true
                 }
             }
         }
@@ -82,12 +83,15 @@ query maps to Lucene <code class="literal">SpanNotQuery</code>. Here is an examp
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/224.console"></div>
-<p>The <code class="literal">include</code> and <code class="literal">exclude</code> clauses can be any span type query. The
-<code class="literal">include</code> clause is the span query whose matches are filtered, and the
-<code class="literal">exclude</code> clause is the span query whose matches must not overlap those
-returned.</p>
-<p>In the above example all documents with the term hoya are filtered except the ones that have <em>la</em> preceding them.</p>
-<p>Other top level options:</p>
+<p>
+<code class="literal">include</code> 和 <code class="literal">exclude</code> 子句可以是任何 span 类型的查询。
+
+<code class="literal">include</code> 子句是过滤匹配项的 span 查询，<code class="literal">exclude</code> 子句是匹配项不能与返回项重叠的 span 查询。
+</p>
+<p>
+在上面的例子中，除了前面有<em>la</em>的文档之外，所有带有<em>hoya</em>的文档都被过滤了。
+</p>
+<p>其他顶级选项有：</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -103,7 +107,8 @@ returned.</p>
 </td>
 <td valign="top">
 <p>
-If set the amount of tokens before the include span can’t have overlap with the exclude span. Defaults to 0.
+如果设置了，则包含 span 之前的词元数量不能与 exclude span 重叠。  
+默认值为 0。
 </p>
 </td>
 </tr>
@@ -115,7 +120,8 @@ If set the amount of tokens before the include span can’t have overlap with th
 </td>
 <td valign="top">
 <p>
-If set the amount of tokens after the include span can’t have overlap with the exclude span. Defaults to 0.
+如果设置了，则包含 span 后的词元数量不能与 exclude span 重叠。
+默认值为 0。  
 </p>
 </td>
 </tr>
@@ -127,8 +133,9 @@ If set the amount of tokens after the include span can’t have overlap with the
 </td>
 <td valign="top">
 <p>
-If set the amount of tokens from within the include span can’t have overlap with the exclude span. Equivalent
-of setting both <code class="literal">pre</code> and <code class="literal">post</code>.
+如果设置了，包含 span 内的词元数量不能与 exclude span 重叠。
+
+相当于设置了 <code class="literal">pre</code> 和 <code class="literal">post</code>。
 </p>
 </td>
 </tr>
@@ -138,10 +145,10 @@ of setting both <code class="literal">pre</code> and <code class="literal">post<
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-span-near-query.html">« Span near query</a>
+<a href="query-dsl-span-near-query.html">« span_near 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-span-or-query.html">Span or query »</a>
+<a href="query-dsl-span-or-query.html">span_or 查询 »</a>
 </span>
 </div>
 </div>

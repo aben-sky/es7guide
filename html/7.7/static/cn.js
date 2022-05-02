@@ -781,28 +781,28 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-span-near-query.html",
-                        "text": "Span near",
-                        "title": "Span near"
+                        "text": "span_near",
+                        "title": "span_near"
                     },
                     {
                         "url": "query-dsl-span-not-query.html",
-                        "text": "Span not",
-                        "title": "Span not"
+                        "text": "span_not",
+                        "title": "span_not"
                     },
                     {
                         "url": "query-dsl-span-or-query.html",
-                        "text": "Span or",
-                        "title": "Span or"
+                        "text": "span_or",
+                        "title": "span_or"
                     },
                     {
                         "url": "query-dsl-span-term-query.html",
-                        "text": "Span term",
-                        "title": "Span term"
+                        "text": "span_term",
+                        "title": "span_term"
                     },
                     {
                         "url": "query-dsl-span-within-query.html",
-                        "text": "Span within",
-                        "title": "Span within"
+                        "text": "span_within",
+                        "title": "span_within"
                     }
                 ]
             },

@@ -586,8 +586,8 @@ var esNavLinks = [
     },
     {
         "url": "query-dsl.html",
-        "text": "查询 DSL",
-        "title": "查询 DSL",
+        "text": "查询领域特定语言(Query DSL)",
+        "title": "查询领域特定语言(Query DSL)",
         "sub": [
             {
                 "url": "query-filter-context.html",
@@ -776,8 +776,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-span-multi-term-query.html",
-                        "text": "Span multi-term",
-                        "title": "Span multi-term"
+                        "text": "span_multi",
+                        "title": "span_multi"
                     },
                     {
                         "url": "query-dsl-span-near-query.html",

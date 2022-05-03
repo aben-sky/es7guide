@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Distance feature query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>distance_feature 查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,66 +32,73 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询领域特定语言(Query DSL)</a></span>
 »
-<span class="breadcrumb-link"><a href="specialized-queries.html">Specialized queries</a></span>
+<span class="breadcrumb-link"><a href="specialized-queries.html">专业的查询</a></span>
 »
-<span class="breadcrumb-node">Distance feature query</span>
+<span class="breadcrumb-node">distance_feature 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="specialized-queries.html">« Specialized queries</a>
+<a href="specialized-queries.html">« 专业的查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-mlt-query.html">More like this query »</a>
+<a href2="query-dsl-mlt-query.html">More like this query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-distance-feature-query"></a>Distance feature query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/distance-feature-query.asciidoc">edit</a>
+<a id="query-dsl-distance-feature-query"></a>distance_feature 查询
 </h2>
 </div></div></div>
 
-<p>Boosts the <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance score</a> of documents closer to a
-provided <code class="literal">origin</code> date or point. For example, you can use this query to give
-more weight to documents closer to a certain date or location.</p>
-<p>You can use the <code class="literal">distance_feature</code> query to find the nearest neighbors to a
-location. You can also use the query in a <a class="xref" href="query-dsl-bool-query.html" title="Boolean query"><code class="literal">bool</code></a>
-search’s <code class="literal">should</code> filter to add boosted relevance scores to the <code class="literal">bool</code> query’s
-scores.</p>
+<p>
+提高更接近提供的日期或坐标<code class="literal">原点(origin)</code>的文档的<a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">相关性评分</a>。
+
+例如，可以使用此查询为更接近某个日期或位置的文档赋予更多权重<span class="remark">(越接近原点得分越高)</span>。 
+</p>
+<p>
+可以使用 <code class="literal">distance_feature</code> 查询来查找距离某个位置最近的邻居。  
+
+还可以在 <a class="xref" href="query-dsl-bool-query.html" title="Boolean query"><code class="literal">bool</code></a> 搜索的 <code class="literal">should</code> 过滤器中使用该查询，将提升的相关性评分添加到 <code class="literal">bool</code> 查询的分数中。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="distance-feature-query-ex-request"></a>Example request<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/distance-feature-query.asciidoc">edit</a>
+<a id="distance-feature-query-ex-request"></a>请求示例
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="distance-feature-index-setup"></a>Index setup<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/distance-feature-query.asciidoc">edit</a>
+<a id="distance-feature-index-setup"></a>创建索引
 </h4>
 </div></div></div>
-<p>To use the <code class="literal">distance_feature</code> query, your index must include a <a class="xref" href="date.html" title="Date datatype"><code class="literal">date</code></a>,
-<a class="xref" href="date_nanos.html" title="Date nanoseconds datatype"><code class="literal">date_nanos</code></a> or <a class="xref" href="geo-point.html" title="Geo-point datatype"><code class="literal">geo_point</code></a> field.</p>
-<p>To see how you can set up an index for the <code class="literal">distance_feature</code> query, try the
-following example.</p>
+<p>
+要使用 <code class="literal">distance_feature</code> 查询，索引必须包含一个 <a class="xref" href="date.html" title="Date datatype"><code class="literal">date</code></a>、<a class="xref" href="date_nanos.html" title="Date nanoseconds datatype"><code class="literal">date_nanos</code></a> 或 <a class="xref" href="geo-point.html" title="Geo-point datatype"><code class="literal">geo_point</code></a> 字段。
+</p>
+<p>
+要了解如何为 <code class="literal">distance_feature</code> 查询设置索引，请尝试以下示例：
+</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-<p>Create an <code class="literal">items</code> index with the following field mapping:</p>
+<p>
+使用下面的字段映射来创建一个名为 <code class="literal">items</code> 的索引：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">name</code>, a <a class="xref" href="keyword.html" title="Keyword datatype"><code class="literal">keyword</code></a> field
+<code class="literal">name</code>：一个 <a class="xref" href="keyword.html" title="Keyword datatype"><code class="literal">keyword</code></a> 类型的字段
 </li>
 <li class="listitem">
-<code class="literal">production_date</code>, a <a class="xref" href="date.html" title="Date datatype"><code class="literal">date</code></a> field
+<code class="literal">production_date</code>：一个 <a class="xref" href="date.html" title="Date datatype"><code class="literal">date</code></a> 类型的字段
 </li>
 <li class="listitem">
-<code class="literal">location</code>, a <a class="xref" href="geo-point.html" title="Geo-point datatype"><code class="literal">geo_point</code></a> field
+<code class="literal">location</code>：一个 <a class="xref" href="geo-point.html" title="Geo-point datatype"><code class="literal">geo_point</code></a> 类型的字段
 </li>
 </ul>
 </div>
@@ -116,7 +123,7 @@ following example.</p>
 <div class="console_widget" data-snippet="snippets/230.console"></div>
 </li>
 <li class="listitem">
-<p>Index several documents to this index.</p>
+<p>往这个索引中添加并索引几个文档：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /items/_doc/1?refresh
 {
@@ -149,18 +156,20 @@ PUT /items/_doc/3?refresh
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="distance-feature-query-ex-query"></a>Example queries<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/distance-feature-query.asciidoc">edit</a>
+<a id="distance-feature-query-ex-query"></a>查询示例
 </h4>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h5 class="title">
-<a id="distance-feature-query-date-ex"></a>Boost documents based on date<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/distance-feature-query.asciidoc">edit</a>
+<a id="distance-feature-query-date-ex"></a>基于 date 提升文档评分
 </h5>
 </div></div></div>
-<p>The following <code class="literal">bool</code> search returns documents with a <code class="literal">name</code> value of
-<code class="literal">chocolate</code>. The search also uses the <code class="literal">distance_feature</code> query to increase the
-relevance score of documents with a <code class="literal">production_date</code> value closer to <code class="literal">now</code>.</p>
+<p>
+下面这个 <code class="literal">bool</code> 搜索返回字段 <code class="literal">name</code> 的值为 <code class="literal">chocolate</code> 的文档。
+
+该搜索还使用 <code class="literal">distance_feature</code> 查询来增加字段 <code class="literal">production_date</code> 的值更接近 <code class="literal">now</code>（当前时间） 的文档的相关性评分。<span class="remark">(以当前时间 now 为原点)</span>
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /items/_search
 {
@@ -188,12 +197,14 @@ relevance score of documents with a <code class="literal">production_date</code>
 <div class="section">
 <div class="titlepage"><div><div>
 <h5 class="title">
-<a id="distance-feature-query-distance-ex"></a>Boost documents based on location<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/distance-feature-query.asciidoc">edit</a>
+<a id="distance-feature-query-distance-ex"></a>基于位置提升文档评分
 </h5>
 </div></div></div>
-<p>The following <code class="literal">bool</code> search returns documents with a <code class="literal">name</code> value of
-<code class="literal">chocolate</code>. The search also uses the <code class="literal">distance_feature</code> query to increase the
-relevance score of documents with a <code class="literal">location</code> value closer to <code class="literal">[-71.3, 41.15]</code>.</p>
+<p>
+下面这个 <code class="literal">bool</code> 搜索返回字段 <code class="literal">name</code> 的值为 <code class="literal">chocolate</code> 的文档。
+
+该搜索还使用 <code class="literal">distance_feature</code> 查询来增加字段 <code class="literal">location</code> 的值更接近地理位置坐标 <code class="literal">[-71.3, 41.15]</code> 的文档的相关性评分。<span class="remark">(以该坐标为原点)</span>
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /items/_search
 {
@@ -225,7 +236,7 @@ relevance score of documents with a <code class="literal">location</code> value 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="distance-feature-top-level-params"></a>Top-level parameters for <code class="literal">distance_feature</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/distance-feature-query.asciidoc">edit</a>
+<a id="distance-feature-top-level-params"></a><code class="literal">distance_feature</code>的顶级参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -237,22 +248,18 @@ relevance score of documents with a <code class="literal">location</code> value 
 </dt>
 <dd>
 <p>
-(Required, string) Name of the field used to calculate distances. This field
-must meet the following criteria:
+(必需, string) 用于计算距离的字段的名称。该字段必须符合以下标准：
 </p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Be a <a class="xref" href="date.html" title="Date datatype"><code class="literal">date</code></a>, <a class="xref" href="date_nanos.html" title="Date nanoseconds datatype"><code class="literal">date_nanos</code></a> or
-<a class="xref" href="geo-point.html" title="Geo-point datatype"><code class="literal">geo_point</code></a> field
+必需是一个 <a class="xref" href="date.html" title="Date datatype"><code class="literal">date</code></a>、<a class="xref" href="date_nanos.html" title="Date nanoseconds datatype"><code class="literal">date_nanos</code></a> 或者 <a class="xref" href="geo-point.html" title="Geo-point datatype"><code class="literal">geo_point</code></a> 类型的字段
 </li>
 <li class="listitem">
-Have an <a class="xref" href="mapping-index.html" title="index"><code class="literal">index</code></a> mapping parameter value of <code class="literal">true</code>, which is
-the default
+映射参数中的 <a class="xref" href="mapping-index.html" title="index"><code class="literal">index</code></a> 值必须为 <code class="literal">true</code>（这个也是默认值）
 </li>
 <li class="listitem">
-Have an <a class="xref" href="doc-values.html" title="doc_values"><code class="literal">doc_values</code></a> mapping parameter value of <code class="literal">true</code>, which
-is the default
+映射参数中的 <a class="xref" href="doc-values.html" title="doc_values"><code class="literal">doc_values</code></a> 值必须为 <code class="literal">true</code>（这个也是默认值）
 </li>
 </ul>
 </div>
@@ -263,12 +270,16 @@ is the default
 </span>
 </dt>
 <dd>
-<p>(Required, string) Date or point of origin used to calculate distances.</p>
-<p>If the <code class="literal">field</code> value is a <a class="xref" href="date.html" title="Date datatype"><code class="literal">date</code></a> or <a class="xref" href="date_nanos.html" title="Date nanoseconds datatype"><code class="literal">date_nanos</code></a>
-field, the <code class="literal">origin</code> value must be a <a class="xref" href="search-aggregations-bucket-daterange-aggregation.html#date-format-pattern" title="Date Format/Pattern">date</a>.
-<a class="xref" href="common-options.html#date-math" title="Date Math">Date Math</a>, such as <code class="literal">now-1h</code>, is supported.</p>
-<p>If the <code class="literal">field</code> value is a <a class="xref" href="geo-point.html" title="Geo-point datatype"><code class="literal">geo_point</code></a> field, the <code class="literal">origin</code> value
-must be a geopoint.</p>
+<p>(必需, string) 用于计算距离的日期或地理坐标点的原点。</p>
+<p>
+如果 <code class="literal">field</code> 的值是 <a class="xref" href="date.html" title="Date datatype"><code class="literal">date</code></a> 或 <a class="xref" href="date_nanos.html" title="Date nanoseconds datatype"><code class="literal">date_nanos</code></a> 类型的字段，则 <code class="literal">origin</code> 的值必须是 <a class="xref" href="search-aggregations-bucket-daterange-aggregation.html#date-format-pattern" title="Date Format/Pattern">date</a> 格式。
+
+支持 <a class="xref" href="common-options.html#date-math" title="Date Math">日期计算(Date Math)</a>，比如 <code class="literal">now-1h</code>。
+</p>
+<p>
+
+如果 <code class="literal">field</code> 的值是 <a class="xref" href="geo-point.html" title="Geo-point datatype"><code class="literal">geo_point</code></a> 类型的字段，则 <code class="literal">origin</code> 的值必须是一个 地理位置坐标点。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -276,14 +287,16 @@ must be a geopoint.</p>
 </span>
 </dt>
 <dd>
-<p>(Required, <a class="xref" href="common-options.html#time-units" title="Time units">time unit</a> or <a class="xref" href="common-options.html#distance-units" title="Distance Units">distance unit</a>)
-Distance from the <code class="literal">origin</code> at which relevance scores receive half of the <code class="literal">boost</code>
-value.</p>
-<p>If the <code class="literal">field</code> value is a <a class="xref" href="date.html" title="Date datatype"><code class="literal">date</code></a> or <a class="xref" href="date_nanos.html" title="Date nanoseconds datatype"><code class="literal">date_nanos</code></a>
-field, the <code class="literal">pivot</code> value must be a <a class="xref" href="common-options.html#time-units" title="Time units">time unit</a>, such as <code class="literal">1h</code> or
-<code class="literal">10d</code>.</p>
-<p>If the <code class="literal">field</code> value is a <a class="xref" href="geo-point.html" title="Geo-point datatype"><code class="literal">geo_point</code></a> field, the <code class="literal">pivot</code> value
-must be a <a class="xref" href="common-options.html#distance-units" title="Distance Units">distance unit</a>, such as <code class="literal">1km</code> or <code class="literal">12m</code>.</p>
+<p>(必需, <a class="xref" href="common-options.html#time-units" title="Time units">时间单位</a> 或 <a class="xref" href="common-options.html#distance-units" title="Distance Units">距离单位</a>)
+
+距离 <code class="literal">origin</code>(原点) 的距离，在该距离处相关性评分为 <code class="literal">boost</code> 值的一半。
+</p>
+<p>
+如果 <code class="literal">field</code> 的值是 <a class="xref" href="date.html" title="Date datatype"><code class="literal">date</code></a> 或者 <a class="xref" href="date_nanos.html" title="Date nanoseconds datatype"><code class="literal">date_nanos</code></a> 格式的字段, 则 <code class="literal">pivot</code> 的值必须是 <a class="xref" href="common-options.html#time-units" title="Time units">时间格式</a>，比如 <code class="literal">1h</code> 或 <code class="literal">10d</code>。
+</p>
+<p>
+如果 <code class="literal">field</code> 的值是 <a class="xref" href="geo-point.html" title="Geo-point datatype"><code class="literal">geo_point</code></a> 类型的字段，则 <code class="literal">pivot</code> 的值必须是 <a class="xref" href="common-options.html#distance-units" title="Distance Units">距离单位</a>，比如 <code class="literal">1km</code> 或 <code class="literal">12m</code>。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -291,9 +304,12 @@ must be a <a class="xref" href="common-options.html#distance-units" title="Dista
 </span>
 </dt>
 <dd>
-<p>(Optional, float) Floating point number used to multiply the
-<a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance score</a> of matching documents. This value
-cannot be negative. Defaults to <code class="literal">1.0</code>.</p>
+<p>(可选, float) 用于乘以匹配文档的<a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">相关性评分</a>的浮点数。
+
+该值不能为负数。
+
+默认为 <code class="literal">1.0</code>。
+</p>
 </dd>
 </dl>
 </div>
@@ -302,36 +318,38 @@ cannot be negative. Defaults to <code class="literal">1.0</code>.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="distance-feature-notes"></a>Notes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/distance-feature-query.asciidoc">edit</a>
+<a id="distance-feature-notes"></a>注意
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="distance-feature-calculation"></a>How the <code class="literal">distance_feature</code> query calculates relevance scores<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/distance-feature-query.asciidoc">edit</a>
+<a id="distance-feature-calculation"></a><code class="literal">distance_feature</code> 是如何计算相关性评分的？
 </h4>
 </div></div></div>
-<p>The <code class="literal">distance_feature</code> query dynamically calculates the distance between the
-<code class="literal">origin</code> value and a document’s field values. It then uses this distance as a
-feature to boost the <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance score</a> of closer
-documents.</p>
-<p>The <code class="literal">distance_feature</code> query calculates a document’s
-<a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance score</a> as follows:</p>
+<p>
+<code class="literal">distance_feature</code> 查询动态计算 <code class="literal">origin</code> 和文档字段值之间的距离。
+
+然后，它使用这个距离作为一个特征来提高更接近原点的文档的 <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">相关性评分</a>。
+</p>
+<p>
+<code class="literal">distance_feature</code> 查询按如下方式计算文档的相关性评分：
+</p>
 <pre class="screen">relevance score = boost * pivot / (pivot + distance)</pre>
-<p>The <code class="literal">distance</code> is the absolute difference between the <code class="literal">origin</code> value and a
-document’s field value.</p>
+<p>
+<code class="literal">distance</code> 是 <code class="literal">origin</code>(原点) 和文档字段值之间的绝对差值。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="distance-feature-skip-hits"></a>Skip non-competitive hits<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/distance-feature-query.asciidoc">edit</a>
+<a id="distance-feature-skip-hits"></a>跳过非竞争性命中 (skip non-competitive hits)
 </h4>
 </div></div></div>
-<p>Unlike the <a class="xref" href="query-dsl-function-score-query.html" title="Function score query"><code class="literal">function_score</code></a> query or other
-ways to change <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance scores</a>, the
-<code class="literal">distance_feature</code> query efficiently skips non-competitive hits when the
-<a class="xref" href="search-uri-request.html" title="URI search"><code class="literal">track_total_hits</code></a> parameter is <span class="strong strong"><strong>not</strong></span> <code class="literal">true</code>.</p>
+<p>
+与 <a class="xref" href="query-dsl-function-score-query.html" title="Function score query"><code class="literal">function_score</code></a> 查询或其他改变 <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">相关性评分</a>的方式不同，<code class="literal">distance_feature</code> 查询在 <a class="xref" href="search-uri-request.html" title="URI search"><code class="literal">track_total_hits</code></a> 参数<span class="strong strong"><strong>不</strong></span>为 <code class="literal">true</code> 时会有效地跳过非竞争性命中。
+</p>
 </div>
 
 </div>
@@ -339,10 +357,10 @@ ways to change <a class="xref" href="query-filter-context.html#relevance-scores"
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="specialized-queries.html">« Specialized queries</a>
+<a href="specialized-queries.html">« 专业的查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-mlt-query.html">More like this query »</a>
+<a href2="query-dsl-mlt-query.html">More like this query »</a>
 </span>
 </div>
 </div>

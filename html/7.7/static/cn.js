@@ -808,13 +808,13 @@ var esNavLinks = [
             },
             {
                 "url": "specialized-queries.html",
-                "text": "Specialized queries",
-                "title": "Specialized queries",
+                "text": "专业的查询",
+                "title": "专业的查询",
                 "sub": [
                     {
                         "url": "query-dsl-distance-feature-query.html",
-                        "text": "Distance feature",
-                        "title": "Distance feature"
+                        "text": "distance_feature",
+                        "title": "distance_feature"
                     },
                     {
                         "url": "query-dsl-mlt-query.html",

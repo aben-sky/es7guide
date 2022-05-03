@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Specialized queries | ElasticSearch 7.7 权威指南中文版</title>
+	<title>专业性的查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,98 +32,99 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询领域特定语言(Query DSL)</a></span>
 »
-<span class="breadcrumb-node">Specialized queries</span>
+<span class="breadcrumb-node">专业的查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-span-within-query.html">« Span within query</a>
+<a href="query-dsl-span-within-query.html">« span_within 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-distance-feature-query.html">Distance feature query »</a>
+<a href="query-dsl-distance-feature-query.html">distance_feature 查询 »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="specialized-queries"></a>Specialized queries<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/special-queries.asciidoc">edit</a>
+<a id="specialized-queries"></a>专业的查询 (Specialized queries)
 </h2>
 </div></div></div>
-<p>This group contains queries which do not fit into the other groups:</p>
+<p>该组包含的是不适合其他组的查询：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-distance-feature-query.html" title="Distance feature query"><code class="literal">distance_feature</code> query</a>
+<a class="xref" href="query-dsl-distance-feature-query.html" title="distance_feature 查询"><code class="literal">distance_feature</code> (距离特性)查询</a>
 </span>
 </dt>
 <dd>
-A query that computes scores based on the dynamically computed distances
-between the origin and documents' date, date_nanos and geo_point fields.
-It is able to efficiently skip non-competitive hits.
+一种根据动态计算的原点(origin)与文档的 date、date_nanos 和 geo_point 字段之间的距离来计算分数的查询。
+
+它能够有效地跳过非竞争性的(non-competitive)命中。
+
+<span class="remark">(基于时间或坐标的查询，越接近原点得分越高)</span>
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-mlt-query.html" title="More like this query"><code class="literal">more_like_this</code> query</a>
+<a class="xref" href="query-dsl-mlt-query.html" title="More like this query"><code class="literal">more_like_this</code> (更相似)查询</a>
 </span>
 </dt>
 <dd>
-This query finds documents which are similar to the specified text, document,
-or collection of documents.
+该查询查找与指定文本、文档或文档集合相似的文档。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-percolate-query.html" title="Percolate query"><code class="literal">percolate</code> query</a>
+<a class="xref" href="query-dsl-percolate-query.html" title="Percolate query"><code class="literal">percolate</code> 查询</a>
 </span>
 </dt>
 <dd>
-This query finds queries that are stored as documents that match with
-the specified document.
+该查询查找存储为与指定文档匹配的文档的查询。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-rank-feature-query.html" title="Rank feature query"><code class="literal">rank_feature</code> query</a>
+<a class="xref" href="query-dsl-rank-feature-query.html" title="Rank feature query"><code class="literal">rank_feature</code> 查询</a>
 </span>
 </dt>
 <dd>
-A query that computes scores based on the values of numeric features and is
-able to efficiently skip non-competitive hits.
+一种基于数字特征的值计算分数的查询，能够有效地跳过非竞争性的(non-competitive)命中。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-script-query.html" title="Script query"><code class="literal">script</code> query</a>
+<a class="xref" href="query-dsl-script-query.html" title="Script query"><code class="literal">script</code> 查询</a>
 </span>
 </dt>
 <dd>
-This query allows a script to act as a filter.  Also see the
-<a class="xref" href="query-dsl-function-score-query.html" title="Function score query"><code class="literal">function_score</code> query</a>.
+该查询允许使用一个脚本充当过滤器。
+
+另请参考 <a class="xref" href="query-dsl-function-score-query.html" title="Function score query"><code class="literal">function_score</code> 查询</a>。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-script-score-query.html" title="Script score query"><code class="literal">script_score</code> query</a>
+<a class="xref" href="query-dsl-script-score-query.html" title="Script score query"><code class="literal">script_score</code> (脚本评分)查询</a>
 </span>
 </dt>
 <dd>
-A query that allows to modify the score of a sub-query with a script.
+一种允许使用脚本修改子查询分数的查询。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-wrapper-query.html" title="Wrapper query"><code class="literal">wrapper</code> query</a>
+<a class="xref" href="query-dsl-wrapper-query.html" title="Wrapper query"><code class="literal">wrapper</code> (脚本)查询</a>
 </span>
 </dt>
 <dd>
-A query that accepts other queries as json or yaml string.
+接受其他查询作为 json 或 yaml 字符串的查询。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-pinned-query.html" title="Pinned Query"><code class="literal">pinned</code> query</a>
+<a class="xref" href="query-dsl-pinned-query.html" title="Pinned Query"><code class="literal">pinned</code> (置顶的)查询</a>
 </span>
 </dt>
 <dd>
-A query that promotes selected documents over others matching a given query.
+将所选文档提升到与给定查询匹配的其他文档之上的查询。
+<span class="remark">(提升特定文档的查询)</span>
 </dd>
 </dl>
 </div>
@@ -139,10 +140,10 @@ A query that promotes selected documents over others matching a given query.
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-span-within-query.html">« Span within query</a>
+<a href="query-dsl-span-within-query.html">« span_within 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-distance-feature-query.html">Distance feature query »</a>
+<a href="query-dsl-distance-feature-query.html">distance_feature 查询 »</a>
 </span>
 </div>
 </div>

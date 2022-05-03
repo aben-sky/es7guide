@@ -151,3 +151,7 @@ https://www.pipiho.com/es/7.7/cn/query-dsl-span-multi-term-query.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-span-near-query.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-span-not-query.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-span-or-query.html
+https://www.pipiho.com/es/7.7/cn/query-dsl-span-term-query.html
+https://www.pipiho.com/es/7.7/cn/query-dsl-span-within-query.html
+https://www.pipiho.com/es/7.7/cn/specialized-queries.html
+https://www.pipiho.com/es/7.7/cn/query-dsl-distance-feature-query.html

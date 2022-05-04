@@ -818,8 +818,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-mlt-query.html",
-                        "text": "More like this",
-                        "title": "More like this"
+                        "text": "more_like_this",
+                        "title": "more_like_this"
                     },
                     {
                         "url": "query-dsl-percolate-query.html",

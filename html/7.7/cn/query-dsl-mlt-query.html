@@ -32,38 +32,41 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询领域特定语言(Query DSL)</a></span>
 »
-<span class="breadcrumb-link"><a href="specialized-queries.html">Specialized queries</a></span>
+<span class="breadcrumb-link"><a href="specialized-queries.html">专业的查询</a></span>
 »
-<span class="breadcrumb-node">More like this query</span>
+<span class="breadcrumb-node">more_like_this 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-distance-feature-query.html">« Distance feature query</a>
+<a href="query-dsl-distance-feature-query.html">« distance_feature 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-percolate-query.html">Percolate query »</a>
+<a href2="query-dsl-percolate-query.html">Percolate query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-mlt-query"></a>More like this query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/mlt-query.asciidoc">edit</a>
+<a id="query-dsl-mlt-query"></a>more_like_this 查询
 </h2>
 </div></div></div>
 
-<p>The More Like This Query finds documents that are "like" a given
-set of documents. In order to do so, MLT selects a set of representative terms
-of these input documents, forms a query using these terms, executes the query
-and returns the results. The user controls the input documents, how the terms
-should be selected and how the query is formed.</p>
-<p>The simplest use case consists of asking for documents that are similar to a
-provided piece of text. Here, we are asking for all movies that have some text
-similar to "Once upon a time" in their "title" and in their "description"
-fields, limiting the number of selected terms to 12.</p>
+<p>
+more_like_this 查询（以下简称 MLT）查找与给定文档集“相似(like)”的文档。
+
+为此，MLT 选择这些输入文档的一组代表性词项，使用这些词项形成查询，执行查询并返回结果。
+
+用户控制输入文档、如何选择词项以及如何形成查询。
+</p>
+<p>
+一个最简单的用例是请求与提供的文本相似的文档。
+
+在这里，我们要求所有电影的“title”和“description”字段中有类似“Once upon a time”的文本，将所选词项的数量限制为12个。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -78,9 +81,11 @@ fields, limiting the number of selected terms to 12.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/234.console"></div>
-<p>A more complicated use case consists of mixing texts with documents already
-existing in the index. In this case, the syntax to specify a document is
-similar to the one used in the <a class="xref" href="docs-multi-get.html" title="Multi get (mget) API">Multi GET API</a>.</p>
+<p>
+一个更复杂的用例是将文本与索引中已经存在的文档混合。
+
+在这种情况下，指定文档的语法类似于<a class="xref" href="docs-multi-get.html" title="Multi get (mget) API" rel="nofollow">Multi GET API</a>中使用的语法。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -105,9 +110,11 @@ similar to the one used in the <a class="xref" href="docs-multi-get.html" title=
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/235.console"></div>
-<p>Finally, users can mix some texts, a chosen set of documents but also provide
-documents not necessarily present in the index. To provide documents not
-present in the index, the syntax is similar to <a class="xref" href="docs-termvectors.html#docs-termvectors-artificial-doc" title="Artificial documents">artificial documents</a>.</p>
+<p>
+最后，用户可以混合一些文本、一组选定的文档，但也可以提供不一定出现在索引中的文档。
+
+为了提供索引中没有的文档，语法类似于 <a class="xref" href="docs-termvectors.html#docs-termvectors-artificial-doc" title="Artificial documents" rel="nofollow">人工文档</a>。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -140,33 +147,37 @@ present in the index, the syntax is similar to <a class="xref" href="docs-termve
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_how_it_works"></a>How it Works<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/mlt-query.asciidoc">edit</a>
+<a id="_how_it_works"></a>它是如何工作的?
 </h3>
 </div></div></div>
-<p>Suppose we wanted to find all documents similar to a given input document.
-Obviously, the input document itself should be its best match for that type of
-query. And the reason would be mostly, according to
-<a href="https://lucene.apache.org/core/4_9_0/core/org/apache/lucene/search/similarities/TFIDFSimilarity.html" class="ulink" target="_top">Lucene scoring formula</a>,
-due to the terms with the highest tf-idf. Therefore, the terms of the input
-document that have the highest tf-idf are good representatives of that
-document, and could be used within a disjunctive query (or <code class="literal">OR</code>) to retrieve similar
-documents. The MLT query simply extracts the text from the input document,
-analyzes it, usually using the same analyzer at the field, then selects the
-top K terms with highest tf-idf to form a disjunctive query of these terms.</p>
+<p>
+假设我们想要找到所有与给定的输入文档相似的文档。
+
+显然，输入文档本身应该是该类型查询的最佳匹配。
+
+根据 <a href="https://lucene.apache.org/core/4_9_0/core/org/apache/lucene/search/similarities/TFIDFSimilarity.html" class="ulink" target="_top">Lucene 评分公式</a>，主要原因是 tf-idf(词频-逆向文档频率) 最高的词项。
+
+因此，输入文档中具有最高 tf-idf 的词项是该文档的很好的代表，并且可以在析取<span class="remark">(disjunctive)</span>查询(or或<code class="literal">OR</code>)中用来检索相似的文档。
+
+MLT查询简单地从输入文档中提取文本，分析它，通常对字段使用相同的分析器，然后选择具有最高 tf-idf 的前 K 个词项来形成这些词项的析取<span class="remark">(disjunctive)</span>查询。
+</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The fields on which to perform MLT must be indexed and of type
-<code class="literal">text</code> or <code class="literal">keyword`</code>. Additionally, when using <code class="literal">like</code> with documents, either
-<code class="literal">_source</code> must be enabled or the fields must be <code class="literal">stored</code> or store
-<code class="literal">term_vector</code>. In order to speed up analysis, it could help to store term
-vectors at index time.</p>
+<p>
+要执行 MLT 的字段必须进行索引，并且必须是 <code class="literal">text</code> 或 <code class="literal">keyword</code> 类型。
+
+此外，对文档使用 <code class="literal">like</code> 时，必须启用 <code class="literal">_source</code>，或者字段必须是<code class="literal">stored</code> 或 存储(store) <code class="literal">term_vector</code><span class="remark">(词项向量)</span>。
+
+为了加速分析，在索引时存储词项 向量(vector) 会有所帮助。
+</p>
 </div>
 </div>
-<p>For example, if we wish to perform MLT on the "title" and "tags.raw" fields,
-we can explicitly store their <code class="literal">term_vector</code> at index time. We can still
-perform MLT on the "description" and "tags" fields, as <code class="literal">_source</code> is enabled by
-default, but there will be no speed up on analysis for these fields.</p>
+<p>
+例如，如果我们希望对“title”和“tags.raw”字段执行 MLT，我们可以在索引时显式存储它们的 <code class="literal">term_vector</code>。
+
+我们仍然可以在“description”和“tags”字段上执行 MLT，因为 <code class="literal">_source</code> 在默认情况下是启用的，但是这些字段的分析速度不会加快。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /imdb
 {
@@ -199,14 +210,16 @@ default, but there will be no speed up on analysis for these fields.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_parameters_2"></a>Parameters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/mlt-query.asciidoc">edit</a>
+<a id="_parameters_2"></a>参数
 </h3>
 </div></div></div>
-<p>The only required parameter is <code class="literal">like</code>, all other parameters have sensible
-defaults. There are three types of parameters: one to specify the document
-input, the other one for term selection and for query formation.</p>
+<p>
+唯一需要的参数是 <code class="literal">like</code>，所有其他参数都有合理的默认值。
+
+有三种类型的参数：一种用于指定文档输入，另一种用于词项选择 以及 查询的形成。
+</p>
 <h4>
-<a id="_document_input_parameters"></a>Document Input Parameters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/mlt-query.asciidoc">edit</a>
+<a id="_document_input_parameters"></a>文档输入参数
 </h4>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
@@ -223,17 +236,17 @@ input, the other one for term selection and for query formation.</p>
 </td>
 <td valign="top">
 <p>
-The only <span class="strong strong"><strong>required</strong></span> parameter of the MLT query is <code class="literal">like</code> and follows a
-versatile syntax, in which the user can specify free form text and/or a single
-or multiple documents (see examples above). The syntax to specify documents is
-similar to the one used by the <a class="xref" href="docs-multi-get.html" title="Multi get (mget) API">Multi GET API</a>. When
-specifying documents, the text is fetched from <code class="literal">fields</code> unless overridden in
-each document request. The text is analyzed by the analyzer at the field, but
-could also be overridden. The syntax to override the analyzer at the field
-follows a similar syntax to the <code class="literal">per_field_analyzer</code> parameter of the
-<a class="xref" href="docs-termvectors.html#docs-termvectors-per-field-analyzer" title="Per-field analyzer">Term Vectors API</a>.
-Additionally, to provide documents not necessarily present in the index,
-<a class="xref" href="docs-termvectors.html#docs-termvectors-artificial-doc" title="Artificial documents">artificial documents</a> are also supported.
+MLT查询唯一<span class="strong strong"><strong>需要的</strong></span>参数是 <code class="literal">like</code>，它遵循一个通用的语法，用户可以指定自由格式的文本和/或一个或多个文档(参见上面的例子)。
+
+指定文档的语法与 <a class="xref" href="docs-multi-get.html" title="Multi get (mget) API">Multi GET API</a> 使用的语法类似。
+
+指定文档时，除非在每个文档请求中被覆盖，否则将从 <code class="literal">fields</code> 中提取文本。
+
+文本被字段指定的分析器分析，但是这个分析器也可以被覆盖（重新指定）。
+
+覆盖字段的分析器的语法与 <a class="xref" href="docs-termvectors.html#docs-termvectors-per-field-analyzer" title="Per-field analyzer">Term Vectors API</a> 中的 <code class="literal">per_field_analyzer</code> 参数的语法相似。
+
+此外，为了提供不一定出现在索引中的文档，也支持<a class="xref" href="docs-termvectors.html#docs-termvectors-artificial-doc" title="Artificial documents">人工文档(artificial documents)</a>。
 </p>
 </td>
 </tr>
@@ -245,10 +258,11 @@ Additionally, to provide documents not necessarily present in the index,
 </td>
 <td valign="top">
 <p>
-The <code class="literal">unlike</code> parameter is used in conjunction with <code class="literal">like</code> in order not to
-select terms found in a chosen set of documents. In other words, we could ask
-for documents <code class="literal">like: "Apple"</code>, but <code class="literal">unlike: "cake crumble tree"</code>. The syntax
-is the same as <code class="literal">like</code>.
+ <code class="literal">unlike</code> 参数与 <code class="literal">like</code> 一起使用，以便不选择在一组选定的文档中找到的词项。
+
+换句话说，我们可以要求 <code class="literal">like: "Apple"</code> 这样的文档，但<code class="literal">unlike: "cake crumble tree"</code> 。<span class="remark">(译者注: 像Apple, 但是不像 cake crumble tree)</span>
+
+语法和 <code class="literal">like</code> 一样。
 </p>
 </td>
 </tr>
@@ -260,7 +274,7 @@ is the same as <code class="literal">like</code>.
 </td>
 <td valign="top">
 <p>
-A list of fields to fetch and analyze the text from.
+要从中提取和分析文本的字段列表。
 </p>
 </td>
 </tr>
@@ -268,7 +282,7 @@ A list of fields to fetch and analyze the text from.
 </table>
 </div>
 <h4>
-<a id="mlt-query-term-selection"></a>Term Selection Parameters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/mlt-query.asciidoc">edit</a>
+<a id="mlt-query-term-selection"></a>词项选择(term selection)参数
 </h4>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
@@ -285,9 +299,11 @@ A list of fields to fetch and analyze the text from.
 </td>
 <td valign="top">
 <p>
-The maximum number of query terms that will be selected. Increasing this value
-gives greater accuracy at the expense of query execution speed. Defaults to
-<code class="literal">25</code>.
+将被选择的查询词项的最大数量。
+
+增加该值可以以查询执行速度为代价而获得更高的准确性。
+
+默认为 <code class="literal">25</code>。
 </p>
 </td>
 </tr>
@@ -299,8 +315,7 @@ gives greater accuracy at the expense of query execution speed. Defaults to
 </td>
 <td valign="top">
 <p>
-The minimum term frequency below which the terms will be ignored from the
-input document. Defaults to <code class="literal">2</code>.
+最小词项频率，低于该频率的词项将从输入文档中忽略。默认为 <code class="literal">2</code>。
 </p>
 </td>
 </tr>
@@ -312,8 +327,7 @@ input document. Defaults to <code class="literal">2</code>.
 </td>
 <td valign="top">
 <p>
-The minimum document frequency below which the terms will be ignored from the
-input document. Defaults to <code class="literal">5</code>.
+最小文档频率，低于该频率的词项将从输入文档中忽略。默认为 <code class="literal">5</code>。
 </p>
 </td>
 </tr>
@@ -325,10 +339,11 @@ input document. Defaults to <code class="literal">5</code>.
 </td>
 <td valign="top">
 <p>
-The maximum document frequency above which the terms will be ignored from the
-input document. This could be useful in order to ignore highly frequent words
-such as stop words. Defaults to unbounded (<code class="literal">Integer.MAX_VALUE</code>, which is <code class="literal">2^31-1</code>
-or 2147483647).
+最大文档频率，高于该频率的词项将从输入文档中忽略。
+
+这对于忽略高频词(如停止词)很有用。
+
+默认为无限制(<code class="literal">Integer.MAX_VALUE</code>，其值为 <code class="literal">2^31-1</code> 或者 2147483647)。
 </p>
 </td>
 </tr>
@@ -340,8 +355,11 @@ or 2147483647).
 </td>
 <td valign="top">
 <p>
-The minimum word length below which the terms will be ignored. The old name
-<code class="literal">min_word_len</code> is deprecated. Defaults to <code class="literal">0</code>.
+最小单词长度，小于该长度的单词将被忽略。
+
+旧名称 <code class="literal">min_word_len</code> 已废弃。
+
+默认为 <code class="literal">0</code>.
 </p>
 </td>
 </tr>
@@ -353,8 +371,11 @@ The minimum word length below which the terms will be ignored. The old name
 </td>
 <td valign="top">
 <p>
-The maximum word length above which the terms will be ignored. The old name
-<code class="literal">max_word_len</code> is deprecated. Defaults to unbounded (<code class="literal">0</code>).
+最大单词长度，大于该长度的单词将被忽略。
+
+旧名称 <code class="literal">max_word_len</code> 已废弃。
+
+默认为无限制 (<code class="literal">0</code>)。
 </p>
 </td>
 </tr>
@@ -366,10 +387,11 @@ The maximum word length above which the terms will be ignored. The old name
 </td>
 <td valign="top">
 <p>
-An array of stop words. Any word in this set is considered "uninteresting" and
-ignored. If the analyzer allows for stop words, you might want to tell MLT to
-explicitly ignore them, as for the purposes of document similarity it seems
-reasonable to assume that "a stop word is never interesting".
+停止词数组。
+
+这个集合中的任何单词都被认为是“不感兴趣的”并被忽略。
+
+如果分析器允许停止词，你可能想要告诉 MLT 显式地忽略它们，因为为了文档相似性的目的，假设“停止词从不有趣”似乎是合理的。
 </p>
 </td>
 </tr>
@@ -381,8 +403,9 @@ reasonable to assume that "a stop word is never interesting".
 </td>
 <td valign="top">
 <p>
-The analyzer that is used to analyze the free form text. Defaults to the
-analyzer associated with the first field in <code class="literal">fields</code>.
+用于分析自由格式文本的分析器。
+
+默认为与 <code class="literal">fields</code> 中的第一个字段相关联的分析器。
 </p>
 </td>
 </tr>
@@ -390,7 +413,7 @@ analyzer associated with the first field in <code class="literal">fields</code>.
 </table>
 </div>
 <h4>
-<a id="_query_formation_parameters"></a>Query Formation Parameters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/mlt-query.asciidoc">edit</a>
+<a id="_query_formation_parameters"></a>查询形成(query formation)参数
 </h4>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
@@ -407,10 +430,11 @@ analyzer associated with the first field in <code class="literal">fields</code>.
 </td>
 <td valign="top">
 <p>
-After the disjunctive query has been formed, this parameter controls the
-number of terms that must match.
-The syntax is the same as the <a class="xref" href="query-dsl-minimum-should-match.html" title="minimum_should_match parameter">minimum should match</a>.
-(Defaults to <code class="literal">"30%"</code>).
+形成析取查询后，该参数控制必须匹配的词项的数量。
+
+语法与 <a class="xref" href="query-dsl-minimum-should-match.html" title="minimum_should_match parameter" rel="nofollow">minimum should match</a> 相同。
+
+(默认为 <code class="literal">"30%"</code>)。
 </p>
 </td>
 </tr>
@@ -422,10 +446,10 @@ The syntax is the same as the <a class="xref" href="query-dsl-minimum-should-mat
 </td>
 <td valign="top">
 <p>
-Controls whether the query should fail (throw an exception) if any of the
-specified fields are not of the supported types
-(<code class="literal">text</code> or <code class="literal">keyword</code>). Set this to <code class="literal">false</code> to ignore the field and continue
-processing. Defaults to <code class="literal">true</code>.
+控制如果任何指定字段不属于支持的类型(<code class="literal">text</code> 或 <code class="literal">keyword</code>)，查询是否应该失败(抛出异常)。
+
+将此项设置为 <code class="literal">false</code> 以忽略该字段并继续处理。
+默认为 <code class="literal">true</code>。
 </p>
 </td>
 </tr>
@@ -437,10 +461,13 @@ processing. Defaults to <code class="literal">true</code>.
 </td>
 <td valign="top">
 <p>
-Each term in the formed query could be further boosted by their tf-idf score.
-This sets the boost factor to use when using this feature. Defaults to
-deactivated (<code class="literal">0</code>). Any other positive value activates terms boosting with the
-given boost factor.
+所形成的查询中的每一项都可以被它们的 tf-idf 分数进一步增强。
+
+这将设置使用此功能时要使用的 boost(增强) 因子。
+
+默认为停用 (<code class="literal">0</code>)。
+
+任何一个正数的值都将激活具有给定增强因子的词项增强。
 </p>
 </td>
 </tr>
@@ -452,8 +479,7 @@ given boost factor.
 </td>
 <td valign="top">
 <p>
-Specifies whether the input documents should also be included in the search
-results returned. Defaults to <code class="literal">false</code>.
+指定输入文档是否也应包含在返回的搜索结果中。默认为 <code class="literal">false</code>。
 </p>
 </td>
 </tr>
@@ -465,7 +491,7 @@ results returned. Defaults to <code class="literal">false</code>.
 </td>
 <td valign="top">
 <p>
-Sets the boost value of the whole query. Defaults to <code class="literal">1.0</code>.
+设置整个查询的增强(boost)值。默认为 <code class="literal">1.0</code>。
 </p>
 </td>
 </tr>
@@ -477,19 +503,25 @@ Sets the boost value of the whole query. Defaults to <code class="literal">1.0</
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_alternative"></a>Alternative<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/mlt-query.asciidoc">edit</a>
+<a id="_alternative"></a>可替代的(Alternative)
 </h3>
 </div></div></div>
-<p>To take more control over the construction of a query for similar documents it is worth considering writing custom client code to assemble selected terms from an example document into a Boolean query with the desired settings. The logic in <code class="literal">more_like_this</code> that selects "interesting" words from a piece of text is also accessible via the <a class="xref" href="docs-termvectors.html" title="Term vectors API">TermVectors API</a>. For example, using the termvectors API it would be possible to present users with a selection of topical keywords found in a document’s text, allowing them to select words of interest to drill down on, rather than using the more "black-box" approach of matching used by <code class="literal">more_like_this</code>.</p>
+<p>
+为了更好地控制相似文档查询的构造，值得考虑编写定制的客户端代码，将示例文档中的选定的词项组合成具有所需设置的 bool 查询。
+
+在 <code class="literal">more_like_this</code> 中从一段文本中选择“感兴趣的”单词的逻辑也可以通过 <a class="xref" href="docs-termvectors.html" title="Term vectors API">TermVectors API</a>访问。
+
+例如，使用 TermVectors API，可以向用户提供在文档文本中找到的主题关键词的选择，允许他们选择感兴趣的单词进行深入研究，而不是使用 <code class="literal">more_like_this</code>使用的更“黑盒(black-box)”的匹配方法。
+</p>
 </div>
 
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-distance-feature-query.html">« Distance feature query</a>
+<a href="query-dsl-distance-feature-query.html">« distance_feature 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-percolate-query.html">Percolate query »</a>
+<a href2="query-dsl-percolate-query.html">Percolate query »</a>
 </span>
 </div>
 </div>

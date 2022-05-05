@@ -823,8 +823,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-percolate-query.html",
-                        "text": "Percolate",
-                        "title": "Percolate"
+                        "text": "percolate",
+                        "title": "percolate"
                     },
                     {
                         "url": "_notes_4.html",

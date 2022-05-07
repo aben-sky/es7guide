@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Rank feature query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>rank_feature 查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,48 +32,49 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询领域特定语言(Query DSL)</a></span>
 »
-<span class="breadcrumb-link"><a href="specialized-queries.html">Specialized queries</a></span>
+<span class="breadcrumb-link"><a href="specialized-queries.html">专业的查询</a></span>
 »
-<span class="breadcrumb-node">Rank feature query</span>
+<span class="breadcrumb-node">rank_feature 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="_notes_4.html">« Notes</a>
+<a href="_notes_4.html">« 注意</a>
 </span>
 <span class="next">
-<a href="query-dsl-script-query.html">Script query »</a>
+<a href2="query-dsl-script-query.html">Script query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-rank-feature-query"></a>Rank feature query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/rank-feature-query.asciidoc">edit</a>
+<a id="query-dsl-rank-feature-query"></a>rank_feature 查询
 </h2>
 </div></div></div>
 
-<p>Boosts the <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance score</a> of documents based on the
-numeric value of a <a class="xref" href="rank-feature.html" title="Rank feature datatype"><code class="literal">rank_feature</code></a> or
-<a class="xref" href="rank-features.html" title="Rank features datatype"><code class="literal">rank_features</code></a> field.</p>
-<p>The <code class="literal">rank_feature</code> query is typically used in the <code class="literal">should</code> clause of a
-<a class="xref" href="query-dsl-bool-query.html" title="Boolean query"><code class="literal">bool</code></a> query so its relevance scores are added to other
-scores from the <code class="literal">bool</code> query.</p>
-<p>Unlike the <a class="xref" href="query-dsl-function-score-query.html" title="Function score query"><code class="literal">function_score</code></a> query or other
-ways to change <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance scores</a>, the
-<code class="literal">rank_feature</code> query efficiently skips non-competitive hits when the
-<a class="xref" href="search-uri-request.html" title="URI search"><code class="literal">track_total_hits</code></a> parameter is <span class="strong strong"><strong>not</strong></span> <code class="literal">true</code>. This can
-dramatically improve query speed.</p>
+<p>
+基于 <a class="xref" href="rank-feature.html" title="rank_feature 数据类型"><code class="literal">rank_feature</code></a> 或 <a class="xref" href="rank-features.html" title="rank_features 数据类型" rel="nofollow"><code class="literal">rank_features</code></a> 字段的数值提升文档的<a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores" rel="nofollow">相关性评分</a>。
+</p>
+<p>
+<code class="literal">rank_feature</code> 查询通常用在 <a class="xref" href="query-dsl-bool-query.html" title="Boolean query"><code class="literal">bool</code></a> 查询的 <code class="literal">should</code> 子句中，因此它的相关性分数会添加到 <code class="literal">bool</code>查询的其他分数中。
+</p>
+<p>
+与 <a class="xref" href="query-dsl-function-score-query.html" title="Function score query"><code class="literal">function_score</code></a> 查询或其他更改<a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">相关性评分</a>的方法不同，当 <a class="xref" href="search-uri-request.html" title="URI search"><code class="literal">track_total_hits</code></a> 参数<span class="strong strong"><strong>不</strong></span>为<code class="literal">true</code>时，<code class="literal">rank_feature</code> 查询会有效地跳过非竞争命中。
+
+这可以极大地提高查询速度。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="rank-feature-query-functions"></a>Rank feature functions<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/rank-feature-query.asciidoc">edit</a>
+<a id="rank-feature-query-functions"></a>等级特征(rank feature)函数
 </h3>
 </div></div></div>
-<p>To calculate relevance scores based on rank feature fields, the <code class="literal">rank_feature</code>
-query supports the following mathematical functions:</p>
+<p>
+为了基于等级特征字段计算相关性评分，<code class="literal">rank_feature</code> 查询支持以下数学函数：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
@@ -87,42 +88,43 @@ query supports the following mathematical functions:</p>
 </li>
 </ul>
 </div>
-<p>If you don’t know where to start, we recommend using the <code class="literal">saturation</code> function.
-If no function is provided, the <code class="literal">rank_feature</code> query uses the <code class="literal">saturation</code>
-function by default.</p>
+<p>
+如果你不知道从哪里开始，我们建议使用 <code class="literal">saturation</code> 函数。
+
+如果没有指定函数，默认情况下，<code class="literal">rank_feature</code> 查询使用 <code class="literal">saturation</code> 函数。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="rank-feature-query-ex-request"></a>Example request<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/rank-feature-query.asciidoc">edit</a>
+<a id="rank-feature-query-ex-request"></a>请求示例
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="rank-feature-query-index-setup"></a>Index setup<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/rank-feature-query.asciidoc">edit</a>
+<a id="rank-feature-query-index-setup"></a>创建索引
 </h4>
 </div></div></div>
-<p>To use the <code class="literal">rank_feature</code> query, your index must include a
-<a class="xref" href="rank-feature.html" title="Rank feature datatype"><code class="literal">rank_feature</code></a> or <a class="xref" href="rank-features.html" title="Rank features datatype"><code class="literal">rank_features</code></a> field
-mapping. To see how you can set up an index for the <code class="literal">rank_feature</code> query, try
-the following example.</p>
-<p>Create a <code class="literal">test</code> index with the following field mappings:</p>
+<p>
+要使用 <code class="literal">rank_feature</code> 查询，索引必须包含<a class="xref" href="rank-feature.html" title="Rank feature datatype" rel="nofollow"><code class="literal">rank_feature</code></a> 或 <a class="xref" href="rank-features.html" title="Rank features datatype" rel="nofollow"><code class="literal">rank_features</code></a>字段映射。
+
+要了解如何为 <code class="literal">rank_feature</code> 查询创建索引，请尝试以下示例。
+</p>
+<p>使用以下字段映射创建一个名为 <code class="literal">test</code> 的索引：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">pagerank</code>, a <a class="xref" href="rank-feature.html" title="Rank feature datatype"><code class="literal">rank_feature</code></a> field which measures the
-importance of a website
+<code class="literal">pagerank</code>，一个 <a class="xref" href="rank-feature.html" title="Rank feature datatype"><code class="literal">rank_feature</code></a> 类型的字段，用来衡量一个网站的重要性。
 </li>
 <li class="listitem">
-<code class="literal">url_length</code>, a <a class="xref" href="rank-feature.html" title="Rank feature datatype"><code class="literal">rank_feature</code></a> field which contains the
-length of the website’s URL. For this example, a long URL correlates negatively
-to relevance, indicated by a <code class="literal">positive_score_impact</code> value of <code class="literal">false</code>.
+<code class="literal">url_length</code>，一个 <a class="xref" href="rank-feature.html" title="Rank feature datatype"><code class="literal">rank_feature</code></a> 类型的字段，包含网站url的长度。
+
+在本例中，<code class="literal">positive_score_impact</code> 值设置为 <code class="literal">false</code> 表示长 URL 与相关性负相关。
 </li>
 <li class="listitem">
-<code class="literal">topics</code>, a <a class="xref" href="rank-features.html" title="Rank features datatype"><code class="literal">rank_features</code></a> field which contains a list of
-topics and a measure of how well each document is connected to this topic
+<code class="literal">topics</code>，一个 <a class="xref" href="rank-features.html" title="Rank features datatype" rel="nofollow"><code class="literal">rank_features</code></a> 类型的字段，包含一个主题列表和一个衡量每个文档与该主题关联程度的指标
 </li>
 </ul>
 </div>
@@ -146,7 +148,7 @@ topics and a measure of how well each document is connected to this topic
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/251.console"></div>
-<p>Index several documents to the <code class="literal">test</code> index.</p>
+<p>添加并索引几个文档到索引 <code class="literal">test</code> 中：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /test/_doc/1?refresh
 {
@@ -191,11 +193,12 @@ PUT /test/_doc/3?refresh
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="rank-feature-query-ex-query"></a>Example query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/rank-feature-query.asciidoc">edit</a>
+<a id="rank-feature-query-ex-query"></a>查询示例
 </h4>
 </div></div></div>
-<p>The following query searches for <code class="literal">2016</code> and boosts relevance scores based on
-<code class="literal">pagerank</code>, <code class="literal">url_length</code>, and the <code class="literal">sports</code> topic.</p>
+<p>
+下面这个查询搜索 <code class="literal">2016</code>，并根据 <code class="literal">pagerank</code>、<code class="literal">url_length</code>和<code class="literal">sports</code>主题(topic.sports) 提升相关性评分。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /test/_search
 {
@@ -239,7 +242,7 @@ PUT /test/_doc/3?refresh
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="rank-feature-top-level-params"></a>Top-level parameters for <code class="literal">rank_feature</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/rank-feature-query.asciidoc">edit</a>
+<a id="rank-feature-top-level-params"></a><code class="literal">rank_feature</code>的顶级参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -250,9 +253,7 @@ PUT /test/_doc/3?refresh
 </span>
 </dt>
 <dd>
-(Required, string) <a class="xref" href="rank-feature.html" title="Rank feature datatype"><code class="literal">rank_feature</code></a> or
-<a class="xref" href="rank-features.html" title="Rank features datatype"><code class="literal">rank_features</code></a> field used to boost
-<a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance scores</a>.
+(必需, string) 用来提升<a class="xref" href="query-filter-context.html#relevance-scores">相关性评分</a>的<a class="xref" href="rank-feature.html"><code class="literal">rank_feature</code></a>或<a class="xref" href="rank-features.html"><code class="literal">rank_features</code></a>类型的字段。
 </dd>
 <dt>
 <span class="term">
@@ -260,11 +261,13 @@ PUT /test/_doc/3?refresh
 </span>
 </dt>
 <dd>
-<p>(Optional, float) Floating point number used to decrease or increase
-<a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance scores</a>. Defaults to <code class="literal">1.0</code>.</p>
-<p>Boost values are relative to the default value of <code class="literal">1.0</code>. A boost value between
-<code class="literal">0</code> and <code class="literal">1.0</code> decreases the relevance score. A value greater than <code class="literal">1.0</code>
-increases the relevance score.</p>
+<p>(可选, float) 用以降低或提升<a class="xref" href="query-filter-context.html#relevance-scores">相关性评分</a>的浮点数。默认为 <code class="literal">1.0</code>。</p>
+<p>
+
+提升值是相对于默认值<code class="literal">1.0</code>的。
+
+提升值在 <code class="literal">0</code> 和 <code class="literal">1.0</code> 之间会降低相关性评分，而当它大于 <code class="literal">1.0</code> 才会增加相关性评分。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -272,12 +275,18 @@ increases the relevance score.</p>
 </span>
 </dt>
 <dd>
-<p>(Optional, <a class="xref" href="query-dsl-rank-feature-query.html#rank-feature-query-saturation" title="Saturation">function object</a>) Saturation
-function used to boost <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance scores</a> based on the
-value of the rank feature <code class="literal">field</code>. If no function is provided, the <code class="literal">rank_feature</code>
-query defaults to the <code class="literal">saturation</code> function. See
-<a class="xref" href="query-dsl-rank-feature-query.html#rank-feature-query-saturation" title="Saturation">Saturation</a> for more information.</p>
-<p>Only one function <code class="literal">saturation</code>, <code class="literal">log</code>, or <code class="literal">sigmoid</code> can be provided.</p>
+<p>
+(可选, <a class="xref" href="query-dsl-rank-feature-query.html#rank-feature-query-saturation" title="Saturation">function object</a>)
+
+用于根据 rank_feature 类型的 <code class="literal">field</code> 的值提升<a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">相关性评分</a>的饱和度函数。
+
+如果未指定函数，<code class="literal">rank_feature</code> 查询默认使用 <code class="literal">saturation</code> 函数。
+
+更多信息请参考 <a class="xref" href="query-dsl-rank-feature-query.html#rank-feature-query-saturation" title="Saturation">饱和度(saturation)</a>。
+</p>
+<p>
+只能指定 <code class="literal">saturation</code>、<code class="literal">log</code> 或 <code class="literal">sigmoid</code> 函数中的一个。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -285,11 +294,16 @@ query defaults to the <code class="literal">saturation</code> function. See
 </span>
 </dt>
 <dd>
-<p>(Optional, <a class="xref" href="query-dsl-rank-feature-query.html#rank-feature-query-logarithm" title="Logarithm">function object</a>) Logarithmic
-function used to boost <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance scores</a> based on the
-value of the rank feature <code class="literal">field</code>. See
-<a class="xref" href="query-dsl-rank-feature-query.html#rank-feature-query-logarithm" title="Logarithm">Logarithm</a> for more information.</p>
-<p>Only one function <code class="literal">saturation</code>, <code class="literal">log</code>, or <code class="literal">sigmoid</code> can be provided.</p>
+<p>
+(可选, <a class="xref" href="query-dsl-rank-feature-query.html#rank-feature-query-logarithm" title="Logarithm">function object</a>)
+
+用于根据 rank_feature 类型的 <code class="literal">field</code> 的值提升<a class="xref" href="query-filter-context.html#relevance-scores">相关性评分</a>的对数函数。
+
+更多信息请参考 <a class="xref" href="query-dsl-rank-feature-query.html#rank-feature-query-logarithm" title="Logarithm">对数(logarithm)</a>。
+</p>
+<p>
+只能指定 <code class="literal">saturation</code>、<code class="literal">log</code> 或 <code class="literal">sigmoid</code> 函数中的一个。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -297,11 +311,17 @@ value of the rank feature <code class="literal">field</code>. See
 </span>
 </dt>
 <dd>
-<p>(Optional, <a class="xref" href="query-dsl-rank-feature-query.html#rank-feature-query-sigmoid" title="Sigmoid">function object</a>) Sigmoid function used
-to boost <a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance scores</a> based on the value of the
-rank feature <code class="literal">field</code>. See <a class="xref" href="query-dsl-rank-feature-query.html#rank-feature-query-sigmoid" title="Sigmoid">Sigmoid</a> for more
-information.</p>
-<p>Only one function <code class="literal">saturation</code>, <code class="literal">log</code>, or <code class="literal">sigmoid</code> can be provided.</p>
+<p>
+(可选, <a class="xref" href="query-dsl-rank-feature-query.html#rank-feature-query-sigmoid" title="Sigmoid">function object</a>)
+
+用于根据 rank_feature 类型的 <code class="literal">field</code> 的值提升<a class="xref" href="query-filter-context.html#relevance-scores">相关性评分</a>的 sigmoid 函数。
+
+
+更多信息请参考 <a class="xref" href="query-dsl-rank-feature-query.html#rank-feature-query-sigmoid" title="Sigmoid">sigmoid</a>。
+</p>
+<p>
+只能指定 <code class="literal">saturation</code>、<code class="literal">log</code> 或 <code class="literal">sigmoid</code> 函数中的一个。
+</p>
 </dd>
 </dl>
 </div>
@@ -310,21 +330,23 @@ information.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="rank-feature-query-notes"></a>Notes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/rank-feature-query.asciidoc">edit</a>
+<a id="rank-feature-query-notes"></a>注意
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="rank-feature-query-saturation"></a>Saturation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/rank-feature-query.asciidoc">edit</a>
+<a id="rank-feature-query-saturation"></a>saturation
 </h4>
 </div></div></div>
-<p>The <code class="literal">saturation</code> function gives a score equal to <code class="literal">S / (S + pivot)</code>, where <code class="literal">S</code> is
-the value of the rank feature field and <code class="literal">pivot</code> is a configurable pivot value so
-that the result will be less than <code class="literal">0.5</code> if <code class="literal">S</code> is less than pivot and greater
-than <code class="literal">0.5</code> otherwise. Scores are always <code class="literal">(0,1)</code>.</p>
-<p>If the rank feature has a negative score impact then the function will be
-computed as <code class="literal">pivot / (S + pivot)</code>, which decreases when <code class="literal">S</code> increases.</p>
+<p>
+<code class="literal">saturation</code> 函数给出等于 <code class="literal">S / (S + pivot)</code> 的分数，其中 <code class="literal">S</code> 是 rank_feature 类型字段的值，<code class="literal">pivot</code> 是可配置的 pivot 值，因此如果 <code class="literal">S</code> 小于 pivot，结果将小于 <code class="literal">0.5</code>，否则大于 <code class="literal">0.5</code>。
+
+评分总是位于 0 和 1 之间, 即 <code class="literal">(0,1)</code>。
+</p>
+<p>
+如果等级特征具有负得分影响<span class="remark">(即 positive_score_impact 为 false)</span>，则该函数将被计算为 <code class="literal">pivot / (S + pivot)</code>，其值将随着 <code class="literal">S</code>的增加而减少。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /test/_search
 {
@@ -339,10 +361,11 @@ computed as <code class="literal">pivot / (S + pivot)</code>, which decreases wh
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/254.console"></div>
-<p>If a <code class="literal">pivot</code> value is not provided, Elasticsearch computes a default value equal to the
-approximate geometric mean of all rank feature values in the index. We recommend
-using this default value if you haven’t had the opportunity to train a good
-pivot value.</p>
+<p>
+如果未提供 <code class="literal">pivot</code> 值，Elasticsearch 将计算默认值，该值等于索引中所有等级特征值的近似几何平均值。
+
+如果你还没有机会训练一个好的 pivot 值，我们建议使用这个默认值。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /test/_search
 {
@@ -360,13 +383,17 @@ pivot value.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="rank-feature-query-logarithm"></a>Logarithm<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/rank-feature-query.asciidoc">edit</a>
+<a id="rank-feature-query-logarithm"></a>logarithm
 </h4>
 </div></div></div>
-<p>The <code class="literal">log</code> function gives a score equal to <code class="literal">log(scaling_factor + S)</code>, where <code class="literal">S</code>
-is the value of the rank feature field and <code class="literal">scaling_factor</code> is a configurable
-scaling factor. Scores are unbounded.</p>
-<p>This function only supports rank features that have a positive score impact.</p>
+<p>
+<code class="literal">log</code> 函数给出的分数等于 <code class="literal">log(scaling_factor + S)</code>，其中 <code class="literal">S</code> 是 rank_feature 类型字段的值，<code class="literal">scaling_factor</code> 是可配置的缩放因子。
+
+其计算的值无界。
+</p>
+<p>
+该函数仅支持对分数有正面影响的等级特征<span class="remark">(即 positive_score_impact 为 true)</span>。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /test/_search
 {
@@ -386,16 +413,23 @@ scaling factor. Scores are unbounded.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="rank-feature-query-sigmoid"></a>Sigmoid<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/rank-feature-query.asciidoc">edit</a>
+<a id="rank-feature-query-sigmoid"></a>sigmoid
 </h4>
 </div></div></div>
-<p>The <code class="literal">sigmoid</code> function is an extension of <code class="literal">saturation</code> which adds a configurable
-exponent. Scores are computed as <code class="literal">S^exp^ / (S^exp^ + pivot^exp^)</code>. Like for the
-<code class="literal">saturation</code> function, <code class="literal">pivot</code> is the value of <code class="literal">S</code> that gives a score of <code class="literal">0.5</code>
-and scores are <code class="literal">(0,1)</code>.</p>
-<p>The <code class="literal">exponent</code> must be positive and is typically in <code class="literal">[0.5, 1]</code>. A
-good value should be computed via training. If you don’t have the opportunity to
-do so, we recommend you use the <code class="literal">saturation</code> function instead.</p>
+<p>
+<code class="literal">sigmoid</code> 函数是 <code class="literal">saturation</code> 的扩展，它增加了一个可配置的 exponent。
+
+按 <code class="literal">S^exp^ / (S^exp^ + pivot^exp^)</code> 计算分数。
+
+与 <code class="literal">saturation</code> 函数一样，<code class="literal">pivot</code> 是 <code class="literal">S</code> 的值，该值给出 <code class="literal">0.5</code>的分数，分数在 <code class="literal">(0,1)</code> 范围内。
+</p>
+<p>
+<code class="literal">exponent</code> 必须是正数，通常在 <code class="literal">[0.5, 1]</code> 范围内。
+
+一个好的值应该通过训练来计算。
+
+如果你没有机会这样做，我们建议使用 <code class="literal">saturation</code> 函数代替之。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /test/_search
 {
@@ -418,10 +452,10 @@ do so, we recommend you use the <code class="literal">saturation</code> function
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="_notes_4.html">« Notes</a>
+<a href="_notes_4.html">« 注意</a>
 </span>
 <span class="next">
-<a href="query-dsl-script-query.html">Script query »</a>
+<a href2="query-dsl-script-query.html">Script query »</a>
 </span>
 </div>
 </div>

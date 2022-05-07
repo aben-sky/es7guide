@@ -157,3 +157,5 @@ https://www.pipiho.com/es/7.7/cn/specialized-queries.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-distance-feature-query.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-mlt-query.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-percolate-query.html
+https://www.pipiho.com/es/7.7/cn/_notes_4.html
+https://www.pipiho.com/es/7.7/cn/query-dsl-rank-feature-query.html

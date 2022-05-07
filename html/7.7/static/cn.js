@@ -828,13 +828,13 @@ var esNavLinks = [
                     },
                     {
                         "url": "_notes_4.html",
-                        "text": "Notes",
-                        "title": "Notes"
+                        "text": "注意",
+                        "title": "注意"
                     },
                     {
                         "url": "query-dsl-rank-feature-query.html",
-                        "text": "Rank feature",
-                        "title": "Rank feature"
+                        "text": "rank_feature",
+                        "title": "rank_feature"
                     },
                     {
                         "url": "query-dsl-script-query.html",

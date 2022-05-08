@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Script score query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>script_score 查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,39 +32,42 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询领域特定语言(Query DSL)</a></span>
 »
-<span class="breadcrumb-link"><a href="specialized-queries.html">Specialized queries</a></span>
+<span class="breadcrumb-link"><a href="specialized-queries.html">专业的查询</a></span>
 »
-<span class="breadcrumb-node">Script score query</span>
+<span class="breadcrumb-node">script_score 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-script-query.html">« Script query</a>
+<a href="query-dsl-script-query.html">« script 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-wrapper-query.html">Wrapper query »</a>
+<a href2="query-dsl-wrapper-query.html">Wrapper query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-script-score-query"></a>Script score query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/script-score-query.asciidoc">edit</a>
+<a id="query-dsl-script-score-query"></a>script_score 查询
 </h2>
 </div></div></div>
 
-<p>Uses a <a class="xref" href="modules-scripting.html" title="Scripting">script</a> to provide a custom score for returned
-documents.</p>
-<p>The <code class="literal">script_score</code> query is useful if, for example, a scoring function is expensive and you only need to calculate the score of a filtered set of documents.</p>
+<p>脚本评分：使用 <a class="xref" href="modules-scripting.html" title="Scripting" rel="nofollow">script(脚本)</a> 为返回的文档提供自定义分数。</p>
+<p>
+如果评分函数使用成本很高，但只需要计算一组经过过滤的文档的分数，则<code class="literal">script_score</code> 查询非常有用。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="script-score-query-ex-request"></a>Example request<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/script-score-query.asciidoc">edit</a>
+<a id="script-score-query-ex-request"></a>请求示例
 </h3>
 </div></div></div>
-<p>The following <code class="literal">script_score</code> query assigns each returned document a score equal to the <code class="literal">likes</code> field value divided by <code class="literal">10</code>.</p>
+<p>
+下面这个 <code class="literal">script_score</code> 查询为每个返回的文档分配一个分数，该分数等于 <code class="literal">likes</code> 字段的值除以 <code class="literal">10</code>。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -86,7 +89,7 @@ documents.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="script-score-top-level-params"></a>Top-level parameters for <code class="literal">script_score</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/script-score-query.asciidoc">edit</a>
+<a id="script-score-top-level-params"></a><code class="literal">script_score</code>的顶级参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -97,7 +100,7 @@ documents.</p>
 </span>
 </dt>
 <dd>
-(Required, query object) Query used to return documents.
+(必需, query 对象) 用来返回文档的 query。
 </dd>
 <dt>
 <span class="term">
@@ -105,13 +108,17 @@ documents.</p>
 </span>
 </dt>
 <dd>
-<p>(Required, <a class="xref" href="modules-scripting-using.html" title="How to use scripts">script object</a>) Script used to compute the score of documents returned by the <code class="literal">query</code>.</p>
+<p>
+(必需, <a class="xref" href="modules-scripting-using.html" title="How to use scripts">script 对象</a>) 用于计算<code class="literal">query</code>返回的文档的分数的脚本。
+</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Final relevance scores from the <code class="literal">script_score</code> query cannot be
-negative. To support certain search optimizations, Lucene requires
-scores be positive or <code class="literal">0</code>.</p>
+<p>
+<code class="literal">script_score</code> 查询的最终相关性评分不能为负数。
+
+为了支持某些搜索优化，Lucene 要求分数为正数或<code class="literal">0</code>。
+</p>
 </div>
 </div>
 </dd>
@@ -121,8 +128,7 @@ scores be positive or <code class="literal">0</code>.</p>
 </span>
 </dt>
 <dd>
-(Optional, float) Documents with a score lower
-than this floating point number are excluded from the search results.
+(可选, float) 分数低于此浮点数的文档将从搜索结果中排除。
 </dd>
 <dt>
 <span class="term">
@@ -130,8 +136,7 @@ than this floating point number are excluded from the search results.
 </span>
 </dt>
 <dd>
-(Optional, float) Documents' scores produced by <code class="literal">script</code> are
-multiplied by <code class="literal">boost</code> to produce final documents' scores. Defaults to <code class="literal">1.0</code>.
+(可选, float) 由 <code class="literal">script</code> 产生的文档的分数乘以 <code class="literal">boost</code> 以产生最终的文档的分数。默认为 <code class="literal">1.0</code>。
 </dd>
 </dl>
 </div>
@@ -140,61 +145,64 @@ multiplied by <code class="literal">boost</code> to produce final documents' sco
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="script-score-query-notes"></a>Notes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/script-score-query.asciidoc">edit</a>
+<a id="script-score-query-notes"></a>注意
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="script-score-access-scores"></a>Use relevance scores in a script<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/script-score-query.asciidoc">edit</a>
+<a id="script-score-access-scores"></a>在脚本中使用相关性评分
 </h4>
 </div></div></div>
-<p>Within a script, you can
-<a href="modules-scripting-fields.html#scripting-score" class="ulink" target="_top">access</a>
-the <code class="literal">_score</code> variable which represents the current relevance score of a
-document.</p>
+<p>在脚本中，你可以访问<a href="modules-scripting-fields.html#scripting-score" class="ulink" target="_top" rel="nofollow">访问</a><code class="literal">_score</code> 变量，该变量表示文档的当前相关性评分。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="script-score-predefined-functions"></a>Predefined functions<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/script-score-query.asciidoc">edit</a>
+<a id="script-score-predefined-functions"></a>一些预定义的函数
 </h4>
 </div></div></div>
-<p>You can use any of the available <a href="https://www.elastic.co/guide/en/elasticsearch/painless/7.7/painless-contexts.html" class="ulink" target="_top">painless
-functions</a> in your <code class="literal">script</code>. You can also use the following predefined functions
-to customize scoring:</p>
+<p>
+你可以在<code class="literal">script</code>中使用任何可用的<a href="https://www.elastic.co/guide/en/elasticsearch/painless/7.7/painless-contexts.html" class="ulink" target="_top" rel="nofollow">无痛函数(painless function)</a>。
+
+还可以使用下面几个预定义的函数来自定义评分：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<a class="xref" href="query-dsl-script-score-query.html#script-score-saturation" title="Saturation">Saturation</a>
+<a class="xref" href="query-dsl-script-score-query.html#script-score-saturation" title="Saturation">饱和度 (saturation)</a>
 </li>
 <li class="listitem">
-<a class="xref" href="query-dsl-script-score-query.html#script-score-sigmoid" title="Sigmoid">Sigmoid</a>
+<a class="xref" href="query-dsl-script-score-query.html#script-score-sigmoid" title="Sigmoid">sigmoid</a>
 </li>
 <li class="listitem">
-<a class="xref" href="query-dsl-script-score-query.html#random-score-function" title="Random score function">Random score function</a>
+<a class="xref" href="query-dsl-script-score-query.html#random-score-function" title="Random score function">随机分数</a>
 </li>
 <li class="listitem">
-<a class="xref" href="query-dsl-script-score-query.html#decay-functions-numeric-fields" title="Decay functions for numeric fields">Decay functions for numeric fields</a>
+<a class="xref" href="query-dsl-script-score-query.html#decay-functions-numeric-fields" title="Decay functions for numeric fields">数值字段的衰减函数</a>
 </li>
 <li class="listitem">
-<a class="xref" href="query-dsl-script-score-query.html#decay-functions-geo-fields" title="Decay functions for geo fields">Decay functions for geo fields</a>
+<a class="xref" href="query-dsl-script-score-query.html#decay-functions-geo-fields" title="Decay functions for geo fields">geo字段的衰减函数</a>
 </li>
 <li class="listitem">
-<a class="xref" href="query-dsl-script-score-query.html#decay-functions-date-fields" title="Decay functions for date fields">Decay functions for date fields</a>
+<a class="xref" href="query-dsl-script-score-query.html#decay-functions-date-fields" title="Decay functions for date fields">date字段的衰减函数</a>
 </li>
 <li class="listitem">
-<a class="xref" href="query-dsl-script-score-query.html#script-score-functions-vector-fields" title="Functions for vector fields">Functions for vector fields</a>
+<a class="xref" href="query-dsl-script-score-query.html#script-score-functions-vector-fields" title="Functions for vector fields">vector字段的函数</a>
 </li>
 </ul>
 </div>
-<p>We suggest using these predefined functions instead of writing your own.
-These functions take advantage of efficiencies from Elasticsearch' internal mechanisms.</p>
+<p>
+建议使用这些预定义的函数，而不是编写自己的函数。
+
+这些功能从 Elasticsearch 的内部机制来说更高效。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h5 class="title">
-<a id="script-score-saturation"></a>Saturation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/script-score-query.asciidoc">edit</a>
+<a id="script-score-saturation"></a>饱和度 (saturation)
 </h5>
 </div></div></div>
 <p><code class="literal">saturation(value,k) = value/(k + value)</code></p>
@@ -208,7 +216,7 @@ These functions take advantage of efficiencies from Elasticsearch' internal mech
 <div class="section">
 <div class="titlepage"><div><div>
 <h5 class="title">
-<a id="script-score-sigmoid"></a>Sigmoid<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/script-score-query.asciidoc">edit</a>
+<a id="script-score-sigmoid"></a>sigmoid
 </h5>
 </div></div></div>
 <p><code class="literal">sigmoid(value, k, a) = value^a/ (k^a + value^a)</code></p>
@@ -222,45 +230,46 @@ These functions take advantage of efficiencies from Elasticsearch' internal mech
 <div class="section">
 <div class="titlepage"><div><div>
 <h5 class="title">
-<a id="random-score-function"></a>Random score function<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/script-score-query.asciidoc">edit</a>
+<a id="random-score-function"></a>随机分数函数
 </h5>
 </div></div></div>
-<p><code class="literal">random_score</code> function generates scores that are uniformly distributed
-from 0 up to but not including 1.</p>
-<p><code class="literal">randomScore</code> function has the following syntax:
-<code class="literal">randomScore(&lt;seed&gt;, &lt;fieldName&gt;)</code>.
-It has a required parameter - <code class="literal">seed</code> as an integer value,
-and an optional parameter - <code class="literal">fieldName</code> as a string value.</p>
+<p><code class="literal">random_score</code> 函数生成从0到1(不包括1)均匀分布的分数。</p>
+<p>
+<code class="literal">randomScore</code>函数的语法是：<code class="literal">randomScore(&lt;seed&gt;, &lt;fieldName&gt;)</code>。
+
+它有一个作为整数值的必需的参数 <code class="literal">seed</code> 和一个作为字符串值的可选参数 <code class="literal">fieldName</code>。
+</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">"script" : {
     "source" : "randomScore(100, '_seq_no')"
 }</pre>
 </div>
-<p>If the <code class="literal">fieldName</code> parameter is omitted, the internal Lucene
-document ids will be used as a source of randomness. This is very efficient,
-but unfortunately not reproducible since documents might be renumbered
-by merges.</p>
+<p>
+如果省略了参数<code class="literal">fieldName</code>，Lucene 内部的文档 id 将被用作随机性的来源。
+
+这非常有效，但却是不可再现的，因为文档可能会通过合并(merge)重新编号。
+</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">"script" : {
     "source" : "randomScore(100)"
 }</pre>
 </div>
-<p>Note that documents that are within the same shard and have the
-same value for field will get the same score, so it is usually desirable
-to use a field that has unique values for all documents across a shard.
-A good default choice might be to use the <code class="literal">_seq_no</code>
-field, whose only drawback is that scores will change if the document is
-updated since update operations also update the value of the <code class="literal">_seq_no</code> field.</p>
+<p>
+请注意，在同一个分片中具有相同字段值的文档将获得相同的分数，因此通常希望对整个分片中的所有文档使用具有唯一值的字段。
+
+一个好的默认选择可能是使用<code class="literal">_seq_no</code>字段，它唯一的缺点是如果文档被更新，分数将会改变，因为更新操作也会更新<code class="literal">_seq_no</code>字段的值。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h5 class="title">
-<a id="decay-functions-numeric-fields"></a>Decay functions for numeric fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/script-score-query.asciidoc">edit</a>
+<a id="decay-functions-numeric-fields"></a>数值字段的衰减函数
 </h5>
 </div></div></div>
-<p>You can read more about decay functions
-<a href="query-dsl-function-score-query.html#function-decay" class="ulink" target="_top">here</a>.</p>
+<p>
+你可以在<a href="query-dsl-function-score-query.html#function-decay" class="ulink" target="_top">这里</a>阅读更多关于衰减函数的内容。
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
@@ -292,7 +301,9 @@ updated since update operations also update the value of the <code class="litera
 <p><a href="#CO58-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Using <code class="literal">params</code> allows to compile the script only once, even if params change.</p>
+<p>
+使用 <code class="literal">params</code> 允许只编译一次脚本，即使 params 改变了。
+</p>
 </td>
 </tr>
 </table>
@@ -302,7 +313,7 @@ updated since update operations also update the value of the <code class="litera
 <div class="section">
 <div class="titlepage"><div><div>
 <h5 class="title">
-<a id="decay-functions-geo-fields"></a>Decay functions for geo fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/script-score-query.asciidoc">edit</a>
+<a id="decay-functions-geo-fields"></a>geo字段的衰减函数
 </h5>
 </div></div></div>
 <div class="ulist itemizedlist">
@@ -334,7 +345,7 @@ updated since update operations also update the value of the <code class="litera
 <div class="section">
 <div class="titlepage"><div><div>
 <h5 class="title">
-<a id="decay-functions-date-fields"></a>Decay functions for date fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/script-score-query.asciidoc">edit</a>
+<a id="decay-functions-date-fields"></a>date字段的衰减函数
 </h5>
 </div></div></div>
 <div class="ulist itemizedlist">
@@ -364,8 +375,10 @@ updated since update operations also update the value of the <code class="litera
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Decay functions on dates are limited to dates in the default format
-and default time zone. Also calculations with <code class="literal">now</code> are not supported.</p>
+<p>
+date的衰减函数仅限于默认格式和默认时区的日期。
+也不支持使用<code class="literal">now</code>进行计算。
+</p>
 </div>
 </div>
 </div>
@@ -373,11 +386,12 @@ and default time zone. Also calculations with <code class="literal">now</code> a
 <div class="section">
 <div class="titlepage"><div><div>
 <h5 class="title">
-<a id="script-score-functions-vector-fields"></a>Functions for vector fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/script-score-query.asciidoc">edit</a>
+<a id="script-score-functions-vector-fields"></a>vector字段的函数
 </h5>
 </div></div></div>
-<p><a class="xref" href="query-dsl-script-score-query.html#vector-functions" title="Functions for vector fields">Functions for vector fields</a> are accessible through
-<code class="literal">script_score</code> query.</p>
+<p>
+<a class="xref" href="query-dsl-script-score-query.html#vector-functions" title="Functions for vector fields">vector字段的函数</a> 可通过<code class="literal">script_score</code>查询来访问。
+</p>
 </div>
 
 </div>
@@ -385,31 +399,31 @@ and default time zone. Also calculations with <code class="literal">now</code> a
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_allow_expensive_queries_5"></a>Allow expensive queries<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/script-score-query.asciidoc">edit</a>
+<a id="_allow_expensive_queries_5"></a>允许执行高成本的查询
 </h4>
 </div></div></div>
-<p>Script score queries will not be executed if <a class="xref" href="query-dsl.html#query-dsl-allow-expensive-queries"><code class="literal">search.allow_expensive_queries</code></a>
-is set to false.</p>
+<p>
+如果 <a class="xref" href="query-dsl.html#query-dsl-allow-expensive-queries"><code class="literal">search.allow_expensive_queries</code></a> 设置为 <code class="literal">false</code> 则脚本评分查询不会被执行。
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="script-score-faster-alt"></a>Faster alternatives<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/script-score-query.asciidoc">edit</a>
+<a id="script-score-faster-alt"></a>更快的选择
 </h4>
 </div></div></div>
-<p>The <code class="literal">script_score</code> query calculates the score for
-every matching document, or hit. There are faster alternative query types that
-can efficiently skip non-competitive hits:</p>
+<p>
+<code class="literal">script_score</code> 查询计算每个匹配文档或命中的得分。
+
+有更快的替代查询类型，可以有效地跳过非竞争命中：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-If you want to boost documents on some static fields, use the
-<a class="xref" href="query-dsl-rank-feature-query.html" title="Rank feature query"><code class="literal">rank_feature</code></a> query.
+如果你想提升一些静态字段的文档，可以使用 <a class="xref" href="query-dsl-rank-feature-query.html" title="Rank feature query"><code class="literal">rank_feature</code></a> 查询。
 </li>
 <li class="listitem">
-If you want to boost documents closer to a date or geographic point, use the
-<a class="xref" href="query-dsl-distance-feature-query.html" title="Distance feature query"><code class="literal">distance_feature</code></a> query.
+如果你想提升与给定日期或地理坐标点更接近的文档，请使用 <a class="xref" href="query-dsl-distance-feature-query.html" title="Distance feature query"><code class="literal">distance_feature</code></a> 查询。
 </li>
 </ul>
 </div>
@@ -418,13 +432,15 @@ If you want to boost documents closer to a date or geographic point, use the
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="script-score-function-score-transition"></a>Transition from the function score query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/script-score-query.asciidoc">edit</a>
+<a id="script-score-function-score-transition"></a>从函数评分(function_score)查询转换
 </h4>
 </div></div></div>
-<p>We are deprecating the <a class="xref" href="query-dsl-function-score-query.html" title="Function score query"><code class="literal">function_score</code></a>
-query. We recommend using the <code class="literal">script_score</code> query instead.</p>
-<p>You can implement the following functions from the <code class="literal">function_score</code> query using
-the <code class="literal">script_score</code> query:</p>
+<p>
+我们正在废弃 <a class="xref" href="query-dsl-function-score-query.html" title="Function score query"><code class="literal">function_score</code></a> 查询，建议使用 <code class="literal">script_score</code> 查询代替之。
+</p>
+<p>
+可以使用 <code class="literal">script_score</code> 查询从 <code class="literal">function_score</code> 查询实现以下函数：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
@@ -440,28 +456,30 @@ the <code class="literal">script_score</code> query:</p>
 <a class="xref" href="query-dsl-script-score-query.html#field-value-factor" title="field_value_factor"><code class="literal">field_value_factor</code></a>
 </li>
 <li class="listitem">
-<a class="xref" href="query-dsl-script-score-query.html#decay-functions" title="decay functions"><code class="literal">decay</code> functions</a>
+<a class="xref" href="query-dsl-script-score-query.html#decay-functions" title="decay functions"><code class="literal">decay</code> 函数</a>
 </li>
 </ul>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h5 class="title">
-<a id="script-score"></a><code class="literal">script_score</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/script-score-query.asciidoc">edit</a>
+<a id="script-score"></a><code class="literal">script_score</code>
 </h5>
 </div></div></div>
-<p>What you used in <code class="literal">script_score</code> of the Function Score query, you
-can copy into the Script Score query. No changes here.</p>
+<p>
+你在 函数评分(function_score) 查询中的 <code class="literal">script_score</code> 里的代码，可以直接复制到 脚本评分(script_score) 查询中，无需任何修改。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h5 class="title">
-<a id="weight"></a><code class="literal">weight</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/script-score-query.asciidoc">edit</a>
+<a id="weight"></a><code class="literal">weight</code>
 </h5>
 </div></div></div>
-<p><code class="literal">weight</code> function can be implemented in the Script Score query through
-the following script:</p>
+<p>
+<code class="literal">weight</code> 函数可以通过下面的脚本在脚本评分查询中实现:
+</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">"script" : {
     "source" : "params.weight * _score",
@@ -475,20 +493,23 @@ the following script:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h5 class="title">
-<a id="random-score"></a><code class="literal">random_score</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/script-score-query.asciidoc">edit</a>
+<a id="random-score"></a><code class="literal">random_score</code>
 </h5>
 </div></div></div>
-<p>Use <code class="literal">randomScore</code> function
-as described in <a class="xref" href="query-dsl-script-score-query.html#random-score-function" title="Random score function">random score function</a>.</p>
+<p>
+像<a class="xref" href="query-dsl-script-score-query.html#random-score-function" title="随机评分函数">随机评分函数(random score function)</a>中描述的那样去使用 <code class="literal">randomScore</code> 函数。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h5 class="title">
-<a id="field-value-factor"></a><code class="literal">field_value_factor</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/script-score-query.asciidoc">edit</a>
+<a id="field-value-factor"></a><code class="literal">field_value_factor</code>
 </h5>
 </div></div></div>
-<p><code class="literal">field_value_factor</code> function can be easily implemented through script:</p>
+<p>
+<code class="literal">field_value_factor</code> 函数可以通过脚本轻松实现：
+</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">"script" : {
     "source" : "Math.log10(doc['field'].value * params.factor)",
@@ -497,9 +518,11 @@ as described in <a class="xref" href="query-dsl-script-score-query.html#random-s
     }
 }</pre>
 </div>
-<p>For checking if a document has a missing value, you can use
-<code class="literal">doc['field'].size() == 0</code>. For example, this script will use
-a value <code class="literal">1</code> if a document doesn’t have a field <code class="literal">field</code>:</p>
+<p>
+要检查文档是否有缺失值，可以使用 <code class="literal">doc['field'].size() == 0</code>。
+
+例如，如果文档没有字段 <code class="literal">field</code>，此脚本将使用<code class="literal">1</code>作为它的值：
+</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">"script" : {
     "source" : "Math.log10((doc['field'].size() == 0 ? 1 : doc['field'].value()) * params.factor)",
@@ -508,8 +531,9 @@ a value <code class="literal">1</code> if a document doesn’t have a field <cod
     }
 }</pre>
 </div>
-<p>This table lists how <code class="literal">field_value_factor</code> modifiers can be implemented
-through a script:</p>
+<p>
+下表列出了如何通过脚本实现 <code class="literal">field_value_factor</code> 修饰符：
+</p>
 <div class="informaltable">
 <table border="1" cellpadding="4px">
 <colgroup>
@@ -518,8 +542,8 @@ through a script:</p>
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Modifier</th>
-<th align="left" valign="top">Implementation in Script Score</th>
+<th align="left" valign="top">修饰符</th>
+<th align="left" valign="top">在脚本评分中的实现</th>
 </tr>
 </thead>
 <tbody>
@@ -571,11 +595,12 @@ through a script:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h5 class="title">
-<a id="decay-functions"></a><code class="literal">decay</code> functions<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/script-score-query.asciidoc">edit</a>
+<a id="decay-functions"></a>衰减(<code class="literal">decay</code>)函数
 </h5>
 </div></div></div>
-<p>The <code class="literal">script_score</code> query has equivalent <a class="xref" href="query-dsl-script-score-query.html#decay-functions" title="decay functions">decay functions</a>
-that can be used in script.</p>
+<p>
+<code class="literal">script_score</code> 查询具有可在脚本中使用的等效的<a class="xref" href="query-dsl-script-score-query.html#decay-functions" title="decay functions">衰减函数(decay function)</a>。
+</p>
 </div>
 
 </div>
@@ -583,26 +608,30 @@ that can be used in script.</p>
 <div class="section xpack">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="vector-functions"></a>Functions for vector fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/vectors/vector-functions.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
+<a id="vector-functions"></a>vector字段的函数
 </h4>
 </div></div></div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>During vector functions' calculation, all matched documents are
-linearly scanned. Thus, expect the query time grow linearly
-with the number of matched documents. For this reason, we recommend
-to limit the number of matched documents with a <code class="literal">query</code> parameter.</p>
+<p>
+在向量(vector)函数的计算过程中，所有匹配的文档都被线性扫描。
+
+因此，预计查询时间会随着匹配文档的数量而线性增长。
+
+因此，建议使用 <code class="literal">query</code> 参数来限制匹配文档的数量。
+</p>
 </div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h5 class="title">
-<a id="_dense_vector_functions"></a><code class="literal">dense_vector</code> functions<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/vectors/vector-functions.asciidoc">edit</a>
+<a id="_dense_vector_functions"></a><code class="literal">dense_vector</code>函数
 </h5>
 </div></div></div>
-<p>Let’s create an index with a <code class="literal">dense_vector</code> mapping and index a couple
-of documents into it.</p>
+<p>
+让我们创建一个带有<code class="literal">dense_vector</code>类型的映射的索引，然后添加并索引几个文档进去。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index
 {
@@ -634,8 +663,9 @@ PUT my_index/_doc/2
 POST my_index/_refresh</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/261.console"></div>
-<p>The <code class="literal">cosineSimilarity</code> function calculates the measure of
-cosine similarity between a given query vector and document vectors.</p>
+<p>
+<code class="literal">cosineSimilarity</code> 函数计算给定的查询向量(query_vector) 和文档向量(vector) 之间的余弦相似度。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_index/_search
 {
@@ -668,7 +698,9 @@ cosine similarity between a given query vector and document vectors.</p>
 <p><a href="#CO59-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>To restrict the number of documents on which script score calculation is applied, provide a filter.</p>
+<p>
+要限制应用到脚本评分计算的文档数量，请提供一个 filter。
+</p>
 </td>
 </tr>
 <tr>
@@ -676,7 +708,9 @@ cosine similarity between a given query vector and document vectors.</p>
 <p><a href="#CO59-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The script adds 1.0 to the cosine similarity to prevent the score from being negative.</p>
+<p>
+该脚本将余弦相似度加 1.0，以防止分数为负。
+</p>
 </td>
 </tr>
 <tr>
@@ -684,7 +718,9 @@ cosine similarity between a given query vector and document vectors.</p>
 <p><a href="#CO59-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>To take advantage of the script optimizations, provide a query vector as a script parameter.</p>
+<p>
+为了利用脚本优化，提供一个 查询向量(query_vector) 作为脚本参数。
+</p>
 </td>
 </tr>
 </table>
@@ -692,12 +728,14 @@ cosine similarity between a given query vector and document vectors.</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If a document’s dense vector field has a number of dimensions
-different from the query’s vector, an error will be thrown.</p>
+<p>
+如果文档的 dense_vector 字段的维数与 查询向量(query_vector) 的维数不同，将会抛出一个错误。
+</p>
 </div>
 </div>
-<p>The <code class="literal">dotProduct</code> function calculates the measure of
-dot product between a given query vector and document vectors.</p>
+<p>
+<code class="literal">dotProduct</code> 函数计算给定的查询向量(query_vector) 和文档的向量(vector) 之间的点积。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_index/_search
 {
@@ -733,14 +771,14 @@ dot product between a given query vector and document vectors.</p>
 <p><a href="#CO60-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Using the standard sigmoid function prevents scores from being negative.</p>
+<p>使用标准的 sigmoid 函数可以防止分数为负。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>The <code class="literal">l1norm</code> function calculates L<sup>1</sup> distance
-(Manhattan distance) between a given query vector and
-document vectors.</p>
+<p>
+<code class="literal">l1norm</code> 函数计算给定的查询向量(query_vector) 和文档向量(vector) 之间的 L<sup>1</sup>距离(曼哈顿距离)。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_index/_search
 {
@@ -773,21 +811,22 @@ document vectors.</p>
 <p><a href="#CO61-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Unlike <code class="literal">cosineSimilarity</code> that represent similarity, <code class="literal">l1norm</code> and
-<code class="literal">l2norm</code> shown below represent distances or differences. This means, that
-the more similar the vectors are, the lower the scores will be that are
-produced by the <code class="literal">l1norm</code> and <code class="literal">l2norm</code> functions.
-Thus, as we need more similar vectors to score higher,
-we reversed the output from <code class="literal">l1norm</code> and <code class="literal">l2norm</code>. Also, to avoid
-division by 0 when a document vector matches the query exactly,
-we added <code class="literal">1</code> in the denominator.</p>
+<p>
+与表示相似性的 <code class="literal">cosineSimilarity</code> 不同，下面显示的 <code class="literal">l1norm</code> 和 <code class="literal">l2norm</code> 表示距离或差异。
+
+这意味着，向量(vector)越相似，<code class="literal">l1norm</code> 和 <code class="literal">l2norm</code> 函数产生的分数越低。
+
+因此，因为我们需要更多相似的向量(vector)来获得更高的分数，所以我们颠倒了 <code class="literal">l1norm</code> 和 <code class="literal">l2norm</code> 的输出。
+
+此外，为了避免文档向量(vector)与查询完全匹配时被 0 除，我们在分母中添加了 <code class="literal">1</code>。
+</p>
 </td>
 </tr>
 </table>
 </div>
-<p>The <code class="literal">l2norm</code> function calculates L<sup>2</sup> distance
-(Euclidean distance) between a given query vector and
-document vectors.</p>
+<p>
+<code class="literal">l2norm</code> 函数计算给定的查询向量(query_vector) 和文档向量(vector) 之间的 L<sup>2</sup>距离(欧几里德距离)。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_index/_search
 {
@@ -816,12 +855,16 @@ document vectors.</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If a document doesn’t have a value for a vector field on which
-a vector function is executed, an error will be thrown.</p>
+<p>
+如果文档没有执行 向量(vector) 函数的 vector 字段的值，将会抛出一个错误。
+</p>
 </div>
 </div>
-<p>You can check if a document has a value for the field <code class="literal">my_vector</code> by
-<code class="literal">doc['my_vector'].size() == 0</code>. Your overall script can look like this:</p>
+<p>
+可以通过 <code class="literal">doc['my_vector'].size() == 0</code> 检查文档的字段<code class="literal">my_vector</code>是否有值。
+
+整个脚本可能如下所示:
+</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">"source": "doc['my_vector'].size() == 0 ? 0 : cosineSimilarity(params.queryVector, 'my_vector')"</pre>
 </div>
@@ -830,18 +873,17 @@ a vector function is executed, an error will be thrown.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h5 class="title">
-<a id="_sparse_vector_functions"></a><code class="literal">sparse_vector</code> functions<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/vectors/vector-functions.asciidoc">edit</a>
+<a id="_sparse_vector_functions"></a><code class="literal">sparse_vector</code>函数
 </h5>
 </div></div></div>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<h3>Deprecated in 7.6.</h3>
-<p>The <code class="literal">sparse_vector</code> type is deprecated and will be removed in 8.0.</p>
+<h3>在 7.6 中废弃。</h3>
+<p><code class="literal">sparse_vector</code>类型已废弃并将在8.0版本中移除。</p>
 </div>
 </div>
-<p>Let’s create an index with a <code class="literal">sparse_vector</code> mapping and index a couple
-of documents into it.</p>
+<p>我们来创建一个包含<code class="literal">sparse_vector</code>类型的映射的索引，添加并索引几个文档进去：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_sparse_index
 {
@@ -874,8 +916,9 @@ PUT my_sparse_index/_doc/2
 POST my_sparse_index/_refresh</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/267.console"></div>
-<p>The <code class="literal">cosineSimilaritySparse</code> function calculates cosine similarity
-between a given query vector and document vectors.</p>
+<p>
+<code class="literal">cosineSimilaritySparse</code> 函数计算给定的查询向量(query_vector) 和文档向量(vector) 之间的余弦相似性。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_sparse_index/_search
 {
@@ -901,8 +944,9 @@ between a given query vector and document vectors.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/268.console"></div>
-<p>The <code class="literal">dotProductSparse</code> function calculates dot product
-between a given query vector and document vectors.</p>
+<p>
+<code class="literal">dotProductSparse</code> 函数计算给定的查询向量(query_vector) 和文档向量(vector) 之间的点积。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_sparse_index/_search
 {
@@ -931,8 +975,9 @@ between a given query vector and document vectors.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/269.console"></div>
-<p>The <code class="literal">l1normSparse</code> function calculates L<sup>1</sup> distance
-between a given query vector and document vectors.</p>
+<p>
+<code class="literal">l1normSparse</code> 函数计算给定的查询向量(query_vector) 和文档向量(vector) 之间的 L<sup>1</sup> 距离。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_sparse_index/_search
 {
@@ -958,8 +1003,9 @@ between a given query vector and document vectors.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/270.console"></div>
-<p>The <code class="literal">l2normSparse</code> function calculates L<sup>2</sup> distance
-between a given query vector and document vectors.</p>
+<p>
+<code class="literal">l2normSparse</code> 函数计算给定的查询向量(query_vector) 和文档向量(vector) 之间的 L<sup>2</sup> 距离。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_sparse_index/_search
 {
@@ -990,10 +1036,14 @@ between a given query vector and document vectors.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h5 class="title">
-<a id="score-explanation"></a>Explain request<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/script-score-query.asciidoc">edit</a>
+<a id="score-explanation"></a>explain(解释)请求
 </h5>
 </div></div></div>
-<p>Using an <a class="xref" href="search-explain.html" title="Explain API">explain request</a> provides an explanation of how the parts of a score were computed. The <code class="literal">script_score</code> query can add its own explanation by setting the <code class="literal">explanation</code> parameter:</p>
+<p>
+使用<a class="xref" href="search-explain.html" title="Explain API" rel="nofollow">explain请求</a>可以查看如何计算分数的解释。
+
+<code class="literal">script_score</code> 查询可以通过设置参数 <code class="literal">explanation</code> 来添加自己的解释：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /twitter/_explain/0
 {
@@ -1017,7 +1067,9 @@ between a given query vector and document vectors.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/272.console"></div>
-<p>Note that the <code class="literal">explanation</code> will be null when using in a normal <code class="literal">_search</code> request, so having a conditional guard is best practice.</p>
+<p>
+注意，当在普通的 <code class="literal">_search</code> 请求中使用时，explanation 将为 null，因此使用条件保护是最佳实践。
+</p>
 </div>
 
 </div>
@@ -1027,10 +1079,10 @@ between a given query vector and document vectors.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-script-query.html">« Script query</a>
+<a href="query-dsl-script-query.html">« script 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-wrapper-query.html">Wrapper query »</a>
+<a href2="query-dsl-wrapper-query.html">Wrapper query »</a>
 </span>
 </div>
 </div>

@@ -838,8 +838,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-script-query.html",
-                        "text": "Script",
-                        "title": "Script"
+                        "text": "script",
+                        "title": "script"
                     },
                     {
                         "url": "query-dsl-script-score-query.html",

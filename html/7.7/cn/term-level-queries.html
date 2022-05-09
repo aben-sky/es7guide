@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Term-level queries | ElasticSearch 7.7 权威指南中文版</title>
+	<title>词项级查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,136 +32,143 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询领域特定语言(Query DSL)</a></span>
 »
-<span class="breadcrumb-node">Term-level queries</span>
+<span class="breadcrumb-node">词项级查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-pinned-query.html">« Pinned Query</a>
+<a href="query-dsl-pinned-query.html">« pinned  查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-exists-query.html">Exists query »</a>
+<a href2="query-dsl-exists-query.html">Exists query »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="term-level-queries"></a>Term-level queries<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/term-level-queries.asciidoc">edit</a>
+<a id="term-level-queries"></a>词项级查询 (term-level query)
 </h2>
 </div></div></div>
-<p>You can use <span class="strong strong"><strong>term-level queries</strong></span> to find documents based on precise values in
-structured data. Examples of structured data include date ranges, IP addresses,
-prices, or product IDs.</p>
-<p>Unlike <a class="xref" href="full-text-queries.html" title="Full text queries">full-text queries</a>, term-level queries do not
-analyze search terms. Instead, term-level queries match the exact terms stored
-in a field.</p>
+<p>
+可以使用<span class="strong strong"><strong>词项级查询</strong></span>，根据结构化数据中的精确值来查找文档。
+
+结构化数据的例子包括日期范围、IP地址、价格或产品id。
+</p>
+<p>
+与<a class="xref" href="full-text-queries.html" title="Full text queries">全文查询</a>不同，词项级查询不分析用于搜索的词项。
+
+相反，词项级查询与存储在字段中的确切词项相匹配。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Term-level queries still normalize search terms for <code class="literal">keyword</code> fields with the
-<code class="literal">normalizer</code> property. For more details, see <a class="xref" href="normalizer.html" title="normalizer"><code class="literal">normalizer</code></a>.</p>
+<p>
+词项级查询仍然使用 <code class="literal">normalizer</code> 属性对 <code class="literal">keyword</code> 字段的搜索词项进行归一化。
+
+有关信息请参考 <a class="xref" href="normalizer.html" title="normalizer" rel="nofollow"><code class="literal">normalizer</code></a>。
+</p>
 </div>
 </div>
 <h3>
-<a id="term-level-query-types"></a>Types of term-level queries<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/term-level-queries.asciidoc">edit</a>
+<a id="term-level-query-types"></a>词项级别查询的类型
 </h3>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-exists-query.html" title="Exists query"><code class="literal">exists</code> query</a>
+<a class="xref" href="query-dsl-exists-query.html" title="Exists 查询" rel="nofollow"><code class="literal">exists</code> 查询</a>
 </span>
 </dt>
 <dd>
-Returns documents that contain any indexed value for a field.
+返回包含任何字段索引值的文档。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-fuzzy-query.html" title="Fuzzy query"><code class="literal">fuzzy</code> query</a>
+<a class="xref" href="query-dsl-fuzzy-query.html" title="Fuzzy 查询" rel="nofollow"><code class="literal">fuzzy</code> 查询</a>
 </span>
 </dt>
 <dd>
-Returns documents that contain terms similar to the search term. Elasticsearch measures
-similarity, or fuzziness, using a
-<a href="http://en.wikipedia.org/wiki/Levenshtein_distance" class="ulink" target="_top">Levenshtein edit distance</a>.
+返回包含与搜索词项相似的词项的文档。
+
+Elasticsearch 使用<a href="http://en.wikipedia.org/wiki/Levenshtein_distance" class="ulink" target="_top" rel="nofollow">莱温斯坦编辑距离</a>来度量相似性或模糊性。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-ids-query.html" title="IDs"><code class="literal">ids</code> query</a>
+<a class="xref" href="query-dsl-ids-query.html" title="IDs"><code class="literal">ids</code> 查询</a>
 </span>
 </dt>
 <dd>
-Returns documents based on their <a class="xref" href="mapping-id-field.html" title="_id field">document IDs</a>.
+根据<a class="xref" href="mapping-id-field.html" title="_id field" rel="nofollow">文档id</a>返回文档。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-prefix-query.html" title="Prefix query"><code class="literal">prefix</code> query</a>
+
+<a class="xref" href="query-dsl-prefix-query.html" title="Prefix query" rel="nofollow"><code class="literal">prefix</code> 查询</a>
 </span>
 </dt>
 <dd>
-Returns documents that contain a specific prefix in a provided field.
+返回在指定的字段中包含特定前缀的文档。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-range-query.html" title="Range query"><code class="literal">range</code> query</a>
+<a class="xref" href="query-dsl-range-query.html" title="Range query" rel="nofollow"><code class="literal">range</code> 查询</a>
 </span>
 </dt>
 <dd>
-Returns documents that contain terms within a provided range.
+返回包含给定范围内的词项的文档。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-regexp-query.html" title="Regexp query"><code class="literal">regexp</code> query</a>
+<a class="xref" href="query-dsl-regexp-query.html" title="Regexp query" rel="nofollow"><code class="literal">regexp</code> 查询</a>
 </span>
 </dt>
 <dd>
-Returns documents that contain terms matching a
-<a href="https://en.wikipedia.org/wiki/Regular_expression" class="ulink" target="_top">regular expression</a>.
+返回包含匹配<a href="https://en.wikipedia.org/wiki/Regular_expression" class="ulink" target="_top" rel="nofollow">正则表达式</a>的词项的文档。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-term-query.html" title="Term query"><code class="literal">term</code> query</a>
+<a class="xref" href="query-dsl-term-query.html" title="Term query" rel="nofollow"><code class="literal">term</code> 查询</a>
 </span>
 </dt>
 <dd>
-Returns documents that contain an exact term in a provided field.
+返回在指定的字段中包含精确词项的文档。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-terms-query.html" title="Terms query"><code class="literal">terms</code> query</a>
+<a class="xref" href="query-dsl-terms-query.html" title="Terms query" rel="nofollow"><code class="literal">terms</code> 查询</a>
 </span>
 </dt>
 <dd>
-Returns documents that contain one or more exact terms in a provided field.
+返回在指定的字段中包含一个或多个精确词项的文档。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-terms-set-query.html" title="Terms set query"><code class="literal">terms_set</code> query</a>
+<a class="xref" href="query-dsl-terms-set-query.html" title="Terms set query" rel="nofollow"><code class="literal">terms_set</code> 查询</a>
 </span>
 </dt>
 <dd>
-Returns documents that contain a minimum number of exact terms in a provided
-field. You can define the minimum number of matching terms using a field or
-script.
+返回在指定的字段中包含最少数量精确词项的文档。
+
+可以使用字段或脚本定义匹配词项的最小数量。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-type-query.html" title="Type Query"><code class="literal">type</code> query</a>
+<a class="xref" href="query-dsl-type-query.html" title="Type Query" rel="nofollow"><code class="literal">type</code> 查询</a>
 </span>
 </dt>
 <dd>
-Returns documents of the specified type.
+返回指定类型的文档。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="query-dsl-wildcard-query.html" title="Wildcard query"><code class="literal">wildcard</code> query</a>
+<a class="xref" href="query-dsl-wildcard-query.html" title="Wildcard query" rel="nofollow"><code class="literal">wildcard</code> 查询</a>
 </span>
 </dt>
 <dd>
-Returns documents that contain terms matching a wildcard pattern.
+返回包含匹配通配符模式的词项的文档。
 </dd>
 </dl>
 </div>
@@ -179,10 +186,10 @@ Returns documents that contain terms matching a wildcard pattern.
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-pinned-query.html">« Pinned Query</a>
+<a href="query-dsl-pinned-query.html">« pinned  查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-exists-query.html">Exists query »</a>
+<a href2="query-dsl-exists-query.html">Exists query »</a>
 </span>
 </div>
 </div>

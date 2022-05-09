@@ -848,20 +848,20 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-wrapper-query.html",
-                        "text": "Wrapper",
-                        "title": "Wrapper"
+                        "text": "wrapper",
+                        "title": "wrapper"
                     },
                     {
                         "url": "query-dsl-pinned-query.html",
-                        "text": "Pinned Query",
-                        "title": "Pinned Query"
+                        "text": "pinned",
+                        "title": "pinned"
                     }
                 ]
             },
             {
                 "url": "term-level-queries.html",
-                "text": "Term-level queries",
-                "title": "Term-level queries",
+                "text": "词项级查询",
+                "title": "词项级查询",
                 "sub": [
                     {
                         "url": "query-dsl-exists-query.html",

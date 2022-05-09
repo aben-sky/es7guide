@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Pinned Query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>pinned 查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,37 +32,39 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询领域特定语言(Query DSL)</a></span>
 »
-<span class="breadcrumb-link"><a href="specialized-queries.html">Specialized queries</a></span>
+<span class="breadcrumb-link"><a href="specialized-queries.html">专业的查询</a></span>
 »
-<span class="breadcrumb-node">Pinned Query</span>
+<span class="breadcrumb-node">pinned 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-wrapper-query.html">« Wrapper query</a>
+<a href="query-dsl-wrapper-query.html">« wrapper 查询</a>
 </span>
 <span class="next">
-<a href="term-level-queries.html">Term-level queries »</a>
+<a href2="term-level-queries.html">Term-level queries »</a>
 </span>
 </div>
 <div class="section xpack">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-pinned-query"></a>Pinned Query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/pinned-query.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
+<a id="query-dsl-pinned-query"></a>pinned 查询
 </h2>
 </div></div></div>
-<p>Promotes selected documents to rank higher than those matching a given query.
-This feature is typically used to guide searchers to curated documents that are
-promoted over and above any "organic" matches for a search.
-The promoted or "pinned" documents are identified using the document IDs stored in
-the <a class="xref" href="mapping-id-field.html" title="_id field"><code class="literal">_id</code></a> field.</p>
+<p>
+提升所选文档的等级，使其高于与给定查询匹配的文档。
+
+该特性通常用于引导搜索者搜索到经过策划的文档，这些文档在任何“自然”匹配的搜索中都得到了提升。
+
+使用存储在 <a class="xref" href="mapping-id-field.html" title="_id field"><code class="literal">_id</code></a> 字段中的文档 ID 来标识提升或“置顶(pinned)”的文档。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_example_request"></a>Example request<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/pinned-query.asciidoc">edit</a>
+<a id="_example_request"></a>请求示例
 </h3>
 </div></div></div>
 <div class="pre_wrapper lang-console">
@@ -86,7 +88,7 @@ the <a class="xref" href="mapping-id-field.html" title="_id field"><code class="
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="pinned-query-top-level-parameters"></a>Top-level parameters for <code class="literal">pinned</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/pinned-query.asciidoc">edit</a>
+<a id="pinned-query-top-level-parameters"></a><code class="literal">pinned</code>的顶级参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -97,7 +99,7 @@ the <a class="xref" href="mapping-id-field.html" title="_id field"><code class="
 </span>
 </dt>
 <dd>
-An array of <a class="xref" href="mapping-id-field.html" title="_id field">document IDs</a> listed in the order they are to appear in results.
+<a class="xref" href="mapping-id-field.html" title="_id 字段" rel="nofollow">文档ID</a> 的数组，按照它们在结果中出现的顺序排列。
 </dd>
 <dt>
 <span class="term">
@@ -105,7 +107,7 @@ An array of <a class="xref" href="mapping-id-field.html" title="_id field">docum
 </span>
 </dt>
 <dd>
-Any choice of query used to rank documents which will be ranked below the "pinned" document ids.
+用于对文档进行排序的任何查询的一个选择，其排序将低于“置顶”的文档id。
 </dd>
 </dl>
 </div>
@@ -114,10 +116,10 @@ Any choice of query used to rank documents which will be ranked below the "pinne
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-wrapper-query.html">« Wrapper query</a>
+<a href="query-dsl-wrapper-query.html">« wrapper 查询</a>
 </span>
 <span class="next">
-<a href="term-level-queries.html">Term-level queries »</a>
+<a href2="term-level-queries.html">Term-level queries »</a>
 </span>
 </div>
 </div>

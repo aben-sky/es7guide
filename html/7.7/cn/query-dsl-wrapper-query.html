@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Wrapper query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>wrapper 查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,30 +32,30 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询领域特定语言(Query DSL)</a></span>
 »
-<span class="breadcrumb-link"><a href="specialized-queries.html">Specialized queries</a></span>
+<span class="breadcrumb-link"><a href="specialized-queries.html">专业的查询</a></span>
 »
-<span class="breadcrumb-node">Wrapper query</span>
+<span class="breadcrumb-node">wrapper 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-script-score-query.html">« Script score query</a>
+<a href="query-dsl-script-score-query.html">« script_score 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-pinned-query.html">Pinned Query »</a>
+<a href="query-dsl-pinned-query.html">pinned 查询 »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-wrapper-query"></a>Wrapper query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/wrapper-query.asciidoc">edit</a>
+<a id="query-dsl-wrapper-query"></a>wrapper 查询
 </h2>
 </div></div></div>
 
-<p>A query that accepts any other query as base64 encoded string.</p>
+<p>接受任何其他查询作为base64编码字符串的查询。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -74,22 +74,23 @@
 <p><a href="#CO62-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Base64 encoded string:  <code class="literal">{"term" : { "user" : "Kimchy" }}</code></p>
+<p><code class="literal">{"term" : { "user" : "Kimchy" }}</code> 经过 Base64 编码后的字符串。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>This query is more useful in the context of the Java high-level REST client or
-transport client to also accept queries as json formatted string.
-In these cases queries can be specified as a json or yaml formatted string or
-as a query builder (which is a available in the Java high-level REST client).</p>
+<p>
+这个查询在 Java 高级 REST 客户端或传输客户端的上下文中更有用，因为它们也接受 json 格式的字符串查询。
+
+在这些情况下，可以将查询指定为 json 或 yaml 格式的字符串或查询构造器(在Java高级REST客户端中可用)。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-script-score-query.html">« Script score query</a>
+<a href="query-dsl-script-score-query.html">« script_score 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-pinned-query.html">Pinned Query »</a>
+<a href="query-dsl-pinned-query.html">pinned 查询 »</a>
 </span>
 </div>
 </div>

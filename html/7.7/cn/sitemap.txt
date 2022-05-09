@@ -160,3 +160,4 @@ https://www.pipiho.com/es/7.7/cn/query-dsl-percolate-query.html
 https://www.pipiho.com/es/7.7/cn/_notes_4.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-rank-feature-query.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-script-query.html
+https://www.pipiho.com/es/7.7/cn/query-dsl-script-score-query.html

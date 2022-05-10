@@ -865,8 +865,8 @@ var esNavLinks = [
                 "sub": [
                     {
                         "url": "query-dsl-exists-query.html",
-                        "text": "Exists",
-                        "title": "Exists"
+                        "text": "exists",
+                        "title": "exists"
                     },
                     {
                         "url": "query-dsl-fuzzy-query.html",

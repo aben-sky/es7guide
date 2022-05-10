@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Exists query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>exists 查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,51 +32,51 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询领域特定语言(Query DSL)</a></span>
 »
-<span class="breadcrumb-link"><a href="term-level-queries.html">Term-level queries</a></span>
+<span class="breadcrumb-link"><a href="term-level-queries.html">词项级查询</a></span>
 »
-<span class="breadcrumb-node">Exists query</span>
+<span class="breadcrumb-node">exists 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="term-level-queries.html">« Term-level queries</a>
+<a href="term-level-queries.html">« 词项级查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-fuzzy-query.html">Fuzzy query »</a>
+<a href2="query-dsl-fuzzy-query.html">Fuzzy query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-exists-query"></a>Exists query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/exists-query.asciidoc">edit</a>
+<a id="query-dsl-exists-query"></a>exists 查询
 </h2>
 </div></div></div>
 
-<p>Returns documents that contain an indexed value for a field.</p>
-<p>An indexed value may not exist for a document’s field due to a variety of reasons:</p>
+<p>返回包含一个字段索引值的文档。</p>
+<p>由于各种原因，文档的字段可能不存在索引值：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-The field in the source JSON is <code class="literal">null</code> or <code class="literal">[]</code>
+源 JSON 中的字段为 <code class="literal">null</code> 或 <code class="literal">[]</code>
 </li>
 <li class="listitem">
-The field has <code class="literal">"index" : false</code> set in the mapping
+字段在映射中有 <code class="literal">"index" : false</code> 的设置
 </li>
 <li class="listitem">
-The length of the field value exceeded an <code class="literal">ignore_above</code> setting in the mapping
+字段值的长度超过了映射中的 <code class="literal">ignore_above</code> 设置
 </li>
 <li class="listitem">
-The field value was malformed and <code class="literal">ignore_malformed</code> was defined in the mapping
+字段值格式不正确，并且在映射中定义了 <code class="literal">ignore_malformed</code>
 </li>
 </ul>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="exists-query-ex-request"></a>Example request<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/exists-query.asciidoc">edit</a>
+<a id="exists-query-ex-request"></a>请求示例
 </h3>
 </div></div></div>
 <div class="pre_wrapper lang-console">
@@ -95,7 +95,7 @@ The field value was malformed and <code class="literal">ignore_malformed</code> 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="exists-query-top-level-params"></a>Top-level parameters for <code class="literal">exists</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/exists-query.asciidoc">edit</a>
+<a id="exists-query-top-level-params"></a><code class="literal">exists</code>的顶级参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -107,20 +107,21 @@ The field value was malformed and <code class="literal">ignore_malformed</code> 
 </dt>
 <dd>
 <p>
-(Required, string) Name of the field you wish to search.
+(必须, string) 你想要搜索的字段的名称。
 </p>
-<p>While a field is deemed non-existent if the JSON value is <code class="literal">null</code> or <code class="literal">[]</code>, these
-values will indicate the field does exist:</p>
+<p>
+如果 JSON 值为 <code class="literal">null</code> 或 <code class="literal">[]</code>，则字段被视为不存在，而下面这些值将表明该字段确实存在:
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Empty strings, such as <code class="literal">""</code> or <code class="literal">"-"</code>
+空字符串，比如 <code class="literal">""</code> 或 <code class="literal">"-"</code>
 </li>
 <li class="listitem">
-Arrays containing <code class="literal">null</code> and another value, such as <code class="literal">[null, "foo"]</code>
+数组中包含 <code class="literal">null</code> 和其他值，比如 <code class="literal">[null, "foo"]</code>
 </li>
 <li class="listitem">
-A custom <a class="xref" href="null-value.html" title="null_value"><code class="literal">null-value</code></a>, defined in field mapping
+字段映射中的自定义的 <a class="xref" href="null-value.html" title="null_value" rel="nofollow"><code class="literal">null-value</code></a>
 </li>
 </ul>
 </div>
@@ -132,20 +133,21 @@ A custom <a class="xref" href="null-value.html" title="null_value"><code class="
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="exists-query-notes"></a>Notes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/exists-query.asciidoc">edit</a>
+<a id="exists-query-notes"></a>注意
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="find-docs-null-values"></a>Find documents missing indexed values<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/exists-query.asciidoc">edit</a>
+<a id="find-docs-null-values"></a>查找缺少索引值的文档
 </h4>
 </div></div></div>
-<p>To find documents that are missing an indexed value for a field,
-use the <code class="literal">must_not</code> <a class="xref" href="query-dsl-bool-query.html" title="Boolean query">boolean query</a> with the <code class="literal">exists</code>
-query.</p>
-<p>The following search returns documents that are missing an indexed value for
-the <code class="literal">user</code> field.</p>
+<p>
+要查找缺少字段索引值的文档，请使用 <code class="literal">must_not</code> <a class="xref" href="query-dsl-bool-query.html" title="Boolean query">布尔查询</a> 和 <code class="literal">exists</code> 查询。
+</p>
+<p>
+下面这个搜索返回缺少 <code class="literal">user</code> 字段索引值的文档。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -168,10 +170,10 @@ the <code class="literal">user</code> field.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="term-level-queries.html">« Term-level queries</a>
+<a href="term-level-queries.html">« 词项级查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-fuzzy-query.html">Fuzzy query »</a>
+<a href2="query-dsl-fuzzy-query.html">Fuzzy query »</a>
 </span>
 </div>
 </div>

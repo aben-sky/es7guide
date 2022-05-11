@@ -870,8 +870,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-fuzzy-query.html",
-                        "text": "Fuzzy",
-                        "title": "Fuzzy"
+                        "text": "fuzzy",
+                        "title": "fuzzy"
                     },
                     {
                         "url": "query-dsl-ids-query.html",

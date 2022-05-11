@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Fuzzy query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>fuzzy 查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,62 +32,66 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询领域特定语言(Query DSL)</a></span>
 »
-<span class="breadcrumb-link"><a href="term-level-queries.html">Term-level queries</a></span>
+<span class="breadcrumb-link"><a href="term-level-queries.html">词项级查询</a></span>
 »
-<span class="breadcrumb-node">Fuzzy query</span>
+<span class="breadcrumb-node">fuzzy 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-exists-query.html">« Exists query</a>
+<a href="query-dsl-exists-query.html">« exists 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-ids-query.html">IDs »</a>
+<a href2="query-dsl-ids-query.html">IDs »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-fuzzy-query"></a>Fuzzy query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/fuzzy-query.asciidoc">edit</a>
+<a id="query-dsl-fuzzy-query"></a>模糊查询 (fuzzy query)
 </h2>
 </div></div></div>
 
-<p>Returns documents that contain terms similar to the search term, as measured by
-a <a href="http://en.wikipedia.org/wiki/Levenshtein_distance" class="ulink" target="_top">Levenshtein edit distance</a>.</p>
-<p>An edit distance is the number of one-character changes needed to turn one term
-into another. These changes can include:</p>
+<p>
+根据<a href="http://en.wikipedia.org/wiki/Levenshtein_distance" class="ulink" target="_top">莱温斯坦编辑距离</a>，返回包含与搜索词相似的词项的文档。
+</p>
+<p>
+编辑距离是将一个词转换成另一个词所需的单个字符的变化次数。这些变化包括:
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Changing a character (<span class="strong strong"><strong>b</strong></span>ox → <span class="strong strong"><strong>f</strong></span>ox)
+改变一个字符 (<span class="strong strong"><strong>b</strong></span>ox → <span class="strong strong"><strong>f</strong></span>ox)
 </li>
 <li class="listitem">
-Removing a character (<span class="strong strong"><strong>b</strong></span>lack → lack)
+删除一个字符 (<span class="strong strong"><strong>b</strong></span>lack → lack)
 </li>
 <li class="listitem">
-Inserting a character (sic → sic<span class="strong strong"><strong>k</strong></span>)
+插入一个字符 (sic → sic<span class="strong strong"><strong>k</strong></span>)
 </li>
 <li class="listitem">
-Transposing two adjacent characters (<span class="strong strong"><strong>ac</strong></span>t → <span class="strong strong"><strong>ca</strong></span>t)
+调换两个相邻的字符 (<span class="strong strong"><strong>ac</strong></span>t → <span class="strong strong"><strong>ca</strong></span>t)
 </li>
 </ul>
 </div>
-<p>To find similar terms, the <code class="literal">fuzzy</code> query creates a set of all possible
-variations, or expansions, of the search term within a specified edit distance.
-The query then returns exact matches for each expansion.</p>
+<p>
+为了找到相似的词，<code class="literal">fuzzy</code> 查询在指定的编辑距离内创建搜索词的所有可能变化或扩展的集合。
+
+然后，该查询返回每个扩展的精确匹配。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="fuzzy-query-ex-request"></a>Example requests<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/fuzzy-query.asciidoc">edit</a>
+<a id="fuzzy-query-ex-request"></a>请求示例
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="fuzzy-query-ex-simple"></a>Simple example<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/fuzzy-query.asciidoc">edit</a>
+<a id="fuzzy-query-ex-simple"></a>一个简单的例子
 </h4>
 </div></div></div>
 <div class="pre_wrapper lang-console">
@@ -108,7 +112,7 @@ The query then returns exact matches for each expansion.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="fuzzy-query-ex-advanced"></a>Example using advanced parameters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/fuzzy-query.asciidoc">edit</a>
+<a id="fuzzy-query-ex-advanced"></a>一个使用高级参数的例子
 </h4>
 </div></div></div>
 <div class="pre_wrapper lang-console">
@@ -136,7 +140,7 @@ The query then returns exact matches for each expansion.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="fuzzy-query-top-level-params"></a>Top-level parameters for <code class="literal">fuzzy</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/fuzzy-query.asciidoc">edit</a>
+<a id="fuzzy-query-top-level-params"></a><code class="literal">fuzzy</code>的顶级参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -147,7 +151,7 @@ The query then returns exact matches for each expansion.</p>
 </span>
 </dt>
 <dd>
-(Required, object) Field you wish to search.
+(必需, object) 你想搜索的字段。
 </dd>
 </dl>
 </div>
@@ -156,7 +160,7 @@ The query then returns exact matches for each expansion.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="fuzzy-query-field-params"></a>Parameters for <code class="literal">&lt;field&gt;</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/fuzzy-query.asciidoc">edit</a>
+<a id="fuzzy-query-field-params"></a><code class="literal">&lt;field&gt;</code>的参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -167,7 +171,7 @@ The query then returns exact matches for each expansion.</p>
 </span>
 </dt>
 <dd>
-(Required, string) Term you wish to find in the provided <code class="literal">&lt;field&gt;</code>.
+(必需, string) 你想在指定的<code class="literal">&lt;field&gt;</code>中搜索的词。
 </dd>
 <dt>
 <span class="term">
@@ -175,8 +179,7 @@ The query then returns exact matches for each expansion.</p>
 </span>
 </dt>
 <dd>
-(Optional, string) Maximum edit distance allowed for matching. See <a class="xref" href="common-options.html#fuzziness" title="Fuzziness">Fuzziness</a>
-for valid values and more information.
+(可选, string) 匹配允许的最大编辑距离。有效值及更多信息请参考 <a class="xref" href="common-options.html#fuzziness" title="模糊性" rel="nofollow">模糊性</a>。
 </dd>
 <dt>
 <span class="term">
@@ -184,14 +187,15 @@ for valid values and more information.
 </span>
 </dt>
 <dd>
-<p>(Optional, integer) Maximum number of variations created. Defaults to <code class="literal">50</code>.</p>
+<p>(可选, integer) 可创建的最大变形词的数量。 默认为 <code class="literal">50</code>。</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Avoid using a high value in the <code class="literal">max_expansions</code> parameter, especially
-if the <code class="literal">prefix_length</code> parameter value is <code class="literal">0</code>. High values in the
-<code class="literal">max_expansions</code> parameter can cause poor performance due to the high number of
-variations examined.</p>
+<p>
+避免在 <code class="literal">max_expansions</code> 参数中使用很大的值，尤其是当 <code class="literal">prefix_length</code> 参数值为 <code class="literal">0</code> 时。
+
+一个很大的 <code class="literal">max_expansions</code> 参数值可能会导致性能下降，因为要检查大量的变形词。
+</p>
 </div>
 </div>
 </dd>
@@ -201,8 +205,7 @@ variations examined.</p>
 </span>
 </dt>
 <dd>
-(Optional, integer) Number of beginning characters left unchanged when creating
-expansions. Defaults to <code class="literal">0</code>.
+(可选, integer) 创建扩展时，开头字符保持不变的数量。默认为 <code class="literal">0</code>。
 </dd>
 <dt>
 <span class="term">
@@ -210,8 +213,7 @@ expansions. Defaults to <code class="literal">0</code>.
 </span>
 </dt>
 <dd>
-(Optional, boolean) Indicates whether edits include transpositions of two
-adjacent characters (ab → ba). Defaults to <code class="literal">true</code>.
+(可选, boolean) 指示编辑是否包括两个相邻字符的换位 (ab → ba)。默认为 <code class="literal">true</code>。
 </dd>
 <dt>
 <span class="term">
@@ -219,8 +221,7 @@ adjacent characters (ab → ba). Defaults to <code class="literal">true</code>.
 </span>
 </dt>
 <dd>
-(Optional, string) Method used to rewrite the query. For valid values and more
-information, see the <a class="xref" href="query-dsl-multi-term-rewrite.html" title="rewrite parameter"><code class="literal">rewrite</code> parameter</a>.
+(可选, string) 用于重写查询的方法。 有效值及更多信息请参考 <a class="xref" href="query-dsl-multi-term-rewrite.html" title="重写参数" rel="nofollow"><code class="literal">rewrite</code> 参数</a>。
 </dd>
 </dl>
 </div>
@@ -229,20 +230,21 @@ information, see the <a class="xref" href="query-dsl-multi-term-rewrite.html" ti
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_notes_5"></a>Notes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/fuzzy-query.asciidoc">edit</a>
+<a id="_notes_5"></a>注意
 </h3>
 </div></div></div>
-<p>Fuzzy queries will not be executed if <a class="xref" href="query-dsl.html#query-dsl-allow-expensive-queries"><code class="literal">search.allow_expensive_queries</code></a>
-is set to false.</p>
+<p>
+如果 <a class="xref" href="query-dsl.html#query-dsl-allow-expensive-queries"><code class="literal">search.allow_expensive_queries</code></a> 设置为false，将不会执行模糊查询。
+</p>
 </div>
 
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-exists-query.html">« Exists query</a>
+<a href="query-dsl-exists-query.html">« exists 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-ids-query.html">IDs »</a>
+<a href2="query-dsl-ids-query.html">IDs »</a>
 </span>
 </div>
 </div>

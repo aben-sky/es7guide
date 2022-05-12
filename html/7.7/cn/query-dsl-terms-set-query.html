@@ -32,83 +32,89 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询领域特定语言(Query DSL)</a></span>
 »
-<span class="breadcrumb-link"><a href="term-level-queries.html">Term-level queries</a></span>
+<span class="breadcrumb-link"><a href="term-level-queries.html">词级查询</a></span>
 »
-<span class="breadcrumb-node">Terms set query</span>
+<span class="breadcrumb-node">terms_set 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-terms-query.html">« Terms query</a>
+<a href="query-dsl-terms-query.html">« terms 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-type-query.html">Type Query »</a>
+<a href2="query-dsl-type-query.html">Type Query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-terms-set-query"></a>Terms set query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/terms-set-query.asciidoc">edit</a>
+<a id="query-dsl-terms-set-query"></a>terms_set 查询
 </h2>
 </div></div></div>
 
-<p>Returns documents that contain a minimum number of <span class="strong strong"><strong>exact</strong></span> terms in a provided
-field.</p>
-<p>The <code class="literal">terms_set</code> query is the same as the <a class="xref" href="query-dsl-terms-query.html" title="Terms query"><code class="literal">terms</code>
-query</a>, except you can define the number of matching terms required to
-return a document. For example:</p>
+<p>
+返回在指定字段中包含最少数量的<span class="strong strong"><strong>确切的</strong></span>词项的文档。
+</p>
+<p>
+除了可以定义返回文档必需匹配的词项的数量，<code class="literal">terms_set</code> 查询和 <a class="xref" href="query-dsl-terms-query.html" title="terms 查询"><code class="literal">terms</code> 查询</a> 是一样的。例如：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-A field, <code class="literal">programming_languages</code>, contains a list of known programming
-languages, such as <code class="literal">c++</code>, <code class="literal">java</code>, or <code class="literal">php</code> for job candidates. You can use the
-<code class="literal">terms_set</code> query to return documents that match at least two of these
-languages.
+一个 <code class="literal">programming_languages</code> 字段，包含求职者的已知编程语言的列表，比如 <code class="literal">c++</code>、<code class="literal">java</code> 或 <code class="literal">php</code>。
+
+可以使用 <code class="literal">terms_set</code> 查询返回至少匹配其中两种语言的文档。
 </li>
 <li class="listitem">
-A field, <code class="literal">permissions</code>, contains a list of possible user permissions for an
-application. You can use the <code class="literal">terms_set</code> query to return documents that
-match a subset of these permissions.
+一个 <code class="literal">permissions</code> 字段，包含应用程序的可能的用户权限列表。
+
+可以使用 <code class="literal">terms_set</code> 查询返回与这些权限的子集相匹配的文档。
 </li>
 </ul>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="terms-set-query-ex-request"></a>Example request<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/terms-set-query.asciidoc">edit</a>
+<a id="terms-set-query-ex-request"></a>请求示例
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="terms-set-query-ex-request-index-setup"></a>Index setup<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/terms-set-query.asciidoc">edit</a>
+<a id="terms-set-query-ex-request-index-setup"></a>创建索引
 </h4>
 </div></div></div>
-<p>In most cases, you’ll need to include a <a class="xref" href="number.html" title="Numeric datatypes">numeric</a> field mapping in
-your index to use the <code class="literal">terms_set</code> query. This numeric field contains the
-number of matching terms required to return a document.</p>
-<p>To see how you can set up an index for the <code class="literal">terms_set</code> query, try the
-following example.</p>
+<p>
+要使用<code class="literal">terms_set</code>查询，在大多数情况下，需要在索引中包含一个<a class="xref" href="number.html" title="Numeric datatypes" rel="nofollow">numeric</a>字段映射。
+
+这个 numeric 字段包含返回文档所需的匹配项的数量。
+</p>
+<p>
+要了解如何为<code class="literal">terms_set</code>查询设置索引，请尝试以下示例。
+</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-<p>Create an index, <code class="literal">job-candidates</code>, with the following field mappings:</p>
+<p>创建一个索引<code class="literal">job-candidates</code>(求职者)，其字段映射如下：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">name</code>, a <a class="xref" href="keyword.html" title="Keyword datatype"><code class="literal">keyword</code></a> field. This field contains the name of the
-job candidate.
+<code class="literal">name</code>，一个 <a class="xref" href="keyword.html" title="keyword 数据类型" rel="nofollow"><code class="literal">keyword</code></a> 类型的字段。
+
+此字段包含求职者的姓名。
 </li>
 <li class="listitem">
-<code class="literal">programming_languages</code>, a <a class="xref" href="keyword.html" title="Keyword datatype"><code class="literal">keyword</code></a> field. This field contains
-programming languages known by the job candidate.
+<code class="literal">programming_languages</code>，一个 <a class="xref" href="keyword.html" title="keyword 数据类型" rel="nofollow"><code class="literal">keyword</code></a> 类型的字段。
+
+此字段包含求职者已知的编程语言。
 </li>
 <li class="listitem">
-<code class="literal">required_matches</code>, a <a class="xref" href="number.html" title="Numeric datatypes">numeric</a> <code class="literal">long</code> field. This field contains
-the number of matching terms required to return a document.
+<code class="literal">required_matches</code>，一个 <a class="xref" href="number.html" title="numeric 数据类型" rel="nofollow">numeric</a> <code class="literal">long</code> 类型的字段。
+
+此字段包含返回文档所需的匹配项的数量。
 </li>
 </ul>
 </div>
@@ -133,22 +139,23 @@ the number of matching terms required to return a document.
 <div class="console_widget" data-snippet="snippets/296.console"></div>
 </li>
 <li class="listitem">
-<p>Index a document with an ID of <code class="literal">1</code> and the following values:</p>
+<p>添加并索引一个id为<code class="literal">1</code>的文档，字段值如下：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">Jane Smith</code> in the <code class="literal">name</code> field.
+<code class="literal">name</code>: <code class="word">Jane Smith</code>
 </li>
 <li class="listitem">
-<code class="literal">["c++", "java"]</code> in the <code class="literal">programming_languages</code> field.
+<code class="literal">programming_languages</code>: <code class="word">["c++", "java"]</code>。
 </li>
 <li class="listitem">
-<code class="literal">2</code> in the <code class="literal">required_matches</code> field.
+<code class="literal">required_matches</code>: <code class="word">2</code>
 </li>
 </ul>
 </div>
-<p>Include the <code class="literal">?refresh</code> parameter so the document is immediately available for
-search.</p>
+<p>
+包含<code class="literal">?refresh</code>参数，以便可以立即搜索文档。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /job-candidates/_doc/1?refresh
 {
@@ -160,17 +167,19 @@ search.</p>
 <div class="console_widget" data-snippet="snippets/297.console"></div>
 </li>
 <li class="listitem">
-<p>Index another document with an ID of <code class="literal">2</code> and the following values:</p>
+<p>
+添加并索引另一个id为<code class="literal">2</code>的文档，字段值如下：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">Jason Response</code> in the <code class="literal">name</code> field.
+<code class="literal">name</code>: <code class="word">Jason Response</code>
 </li>
 <li class="listitem">
-<code class="literal">["java", "php"]</code> in the <code class="literal">programming_languages</code> field.
+<code class="literal">programming_languages</code>: <code class="word">["java", "php"]</code>
 </li>
 <li class="listitem">
-<code class="literal">2</code> in the <code class="literal">required_matches</code> field.
+<code class="literal">required_matches</code>: <code class="literal">2</code>
 </li>
 </ul>
 </div>
@@ -186,18 +195,20 @@ search.</p>
 </li>
 </ol>
 </div>
-<p>You can now use the <code class="literal">required_matches</code> field value as the number of
-matching terms required to return a document in the <code class="literal">terms_set</code> query.</p>
+<p>
+现在，你可以使用<code class="literal">required_matches</code>字段的值作为在<code class="literal">terms_set</code>查询中返回文档所需的匹配的词项数。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="terms-set-query-ex-request-query"></a>Example query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/terms-set-query.asciidoc">edit</a>
+<a id="terms-set-query-ex-request-query"></a>查询示例
 </h4>
 </div></div></div>
-<p>The following search returns documents where the <code class="literal">programming_languages</code> field
-contains at least two of the following terms:</p>
+<p>
+下面这个搜索返回 <code class="literal">programming_languages</code> 字段包含至少两个以下词项的文档:
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
@@ -373,10 +384,10 @@ The required number of terms to match is <code class="literal">2</code>, the val
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-terms-query.html">« Terms query</a>
+<a href="query-dsl-terms-query.html">« terms 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-type-query.html">Type Query »</a>
+<a href2="query-dsl-type-query.html">Type Query »</a>
 </span>
 </div>
 </div>

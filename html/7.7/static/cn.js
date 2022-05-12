@@ -905,8 +905,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-terms-set-query.html",
-                        "text": "Terms set",
-                        "title": "Terms set"
+                        "text": "terms_set",
+                        "title": "terms_set"
                     },
                     {
                         "url": "query-dsl-type-query.html",

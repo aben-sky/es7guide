@@ -368,20 +368,20 @@ Lucene 将每个正则表达式转换成一个包含许多确定状态的有限�
 </span>
 </dt>
 <dd>
-<p>(可选, string) <a href="https://en.wikipedia.org/wiki/List_of_UTC_time_offsets" class="ulink" target="_top">协调世界时(UTC)偏移</a>或 <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" class="ulink" target="_top">IANA时区</a>，用于将查询字符串中的 <code class="literal">date</code> 值转换为 UTC。
+<p>(可选, string) <a href="https://en.wikipedia.org/wiki/List_of_UTC_time_offsets" class="ulink" target="_top" rel="nofollow">协调世界时(UTC)时差</a>或 <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" class="ulink" target="_top" rel="nofollow">IANA时区</a>，用于将查询字符串中的 <code class="literal">date</code> 值转换为 UTC。
 </p>
 <p>
-有效值包括 ISO 8601 UTC 偏移，如 <code class="literal">+01:00</code> 或 <code class="literal">-08:00</code>，以及 IANA 时区识别名称，如 <code class="literal">America/Los_Angeles</code>。
+有效值包括 ISO 8601 UTC 时差，如 <code class="literal">+01:00</code> 或 <code class="literal">-08:00</code>，以及 IANA 时区识别名称，如 <code class="literal">America/Los_Angeles</code>。
 </p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
 <p>
-<code class="literal">time_zone</code>  参数<span class="strong strong"><strong>不</strong></span>影响 <code class="literal">now</code> 的 <a class="xref" href="common-options.html#date-math" title="Date Math">日期计算(date math)</a>值。
+<code class="literal">time_zone</code> 参数<span class="strong strong"><strong>不</strong></span>影响 <code class="literal">now</code> 的 <a class="xref" href="common-options.html#date-math" title="Date Math" rel="nofollow">日期计算</a>值。
 
 <code class="literal">now</code> 始终是 UTC 中的当前系统时间。
 
-但是，<code class="literal">time_zone</code> 参数会对使用<code class="literal">now</code> 和 <a class="xref" href="common-options.html#date-math" title="Date Math">日期计算舍入(date math rounding)</a> 计算的日期进行转换。
+但是，<code class="literal">time_zone</code> 参数会对使用<code class="literal">now</code> 和 <a class="xref" href="common-options.html#date-math" title="Date Math" rel="nofollow">日期计算舍入</a> 计算的日期进行转换。
 
 例如，<code class="literal">time_zone</code> 参数会将 <code class="literal">now/d</code> 的值进行转换。
 </p>

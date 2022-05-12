@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Range query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>range 查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,38 +32,39 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询领域特定语言(Query DSL)</a></span>
 »
-<span class="breadcrumb-link"><a href="term-level-queries.html">Term-level queries</a></span>
+<span class="breadcrumb-link"><a href="term-level-queries.html">词项级查询</a></span>
 »
-<span class="breadcrumb-node">Range query</span>
+<span class="breadcrumb-node">range 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-prefix-query.html">« Prefix query</a>
+<a href="query-dsl-prefix-query.html">« prefix 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-regexp-query.html">Regexp query »</a>
+<a href2="query-dsl-regexp-query.html">Regexp query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-range-query"></a>Range query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/range-query.asciidoc">edit</a>
+<a id="query-dsl-range-query"></a>范围查询 (range query)
 </h2>
 </div></div></div>
 
-<p>Returns documents that contain terms within a provided range.</p>
+<p>返回包含指定范围内的词项的文档。</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="range-query-ex-request"></a>Example request<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/range-query.asciidoc">edit</a>
+<a id="range-query-ex-request"></a>请求示例
 </h3>
 </div></div></div>
-<p>The following search returns documents where the <code class="literal">age</code> field contains a term
-between <code class="literal">10</code> and <code class="literal">20</code>.</p>
+<p>
+下面这个搜索返回 <code class="literal">age</code> 字段包含 <code class="literal">10</code> 到 <code class="literal">20</code> 之间的词项的文档。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -84,7 +85,7 @@ between <code class="literal">10</code> and <code class="literal">20</code>.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="range-query-top-level-params"></a>Top-level parameters for <code class="literal">range</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/range-query.asciidoc">edit</a>
+<a id="range-query-top-level-params"></a><code class="literal">range</code>的顶级参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -95,7 +96,7 @@ between <code class="literal">10</code> and <code class="literal">20</code>.</p>
 </span>
 </dt>
 <dd>
-<p>(Required, object) Field you wish to search.</p>
+<p>(必需, object) 你想搜索的字段。</p>
 </dd>
 </dl>
 </div>
@@ -104,7 +105,7 @@ between <code class="literal">10</code> and <code class="literal">20</code>.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="range-query-field-params"></a>Parameters for <code class="literal">&lt;field&gt;</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/range-query.asciidoc">edit</a>
+<a id="range-query-field-params"></a><code class="literal">&lt;field&gt;</code>的参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -115,7 +116,7 @@ between <code class="literal">10</code> and <code class="literal">20</code>.</p>
 </span>
 </dt>
 <dd>
-(Optional) Greater than.
+(可选) 大于
 </dd>
 <dt>
 <span class="term">
@@ -123,7 +124,7 @@ between <code class="literal">10</code> and <code class="literal">20</code>.</p>
 </span>
 </dt>
 <dd>
-(Optional) Greater than or equal to.
+(可选) 大于等于
 </dd>
 <dt>
 <span class="term">
@@ -131,7 +132,7 @@ between <code class="literal">10</code> and <code class="literal">20</code>.</p>
 </span>
 </dt>
 <dd>
-(Optional) Less than.
+(可选) 小于
 </dd>
 <dt>
 <span class="term">
@@ -139,7 +140,7 @@ between <code class="literal">10</code> and <code class="literal">20</code>.</p>
 </span>
 </dt>
 <dd>
-(Optional) Less than or equal to.
+(可选) 小于等于
 </dd>
 <dt>
 <span class="term">
@@ -147,18 +148,26 @@ between <code class="literal">10</code> and <code class="literal">20</code>.</p>
 </span>
 </dt>
 <dd>
-<p>(Optional, string) Date format used to convert <code class="literal">date</code> values in the query.</p>
-<p>By default, Elasticsearch uses the <a class="xref" href="mapping-date-format.html" title="format">date <code class="literal">format</code></a> provided in the
-<code class="literal">&lt;field&gt;</code>'s mapping. This value overrides that mapping format.</p>
-<p>For valid syntax, see <a class="xref" href="mapping-date-format.html" title="format"><code class="literal">format</code></a>.</p>
+<p>
+(可选, string) 用于转换查询中 <code class="literal">date</code> 值的日期格式。
+</p>
+<p>
+默认情况下，Elasticsearch 使用 <code class="literal">&lt;field&gt;</code> 的映射中指定的 <a class="xref" href="mapping-date-format.html" title="格式" rel="nofollow">date <code class="literal">format</code></a>。
+
+它会覆盖该映射中设置的格式。
+</p>
+<p>
+有效的语法请参考 <a class="xref" href="mapping-date-format.html" title="格式" rel="nofollow"><code class="literal">format</code></a>。
+</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If a <code class="literal">format</code> and <code class="literal">date</code> value are incomplete, Elasticsearch replaces any missing year,
-month, or date component with the start of
-<a href="https://en.wikipedia.org/wiki/Unix_time" class="ulink" target="_top">Unix time</a>, which is January 1st, 1970.</p>
-<p>For example, if the <code class="literal">format</code> value is <code class="literal">dd</code>, Elasticsearch converts a <code class="literal">gte</code> value of <code class="literal">10</code>
-to <code class="literal">1970-01-10T00:00:00.000Z</code>.</p>
+<p>
+如果 <code class="literal">format</code> 和 <code class="literal">date</code> 值不完整，Elasticsearch 会用<a href="https://en.wikipedia.org/wiki/Unix_time" class="ulink" target="_top" rel="nofollow">unix 时间</a>的开始时间(即1970年1月1日)替换任何缺少的年、月或日期部分。
+</p>
+<p>
+例如，如果 <code class="literal">format</code> 为 <code class="literal">dd</code>，则 Elasticsearch 会将 <code class="literal">gte</code> 值 <code class="literal">10</code> 转换为<code class="literal">1970-01-10T00:00:00.000Z</code>, 即: 将<code class="literal">"gte": "10"</code> 转换为 <code class="literal">"gte": "1970-01-10T00:00:00.000Z"</code>。
+</p>
 </div>
 </div>
 </dd>
@@ -173,17 +182,16 @@ to <code class="literal">1970-01-10T00:00:00.000Z</code>.</p>
 </span>
 </dt>
 <dd>
-<p>(Optional, string) Indicates how the range query matches values for <code class="literal">range</code>
-fields. Valid values are:</p>
+<p>(可选, string) 指示范围查询如何匹配 <code class="literal">range</code> 字段的值。有效值有：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<code class="literal">INTERSECTS</code> (Default)
+<code class="literal">INTERSECTS</code> (默认)
 </span>
 </dt>
 <dd>
-Matches documents with a range field value that intersects the query’s range.
+匹配范围字段值与查询范围相交的文档。
 </dd>
 <dt>
 <span class="term">
@@ -191,7 +199,7 @@ Matches documents with a range field value that intersects the query’s range.
 </span>
 </dt>
 <dd>
-Matches documents with a range field value that entirely contains the query’s range.
+匹配范围字段值完全包含查询范围的文档。
 </dd>
 <dt>
 <span class="term">
@@ -199,7 +207,7 @@ Matches documents with a range field value that entirely contains the query’s 
 </span>
 </dt>
 <dd>
-Matches documents with a range field value entirely within the query’s range.
+匹配范围字段值完全在查询范围内的文档。
 </dd>
 </dl>
 </div>
@@ -210,23 +218,26 @@ Matches documents with a range field value entirely within the query’s range.
 </span>
 </dt>
 <dd>
-<p>(Optional, string)
-<a href="https://en.wikipedia.org/wiki/List_of_UTC_time_offsets" class="ulink" target="_top">Coordinated Universal
-Time (UTC) offset</a> or
-<a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" class="ulink" target="_top">IANA time zone</a>
-used to convert <code class="literal">date</code> values in the query to UTC.</p>
-<p>Valid values are ISO 8601 UTC offsets, such as <code class="literal">+01:00</code> or -<code class="literal">08:00</code>, and IANA
-time zone IDs, such as <code class="literal">America/Los_Angeles</code>.</p>
-<p>For an example query using the <code class="literal">time_zone</code> parameter, see
-<a class="xref" href="query-dsl-range-query.html#range-query-time-zone" title="Example query using time_zone parameter">Time zone in <code class="literal">range</code> queries</a>.</p>
+<p>(可选, string) <a href="https://en.wikipedia.org/wiki/List_of_UTC_time_offsets" class="ulink" target="_top" rel="nofollow">协调世界时(UTC)时差</a>或 <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" class="ulink" target="_top" rel="nofollow">IANA时区</a>，用于将查询字符串中的 <code class="literal">date</code> 值转换为 UTC。
+</p>
+<p>
+有效值包括 ISO 8601 UTC 时差，如 <code class="literal">+01:00</code> 或 <code class="literal">-08:00</code>，以及 IANA 时区识别名称，如 <code class="literal">America/Los_Angeles</code>。
+</p>
+<p>
+有关使用 <code class="literal">time_zone</code> 参数的查询示例，请参阅范围<a class="xref" href="query-dsl-range-query.html#range-query-time-zone" title="Example query using time_zone parameter"><code class="literal">range</code>查询中的时区</a>。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The <code class="literal">time_zone</code> parameter does <span class="strong strong"><strong>not</strong></span> affect the <a class="xref" href="common-options.html#date-math" title="Date Math">date math</a> value
-of <code class="literal">now</code>. <code class="literal">now</code> is always the current system time in UTC.</p>
-<p>However, the <code class="literal">time_zone</code> parameter does convert dates calculated using <code class="literal">now</code> and
-<a class="xref" href="common-options.html#date-math" title="Date Math">date math rounding</a>. For example, the <code class="literal">time_zone</code> parameter will
-convert a value of <code class="literal">now/d</code>.</p>
+<p>
+<code class="literal">time_zone</code> 参数<span class="strong strong"><strong>不</strong></span>影响 <code class="literal">now</code> 的 <a class="xref" href="common-options.html#date-math" title="Date Math" rel="nofollow">日期计算</a>值。
+
+<code class="literal">now</code> 始终是 UTC 中的当前系统时间。
+
+但是，<code class="literal">time_zone</code> 参数会对使用<code class="literal">now</code> 和 <a class="xref" href="common-options.html#date-math" title="Date Math" rel="nofollow">日期计算舍入</a> 计算的日期进行转换。
+
+例如，<code class="literal">time_zone</code> 参数会将 <code class="literal">now/d</code> 的值进行转换。
+</p>
 </div>
 </div>
 </dd>
@@ -236,13 +247,14 @@ convert a value of <code class="literal">now/d</code>.</p>
 </span>
 </dt>
 <dd>
-<p>(Optional, float) Floating point number used to decrease or increase the
-<a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance scores</a> of a query. Defaults to <code class="literal">1.0</code>.</p>
-<p>You can use the <code class="literal">boost</code> parameter to adjust relevance scores for searches
-containing two or more queries.</p>
-<p>Boost values are relative to the default value of <code class="literal">1.0</code>. A boost value between
-<code class="literal">0</code> and <code class="literal">1.0</code> decreases the relevance score. A value greater than <code class="literal">1.0</code>
-increases the relevance score.</p>
+<p>(可选, float) 用于降低或增加查询的<a class="xref" href="query-filter-context.html#relevance-scores" title="相关性评分">相关性评分</a>的浮点数。默认为 <code class="literal">1.0</code>。</p>
+<p>
+你可以使用 <code class="literal">boost</code> 参数来调整包含两个或更多查询的搜索的相关性评分。
+</p>
+<p>
+<code class="literal">boost</code> 值是相对于默认值 <code class="literal">1.0</code> 的。
+其值在 <code class="literal">0</code> 和 <code class="literal">1.0</code> 之间时会降低相关性评分，而大于 <code class="literal">1.0</code> 时会增加相关性评分。
+</p>
 </dd>
 </dl>
 </div>
@@ -251,27 +263,29 @@ increases the relevance score.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="range-query-notes"></a>Notes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/range-query.asciidoc">edit</a>
+<a id="range-query-notes"></a>注意
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="ranges-on-text-and-keyword"></a>Using the <code class="literal">range</code> query with <code class="literal">text</code> and <code class="literal">keyword</code> fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/range-query.asciidoc">edit</a>
+<a id="ranges-on-text-and-keyword"></a>在<code class="literal">text</code>和<code class="literal">keyword</code>类型的字段上使用<code class="literal">range</code>查询
 </h4>
 </div></div></div>
-<p>Range queries on <a class="xref" href="text.html" title="Text datatype"><code class="literal">text</code></a> or <a class="xref" href="keyword.html" title="Keyword datatype"><code class="literal">keyword</code></a> files will not be executed if
-<a class="xref" href="query-dsl.html#query-dsl-allow-expensive-queries"><code class="literal">search.allow_expensive_queries</code></a> is set to false.</p>
+<p>
+如果 <a class="xref" href="query-dsl.html#query-dsl-allow-expensive-queries"><code class="literal">search.allow_expensive_queries</code></a> 设置为 <code class="literal">fasle</code>，则在 <code class="literal">text</code> 或 <code class="literal">keyword</code> 类型的字段上的范围查询不会被执行。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="ranges-on-dates"></a>Using the <code class="literal">range</code> query with <code class="literal">date</code> fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/range-query.asciidoc">edit</a>
+<a id="ranges-on-dates"></a>在<code class="literal">date</code>类型的字段上使用<code class="literal">range</code>查询
 </h4>
 </div></div></div>
-<p>When the <code class="literal">&lt;field&gt;</code> parameter is a <a class="xref" href="date.html" title="Date datatype"><code class="literal">date</code></a> field datatype, you can use
-<a class="xref" href="common-options.html#date-math" title="Date Math">date math</a> with the following parameters:</p>
+<p>
+当<code class="literal">&lt;field&gt;</code>参数是一个<a class="xref" href="date.html" title="Date datatype"><code class="literal">date</code></a>类型的字段时，可以将<a class="xref" href="common-options.html#date-math" title="日期计算" rel="nofollow">日期计算</a>与以下参数一起使用:
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
@@ -288,8 +302,9 @@ increases the relevance score.</p>
 </li>
 </ul>
 </div>
-<p>For example, the following search returns documents where the <code class="literal">timestamp</code> field
-contains a date between today and yesterday.</p>
+<p>
+例如，下面这个搜索返回<code class="literal">timestamp</code>字段包含今天(now)和昨天(now-1d)之间的日期的文档。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -307,10 +322,10 @@ contains a date between today and yesterday.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h5 class="title">
-<a id="range-query-date-math-rounding"></a>Date math and rounding<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/range-query.asciidoc">edit</a>
+<a id="range-query-date-math-rounding"></a>日期计算及舍入
 </h5>
 </div></div></div>
-<p>Elasticsearch rounds <a class="xref" href="common-options.html#date-math" title="Date Math">date math</a> values in parameters as follows:</p>
+<p>Elasticsearch 对参数中的<a class="xref" href="common-options.html#date-math" title="Date Math">日期计算</a>的值进行舍入，如下所示：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -319,9 +334,8 @@ contains a date between today and yesterday.</p>
 </span>
 </dt>
 <dd>
-<p>Rounds up to the first millisecond not covered by the rounded date.</p>
-<p>For example, <code class="literal">2014-11-18||/M</code> rounds up to <code class="literal">2014-12-01T00:00:00.000</code>, excluding
-the entire month of November.</p>
+<p>向上舍入到舍入日期未涵盖的第一个毫秒。</p>
+<p>例如，<code class="literal">2014-11-18||/M</code> 舍入到<code class="literal">2014-12-01T00:00:00.000</code>，不包括整个11月。</p>
 </dd>
 <dt>
 <span class="term">
@@ -329,9 +343,8 @@ the entire month of November.</p>
 </span>
 </dt>
 <dd>
-<p>Rounds down to the first millisecond.</p>
-<p>For example, <code class="literal">2014-11-18||/M</code> rounds down to <code class="literal">2014-11-01T00:00:00.000</code>, including
-the entire month.</p>
+<p>向下舍入到第一个毫秒。</p>
+<p>例如，<code class="literal">2014-11-18||/M</code> 向下舍入到 <code class="literal">2014-11-01T00:00:00.000</code>，包含了整个月。</p>
 </dd>
 <dt>
 <span class="term">
@@ -339,9 +352,8 @@ the entire month.</p>
 </span>
 </dt>
 <dd>
-<p>Rounds down to the last millisecond before the rounded value.</p>
-<p>For example, <code class="literal">2014-11-18||/M</code> rounds down to <code class="literal">2014-10-31T23:59:59.999</code>, excluding
-the entire month of November.</p>
+<p>向下舍入到舍入值之前的最后一毫秒。</p>
+<p>例如，<code class="literal">2014-11-18||/M</code> 向下舍入到 <code class="literal">2014-10-31T23:59:59.999</code>，不包括整个11月。</p>
 </dd>
 <dt>
 <span class="term">
@@ -349,9 +361,8 @@ the entire month of November.</p>
 </span>
 </dt>
 <dd>
-<p>Rounds up to the latest millisecond in the rounding interval.</p>
-<p>For example, <code class="literal">2014-11-18||/M</code> rounds up to <code class="literal">2014-11-30T23:59:59.999</code>, including
-the entire month.</p>
+<p>舍入到舍入间隔中最近的一毫秒。</p>
+<p>例如，<code class="literal">2014-11-18||/M</code> 向上舍入到 <code class="literal">2014-11-30T23:59:59.999</code>，包含整个月。</p>
 </dd>
 </dl>
 </div>
@@ -362,11 +373,10 @@ the entire month.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="range-query-time-zone"></a>Example query using <code class="literal">time_zone</code> parameter<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/range-query.asciidoc">edit</a>
+<a id="range-query-time-zone"></a>使用<code class="literal">time_zone</code>参数的查询示例
 </h4>
 </div></div></div>
-<p>You can use the <code class="literal">time_zone</code> parameter to convert <code class="literal">date</code> values to UTC using a
-UTC offset. For example:</p>
+<p>可以使用 <code class="literal">time_zone</code>参数通过 UTC 时差将 <code class="literal">date</code> 值转换为UTC。例如：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -389,7 +399,7 @@ UTC offset. For example:</p>
 <p><a href="#CO63-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Indicates that <code class="literal">date</code> values use a UTC offset of <code class="literal">+01:00</code>.</p>
+<p>指示<code class="literal">date</code>值使用<code class="literal">+01:00</code>的UTC时差。</p>
 </td>
 </tr>
 <tr>
@@ -397,8 +407,8 @@ UTC offset. For example:</p>
 <p><a href="#CO63-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>With a UTC offset of <code class="literal">+01:00</code>, Elasticsearch converts this date to
-<code class="literal">2019-12-31T23:00:00 UTC</code>.</p>
+<p>使用 UTC 时差<code class="literal">+01:00</code>，Elasticsearch 将此日期转换为 
+<code class="literal">2019-12-31T23:00:00 UTC</code>。</p>
 </td>
 </tr>
 <tr>
@@ -406,7 +416,7 @@ UTC offset. For example:</p>
 <p><a href="#CO63-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">time_zone</code> parameter does not affect the <code class="literal">now</code> value.</p>
+<p>参数 <code class="literal">time_zone</code> 不会影响 <code class="literal">now</code> 的值。</p>
 </td>
 </tr>
 </table>
@@ -418,10 +428,10 @@ UTC offset. For example:</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-prefix-query.html">« Prefix query</a>
+<a href="query-dsl-prefix-query.html">« prefix 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-regexp-query.html">Regexp query »</a>
+<a href2="query-dsl-regexp-query.html">Regexp query »</a>
 </span>
 </div>
 </div>

@@ -885,8 +885,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-range-query.html",
-                        "text": "Range",
-                        "title": "Range"
+                        "text": "range",
+                        "title": "range"
                     },
                     {
                         "url": "query-dsl-regexp-query.html",

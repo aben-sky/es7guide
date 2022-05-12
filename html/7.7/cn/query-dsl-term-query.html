@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Term query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>term 查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,46 +32,53 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询领域特定语言(Query DSL)</a></span>
 »
-<span class="breadcrumb-link"><a href="term-level-queries.html">Term-level queries</a></span>
+<span class="breadcrumb-link"><a href="term-level-queries.html">词项级查询</a></span>
 »
-<span class="breadcrumb-node">Term query</span>
+<span class="breadcrumb-node">term 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-regexp-query.html">« Regexp query</a>
+<a href="query-dsl-regexp-query.html">« regexp 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-terms-query.html">Terms query »</a>
+<a href2="query-dsl-terms-query.html">Terms query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-term-query"></a>Term query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/term-query.asciidoc">edit</a>
+<a id="query-dsl-term-query"></a>term 查询
 </h2>
 </div></div></div>
 
-<p>Returns documents that contain an <span class="strong strong"><strong>exact</strong></span> term in a provided field.</p>
-<p>You can use the <code class="literal">term</code> query to find documents based on a precise value such as
-a price, a product ID, or a username.</p>
+<p>返回指定的字段中包含<span class="strong strong"><strong>确切的</strong></span>词项的文档。</p>
+<p>
+可以使用 <code class="literal">term</code> 查询根据精确的值(如价格、产品ID或用户名)来查找文档。
+</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Avoid using the <code class="literal">term</code> query for <a class="xref" href="text.html" title="Text datatype"><code class="literal">text</code></a> fields.</p>
-<p>By default, Elasticsearch changes the values of <code class="literal">text</code> fields as part of <a class="xref" href="analysis.html" title="Text analysis">analysis</a>. This can make finding exact matches for <code class="literal">text</code> field values
-difficult.</p>
-<p>To search <code class="literal">text</code> field values, use the <a class="xref" href="query-dsl-match-query.html" title="Match query"><code class="literal">match</code></a> query
-instead.</p>
+<p>
+避免对 <a class="xref" href="text.html" title="text数据类型" rel="nofollow"><code class="literal">text</code></a> 字段使用 <code class="literal">term</code> 查询。
+</p>
+<p>
+默认情况下，作为<a class="xref" href="analysis.html" title="text分析" rel="nofollow">分析(analysis)</a>的一部分，Elasticsearch 会更改 <code class="literal">text</code> 字段的值。
+
+这使得查找 <code class="literal">text</code> 字段值的精确匹配变得困难。
+</p>
+<p>
+要搜索 <code class="literal">text</code> 字段的值，请使用 <a class="xref" href="query-dsl-match-query.html" title="match 查询"><code class="literal">match</code></a> 查询代替之。
+</p>
 </div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="term-query-ex-request"></a>Example request<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/term-query.asciidoc">edit</a>
+<a id="term-query-ex-request"></a>请求示例
 </h3>
 </div></div></div>
 <div class="pre_wrapper lang-console">
@@ -93,7 +100,7 @@ instead.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="term-top-level-params"></a>Top-level parameters for <code class="literal">term</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/term-query.asciidoc">edit</a>
+<a id="term-top-level-params"></a><code class="literal">term</code>的顶级参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -104,7 +111,7 @@ instead.</p>
 </span>
 </dt>
 <dd>
-(Required, object) Field you wish to search.
+(必需, object) 你想搜索的字段。
 </dd>
 </dl>
 </div>
@@ -113,7 +120,7 @@ instead.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="term-field-params"></a>Parameters for <code class="literal">&lt;field&gt;</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/term-query.asciidoc">edit</a>
+<a id="term-field-params"></a><code class="literal">&lt;field&gt;</code>的参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -124,9 +131,9 @@ instead.</p>
 </span>
 </dt>
 <dd>
-(Required, string) Term you wish to find in the provided <code class="literal">&lt;field&gt;</code>. To return a
-document, the term must exactly match the field value, including whitespace and
-capitalization.
+(必需, string) 希望在指定的<code class="literal">&lt;field&gt;</code>中查找的词项。
+
+要返回文档，词项必须与字段值完全匹配，包括空格和大写。
 </dd>
 <dt>
 <span class="term">
@@ -134,15 +141,14 @@ capitalization.
 </span>
 </dt>
 <dd>
+<p>(可选, float) 用于降低或增加查询的<a class="xref" href="query-filter-context.html#relevance-scores" title="相关性评分">相关性评分</a>的浮点数。默认为 <code class="literal">1.0</code>。</p>
 <p>
-(Optional, float) Floating point number used to decrease or increase the
-<a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance scores</a> of a query. Defaults to <code class="literal">1.0</code>.
+你可以使用 <code class="literal">boost</code> 参数来调整包含两个或更多查询的搜索的相关性评分。
 </p>
-<p>You can use the <code class="literal">boost</code> parameter to adjust relevance scores for searches
-containing two or more queries.</p>
-<p>Boost values are relative to the default value of <code class="literal">1.0</code>. A boost value between
-<code class="literal">0</code> and <code class="literal">1.0</code> decreases the relevance score. A value greater than <code class="literal">1.0</code>
-increases the relevance score.</p>
+<p>
+<code class="literal">boost</code> 值是相对于默认值 <code class="literal">1.0</code> 的。
+其值在 <code class="literal">0</code> 和 <code class="literal">1.0</code> 之间时会降低相关性评分，而大于 <code class="literal">1.0</code> 时会增加相关性评分。
+</p>
 </dd>
 </dl>
 </div>
@@ -151,43 +157,50 @@ increases the relevance score.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="term-query-notes"></a>Notes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/term-query.asciidoc">edit</a>
+<a id="term-query-notes"></a>注意
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="avoid-term-query-text-fields"></a>Avoid using the <code class="literal">term</code> query for <code class="literal">text</code> fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/term-query.asciidoc">edit</a>
+<a id="avoid-term-query-text-fields"></a>避免在<code class="literal">text</code>字段上使用<code class="literal">term</code>查询
 </h4>
 </div></div></div>
-<p>By default, Elasticsearch changes the values of <code class="literal">text</code> fields during analysis. For
-example, the default <a class="xref" href="analysis-standard-analyzer.html" title="Standard Analyzer">standard analyzer</a> changes
-<code class="literal">text</code> field values as follows:</p>
+<p>
+默认情况下，Elasticsearch 会在分析过程中更改<code class="literal">text</code>字段的值。
+
+例如，默认的 <a class="xref" href="analysis-standard-analyzer.html" title="Standard Analyzer">standard 分析器</a> 按如下方式更改<code class="literal">text</code>字段的值：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Removes most punctuation
+删除大部分标点符号
 </li>
 <li class="listitem">
-Divides the remaining content into individual words, called
-<a class="xref" href="analysis-tokenizers.html" title="Tokenizer reference">tokens</a>
+将剩余的内容分成单独的单词，称为 <a class="xref" href="analysis-tokenizers.html" title="Tokenizer reference" rel="nofollow">token</a>(词元)
 </li>
 <li class="listitem">
-Lowercases the tokens
+把词元(token)转小写
 </li>
 </ul>
 </div>
-<p>To better search <code class="literal">text</code> fields, the <code class="literal">match</code> query also analyzes your provided
-search term before performing a search. This means the <code class="literal">match</code> query can search
-<code class="literal">text</code> fields for analyzed tokens rather than an exact term.</p>
-<p>The <code class="literal">term</code> query does <span class="strong strong"><strong>not</strong></span> analyze the search term. The <code class="literal">term</code> query only
-searches for the <span class="strong strong"><strong>exact</strong></span> term you provide. This means the <code class="literal">term</code> query may
-return poor or no results when searching <code class="literal">text</code> fields.</p>
-<p>To see the difference in search results, try the following example.</p>
+<p>
+为了更好地搜索 <code class="literal">text</code> 字段，<code class="literal">match</code> 查询还会在执行搜索之前分析你提供的搜索词。
+
+这意味着 <code class="literal">match</code> 查询可以在<code class="literal">text</code>字段中搜索已分析的词元(token)，而不是确切的词项。
+</p>
+<p>
+<code class="literal">term</code> 查询<span class="strong strong"><strong>不</strong></span>分析要搜索的词。
+
+<code class="literal">term</code> 查询仅搜索你提供的<span class="strong strong"><strong>确切的</strong></span>词。
+
+这意味着在搜索 <code class="literal">text</code> 字段时，<code class="literal">term</code> 查询可能返回很差的结果或没有结果。
+</p>
+<p>要查看搜索结果的差异，请尝试以下示例。</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-<p>Create an index with a <code class="literal">text</code> field called <code class="literal">full_text</code>.</p>
+<p>创建一个索引，其含有一个名为<code class="literal">full_text</code>的<code class="literal">text</code>类型的字段。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index
 {
@@ -201,8 +214,9 @@ return poor or no results when searching <code class="literal">text</code> field
 <div class="console_widget" data-snippet="snippets/287.console"></div>
 </li>
 <li class="listitem">
-<p>Index a document with a value of <code class="literal">Quick Brown Foxes!</code> in the <code class="literal">full_text</code>
-field.</p>
+<p>
+添加并索引一个文档，其<code class="literal">full_text</code>字段的值为<code class="word">Quick Brown Foxes!</code>
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index/_doc/1
 {
@@ -210,12 +224,16 @@ field.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/288.console"></div>
-<p>Because <code class="literal">full_text</code> is a <code class="literal">text</code> field, Elasticsearch changes <code class="literal">Quick Brown Foxes!</code> to
-<code class="literal">[quick, brown, fox]</code> during analysis.</p>
+<p>
+因为 <code class="literal">full_text</code> 是一个 <code class="literal">text</code> 类型的字段，Elasticsearch 在分析过程中将 <code class="word">Quick Brown Foxes!</code> 变成了 <code class="word">[quick, brown, fox]</code>。
+</p>
 </li>
 <li class="listitem">
-<p>Use the <code class="literal">term</code> query to search for <code class="literal">Quick Brown Foxes!</code> in the <code class="literal">full_text</code>
-field. Include the <code class="literal">pretty</code> parameter so the response is more readable.</p>
+<p>
+使用 <code class="literal">term</code> 查询在字段 <code class="literal">full_text</code> 中搜素 <code class="word">Quick Brown Foxes!</code>。
+
+包括<code class="literal">pretty</code>参数，这样响应更具可读性。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_index/_search?pretty
 {
@@ -227,12 +245,14 @@ field. Include the <code class="literal">pretty</code> parameter so the response
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/289.console"></div>
-<p>Because the <code class="literal">full_text</code> field no longer contains the <span class="strong strong"><strong>exact</strong></span> term <code class="literal">Quick Brown
-Foxes!</code>, the <code class="literal">term</code> query search returns no results.</p>
+<p>
+因为字段 <code class="literal">full_text</code> 不再包含 <span class="strong strong"><strong>确切的</strong></span> 词 <code class="literal">Quick Brown Foxes!</code>，因此 <code class="literal">term</code> 查询返回结果为空。
+</p>
 </li>
 <li class="listitem">
-<p>Use the <code class="literal">match</code> query to search for <code class="literal">Quick Brown Foxes!</code> in the <code class="literal">full_text</code>
-field.</p>
+<p>
+使用 <code class="literal">match</code> 查询在字段 <code class="literal">full_text</code> 中搜素 <code class="word">Quick Brown Foxes!</code>。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_index/_search?pretty
 {
@@ -244,12 +264,14 @@ field.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/290.console"></div>
-<p>Unlike the <code class="literal">term</code> query, the <code class="literal">match</code> query analyzes your provided search term,
-<code class="literal">Quick Brown Foxes!</code>, before performing a search. The <code class="literal">match</code> query then returns
-any documents containing the <code class="literal">quick</code>, <code class="literal">brown</code>, or <code class="literal">fox</code> tokens in the
-<code class="literal">full_text</code> field.</p>
-<p>Here’s the response for the <code class="literal">match</code> query search containing the indexed document
-in the results.</p>
+<p>
+与 <code class="literal">term</code> 查询不同，<code class="literal">match</code> 查询在执行搜索前，对给定的搜索词 <code class="word">Quick Brown Foxes!</code> 进行了分析。
+
+然后 <code class="literal">match</code> 查询返回任何  <code class="literal">full_text</code> 字段中包含了<code class="literal">quick</code>、<code class="literal">brown</code> 或 <code class="literal">fox</code> 词元的文档。
+</p>
+<p>
+下面是对结果中包含索引文档的 <code class="literal">match</code> 查询的响应：
+</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   "took" : 1,
@@ -290,10 +312,10 @@ in the results.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-regexp-query.html">« Regexp query</a>
+<a href="query-dsl-regexp-query.html">« regexp 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-terms-query.html">Terms query »</a>
+<a href2="query-dsl-terms-query.html">Terms query »</a>
 </span>
 </div>
 </div>

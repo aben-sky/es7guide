@@ -169,3 +169,5 @@ https://www.pipiho.com/es/7.7/cn/query-dsl-fuzzy-query.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-ids-query.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-prefix-query.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-range-query.html
+https://www.pipiho.com/es/7.7/cn/query-dsl-regexp-query.html
+https://www.pipiho.com/es/7.7/cn/query-dsl-term-query.html

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>词项级查询 | ElasticSearch 7.7 权威指南中文版</title>
+	<title>词级查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -36,7 +36,7 @@
 »
 <span class="breadcrumb-link"><a href="query-dsl.html">查询领域特定语言(Query DSL)</a></span>
 »
-<span class="breadcrumb-node">词项级查询</span>
+<span class="breadcrumb-node">词级查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
@@ -49,24 +49,24 @@
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="term-level-queries"></a>词项级查询 (term-level query)
+<a id="term-level-queries"></a>词级查询 (term-level query)
 </h2>
 </div></div></div>
 <p>
-可以使用<span class="strong strong"><strong>词项级查询</strong></span>，根据结构化数据中的精确值来查找文档。
+可以使用<span class="strong strong"><strong>词级查询</strong></span>，根据结构化数据中的精确值来查找文档。
 
 结构化数据的例子包括日期范围、IP地址、价格或产品id。
 </p>
 <p>
-与<a class="xref" href="full-text-queries.html" title="Full text queries">全文查询</a>不同，词项级查询不分析用于搜索的词项。
+与<a class="xref" href="full-text-queries.html" title="Full text queries">全文查询</a>不同，词级查询不分析用于搜索的词项。
 
-相反，词项级查询与存储在字段中的确切词项相匹配。
+相反，词级查询与存储在字段中的确切词项相匹配。
 </p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
 <p>
-词项级查询仍然使用 <code class="literal">normalizer</code> 属性对 <code class="literal">keyword</code> 字段的搜索词项进行归一化。
+词级查询仍然使用 <code class="literal">normalizer</code> 属性对 <code class="literal">keyword</code> 字段的搜索词项进行归一化。
 
 有关信息请参考 <a class="xref" href="normalizer.html" title="normalizer" rel="nofollow"><code class="literal">normalizer</code></a>。
 </p>

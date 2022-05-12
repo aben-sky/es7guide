@@ -900,8 +900,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-terms-query.html",
-                        "text": "Terms",
-                        "title": "Terms"
+                        "text": "terms",
+                        "title": "terms"
                     },
                     {
                         "url": "query-dsl-terms-set-query.html",

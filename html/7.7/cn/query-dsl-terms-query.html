@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Terms query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>terms 查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,40 +32,44 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询领域特定语言(Query DSL)</a></span>
 »
-<span class="breadcrumb-link"><a href="term-level-queries.html">Term-level queries</a></span>
+<span class="breadcrumb-link"><a href="term-level-queries.html">词级查询</a></span>
 »
-<span class="breadcrumb-node">Terms query</span>
+<span class="breadcrumb-node">terms 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-term-query.html">« Term query</a>
+<a href="query-dsl-term-query.html">« term 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-terms-set-query.html">Terms set query »</a>
+<a href2="query-dsl-terms-set-query.html">Terms set query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-terms-query"></a>Terms query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/terms-query.asciidoc">edit</a>
+<a id="query-dsl-terms-query"></a>terms 查询
 </h2>
 </div></div></div>
 
-<p>Returns documents that contain one or more <span class="strong strong"><strong>exact</strong></span> terms in a provided field.</p>
-<p>The <code class="literal">terms</code> query is the same as the <a class="xref" href="query-dsl-term-query.html" title="Term query"><code class="literal">term</code> query</a>,
-except you can search for multiple values.</p>
+<p>
+返回指定的字段中包含一个或多个<span class="strong strong"><strong>确切的</strong></span>词的文档。
+</p>
+<p>
+除了可以搜索多个值，<code class="literal">terms</code> 查询和 <a class="xref" href="query-dsl-term-query.html" title="term 查询"><code class="literal">term</code> 查询</a>一样。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="terms-query-ex-request"></a>Example request<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/terms-query.asciidoc">edit</a>
+<a id="terms-query-ex-request"></a>请求示例
 </h3>
 </div></div></div>
-<p>The following search returns documents where the <code class="literal">user</code> field contains <code class="literal">kimchy</code>
-or <code class="literal">elasticsearch</code>.</p>
+<p>
+下面这个搜索返回 <code class="literal">user</code> 字段包含<code class="word">kimchy</code>或<code class="word">elasticsearch</code>的文档。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -83,7 +87,7 @@ or <code class="literal">elasticsearch</code>.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="terms-top-level-params"></a>Top-level parameters for <code class="literal">terms</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/terms-query.asciidoc">edit</a>
+<a id="terms-top-level-params"></a><code class="literal">terms</code>的顶级参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -94,17 +98,23 @@ or <code class="literal">elasticsearch</code>.</p>
 </span>
 </dt>
 <dd>
-<p>(Optional, object) Field you wish to search.</p>
-<p>The value of this parameter is an array of terms you wish to find in the
-provided field. To return a document, one or more terms must exactly match a
-field value, including whitespace and capitalization.</p>
-<p>By default, Elasticsearch limits the <code class="literal">terms</code> query to a maximum of 65,536
-terms. You can change this limit using the <a class="xref" href="index-modules.html#index-max-terms-count"><code class="literal">index.max_terms_count</code></a> setting.</p>
+<p>(可选, object) 你想搜索的字段。</p>
+<p>
+该参数的值是你想在指定的字段中查找的一组词。
+
+要返回文档，一个或多个词必须与字段值精确匹配，包括空格和大写。
+</p>
+<p>
+默认情况下，Elasticsearch 将 <code class="literal">terms</code> 查询限制为最多 65,536 个词。
+
+可以使用<a class="xref" href="index-modules.html#index-max-terms-count"><code class="literal" rel="nofollow">index.max_terms_count</code></a>设置来更改此限制。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>To use the field values of an existing document as search terms, use the
-<a class="xref" href="query-dsl-terms-query.html#query-dsl-terms-lookup" title="Terms lookup">terms lookup</a> parameters.</p>
+<p>
+要将现有文档的字段的值用作搜索词，请使用<a class="xref" href="query-dsl-terms-query.html#query-dsl-terms-lookup" title="Terms lookup">词项查找(terms lookup)</a>参数。
+</p>
 </div>
 </div>
 </dd>
@@ -114,13 +124,14 @@ terms. You can change this limit using the <a class="xref" href="index-modules.h
 </span>
 </dt>
 <dd>
-<p>(Optional, float) Floating point number used to decrease or increase the
-<a class="xref" href="query-filter-context.html#relevance-scores" title="Relevance scores">relevance scores</a> of a query. Defaults to <code class="literal">1.0</code>.</p>
-<p>You can use the <code class="literal">boost</code> parameter to adjust relevance scores for searches
-containing two or more queries.</p>
-<p>Boost values are relative to the default value of <code class="literal">1.0</code>. A boost value between
-<code class="literal">0</code> and <code class="literal">1.0</code> decreases the relevance score. A value greater than <code class="literal">1.0</code>
-increases the relevance score.</p>
+<p>(可选, float) 用于降低或增加查询的<a class="xref" href="query-filter-context.html#relevance-scores" title="相关性评分">相关性评分</a>的浮点数。默认为 <code class="literal">1.0</code>。</p>
+<p>
+你可以使用 <code class="literal">boost</code> 参数来调整包含两个或更多查询的搜索的相关性评分。
+</p>
+<p>
+<code class="literal">boost</code> 值是相对于默认值 <code class="literal">1.0</code> 的。
+其值在 <code class="literal">0</code> 和 <code class="literal">1.0</code> 之间时会降低相关性评分，而大于 <code class="literal">1.0</code> 时会增加相关性评分。
+</p>
 </dd>
 </dl>
 </div>
@@ -129,24 +140,27 @@ increases the relevance score.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="terms-query-notes"></a>Notes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/terms-query.asciidoc">edit</a>
+<a id="terms-query-notes"></a>注意
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="query-dsl-terms-query-highlighting"></a>Highlighting <code class="literal">terms</code> queries<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/terms-query.asciidoc">edit</a>
+<a id="query-dsl-terms-query-highlighting"></a>高亮 <code class="literal">terms</code> 查询
 </h4>
 </div></div></div>
-<p><a class="xref" href="search-request-body.html#request-body-search-highlighting" title="Highlighting">Highlighting</a> is best-effort only. Elasticsearch may not
-return highlight results for <code class="literal">terms</code> queries depending on:</p>
+<p>
+<a class="xref" href="search-request-body.html#request-body-search-highlighting" title="Highlighting">高亮</a> 只是尽力而为。
+
+Elasticsearch 可能不会返回<code class="literal">terms</code>查询的高亮结果，具体取决于：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Highlighter type
+高亮器(highlighter)的类型
 </li>
 <li class="listitem">
-Number of terms in the query
+查询中词的数量
 </li>
 </ul>
 </div>
@@ -155,27 +169,38 @@ Number of terms in the query
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="query-dsl-terms-lookup"></a>Terms lookup<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/terms-query.asciidoc">edit</a>
+<a id="query-dsl-terms-lookup"></a>词项查找(terms lookup)
 </h4>
 </div></div></div>
-<p>Terms lookup fetches the field values of an existing document. Elasticsearch then uses
-those values as search terms. This can be helpful when searching for a large set
-of terms.</p>
-<p>Because terms lookup fetches values from a document, the <a class="xref" href="mapping-source-field.html" title="_source field"><code class="literal">_source</code></a> mapping field must be enabled to use terms lookup. The <code class="literal">_source</code>
-field is enabled by default.</p>
+<p>
+词项查找获取现有文档的字段值。
+
+然后，Elasticsearch 使用这些值作为搜索词。
+
+这在搜索大量词项时会很有帮助。
+</p>
+<p>
+因为词项查找从文档中获取值，所以必须启用 <a class="xref" href="mapping-source-field.html" title="_source 字段" rel="nofollow"><code class="literal">_source</code></a> 映射字段才能使用词项查找。
+
+<code class="literal">_source</code> 字段默认是启用的。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>By default, Elasticsearch limits the <code class="literal">terms</code> query to a maximum of 65,536
-terms. This includes terms fetched using terms lookup. You can change
-this limit using the <a class="xref" href="index-modules.html#index-max-terms-count"><code class="literal">index.max_terms_count</code></a> setting.</p>
+<p>
+默认情况下，Elasticsearch 将 <code class="literal">terms</code> 查询限制为最多 65,536 个词。
+
+这包括了使用词项查找获取的词项。
+
+可以使用<a class="xref" href="index-modules.html#index-max-terms-count"><code class="literal" rel="nofollow">index.max_terms_count</code></a>设置来更改此限制。
+</p>
 </div>
 </div>
-<p>To perform a terms lookup, use the following parameters.</p>
+<p>若要执行词项查找，请使用以下参数。</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h5 class="title">
-<a id="query-dsl-terms-lookup-params"></a>Terms lookup parameters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/terms-query.asciidoc">edit</a>
+<a id="query-dsl-terms-lookup-params"></a>词项查找(terms lookup)的参数
 </h5>
 </div></div></div>
 <div class="variablelist">
@@ -186,7 +211,7 @@ this limit using the <a class="xref" href="index-modules.html#index-max-terms-co
 </span>
 </dt>
 <dd>
-(Required, string) Name of the index from which to fetch field values.
+(必需, string) 要从中提取字段值的索引的名称。
 </dd>
 <dt>
 <span class="term">
@@ -194,8 +219,7 @@ this limit using the <a class="xref" href="index-modules.html#index-max-terms-co
 </span>
 </dt>
 <dd>
-(Required, string) <a class="xref" href="mapping-id-field.html" title="_id field">ID</a> of the document from which to fetch
-field values.
+(必需, string) 要获取字段值的文档的<a class="xref" href="mapping-id-field.html" title="_id 字段" rel="nofollow">ID</a>。
 </dd>
 <dt>
 <span class="term">
@@ -203,10 +227,13 @@ field values.
 </span>
 </dt>
 <dd>
-<p>(Required, string) Name of the field from which to fetch field values. Elasticsearch uses
-these values as search terms for the query.</p>
-<p>If the field values include an array of nested inner objects, you can access
-those objects using dot notation syntax.</p>
+<p>
+(必需, string) 要从中提取字段值的字段的名称。
+Elasticsearch 使用这些字段的值作为查询的搜索词。
+</p>
+<p>
+如果字段值包含嵌套内部对象的数组，则可以使用点标记语法来访问这些对象。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -214,9 +241,9 @@ those objects using dot notation syntax.</p>
 </span>
 </dt>
 <dd>
-(Optional, string) Custom <a class="xref" href="mapping-routing-field.html" title="_routing field">routing value</a> of the
-document from which to fetch term values. If a custom routing value was provided
-when the document was indexed, this parameter is required.
+(可选, string) 要从中提取词项值的文档的自定义的 <a class="xref" href="mapping-routing-field.html" title="_routing 字段" rel="nofollow">路由值</a>。
+
+如果在为文档编制索引时提供了自定义的路由值，则此参数是必需的。
 </dd>
 </dl>
 </div>
@@ -225,14 +252,16 @@ when the document was indexed, this parameter is required.
 <div class="section">
 <div class="titlepage"><div><div>
 <h5 class="title">
-<a id="query-dsl-terms-lookup-example"></a>Terms lookup example<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/terms-query.asciidoc">edit</a>
+<a id="query-dsl-terms-lookup-example"></a>词项查找(terms lookup)示例
 </h5>
 </div></div></div>
-<p>To see how terms lookup works, try the following example.</p>
+<p>要了解词项查找的工作原理，请尝试以下示例。</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-<p>Create an index with a <code class="literal">keyword</code> field named <code class="literal">color</code>.</p>
+<p>
+创建一个索引，其有一个名为<code class="literal">color</code>、类型为<code class="literal">keyword</code>的字段。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index
 {
@@ -246,8 +275,9 @@ when the document was indexed, this parameter is required.
 <div class="console_widget" data-snippet="snippets/292.console"></div>
 </li>
 <li class="listitem">
-<p>Index a document with an ID of 1 and values of <code class="literal">["blue", "green"]</code> in the
-<code class="literal">color</code> field.</p>
+<p>
+添加并索引一个文档，其 id 为 1，字段<code class="literal">color</code>的值为<code class="word">["blue", "green"]</code>。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index/_doc/1
 {
@@ -257,8 +287,9 @@ when the document was indexed, this parameter is required.
 <div class="console_widget" data-snippet="snippets/293.console"></div>
 </li>
 <li class="listitem">
-<p>Index another document with an ID of 2 and value of <code class="literal">blue</code> in the <code class="literal">color</code>
-field.</p>
+<p>
+添加并索引另一个文档，其 id 为 2，字段<code class="literal">color</code>的值为<code class="word">blue</code>。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index/_doc/2
 {
@@ -268,9 +299,11 @@ field.</p>
 <div class="console_widget" data-snippet="snippets/294.console"></div>
 </li>
 <li class="listitem">
-<p>Use the <code class="literal">terms</code> query with terms lookup parameters to find documents
-containing one or more of the same terms as document 2. Include the <code class="literal">pretty</code>
-parameter so the response is more readable.</p>
+<p>
+使用带词项查找参数的 <code class="literal">terms</code> 查询去查找包含与文档 2 中的一个或多个词项相同的文档。
+
+包括<code class="literal">pretty</code>参数，这样响应更具可读性。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_index/_search?pretty
 {
@@ -286,8 +319,9 @@ parameter so the response is more readable.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/295.console"></div>
-<p>Because document 2 and document 1 both contain <code class="literal">blue</code> as a value in the <code class="literal">color</code>
-field, Elasticsearch returns both documents.</p>
+<p>
+因为文档 2 和文档 1 在<code class="literal">color</code>字段中都包含<code class="word">blue</code>，所以 Elasticsearch 返回了这两个文档。
+</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   "took" : 17,
@@ -342,10 +376,10 @@ field, Elasticsearch returns both documents.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-term-query.html">« Term query</a>
+<a href="query-dsl-term-query.html">« term 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-terms-set-query.html">Terms set query »</a>
+<a href2="query-dsl-terms-set-query.html">Terms set query »</a>
 </span>
 </div>
 </div>

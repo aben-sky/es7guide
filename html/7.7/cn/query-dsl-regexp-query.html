@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Regexp query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>regexp 查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,44 +32,48 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询领域特定语言(Query DSL)</a></span>
 »
-<span class="breadcrumb-link"><a href="term-level-queries.html">Term-level queries</a></span>
+<span class="breadcrumb-link"><a href="term-level-queries.html">词项级查询</a></span>
 »
-<span class="breadcrumb-node">Regexp query</span>
+<span class="breadcrumb-node">regexp 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-range-query.html">« Range query</a>
+<a href="query-dsl-range-query.html">« range 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-term-query.html">Term query »</a>
+<a href2="query-dsl-term-query.html">Term query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-regexp-query"></a>Regexp query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/regexp-query.asciidoc">edit</a>
+<a id="query-dsl-regexp-query"></a>正则表达式查询 (regexp query)
 </h2>
 </div></div></div>
 
-<p>Returns documents that contain terms matching a
-<a href="https://en.wikipedia.org/wiki/Regular_expression" class="ulink" target="_top">regular expression</a>.</p>
-<p>A regular expression is a way to match patterns in data using placeholder
-characters, called operators. For a list of operators supported by the
-<code class="literal">regexp</code> query, see <a class="xref" href="regexp-syntax.html" title="Regular expression syntax">Regular expression syntax</a>.</p>
+<p>返回包含匹配<a href="https://en.wikipedia.org/wiki/Regular_expression" class="ulink" target="_top">正则表达式</a>的词项的文档。</p>
+<p>
+正则表达式是一种使用占位符(称为运算符)来匹配数据模式的方法。
+
+有关<code class="literal">regexp</code>查询支持的运算符列表，请参见<a class="xref" href="regexp-syntax.html" title="正则表达式语法" rel="nofollow">正则表达式语法</a>。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="regexp-query-ex-request"></a>Example request<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/regexp-query.asciidoc">edit</a>
+<a id="regexp-query-ex-request"></a>请求示例
 </h3>
 </div></div></div>
-<p>The following search returns documents where the <code class="literal">user</code> field contains any term
-that begins with <code class="literal">k</code> and ends with <code class="literal">y</code>. The <code class="literal">.*</code> operators match any
-characters of any length, including no characters. Matching
-terms can include <code class="literal">ky</code>, <code class="literal">kay</code>, and <code class="literal">kimchy</code>.</p>
+<p>
+下面这个搜索返回<code class="literal">user</code>字段包含任何以<code class="literal">k</code>开头并以<code class="literal">y</code>结尾的词项的文档。
+
+运算符<code class="literal">.*</code>匹配任何长度的任何字符，包括0个字符。
+
+匹配的词项可以包含 <code class="literal">ky</code>、<code class="literal">kay</code> 和 <code class="literal">kimchy</code>。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -91,7 +95,7 @@ terms can include <code class="literal">ky</code>, <code class="literal">kay</co
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="regexp-top-level-params"></a>Top-level parameters for <code class="literal">regexp</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/regexp-query.asciidoc">edit</a>
+<a id="regexp-top-level-params"></a><code class="literal">regexp</code>的顶级参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -102,7 +106,7 @@ terms can include <code class="literal">ky</code>, <code class="literal">kay</co
 </span>
 </dt>
 <dd>
-(Required, object) Field you wish to search.
+(必需, object) 你想搜索的字段。
 </dd>
 </dl>
 </div>
@@ -111,7 +115,7 @@ terms can include <code class="literal">ky</code>, <code class="literal">kay</co
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="regexp-query-field-params"></a>Parameters for <code class="literal">&lt;field&gt;</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/regexp-query.asciidoc">edit</a>
+<a id="regexp-query-field-params"></a><code class="literal">&lt;field&gt;</code>的参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -123,19 +127,24 @@ terms can include <code class="literal">ky</code>, <code class="literal">kay</co
 </dt>
 <dd>
 <p>
-(Required, string) Regular expression for terms you wish to find in the provided
-<code class="literal">&lt;field&gt;</code>. For a list of supported operators, see <a class="xref" href="regexp-syntax.html" title="Regular expression syntax">Regular
-expression syntax</a>.
+(必需, string) 
+要在指定的<code class="literal">&lt;field&gt;</code>中查找的词项的正则表达式。
+
+支持的运算符列表，请参考<a class="xref" href="regexp-syntax.html" title="正则表达式语法" rel="nofollow">正则表达式语法</a>。
 </p>
-<p>By default, regular expressions are limited to 1,000 characters. You can change
-this limit using the <a class="xref" href="index-modules.html#index-max-regex-length"><code class="literal">index.max_regex_length</code></a>
-setting.</p>
+<p>
+默认情况下，正则表达式限制为1000个字符。
+
+可以使用<a class="xref" href="index-modules.html#index-max-regex-length" rel="nofollow"><code class="literal">index.max_regex_length</code></a>设置来更改此限制。
+</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The performance of the <code class="literal">regexp</code> query can vary based on the regular expression
-provided. To improve performance, avoid using wildcard patterns, such as <code class="literal">.*</code> or
-<code class="literal">.*?+</code>, without a prefix or suffix.</p>
+<p>
+<code class="literal">regexp</code>查询的性能会因给定的正则表达式而不同。
+
+要提高查询性能，应避免使用通配符模式，如<code class="literal">.*</code>或者<code class="literal">.*?+</code>，没有前缀或后缀。
+</p>
 </div>
 </div>
 </dd>
@@ -145,9 +154,7 @@ provided. To improve performance, avoid using wildcard patterns, such as <code c
 </span>
 </dt>
 <dd>
-(Optional, string) Enables optional operators for the regular expression. For
-valid values and more information, see <a class="xref" href="regexp-syntax.html#regexp-optional-operators" title="Optional operators">Regular
-expression syntax</a>.
+(可选, string) 为正则表达式启用可选的运算符。有效值及更多信息请参考<a class="xref" href="regexp-syntax.html#regexp-optional-operators" title="可选的运算符" rel="nofollow">正则表达式语法</a>。
 </dd>
 <dt>
 <span class="term">
@@ -155,15 +162,21 @@ expression syntax</a>.
 </span>
 </dt>
 <dd>
-<p>(Optional, integer) Maximum number of
-<a href="https://en.wikipedia.org/wiki/Deterministic_finite_automaton" class="ulink" target="_top">automaton states</a>
-required for the query. Default is <code class="literal">10000</code>.</p>
-<p>Elasticsearch uses <a href="https://lucene.apache.org/core/" class="ulink" target="_top">Apache Lucene</a> internally to parse
-regular expressions. Lucene converts each regular expression to a finite
-automaton containing a number of determinized states.</p>
-<p>You can use this parameter to prevent that conversion from unintentionally
-consuming too many resources. You may need to increase this limit to run complex
-regular expressions.</p>
+<p>
+(可选, integer) 查询所需的最大<a href="https://en.wikipedia.org/wiki/Deterministic_finite_automaton" class="ulink" target="_top">自动机状态</a>数。
+
+默认为 <code class="literal">10000</code>。
+</p>
+<p>
+Elasticsearch 在内部使用 <a href="https://lucene.apache.org/core/" class="ulink" target="_top">Apache Lucene</a> 解析正则表达式。
+
+Lucene 将每个正则表达式转换成一个包含许多确定状态的有限自动机。
+</p>
+<p>
+你可以使用此参数来防止该转换无意中消耗太多资源。
+
+你可能需要增加这个限制来运行复杂的正则表达式。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -171,8 +184,7 @@ regular expressions.</p>
 </span>
 </dt>
 <dd>
-(Optional, string) Method used to rewrite the query. For valid values and more
-information, see the <a class="xref" href="query-dsl-multi-term-rewrite.html" title="rewrite parameter"><code class="literal">rewrite</code> parameter</a>.
+(可选, string) 用于重写查询的方法。有效值及更多信息请参考 <a class="xref" href="query-dsl-multi-term-rewrite.html" title="rewrite参数"><code class="literal">rewrite</code>参数</a>。
 </dd>
 </dl>
 </div>
@@ -181,17 +193,16 @@ information, see the <a class="xref" href="query-dsl-multi-term-rewrite.html" ti
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_notes_6"></a>Notes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/regexp-query.asciidoc">edit</a>
+<a id="_notes_6"></a>注意
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_allow_expensive_queries_6"></a>Allow expensive queries<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/regexp-query.asciidoc">edit</a>
+<a id="_allow_expensive_queries_6"></a>允许执行昂贵的查询
 </h4>
 </div></div></div>
-<p>Regexp queries will not be executed if <a class="xref" href="query-dsl.html#query-dsl-allow-expensive-queries"><code class="literal">search.allow_expensive_queries</code></a>
-is set to false.</p>
+<p>如果 <a class="xref" href="query-dsl.html#query-dsl-allow-expensive-queries"><code class="literal">search.allow_expensive_queries</code></a> 设置为 <code class="literal">false</code>， 则正则查询不会被执行。</p>
 </div>
 
 </div>
@@ -199,10 +210,10 @@ is set to false.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-range-query.html">« Range query</a>
+<a href="query-dsl-range-query.html">« range 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-term-query.html">Term query »</a>
+<a href2="query-dsl-term-query.html">Term query »</a>
 </span>
 </div>
 </div>

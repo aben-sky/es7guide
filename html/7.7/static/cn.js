@@ -890,8 +890,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-regexp-query.html",
-                        "text": "Regexp",
-                        "title": "Regexp"
+                        "text": "regexp",
+                        "title": "regexp"
                     },
                     {
                         "url": "query-dsl-term-query.html",

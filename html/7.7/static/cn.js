@@ -910,8 +910,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-type-query.html",
-                        "text": "Type Query",
-                        "title": "Type Query"
+                        "text": "type 查询(7.0.0中废弃)",
+                        "title": "type 查询(7.0.0中废弃)"
                     },
                     {
                         "url": "query-dsl-wildcard-query.html",

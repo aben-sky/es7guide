@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Type Query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>type 查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,36 +32,36 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询领域特定语言(Query DSL)</a></span>
 »
-<span class="breadcrumb-link"><a href="term-level-queries.html">Term-level queries</a></span>
+<span class="breadcrumb-link"><a href="term-level-queries.html">词级查询</a></span>
 »
-<span class="breadcrumb-node">Type Query</span>
+<span class="breadcrumb-node">type 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-terms-set-query.html">« Terms set query</a>
+<a href="query-dsl-terms-set-query.html">« term_set 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-wildcard-query.html">Wildcard query »</a>
+<a href2="query-dsl-wildcard-query.html">Wildcard query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-type-query"></a>Type Query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/type-query.asciidoc">edit</a>
+<a id="query-dsl-type-query"></a>type 查询
 </h2>
 </div></div></div>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<h3>Deprecated in 7.0.0.</h3>
-<p>Types and the <code class="literal">type</code> query are deprecated and in the process of being removed. See <a class="xref" href="removal-of-types.html" title="Removal of mapping types"><em>Removal of mapping types</em></a>.</p>
+<h3>在7.0.0中废弃。</h3>
+<p>type 及 <code class="literal">type</code> 查询已废弃并已经在移除的过程中。参考<a class="xref" href="removal-of-types.html" title="Removal of mapping types"><em>移除的映射类型</em></a>。</p>
 </div>
 </div>
-<p>Filters documents matching the provided document / mapping type.</p>
+<p>过滤与指定的文档/映射类型匹配的文档。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -76,10 +76,10 @@
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-terms-set-query.html">« Terms set query</a>
+<a href="query-dsl-terms-set-query.html">« term_set 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-wildcard-query.html">Wildcard query »</a>
+<a href2="query-dsl-wildcard-query.html">Wildcard query »</a>
 </span>
 </div>
 </div>

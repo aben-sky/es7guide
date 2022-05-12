@@ -875,13 +875,13 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-ids-query.html",
-                        "text": "IDs",
-                        "title": "IDs"
+                        "text": "ids",
+                        "title": "ids"
                     },
                     {
                         "url": "query-dsl-prefix-query.html",
-                        "text": "Prefix",
-                        "title": "Prefix"
+                        "text": "prefix",
+                        "title": "prefix"
                     },
                     {
                         "url": "query-dsl-range-query.html",

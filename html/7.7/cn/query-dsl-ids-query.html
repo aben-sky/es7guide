@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>IDs | ElasticSearch 7.7 权威指南中文版</title>
+	<title>ids | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,35 +32,38 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询领域特定语言(Query DSL)</a></span>
 »
-<span class="breadcrumb-link"><a href="term-level-queries.html">Term-level queries</a></span>
+<span class="breadcrumb-link"><a href="term-level-queries.html">词项级查询</a></span>
 »
-<span class="breadcrumb-node">IDs</span>
+<span class="breadcrumb-node">ids</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-fuzzy-query.html">« Fuzzy query</a>
+<a href="query-dsl-fuzzy-query.html">« fuzzy 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-prefix-query.html">Prefix query »</a>
+<a href="query-dsl-prefix-query.html">prefix 查询 »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-ids-query"></a>IDs<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/ids-query.asciidoc">edit</a>
+<a id="query-dsl-ids-query"></a>ids
 </h2>
 </div></div></div>
 
-<p>Returns documents based on their IDs. This query uses document IDs stored in
-the <a class="xref" href="mapping-id-field.html" title="_id field"><code class="literal">_id</code></a> field.</p>
+<p>
+根据文档的id返回文档。
+
+该查询使用存储在 <a class="xref" href="mapping-id-field.html" title="_id字段" rel="nofollow"><code class="literal">_id</code></a> 字段中的文档id。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_example_request_2"></a>Example request<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/ids-query.asciidoc">edit</a>
+<a id="_example_request_2"></a>请求示例
 </h3>
 </div></div></div>
 <div class="pre_wrapper lang-console">
@@ -79,7 +82,7 @@ the <a class="xref" href="mapping-id-field.html" title="_id field"><code class="
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="ids-query-top-level-parameters"></a>Top-level parameters for <code class="literal">ids</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/ids-query.asciidoc">edit</a>
+<a id="ids-query-top-level-parameters"></a><code class="literal">ids</code>的顶级参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -90,7 +93,7 @@ the <a class="xref" href="mapping-id-field.html" title="_id field"><code class="
 </span>
 </dt>
 <dd>
-(Required, array of strings) An array of <a class="xref" href="mapping-id-field.html" title="_id field">document IDs</a>.
+(必需, 字符串数组) <a class="xref" href="mapping-id-field.html" title="_id字段" rel="nofollow">文档id</a> 数组。
 </dd>
 </dl>
 </div>
@@ -99,10 +102,10 @@ the <a class="xref" href="mapping-id-field.html" title="_id field"><code class="
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-fuzzy-query.html">« Fuzzy query</a>
+<a href="query-dsl-fuzzy-query.html">« fuzzy 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-prefix-query.html">Prefix query »</a>
+<a href="query-dsl-prefix-query.html">prefix 查询 »</a>
 </span>
 </div>
 </div>

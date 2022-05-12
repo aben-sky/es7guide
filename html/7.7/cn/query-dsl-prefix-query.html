@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Prefix query | ElasticSearch 7.7 权威指南中文版</title>
+	<title>prefix 查询 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,38 +32,39 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询领域特定语言(Query DSL)</a></span>
 »
-<span class="breadcrumb-link"><a href="term-level-queries.html">Term-level queries</a></span>
+<span class="breadcrumb-link"><a href="term-level-queries.html">词项级查询</a></span>
 »
-<span class="breadcrumb-node">Prefix query</span>
+<span class="breadcrumb-node">prefix 查询</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-ids-query.html">« IDs</a>
+<a href="query-dsl-ids-query.html">« ids</a>
 </span>
 <span class="next">
-<a href="query-dsl-range-query.html">Range query »</a>
+<a href2="query-dsl-range-query.html">Range query »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-prefix-query"></a>Prefix query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/prefix-query.asciidoc">edit</a>
+<a id="query-dsl-prefix-query"></a>前缀查询 (prefix query)
 </h2>
 </div></div></div>
 
-<p>Returns documents that contain a specific prefix in a provided field.</p>
+<p>返回在指定的字段中包含特定前缀的文档。</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="prefix-query-ex-request"></a>Example request<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/prefix-query.asciidoc">edit</a>
+<a id="prefix-query-ex-request"></a>请求示例
 </h3>
 </div></div></div>
-<p>The following search returns documents where the <code class="literal">user</code> field contains a term
-that begins with <code class="literal">ki</code>.</p>
+<p>
+下面这个搜索返回 <code class="literal">user</code> 字段包含以 <code class="literal">ki</code> 开头的词项的文档。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -82,7 +83,7 @@ that begins with <code class="literal">ki</code>.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="prefix-query-top-level-params"></a>Top-level parameters for <code class="literal">prefix</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/prefix-query.asciidoc">edit</a>
+<a id="prefix-query-top-level-params"></a><code class="literal">prefix</code>的顶级参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -93,7 +94,7 @@ that begins with <code class="literal">ki</code>.</p>
 </span>
 </dt>
 <dd>
-(Required, object) Field you wish to search.
+(必需, object) 你想要搜索的字段。
 </dd>
 </dl>
 </div>
@@ -102,7 +103,7 @@ that begins with <code class="literal">ki</code>.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="prefix-query-field-params"></a>Parameters for <code class="literal">&lt;field&gt;</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/prefix-query.asciidoc">edit</a>
+<a id="prefix-query-field-params"></a><code class="literal">&lt;field&gt;</code>的参数
 </h3>
 </div></div></div>
 <div class="variablelist">
@@ -113,8 +114,7 @@ that begins with <code class="literal">ki</code>.</p>
 </span>
 </dt>
 <dd>
-(Required, string) Beginning characters of terms you wish to find in the
-provided <code class="literal">&lt;field&gt;</code>.
+(必需, string) 你希望在指定的 <code class="literal">&lt;field&gt;</code> 中查找的词项的起始字符。
 </dd>
 <dt>
 <span class="term">
@@ -122,8 +122,7 @@ provided <code class="literal">&lt;field&gt;</code>.
 </span>
 </dt>
 <dd>
-(Optional, string) Method used to rewrite the query. For valid values and more
-information, see the <a class="xref" href="query-dsl-multi-term-rewrite.html" title="rewrite parameter"><code class="literal">rewrite</code> parameter</a>.
+(可选, string) 用于重写查询的方法。有效值及更多信息请参考 <a class="xref" href="query-dsl-multi-term-rewrite.html" title="rewrite 参数" rel="nofollow"><code class="literal">rewrite</code> 参数</a>。
 </dd>
 </dl>
 </div>
@@ -132,17 +131,18 @@ information, see the <a class="xref" href="query-dsl-multi-term-rewrite.html" ti
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="prefix-query-notes"></a>Notes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/prefix-query.asciidoc">edit</a>
+<a id="prefix-query-notes"></a>注意
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="prefix-query-short-ex"></a>Short request example<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/prefix-query.asciidoc">edit</a>
+<a id="prefix-query-short-ex"></a>短请求格式的示例
 </h4>
 </div></div></div>
-<p>You can simplify the <code class="literal">prefix</code> query syntax by combining the <code class="literal">&lt;field&gt;</code> and
-<code class="literal">value</code> parameters. For example:</p>
+<p>
+可以通过组合 <code class="literal">&lt;field&gt;</code> 和 <code class="literal">value</code> 参数来简化 <code class="literal">prefix</code> 查询语法。例如:
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -157,24 +157,29 @@ information, see the <a class="xref" href="query-dsl-multi-term-rewrite.html" ti
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="prefix-query-index-prefixes"></a>Speed up prefix queries<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/prefix-query.asciidoc">edit</a>
+<a id="prefix-query-index-prefixes"></a>提高前缀查询的速度
 </h4>
 </div></div></div>
-<p>You can speed up prefix queries using the <a class="xref" href="index-prefixes.html" title="index_prefixes"><code class="literal">index_prefixes</code></a>
-mapping parameter. If enabled, Elasticsearch indexes prefixes between 2 and 5
-characters in a separate field. This lets Elasticsearch run prefix queries more
-efficiently at the cost of a larger index.</p>
+<p>
+可以使用 <a class="xref" href="index-prefixes.html" title="index_prefixes" rel="nofollow"><code class="literal">index_prefixes</code></a> 映射参数来提高前缀查询的速度。
+
+如果启用了该参数，Elasticsearch 会在单独的字段中索引 2 到 5 个字符的前缀。
+
+这让 Elasticsearch 以更大的索引为代价去更有效地运行前缀查询。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="prefix-query-allow-expensive-queries"></a>Allow expensive queries<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/prefix-query.asciidoc">edit</a>
+<a id="prefix-query-allow-expensive-queries"></a>允许执行高成本的查询
 </h4>
 </div></div></div>
-<p>Prefix queries will not be executed if <a class="xref" href="query-dsl.html#query-dsl-allow-expensive-queries"><code class="literal">search.allow_expensive_queries</code></a>
-is set to false. However, if <a class="xref" href="index-prefixes.html" title="index_prefixes"><code class="literal">index_prefixes</code></a> are enabled, an optimised query is built which
-is not considered slow, and will be executed in spite of this setting.</p>
+<p>
+如果 <a class="xref" href="query-dsl.html#query-dsl-allow-expensive-queries"><code class="literal">search.allow_expensive_queries</code></a> 设置为<code class="literal">false</code>，则前缀查询不会被执行。
+
+即使有此设置，但是如果启用了 <a class="xref" href="index-prefixes.html" title="index_prefixes"><code class="literal">index_prefixes</code></a>，则会构建一个优化的查询，该查询不会被认为很慢，因此会被执行。
+</p>
 </div>
 
 </div>
@@ -182,10 +187,10 @@ is not considered slow, and will be executed in spite of this setting.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-ids-query.html">« IDs</a>
+<a href="query-dsl-ids-query.html">« ids</a>
 </span>
 <span class="next">
-<a href="query-dsl-range-query.html">Range query »</a>
+<a href2="query-dsl-range-query.html">Range query »</a>
 </span>
 </div>
 </div>

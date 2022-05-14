@@ -915,8 +915,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "query-dsl-wildcard-query.html",
-                        "text": "Wildcard",
-                        "title": "Wildcard"
+                        "text": "wildcard",
+                        "title": "wildcard"
                     }
                 ]
             },

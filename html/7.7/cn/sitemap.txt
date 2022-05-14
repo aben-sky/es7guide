@@ -172,3 +172,6 @@ https://www.pipiho.com/es/7.7/cn/query-dsl-range-query.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-regexp-query.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-term-query.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-terms-query.html
+https://www.pipiho.com/es/7.7/cn/query-dsl-terms-set-query.html
+https://www.pipiho.com/es/7.7/cn/query-dsl-type-query.html
+https://www.pipiho.com/es/7.7/cn/query-dsl-wildcard-query.html

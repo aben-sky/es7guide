@@ -922,8 +922,8 @@ var esNavLinks = [
             },
             {
                 "url": "query-dsl-minimum-should-match.html",
-                "text": "<code class=\"literal\">minimum_should_match</code> parameter",
-                "title": "minimum_should_matchparameter"
+                "text": "<code class=\"literal\">minimum_should_match</code> 参数",
+                "title": "minimum_should_match 参数"
             },
             {
                 "url": "query-dsl-multi-term-rewrite.html",

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>minimum_should_match parameter | ElasticSearch 7.7 权威指南中文版</title>
+	<title>minimum_should_match 参数 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,27 +32,27 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询领域特定语言(Query DSL)</a></span>
 »
-<span class="breadcrumb-node"><code class="literal">minimum_should_match</code> parameter</span>
+<span class="breadcrumb-node"><code class="literal">minimum_should_match</code> 参数</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-wildcard-query.html">« Wildcard query</a>
+<a href="query-dsl-wildcard-query.html">« wildcard 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-multi-term-rewrite.html"><code class="literal">rewrite</code> parameter »</a>
+<a href2="query-dsl-multi-term-rewrite.html"><code class="literal">rewrite</code> parameter »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-minimum-should-match"></a><code class="literal">minimum_should_match</code> parameter<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/minimum-should-match.asciidoc">edit</a>
+<a id="query-dsl-minimum-should-match"></a><code class="literal">minimum_should_match</code> 参数
 </h2>
 </div></div></div>
-<p>The <code class="literal">minimum_should_match</code> parameter’s possible values:</p>
+<p>参数 <code class="literal">minimum_should_match</code> 的可能的值如下：</p>
 <div class="informaltable">
 <table border="1" cellpadding="4px">
 <colgroup>
@@ -62,84 +62,80 @@
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Type</th>
-<th align="left" valign="top">Example</th>
-<th align="left" valign="top">Description</th>
+<th align="left" valign="top" width="15%">类型</th>
+<th align="left" valign="top" width="15%">示例</th>
+<th align="left" valign="top">描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left" valign="top"><p>Integer</p></td>
+<td align="left" valign="top"><p>整数</p></td>
 <td align="left" valign="top"><p><code class="literal">3</code></p></td>
-<td align="left" valign="top"><p>Indicates a fixed value regardless of the number of
-optional clauses.</p></td>
+<td align="left" valign="top"><p>表示一个固定值，与可选子句的数量无关。</p></td>
 </tr>
 <tr>
-<td align="left" valign="top"><p>Negative integer</p></td>
+<td align="left" valign="top"><p>负整数</p></td>
 <td align="left" valign="top"><p><code class="literal">-2</code></p></td>
-<td align="left" valign="top"><p>Indicates that the total number of optional
-clauses, minus this number should be mandatory.</p></td>
+<td align="left" valign="top"><p>表示可选子句的总数，减去这个数目应该是强制性的。</p></td>
 </tr>
 <tr>
-<td align="left" valign="top"><p>Percentage</p></td>
+<td align="left" valign="top"><p>百分比</p></td>
 <td align="left" valign="top"><p><code class="literal">75%</code></p></td>
-<td align="left" valign="top"><p>Indicates that this percent of the total number of
-optional clauses are necessary. The number computed from the percentage
-is rounded down and used as the minimum.</p></td>
+<td align="left" valign="top"><p>表示可选子句总数的这个百分比是必需的。根据百分比计算出的数字被向下舍入并用作最小值。</p></td>
 </tr>
 <tr>
-<td align="left" valign="top"><p>Negative percentage</p></td>
+<td align="left" valign="top"><p>负百分比</p></td>
 <td align="left" valign="top"><p><code class="literal">-25%</code></p></td>
-<td align="left" valign="top"><p>Indicates that this percent of the total
-number of optional clauses can be missing. The number computed from the
-percentage is rounded down, before being subtracted from the total to
-determine the minimum.</p></td>
+<td align="left" valign="top"><p>
+表示可选子句总数的这个百分比可以缺失。
+
+从百分比中计算出的数字向下四舍五入，然后从总数中减去以确定最小值。
+</p></td>
 </tr>
 <tr>
-<td align="left" valign="top"><p>Combination</p></td>
+<td align="left" valign="top"><p>组合</p></td>
 <td align="left" valign="top"><p><code class="literal">3&lt;90%</code></p></td>
-<td align="left" valign="top"><p>A positive integer, followed by the less-than
-symbol, followed by any of the previously mentioned specifiers is a
-conditional specification. It indicates that if the number of optional
-clauses is equal to (or less than) the integer, they are all required,
-but if it’s greater than the integer, the specification applies. In this
-example: if there are 1 to 3 clauses they are all required, but for 4 or
-more clauses only 90% are required.</p></td>
+<td align="left" valign="top"><p>
+一个正整数，后面跟小于号，再跟前面提到的任意一个说明符，这是一个条件规范。
+
+它表示：如果可选子句的数量等于(或小于)整数，则它们都是必需的；但是如果可选子句的数量大于整数，则此规范适用。
+
+在这个例子中：如果有 1 ~ 3 个子句，它们都是必需的，但是对于4个或更多个子句，只有90%是必需的。
+</p></td>
 </tr>
 <tr>
-<td align="left" valign="top"><p>Multiple combinations</p></td>
+<td align="left" valign="top"><p>多个组合</p></td>
 <td align="left" valign="top"><p><code class="literal">2&lt;-25% 9&lt;-3</code></p></td>
-<td align="left" valign="top"><p>Multiple conditional
-specifications can be separated by spaces, each one only being valid for
-numbers greater than the one before it. In this example: if there are 1
-or 2 clauses both are required, if there are 3-9 clauses all but 25% are
-required, and if there are more than 9 clauses, all but three are
-required.</p></td>
+<td align="left" valign="top"><p>
+多个条件规范可以用空格分隔，每个条件规范只对大于它前面的数字有效。
+
+在这个例子中：如果有 1 ~ 2 个条款，两者都是必需的；如果有 3 ~ 9 个条款，除了 25% 都是必需的；如果有 9 个以上的条款，除了 3 都是必需的。
+</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p><span class="strong strong"><strong>NOTE:</strong></span></p>
-<p>When dealing with percentages, negative values can be used to get
-different behavior in edge cases. 75% and -25% mean the same thing when
-dealing with 4 clauses, but when dealing with 5 clauses 75% means 3 are
-required, but -25% means 4 are required.</p>
-<p>If the calculations based on the specification determine that no
-optional clauses are needed, the usual rules about BooleanQueries still
-apply at search time (a BooleanQuery containing no required clauses must
-still match at least one optional clause)</p>
-<p>No matter what number the calculation arrives at, a value greater than
-the number of optional clauses, or a value less than 1 will never be
-used. (ie: no matter how low or how high the result of the calculation
-result is, the minimum number of required matches will never be lower
-than 1 or greater than the number of clauses.</p>
+<p><span class="strong strong"><strong>注意:</strong></span></p>
+<p>
+在处理百分比时，负值可用于在边缘(edge)情况下获得不同的行为。
+
+在处理 4 个子句时，75% 和 -25% 的意思是一样的，但在处理 5 个子句时，75% 表示需要3个子句，而 -25% 表示需要 4 个子句。
+</p>
+<p>
+如果基于规范的计算确定不需要可选子句，那么关于 bool 查询的常规规则在搜索时仍然适用(不包含必需子句的 bool 查询仍然必须匹配至少一个可选子句)
+</p>
+<p>
+无论计算结果是多少，都不会使用大于可选子句数的值或小于1的值。
+
+(即:无论计算结果的结果有多低或多高，要求的最小匹配数永远不会低于1或大于子句数。)
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-wildcard-query.html">« Wildcard query</a>
+<a href="query-dsl-wildcard-query.html">« wildcard 查询</a>
 </span>
 <span class="next">
-<a href="query-dsl-multi-term-rewrite.html"><code class="literal">rewrite</code> parameter »</a>
+<a href2="query-dsl-multi-term-rewrite.html"><code class="literal">rewrite</code> parameter »</a>
 </span>
 </div>
 </div>

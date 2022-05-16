@@ -932,8 +932,8 @@ var esNavLinks = [
             },
             {
                 "url": "regexp-syntax.html",
-                "text": "Regular expression syntax",
-                "title": "Regular expression syntax"
+                "text": "正则表达式语法",
+                "title": "正则表达式语法"
             }
         ]
     },

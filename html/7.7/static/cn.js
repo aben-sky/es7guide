@@ -927,8 +927,8 @@ var esNavLinks = [
             },
             {
                 "url": "query-dsl-multi-term-rewrite.html",
-                "text": "<code class=\"literal\">rewrite</code> parameter",
-                "title": "rewrite parameter"
+                "text": "<code class=\"literal\">rewrite</code> 参数",
+                "title": "rewrite 参数"
             },
             {
                 "url": "regexp-syntax.html",

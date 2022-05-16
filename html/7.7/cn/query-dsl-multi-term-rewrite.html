@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>rewrite parameter | ElasticSearch 7.7 权威指南中文版</title>
+	<title>rewrite 参数 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,36 +32,37 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="query-dsl.html">Query DSL</a></span>
+<span class="breadcrumb-link"><a href="query-dsl.html">查询领域特定语言(Query DSL)</a></span>
 »
-<span class="breadcrumb-node"><code class="literal">rewrite</code> parameter</span>
+<span class="breadcrumb-node"><code class="literal">rewrite</code> 参数</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="query-dsl-minimum-should-match.html">« <code class="literal">minimum_should_match</code> parameter</a>
+<a href="query-dsl-minimum-should-match.html">« <code class="literal">minimum_should_match</code> 参数</a>
 </span>
 <span class="next">
-<a href="regexp-syntax.html">Regular expression syntax »</a>
+<a href2="regexp-syntax.html">Regular expression syntax »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="query-dsl-multi-term-rewrite"></a><code class="literal">rewrite</code> parameter<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/multi-term-rewrite.asciidoc">edit</a>
+<a id="query-dsl-multi-term-rewrite"></a><code class="literal">rewrite</code> 参数
 </h2>
 </div></div></div>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>This parameter is for expert users only. Changing the value of
-this parameter can impact search performance and relevance.</p>
+<p>此参数仅供专业用户使用，更改此参数的值会影响搜索性能和相关性。</p>
 </div>
 </div>
-<p>Elasticsearch uses <a href="https://lucene.apache.org/core/" class="ulink" target="_top">Apache Lucene</a> internally to power
-indexing and searching. In their original form, Lucene cannot execute the
-following queries:</p>
+<p>
+Elasticsearch 在内部使用<a href="https://lucene.apache.org/core/" class="ulink" target="_top">Apache Lucene</a>来支持索引和搜索。
+
+在它们原始的形式中，Lucene 不能执行以下查询:
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
@@ -81,38 +82,37 @@ following queries:</p>
 </li>
 </ul>
 </div>
-<p>To execute them, Lucene changes these queries to a simpler form, such as a
-<a class="xref" href="query-dsl-bool-query.html" title="Boolean query"><code class="literal">bool</code> query</a> or a
-<a href="https://en.wikipedia.org/wiki/Bit_array" class="ulink" target="_top">bit set</a>.</p>
-<p>The <code class="literal">rewrite</code> parameter determines:</p>
+<p>
+为了执行它们，Lucene 将这些查询转换成更简单的形式，比如<a class="xref" href="query-dsl-bool-query.html" title="bool 查询"><code class="literal">bool</code>查询</a>或<a href="https://en.wikipedia.org/wiki/Bit_array" class="ulink" target="_top">位组(bit set)</a>。
+</p>
+<p>参数<code class="literal">rewrite</code>决定了：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-How Lucene calculates the relevance scores for each matching document
+Lucene 如何计算每个匹配文档的相关性分数
 </li>
 <li class="listitem">
-Whether Lucene changes the original query to a <code class="literal">bool</code>
-query or bit set
+Lucene 是否将原始查询更改为<code class="literal">bool</code>查询或位组(bit set)
 </li>
 <li class="listitem">
-If changed to a <code class="literal">bool</code> query, which <code class="literal">term</code> query clauses are included
+如果更改为<code class="literal">bool</code>查询，将包括哪些<code class="literal">term</code>查询子句
 </li>
 </ul>
 </div>
 <h3>
-<a id="rewrite-param-valid-values"></a>Valid values<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/multi-term-rewrite.asciidoc">edit</a>
+<a id="rewrite-param-valid-values"></a>有效值
 </h3>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<code class="literal">constant_score</code> (Default)
+<code class="literal">constant_score</code> (默认)
 </span>
 </dt>
 <dd>
-Uses the <code class="literal">constant_score_boolean</code> method for fewer matching terms. Otherwise,
-this method finds all matching terms in sequence and returns matching documents
-using a bit set.
+对较少的匹配词项使用 <code class="literal">constant_score_boolean</code> 方法。
+
+否则，该方法将按顺序查找所有匹配的词项，并使用一个位组(bit set)返回匹配的文档。
 </dd>
 <dt>
 <span class="term">
@@ -121,15 +121,18 @@ using a bit set.
 </dt>
 <dd>
 <p>
-Assigns each document a relevance score equal to the <code class="literal">boost</code>
-parameter.
+为每个文档分配一个与 <code class="literal">boost</code> 参数相等的相关性分数。
 </p>
-<p>This method changes the original query to a <a class="xref" href="query-dsl-bool-query.html" title="Boolean query"><code class="literal">bool</code>
-query</a>. This <code class="literal">bool</code> query contains a <code class="literal">should</code> clause and
-<a class="xref" href="query-dsl-term-query.html" title="Term query"><code class="literal">term</code> query</a> for each matching term.</p>
-<p>This method can cause the final <code class="literal">bool</code> query to exceed the clause limit in the
-<a class="xref" href="search-settings.html#indices-query-bool-max-clause-count"><code class="literal">indices.query.bool.max_clause_count</code></a>
-setting. If the query exceeds this limit, Elasticsearch returns an error.</p>
+<p>
+该方法将原始查询更改为 <a class="xref" href="query-dsl-bool-query.html" title="bool 查询"><code class="literal">bool</code> 查询</a>。
+
+这个<code class="literal">bool</code>查询包含一个<code class="literal">should</code>子句和针对每个匹配词项的<a class="xref" href="query-dsl-term-query.html" title="term 查询"><code class="literal">term</code> 查询</a>。
+</p>
+<p>
+此方法会导致最终的<code class="literal">bool</code>查询超过<a class="xref" href="search-settings.html#indices-query-bool-max-clause-count"><code class="literal">indices.query.bool.max_clause_count</code></a>设置中的子句的数量限制。
+
+如果查询超过这个限制，Elasticsearch 将返回一个错误。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -138,14 +141,18 @@ setting. If the query exceeds this limit, Elasticsearch returns an error.</p>
 </dt>
 <dd>
 <p>
-Calculates a relevance score for each matching document.
+计算每个匹配文档的相关性分数。
 </p>
-<p>This method changes the original query to a <a class="xref" href="query-dsl-bool-query.html" title="Boolean query"><code class="literal">bool</code>
-query</a>. This <code class="literal">bool</code> query contains a <code class="literal">should</code> clause and
-<a class="xref" href="query-dsl-term-query.html" title="Term query"><code class="literal">term</code> query</a> for each matching term.</p>
-<p>This method can cause the final <code class="literal">bool</code> query to exceed the clause limit in the
-<a class="xref" href="search-settings.html#indices-query-bool-max-clause-count"><code class="literal">indices.query.bool.max_clause_count</code></a>
-setting. If the query exceeds this limit, Elasticsearch returns an error.</p>
+<p>
+该方法将原始查询更改为 <a class="xref" href="query-dsl-bool-query.html" title="bool 查询"><code class="literal">bool</code> 查询</a>。
+
+这个<code class="literal">bool</code>查询包含一个<code class="literal">should</code>子句和针对每个匹配词项的<a class="xref" href="query-dsl-term-query.html" title="term 查询"><code class="literal">term</code> 查询</a>。
+</p>
+<p>
+此方法会导致最终的<code class="literal">bool</code>查询超过<a class="xref" href="search-settings.html#indices-query-bool-max-clause-count"><code class="literal">indices.query.bool.max_clause_count</code></a>设置中的子句的数量限制。
+
+如果查询超过这个限制，Elasticsearch 将返回一个错误。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -154,17 +161,21 @@ setting. If the query exceeds this limit, Elasticsearch returns an error.</p>
 </dt>
 <dd>
 <p>
-Calculates a relevance score for each matching document as if all terms had the
-same frequency. This frequency is the maximum frequency of all matching terms.
+计算每个匹配文档的相关性分数，就好像所有词项具有相同的频率一样。
+
+这个频率是所有匹配词项的最大频率。
 </p>
-<p>This method changes the original query to a <a class="xref" href="query-dsl-bool-query.html" title="Boolean query"><code class="literal">bool</code>
-query</a>. This <code class="literal">bool</code> query contains a <code class="literal">should</code> clause and
-<a class="xref" href="query-dsl-term-query.html" title="Term query"><code class="literal">term</code> query</a> for each matching term.</p>
-<p>The final <code class="literal">bool</code> query only includes <code class="literal">term</code> queries for the top <code class="literal">N</code> scoring
-terms.</p>
-<p>You can use this method to avoid exceeding the clause limit in the
-<a class="xref" href="search-settings.html#indices-query-bool-max-clause-count"><code class="literal">indices.query.bool.max_clause_count</code></a>
-setting.</p>
+<p>
+该方法将原始查询更改为 <a class="xref" href="query-dsl-bool-query.html" title="bool 查询"><code class="literal">bool</code> 查询</a>。
+
+这个<code class="literal">bool</code>查询包含一个<code class="literal">should</code>子句和针对每个匹配词项的<a class="xref" href="query-dsl-term-query.html" title="term 查询"><code class="literal">term</code> 查询</a>。
+</p>
+<p>
+最终的<code class="literal">bool</code>查询仅包括对前<code class="literal">N</code>个得分的词项的<code class="literal">term</code>查询。
+</p>
+<p>
+可以使用此方法避免超出 <a class="xref" href="search-settings.html#indices-query-bool-max-clause-count"><code class="literal">indices.query.bool.max_clause_count</code></a>设置中的子句的数量限制。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -173,15 +184,19 @@ setting.</p>
 </dt>
 <dd>
 <p>
-Assigns each matching document a relevance score equal to the <code class="literal">boost</code> parameter.
+为每个匹配文档分配一个与<code class="literal">boost</code>参数相等的相关性分数。
 </p>
-<p>This method changes the original query to a <a class="xref" href="query-dsl-bool-query.html" title="Boolean query"><code class="literal">bool</code>
-query</a>. This <code class="literal">bool</code> query contains a <code class="literal">should</code> clause and
-<a class="xref" href="query-dsl-term-query.html" title="Term query"><code class="literal">term</code> query</a> for each matching term.</p>
-<p>The final <code class="literal">bool</code> query only includes <code class="literal">term</code> queries for the top <code class="literal">N</code> terms.</p>
-<p>You can use this method to avoid exceeding the clause limit in the
-<a class="xref" href="search-settings.html#indices-query-bool-max-clause-count"><code class="literal">indices.query.bool.max_clause_count</code></a>
-setting.</p>
+<p>
+该方法将原始查询更改为 <a class="xref" href="query-dsl-bool-query.html" title="bool 查询"><code class="literal">bool</code> 查询</a>。
+
+这个<code class="literal">bool</code>查询包含一个<code class="literal">should</code>子句和针对每个匹配词项的<a class="xref" href="query-dsl-term-query.html" title="term 查询"><code class="literal">term</code> 查询</a>。
+</p>
+<p>
+最终的<code class="literal">bool</code>查询仅包括对前<code class="literal">N</code>个得分的词项的<code class="literal">term</code>查询。
+</p>
+<p>
+可以使用此方法避免超出 <a class="xref" href="search-settings.html#indices-query-bool-max-clause-count"><code class="literal">indices.query.bool.max_clause_count</code></a>设置中的子句的数量限制。
+</p>
 </dd>
 <dt>
 <span class="term">
@@ -190,33 +205,38 @@ setting.</p>
 </dt>
 <dd>
 <p>
-Calculates a relevance score for each matching document.
+计算每个匹配文档的相关性分数。
 </p>
-<p>This method changes the original query to a <a class="xref" href="query-dsl-bool-query.html" title="Boolean query"><code class="literal">bool</code>
-query</a>. This <code class="literal">bool</code> query contains a <code class="literal">should</code> clause and
-<a class="xref" href="query-dsl-term-query.html" title="Term query"><code class="literal">term</code> query</a> for each matching term.</p>
-<p>The final <code class="literal">bool</code> query
-only includes <code class="literal">term</code> queries for the top <code class="literal">N</code> scoring terms.</p>
-<p>You can use this method to avoid exceeding the clause limit in the
-<a class="xref" href="search-settings.html#indices-query-bool-max-clause-count"><code class="literal">indices.query.bool.max_clause_count</code></a>
-setting.</p>
+<p>
+该方法将原始查询更改为 <a class="xref" href="query-dsl-bool-query.html" title="bool 查询"><code class="literal">bool</code> 查询</a>。
+
+这个<code class="literal">bool</code>查询包含一个<code class="literal">should</code>子句和针对每个匹配词项的<a class="xref" href="query-dsl-term-query.html" title="term 查询"><code class="literal">term</code> 查询</a>。
+</p>
+<p>
+最终的<code class="literal">bool</code>查询仅包括对前<code class="literal">N</code>个得分的词项的<code class="literal">term</code>查询。
+</p>
+<p>
+可以使用此方法避免超出 <a class="xref" href="search-settings.html#indices-query-bool-max-clause-count"><code class="literal">indices.query.bool.max_clause_count</code></a>设置中的子句的数量限制。
+</p>
 </dd>
 </dl>
 </div>
 <h3>
-<a id="rewrite-param-perf-considerations"></a>Performance considerations for the <code class="literal">rewrite</code> parameter<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/query-dsl/multi-term-rewrite.asciidoc">edit</a>
+<a id="rewrite-param-perf-considerations"></a><code class="literal">rewrite</code> 参数的性能考量
 </h3>
-<p>For most uses, we recommend using the <code class="literal">constant_score</code>,
-<code class="literal">constant_score_boolean</code>, or <code class="literal">top_terms_boost_N</code> rewrite methods.</p>
-<p>Other methods calculate relevance scores. These score calculations are often
-expensive and do not improve query results.</p>
+<p>
+对于大多数使用场景，建议使用 <code class="literal">constant_score</code>、<code class="literal">constant_score_boolean</code> 或 <code class="literal">top_terms_boost_N</code> 重写方法。
+</p>
+<p>
+其他方法都要计算相关性分数。这些分数的计算通常开销很大，并且不会改善查询结果。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="query-dsl-minimum-should-match.html">« <code class="literal">minimum_should_match</code> parameter</a>
+<a href="query-dsl-minimum-should-match.html">« <code class="literal">minimum_should_match</code> 参数</a>
 </span>
 <span class="next">
-<a href="regexp-syntax.html">Regular expression syntax »</a>
+<a href2="regexp-syntax.html">Regular expression syntax »</a>
 </span>
 </div>
 </div>

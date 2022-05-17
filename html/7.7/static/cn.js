@@ -939,7 +939,7 @@ var esNavLinks = [
     },
     {
         "url": "xpack-sql.html",
-        "text": "SQL access",
+        "text": "SQL access（暂时不翻译)",
         "title": "SQL access",
         "sub": [
             {
@@ -1260,8 +1260,8 @@ var esNavLinks = [
     },
     {
         "url": "search-aggregations.html",
-        "text": "Aggregations",
-        "title": "Aggregations",
+        "text": "聚合",
+        "title": "聚合",
         "sub": [
             {
                 "url": "search-aggregations-metrics.html",

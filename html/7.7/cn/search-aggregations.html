@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Aggregations | ElasticSearch 7.7 权威指南中文版</title>
+	<title>聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,99 +32,117 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-node">Aggregations</span>
+<span class="breadcrumb-node">聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="sql-limitations.html">« SQL Limitations</a>
+<!--<a href="sql-limitations.html">« SQL Limitations</a>-->
+<a href="regexp-syntax.html">« 正则表达式语法</a>
 </span>
 <span class="next">
-<a href="search-aggregations-metrics.html">Metrics Aggregations »</a>
+<a href2="search-aggregations-metrics.html">Metrics Aggregations »</a>
 </span>
 </div>
 <div class="part">
 <div class="titlepage"><div><div>
 <h1 class="title">
-<a id="search-aggregations"></a>Aggregations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations.asciidoc">edit</a>
+<a id="search-aggregations"></a>聚合 (aggregations)
 </h1>
 </div></div></div>
 <div class="openblock partintro">
 <div class="content">
-<p>The aggregations framework helps provide aggregated data based on a search query. It is based on simple building blocks
-called aggregations, that can be composed in order to build complex summaries of the data.</p>
-<p>An aggregation can be seen as a <em>unit-of-work</em> that builds analytic information over a set of documents. The context of
-the execution defines what this document set is (e.g. a top-level aggregation executes within the context of the executed
-query/filters of the search request).</p>
-<p>There are many different types of aggregations, each with its own purpose and output. To better understand these types,
-it is often easier to break them into four main families:</p>
+<p>
+聚合框架有助于提供基于搜索查询的聚合数据。
+
+它基于被称为聚合(aggregations)的简单构建块，可以组合这些块来构建复杂的数据摘要。
+</p>
+<p>
+聚合可以被看作是在一组文档上构建分析信息的<em title="unit-of-work">工作单元</em>。
+
+执行的上下文定义了这个文档集是什么(例如，顶级的聚合在搜索请求的已执行的 query/filter 的上下文中执行)。
+</p>
+<p>
+有许多不同类型的聚合，每种都有自己的目的和输出。
+
+为了更好地理解这些类型，通常更容易将它们分为四大类：
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<a class="xref" href="search-aggregations-bucket.html" title="Bucket Aggregations"><em>Bucketing</em></a>
+<a class="xref" href="search-aggregations-bucket.html" title="bucket 聚合" rel="nofollow"><em>Bucketing</em></a>
 </span>
 </dt>
 <dd>
-A family of aggregations that build buckets, where each bucket is associated with a <em>key</em> and a document
-criterion. When the aggregation is executed, all the buckets criteria are evaluated on every document in
-the context and when a criterion matches, the document is considered to "fall in" the relevant bucket.
-By the end of the aggregation process, we’ll end up with a list of buckets - each one with a set of
-documents that "belong" to it.
+构建桶(bucket)的一系列聚合，其中每个桶都与一个 <em>key</em> 和一个文档标准相关联。
+
+执行聚合时，将在上下文中的每个文档上去评估所有的桶标准，当标准匹配时，该文档将被视为“落入”相应的桶。
+
+在聚合过程的最后，我们将得到一个桶列表——每个桶都有一组“属于”它的文档。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="search-aggregations-metrics.html" title="Metrics Aggregations"><em>Metric</em></a>
+<a class="xref" href="search-aggregations-metrics.html" title="metrics 聚合" rel="nofollow"><em>Metric</em></a>
 </span>
 </dt>
 <dd>
-Aggregations that keep track and compute metrics over a set of documents.
+跟踪和计算一组文档 度量(metric) 的聚合。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="search-aggregations-matrix.html" title="Matrix Aggregations"><em>Matrix</em></a>
+<a class="xref" href="search-aggregations-matrix.html" title="Matrix Aggregations" rel="nofollow"><em>Matrix</em></a>
 </span>
 </dt>
 <dd>
-A family of aggregations that operate on multiple fields and produce a matrix result based on the
-values extracted from the requested document fields. Unlike metric and bucket aggregations, this
-aggregation family does not yet support scripting.
+对多个字段进行操作并根据从请求的文档字段中提取的值生成 矩阵(matrix) 结果的一系列聚合。
+
+与 metric 和 bucket 聚合不同，此聚合系列尚不支持脚本。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="search-aggregations-pipeline.html" title="Pipeline Aggregations"><em>Pipeline</em></a>
+<a class="xref" href="search-aggregations-pipeline.html" title="Pipeline Aggregations" rel="nofollow"><em>Pipeline</em></a>
 </span>
 </dt>
 <dd>
-Aggregations that aggregate the output of other aggregations and their associated metrics
+聚合其他聚合的输出及其相关度量的聚合
 </dd>
 </dl>
 </div>
-<p>The interesting part comes next. Since each bucket effectively defines a document set (all documents belonging to
-the bucket), one can potentially associate aggregations on the bucket level, and those will execute within the context
-of that bucket. This is where the real power of aggregations kicks in: <span class="strong strong"><strong>aggregations can be nested!</strong></span></p>
+<p>
+接下来的部分才是有趣的。
+
+由于每个桶都有效地定义了一个文档集(属于该桶的所有文档)，因此可以在桶级别关联聚合，这些聚合将在该桶的上下文中执行。
+
+这就是聚合的真正威力所在：<span class="strong strong"><strong>聚合可以嵌套！</strong></span>
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Bucketing aggregations can have sub-aggregations (bucketing or metric). The sub-aggregations will be computed for
-		the buckets which their parent aggregation generates. There is no hard limit on the level/depth of nested
-		aggregations (one can nest an aggregation under a "parent" aggregation, which is itself a sub-aggregation of
-		another higher-level aggregation).</p>
+<p>
+bucketing 聚合可以有子聚合(bucketing 或 metric)。
+
+将为其父聚合生成的桶计算子聚合。
+
+对嵌套聚合的级别/深度没有硬性限制(可以将一个聚合嵌套在一个“父”聚合下，而这个父聚合本身是另一个更高级聚合的子聚合)。
+</p>
 </div>
 </div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Aggregations operate on the <code class="literal">double</code> representation of
-        the data. As a consequence, the result may be approximate when running on longs
-        whose absolute value is greater than <code class="literal">2^53</code>.</p>
+<p>
+聚合在数据的 <code class="literal">double</code> 表示法上进行操作。  
+
+因此，在绝对值大于 <code class="literal">2^53</code> 的长整型数上运行时，结果可能是近似的。
+</p>
 </div>
 </div>
 <h2>
-<a id="_structuring_aggregations"></a>Structuring Aggregations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations.asciidoc">edit</a>
+<a id="_structuring_aggregations"></a>构建聚合
 </h2>
-<p>The following snippet captures the basic structure of aggregations:</p>
+<p>以下代码片段体现了聚合的基本结构：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">"aggregations" : {
     "&lt;aggregation_name&gt;" : {
@@ -137,46 +155,61 @@ of that bucket. This is where the real power of aggregations kicks in: <span cla
     [,"&lt;aggregation_name_2&gt;" : { ... } ]*
 }</pre>
 </div>
-<p>The <code class="literal">aggregations</code> object (the key <code class="literal">aggs</code> can also be used) in the JSON holds the aggregations to be computed. Each aggregation
-is associated with a logical name that the user defines (e.g. if the aggregation computes the average price, then it would
-make sense to name it <code class="literal">avg_price</code>). These logical names will also be used to uniquely identify the aggregations in the
-response. Each aggregation has a specific type (<code class="literal">&lt;aggregation_type&gt;</code> in the above snippet) and is typically the first
-key within the named aggregation body. Each type of aggregation defines its own body, depending on the nature of the
-aggregation (e.g. an <code class="literal">avg</code> aggregation on a specific field will define the field on which the average will be calculated).
-At the same level of the aggregation type definition, one can optionally define a set of additional aggregations,
-though this only makes sense if the aggregation you defined is of a bucketing nature. In this scenario, the
-sub-aggregations you define on the bucketing aggregation level will be computed for all the buckets built by the
-bucketing aggregation. For example, if you define a set of aggregations under the <code class="literal">range</code> aggregation, the
-sub-aggregations will be computed for the range buckets that are defined.</p>
+<p>
+JSON 中的 <code class="literal">aggregations</code > 对象(也可以使用 <code class="literal">aggs</code> 作为键)保存要计算的聚合。
+
+每个聚合都与用户定义的逻辑名称(<code class="literal">&lt;aggregation_name&gt;</code>)相关联(例如，如果聚合计算平均价格，则将其命名为<code class="word">avg_price</code>是有意义的)。
+
+这些逻辑名称还将用于唯一地标识响应中的聚合。
+
+每个聚合都有一个特定的类型(上面代码片段中的<code class="literal">&lt;aggregation_type&gt;</code>)，并且通常是命名聚合体内的第一个键。
+
+根据聚合的性质，每种类型的聚合定义自己的主体(例如，特定字段上的 <code class="literal">avg</code> 聚合将定义计算平均值的字段)。
+
+在聚合类型定义的同一级别，可以选择性的定义一组附加的聚合，但这只有在你定义的聚合具有 bucketing 性质时才有意义。
+
+
+在这种情况下，将为 bucketing 聚合构建的所有桶计算在 bucketing 聚合级别定义的子聚合。
+
+例如，如果在 <code class="literal">range</code> 聚合下定义了一组聚合，将为定义的范围(range)桶计算子聚合。
+</p>
 <h3>
-<a id="_values_source"></a>Values Source<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations.asciidoc">edit</a>
+<a id="_values_source"></a>值的来源
 </h3>
-<p>Some aggregations work on values extracted from the aggregated documents. Typically, the values will be extracted from
-a specific document field which is set using the <code class="literal">field</code> key for the aggregations. It is also possible to define a
-<a class="xref" href="modules-scripting.html" title="Scripting"><code class="literal">script</code></a> which will generate the values (per document).</p>
-<p>When both <code class="literal">field</code> and <code class="literal">script</code> settings are configured for the aggregation, the script will be treated as a
-<code class="literal">value script</code>.  While normal scripts are evaluated on a document level (i.e. the script has access to all the data
-associated with the document), value scripts are evaluated on the <span class="strong strong"><strong>value</strong></span> level. In this mode, the values are extracted
-from the configured <code class="literal">field</code> and the <code class="literal">script</code> is used to apply a "transformation" over these value/s.</p>
+<p>
+一些聚合处理从聚合文档中提取的值。
+
+通常，这些值将从指定的文档字段中提取，该字段是使用聚合的 <code class="literal">field</code> 键设置的。
+
+也可以定义一个 <a class="xref" href="modules-scripting.html" title="Scripting" rel="nofollow"><code class="literal">script</code></a> 来生成这些值(每个文档)。
+</p>
+<p>
+当为聚合配置了 <code class="literal">field</code> 和 <code class="literal">script</code> 设置时，脚本将被视为<code class="literal">value script(值脚本)</code>。
+
+普通脚本在文档级别进行评估(即脚本可以访问与文档相关的所有数据)，而值脚本<code class="remark">(value script)</code>在<span class="strong strong"><strong>value(值)</strong></span>级别进行评估。
+
+在这种模式下，从已配置的 <code class="literal">field</code> 中提取值，并使用 <code class="literal">script</code> 对这些值进行“转换”。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
 <a id="aggs-script-note"></a>
-<p>When working with scripts, the <code class="literal">lang</code> and <code class="literal">params</code> settings can also be defined. The former defines the scripting
-language which is used (assuming the proper language is available in Elasticsearch, either by default or as a plugin). The latter
-enables defining all the "dynamic" expressions in the script as parameters, which enables the script to keep itself static
-between calls (this will ensure the use of the cached compiled scripts in Elasticsearch).</p>
+<p>
+使用脚本时，还可以定义 <code class="literal">lang</code> 和 <code class="literal">params</code> 设置。
+
+前者定义了所使用的脚本语言(假设 Elasticsearch 中有合适的语言，无论是默认语言还是插件语言)。
+
+后者支持将脚本中的所有“动态<code class="remark">(dynamic)</code>”表达式定义为参数，这使得脚本能够在调用之间保持静态<code class="remark">(static)</code>(这将确保在Elasticsearch 中使用缓存的编译过的脚本)。
+</p>
 </div>
 </div>
-<p>Elasticsearch uses the type of the field in the mapping in order to figure out
-how to run the aggregation and format the response. However there are two cases
-in which Elasticsearch cannot figure out this information: unmapped fields (for
-instance in the case of a search request across multiple indices, and only some
-of them have a mapping for the field) and pure scripts. For those cases, it is
-possible to give Elasticsearch a hint using the <code class="literal">value_type</code> option, which
-accepts the following values: <code class="literal">string</code>, <code class="literal">long</code> (works for all integer types),
-<code class="literal">double</code> (works for all decimal types like <code class="literal">float</code> or <code class="literal">scaled_float</code>), <code class="literal">date</code>,
-<code class="literal">ip</code> and <code class="literal">boolean</code>.</p>
+<p>
+Elasticsearch 使用映射(mapping)中的字段类型来确定如何运行聚合和格式化响应。
+
+然而，在两种情况下，Elasticsearch 无法找出这些信息：未映射的字段(例如，在跨多个索引的搜索请求的情况下，只有其中一部分字段在映射中有定义) 和 纯脚本。
+
+对于这些情况，可以使用 <code class="literal">value_type</code> 选项给 Elasticsearch 一个提示，该选项接受以下值：<code class="literal">string</code>、<code class="literal">long</code>(适用于所有整数类型)、<code class="literal">double</code>(适用于所有十进制类型，如<code class="literal">float</code>或<code class="literal">scaled_float</code>)、<code class="literal">date</code>、<code class="literal">ip</code> 和 <code class="literal">boolean</code>。
+</p>
 </div>
 </div>
 
@@ -191,10 +224,11 @@ accepts the following values: <code class="literal">string</code>, <code class="
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="sql-limitations.html">« SQL Limitations</a>
+<!--<a href="sql-limitations.html">« SQL Limitations</a>-->
+<a href="regexp-syntax.html">« 正则表达式语法</a>
 </span>
 <span class="next">
-<a href="search-aggregations-metrics.html">Metrics Aggregations »</a>
+<a href2="search-aggregations-metrics.html">Metrics Aggregations »</a>
 </span>
 </div>
 </div>

@@ -178,3 +178,4 @@ https://www.pipiho.com/es/7.7/cn/query-dsl-wildcard-query.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-minimum-should-match.html
 https://www.pipiho.com/es/7.7/cn/query-dsl-multi-term-rewrite.html
 https://www.pipiho.com/es/7.7/cn/regexp-syntax.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations.html

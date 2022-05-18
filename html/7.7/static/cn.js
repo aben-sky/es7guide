@@ -1265,8 +1265,8 @@ var esNavLinks = [
         "sub": [
             {
                 "url": "search-aggregations-metrics.html",
-                "text": "Metrics Aggregations",
-                "title": "Metrics Aggregations",
+                "text": "指标(metric)聚合",
+                "title": "指标(metric)聚合",
                 "sub": [
                     {
                         "url": "search-aggregations-metrics-avg-aggregation.html",

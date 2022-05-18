@@ -1270,8 +1270,8 @@ var esNavLinks = [
                 "sub": [
                     {
                         "url": "search-aggregations-metrics-avg-aggregation.html",
-                        "text": "Avg Aggregation",
-                        "title": "Avg Aggregation"
+                        "text": "avg 聚合",
+                        "title": "avg 聚合"
                     },
                     {
                         "url": "search-aggregations-metrics-weight-avg-aggregation.html",

@@ -1275,8 +1275,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-metrics-weight-avg-aggregation.html",
-                        "text": "Weighted Avg Aggregation",
-                        "title": "Weighted Avg Aggregation"
+                        "text": "weighted_avg 聚合",
+                        "title": "weighted_avg 聚合"
                     },
                     {
                         "url": "search-aggregations-metrics-boxplot-aggregation.html",

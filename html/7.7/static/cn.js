@@ -1280,8 +1280,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-metrics-boxplot-aggregation.html",
-                        "text": "Boxplot Aggregation",
-                        "title": "Boxplot Aggregation"
+                        "text": "boxplot 聚合",
+                        "title": "boxplot 聚合"
                     },
                     {
                         "url": "search-aggregations-metrics-cardinality-aggregation.html",

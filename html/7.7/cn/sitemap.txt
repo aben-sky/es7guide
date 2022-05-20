@@ -182,3 +182,4 @@ https://www.pipiho.com/es/7.7/cn/search-aggregations.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics-avg-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics-weight-avg-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics-boxplot-aggregation.html

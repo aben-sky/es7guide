@@ -1285,8 +1285,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-metrics-cardinality-aggregation.html",
-                        "text": "Cardinality Aggregation",
-                        "title": "Cardinality Aggregation"
+                        "text": "cardinality 聚合",
+                        "title": "cardinality 聚合"
                     },
                     {
                         "url": "search-aggregations-metrics-stats-aggregation.html",

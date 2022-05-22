@@ -1290,7 +1290,7 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-metrics-stats-aggregation.html",
-                        "text": "Stats Aggregation",
+                        "text": "stats 聚合",
                         "title": "Stats Aggregation"
                     },
                     {

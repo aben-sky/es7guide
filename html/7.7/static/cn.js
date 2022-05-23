@@ -1291,12 +1291,12 @@ var esNavLinks = [
                     {
                         "url": "search-aggregations-metrics-stats-aggregation.html",
                         "text": "stats 聚合",
-                        "title": "Stats Aggregation"
+                        "title": "stats 聚合"
                     },
                     {
                         "url": "search-aggregations-metrics-extendedstats-aggregation.html",
-                        "text": "Extended Stats Aggregation",
-                        "title": "Extended Stats Aggregation"
+                        "text": "extended_stats 聚合",
+                        "title": "extended_stats 聚合"
                     },
                     {
                         "url": "search-aggregations-metrics-geobounds-aggregation.html",

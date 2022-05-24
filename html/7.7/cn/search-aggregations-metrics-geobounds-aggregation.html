@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Geo Bounds Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>geo_bounds 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,32 +32,36 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-metrics.html">Metrics Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-metrics.html">指标(metric)聚合</a></span>
 »
-<span class="breadcrumb-node">Geo Bounds Aggregation</span>
+<span class="breadcrumb-node">geo_bounds 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-metrics-extendedstats-aggregation.html">« Extended Stats Aggregation</a>
+<a href="search-aggregations-metrics-extendedstats-aggregation.html">« extended_stats 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-metrics-geocentroid-aggregation.html">Geo Centroid Aggregation »</a>
+<a href2="search-aggregations-metrics-geocentroid-aggregation.html">Geo Centroid Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-metrics-geobounds-aggregation"></a>Geo Bounds Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/geobounds-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-metrics-geobounds-aggregation"></a>geo_bounds 聚合
 </h2>
 </div></div></div>
-<p>A metric aggregation that computes the bounding box containing all geo_point values for a field.</p>
-<p>Example:</p>
+<p>
+一种指标聚合，用于计算包含字段的所有 geo_point 值的边界框。
+</p>
+<p>例如：</p>
 <div class="pre_wrapper lang-console">
-<pre class="programlisting prettyprint lang-console">PUT /museums
+<pre class="programlisting prettyprint lang-console">
+# 定义索引
+PUT /museums
 {
     "mappings": {
         "properties": {
@@ -68,6 +72,7 @@
     }
 }
 
+# 新增并索引文档
 POST /museums/_bulk?refresh
 {"index":{"_id":1}}
 {"location": "52.374081,4.912350", "name": "NEMO Science Museum"}
@@ -82,6 +87,7 @@ POST /museums/_bulk?refresh
 {"index":{"_id":6}}
 {"location": "48.860000,2.327000", "name": "Musée d'Orsay"}
 
+# 执行搜索
 POST /museums/_search?size=0
 {
     "query" : {
@@ -105,7 +111,9 @@ POST /museums/_search?size=0
 <p><a href="#CO189-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">geo_bounds</code> aggregation specifies the field to use to obtain the bounds</p>
+<p>
+指定 <code class="literal">geo_bounds</code> 聚合用于获取边界的字段
+</p>
 </td>
 </tr>
 <tr>
@@ -113,13 +121,19 @@ POST /museums/_search?size=0
 <p><a href="#CO189-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">wrap_longitude</code> is an optional parameter which specifies whether the bounding box should be allowed to overlap the international date line. The default value is <code class="literal">true</code></p>
+<p>
+<code class="literal">wrap_longitude</code> 是一个可选参数，它指定是否允许边界框与国际日期变更线重叠。
+
+默认值为<code class="literal">true</code>
+</p>
 </td>
 </tr>
 </table>
 </div>
-<p>The above aggregation demonstrates how one would compute the bounding box of the location field for all documents with a business type of shop</p>
-<p>The response for the above aggregation:</p>
+<p>
+上面的聚合演示了如何为所有博物馆(museum)的文档计算 location 字段的边界框。
+</p>
+<p>上面的聚合的响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -142,10 +156,10 @@ POST /museums/_search?size=0
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-metrics-extendedstats-aggregation.html">« Extended Stats Aggregation</a>
+<a href="search-aggregations-metrics-extendedstats-aggregation.html">« extended_stats 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-metrics-geocentroid-aggregation.html">Geo Centroid Aggregation »</a>
+<a href2="search-aggregations-metrics-geocentroid-aggregation.html">Geo Centroid Aggregation »</a>
 </span>
 </div>
 </div>

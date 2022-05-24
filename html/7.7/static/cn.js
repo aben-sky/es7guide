@@ -1300,8 +1300,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-metrics-geobounds-aggregation.html",
-                        "text": "Geo Bounds Aggregation",
-                        "title": "Geo Bounds Aggregation"
+                        "text": "geo_bounds 聚合",
+                        "title": "geo_bounds 聚合"
                     },
                     {
                         "url": "search-aggregations-metrics-geocentroid-aggregation.html",

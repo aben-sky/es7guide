@@ -1305,8 +1305,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-metrics-geocentroid-aggregation.html",
-                        "text": "Geo Centroid Aggregation",
-                        "title": "Geo Centroid Aggregation"
+                        "text": "geo_centroid 聚合",
+                        "title": "geo_centroid 聚合"
                     },
                     {
                         "url": "search-aggregations-metrics-max-aggregation.html",

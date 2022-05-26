@@ -1310,8 +1310,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-metrics-max-aggregation.html",
-                        "text": "Max Aggregation",
-                        "title": "Max Aggregation"
+                        "text": "max 聚合",
+                        "title": "max 聚合"
                     },
                     {
                         "url": "search-aggregations-metrics-min-aggregation.html",

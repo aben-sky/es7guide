@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Median Absolute Deviation Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>median_absolute_deviation 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,50 +32,61 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-metrics.html">Metrics Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-metrics.html">指标(metric)聚合</a></span>
 »
-<span class="breadcrumb-node">Median Absolute Deviation Aggregation</span>
+<span class="breadcrumb-node">median_absolute_deviation 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-metrics-min-aggregation.html">« Min Aggregation</a>
+<a href="search-aggregations-metrics-min-aggregation.html">« min 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-metrics-percentile-aggregation.html">Percentiles Aggregation »</a>
+<a href2="search-aggregations-metrics-percentile-aggregation.html">Percentiles Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-metrics-median-absolute-deviation-aggregation"></a>Median Absolute Deviation Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/median-absolute-deviation-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-metrics-median-absolute-deviation-aggregation"></a>绝对中位差(median_absolute_deviation)聚合
 </h2>
 </div></div></div>
-<p>This <code class="literal">single-value</code> aggregation approximates the <a href="https://en.wikipedia.org/wiki/Median_absolute_deviation" class="ulink" target="_top">median absolute deviation</a>
-of its search results.</p>
-<p>Median absolute deviation is a measure of variability. It is a robust
-statistic, meaning that it is useful for describing data that may have
-outliers, or may not be normally distributed. For such data it can be more
-descriptive than standard deviation.</p>
-<p>It is calculated as the median of each data point’s deviation from the median
-of the entire sample. That is, for a random variable X, the median absolute
-deviation is median(|median(X) - X<sub>i</sub>|).</p>
+<p>
+这个<code class="literal">single-value</code>(单值) 聚合近似于其搜索结果的<a href="https://en.wikipedia.org/wiki/Median_absolute_deviation" class="ulink" target="_top">绝对中位差</a><span class="remark">(median absolute deviation)</span>。  
+</p>
+<p>
+绝对中位差是一个可变性的衡量标准。  
+
+它是一个可靠的统计数据，这意味着它对于描述可能有异常值或可能不是正态分布的数据很有用。  
+
+对于这样的数据，它可能比标准差<span class="remark">(standard deviation)</span>更具描述性。
+</p>
+<p>
+它被计算为每个数据点与整个样本的中位数的偏差的中位数。
+
+也就是说，对于随机变量X，绝对中位差是 median(|median(X) - X<sub>i</sub>|)。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_example_3"></a>Example<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/median-absolute-deviation-aggregation.asciidoc">edit</a>
+<a id="_example_3"></a>示例
 </h3>
 </div></div></div>
-<p>Assume our data represents product reviews on a one to five star scale.
-Such reviews are usually summarized as a mean, which is easily understandable
-but doesn’t describe the reviews' variability. Estimating the median absolute
-deviation can provide insight into how much reviews vary from one another.</p>
-<p>In this example we have a product which has an average rating of
-3 stars. Let’s look at its ratings' median absolute deviation to determine
-how much they vary</p>
+<p>
+假设我们的数据代表 1 到 5 星的产品评论。 
+
+这样的评论通常被汇总为一个平均值，这很容易理解，但不能描述评论的可变性。
+
+估算绝对中位差可以让我们了解到评论之间的差异有多大。  
+</p>
+<p>
+在本例中，我们有一个平均评级为3星的产品。
+
+让我们看看它的评级的绝对中位差，以确定它们的变化程度
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET reviews/_search
 {
@@ -102,14 +113,16 @@ how much they vary</p>
 <p><a href="#CO193-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">rating</code> must be a numeric field</p>
+<p><code class="literal">rating</code> 必须是一个 numeric 字段</p>
 </td>
 </tr>
 </table>
 </div>
-<p>The resulting median absolute deviation of <code class="literal">2</code> tells us that there is a fair
-amount of variability in the ratings. Reviewers must have diverse opinions about
-this product.</p>
+<p>
+由此产生的绝对中位差值 <code class="literal">2</code> 告诉我们，在评级中有相当多的可变性。
+
+点评的人肯定对这个产品有不同的看法。
+</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   ...
@@ -128,22 +141,23 @@ this product.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_approximation"></a>Approximation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/median-absolute-deviation-aggregation.asciidoc">edit</a>
+<a id="_approximation"></a>近似值
 </h3>
 </div></div></div>
-<p>The naive implementation of calculating median absolute deviation stores the
-entire sample in memory, so this aggregation instead calculates an
-approximation. It uses the <a href="https://github.com/tdunning/t-digest" class="ulink" target="_top">TDigest data structure</a>
-to approximate the sample median and the median of deviations from the sample
-median. For more about the approximation characteristics of TDigests, see
-<a class="xref" href="search-aggregations-metrics-percentile-aggregation.html#search-aggregations-metrics-percentile-aggregation-approximation" title="Percentiles are (usually) approximate">Percentiles are (usually) approximate</a>.</p>
-<p>The tradeoff between resource usage and accuracy of a TDigest’s quantile
-approximation, and therefore the accuracy of this aggregation’s approximation
-of median absolute deviation, is controlled by the <code class="literal">compression</code> parameter. A
-higher <code class="literal">compression</code> setting provides a more accurate approximation at the
-cost of higher memory usage. For more about the characteristics of the TDigest
-<code class="literal">compression</code> parameter see
-<a class="xref" href="search-aggregations-metrics-percentile-aggregation.html#search-aggregations-metrics-percentile-aggregation-compression" title="Compression">Compression</a>.</p>
+<p>
+计算绝对中位差的简单实现将整个样本存储在内存中，因此这种聚合计算的是近似值。
+
+它使用 <a href="https://github.com/tdunning/t-digest" class="ulink" target="_top">TDigest数据结构</a> 来近似样本中值和样本中值偏差的中值。
+
+有关 TDigests 的近似特征的更多信息，请参考 <a class="xref" href="search-aggregations-metrics-percentile-aggregation.html#search-aggregations-metrics-percentile-aggregation-approximation" title="Percentiles are (usually) approximate">百分位数(通常)是近似的</a>。
+</p>
+<p>
+参数 <code class="literal">compression</code> 控制着资源使用和 TDigest 分位数近似值的精确度之间的权衡，因此也控制着该聚合的绝对中位差近似值的精确度。
+
+较高的 <code class="literal">compression</code> 设置以较高的内存使用率为代价提供了更精确的近似值。
+
+有关 TDigest 参数 <code class="literal">compression</code> 的特征的更多信息，请参考<a class="xref" href="search-aggregations-metrics-percentile-aggregation.html#search-aggregations-metrics-percentile-aggregation-compression" title="compression" rel="nofollow">compression</a>。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET reviews/_search
 {
@@ -159,21 +173,27 @@ cost of higher memory usage. For more about the characteristics of the TDigest
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/364.console"></div>
-<p>The default <code class="literal">compression</code> value for this aggregation is <code class="literal">1000</code>. At this
-compression level this aggregation is usually within 5% of the exact result,
-but observed performance will depend on the sample data.</p>
+<p>
+此聚合的默认 <code class="literal">compression</code> 的值是1000。
+
+在这个压缩级别上，该聚合通常与确切结果的差距在 5% 以内，但观察到的性能将取决于样本数据。  
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_script_9"></a>Script<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/median-absolute-deviation-aggregation.asciidoc">edit</a>
+<a id="_script_9"></a>脚本
 </h3>
 </div></div></div>
-<p>This metric aggregation supports scripting. In our example above, product
-reviews are on a scale of one to five. If we wanted to modify them to a scale
-of one to ten, we can using scripting.</p>
-<p>To provide an inline script:</p>
+<p>
+该指标聚合支持脚本。
+
+在上面的例子中，产品评论的等级是 1 到 5。
+
+如果我们想将它们修改为 1 到 10，可以使用脚本。
+</p>
+<p>如果要使用内联脚本：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET reviews/_search
 {
@@ -194,7 +214,7 @@ of one to ten, we can using scripting.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/365.console"></div>
-<p>To provide a stored script:</p>
+<p>要指定一个存储的脚本：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET reviews/_search
 {
@@ -219,14 +239,17 @@ of one to ten, we can using scripting.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_missing_value_8"></a>Missing value<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/median-absolute-deviation-aggregation.asciidoc">edit</a>
+<a id="_missing_value_8"></a>缺失的值
 </h3>
 </div></div></div>
-<p>The <code class="literal">missing</code> parameter defines how documents that are missing a value should be
-treated. By default they will be ignored but it is also possible to treat them
-as if they had a value.</p>
-<p>Let’s be optimistic and assume some reviewers loved the product so much that
-they forgot to give it a rating. We’ll assign them five stars</p>
+<p>
+参数 <code class="literal">missing</code> 定义应该如何处理有缺失值的文档。
+
+默认情况下，它们将被忽略，但也可以将它们视为有一个值。
+</p>
+<p>
+让我们乐观一点，假设一些点评的人非常喜欢这个产品，以至于忘记给它打分。我们会给他们 5 颗星：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET reviews/_search
 {
@@ -247,10 +270,10 @@ they forgot to give it a rating. We’ll assign them five stars</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-metrics-min-aggregation.html">« Min Aggregation</a>
+<a href="search-aggregations-metrics-min-aggregation.html">« min 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-metrics-percentile-aggregation.html">Percentiles Aggregation »</a>
+<a href2="search-aggregations-metrics-percentile-aggregation.html">Percentiles Aggregation »</a>
 </span>
 </div>
 </div>

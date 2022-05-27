@@ -1320,8 +1320,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-metrics-median-absolute-deviation-aggregation.html",
-                        "text": "Median Absolute Deviation Aggregation",
-                        "title": "Median Absolute Deviation Aggregation"
+                        "text": "median_absolute_deviation 聚合",
+                        "title": "median_absolute_deviation 聚合"
                     },
                     {
                         "url": "search-aggregations-metrics-percentile-aggregation.html",

@@ -189,3 +189,5 @@ https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics-extendedstats-aggre
 https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics-geobounds-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics-geocentroid-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics-max-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics-min-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics-median-absolute-deviation-aggregation.html

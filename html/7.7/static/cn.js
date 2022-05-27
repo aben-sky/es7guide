@@ -1315,8 +1315,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-metrics-min-aggregation.html",
-                        "text": "Min Aggregation",
-                        "title": "Min Aggregation"
+                        "text": "min 聚合",
+                        "title": "min 聚合"
                     },
                     {
                         "url": "search-aggregations-metrics-median-absolute-deviation-aggregation.html",

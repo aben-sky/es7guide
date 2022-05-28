@@ -1325,8 +1325,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-metrics-percentile-aggregation.html",
-                        "text": "Percentiles Aggregation",
-                        "title": "Percentiles Aggregation"
+                        "text": "percentiles 聚合",
+                        "title": "percentiles 聚合"
                     },
                     {
                         "url": "search-aggregations-metrics-percentile-rank-aggregation.html",

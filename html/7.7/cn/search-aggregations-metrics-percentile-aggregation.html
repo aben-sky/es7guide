@@ -42,10 +42,10 @@
 </div>
 <div class="navheader">
 <span class="prev">
-<a href2="search-aggregations-metrics-median-absolute-deviation-aggregation.html">« median_absolute_deviation 聚合</a>
+<a href="search-aggregations-metrics-median-absolute-deviation-aggregation.html">« median_absolute_deviation 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-metrics-percentile-rank-aggregation.html">Percentile Ranks Aggregation »</a>
+<a href2="search-aggregations-metrics-percentile-rank-aggregation.html">Percentile Ranks Aggregation »</a>
 </span>
 </div>
 <div class="section">
@@ -179,7 +179,11 @@
 <a id="_keyed_response"></a>keyed 响应
 </h3>
 </div></div></div>
-<p>By default the <code class="literal">keyed</code> flag is set to <code class="literal">true</code> which associates a unique string key with each bucket and returns the ranges as a hash rather than an array. Setting the <code class="literal">keyed</code> flag to <code class="literal">false</code> will disable this behavior:</p>
+<p>
+默认情况下，<code class="literal">keyed</code> 标志设置为 <code class="literal">true</code>，它将唯一的字符串键与每个桶相关联，并将范围作为哈希而不是数组返回。
+
+将 <code class="literal">keyed</code> 标志设置为 <code class="literal">false</code> 将禁用此行为：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET latency/_search
 {
@@ -195,7 +199,7 @@
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/370.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -241,12 +245,14 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_script_10"></a>Script<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/percentile-aggregation.asciidoc">edit</a>
+<a id="_script_10"></a>脚本
 </h3>
 </div></div></div>
-<p>The percentile metric supports scripting.  For example, if our load times
-are in milliseconds but we want percentiles calculated in seconds, we could use
-a script to convert them on-the-fly:</p>
+<p>
+百分位数指标支持脚本。
+
+例如，如果加载时间是以毫秒为单位的，但我们希望以秒为单位计算百分位数，我们可以使用一个脚本来进行动态转换：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET latency/_search
 {
@@ -274,8 +280,9 @@ a script to convert them on-the-fly:</p>
 <p><a href="#CO196-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">field</code> parameter is replaced with a <code class="literal">script</code> parameter, which uses the
-script to generate values which percentiles are calculated on</p>
+<p>
+参数 <code class="literal">field</code> 被替换为 <code class="literal">script</code>，它使用脚本来生成计算百分位的值
+</p>
 </td>
 </tr>
 <tr>
@@ -283,12 +290,17 @@ script to generate values which percentiles are calculated on</p>
 <p><a href="#CO196-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Scripting supports parameterized input just like any other script</p>
+<p>像任何其他脚本一样，这里的脚本支持参数化输入，</p>
 </td>
 </tr>
 </table>
 </div>
-<p>This will interpret the <code class="literal">script</code> parameter as an <code class="literal">inline</code> script with the <code class="literal">painless</code> script language and no script parameters. To use a stored script use the following syntax:</p>
+<p>
+<p>
+这将使用 <a class="xref" href="modules-scripting-painless.html" title="Painless scripting language" rel="nofollow">painless</a>(无痛) 脚本语言，没有脚本参数。
+
+要使用存储的脚本，请使用以下语法：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET latency/_search
 {
@@ -313,51 +325,65 @@ script to generate values which percentiles are calculated on</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="search-aggregations-metrics-percentile-aggregation-approximation"></a>Percentiles are (usually) approximate<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/percentile-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-metrics-percentile-aggregation-approximation"></a>百分位数(通常)是近似值
 </h3>
 </div></div></div>
-<p>There are many different algorithms to calculate percentiles.  The naive
-implementation simply stores all the values in a sorted array.  To find the 50th
-percentile, you simply find the value that is at <code class="literal">my_array[count(my_array) * 0.5]</code>.</p>
-<p>Clearly, the naive implementation does not scale — the sorted array grows
-linearly with the number of values in your dataset.  To calculate percentiles
-across potentially billions of values in an Elasticsearch cluster, <em>approximate</em>
-percentiles are calculated.</p>
-<p>The algorithm used by the <code class="literal">percentile</code> metric is called TDigest (introduced by
-Ted Dunning in
-<a href="https://github.com/tdunning/t-digest/blob/master/docs/t-digest-paper/histo.pdf" class="ulink" target="_top">Computing Accurate Quantiles using T-Digests</a>).</p>
-<p>When using this metric, there are a few guidelines to keep in mind:</p>
+<p>
+有许多不同的算法来计算百分位数。
+
+简单的实现只是将所有的值存储在一个有序的数组中。
+
+要找到第50个百分位数，只需找到位于 <code class="literal">my_array[count(my_array) * 0.5]</code> 的值。
+</p>
+<p>
+显然，简单的实现是不可伸缩的——排序后的数组随着数据集中值的数量线性增长。
+
+要计算 Elasticsearch 集群中潜在的数十亿个值的百分位数，需要计算<em>近似(approximate)</em>百分位数。
+</p>
+<p>
+<code class="literal">percentile</code> 指标使用的算法称为 TDigest (由 Ted Dunning 在<a href="https://github.com/tdunning/t-digest/blob/master/docs/t-digest-paper/histo.pdf" class="ulink" target="_top">使用T-Digests计算精确分位数</a>中引入)。
+</p>
+<p>
+使用这一指标时，需要记住一些准则：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Accuracy is proportional to <code class="literal">q(1-q)</code>.  This means that extreme percentiles (e.g. 99%)
-are more accurate than less extreme percentiles, such as the median
+精度与 <code class="literal">q(1-q)</code> 成正比。
+
+这意味着极端百分位数(例如99%)比不太极端的百分位数(例如中值)更准确
 </li>
 <li class="listitem">
-For small sets of values, percentiles are highly accurate (and potentially
-100% accurate if the data is small enough).
+对于小的数值集合，百分位数是高度准确的(如果数据足够小，可能是100%准确)。
 </li>
 <li class="listitem">
-As the quantity of values in a bucket grows, the algorithm begins to approximate
-the percentiles.  It is effectively trading accuracy for memory savings.  The
-exact level of inaccuracy is difficult to generalize, since it depends on your
-data distribution and volume of data being aggregated
+随着桶中值的数量增加，算法开始近似百分位数。
+
+这实际上是在用准确性来减少内存的使用量。
+
+不准确的确切程度很难概括，因为它取决于数据分布和要聚合的数据量
 </li>
 </ul>
 </div>
-<p>The following chart shows the relative error on a uniform distribution depending
-on the number of collected values and the requested percentile:</p>
+<p>
+下图显示了均匀分布的相对误差，它取决于采集值的数量和要求的百分位数:
+</p>
 <p><span class="image"><img src="../static/images/percentiles_error.png" alt="percentiles error"></span></p>
-<p>It shows how precision is better for extreme percentiles. The reason why error diminishes
-for large number of values is that the law of large numbers makes the distribution of
-values more and more uniform and the t-digest tree can do a better job at summarizing
-it. It would not be the case on more skewed distributions.</p>
+<p>
+它显示了极端百分位数的精度更好。
+
+对于大量的值，误差减小的原因是大数定律使值的分布越来越均匀，t-digest 树可以更好地进行汇总。 
+
+在偏态分布上就不是这样了。  
+</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Percentile aggregations are also
-<a href="https://en.wikipedia.org/wiki/Nondeterministic_algorithm" class="ulink" target="_top">non-deterministic</a>.
-This means you can get slightly different results using the same data.</p>
+<p>
+百分位数聚合也是<a href="https://en.wikipedia.org/wiki/Nondeterministic_algorithm" class="ulink" target="_top">不确定的(non-deterministic)</a>。
+
+这意味着使用相同的数据可以得到稍微不同的结果。
+</p>
 </div>
 </div>
 </div>
@@ -365,11 +391,14 @@ This means you can get slightly different results using the same data.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="search-aggregations-metrics-percentile-aggregation-compression"></a>Compression<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/percentile-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-metrics-percentile-aggregation-compression"></a>压缩(compression)
 </h3>
 </div></div></div>
-<p>Approximate algorithms must balance memory utilization with estimation accuracy.
-This balance can be controlled using a <code class="literal">compression</code> parameter:</p>
+<p>
+近似算法必须平衡内存利用率和估计精度。
+
+这种平衡可以使用参数 <code class="literal">compression</code> 来控制:
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET latency/_search
 {
@@ -394,45 +423,54 @@ This balance can be controlled using a <code class="literal">compression</code> 
 <p><a href="#CO197-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Compression controls memory usage and approximation error</p>
+<p><code class="literal">compression</code> 控制内存使用和近似误差</p>
 </td>
 </tr>
 </table>
 </div>
-<p>The TDigest algorithm uses a number of "nodes" to approximate percentiles — the
-more nodes available, the higher the accuracy (and large memory footprint) proportional
-to the volume of data.  The <code class="literal">compression</code> parameter limits the maximum number of
-nodes to <code class="literal">20 * compression</code>.</p>
-<p>Therefore, by increasing the compression value, you can increase the accuracy of
-your percentiles at the cost of more memory.  Larger compression values also
-make the algorithm slower since the underlying tree data structure grows in size,
-resulting in more expensive operations.  The default compression value is
-<code class="literal">100</code>.</p>
-<p>A "node" uses roughly 32 bytes of memory, so under worst-case scenarios (large amount
-of data which arrives sorted and in-order) the default settings will produce a
-TDigest roughly 64KB in size.  In practice data tends to be more random and
-the TDigest will use less memory.</p>
+<p>
+TDigest算法使用多个“节点”来近似百分位数，可用的节点越多，与数据量成比例的精度(和大内存占用)就越高。
+
+参数 <code class="literal">compression</code> 将最大节点数限制为 <code class="literal">20 * compression</code>。
+</p>
+<p>
+因此，通过增加 <code class="literal">compression</code> 的值，可以以更多内存为代价来提高百分位数的准确性。
+
+较大的 <code class="literal">compression</code> 值也会使算法变慢，因为底层树数据结构的大小会增加，从而导致更昂贵的操作。  
+
+<code class="literal">compression</code> 的默认值为 <code class="literal">100</code>。
+</p>
+<p>
+一个“节点”使用大约 32 字节的内存，因此在最坏的情况下(大量数据被排序并按顺序到达)，默认设置将产生大约 64KB 大小的 TDigest。
+
+实际上，数据往往更加随机，TDigest 将使用更少的内存。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_hdr_histogram"></a>HDR Histogram<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/percentile-aggregation.asciidoc">edit</a>
+<a id="_hdr_histogram"></a>HDR 直方图(Histogram)
 </h3>
 </div></div></div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>This setting exposes the internal implementation of HDR Histogram and the syntax may change in the future.</p>
+<p>
+此设置公开了 HDR 直方图的内部实现，语法将来可能会改变。
+</p>
 </div>
 </div>
-<p><a href="https://github.com/HdrHistogram/HdrHistogram" class="ulink" target="_top">HDR Histogram</a> (High Dynamic Range Histogram) is an alternative implementation
-that can be useful when calculating percentiles for latency measurements as it can be faster than the t-digest implementation
-with the trade-off of a larger memory footprint. This implementation maintains a fixed worse-case percentage error (specified
-as a number of significant digits). This means that if data is recorded with values from 1 microsecond up to 1 hour
-(3,600,000,000 microseconds) in a histogram set to 3 significant digits, it will maintain a value resolution of 1 microsecond
-for values up to 1 millisecond and 3.6 seconds (or better) for the maximum tracked value (1 hour).</p>
-<p>The HDR Histogram can be used by specifying the <code class="literal">method</code> parameter in the request:</p>
+<p>
+<a href="https://github.com/HdrHistogram/HdrHistogram" class="ulink" target="_top" rel="nofollow">HDR直方图</a> (High Dynamic Range Histogram, 高动态范围直方图)是一种替代实现，在计算延迟测量的百分位数时非常有用，因为它比 t-digest 实现更快，但需要更大的内存。
+
+这种实现保持固定的最坏情况百分比误差(指定为有效数字的数量)。
+
+这意味着，如果在设置为 3 个有效数字的直方图中记录的数据值从 1 微秒到 1 小时(3,600,000,000微秒)，则对于 1 毫秒和 3.6 秒(或更好)的最大跟踪值(1小时)，它将保持 1 微秒的值分辨率。
+</p>
+<p>
+通过在请求中指定参数 <code class="literal">method</code>，可以使用 HDR 直方图:
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET latency/_search
 {
@@ -458,7 +496,9 @@ for values up to 1 millisecond and 3.6 seconds (or better) for the maximum track
 <p><a href="#CO198-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">hdr</code> object indicates that HDR Histogram should be used to calculate the percentiles and specific settings for this algorithm can be specified inside the object</p>
+<p>
+<code class="literal">hdr</code> 对象表示应该使用HDR直方图来计算百分位数，并且可以在对象内部指定该算法的特定设置
+</p>
 </td>
 </tr>
 <tr>
@@ -466,24 +506,31 @@ for values up to 1 millisecond and 3.6 seconds (or better) for the maximum track
 <p><a href="#CO198-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">number_of_significant_value_digits</code> specifies the resolution of values for the histogram in number of significant digits</p>
+<p>
+<code class="literal">number_of_significant_value_digits</code> 指定直方图数值的分辨率，以有效位数表示
+</p>
 </td>
 </tr>
 </table>
 </div>
-<p>The HDRHistogram only supports positive values and will error if it is passed a negative value. It is also not a good idea to use
-the HDRHistogram if the range of values is unknown as this could lead to high memory usage.</p>
+<p>
+HDR 直方图仅支持正值，如果向其传递负值，将会出错。
+
+如果值的范围未知，使用HDR 直方图也不是一个好主意，因为这可能会导致很高的内存使用率。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_missing_value_9"></a>Missing value<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/percentile-aggregation.asciidoc">edit</a>
+<a id="_missing_value_9"></a>缺失的值
 </h3>
 </div></div></div>
-<p>The <code class="literal">missing</code> parameter defines how documents that are missing a value should be treated.
-By default they will be ignored but it is also possible to treat them as if they
-had a value.</p>
+<p>
+参数 <code class="literal">missing</code> 定义应该如何处理有缺失值的文档。
+
+默认情况下，它们会被忽略，但也可以将它们视为有一个(默认)值。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET latency/_search
 {
@@ -506,7 +553,9 @@ had a value.</p>
 <p><a href="#CO199-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Documents without a value in the <code class="literal">grade</code> field will fall into the same bucket as documents that have the value <code class="literal">10</code>.</p>
+<p>
+<code class="literal">grade</code> 字段中没有值的文档将与值为 <code class="literal">10</code> 的文档落入同一个桶。
+</p>
 </td>
 </tr>
 </table>

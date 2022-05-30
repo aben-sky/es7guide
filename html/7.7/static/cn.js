@@ -1330,8 +1330,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-metrics-percentile-rank-aggregation.html",
-                        "text": "Percentile Ranks Aggregation",
-                        "title": "Percentile Ranks Aggregation"
+                        "text": "percentile_ranks 聚合",
+                        "title": "percentile_ranks 聚合"
                     },
                     {
                         "url": "search-aggregations-metrics-scripted-metric-aggregation.html",

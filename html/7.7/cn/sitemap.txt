@@ -193,3 +193,4 @@ https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics-min-aggregation.htm
 https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics-median-absolute-deviation-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics-percentile-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics-percentile-rank-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics-scripted-metric-aggregation.html

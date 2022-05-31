@@ -1335,8 +1335,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-metrics-scripted-metric-aggregation.html",
-                        "text": "Scripted Metric Aggregation",
-                        "title": "Scripted Metric Aggregation"
+                        "text": "scripted_metric 聚合",
+                        "title": "scripted_metric 聚合"
                     },
                     {
                         "url": "search-aggregations-metrics-string-stats-aggregation.html",

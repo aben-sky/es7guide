@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Scripted Metric Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>scripted_metric 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,30 +32,30 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-metrics.html">Metrics Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-metrics.html">指标(metric)聚合</a></span>
 »
-<span class="breadcrumb-node">Scripted Metric Aggregation</span>
+<span class="breadcrumb-node">scripted_metric 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-metrics-percentile-rank-aggregation.html">« Percentile Ranks Aggregation</a>
+<a href="search-aggregations-metrics-percentile-rank-aggregation.html">« percentile_ranks 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-metrics-string-stats-aggregation.html">String Stats Aggregation »</a>
+<a href2="search-aggregations-metrics-string-stats-aggregation.html">String Stats Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-metrics-scripted-metric-aggregation"></a>Scripted Metric Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/scripted-metric-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-metrics-scripted-metric-aggregation"></a>scripted_metric 聚合
 </h2>
 </div></div></div>
-<p>A metric aggregation that executes using scripts to provide a metric output.</p>
-<p>Example:</p>
+<p>使用脚本执行以提供指标输出的指标聚合。</p>
+<p>示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST ledger/_search?size=0
 {
@@ -82,13 +82,13 @@
 <p><a href="#CO204-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">init_script</code> is an optional parameter, all other scripts are required.</p>
+<p><code class="literal">init_script</code> 是一个可选的参数，其他的脚本都是必需的。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>The above aggregation demonstrates how one would use the script aggregation compute the total profit from sale and cost transactions.</p>
-<p>The response for the above aggregation:</p>
+<p>上面的聚合演示了如何使用脚本聚合来计算销售和成本交易的总利润。</p>
+<p>其响应如下:</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     "took": 218,
@@ -100,7 +100,7 @@
    }
 }</pre>
 </div>
-<p>The above example can also be specified using stored scripts as follows:</p>
+<p>在上面的例子中也可以指定存储的脚本，如下所示:</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST ledger/_search?size=0
 {
@@ -135,33 +135,36 @@
 <p><a href="#CO205-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>script parameters for <code class="literal">init</code>, <code class="literal">map</code> and <code class="literal">combine</code> scripts must be specified
-in a global <code class="literal">params</code> object so that it can be shared between the scripts.</p>
+<p>
+<code class="literal">init</code>、<code class="literal">map</code> 和 <code class="literal">combine</code> 脚本的脚本参数必须在全局 <code class="literal">params</code> 对象中指定，以便可以在脚本之间共享。
+</p>
 </td>
 </tr>
 </table>
 </div>
-<p>For more details on specifying scripts see <a class="xref" href="modules-scripting.html" title="Scripting">script documentation</a>.</p>
+<p>有关指定脚本的更多详细信息，请参考<a class="xref" href="modules-scripting.html" title="Scripting">脚本文档</a>。</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="scripted-metric-aggregation-return-types"></a>Allowed return types<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/scripted-metric-aggregation.asciidoc">edit</a>
+<a id="scripted-metric-aggregation-return-types"></a>允许的返回类型
 </h3>
 </div></div></div>
-<p>Whilst any valid script object can be used within a single script, the scripts must return or store in the <code class="literal">state</code> object only the following types:</p>
+<p>
+虽然在单个脚本中可以使用任何有效的脚本对象，但是脚本必须在 <code class="literal">state</code> 对象中仅返回或存储以下类型：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-primitive types
+原始类型（primitive types）
 </li>
 <li class="listitem">
-String
+字符串（string）
 </li>
 <li class="listitem">
-Map (containing only keys and values of the types listed here)
+映射(map，仅包含此处列出的类型的键和值)
 </li>
 <li class="listitem">
-Array (containing elements of only the types listed here)
+数组(array，仅包含此处列出的类型的元素)
 </li>
 </ul>
 </div>
@@ -170,10 +173,10 @@ Array (containing elements of only the types listed here)
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="scripted-metric-aggregation-scope"></a>Scope of scripts<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/scripted-metric-aggregation.asciidoc">edit</a>
+<a id="scripted-metric-aggregation-scope"></a>脚本的范围
 </h3>
 </div></div></div>
-<p>The scripted metric aggregation uses scripts at 4 stages of its execution:</p>
+<p>脚本化指标聚合在其执行的 4 个阶段中使用脚本：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -183,9 +186,9 @@ init_script
 </dt>
 <dd>
 <p>
-Executed prior to any collection of documents. Allows the aggregation to set up any initial state.
+在收集任何文件之前执行。允许聚合设置任何初始状态。
 </p>
-<p>In the above example, the <code class="literal">init_script</code> creates an array <code class="literal">transactions</code> in the <code class="literal">state</code> object.</p>
+<p>在上面的例子中， <code class="literal">init_script</code> 在 <code class="literal">state</code> 对象中创建了一个数组 <code class="literal">transactions</code>。</p>
 </dd>
 <dt>
 <span class="term">
@@ -193,13 +196,14 @@ map_script
 </span>
 </dt>
 <dd>
+<p>每个收集的文档执行一次。这是一个必需的脚本。如果没有指定 <code class="literal">combine_script</code>，那么结果状态需要存储在 <code class="literal">state</code> 对象中。</p>
 <p>
-Executed once per document collected. This is a required script. If no combine_script is specified, the resulting state
-needs to be stored in the <code class="literal">state</code> object.
+在上面的示例中，<code class="literal">map_script</code> 检查 <code class="word">type</code> 字段的值。
+
+如果值为<em>sale</em>，则<code class="word">amount</code>字段的值将被添加到<code class="literal">transactions</code>数组中。
+
+如果 <code class="word">type</code> 字段的值不是<em>sale</em>，则将 <code class="word">amount</code> 字段取反的值添加到<code class="literal">transactions</code>中。
 </p>
-<p>In the above example, the <code class="literal">map_script</code> checks the value of the type field. If the value is <em>sale</em> the value of the amount field
-is added to the transactions array. If the value of the type field is not <em>sale</em> the negated value of the amount field is added
-to transactions.</p>
 </dd>
 <dt>
 <span class="term">
@@ -207,12 +211,8 @@ combine_script
 </span>
 </dt>
 <dd>
-<p>
-Executed once on each shard after document collection is complete. This is a required script. Allows the aggregation to
-consolidate the state returned from each shard.
-</p>
-<p>In the above example, the <code class="literal">combine_script</code> iterates through all the stored transactions, summing the values in the <code class="literal">profit</code> variable
-and finally returns <code class="literal">profit</code>.</p>
+<p>文档收集完成后，在每个分片上执行一次。这是一个必需的脚本。允许聚合合并从每个分片返回的状态。</p>
+<p>在上面的例子中，<code class="literal">combine_script</code> 遍历所有存储的<code class="literal">transactions</code>，对<code class="literal">profit</code>变量中的值求和，最后返回<code class="literal">profit</code>。</p>
 </dd>
 <dt>
 <span class="term">
@@ -221,12 +221,13 @@ reduce_script
 </dt>
 <dd>
 <p>
-Executed once on the coordinating node after all shards have returned their results. This is a required script. The
-script is provided with access to a variable <code class="literal">states</code> which is an array of the result of the combine_script on each
-shard.
+在所有分片返回结果后，在协调节点上执行一次。
+
+这是一个必需的脚本。
+
+该脚本提供了对变量 <code class="literal">states</code>的访问，该变量是每个分片上的 combine_script 结果的数组。
 </p>
-<p>In the above example, the <code class="literal">reduce_script</code> iterates through the <code class="literal">profit</code> returned by each shard summing the values before returning the
-final combined profit which will be returned in the response of the aggregation.</p>
+<p>在上面的例子中，<code class="literal">reduce_script</code> 遍历每个分片返回的 <code class="literal">profit</code>，对这些值求和，然后返回最终的组合的 profit(利润)，该利润将在聚合的响应中返回。</p>
 </dd>
 </dl>
 </div>
@@ -235,10 +236,10 @@ final combined profit which will be returned in the response of the aggregation.
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="scripted-metric-aggregation-example"></a>Worked example<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/scripted-metric-aggregation.asciidoc">edit</a>
+<a id="scripted-metric-aggregation-example"></a>工作示例
 </h3>
 </div></div></div>
-<p>Imagine a situation where you index the following documents into an index with 2 shards:</p>
+<p>设想这样一种情况，你将下面的文档索引到一个包含两个分片的索引中：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /transactions/_bulk?refresh
 {"index":{"_id":1}}
@@ -251,15 +252,18 @@ final combined profit which will be returned in the response of the aggregation.
 {"type": "sale","amount": 130}</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/384.console"></div>
-<p>Lets say that documents 1 and 3 end up on shard A and documents 2 and 4 end up on shard B. The following is a breakdown of what the aggregation result is
-at each stage of the example above.</p>
+<p>
+假设文档1和3最终在分片A上，文档2和4最终在分片B上。
+
+下面是上例中每个阶段的汇总结果。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_before_init_script"></a>Before init_script<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/scripted-metric-aggregation.asciidoc">edit</a>
+<a id="_before_init_script"></a>在 init_script 之前
 </h4>
 </div></div></div>
-<p><code class="literal">state</code> is initialized as a new empty object.</p>
+<p><code class="literal">state</code> 被初始化为一个新的空对象。</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">"state" : {}</pre>
 </div>
@@ -268,15 +272,15 @@ at each stage of the example above.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_after_init_script"></a>After init_script<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/scripted-metric-aggregation.asciidoc">edit</a>
+<a id="_after_init_script"></a>在 init_script 之后
 </h4>
 </div></div></div>
-<p>This is run once on each shard before any document collection is performed, and so we will have a copy on each shard:</p>
+<p>在执行任何文档收集之前，这将在每个分片上运行一次，因此我们将在每个分片上有一个副本：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-Shard A
+分片 A
 </span>
 </dt>
 <dd>
@@ -288,7 +292,7 @@ Shard A
 </dd>
 <dt>
 <span class="term">
-Shard B
+分片 B
 </span>
 </dt>
 <dd>
@@ -305,15 +309,15 @@ Shard B
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_after_map_script"></a>After map_script<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/scripted-metric-aggregation.asciidoc">edit</a>
+<a id="_after_map_script"></a>在 map_script 之后
 </h4>
 </div></div></div>
-<p>Each shard collects its documents and runs the map_script on each document that is collected:</p>
+<p>每个分片收集它的文档，并在收集的每个文档上运行 map_script：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-Shard A
+分片 A
 </span>
 </dt>
 <dd>
@@ -325,7 +329,7 @@ Shard A
 </dd>
 <dt>
 <span class="term">
-Shard B
+分片 B
 </span>
 </dt>
 <dd>
@@ -342,16 +346,16 @@ Shard B
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_after_combine_script"></a>After combine_script<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/scripted-metric-aggregation.asciidoc">edit</a>
+<a id="_after_combine_script"></a>在 combine_script 之后
 </h4>
 </div></div></div>
-<p>The combine_script is executed on each shard after document collection is complete and reduces all the transactions down to a single profit figure for each
-shard (by summing the values in the transactions array) which is passed back to the coordinating node:</p>
+<p>
+在文档收集完成后，在每个分片上执行 combine_script，并将所有 transactions 减少到每个分片的单个利润数字(通过对 transactions 数组中的值求和)，该数字被传递回协调节点：
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-Shard A
+分片 A
 </span>
 </dt>
 <dd>
@@ -359,7 +363,7 @@ Shard A
 </dd>
 <dt>
 <span class="term">
-Shard B
+分片 B
 </span>
 </dt>
 <dd>
@@ -372,18 +376,17 @@ Shard B
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_after_reduce_script"></a>After reduce_script<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/scripted-metric-aggregation.asciidoc">edit</a>
+<a id="_after_reduce_script"></a>在 reduce_script 之后
 </h4>
 </div></div></div>
-<p>The reduce_script receives a <code class="literal">states</code> array containing the result of the combine script for each shard:</p>
+<p>reduce_script 接收一个 <code class="literal">states</code> 数组，其中包含每个分片的组合脚本的结果：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">"states" : [
     50,
     120
 ]</pre>
 </div>
-<p>It reduces the responses for the shards down to a final overall profit figure (by summing the values) and returns this as the result of the aggregation to
-produce the response:</p>
+<p>它将分片的响应减少到最终的总利润<span class="remark">(profit)</span>数值(通过对这些值求和)，并将其作为聚合的结果返回，以生成响应：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
     ...
@@ -402,7 +405,7 @@ produce the response:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="scripted-metric-aggregation-parameters"></a>Other parameters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/scripted-metric-aggregation.asciidoc">edit</a>
+<a id="scripted-metric-aggregation-parameters"></a>其他参数
 </h3>
 </div></div></div>
 <div class="informaltable">
@@ -422,9 +425,13 @@ params
 <p>
 </p>
 <p>
-Optional. An object whose contents will be passed as variables to the  <code class="literal">init_script</code>, <code class="literal">map_script</code> and <code class="literal">combine_script</code>. This can be
-useful to allow the user to control the behavior of the aggregation and for storing state between the scripts. If this is not specified,
-the default is the equivalent of providing:
+可选的。 
+
+一个对象，其内容将作为变量传递给 <code class="literal">init_script</code>、<code class="literal">map_script</code> 和 <code class="literal">combine_script</code>。
+
+这对于允许用户控制聚合行为以及存储脚本之间的状态非常有用。
+
+如果未指定，默认情况下相当于指定了:
 </p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">"params" : {}</pre>
@@ -440,21 +447,25 @@ the default is the equivalent of providing:
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="scripted-metric-aggregation-empty-buckets"></a>Empty buckets<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/scripted-metric-aggregation.asciidoc">edit</a>
+<a id="scripted-metric-aggregation-empty-buckets"></a>空桶
 </h3>
 </div></div></div>
-<p>If a parent bucket of the scripted metric aggregation does not collect any documents an empty aggregation response will be returned from the
-shard with a <code class="literal">null</code> value. In this case the <code class="literal">reduce_script</code>'s <code class="literal">states</code> variable will contain <code class="literal">null</code> as a response from that shard.
-<code class="literal">reduce_script</code>'s should therefore expect and deal with <code class="literal">null</code> responses from shards.</p>
+<p>
+如果脚本化指标聚合的父桶没有收集任何文档，将从分片返回一个值为 <code class="literal">null</code> 的空聚合响应。
+
+在这种情况下，<code class="literal">reduce_script</code> 的 <code class="literal">states</code> 变量将包含 <code class="literal">null</code> 作为来自该分片的响应。
+
+因此，<code class="literal">reduce_script</code> 应该期望并处理来自分片的 <code class="literal">null</code> 响应。
+</p>
 </div>
 
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-metrics-percentile-rank-aggregation.html">« Percentile Ranks Aggregation</a>
+<a href="search-aggregations-metrics-percentile-rank-aggregation.html">« percentile_ranks 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-metrics-string-stats-aggregation.html">String Stats Aggregation »</a>
+<a href2="search-aggregations-metrics-string-stats-aggregation.html">String Stats Aggregation »</a>
 </span>
 </div>
 </div>

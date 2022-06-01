@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Top Hits Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>top_hit 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,36 +32,42 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-metrics.html">Metrics Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-metrics.html">指标(metric)聚合</a></span>
 »
-<span class="breadcrumb-node">Top Hits Aggregation</span>
+<span class="breadcrumb-node">top_hit 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-metrics-sum-aggregation.html">« Sum Aggregation</a>
+<a href="search-aggregations-metrics-sum-aggregation.html">« sum 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-metrics-top-metrics.html">Top Metrics Aggregation »</a>
+<a href2="search-aggregations-metrics-top-metrics.html">Top Metrics Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-metrics-top-hits-aggregation"></a>Top Hits Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/tophits-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-metrics-top-hits-aggregation"></a>top_hit 聚合
 </h2>
 </div></div></div>
-<p>A <code class="literal">top_hits</code> metric aggregator keeps track of the most relevant document being aggregated. This aggregator is intended
-to be used as a sub aggregator, so that the top matching documents can be aggregated per bucket.</p>
-<p>The <code class="literal">top_hits</code> aggregator can effectively be used to group result sets by certain fields via a bucket aggregator.
-One or more bucket aggregators determines by which properties a result set get sliced into.</p>
+<p>
+<code class="literal">top_hits</code> 指标聚合器跟踪被聚集的最相关的文档。
+
+这个聚合器被用作子聚合器，这样就可以对每个桶聚合最匹配的文档。  
+</p>
+<p>
+<code class="literal">top_hits</code> 聚合器可以有效地用于通过桶聚合器按特定字段对结果集进行分组。
+
+一个或多个桶聚合器决定了将结果集划分到哪些属性中。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_options_2"></a>Options<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/tophits-aggregation.asciidoc">edit</a>
+<a id="_options_2"></a>选项
 </h3>
 </div></div></div>
 <div class="ulist itemizedlist">
@@ -519,10 +525,10 @@ the second slow of the <code class="literal">nested_child_field</code> field:</p
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-metrics-sum-aggregation.html">« Sum Aggregation</a>
+<a href="search-aggregations-metrics-sum-aggregation.html">« sum 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-metrics-top-metrics.html">Top Metrics Aggregation »</a>
+<a href2="search-aggregations-metrics-top-metrics.html">Top Metrics Aggregation »</a>
 </span>
 </div>
 </div>

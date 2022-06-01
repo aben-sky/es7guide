@@ -1350,8 +1350,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-metrics-top-hits-aggregation.html",
-                        "text": "Top Hits Aggregation",
-                        "title": "Top Hits Aggregation"
+                        "text": "top_hit 聚合",
+                        "title": "top_hit 聚合"
                     },
                     {
                         "url": "search-aggregations-metrics-top-metrics.html",

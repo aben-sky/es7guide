@@ -1345,8 +1345,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-metrics-sum-aggregation.html",
-                        "text": "Sum Aggregation",
-                        "title": "Sum Aggregation"
+                        "text": "sum 聚合",
+                        "title": "sum 聚合"
                     },
                     {
                         "url": "search-aggregations-metrics-top-hits-aggregation.html",

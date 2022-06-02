@@ -73,13 +73,13 @@
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">from</code> - The offset from the first result you want to fetch.
+<code class="literal">from</code> - 要获取的第一个结果的偏移量。
 </li>
 <li class="listitem">
-<code class="literal">size</code> - The maximum number of top matching hits to return per bucket. By default the top three matching hits are returned.
+<code class="literal">size</code> - 每个桶返回的最大匹配命中数。默认情况下，会返回前3个匹配项。
 </li>
 <li class="listitem">
-<code class="literal">sort</code> - How the top matching hits should be sorted. By default the hits are sorted by the score of the main query.
+<code class="literal">sort</code> - 命中应该如何排序。默认情况下，命中按主查询的得分排序。
 </li>
 </ul>
 </div>
@@ -88,38 +88,38 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_supported_per_hit_features"></a>Supported per hit features<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/metrics/tophits-aggregation.asciidoc">edit</a>
+<a id="_supported_per_hit_features"></a>单次命中(per hit)支持的功能
 </h3>
 </div></div></div>
-<p>The top_hits aggregation returns regular search hits, because of this many per hit features can be supported:</p>
+<p>top_hits 聚合返回常规搜索命中，因为可以支持许多单次命中功能:</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<a class="xref" href="search-request-body.html#request-body-search-highlighting" title="Highlighting">Highlighting</a>
+<a class="xref" href="search-request-body.html#request-body-search-highlighting" title="Highlighting" rel="nofollow">高亮 (highlighting)</a>
 </li>
 <li class="listitem">
-<a class="xref" href="search-search.html#request-body-search-explain">Explain</a>
+<a class="xref" href="search-search.html#request-body-search-explain" rel="nofollow">解释 (explain)</a>
 </li>
 <li class="listitem">
-<a class="xref" href="search-request-body.html#request-body-search-queries-and-filters" title="Named Queries">Named filters and queries</a>
+<a class="xref" href="search-request-body.html#request-body-search-queries-and-filters" title="命名查询" rel="nofollow">命名过滤器和查询 (named filters and queries)</a>
 </li>
 <li class="listitem">
-<a class="xref" href="run-a-search.html#source-filtering" title="Source filtering">Source filtering</a>
+<a class="xref" href="run-a-search.html#source-filtering" title="源过滤" rel="nofollow">源过滤(source filtering)</a>
 </li>
 <li class="listitem">
-<a class="xref" href="search-request-body.html#request-body-search-stored-fields" title="Stored Fields">Stored fields</a>
+<a class="xref" href="search-request-body.html#request-body-search-stored-fields" title="存储的字段" rel="nofollow">存储的字段 (stored fields)</a>
 </li>
 <li class="listitem">
-<a class="xref" href="search-request-body.html#request-body-search-script-fields" title="Script Fields">Script fields</a>
+<a class="xref" href="search-request-body.html#request-body-search-script-fields" title="脚本字段" rel="nofollow">脚本字段(script fields)</a>
 </li>
 <li class="listitem">
-<a class="xref" href="run-a-search.html#docvalue-fields" title="Doc value fields">Doc value fields</a>
+<a class="xref" href="run-a-search.html#docvalue-fields" title="文档值字段" rel="nofollow">文档值字段(doc value fields)</a>
 </li>
 <li class="listitem">
-<a class="xref" href="search-search.html#request-body-search-version">Include versions</a>
+<a class="xref" href="search-search.html#request-body-search-version" rel="nofollow">包含版本(include versions)</a>
 </li>
 <li class="listitem">
-<a class="xref" href="search-search.html#request-body-search-seq-no-primary-term">Include Sequence Numbers and Primary Terms</a>
+<a class="xref" href="search-search.html#request-body-search-seq-no-primary-term">包含序列号和主词(include Sequence Numbers and Primary Terms)</a>
 </li>
 </ul>
 </div>

@@ -102,7 +102,7 @@ POST /test/_search?filter_path=aggregations
 <p>
 指标请求中的 <code class="literal">sort</code> 字段与 <a class="xref" href="search-request-body.html#request-body-search-sort" title="sort" rel="nofollow">search</a> 请求中的 <code class="literal">sort</code> 字段功能完全相同，除了：
 
-* 它不能用于 <a class="xref" href="binary.html" title="Binary datatype">binary</a>、<a class="xref" href="flattened.html" title="Flattened datatype">flattened</a>、<a class="xref" href="ip.html" title="IP datatype">ip</a>、<a class="xref" href="keyword.html" title="Keyword datatype">keyword</a> 和 <a class="xref" href="text.html" title="Text datatype">text</a> 字段。
+* 它不能用于 <a class="xref" href="binary.html" title="binary 数据类型" rel="nofollow">binary</a>、<a class="xref" href="flattened.html" title="flattened 数据类型" rel="nofollow">flattened</a>、<a class="xref" href="ip.html" title="ip 数据类型" rel="nofollow">ip</a>、<a class="xref" href="keyword.html" title="keyword 数据类型" rel="nofollow">keyword</a> 和 <a class="xref" href="text.html" title="text 数据类型" rel="nofollow">text</a> 字段。
 
 * 它只支持单个 排序(sort) 值，因此当排序值相同时无法区分哪个在前。
 </p>
@@ -191,7 +191,7 @@ POST /test/_search?filter_path=aggregations
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/402.console"></div>
-<p>它将返回:</p>
+<p>它返回:</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
   "aggregations": {

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Bucket Aggregations | ElasticSearch 7.7 权威指南中文版</title>
+	<title>桶(bucket)聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,42 +32,53 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-node">Bucket Aggregations</span>
+<span class="breadcrumb-node">桶(bucket)聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-metrics-valuecount-aggregation.html">« Value Count Aggregation</a>
+<a href="search-aggregations-metrics-valuecount-aggregation.html">« value_count 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-adjacency-matrix-aggregation.html">Adjacency Matrix Aggregation »</a>
+<a href2="search-aggregations-bucket-adjacency-matrix-aggregation.html">Adjacency Matrix Aggregation »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-bucket"></a>Bucket Aggregations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket.asciidoc">edit</a>
+<a id="search-aggregations-bucket"></a>桶(bucket)聚合<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>Bucket aggregations don’t calculate metrics over fields like the metrics aggregations do, but instead, they create
-buckets of documents. Each bucket is associated with a criterion (depending on the aggregation type) which determines
-whether or not a document in the current context "falls" into it. In other words, the buckets effectively define document
-sets. In addition to the buckets themselves, the <code class="literal">bucket</code> aggregations also compute and return the number of documents
-that "fell into" each bucket.</p>
-<p>Bucket aggregations, as opposed to <code class="literal">metrics</code> aggregations, can hold sub-aggregations. These sub-aggregations will be
-aggregated for the buckets created by their "parent" bucket aggregation.</p>
-<p>There are different bucket aggregators, each with a different "bucketing" strategy. Some define a single bucket, some
-define fixed number of multiple buckets, and others dynamically create the buckets during the aggregation process.</p>
+<p>
+桶(bucket)聚合不像指标(metrics)聚合那样计算字段的指标，而是创建文档的桶。
+
+每个桶都与一个标准(取决于聚合类型)相关联，该标准确定当前上下文中的文档是否“落入”该桶中。
+
+换句话说，桶有效地定义了文档的集合。
+
+除了桶本身，<code class="literal">bucket</code> 聚合还计算并返回“落入”每个桶的文档数量。
+</p>
+<p>
+与 <code class="literal">metrics</code> 聚合相反，桶聚合可以包含子聚合。
+
+这些子聚合将为它们的“父”桶聚合创建的桶进行聚合。  
+</p>
+<p>
+有各种不同的桶聚合器，每个都有不同的“分桶”策略。
+
+有些定义单个桶，有些定义固定数量的多个桶，还有一些在聚合过程中动态创建桶。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The maximum number of buckets allowed in a single response is limited by a
-dynamic cluster setting named
-<a class="xref" href="search-settings.html#search-settings-max-buckets"><code class="literal">search.max_buckets</code></a>. It defaults to 10,000,
-requests that try to return more than the limit will fail with an exception.</p>
+<p>
+单个响应中允许的最大的桶数受动态集群设置 <a class="xref" href="search-settings.html#search-settings-max-buckets"><code class="literal">search.max_buckets</code></a> 的限制。
+
+它默认为 10,000，尝试返回超过此限制的请求将会失败并抛出异常。
+</p>
 </div>
 </div>
 
@@ -99,10 +110,10 @@ requests that try to return more than the limit will fail with an exception.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-metrics-valuecount-aggregation.html">« Value Count Aggregation</a>
+<a href="search-aggregations-metrics-valuecount-aggregation.html">« value_count 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-adjacency-matrix-aggregation.html">Adjacency Matrix Aggregation »</a>
+<a href2="search-aggregations-bucket-adjacency-matrix-aggregation.html">Adjacency Matrix Aggregation »</a>
 </span>
 </div>
 </div>

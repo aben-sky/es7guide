@@ -1367,8 +1367,8 @@ var esNavLinks = [
             },
             {
                 "url": "search-aggregations-bucket.html",
-                "text": "Bucket Aggregations",
-                "title": "Bucket Aggregations",
+                "text": "桶(bucket)聚合",
+                "title": "桶(bucket)聚合",
                 "sub": [
                     {
                         "url": "search-aggregations-bucket-adjacency-matrix-aggregation.html",

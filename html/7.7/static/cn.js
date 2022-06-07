@@ -1355,13 +1355,13 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-metrics-top-metrics.html",
-                        "text": "Top Metrics Aggregation",
-                        "title": "Top Metrics Aggregation"
+                        "text": "top_metrics 聚合",
+                        "title": "top_metrics 聚合"
                     },
                     {
                         "url": "search-aggregations-metrics-valuecount-aggregation.html",
-                        "text": "Value Count Aggregation",
-                        "title": "Value Count Aggregation"
+                        "text": "value_count 聚合",
+                        "title": "value_count 聚合"
                     }
                 ]
             },

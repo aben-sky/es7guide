@@ -197,3 +197,5 @@ https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics-scripted-metric-agg
 https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics-string-stats-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics-sum-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics-top-hits-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics-top-metrics.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics-valuecount-aggregation.html

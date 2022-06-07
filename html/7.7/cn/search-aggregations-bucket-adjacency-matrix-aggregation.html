@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Adjacency Matrix Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>adjacency_matrix 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,33 +32,36 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">Bucket Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">桶(bucket)聚合</a></span>
 »
-<span class="breadcrumb-node">Adjacency Matrix Aggregation</span>
+<span class="breadcrumb-node">adjacency_matrix 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-bucket.html">« Bucket Aggregations</a>
+<a href="search-aggregations-bucket.html">« 桶(bucket)聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-autodatehistogram-aggregation.html">Auto-interval Date Histogram Aggregation »</a>
+<a href2="search-aggregations-bucket-autodatehistogram-aggregation.html">Auto-interval Date Histogram Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-bucket-adjacency-matrix-aggregation"></a>Adjacency Matrix Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/adjacency-matrix-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-adjacency-matrix-aggregation"></a>adjacency_matrix 聚合
 </h2>
 </div></div></div>
-<p>A bucket aggregation returning a form of <a href="https://en.wikipedia.org/wiki/Adjacency_matrix" class="ulink" target="_top">adjacency matrix</a>.
-The request provides a collection of named filter expressions, similar to the <code class="literal">filters</code> aggregation
-request.
-Each bucket in the response represents a non-empty cell in the matrix of intersecting filters.</p>
-<p>Given filters named <code class="literal">A</code>, <code class="literal">B</code> and <code class="literal">C</code> the response would return buckets with the following names:</p>
+<p>
+返回<a href="https://en.wikipedia.org/wiki/Adjacency_matrix" class="ulink" target="_top">邻接矩阵(adjacency matrix)</a>形式的桶聚合。
+
+该请求提供了命名过滤器表达式的集合，类似于 <code class="literal">filters</code> 聚合请求。
+
+响应中的每个桶代表交叉过滤器矩阵中的一个非空单元。
+</p>
+<p>给定名为<code class="literal">A</code>、<code class="literal">B</code> 和 <code class="literal">C</code>的过滤器，响应将返回具有以下名称的桶:</p>
 <div class="informaltable">
 <table border="1" cellpadding="4px">
 <colgroup>
@@ -97,13 +100,19 @@ Each bucket in the response represents a non-empty cell in the matrix of interse
 </tbody>
 </table>
 </div>
-<p>The intersecting buckets e.g <code class="literal">A&amp;C</code> are labelled using a combination of the two filter names separated by
-the ampersand character. Note that the response does not also include a "C&amp;A" bucket as this would be the
-same set of documents as "A&amp;C". The matrix is said to be <em>symmetric</em> so we only return half of it. To do this we sort
-the filter name strings and always use the lowest of a pair as the value to the left of the "&amp;" separator.</p>
-<p>An alternative <code class="literal">separator</code> parameter can be passed in the request if clients wish to use a separator string
-other than the default of the ampersand.</p>
-<p>Example:</p>
+<p>
+交叉的桶(例如 <code class="literal">A&amp;C</code>)使用由 & 符号分隔的两个过滤器名称的组合来标记。
+
+请注意，响应不包括“C&A”桶，因为这是与“A&C”相同的一组文档。
+
+因为矩阵是<em>对称的(symmetric)</em>，所以我们只返回它的一半。
+
+为此，我们对过滤器名称字符串进行排序，并始终使用一对名称中最小的一个作为"&amp;"分隔符左侧的值。
+</p>
+<p>
+如果客户端希望使用默认的&符号之外的分隔符字符串，可以在请求中传递一个替代的 <code class="literal">separator</code>参数。
+</p>
+<p>示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /emails/_bulk?refresh
 { "index" : { "_id" : 1 } }
@@ -130,11 +139,12 @@ GET emails/_search
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/412.console"></div>
-<p>In the above example, we analyse email messages to see which groups of individuals
-have exchanged messages.
-We will get counts for each group individually and also a count of messages for pairs
-of groups that have recorded interactions.</p>
-<p>Response:</p>
+<p>
+在上面的例子中，我们分析了 email 消息，以查看哪些组的个人交换了消息。
+
+我们将获得每个组的单独计数，以及记录了交互的组对的消息计数。
+</p>
+<p>响应:</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   "took": 9,
@@ -172,33 +182,36 @@ of groups that have recorded interactions.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_usage"></a>Usage<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/adjacency-matrix-aggregation.asciidoc">edit</a>
+<a id="_usage"></a>使用
 </h3>
 </div></div></div>
-<p>On its own this aggregation can provide all of the data required to create an undirected weighted graph.
-However, when used with child aggregations such as a <code class="literal">date_histogram</code> the results can provide the
-additional levels of data required to perform <a href="https://en.wikipedia.org/wiki/Dynamic_network_analysis" class="ulink" target="_top">dynamic network analysis</a>
-where examining interactions <em>over time</em> becomes important.</p>
+<p>
+这种聚合本身可以提供创建无向加权图所需的所有数据。
+
+但是，当与子聚合(如<code class="literal">date_histogram</code>)一起使用时，结果可以提供执行<a href="https://en.wikipedia.org/wiki/Dynamic_network_analysis" class="ulink" target="_top">动态网络分析</a>所需的额外级别的数据，在这种情况下，检查<em>一段时间内</em>的交互变得非常重要。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_limitations_2"></a>Limitations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/adjacency-matrix-aggregation.asciidoc">edit</a>
+<a id="_limitations_2"></a>Limitations
 </h3>
 </div></div></div>
-<p>For N filters the matrix of buckets produced can be N²/2 and so there is a default maximum
-imposed of 100 filters . This setting can be changed using the <code class="literal">index.max_adjacency_matrix_filters</code> index-level setting
-(note this setting is deprecated and will be removed in 8.0+).</p>
+<p>
+对于N个过滤器，其所产生的桶的矩阵可以是 N²/2，因此存在100个过滤器的默认最大值。
+
+这个设置可以通过修改索引级别的设置 <code class="literal">index.max_adjacency_matrix_filters</code> 来改变(注意：这个设置将在 8.0版本后废除)。
+</p>
 </div>
 
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-bucket.html">« Bucket Aggregations</a>
+<a href="search-aggregations-bucket.html">« 桶(bucket)聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-autodatehistogram-aggregation.html">Auto-interval Date Histogram Aggregation »</a>
+<a href2="search-aggregations-bucket-autodatehistogram-aggregation.html">Auto-interval Date Histogram Aggregation »</a>
 </span>
 </div>
 </div>

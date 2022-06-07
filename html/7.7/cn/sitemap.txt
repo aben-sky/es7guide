@@ -199,3 +199,5 @@ https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics-sum-aggregation.htm
 https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics-top-hits-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics-top-metrics.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-metrics-valuecount-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-adjacency-matrix-aggregation.html

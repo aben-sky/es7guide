@@ -1372,8 +1372,8 @@ var esNavLinks = [
                 "sub": [
                     {
                         "url": "search-aggregations-bucket-adjacency-matrix-aggregation.html",
-                        "text": "Adjacency Matrix Aggregation",
-                        "title": "Adjacency Matrix Aggregation"
+                        "text": "adjacency_matrix 聚合",
+                        "title": "adjacency_matrix 聚合"
                     },
                     {
                         "url": "search-aggregations-bucket-autodatehistogram-aggregation.html",

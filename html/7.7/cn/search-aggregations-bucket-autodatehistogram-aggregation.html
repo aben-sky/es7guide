@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Auto-interval Date Histogram Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>auto_date_histogram 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,34 +32,37 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">Bucket Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">桶(bucket)聚合</a></span>
 »
-<span class="breadcrumb-node">Auto-interval Date Histogram Aggregation</span>
+<span class="breadcrumb-node">auto_date_histogram 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-bucket-adjacency-matrix-aggregation.html">« Adjacency Matrix Aggregation</a>
+<a href="search-aggregations-bucket-adjacency-matrix-aggregation.html">« adjacency_matrix 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-children-aggregation.html">Children Aggregation »</a>
+<a href2="search-aggregations-bucket-children-aggregation.html">Children Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-bucket-autodatehistogram-aggregation"></a>Auto-interval Date Histogram Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/autodatehistogram-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-autodatehistogram-aggregation"></a>自动间隔的日期直方图(auto_date_histogram)聚合
 </h2>
 </div></div></div>
-<p>A multi-bucket aggregation similar to the <a class="xref" href="search-aggregations-bucket-datehistogram-aggregation.html" title="Date histogram aggregation">Date histogram aggregation</a> except
-instead of providing an interval to use as the width of each bucket, a target number of buckets is provided
-indicating the number of buckets needed and the interval of the buckets is automatically chosen to best achieve
-that target. The number of buckets returned will always be less than or equal to this target number.</p>
-<p>The buckets field is optional, and will default to 10 buckets if not specified.</p>
-<p>Requesting a target of 10 buckets.</p>
+<p>
+一个类似于<a class="xref" href="search-aggregations-bucket-datehistogram-aggregation.html" title="日期直方图聚合" rel="nofollow">日期直方图聚合</a>的多桶聚合，但不是靠给定的 间隔(interval) 来作为每个桶的宽度，而是给定目标桶的数量来指示所需的桶数，并且自动选择桶的间隔以用最好的方式来实现该目标。
+
+返回的桶数将始终小于或等于该目标数。
+</p>
+<p>
+buckets 字段是可选的，如果未指定，将默认为 10 个桶。
+</p>
+<p>以10个桶为目标进行请求。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search?size=0
 {
@@ -77,18 +80,22 @@ that target. The number of buckets returned will always be less than or equal to
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_keys"></a>Keys<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/autodatehistogram-aggregation.asciidoc">edit</a>
+<a id="_keys"></a>键(key)
 </h3>
 </div></div></div>
-<p>Internally, a date is represented as a 64 bit number representing a timestamp
-in milliseconds-since-the-epoch. These timestamps are returned as the bucket
-<code class="literal">key</code>s. The <code class="literal">key_as_string</code> is the same timestamp converted to a formatted
-date string using the format specified with the <code class="literal">format</code> parameter:</p>
+<p>
+在内部，一个日期被表示为一个64位的数字-一个时间戳，以毫秒为单位。
+
+这些时间戳作为桶的<code class="literal">键(key)</code>返回。
+
+<code class="literal">key_as_string</code> 是使用 <code class="literal">format</code> 参数指定的格式(format)转换为格式化的日期字符串的相同时间戳:
+</p>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If no <code class="literal">format</code> is specified, then it will use the first date
-<a class="xref" href="mapping-date-format.html" title="format">format</a> specified in the field mapping.</p>
+<p>
+如果未指定 <code class="literal">format</code>(格式)，则它将使用字段映射中指定的第一个日期 <a class="xref" href="mapping-date-format.html" title="格式" rel="nofollow">格式(format)</a>。
+</p>
 </div>
 </div>
 <div class="pre_wrapper lang-console">
@@ -113,12 +120,14 @@ date string using the format specified with the <code class="literal">format</co
 <p><a href="#CO210-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Supports expressive date <a class="xref" href="search-aggregations-bucket-daterange-aggregation.html#date-format-pattern" title="Date Format/Pattern">format pattern</a></p>
+<p>
+支持表达性的日期 <a class="xref" href="search-aggregations-bucket-daterange-aggregation.html#date-format-pattern" title="Date Format/Pattern" rel="nofollow">格式模式</a>
+</p>
 </td>
 </tr>
 </table>
 </div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -151,12 +160,14 @@ date string using the format specified with the <code class="literal">format</co
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_intervals"></a>Intervals<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/autodatehistogram-aggregation.asciidoc">edit</a>
+<a id="_intervals"></a>间隔(interval)
 </h3>
 </div></div></div>
-<p>The interval of the returned buckets is selected based on the data collected by the
-aggregation so that the number of buckets returned is less than or equal to the number
-requested. The possible intervals returned are:</p>
+<p>
+基于聚合收集的数据选择返回桶的间隔，使得返回的桶的数量小于或等于请求的数量。
+
+返回的间隔可能是：
+</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -172,7 +183,7 @@ seconds
 </td>
 <td valign="top">
 <p>
-In multiples of 1, 5, 10 and 30
+以1、5、10和30的倍数
 </p>
 </td>
 </tr>
@@ -184,7 +195,7 @@ minutes
 </td>
 <td valign="top">
 <p>
-In multiples of 1, 5, 10 and 30
+以1、5、10和30的倍数
 </p>
 </td>
 </tr>
@@ -196,7 +207,7 @@ hours
 </td>
 <td valign="top">
 <p>
-In multiples of 1, 3 and 12
+以1、3和12的倍数
 </p>
 </td>
 </tr>
@@ -208,7 +219,7 @@ days
 </td>
 <td valign="top">
 <p>
-In multiples of 1, and 7
+以1和7的倍数
 </p>
 </td>
 </tr>
@@ -220,7 +231,7 @@ months
 </td>
 <td valign="top">
 <p>
-In multiples of 1, and 3
+以1和3的倍数
 </p>
 </td>
 </tr>
@@ -232,30 +243,32 @@ years
 </td>
 <td valign="top">
 <p>
-In multiples of 1, 5, 10, 20, 50 and 100
+以1、5、10、20、50和100的倍数
 </p>
 </td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>In the worst case, where the number of daily buckets are too many for the requested
-number of buckets, the number of buckets returned will be 1/7th of the number of
-buckets requested.</p>
+<p>在最坏的情况下，对于请求的桶数，每日桶数太多，返回的桶数将是请求的桶数的1/7。</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_time_zone"></a>Time Zone<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/autodatehistogram-aggregation.asciidoc">edit</a>
+<a id="_time_zone"></a>时区(time zone)
 </h3>
 </div></div></div>
-<p>Date-times are stored in Elasticsearch in UTC.  By default, all bucketing and
-rounding is also done in UTC. The <code class="literal">time_zone</code> parameter can be used to indicate
-that bucketing should use a different time zone.</p>
-<p>Time zones may either be specified as an ISO 8601 UTC offset (e.g. <code class="literal">+01:00</code> or
-<code class="literal">-08:00</code>)  or as a timezone id, an identifier used in the TZ database like
-<code class="literal">America/Los_Angeles</code>.</p>
+<p>
+日期时间以 UTC 存储在 Elasticsearch 中。
+
+默认情况下，所有的分桶和舍入也在 UTC 中完成。
+
+<code class="literal">time_zone</code> 参数可用于指示分桶时应该使用不同的时区。
+</p>
+<p>
+时区可以指定为 ISO 8601 UTC 时差(例如<code class="literal">+01:00</code> 或 <code class="literal">-08:00</code>)，也可以指定为时区id(在TZ数据库中使用的标识符)，比如<code class="literal">America/Los_Angeles</code>。
+</p>
 <p>Consider the following example:</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index/log/1?refresh
@@ -492,10 +505,10 @@ had a value.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-bucket-adjacency-matrix-aggregation.html">« Adjacency Matrix Aggregation</a>
+<a href="search-aggregations-bucket-adjacency-matrix-aggregation.html">« adjacency_matrix 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-children-aggregation.html">Children Aggregation »</a>
+<a href2="search-aggregations-bucket-children-aggregation.html">Children Aggregation »</a>
 </span>
 </div>
 </div>

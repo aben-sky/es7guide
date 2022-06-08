@@ -1377,8 +1377,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-bucket-autodatehistogram-aggregation.html",
-                        "text": "Auto-interval Date Histogram Aggregation",
-                        "title": "Auto-interval Date Histogram Aggregation"
+                        "text": "auto_date_histogram 聚合",
+                        "title": "auto_date_histogram 聚合"
                     },
                     {
                         "url": "search-aggregations-bucket-children-aggregation.html",

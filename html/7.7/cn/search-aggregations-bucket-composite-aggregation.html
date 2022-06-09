@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Composite aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>composite 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,45 +32,45 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">Bucket Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">桶(bucket)聚合</a></span>
 »
-<span class="breadcrumb-node">Composite aggregation</span>
+<span class="breadcrumb-node">composite 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-bucket-children-aggregation.html">« Children Aggregation</a>
+<a href="search-aggregations-bucket-children-aggregation.html">« children 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-datehistogram-aggregation.html">Date histogram aggregation »</a>
+<a href2="search-aggregations-bucket-datehistogram-aggregation.html">Date histogram aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-bucket-composite-aggregation"></a>Composite aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/composite-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-composite-aggregation"></a>复合(composite)聚合
 </h2>
 </div></div></div>
-<p>A multi-bucket aggregation that creates composite buckets from different sources.</p>
-<p>Unlike the other <code class="literal">multi-bucket</code> aggregation the <code class="literal">composite</code> aggregation can be used
-to paginate <span class="strong strong"><strong>all</strong></span> buckets from a multi-level aggregation efficiently. This aggregation
-provides a way to stream <span class="strong strong"><strong>all</strong></span> buckets of a specific aggregation similarly to what
-<a class="xref" href="search-request-body.html#request-body-search-scroll" title="Scroll">scroll</a> does for documents.</p>
-<p>The composite buckets are built from the combinations of the
-values extracted/created for each document and each combination is considered as
-a composite bucket.</p>
-<p>For instance the following document:</p>
+<p>一个多桶(multi-bucket)聚合，从不同来源创建复合桶。</p>
+<p>
+与其他<code class="literal">多桶(multi-bucket)</code>聚合不同，<code class="literal">composite</code> 聚合可用于高效地对多级聚合中的<span class="strong strong"><strong>所有</strong></span>桶进行分页。
+
+这种聚合提供了一种方法，类似于 <a class="xref" href="search-request-body.html#request-body-search-scroll" title="scroll" rel="nofollow">scroll</a> 对文档所做的那样，对特定聚合的所有桶进行流式处理。
+</p>
+<p>复合桶是从为每个文档提取/创建的值的组合中构建的，并且每个组合被认为是一个复合桶。</p>
+<p>比如下面的文档：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
     "keyword": ["foo", "bar"],
     "number": [23, 65, 76]
 }</pre>
 </div>
-<p>... creates the following composite buckets when <code class="literal">keyword</code> and <code class="literal">number</code> are used as values source
-for the aggregation:</p>
+<p>
+... 当<code class="literal">keyword</code> 和 <code class="literal">number</code>用作聚合的值的来源时，创建以下复合桶：
+</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{ "keyword": "foo", "number": 23 }
 { "keyword": "foo", "number": 65 }
@@ -82,23 +82,28 @@ for the aggregation:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_values_source_2"></a>Values source<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/composite-aggregation.asciidoc">edit</a>
+<a id="_values_source_2"></a>值的来源<span class="remark">(value source)</span>
 </h3>
 </div></div></div>
-<p>The <code class="literal">sources</code> parameter controls the sources that should be used to build the composite buckets.
-The order that the <code class="literal">sources</code> are defined is important because it also controls the order
-the keys are returned.</p>
-<p>The name given to each sources must be unique.</p>
-<p>There are three different types of values source:</p>
+<p>
+参数 <code class="literal">sources</code> 控制应该用于构建复合桶的源。
+
+定义 <code class="literal">sources</code> 的顺序很重要，因为它也控制着 key 的返回顺序。
+</p>
+<p>每个源的名称必须是唯一的。</p>
+<p>值的来源有三种不同类型：</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_terms"></a>Terms<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/composite-aggregation.asciidoc">edit</a>
+<a id="_terms"></a>terms <span class="remark">（词项）</span>
 </h4>
 </div></div></div>
-<p>The <code class="literal">terms</code> value source is equivalent to a simple <code class="literal">terms</code> aggregation.
-The values are extracted from a field or a script exactly like the <code class="literal">terms</code> aggregation.</p>
-<p>Example:</p>
+<p>
+<code class="literal">terms</code> 值来源相当于一个简单的 <code class="literal">terms</code> 集合。
+
+这些值是从字段或脚本中提取的，就像 <code class="literal">terms</code> 聚合一样。
+</p>
+<p>例如：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -115,7 +120,7 @@ The values are extracted from a field or a script exactly like the <code class="
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/423.console"></div>
-<p>Like the <code class="literal">terms</code> aggregation it is also possible to use a script to create the values for the composite buckets:</p>
+<p>与 <code class="literal">terms</code> 聚合一样，也可以使用脚本来创建复合桶的值：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -146,14 +151,17 @@ The values are extracted from a field or a script exactly like the <code class="
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_histogram"></a>Histogram<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/composite-aggregation.asciidoc">edit</a>
+<a id="_histogram"></a>histogram <span class="remark">（直方图）</span>
 </h4>
 </div></div></div>
-<p>The <code class="literal">histogram</code> value source can be applied on numeric values to build fixed size
-interval over the values. The <code class="literal">interval</code> parameter defines how the numeric values should be
-transformed. For instance an <code class="literal">interval</code> set to 5 will translate any numeric values to its closest interval,
-a value of <code class="literal">101</code> would be translated to <code class="literal">100</code> which is the key for the interval between 100 and 105.</p>
-<p>Example:</p>
+<p>
+<code class="literal">histogram</code> 值来源可应用于数值，以在这些值上构建固定大小的间隔。
+
+参数 <code class="literal">interval</code> 定义应该如何转换数值。
+
+例如， <code class="literal">interval</code> 设置为 5 会将任何数值转换为最接近 5 的间隔，值 <code class="literal">101</code> 会转换为 <code class="literal">100</code>，因为 101 在间隔 100 和 105 之间。
+</p>
+<p>例如：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -170,7 +178,7 @@ a value of <code class="literal">101</code> would be translated to <code class="
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/425.console"></div>
-<p>The values are built from a numeric field or a script that return numerical values:</p>
+<p>这些值由 numeric(数值)字段或返回数值的脚本构建而成：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -202,11 +210,10 @@ a value of <code class="literal">101</code> would be translated to <code class="
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_date_histogram"></a>Date histogram<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/composite-aggregation.asciidoc">edit</a>
+<a id="_date_histogram"></a>date histogram <span class="remark">(日期直方图)</span>
 </h4>
 </div></div></div>
-<p>The <code class="literal">date_histogram</code> is similar to the <code class="literal">histogram</code> value source except that the interval
-is specified by date/time expression:</p>
+<p><code class="literal">date_histogram</code>值源类似于 <code class="literal">histogram</code>，只是它的时间间隔是由日期/时间表达式指定的：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -223,15 +230,25 @@ is specified by date/time expression:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/427.console"></div>
-<p>The example above creates an interval per day and translates all <code class="literal">timestamp</code> values to the start of its closest intervals.
-Available expressions for interval: <code class="literal">year</code>, <code class="literal">quarter</code>, <code class="literal">month</code>, <code class="literal">week</code>, <code class="literal">day</code>, <code class="literal">hour</code>, <code class="literal">minute</code>, <code class="literal">second</code></p>
-<p>Time values can also be specified via abbreviations supported by <a class="xref" href="common-options.html#time-units" title="Time units">time units</a> parsing.
-Note that fractional time values are not supported, but you can address this by shifting to another
-time unit (e.g., <code class="literal">1.5h</code> could instead be specified as <code class="literal">90m</code>).</p>
-<p><span class="strong strong"><strong>Format</strong></span></p>
-<p>Internally, a date is represented as a 64 bit number representing a timestamp in milliseconds-since-the-epoch.
-These timestamps are returned as the bucket keys. It is possible to return a formatted date string instead using
-the format specified with the format parameter:</p>
+<p>
+上面的示例创建了一个每天的时间间隔，并将所有 <code class="literal">timestamp</code> 值转换为最接近的时间间隔的开始。
+
+间隔的可用表达式有：<code class="literal">year</code>、<code class="literal">quarter</code>, <code class="literal">month</code>、<code class="literal">week</code>、<code class="literal">day</code>、<code class="literal">hour</code>、<code class="literal">minute</code>、<code class="literal">second</code>。
+</p>
+<p>
+时间值也可以通过<a class="xref" href="common-options.html#time-units" title="Time units" rel="nofollow">时间单位(time units)</a>解析支持的缩写来指定。
+
+请注意，不支持带小数点的时间值，但是你可以通过转换到另一个时间单位来解决这个问题(例如，可以将<code class="literal">1.5h</code>指定为<code class="literal">90m</code>)。
+</p>
+<p>&nbsp;</p>
+<p><span class="strong strong"><strong>format</strong></span></p>
+<p>
+在内部，一个日期被表示为一个64位的数字-一个时间戳，以毫秒为单位。 
+
+这些时间戳作为桶的 key 返回。
+
+可以使用参数<code class="literal">format</code>指定的格式返回格式化的日期字符串：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -263,18 +280,22 @@ the format specified with the format parameter:</p>
 <p><a href="#CO215-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Supports expressive date <a class="xref" href="search-aggregations-bucket-daterange-aggregation.html#date-format-pattern" title="Date Format/Pattern">format pattern</a></p>
+<p>支持<a class="xref" href="search-aggregations-bucket-daterange-aggregation.html#date-format-pattern" title="date 格式/模式" rel="nofollow">日期格式/模式</a>表达式</p>
 </td>
 </tr>
 </table>
 </div>
-<p><span class="strong strong"><strong>Time Zone</strong></span></p>
-<p>Date-times are stored in Elasticsearch in UTC.  By default, all bucketing and
-rounding is also done in UTC. The <code class="literal">time_zone</code> parameter can be used to indicate
-that bucketing should use a different time zone.</p>
-<p>Time zones may either be specified as an ISO 8601 UTC offset (e.g. <code class="literal">+01:00</code> or
-<code class="literal">-08:00</code>)  or as a timezone id, an identifier used in the TZ database like
-<code class="literal">America/Los_Angeles</code>.</p>
+<p><span class="strong strong"><strong>时区</strong></span></p>
+<p>
+日期时间以 UTC 存储在 Elasticsearch 中。
+
+默认情况下，所有的分桶和舍入也在 UTC 中完成。
+
+<code class="literal">time_zone</code> 参数可用于指示分桶时应该使用不同的时区。
+</p>
+<p>
+时区可以指定为 ISO 8601 UTC 时差(例如<code class="literal">+01:00</code> 或 <code class="literal">-08:00</code>)，也可以指定为时区id(在TZ数据库中使用的标识符)，比如<code class="literal">America/Los_Angeles</code>。
+</p>
 <p><span class="strong strong"><strong>Offset</strong></span></p>
 <p>Use the <code class="literal">offset</code> parameter to change the start value of each bucket by the
 specified positive (<code class="literal">+</code>) or negative offset (<code class="literal">-</code>) duration, such as <code class="literal">1h</code> for
@@ -863,10 +884,10 @@ account a "partial" result on that page.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-bucket-children-aggregation.html">« Children Aggregation</a>
+<a href="search-aggregations-bucket-children-aggregation.html">« children 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-datehistogram-aggregation.html">Date histogram aggregation »</a>
+<a href2="search-aggregations-bucket-datehistogram-aggregation.html">Date histogram aggregation »</a>
 </span>
 </div>
 </div>

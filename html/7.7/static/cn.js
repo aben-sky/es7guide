@@ -1382,8 +1382,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-bucket-children-aggregation.html",
-                        "text": "Children Aggregation",
-                        "title": "Children Aggregation"
+                        "text": "children 聚合",
+                        "title": "children 聚合"
                     },
                     {
                         "url": "search-aggregations-bucket-composite-aggregation.html",

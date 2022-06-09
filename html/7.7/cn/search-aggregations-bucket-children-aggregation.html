@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Children Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>children 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,38 +32,40 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">Bucket Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">桶(bucket)聚合</a></span>
 »
-<span class="breadcrumb-node">Children Aggregation</span>
+<span class="breadcrumb-node">children 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-bucket-autodatehistogram-aggregation.html">« Auto-interval Date Histogram Aggregation</a>
+<a href="search-aggregations-bucket-autodatehistogram-aggregation.html">« auto_date_histogram 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-composite-aggregation.html">Composite aggregation »</a>
+<a href2="search-aggregations-bucket-composite-aggregation.html">Composite aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-bucket-children-aggregation"></a>Children Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/children-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-children-aggregation"></a>children 聚合
 </h2>
 </div></div></div>
-<p>A special single bucket aggregation that selects child documents that have the specified type, as defined in a <a class="xref" href="parent-join.html" title="Join datatype"><code class="literal">join</code> field</a>.</p>
-<p>This aggregation has a single option:</p>
+<p>
+一种特殊的单桶聚合，它选择具有指定类型的子文档，如 <a class="xref" href="parent-join.html" title="join 数据类型" rel="nofollow"><code class="literal">join</code>字段</a>中定义的那样。
+</p>
+<p>这个聚合只有一个选项：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">type</code> - The child type that should be selected.
+<code class="literal">type</code> - 应该选择的子类型。
 </li>
 </ul>
 </div>
-<p>For example, let’s say we have an index of questions and answers. The answer type has the following <code class="literal">join</code> field in the mapping:</p>
+<p>例如，假设我们有一个问答索引。答案的类型在映射中具有以下 <code class="literal">join</code> 字段：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT child_example
 {
@@ -80,10 +82,12 @@
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/419.console"></div>
-<p>The <code class="literal">question</code> document contain a tag field and the <code class="literal">answer</code> documents contain an owner field. With the <code class="literal">children</code>
-aggregation the tag buckets can be mapped to the owner buckets in a single request even though the two fields exist in
-two different kinds of documents.</p>
-<p>An example of a question document:</p>
+<p>
+<code class="literal">question</code> 文档包含 tag 字段，<code class="literal">answer</code> 文档包含 owner 字段。
+
+使用 <code class="literal">children</code> 聚合，即使两个字段存在于两种不同类型的文档中，也可以在单个请求中将 tag 桶映射到 owner 桶。
+</p>
+<p><code class="literal">question</code>文档的示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT child_example/_doc/1
 {
@@ -100,7 +104,7 @@ two different kinds of documents.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/420.console"></div>
-<p>Examples of <code class="literal">answer</code> documents:</p>
+<p><code class="literal">answer</code>文档的示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT child_example/_doc/2?routing=1
 {
@@ -133,7 +137,7 @@ PUT child_example/_doc/3?routing=1&amp;refresh
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/421.console"></div>
-<p>The following request can be built that connects the two together:</p>
+<p>可以构建以下请求，将两者连接在一起：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST child_example/_search?size=0
 {
@@ -170,13 +174,13 @@ PUT child_example/_doc/3?routing=1&amp;refresh
 <p><a href="#CO213-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">type</code> points to type / mapping with the name <code class="literal">answer</code>.</p>
+<p><code class="literal">type</code> 指向名为<code class="literal">answer</code>的类型/映射。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>The above example returns the top question tags and per tag the top answer owners.</p>
-<p>Possible response:</p>
+<p>上面的例子返回前几个问题标签和每个标签前几个答案的所有者。</p>
+<p>响应可能是：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   "took": 25,
@@ -275,7 +279,7 @@ PUT child_example/_doc/3?routing=1&amp;refresh
 <p><a href="#CO214-1"><i class="conum" data-value="1"></i></a><a href="#CO214-3"></a><a href="#CO214-5"></a></p>
 </td>
 <td align="left" valign="top">
-<p>The number of question documents with the tag <code class="literal">file-transfer</code>, <code class="literal">windows-server-2003</code>, etc.</p>
+<p>标签为<code class="literal">file-transfer</code>、<code class="literal">windows-server-2003</code>等的 question 文档的数量。</p>
 </td>
 </tr>
 <tr>
@@ -283,7 +287,7 @@ PUT child_example/_doc/3?routing=1&amp;refresh
 <p><a href="#CO214-2"><i class="conum" data-value="2"></i></a><a href="#CO214-4"></a><a href="#CO214-6"></a></p>
 </td>
 <td align="left" valign="top">
-<p>The number of answer documents that are related to question documents with the tag <code class="literal">file-transfer</code>, <code class="literal">windows-server-2003</code>, etc.</p>
+<p>与带有标签<code class="literal">file-transfer</code>、<code class="literal">windows-server-2003</code>等的 question 文档相关的 answer 文档的数量。</p>
 </td>
 </tr>
 </table>
@@ -291,10 +295,10 @@ PUT child_example/_doc/3?routing=1&amp;refresh
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-bucket-autodatehistogram-aggregation.html">« Auto-interval Date Histogram Aggregation</a>
+<a href="search-aggregations-bucket-autodatehistogram-aggregation.html">« auto_date_histogram 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-composite-aggregation.html">Composite aggregation »</a>
+<a href2="search-aggregations-bucket-composite-aggregation.html">Composite aggregation »</a>
 </span>
 </div>
 </div>

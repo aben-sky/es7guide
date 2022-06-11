@@ -1387,8 +1387,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-bucket-composite-aggregation.html",
-                        "text": "Composite aggregation",
-                        "title": "Composite aggregation"
+                        "text": "composite 聚合",
+                        "title": "composite 聚合"
                     },
                     {
                         "url": "search-aggregations-bucket-datehistogram-aggregation.html",

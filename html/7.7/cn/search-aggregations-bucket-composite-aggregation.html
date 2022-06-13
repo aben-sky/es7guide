@@ -462,19 +462,20 @@ GET my_index/_search?size=0
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/432.console"></div>
-<p>... will sort the composite bucket in descending order when comparing values from the <code class="literal">date_histogram</code> source
-and in ascending order when comparing values from the <code class="literal">terms</code> source.</p>
+<p>当比较 <code class="literal">date_histogram</code> 源中的值时，将按降序对复合桶进行排序，当比较 <code class="literal">terms</code> 源中的值时，将按升序对复合桶进行排序。</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_missing_bucket"></a>Missing bucket<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/composite-aggregation.asciidoc">edit</a>
+<a id="_missing_bucket"></a>缺失的桶
 </h3>
 </div></div></div>
-<p>By default documents without a value for a given source are ignored.
-It is possible to include them in the response by setting <code class="literal">missing_bucket</code> to
-<code class="literal">true</code> (defaults to <code class="literal">false</code>):</p>
+<p>
+默认情况下，没有给定来源值的文档将被忽略。
+
+通过将 <code class="literal">missing_bucket</code> 设置为 <code class="literal">true</code> (默认为 <code class="literal">false</code>)，可以将它们包含在响应中:
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -491,38 +492,41 @@ It is possible to include them in the response by setting <code class="literal">
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/433.console"></div>
-<p>In the example above the source <code class="literal">product_name</code> will emit an explicit <code class="literal">null</code> value
-for documents without a value for the field <code class="literal">product</code>.
-The <code class="literal">order</code> specified in the source dictates whether the <code class="literal">null</code> values should rank
-first (ascending order, <code class="literal">asc</code>) or last (descending order, <code class="literal">desc</code>).</p>
+<p>
+在上面的示例中，对于字段 <code class="literal">product</code> 没有值的文档，源 <code class="literal">product_name</code> 将生成一个显式的 <code class="literal">null</code> 值。 
+
+源中指定的 <code class="literal">order</code> 决定了 <code class="literal">null</code> 应该排在第一位(升序，<code class="literal">asc</code>)还是最后一位(降序，<code class="literal">desc</code>)。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_size_2"></a>Size<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/composite-aggregation.asciidoc">edit</a>
+<a id="_size_2"></a>size
 </h3>
 </div></div></div>
-<p>The <code class="literal">size</code> parameter can be set to define how many composite buckets should be returned.
-Each composite bucket is considered as a single bucket so setting a size of 10 will return the
-first 10 composite buckets created from the values source.
-The response contains the values for each composite bucket in an array containing the values extracted
-from each value source.</p>
+<p>
+可以设置参数 <code class="literal">size</code> 来定义应该返回多少个复合桶。
+
+每个组合桶都被视为一个桶，因此将大小设置为 10 将返回从值源创建的前 10 个组合桶。
+
+响应的数组中包含每个组合桶的值，该数组包含从每个值源提取的值。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_pagination"></a>Pagination<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/composite-aggregation.asciidoc">edit</a>
+<a id="_pagination"></a>分页(pagination)
 </h3>
 </div></div></div>
-<p>If the number of composite buckets is too high (or unknown) to be returned in a single response
-it is possible to split the retrieval in multiple requests.
-Since the composite buckets are flat by nature, the requested <code class="literal">size</code> is exactly the number of composite buckets
-that will be returned in the response (assuming that they are at least <code class="literal">size</code> composite buckets to return).
-If all composite buckets should be retrieved it is preferable to use a small size (<code class="literal">100</code> or <code class="literal">1000</code> for instance)
-and then use the <code class="literal">after</code> parameter to retrieve the next results.
-For example:</p>
+<p>
+如果复合桶的数量太多(或未知)而无法在单个响应中返回，则可以将检索分成多个请求。
+
+因为复合桶本质上是扁平的，所以请求的 <code class="literal">size</code> 正好是响应中返回的复合桶的数量(假设它们至少是要返回的 <code class="literal">size</code> 个复合桶)。
+
+如果应该检索所有的组合桶，最好使用一个较小的 <code class="literal">size</code> 值(例如 <code class="literal">100</code> 或 <code class="literal">1000</code> )，然后使用参数 <code class="literal">after</code> 检索下一个结果。例如:
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -541,7 +545,7 @@ For example:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/434.console"></div>
-<p>... returns:</p>
+<p>... 返回：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -571,9 +575,11 @@ For example:</p>
     }
 }</pre>
 </div>
-<p>To get the next set of buckets, resend the same aggregation with the <code class="literal">after</code>
-parameter set to the <code class="literal">after_key</code> value returned in the response.
-For example, this request uses the <code class="literal">after_key</code> value provided in the previous response:</p>
+<p>
+要获得下一组桶，请重新发送相同的聚合，将参数 <code class="literal">after</code> 设置为响应中返回的 <code class="literal">after_key</code> 的值。
+
+例如，下面的请求使用在之前的响应中提供的 <code class="literal">after_key</code> 的值:
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -600,7 +606,7 @@ For example, this request uses the <code class="literal">after_key</code> value 
 <p><a href="#CO216-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Should restrict the aggregation to buckets that sort <span class="strong strong"><strong>after</strong></span> the provided values.</p>
+<p>应该将聚合限制为在提供的值的排序<span class="strong strong"><strong>之后(after)</strong></span>的桶。</p>
 </td>
 </tr>
 </table>
@@ -608,9 +614,11 @@ For example, this request uses the <code class="literal">after_key</code> value 
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The <code class="literal">after_key</code> is <span class="strong strong"><strong>usually</strong></span> the key to the last bucket returned in
-the response, but that isn’t guaranteed. Always use the returned <code class="literal">after_key</code> instead
-of derriving it from the buckets.</p>
+<p>
+<code class="literal">after_key</code> <span class="strong strong"><strong>通常</strong></span>是响应中返回的最后一个桶的key，但这并不能保证。
+
+总是使用返回的 <code class="literal">after_key</code>，而不是从桶中取出它。
+</p>
 </div>
 </div>
 </div>
@@ -618,12 +626,14 @@ of derriving it from the buckets.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_early_termination"></a>Early termination<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/composite-aggregation.asciidoc">edit</a>
+<a id="_early_termination"></a>提前终止 (early termination)
 </h3>
 </div></div></div>
-<p>For optimal performance the <a class="xref" href="index-modules-index-sorting.html" title="Index Sorting">index sort</a> should be set on the index so that it matches
-parts or fully the source order in the composite aggregation.
-For instance the following index sort:</p>
+<p>
+为了获得最佳性能，应该对索引设置<a class="xref" href="index-modules-index-sorting.html" title="Index Sorting" rel="nofollow">索引排序(index sort)</a>，以便它匹配复合聚合中的部分或全部源顺序。
+
+例如下面的索引排序：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT twitter
 {
@@ -654,7 +664,7 @@ For instance the following index sort:</p>
 <p><a href="#CO217-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>This index is sorted by <code class="literal">username</code> first then by <code class="literal">timestamp</code>.</p>
+<p>该索引首先按 <code class="literal">username</code> 排序，然后按<code class="literal">timestamp</code>排序。</p>
 </td>
 </tr>
 <tr>
@@ -662,11 +672,11 @@ For instance the following index sort:</p>
 <p><a href="#CO217-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>…​ in ascending order for the <code class="literal">username</code> field and in descending order for the <code class="literal">timestamp</code> field.</p>
+<p>…​ <code class="literal">username</code> 字段按升序排列，<code class="literal">timestamp</code> 字段按降序排列。</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-could be used to optimize these composite aggregations:
+可用于优化这些复合聚合：
 </li>
 </ol>
 </div>
@@ -697,7 +707,7 @@ could be used to optimize these composite aggregations:
 <p><a href="#CO218-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">user_name</code> is a prefix of the index sort and the order matches (<code class="literal">asc</code>).</p>
+<p><code class="literal">user_name</code> 是索引排序和顺序匹配(<code class="literal">asc</code>)的前缀。</p>
 </td>
 </tr>
 </table>
@@ -726,7 +736,7 @@ could be used to optimize these composite aggregations:
 <p><a href="#CO219-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">user_name</code> is a prefix of the index sort and the order matches (<code class="literal">asc</code>).</p>
+<p><code class="literal">user_name</code> 是索引排序和顺序匹配(<code class="literal">asc</code>)的前缀。</p>
 </td>
 </tr>
 <tr>
@@ -734,14 +744,16 @@ could be used to optimize these composite aggregations:
 <p><a href="#CO219-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">timestamp</code> matches also the prefix and the order matches (<code class="literal">desc</code>).</p>
+<p><code class="literal">timestamp</code> 也匹配前缀，并且顺序匹配(<code class="literal">desc</code>)。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>In order to optimize the early termination it is advised to set <code class="literal">track_total_hits</code> in the request
-to <code class="literal">false</code>. The number of total hits that match the request can be retrieved on the first request
-and it would be costly to compute this number on every page:</p>
+<p>
+为了对提前终止(early termination)进行优化，建议将请求中的 <code class="literal">track_total_hits</code> 设置为<code class="literal">false</code>。
+
+匹配请求的总命中数可以在第一次请求时检索，在每一页上计算这个数值的成本是很高的：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -760,28 +772,32 @@ and it would be costly to compute this number on every page:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/439.console"></div>
-<p>Note that the order of the source is important, in the example below switching the <code class="literal">user_name</code> with the <code class="literal">timestamp</code>
-would deactivate the sort optimization since this configuration wouldn’t match the index sort specification.
-If the order of sources do not matter for your use case you can follow these simple guidelines:</p>
+<p>
+请注意，源的顺序很重要，在下面的示例中，用 <code class="literal">timestamp</code> 调换 <code class="literal">user_name</code> 将会禁用排序优化，因为这种配置与索引排序的规范不匹配。
+
+如果源的顺序对你的用例不重要，可以遵循这些简单的准则：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Put the fields with the highest cardinality first.
+将基数最高的字段放在第一位。<span class="remark">(这个与MySQL的优化类似)</span>
 </li>
 <li class="listitem">
-Make sure that the order of the field matches the order of the index sort.
+确保字段的顺序与索引排序的顺序相匹配。
 </li>
 <li class="listitem">
-Put multi-valued fields last since they cannot be used for early termination.
+将多值字段放在最后，因为它们不能用于提前终止。
 </li>
 </ul>
 </div>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p><a class="xref" href="index-modules-index-sorting.html" title="Index Sorting">index sort</a> can slowdown indexing, it is very important to test index sorting
-with your specific use case and dataset to ensure that it matches your requirement. If it doesn’t note that <code class="literal">composite</code>
-aggregations will also try to early terminate on non-sorted indices if the query matches all document (<code class="literal">match_all</code> query).</p>
+<p>
+<a class="xref" href="index-modules-index-sorting.html" title="Index Sorting" rel="nofollow">索引排序(index sort)</a> 会降低索引编排的速度，使用你的特定用例和数据集测试索引排序以确保它符合你的要求是非常重要的。
+
+即使你没有注意到这一点，<code class="literal">composite</code> 聚合也会尝试在查询匹配所有文档(<code class="literal">match_all</code>查询)的情况下提前终止非排序索引。 
+</p>
 </div>
 </div>
 </div>
@@ -789,14 +805,16 @@ aggregations will also try to early terminate on non-sorted indices if the query
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_sub_aggregations"></a>Sub-aggregations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/composite-aggregation.asciidoc">edit</a>
+<a id="_sub_aggregations"></a>子聚合
 </h3>
 </div></div></div>
-<p>Like any <code class="literal">multi-bucket</code> aggregations the <code class="literal">composite</code> aggregation can hold sub-aggregations.
-These sub-aggregations can be used to compute other buckets or statistics on each composite bucket created by this
-parent aggregation.
-For instance the following example computes the average value of a field
-per composite bucket:</p>
+<p>
+与任何 <code class="literal">multi-bucket</code>(多桶) 聚合一样，<code class="literal">composite</code> 聚合可以包含子聚合。
+
+这些子聚合可用于计算其他桶或由此父聚合创建的每个复合桶的统计数据。
+
+例如，下面的示例计算每个复合桶的 price 字段的平均值:
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -819,7 +837,7 @@ per composite bucket:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/440.console"></div>
-<p>... returns:</p>
+<p>... 返回：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -880,15 +898,17 @@ per composite bucket:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_pipeline_aggregations"></a>Pipeline aggregations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/composite-aggregation.asciidoc">edit</a>
+<a id="_pipeline_aggregations"></a>管道聚合(pipeline aggregations)
 </h3>
 </div></div></div>
-<p>The composite agg is not currently compatible with pipeline aggregations, nor does it make sense in most cases.
-E.g. due to the paging nature of composite aggs, a single logical partition (one day for example) might be spread
-over multiple pages.  Since pipeline aggregations are purely post-processing on the final list of buckets,
-running something like a derivative on a composite page could lead to inaccurate results as it is only taking into
-account a "partial" result on that page.</p>
-<p>Pipeline aggs that are self contained to a single bucket (such as <code class="literal">bucket_selector</code>) might be supported in the future.</p>
+<p>
+目前复合聚合与管道聚合不兼容，在大多数情况下也没有意义。
+
+例如，由于复合聚合的分页特性，单个逻辑分区(例如一天)可能会分布在多个页面上。
+
+由于管道聚合纯粹是对最终桶列表的后处理，在复合页面上运行类似派生的东西可能会导致不准确的结果，因为它只考虑该页面上的“部分”结果。 
+</p>
+<p>将来可能会支持自包含到单个桶(如<code class="literal">bucket_selector</code>)的管道聚合。</p>
 </div>
 
 </div>

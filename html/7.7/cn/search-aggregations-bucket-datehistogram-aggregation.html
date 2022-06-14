@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Date histogram aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>date_histogram 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,160 +32,142 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">Bucket Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">桶(bucket)聚合</a></span>
 »
-<span class="breadcrumb-node">Date histogram aggregation</span>
+<span class="breadcrumb-node">date_histogram 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-bucket-composite-aggregation.html">« Composite aggregation</a>
+<a href="search-aggregations-bucket-composite-aggregation.html">« composite 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-daterange-aggregation.html">Date Range Aggregation »</a>
+<a href2="search-aggregations-bucket-daterange-aggregation.html">Date Range Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-bucket-datehistogram-aggregation"></a>Date histogram aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/datehistogram-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-datehistogram-aggregation"></a>日期直方图(date_histogram)聚合
 </h2>
 </div></div></div>
-<p>This multi-bucket aggregation is similar to the normal
-<a class="xref" href="search-aggregations-bucket-histogram-aggregation.html" title="Histogram Aggregation">histogram</a>, but it can
-only be used with date or date range values. Because dates are represented internally in
-Elasticsearch as long values, it is possible, but not as accurate, to use the
-normal <code class="literal">histogram</code> on dates as well. The main difference in the two APIs is
-that here the interval can be specified using date/time expressions. Time-based
-data requires special support because time-based intervals are not always a
-fixed length.</p>
+<p>
+这种多桶聚合类似于普通的<a class="xref" href="search-aggregations-bucket-histogram-aggregation.html" title="直方图聚合" rel="nofollow">直方图(histogram)聚合</a>，但它只能用于日期或日期范围值。
+
+因为 Elasticsearch 中的日期在内部用长整形表示，所以也可以对日期使用普通<code class="literal">histogram</code>聚合，但不够精确。
+
+这两个API的主要区别在于，日期直方图可以使用日期/时间表达式来指定时间间隔。
+
+基于时间的数据需要特殊的支持，因为基于时间的间隔并不总是固定的长度。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="calendar_and_fixed_intervals"></a>Calendar and fixed intervals<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/datehistogram-aggregation.asciidoc">edit</a>
+<a id="calendar_and_fixed_intervals"></a>日历和固定间隔值
 </h3>
 </div></div></div>
-<p>When configuring a date histogram aggregation, the interval can be specified
-in two manners: calendar-aware time intervals, and fixed time intervals.</p>
-<p>Calendar-aware intervals understand that daylight savings changes the length
-of specific days, months have different amounts of days, and leap seconds can
-be tacked onto a particular year.</p>
-<p>Fixed intervals are, by contrast, always multiples of SI units and do not change
-based on calendaring context.</p>
+<p>配置日期直方图聚合时，可以通过两种方式指定时间间隔：日历感知(calendar-aware)时间间隔和固定(fixed)时间间隔。</p>
+<p>日历感知间隔知道夏令时改变特定日子的长度，月份有不同的天数，闰秒可以附加到特定的年份。</p>
+<p>相比之下，固定间隔始终是SI(国际)单位的倍数，并且不会根据日历上下文改变。</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<h3>Combined <code class="literal">interval</code> field is deprecated</h3>
+<h3>组合的<code class="literal">interval</code>字段已弃用</h3>
 <p><span class="Admonishment Admonishment--change">
 [<span class="Admonishment-version u-mono u-strikethrough">7.2</span>]
 <span class="Admonishment-detail">
-Deprecated in 7.2. <code class="literal">interval</code> field is deprecated
+在7.2版本中废弃。 <code class="literal">interval</code>字段已废弃
 </span>
-</span> Historically both calendar and fixed
-intervals were configured in a single <code class="literal">interval</code> field, which led to confusing
-semantics. Specifying <code class="literal">1d</code> would be assumed as a calendar-aware time,
-whereas <code class="literal">2d</code> would be interpreted as fixed time. To get "one day" of fixed time,
-the user would need to specify the next smaller unit (in this case, <code class="literal">24h</code>).</p>
-<p>This combined behavior was often unknown to users, and even when knowledgeable about
-the behavior it was difficult to use and confusing.</p>
-<p>This behavior has been deprecated in favor of two new, explicit fields: <code class="literal">calendar_interval</code>
-and <code class="literal">fixed_interval</code>.</p>
-<p>By forcing a choice between calendar and intervals up front, the semantics of the interval
-are clear to the user immediately and there is no ambiguity.  The old <code class="literal">interval</code> field
-will be removed in the future.</p>
+</span>
+过去，日历和固定时间间隔都是在一个 <code class="literal">interval</code> 字段中配置的，这导致了语义混乱。
+
+指定 <code class="literal">1d</code> 会被认为是一个日历感知时间，而 <code class="literal">2d</code> 却被解释为一个固定时间。
+
+要获得固定时间类型的“一天”，用户需要指定下一个更小的单位(在本例中是<code class="literal">24h</code>)。
+</p>
+<p>这种组合行为对于用户来说通常是未知的，即使知道这种行为，也很难使用且容易混淆。</p>
+<p>这种行为已被弃用，取而代之的是两个新的显式字段：<code class="literal">calendar_interval</code> 和 <code class="literal">fixed_interval</code>。</p>
+<p>
+通过预先在日历和间隔之间进行选择，时间间隔的语义对用户来说是一目了然的，不会有歧义。
+
+旧的<code class="literal">interval</code>字段会在将来移除。
+</p>
 </div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="calendar_intervals"></a>Calendar intervals<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/datehistogram-aggregation.asciidoc">edit</a>
+<a id="calendar_intervals"></a>日历间隔
 </h4>
 </div></div></div>
-<p>Calendar-aware intervals are configured with the <code class="literal">calendar_interval</code> parameter.
-Calendar intervals can only be specified in "singular" quantities of the unit
-(<code class="literal">1d</code>, <code class="literal">1M</code>, etc). Multiples, such as <code class="literal">2d</code>, are not supported and will throw an exception.</p>
-<p>The accepted units for calendar intervals are:</p>
+<p>
+日历感知间隔是用参数 <code class="literal">calendar_interval</code> 配置的。
+
+日历间隔只能以单位的“单数”数量指定(<code class="literal">1d</code>、<code class="literal">1M</code>等)。
+
+不支持像 <code class="literal">2d</code>这样的倍数，否则会引发异常。
+</p>
+<p>日历间隔可用的单位有：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-minute (<code class="literal">1m</code>)
+分钟 (<code class="literal">1m</code>)
 </span>
 </dt>
 <dd>
-All minutes begin at 00 seconds.
-One minute is the interval between 00 seconds of the first minute and 00
-seconds of the following minute in the specified timezone, compensating for any
-intervening leap seconds, so that the number of minutes and seconds past the
-hour is the same at the start and end.
+所有的分钟都从00秒开始。一分钟是指定时区中第一分钟的00秒和下一分钟的00秒之间的时间间隔，用于补偿任何介于其间的闰秒，因此整点后的分钟数和秒数在开始和结束时是相同的。
 </dd>
 <dt>
 <span class="term">
-hour (<code class="literal">1h</code>)
+小时 (<code class="literal">1h</code>)
 </span>
 </dt>
 <dd>
-All hours begin at 00 minutes and 00 seconds.
-One hour (1h) is the interval between 00:00 minutes of the first hour and 00:00
-minutes of the following hour in the specified timezone, compensating for any
-intervening leap seconds, so that the number of minutes and seconds past the hour
-is the same at the start and end.
+所有的小时都从00分00秒开始。一个小时(1h)是指定时区中第一个小时的00:00分钟和下一个小时的00:00分钟之间的间隔，用于补偿任何介于其间的闰秒，以便在开始和结束时超过该小时的分钟数和秒数是相同的。
 </dd>
 <dt>
 <span class="term">
-day (<code class="literal">1d</code>)
+天 (<code class="literal">1d</code>)
 </span>
 </dt>
 <dd>
-All days begin at the earliest possible time, which is usually 00:00:00
-(midnight).
-One day (1d) is the interval between the start of the day and the start of
-of the following day in the specified timezone, compensating for any intervening
-time changes.
+所有的天都在尽可能早的时间开始，通常是00:00:00(午夜)。一天(1d)是指定时区中一天开始和下一天开始之间的时间间隔，用于补偿任何中间的时间变化。
 </dd>
 <dt>
 <span class="term">
-week (<code class="literal">1w</code>)
+星期 (<code class="literal">1w</code>)
 </span>
 </dt>
 <dd>
-One week is the interval between the start day_of_week:hour:minute:second
-and the same day of the week and time of the following week in the specified
-timezone.
+一周是指定时区中 一周的开始日:小时:分钟:秒(day_of_week:hour:minute:second) 与下一周的同一天和时间之间的间隔。
 </dd>
 <dt>
 <span class="term">
-month (<code class="literal">1M</code>)
+月 (<code class="literal">1M</code>)
 </span>
 </dt>
 <dd>
-One month is the interval between the start day of the month and time of
-day and the same day of the month and time of the following month in the specified
-timezone, so that the day of the month and time of day are the same at the start
-and end.
+一个月是指定时区中一个月的开始日期和时间与下一个月的同一天和时间之间的间隔，因此一个月的开始日期和时间是相同的。
 </dd>
 <dt>
 <span class="term">
-quarter (<code class="literal">1q</code>)
+季度 (<code class="literal">1q</code>)
 </span>
 </dt>
 <dd>
-One quarter (1q) is the interval between the start day of the month and
-time of day and the same day of the month and time of day three months later,
-so that the day of the month and time of day are the same at the start and end.<br>
+一个季度(1q)是一个月的开始日期和一天中的时间与三个月后的同一天和一天中的时间之间的间隔，因此一个月的开始日期和结束日期是相同的。
 </dd>
 <dt>
 <span class="term">
-year (<code class="literal">1y</code>)
+年 (<code class="literal">1y</code>)
 </span>
 </dt>
 <dd>
-One year (1y) is the interval between the start day of the month and time of
-day and the same day of the month and time of day the following year in the
-specified timezone, so that the date and time are the same at the start and end.<br>
+一年(1y)是指定时区中一个月的开始日期和时间与下一年的同一天和时间之间的间隔，因此开始和结束时的日期和时间是相同的。
 </dd>
 </dl>
 </div>
@@ -194,10 +176,10 @@ specified timezone, so that the date and time are the same at the start and end.
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="calendar_interval_examples"></a>Calendar interval examples<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/datehistogram-aggregation.asciidoc">edit</a>
+<a id="calendar_interval_examples"></a>日历间隔的示例
 </h4>
 </div></div></div>
-<p>As an example, here is an aggregation requesting bucket intervals of a month in calendar time:</p>
+<p>例如，下面是请求以日历时间中的一个月为桶间隔的聚合：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search?size=0
 {
@@ -212,8 +194,7 @@ specified timezone, so that the date and time are the same at the start and end.
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/441.console"></div>
-<p>If you attempt to use multiples of calendar units, the aggregation will fail because only
-singular calendar units are supported:</p>
+<p>如果尝试使用日历单位的倍数，聚合就会失败，因为仅支持单个日历单位:</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search?size=0
 {
@@ -247,60 +228,64 @@ singular calendar units are supported:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="fixed_intervals"></a>Fixed intervals<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/datehistogram-aggregation.asciidoc">edit</a>
+<a id="fixed_intervals"></a>固定间隔
 </h4>
 </div></div></div>
-<p>Fixed intervals are configured with the <code class="literal">fixed_interval</code> parameter.</p>
-<p>In contrast to calendar-aware intervals, fixed intervals are a fixed number of SI
-units and never deviate, regardless of where they fall on the calendar. One second
-is always composed of 1000ms. This allows fixed intervals to be specified in
-any multiple of the supported units.</p>
-<p>However, it means fixed intervals cannot express other units such as months,
-since the duration of a month is not a fixed quantity. Attempting to specify
-a calendar interval like month or quarter will throw an exception.</p>
-<p>The accepted units for fixed intervals are:</p>
+<p>固定间隔是用参数 <code class="literal">fixed_interval</code> 配置的。</p>
+<p>
+与日历感知间隔不同，固定间隔是固定数量的国际单位制(SI)单位，无论它们在日历上的位置如何，都不会偏离。
+
+一秒钟总是由1000毫秒组成。
+
+这允许以支持单位的任何倍数值指定固定间隔。
+</p>
+<p>
+然而，这意味着固定的间隔不能表达其他单位，如“月(month)”，因为一个月的持续时间不是一个固定的量。
+
+试图指定月或季度(quarter)等日历间隔将引发异常。
+</p>
+<p>固定间隔支持的单位有：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-milliseconds (ms)
+毫秒 (ms)
 </span>
 </dt>
 <dt>
 <span class="term">
-seconds (s)
+秒 (s)
 </span>
 </dt>
 <dd>
-Defined as 1000 milliseconds each
+定义为每个1000毫秒
 </dd>
 <dt>
 <span class="term">
-minutes (m)
+分钟 (m)
 </span>
 </dt>
 <dd>
-All minutes begin at 00 seconds.
-Defined as 60 seconds each (60,000 milliseconds)
+所有分钟都从00秒开始。
+定义为每个60秒(60,000毫秒)
 </dd>
 <dt>
 <span class="term">
-hours (h)
+小时 (h)
 </span>
 </dt>
 <dd>
-All hours begin at 00 minutes and 00 seconds.
-Defined as 60 minutes each (3,600,000 milliseconds)
+所有小时都从00分00秒开始。
+定义为每60分钟(3,600,000毫秒)
 </dd>
 <dt>
 <span class="term">
-days (d)
+天 (d)
 </span>
 </dt>
 <dd>
-All days begin at the earliest possible time, which is usually 00:00:00
-(midnight).
-Defined as 24 hours (86,400,000 milliseconds)
+所有天都在尽可能早的时间开始，通常是00:00:00(午夜)。
+定义为24小时(86,400,000毫秒)
 </dd>
 </dl>
 </div>
@@ -309,11 +294,10 @@ Defined as 24 hours (86,400,000 milliseconds)
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="fixed_interval_examples"></a>Fixed interval examples<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/datehistogram-aggregation.asciidoc">edit</a>
+<a id="fixed_interval_examples"></a>固定价格的示例
 </h4>
 </div></div></div>
-<p>If we try to recreate the "month" <code class="literal">calendar_interval</code> from earlier, we can approximate that with
-30 fixed days:</p>
+<p>如果我们尝试重新创建之前的<code class="literal">calendar_interval</code>的“月”，我们可以用30天的固定天数来近似：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search?size=0
 {
@@ -328,7 +312,7 @@ Defined as 24 hours (86,400,000 milliseconds)
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/443.console"></div>
-<p>But if we try to use a calendar unit that is not supported, such as weeks, we’ll get an exception:</p>
+<p>但是，如果我们尝试使用不支持的日历单位，如“周(w)”，就会得到一个异常：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search?size=0
 {
@@ -362,34 +346,33 @@ Defined as 24 hours (86,400,000 milliseconds)
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_notes_8"></a>Notes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/datehistogram-aggregation.asciidoc">edit</a>
+<a id="_notes_8"></a>注意
 </h4>
 </div></div></div>
-<p>In all cases, when the specified end time does not exist, the actual end time is
-the closest available time after the specified end.</p>
-<p>Widely distributed applications must also consider vagaries such as countries that
-start and stop daylight savings time at 12:01 A.M., so end up with one minute of
-Sunday followed by an additional 59 minutes of Saturday once a year, and countries
-that decide to move across the international date line. Situations like
-that can make irregular timezone offsets seem easy.</p>
-<p>As always, rigorous testing, especially around time-change events, will ensure
-that your time interval specification is
-what you intend it to be.</p>
-<p>WARNING:
-To avoid unexpected results, all connected servers and clients must sync to a
-reliable network time service.</p>
+<p>在任何情况下，当指定的结束时间不存在时，实际结束时间是指定结束时间后最近的可用时间。</p>
+<p>
+广泛发布的应用程序还必须考虑一些不确定因素，比如一些国家在12点01分开始和停止夏令时，因此每年都会有一分钟是周日，然后接下来的59分钟又回到了周六，以及一些国家决定跨越国际日期变更线。 
+
+这种情况使得不规则时区偏移看起来很容易。
+</p>
+<p>
+与往常一样，严格的测试，尤其是围绕时间变化事件，将确保你的时间间隔规格是你想要的。
+</p>
+<p>
+警告：为避免意外结果，所有连接的服务器和客户端都必须同步到可靠的网络时间服务。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>fractional time values are not supported, but you can address this by
-shifting to another time unit (e.g., <code class="literal">1.5h</code> could instead be specified as <code class="literal">90m</code>).</p>
+<p>
+不支持带小数点的时间值，但是可以通过转换到另一个时间单位来解决这个问题(例如，可以将<code class="literal">1.5h</code>指定为<code class="literal">90m</code>)。
+</p>
 </div>
 </div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>You can also specify time values using abbreviations supported by
-<a class="xref" href="common-options.html#time-units" title="Time units">time units</a> parsing.</p>
+<p>还可以使用<a class="xref" href="common-options.html#time-units" title="时间单位" rel="nofollow">时间单位</a>解析支持的缩写来指定时间值。</p>
 </div>
 </div>
 </div>
@@ -397,7 +380,7 @@ shifting to another time unit (e.g., <code class="literal">1.5h</code> could ins
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_keys_2"></a>Keys<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/datehistogram-aggregation.asciidoc">edit</a>
+<a id="_keys_2"></a>Keys
 </h4>
 </div></div></div>
 <p>Internally, a date is represented as a 64 bit number representing a timestamp
@@ -841,10 +824,10 @@ the week as key : 1 for Monday, 2 for Tuesday…​ 7 for Sunday.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-bucket-composite-aggregation.html">« Composite aggregation</a>
+<a href="search-aggregations-bucket-composite-aggregation.html">« composite 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-daterange-aggregation.html">Date Range Aggregation »</a>
+<a href2="search-aggregations-bucket-daterange-aggregation.html">Date Range Aggregation »</a>
 </span>
 </div>
 </div>

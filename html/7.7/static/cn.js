@@ -1392,8 +1392,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-bucket-datehistogram-aggregation.html",
-                        "text": "Date histogram aggregation",
-                        "title": "Date histogram aggregation"
+                        "text": "date_histogram 聚合",
+                        "title": "date_histogram 聚合"
                     },
                     {
                         "url": "search-aggregations-bucket-daterange-aggregation.html",

@@ -1397,8 +1397,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-bucket-daterange-aggregation.html",
-                        "text": "Date Range Aggregation",
-                        "title": "Date Range Aggregation"
+                        "text": "date_range 聚合",
+                        "title": "date_range 聚合"
                     },
                     {
                         "url": "search-aggregations-bucket-diversified-sampler-aggregation.html",

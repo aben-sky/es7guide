@@ -204,3 +204,4 @@ https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-adjacency-matrix-agg
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-autodatehistogram-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-children-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-composite-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-datehistogram-aggregation.html

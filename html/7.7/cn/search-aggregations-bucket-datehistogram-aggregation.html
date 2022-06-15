@@ -380,19 +380,22 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_keys_2"></a>Keys
+<a id="_keys_2"></a>key
 </h4>
 </div></div></div>
-<p>Internally, a date is represented as a 64 bit number representing a timestamp
-in milliseconds-since-the-epoch (01/01/1970 midnight UTC). These timestamps are
-returned as the <code class="literal">key</code> name of the bucket. The <code class="literal">key_as_string</code> is the same
-timestamp converted to a formatted
-date string using the <code class="literal">format</code> parameter specification:</p>
+<p>
+在内部，日期被表示为一个64位的数字，该数字表示一个以毫秒为单位的时间戳，该时间戳自UTC时间1970/1/1午夜开始。
+
+这些时间戳作为桶的 <code class="literal">key</code> 返回。
+
+<code class="literal">key_as_string</code> 是一个使用参数<code class="literal">format</code>规范转换为格式化的日期字符串的相同的时间戳：
+</p>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If you don’t specify <code class="literal">format</code>, the first date
-<a class="xref" href="mapping-date-format.html" title="format">format</a> specified in the field mapping is used.</p>
+<p>
+如果未指定 <code class="literal">format</code>，将使用字段映射中指定的第一个日期 <a class="xref" href="mapping-date-format.html" title="format" rel="nofollow">格式</a>。
+</p>
 </div>
 </div>
 <div class="pre_wrapper lang-console">
@@ -417,12 +420,12 @@ date string using the <code class="literal">format</code> parameter specificatio
 <p><a href="#CO220-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Supports expressive date <a class="xref" href="search-aggregations-bucket-daterange-aggregation.html#date-format-pattern" title="Date Format/Pattern">format pattern</a></p>
+<p>支持<a class="xref" href="search-aggregations-bucket-daterange-aggregation.html#date-format-pattern" title="日期 格式/模式" rel="nofollow">日期格式模式</a>表达式</p>
 </td>
 </tr>
 </table>
 </div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -454,16 +457,20 @@ date string using the <code class="literal">format</code> parameter specificatio
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_timezone"></a>Timezone<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/datehistogram-aggregation.asciidoc">edit</a>
+<a id="_timezone"></a>时区
 </h4>
 </div></div></div>
-<p>Date-times are stored in Elasticsearch in UTC.  By default, all bucketing and
-rounding is also done in UTC. Use the <code class="literal">time_zone</code> parameter to indicate
-that bucketing should use a different timezone.</p>
-<p>You can specify timezones as either an ISO 8601 UTC offset (e.g. <code class="literal">+01:00</code> or
-<code class="literal">-08:00</code>)  or as a timezone ID as specified in the IANA timezone database,
-such as`America/Los_Angeles`.</p>
-<p>Consider the following example:</p>
+<p>
+日期时间以 UTC 存储在 Elasticsearch 中。
+
+默认情况下，所有的分桶和舍入也在 UTC 中完成。
+
+<code class="literal">time_zone</code> 参数可用于指示分桶时应该使用不同的时区。
+</p>
+<p>
+时区可以指定为 ISO 8601 UTC 时差(例如<code class="literal">+01:00</code> 或 <code class="literal">-08:00</code>)，也可以指定为时区id(在TZ数据库中使用的标识符)，比如<code class="literal">America/Los_Angeles</code>。
+</p>
+<p>看下面的例子：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index/_doc/1?refresh
 {
@@ -488,9 +495,11 @@ GET my_index/_search?size=0
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/446.console"></div>
-<p>If you don’t specify a timezone, UTC is used. This would result in both of these
-documents being placed into the same day bucket, which starts at midnight UTC
-on 1 October 2015:</p>
+<p>
+如果不指定时区，则使用UTC。
+
+这将导致这两个文档被放入同一天的桶中，该桶从UTC时间2015年10月1日午夜开始：
+</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   ...
@@ -507,8 +516,7 @@ on 1 October 2015:</p>
   }
 }</pre>
 </div>
-<p>If you specify a <code class="literal">time_zone</code> of <code class="literal">-01:00</code>, midnight in that timezone is one hour
-before midnight UTC:</p>
+<p>如果指定了 <code class="literal">time_zone</code> 为 <code class="literal">-01:00</code>，则该时区中的午夜比UTC的午夜早一个小时：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_index/_search?size=0
 {
@@ -524,8 +532,7 @@ before midnight UTC:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/447.console"></div>
-<p>Now the first document falls into the bucket for 30 September 2015, while the
-second document falls into the bucket for 1 October 2015:</p>
+<p>现在，第一份文件落入2015年9月30日的桶中，而第二份文件落入2015年10月1日的桶中：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   ...
@@ -554,8 +561,7 @@ second document falls into the bucket for 1 October 2015:</p>
 <p><a href="#CO221-1"><i class="conum" data-value="1"></i></a><a href="#CO221-2"></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">key_as_string</code> value represents midnight on each day
-in the specified timezone.</p>
+<p><code class="literal">key_as_string</code>的值表示指定时区中每天的午夜。</p>
 </td>
 </tr>
 </table>
@@ -563,15 +569,15 @@ in the specified timezone.</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>When using time zones that follow DST (daylight savings time) changes,
-buckets close to the moment when those changes happen can have slightly different
-sizes than you would expect from the used <code class="literal">interval</code>.
-For example, consider a DST start in the <code class="literal">CET</code> time zone: on 27 March 2016 at 2am,
-clocks were turned forward 1 hour to 3am local time. If you use <code class="literal">day</code> as <code class="literal">interval</code>,
-the bucket covering that day will only hold data for 23 hours instead of the usual
-24 hours for other buckets. The same is true for shorter intervals, like 12h,
-where you’ll have only a 11h bucket on the morning of 27 March when the DST shift
-happens.</p>
+<p>
+当使用随DST(夏令时)变化的时区时，接近这些变化发生时刻的桶的大小可能会与你预期要用的<code class="literal">interval</code>略有不同。
+
+例如，考虑在<code class="literal">CET</code>时区开始夏令时：2016年3月27日凌晨2点，时钟拨快1小时至当地时间凌晨3点。
+
+如果使用 <code class="literal">day</code> 作为 <code class="literal">interval</code>，则覆盖该天的桶将只保存23小时的数据，而不是其他桶通常的24小时。
+
+对于较短的时间间隔也是如此，比如12小时，在3月27日早上DST转换发生时，桶里只有11个小时。
+</p>
 </div>
 </div>
 </div>
@@ -579,16 +585,19 @@ happens.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="search-aggregations-bucket-datehistogram-offset"></a>Offset<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/datehistogram-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-datehistogram-offset"></a>时差(offset)
 </h4>
 </div></div></div>
-<p>Use the <code class="literal">offset</code> parameter to change the start value of each bucket by the
-specified positive (<code class="literal">+</code>) or negative offset (<code class="literal">-</code>) duration, such as <code class="literal">1h</code> for
-an hour, or <code class="literal">1d</code> for a day. See <a class="xref" href="common-options.html#time-units" title="Time units">Time units</a> for more possible time
-duration options.</p>
-<p>For example, when using an interval of <code class="literal">day</code>, each bucket runs from midnight
-to midnight. Setting the <code class="literal">offset</code> parameter to <code class="literal">+6h</code> changes each bucket
-to run from 6am to 6am:</p>
+<p>
+使用 <code class="literal">offset</code> 参数按指定的正(<code class="literal">+</code>)或负(<code class="literal">-</code>)偏移量持续时间来更改每个桶的起始值，例如<code class="literal">1h</code>表示一个小时，<code class="literal">1d</code>表示一天。
+
+有关更多可能的持续时间选项，请参见<a class="xref" href="common-options.html#time-units" title="时间单位" rel="nofollow">时间单位(time units)</a>。
+</p>
+<p>
+例如，当使用<code class="literal">day</code>作为时间间隔时，每个桶的时间区间从午夜到午夜。
+
+将参数 <code class="literal">offset</code> 设置为 <code class="literal">+6h</code> 会将每个桶的时间区间更改为从早上6点到早上6点：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index/_doc/1?refresh
 {
@@ -614,8 +623,7 @@ GET my_index/_search?size=0
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/448.console"></div>
-<p>Instead of a single bucket starting at midnight, the above request groups the
-documents into buckets starting at 6am:</p>
+<p>上面的请求的每个桶不是从午夜开始，而是从早上6点开始：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   ...
@@ -640,8 +648,7 @@ documents into buckets starting at 6am:</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The start <code class="literal">offset</code> of each bucket is calculated after <code class="literal">time_zone</code>
-adjustments have been made.</p>
+<p>在进行 <code class="literal">time_zone</code> 调整后，计算每个桶的起始 <code class="literal">offset</code>。</p>
 </div>
 </div>
 </div>
@@ -649,11 +656,10 @@ adjustments have been made.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_keyed_response_3"></a>Keyed Response<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/datehistogram-aggregation.asciidoc">edit</a>
+<a id="_keyed_response_3"></a>keyed 响应
 </h4>
 </div></div></div>
-<p>Setting the <code class="literal">keyed</code> flag to <code class="literal">true</code> associates a unique string key with each
-bucket and returns the ranges as a hash rather than an array:</p>
+<p>将 <code class="literal">keyed</code> 标志设置为 <code class="literal">true</code>，会将唯一的字符串键与每个存储桶相关联，并将范围作为哈希而不是数组返回：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search?size=0
 {
@@ -670,7 +676,7 @@ bucket and returns the ranges as a hash rather than an array:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/449.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -702,31 +708,31 @@ bucket and returns the ranges as a hash rather than an array:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_scripts_2"></a>Scripts<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/datehistogram-aggregation.asciidoc">edit</a>
+<a id="_scripts_2"></a>脚本
 </h4>
 </div></div></div>
-<p>As with the normal <a class="xref" href="search-aggregations-bucket-histogram-aggregation.html" title="Histogram Aggregation">histogram</a>,
-both document-level scripts and
-value-level scripts are supported. You can control the order of the returned
-buckets using the <code class="literal">order</code>
-settings and filter the returned buckets based on a <code class="literal">min_doc_count</code> setting
-(by default all buckets between the first
-bucket that matches documents and the last one are returned). This histogram
-also supports the <code class="literal">extended_bounds</code>
-setting, which enables extending the bounds of the histogram beyond the data
-itself. For more information, see
-<a class="xref" href="search-aggregations-bucket-histogram-aggregation.html#search-aggregations-bucket-histogram-aggregation-extended-bounds"><code class="literal">Extended Bounds</code></a>.</p>
+<p>
+与普通 <a class="xref" href="search-aggregations-bucket-histogram-aggregation.html" title="直方图聚合" rel="nofollow">histogram 聚合</a>一样，文档级脚本和值级脚本都是支持的。
+
+你可以使用 <code class="literal">order</code> 设置控制返回的桶的顺序，并根据 <code class="literal">min_doc_count</code> 设置过滤返回的桶(默认情况下，将返回第一个与文档匹配的桶和最后一个桶之间的所有桶)。
+
+该直方图还支持 <code class="literal">extended_bounds</code> 设置，该设置允许将直方图的边界扩展到数据本身之外。
+
+更多信息请参考<a class="xref" href="search-aggregations-bucket-histogram-aggregation.html#search-aggregations-bucket-histogram-aggregation-extended-bounds" rel="nofollow"><code class="literal">扩展的边界</code></a>。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_missing_value_14"></a>Missing value<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/datehistogram-aggregation.asciidoc">edit</a>
+<a id="_missing_value_14"></a>缺失的值
 </h4>
 </div></div></div>
-<p>The <code class="literal">missing</code> parameter defines how to treat documents that are missing a value.
-By default, they are ignored, but it is also possible to treat them as if they
-have a value.</p>
+<p>
+参数 <code class="literal">missing</code> 定义了如何处理缺少值的文档。
+
+默认情况下，它们被忽略，但是也可以将它们视为有一个值。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search?size=0
 {
@@ -749,8 +755,7 @@ have a value.</p>
 <p><a href="#CO222-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Documents without a value in the <code class="literal">publish_date</code> field will fall into the
-same bucket as documents that have the value <code class="literal">2000-01-01</code>.</p>
+<p><code class="literal">publish_date</code> 字段没有值的文档将与 <code class="literal">2000-01-01</code>落入同一个桶。</p>
 </td>
 </tr>
 </table>
@@ -760,23 +765,23 @@ same bucket as documents that have the value <code class="literal">2000-01-01</c
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_order_2"></a>Order<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/datehistogram-aggregation.asciidoc">edit</a>
+<a id="_order_2"></a>排序(order)
 </h4>
 </div></div></div>
-<p>By default the returned buckets are sorted by their <code class="literal">key</code> ascending, but you can
-control the order using
-the <code class="literal">order</code> setting. This setting supports the same <code class="literal">order</code> functionality as
-<a class="xref" href="search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation-order" title="Order"><code class="literal">Terms Aggregation</code></a>.</p>
+<p>
+默认情况下，返回的桶按照他们的 <code class="literal">key</code> 升序排列，但是你可以使用 <code class="literal">order</code> 设置来控制排序。
+
+此设置支持与<a class="xref" href="search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation-order" title="排序" rel="nofollow"><code class="literal">terms 聚合</code></a>相同的 <code class="literal">order</code> 功能。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_using_a_script_to_aggregate_by_day_of_the_week"></a>Using a script to aggregate by day of the week<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/datehistogram-aggregation.asciidoc">edit</a>
+<a id="_using_a_script_to_aggregate_by_day_of_the_week"></a>使用脚本按某一天是一周中的第几天进行聚合
 </h4>
 </div></div></div>
-<p>When you need to aggregate the results by day of the week, use a script that
-returns the day of the week:</p>
+<p>当你需要按某一天是一周中的第几天汇总结果时，请使用返回某一天是一周中的第几天的脚本：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search?size=0
 {
@@ -793,7 +798,7 @@ returns the day of the week:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/451.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   ...
@@ -815,8 +820,7 @@ returns the day of the week:</p>
   }
 }</pre>
 </div>
-<p>The response will contain all the buckets having the relative day of
-the week as key : 1 for Monday, 2 for Tuesday…​ 7 for Sunday.</p>
+<p>响应将包含以某一天是一周中的第几天为key的所有桶：1表示星期一，2表示星期二，...7表示星期天。</p>
 </div>
 
 </div>

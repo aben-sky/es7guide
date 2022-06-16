@@ -204,7 +204,7 @@
 <tr>
 <th align="left" valign="top">符号</th>
 <th align="left" valign="top">含义</th>
-<th align="left" valign="top">描述</th>
+<th align="left" valign="top">表现形式</th>
 <th align="left" valign="top">示例</th>
 </tr>
 </thead>
@@ -289,7 +289,7 @@
 </tr>
 <tr>
 <td align="left" valign="top"><p>a</p></td>
-<td align="left" valign="top"><p>一天中的上午/下午</p></td>
+<td align="left" valign="top"><p>上午/下午</p></td>
 <td align="left" valign="top"><p>text</p></td>
 <td align="left" valign="top"><p>AM; PM</p></td>
 </tr>
@@ -301,37 +301,37 @@
 </tr>
 <tr>
 <td align="left" valign="top"><p>K</p></td>
-<td align="left" valign="top"><p>12小时制的钟点 (0-11)</p></td>
+<td align="left" valign="top"><p>12小时制的小时 (0-11)</p></td>
 <td align="left" valign="top"><p>number</p></td>
 <td align="left" valign="top"><p>0</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p>k</p></td>
-<td align="left" valign="top"><p>clock-hour-of-am-pm (1-24)</p></td>
+<td align="left" valign="top"><p>24小时制的钟点 (1-24)</p></td>
 <td align="left" valign="top"><p>number</p></td>
 <td align="left" valign="top"><p>0</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p>H</p></td>
-<td align="left" valign="top"><p>hour-of-day (0-23)</p></td>
+<td align="left" valign="top"><p>一天的小时 (0-23)</p></td>
 <td align="left" valign="top"><p>number</p></td>
 <td align="left" valign="top"><p>0</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p>m</p></td>
-<td align="left" valign="top"><p>minute-of-hour</p></td>
+<td align="left" valign="top"><p>分钟</p></td>
 <td align="left" valign="top"><p>number</p></td>
 <td align="left" valign="top"><p>30</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p>s</p></td>
-<td align="left" valign="top"><p>second-of-minute</p></td>
+<td align="left" valign="top"><p>秒</p></td>
 <td align="left" valign="top"><p>number</p></td>
 <td align="left" valign="top"><p>55</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p>S</p></td>
-<td align="left" valign="top"><p>fraction-of-second</p></td>
+<td align="left" valign="top"><p>毫秒</p></td>
 <td align="left" valign="top"><p>fraction</p></td>
 <td align="left" valign="top"><p>978</p></td>
 </tr>
@@ -343,86 +343,104 @@
 </tr>
 <tr>
 <td align="left" valign="top"><p>n</p></td>
-<td align="left" valign="top"><p>nano-of-second</p></td>
+<td align="left" valign="top"><p>纳秒</p></td>
 <td align="left" valign="top"><p>number</p></td>
 <td align="left" valign="top"><p>987654321</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p>N</p></td>
-<td align="left" valign="top"><p>nano-of-day</p></td>
+<td align="left" valign="top"><p>一天的第几纳秒</p></td>
 <td align="left" valign="top"><p>number</p></td>
 <td align="left" valign="top"><p>1234000000</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p>V</p></td>
-<td align="left" valign="top"><p>time-zone ID</p></td>
+<td align="left" valign="top"><p>时区ID</p></td>
 <td align="left" valign="top"><p>zone-id</p></td>
 <td align="left" valign="top"><p>America/Los_Angeles; Z; -08:30</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p>z</p></td>
-<td align="left" valign="top"><p>time-zone name</p></td>
+<td align="left" valign="top"><p>时区的名字</p></td>
 <td align="left" valign="top"><p>zone-name</p></td>
 <td align="left" valign="top"><p>Pacific Standard Time; PST</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p>O</p></td>
-<td align="left" valign="top"><p>localized zone-offset</p></td>
+<td align="left" valign="top"><p>本地化的时区偏移</p></td>
 <td align="left" valign="top"><p>offset-O</p></td>
 <td align="left" valign="top"><p>GMT+8; GMT+08:00; UTC-08:00;</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p>X</p></td>
-<td align="left" valign="top"><p>zone-offset <em>Z</em> for zero</p></td>
+<td align="left" valign="top"><p><em>Z</em>基于0的时区偏移</p></td>
 <td align="left" valign="top"><p>offset-X</p></td>
 <td align="left" valign="top"><p>Z; -08; -0830; -08:30; -083015; -08:30:15;</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p>x</p></td>
-<td align="left" valign="top"><p>zone-offset</p></td>
+<td align="left" valign="top"><p>时区偏移</p></td>
 <td align="left" valign="top"><p>offset-x</p></td>
 <td align="left" valign="top"><p>+0000; -08; -0830; -08:30; -083015; -08:30:15;</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p>Z</p></td>
-<td align="left" valign="top"><p>zone-offset</p></td>
+<td align="left" valign="top"><p>时区偏移</p></td>
 <td align="left" valign="top"><p>offset-Z</p></td>
 <td align="left" valign="top"><p>+0000; -0800; -08:00;</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p>p</p></td>
-<td align="left" valign="top"><p>pad next</p></td>
+<td align="left" valign="top"><p>下一填充</p></td>
 <td align="left" valign="top"><p>pad modifier</p></td>
 <td align="left" valign="top"><p>1</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p>'</p></td>
-<td align="left" valign="top"><p>escape for text</p></td>
+<td align="left" valign="top"><p>文本转义</p></td>
 <td align="left" valign="top"><p>delimiter</p></td>
 <td align="left" valign="top"><p>''</p></td>
 </tr>
 <tr>
-<td align="left" valign="top"><p>single quote</p></td>
+<td align="left" valign="top"><p>'</p></td>
+<td align="left" valign="top"><p>单引号</p></td>
 <td align="left" valign="top"><p>literal</p></td>
 <td align="left" valign="top"><p>'</p></td>
+</tr>
+<tr>
 <td align="left" valign="top"><p>[</p></td>
+<td align="left" valign="top"><p>可选部分开始</p></td>
+<td align="left" valign="top"></td>
+<td align="left" valign="top"></td>
 </tr>
 <tr>
-<td align="left" valign="top"><p>optional section start</p></td>
 <td align="left" valign="top"><p>]</p></td>
-<td align="left" valign="top"><p>optional section end</p></td>
-<td align="left" valign="top"><p>#</p></td>
+<td align="left" valign="top"><p>可选部分结束</p></td>
+<td align="left" valign="top"></td>
+<td align="left" valign="top"></td>
 </tr>
 <tr>
-<td align="left" valign="top"><p>reserved for future use</p></td>
+<td align="left" valign="top"><p>#</p></td>
+<td align="left" valign="top"><p>留作将来使用</p></td>
+<td align="left" valign="top"></td>
+<td align="left" valign="top"></td>
+</tr>
+<tr>
 <td align="left" valign="top"><p>{</p></td>
-<td align="left" valign="top"><p>reserved for future use</p></td>
+<td align="left" valign="top"><p>留作将来使用</p></td>
+<td align="left" valign="top"></td>
+<td align="left" valign="top"></td>
+</tr>
+<tr>
 <td align="left" valign="top"><p>}</p></td>
+<td align="left" valign="top"><p>留作将来使用</p></td>
+<td align="left" valign="top"></td>
+<td align="left" valign="top"></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>The count of pattern letters determines the format.</p>
+<p>模式字母的数量决定了格式。</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -431,11 +449,11 @@ Text
 </span>
 </dt>
 <dd>
-The text style is determined based on the number of pattern letters
-used. Less than 4 pattern letters will use the short form. Exactly 4
-pattern letters will use the full form. Exactly 5 pattern letters will use
-the narrow form. Pattern letters <code class="literal">L</code>, <code class="literal">c</code>, and <code class="literal">q</code> specify the stand-alone
-form of the text styles.
+文本样式是由使用的模式字母的数量确定的。
+
+少于4个模式字母将使用短格式，正好4个模式字母将使用完整的形式，正好5个字母将使用窄格式。
+
+模式字母<code class="literal">L</code>、<code class="literal">c</code> 及 <code class="literal">q</code>指定文本样式的独立形式。
 </dd>
 <dt>
 <span class="term">
@@ -443,13 +461,17 @@ Number
 </span>
 </dt>
 <dd>
-If the count of letters is one, then the value is output using
-the minimum number of digits and without padding. Otherwise, the count of
-digits is used as the width of the output field, with the value
-zero-padded as necessary. The following pattern letters have constraints
-on the count of letters. Only one letter of <code class="literal">c</code> and <code class="literal">F</code> can be specified.
-Up to two letters of <code class="literal">d</code>, <code class="literal">H</code>, <code class="literal">h</code>, <code class="literal">K</code>, <code class="literal">k</code>, <code class="literal">m</code>, and <code class="literal">s</code> can be
-specified. Up to three letters of <code class="literal">D</code> can be specified.
+如果模式字母的数量为1，则使用最少的位数输出该值，且不进行填充。
+
+否则，使用数字的数量作为输出字段的宽度，必要时用零填充。
+
+以下模式字母对字母的数量有限制。
+
+<code class="literal">c</code> 和 <code class="literal">F</code> 只能指定一个字母。
+
+<code class="literal">d</code>、<code class="literal">H</code>、<code class="literal">h</code>、<code class="literal">K</code>、<code class="literal">k</code>、<code class="literal">m</code> 及 <code class="literal">s</code> 最多可以指定2个字母。
+
+<code class="literal">D</code> 最多可以指定3个字母。
 </dd>
 <dt>
 <span class="term">
@@ -457,8 +479,7 @@ Number/Text
 </span>
 </dt>
 <dd>
-If the count of pattern letters is 3 or greater, use the
-Text rules above. Otherwise use the Number rules above.
+如果模式字母的数量为3或更多时，使用上面的 Text 规则，否则使用上面的 Number 规则。
 </dd>
 <dt>
 <span class="term">
@@ -466,10 +487,11 @@ Fraction
 </span>
 </dt>
 <dd>
-Outputs the nano-of-second field as a fraction-of-second. The
-nano-of-second value has nine digits, thus the count of pattern letters is
-from 1 to 9. If it is less than 9, then the nano-of-second value is
-truncated, with only the most significant digits being output.
+以秒的小数形式输出纳秒字段。
+
+纳秒值有九个数字，因此模式字母的数量是从1到9。
+
+如果小于9，则纳秒值被截断，只输出最高有效位。
 </dd>
 <dt>
 <span class="term">
@@ -477,14 +499,15 @@ Year
 </span>
 </dt>
 <dd>
-The count of letters determines the minimum field width below which
-padding is used. If the count of letters is two, then a reduced two digit
-form is used. For printing, this outputs the rightmost two digits. For
-parsing, this will parse using the base value of 2000, resulting in a year
-within the range 2000 to 2099 inclusive. If the count of letters is less
-than four (but not two), then the sign is only output for negative years
-as per <code class="literal">SignStyle.NORMAL</code>. Otherwise, the sign is output if the pad width is
-exceeded, as per <code class="literal">SignStyle.EXCEEDS_PAD</code>.
+字母的数量决定了最小字段宽度，在该宽度以下使用填充。
+
+如果字母的数量是2，则使用简化的两位数形式。
+
+解析时，将使用基数2000进行解析，得到2000到2099(含)范围内的年份。
+
+如果字母的数量小于4(但也不是2)，那么根据<code class="literal">SignStyle.NORMAL</code>，只输出负年份的符号。
+
+否则，如果超出填充宽度，根据<code class="literal">SignStyle.EXCEEDS_PAD</code>，输出符号。
 </dd>
 <dt>
 <span class="term">
@@ -492,9 +515,11 @@ ZoneId
 </span>
 </dt>
 <dd>
-This outputs the time-zone ID, such as <code class="literal">Europe/Paris</code>. If the
-count of letters is two, then the time-zone ID is output. Any other count
-of letters throws <code class="literal">IllegalArgumentException</code>.
+输出时区ID，例如<code class="literal">Europe/Paris</code>。
+
+如果字母的数量为2，则输出时区ID。
+
+任何其他字母的数量都会抛出 <code class="literal">IllegalArgumentException</code> 异常。
 </dd>
 <dt>
 <span class="term">
@@ -502,10 +527,14 @@ Zone names
 </span>
 </dt>
 <dd>
-This outputs the display name of the time-zone ID. If the
-count of letters is one, two or three, then the short name is output. If
-the count of letters is four, then the full name is output. Five or more
-letters throws <code class="literal">IllegalArgumentException</code>.
+
+This outputs the display name of the time-zone ID.
+
+If the count of letters is one, two or three, then the short name is output.
+
+If the count of letters is four, then the full name is output.
+
+Five or more letters throws <code class="literal">IllegalArgumentException</code>.
 </dd>
 <dt>
 <span class="term">

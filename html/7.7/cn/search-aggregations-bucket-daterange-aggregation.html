@@ -527,33 +527,31 @@ Zone names
 </span>
 </dt>
 <dd>
+这将输出时区ID的显示名称。
 
-This outputs the display name of the time-zone ID.
-
-If the count of letters is one, two or three, then the short name is output.
-
-If the count of letters is four, then the full name is output.
-
-Five or more letters throws <code class="literal">IllegalArgumentException</code>.
+如果字母数是一、二或三，则输出简称；如果字母数为4，则输出全名；五个或更多字母抛出 <code class="literal">IllegalArgumentException</code>异常。
 </dd>
 <dt>
 <span class="term">
-Offset X and x
+Offset X 和 x
 </span>
 </dt>
 <dd>
-This formats the offset based on the number of pattern
-letters. One letter outputs just the hour, such as <code class="literal">+01</code>, unless the
-minute is non-zero in which case the minute is also output, such as
-<code class="literal">+0130</code>. Two letters outputs the hour and minute, without a colon, such as
-<code class="literal">+0130</code>. Three letters outputs the hour and minute, with a colon, such as
-<code class="literal">+01:30</code>. Four letters outputs the hour and minute and optional second,
-without a colon, such as <code class="literal">+013015</code>. Five letters outputs the hour and
-minute and optional second, with a colon, such as <code class="literal">+01:30:15</code>. Six or
-more letters throws <code class="literal">IllegalArgumentException</code>. Pattern letter <code class="literal">X</code> (upper
-case) will output <code class="literal">Z</code> when the offset to be output would be zero,
-whereas pattern letter <code class="literal">x</code> (lower case) will output <code class="literal">+00</code>, <code class="literal">+0000</code>, or
-<code class="literal">+00:00</code>.
+这将根据模式字母的数量格式化 offset。
+
+一个字母只输出小时，如 <code class="literal">+01</code>，除非分钟是非零的，在这种情况下，分钟也输出，如 <code class="literal">+0130</code>。
+
+两个字母输出小时和分钟，不带冒号，如 <code class="literal">+0130</code>。
+
+三个字母输出小时和分钟，带冒号，如 <code class="literal">+01:30</code>。
+
+四个字母输出小时、分钟和可选的秒，不带冒号，例如 <code class="literal">+013015</code>。
+
+五个字母输出小时、分钟和可选的秒，带冒号，如 <code class="literal">+01:30:15</code>。
+
+六个或更多的字母则抛出<code class="literal">IllegalArgumentException</code>异常。
+
+当要输出的偏移为零时，模式字母 <code class="literal">X</code>(大写)将输出 <code class="literal">Z</code>，而模式字母 <code class="literal">x</code>(小写)将输出 <code class="literal">+00</code>、<code class="literal">+0000</code> 或 <code class="literal">+00:00</code>。
 </dd>
 <dt>
 <span class="term">
@@ -561,15 +559,13 @@ Offset O
 </span>
 </dt>
 <dd>
-This formats the localized offset based on the number of
-pattern letters. One letter outputs the short form of the localized
-offset, which is localized offset text, such as <code class="literal">GMT</code>, with hour without
-leading zero, optional 2-digit minute and second if non-zero, and colon,
-for example <code class="literal">GMT+8</code>. Four letters outputs the full form, which is
-localized offset text, such as <code class="literal">GMT, with 2-digit hour and minute
-field, optional second field if non-zero, and colon, for example
-`GMT+08:00</code>. Any other count of letters throws
-<code class="literal">IllegalArgumentException</code>.
+这将根据模式字母的数量格式化本地化的offset。
+
+一个字母输出本地化offset的简短形式，它是本地化的offset的文本，如 <code class="literal">GMT</code>，包括不带前导零的小时、可选的2位数分钟和秒(如果非零)以及冒号，如 <code class="literal">GMT+8</code>。
+
+四个字母输出完整的形式，这是本地化的offset的文本，如 <code class="literal">GMT</code>，具有两位数的小时和分钟字段，非零时的可选的第二个字段，以及冒号，例如 <code class="literal">GMT+08:00</code>。
+
+任何其他字母计数都会抛出 <code class="literal">IllegalArgumentException</code>异常。
 </dd>
 <dt>
 <span class="term">

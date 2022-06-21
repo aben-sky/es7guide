@@ -205,3 +205,4 @@ https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-autodatehistogram-ag
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-children-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-composite-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-datehistogram-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-daterange-aggregation.html

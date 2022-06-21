@@ -573,58 +573,69 @@ Offset Z
 </span>
 </dt>
 <dd>
-This formats the offset based on the number of pattern letters.
-One, two or three letters outputs the hour and minute, without a colon,
-such as <code class="literal">+0130</code>. The output will be <code class="literal">+0000</code> when the offset is zero.
-Four letters outputs the full form of localized offset, equivalent to
-four letters of Offset-O. The output will be the corresponding localized
-offset text if the offset is zero. Five letters outputs the hour,
-minute, with optional second if non-zero, with colon. It outputs <code class="literal">Z</code> if
-the offset is zero. Six or more letters throws IllegalArgumentException.
+这将根据模式字母的数量格式化offset。
+
+一个、两个或三个字母输出小时和分钟，不带冒号，如 <code class="literal">+0130</code>。
+
+当offset为零时，输出将为 <code class="literal">+0000</code>。
+
+四个字母输出本地化offset的完整形式，相当于Offset-O的四个字母。
+
+如果offset为零，输出将是相应的本地化offset文本。
+
+五个字母输出小时、分钟，如果非零，可选秒，带冒号。
+
+如果offset为零，则输出 <code class="literal">Z</code>。
+
+六个或更多字母抛出 <code class="literal">IllegalArgumentException</code>异常。
 </dd>
 <dt>
 <span class="term">
-Optional section
+可选(optional)部分
 </span>
 </dt>
 <dd>
-The optional section markers work exactly like calling
-<code class="literal">DateTimeFormatterBuilder.optionalStart()</code> and
-<code class="literal">DateTimeFormatterBuilder.optionalEnd()</code>.
+可选部分标记的工作方式与调用 <code class="literal">DateTimeFormatterBuilder.optionalStart()</code>和 <code class="literal">DateTimeFormatterBuilder.optionalEnd()</code>完全一样。
 </dd>
 <dt>
 <span class="term">
-Pad modifier
+填充修饰符
 </span>
 </dt>
 <dd>
-Modifies the pattern that immediately follows to be padded
-with spaces. The pad width is determined by the number of pattern letters.
-This is the same as calling <code class="literal">DateTimeFormatterBuilder.padNext(int)</code>.
+将紧随其后的模式修改为用空格填充。
+
+填充宽度由模式字母的数量决定。
+
+这与调用 <code class="literal">DateTimeFormatterBuilder.padNext(int)</code>相同。
 </dd>
 </dl>
 </div>
-<p>For example, <code class="literal">ppH</code> outputs the hour-of-day padded on the left with spaces to a width of 2.</p>
-<p>Any unrecognized letter is an error. Any non-letter character, other than
-<code class="literal">[</code>, <code class="literal">]</code>, <code class="literal">{</code>, <code class="literal">}</code>, <code class="literal">#</code> and the single quote will be output directly.
-Despite this, it is recommended to use single quotes around all characters
-that you want to output directly to ensure that future changes do not
-break your application.</p>
+<p>
+例如，<code class="literal">ppH</code>输出在左边用空格填充宽度为2的的一天中的小时。
+</p>
+<p>
+任何无法识别的字母都是错误的。
+
+除<code class="literal">[</code>、<code class="literal">]</code>、<code class="literal">{</code>、<code class="literal">}</code>、<code class="literal">#</code>和单引号之外的任何非字母字符将被直接输出。
+
+尽管如此，还是建议在所有想要直接输出的字符周围使用单引号，以确保将来的更改不会破坏应用程序。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="time-zones"></a>Time zone in date range aggregations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/daterange-aggregation.asciidoc">edit</a>
+<a id="time-zones"></a>日期范围聚合中的时区
 </h3>
 </div></div></div>
-<p>Dates can be converted from another time zone to UTC by specifying the
-<code class="literal">time_zone</code> parameter.</p>
-<p>Time zones may either be specified as an ISO 8601 UTC offset (e.g. +01:00 or
--08:00) or as one of the time zone ids from the TZ database.</p>
-<p>The <code class="literal">time_zone</code> parameter is also applied to rounding in date math expressions.
-As an example, to round to the beginning of the day in the CET time zone, you
-can do the following:</p>
+<p>通过指定 <code class="literal">time_zone</code> 参数，可以将日期从另一个时区转换为UTC。</p>
+<p>时区可以指定为ISO 8601 UTC时差(例如+01:00或-08:00)，也可以指定为TZ数据库中的时区id之一。</p>
+<p>
+参数 <code class="literal">time_zone</code> 也适用于日期数学表达式中的舍入。
+
+例如，要在CET时区中舍入到一天的开始，可以执行以下操作：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search?size=0
 {
@@ -651,7 +662,7 @@ can do the following:</p>
 <p><a href="#CO225-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>This date will be converted to <code class="literal">2016-02-01T00:00:00.000+01:00</code>.</p>
+<p>此日期将被转换为<code class="literal">2016-02-01T00:00:00.000+01:00</code>。</p>
 </td>
 </tr>
 <tr>
@@ -659,7 +670,7 @@ can do the following:</p>
 <p><a href="#CO225-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">now/d</code> will be rounded to the beginning of the day in the CET time zone.</p>
+<p><code class="literal">now/d</code> 将被舍入到CET时区中一天的开始。</p>
 </td>
 </tr>
 </table>
@@ -669,11 +680,10 @@ can do the following:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_keyed_response_4"></a>Keyed Response<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/daterange-aggregation.asciidoc">edit</a>
+<a id="_keyed_response_4"></a>keyed 响应
 </h3>
 </div></div></div>
-<p>Setting the <code class="literal">keyed</code> flag to <code class="literal">true</code> will associate a unique string key with each
-bucket and return the ranges as a hash rather than an array:</p>
+<p>将 <code class="literal">keyed</code> 标志设置为 <code class="literal">true</code>会将唯一的字符串键与每个桶相关联，并将范围作为哈希而不是数组返回：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search?size=0
 {
@@ -693,7 +703,7 @@ bucket and return the ranges as a hash rather than an array:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/455.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -715,7 +725,7 @@ bucket and return the ranges as a hash rather than an array:</p>
     }
 }</pre>
 </div>
-<p>It is also possible to customize the key for each range:</p>
+<p>也可以为每个范围定制的键：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search?size=0
 {
@@ -735,7 +745,7 @@ bucket and return the ranges as a hash rather than an array:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/456.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...

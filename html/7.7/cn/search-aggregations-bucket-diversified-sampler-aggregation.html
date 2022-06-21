@@ -120,7 +120,7 @@
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/457.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -150,7 +150,7 @@
 <p><a href="#CO226-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>151 documents were sampled in total.</p>
+<p>一共抽样了151份分档。</p>
 </td>
 </tr>
 <tr>
@@ -158,7 +158,7 @@
 <p><a href="#CO226-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The results of the significant_terms aggregation are not skewed by any single author’s quirks because we asked for a maximum of one post from any one author in our sample.</p>
+<p><code class="literal">significant_terms</code> 聚合的结果不会因为任何一个作者的怪癖而扭曲，因为我们要求样本中的任何一个作者最多发表一篇文章。</p>
 </td>
 </tr>
 </table>
@@ -166,11 +166,14 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_scripted_example"></a>Scripted example:<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/diversified-sampler-aggregation.asciidoc">edit</a>
+<a id="_scripted_example"></a>脚本化示例：
 </h3>
 </div></div></div>
-<p>In this scenario we might want to diversify on a combination of field values. We can use a <code class="literal">script</code> to produce a hash of the
-multiple values in a tags field to ensure we don’t have a sample that consists of the same repeated combinations of tags.</p>
+<p>
+在这个场景下，我们可能希望对字段值的组合进行多样化。
+
+我们可以使用一个 <code class="literal">script</code> 来产生一个 tags 字段中的多个值的哈希，以确保我们没有一个由相同的重复的 tag 组合组成的样本。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /stackoverflow/_search?size=0
 {
@@ -202,7 +205,7 @@ multiple values in a tags field to ensure we don’t have a sample that consists
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/458.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -236,85 +239,95 @@ multiple values in a tags field to ensure we don’t have a sample that consists
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_shard_size"></a>shard_size<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/diversified-sampler-aggregation.asciidoc">edit</a>
+<a id="_shard_size"></a>shard_size
 </h3>
 </div></div></div>
-<p>The <code class="literal">shard_size</code> parameter limits how many top-scoring documents are collected in the sample processed on each shard.
-The default value is 100.</p>
+<p>参数 <code class="literal">shard_size</code> 限制了在每个分片上处理的样本中收集多少个得分最高的文档。默认值为 <code class="literal">100</code>。</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_max_docs_per_value"></a>max_docs_per_value<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/diversified-sampler-aggregation.asciidoc">edit</a>
+<a id="_max_docs_per_value"></a>max_docs_per_value
 </h3>
 </div></div></div>
-<p>The <code class="literal">max_docs_per_value</code> is an optional parameter and limits how many documents are permitted per choice of de-duplicating value.
-The default setting is "1".</p>
+<p><code class="literal">max_docs_per_value</code> 是一个可选参数，它限制每次选择数值去重时允许的文档数量。默认值为 <code class="literal">1</code>。</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_execution_hint"></a>execution_hint<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/diversified-sampler-aggregation.asciidoc">edit</a>
+<a id="_execution_hint"></a>execution_hint
 </h3>
 </div></div></div>
-<p>The optional <code class="literal">execution_hint</code> setting can influence the management of the values used for de-duplication.
-Each option will hold up to <code class="literal">shard_size</code> values in memory while performing de-duplication but the type of value held can be controlled as follows:</p>
+<p>
+可选的 <code class="literal">execution_hint</code> 设置会影响用于值的去重的管理。
+
+在执行去重时，每个选项最多可在内存中保存的个数为 <code class="literal">shard_size</code>，但保存的值的类型可以控制如下：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-hold field values directly (<code class="literal">map</code>)
+直接保存字段值（<code class="literal">map</code>）
 </li>
 <li class="listitem">
-hold ordinals of the field as determined by the Lucene index (<code class="literal">global_ordinals</code>)
+保存由Lucene索引确定的字段序号（<code class="literal">global_ordinals</code>）
 </li>
 <li class="listitem">
-hold hashes of the field values - with potential for hash collisions (<code class="literal">bytes_hash</code>)
+保存字段值的哈希 - 这有可能导致哈希冲突（<code class="literal">bytes_hash</code>）
 </li>
 </ul>
 </div>
-<p>The default setting is to use <code class="literal">global_ordinals</code> if this information is available from the Lucene index and reverting to <code class="literal">map</code> if not.
-The <code class="literal">bytes_hash</code> setting may prove faster in some cases but introduces the possibility of false positives in de-duplication logic due to the possibility of hash collisions.
-Please note that Elasticsearch will ignore the choice of execution hint if it is not applicable and that there is no backward compatibility guarantee on these hints.</p>
+<p>
+如果这个信息可以从 Lucene 索引中获得，则默认是使用 <code class="literal">global_ordinals</code>，否则，就恢复使用 <code class="literal">map</code>。
+
+<code class="literal">bytes_hash</code> 设置在某些情况下可能会更快，但由于可能会发生哈希冲突，因此可能会在去重逻辑中引入误报。
+
+请注意，如果不适用，Elasticsearch 将忽略执行提示的选择，并且这些提示没有向后兼容性保证。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_limitations_3"></a>Limitations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/diversified-sampler-aggregation.asciidoc">edit</a>
+<a id="_limitations_3"></a>局限性
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="div-sampler-breadth-first-nested-agg"></a>Cannot be nested under <code class="literal">breadth_first</code> aggregations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/diversified-sampler-aggregation.asciidoc">edit</a>
+<a id="div-sampler-breadth-first-nested-agg"></a>不能在<code class="literal">breadth_first</code>聚合下嵌套
 </h4>
 </div></div></div>
-<p>Being a quality-based filter the diversified_sampler aggregation needs access to the relevance score produced for each document.
-It therefore cannot be nested under a <code class="literal">terms</code> aggregation which has the <code class="literal">collect_mode</code> switched from the default <code class="literal">depth_first</code> mode to <code class="literal">breadth_first</code> as this discards scores.
-In this situation an error will be thrown.</p>
+<p>
+作为一个基于质量的过滤器，<code class="literal">diversified_sampler</code> 聚合需要访问每个文档的相关性分数。
+
+因此，它不能嵌套在将 <code class="literal">collect_mode</code> 从默认的<code class="literal">depth_first</code>模式切换到 <code class="literal">breadth_first</code> 模式的 <code class="literal">terms</code> 聚合下，因为这个模式下会丢弃分数。
+
+在这种情况下，将会抛出一个错误。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_limited_de_dup_logic"></a>Limited de-dup logic.<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/diversified-sampler-aggregation.asciidoc">edit</a>
+<a id="_limited_de_dup_logic"></a>有限的去重逻辑
 </h4>
 </div></div></div>
-<p>The de-duplication logic applies only at a shard level so will not apply across shards.</p>
+<p>去重逻辑仅适用于分片级别，因此不适用于所有分片。</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="spec-syntax-geo-date-fields"></a>No specialized syntax for geo/date fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/diversified-sampler-aggregation.asciidoc">edit</a>
+<a id="spec-syntax-geo-date-fields"></a>geo/date 字段没有专门的语法
 </h4>
 </div></div></div>
-<p>Currently the syntax for defining the diversifying values is defined by a choice of <code class="literal">field</code> or
-<code class="literal">script</code> - there is no added syntactical sugar for expressing geo or date units such as "7d" (7
-days). This support may be added in a later release and users will currently have to create these
-sorts of values using a script.</p>
+<p>
+目前，定义多样化值的语法是通过选择 <code class="literal">field</code> 或 <code class="literal">script</code> 来定义的——没有添加语法糖来表示 geo 或 date 单位，如“7d”(7天)。
+
+此项支持可能会在以后的版本中添加，用户现在必须使用脚本来创建这些类型的值。
+</p>
 </div>
 
 </div>

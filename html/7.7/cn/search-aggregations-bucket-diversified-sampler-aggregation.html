@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Diversified Sampler Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>diversified_sampler 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,59 +32,67 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">Bucket Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">桶(bucket)聚合</a></span>
 »
-<span class="breadcrumb-node">Diversified Sampler Aggregation</span>
+<span class="breadcrumb-node">diversified_sampler 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-bucket-daterange-aggregation.html">« Date Range Aggregation</a>
+<a href="search-aggregations-bucket-daterange-aggregation.html">« date_range 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-filter-aggregation.html">Filter Aggregation »</a>
+<a href2="search-aggregations-bucket-filter-aggregation.html">Filter Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-bucket-diversified-sampler-aggregation"></a>Diversified Sampler Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/diversified-sampler-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-diversified-sampler-aggregation"></a>多样化取样(diversified_sampler)聚合
 </h2>
 </div></div></div>
-<p>Like the <code class="literal">sampler</code> aggregation this is a filtering aggregation used to limit any sub aggregations' processing to a sample of the top-scoring documents.
-The <code class="literal">diversified_sampler</code> aggregation adds the ability to limit the number of matches that share a common value such as an "author".</p>
+<p>
+与 <code class="literal">sampler</code> 聚合一样，这是一个过滤聚合，用于将任何子聚合的处理限制在得分最高的文档样本中。
+
+<code class="literal">diversified_sampler</code> 聚合增加了限制共享一个公共值(如“author”)的匹配数量的能力。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Any good market researcher will tell you that when working with samples of data it is important
-that the sample represents a healthy variety of opinions rather than being skewed by any single voice.
-The same is true with aggregations and sampling with these diversify settings can offer a way to remove the bias in your content (an over-populated geography,
-a large spike in a timeline or an over-active forum spammer).</p>
+<p>
+任何一个优秀的市场调研人员都会告诉你，在处理数据样本时，重要的是样本要代表健康的各种观点，而不是被任何单一的声音所扭曲。
+
+聚合也是如此，使用这些多样化的设置进行采样可以提供一种方法来消除内容中的偏见(人口过多的地理位置、时间轴上的一个大峰值或过于活跃的论坛垃圾邮件发送者)。
+</p>
 </div>
 </div>
 <div class="ulist itemizedlist">
-<p class="title"><strong>Example use cases:</strong></p>
+<p class="title"><strong>用例示例：</strong></p>
 <ul class="itemizedlist">
 <li class="listitem">
-Tightening the focus of analytics to high-relevance matches rather than the potentially very long tail of low-quality matches
+将分析的焦点集中在高相关性匹配上，而不是潜在的低质量匹配长尾上
 </li>
 <li class="listitem">
-Removing bias from analytics by ensuring fair representation of content from different sources
+通过确保公平呈现不同来源的内容，消除分析中的偏见
 </li>
 <li class="listitem">
-Reducing the running cost of aggregations that can produce useful results using only samples e.g. <code class="literal">significant_terms</code>
+降低仅使用样本（例如 <code class="literal">significant_terms</code>）即可产生有用结果的聚合的运行成本
 </li>
 </ul>
 </div>
-<p>A choice of <code class="literal">field</code> or <code class="literal">script</code> setting is used to provide values used for de-duplication and the <code class="literal">max_docs_per_value</code> setting controls the maximum
-number of documents collected on any one shard which share a common value. The default setting for <code class="literal">max_docs_per_value</code> is 1.</p>
-<p>The aggregation will throw an error if the choice of <code class="literal">field</code> or <code class="literal">script</code> produces multiple values for a single document (de-duplication using multi-valued fields is not supported due to efficiency concerns).</p>
-<p>Example:</p>
-<p>We might want to see which tags are strongly associated with <code class="literal">#elasticsearch</code> on StackOverflow
-forum posts but ignoring the effects of some prolific users with a tendency to misspell #Kibana as #Cabana.</p>
+<p>
+选择 <code class="literal">field</code> 或 <code class="literal">script</code> 设置来提供用于数据去重的值，<code class="literal">max_docs_per_value</code>设置控制在任何一个共享公共值的分片上收集的文档的最大数量。
+
+<code class="literal">max_docs_per_value</code> 的默认设置为 <code class="literal">1</code>。
+</p>
+<p>如果选择的 <code class="literal">field</code> 或 <code class="literal">script</code> 为单个文档产生多个值，则聚合将引发错误(出于效率考虑，不支持使用多值字段进行去重)。</p>
+<p>例如：</p>
+<p>
+我们可能想看看哪些标签与 StackOverflow 论坛帖子上的 <code class="literal">#elasticsearch</code> 密切相关，但忽略了一些高产用户倾向于将 #Kibana 拼写为 #Cabana 的影响。 
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /stackoverflow/_search?size=0
 {
@@ -314,10 +322,10 @@ sorts of values using a script.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-bucket-daterange-aggregation.html">« Date Range Aggregation</a>
+<a href="search-aggregations-bucket-daterange-aggregation.html">« date_range 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-filter-aggregation.html">Filter Aggregation »</a>
+<a href2="search-aggregations-bucket-filter-aggregation.html">Filter Aggregation »</a>
 </span>
 </div>
 </div>

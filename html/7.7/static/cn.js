@@ -1402,8 +1402,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-bucket-diversified-sampler-aggregation.html",
-                        "text": "Diversified Sampler Aggregation",
-                        "title": "Diversified Sampler Aggregation"
+                        "text": "diversified_sampler 聚合",
+                        "title": "diversified_sampler 聚合"
                     },
                     {
                         "url": "search-aggregations-bucket-filter-aggregation.html",

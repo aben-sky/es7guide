@@ -206,3 +206,6 @@ https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-children-aggregation
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-composite-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-datehistogram-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-daterange-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-diversified-sampler-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-filter-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-filters-aggregation.html

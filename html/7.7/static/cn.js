@@ -1412,8 +1412,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-bucket-filters-aggregation.html",
-                        "text": "Filters Aggregation",
-                        "title": "Filters Aggregation"
+                        "text": "filters 聚合",
+                        "title": "filters 聚合"
                     },
                     {
                         "url": "search-aggregations-bucket-geodistance-aggregation.html",

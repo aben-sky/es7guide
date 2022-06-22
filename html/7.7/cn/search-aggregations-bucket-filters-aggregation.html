@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Filters Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>filters 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,32 +32,30 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">Bucket Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">桶(bucket)聚合</a></span>
 »
-<span class="breadcrumb-node">Filters Aggregation</span>
+<span class="breadcrumb-node">filters 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-bucket-filter-aggregation.html">« Filter Aggregation</a>
+<a href="search-aggregations-bucket-filter-aggregation.html">« filter 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-geodistance-aggregation.html">Geo Distance Aggregation »</a>
+<a href2="search-aggregations-bucket-geodistance-aggregation.html">Geo Distance Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-bucket-filters-aggregation"></a>Filters Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/filters-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-filters-aggregation"></a>多个过滤器(filters)聚合
 </h2>
 </div></div></div>
-<p>Defines a multi bucket aggregation where each bucket is associated with a
-filter. Each bucket will collect all documents that match its associated
-filter.</p>
-<p>Example:</p>
+<p>定义一个多桶聚合，其中每个桶都与一个过滤器相关联。每个桶都会收集与其关联的过滤器匹配的所有文档。</p>
+<p>示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /logs/_bulk?refresh
 { "index" : { "_id" : 1 } }
@@ -83,10 +81,12 @@ GET logs/_search
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/460.console"></div>
-<p>In the above example, we analyze log messages. The aggregation will build two
-collection (buckets) of log messages - one for all those containing an error,
-and another for all those containing a warning.</p>
-<p>Response:</p>
+<p>
+上面的例子是对日志(logs)的消息的分析。
+
+例子中的聚合将构建两个日志的消息的集合(桶)——一个用于所有包含错误的消息，另一个用于所有包含警告的消息。
+</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   "took": 9,
@@ -110,11 +110,10 @@ and another for all those containing a warning.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_anonymous_filters"></a>Anonymous filters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/filters-aggregation.asciidoc">edit</a>
+<a id="_anonymous_filters"></a>匿名过滤器
 </h3>
 </div></div></div>
-<p>The filters field can also be provided as an array of filters, as in the
-following request:</p>
+<p>filters 字段也可以指定为一个筛选器数组，比如下面这个请求：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET logs/_search
 {
@@ -132,8 +131,7 @@ following request:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/461.console"></div>
-<p>The filtered buckets are returned in the same order as provided in the
-request.  The response for this example would be:</p>
+<p>过滤后的桶按照请求中给定的顺序返回。这个例子的响应是：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   "took": 4,
@@ -159,11 +157,14 @@ request.  The response for this example would be:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="other-bucket"></a><code class="literal">Other</code> Bucket<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/filters-aggregation.asciidoc">edit</a>
+<a id="other-bucket"></a>其他桶（<code class="literal">other_bucket</code>）
 </h3>
 </div></div></div>
-<p>The <code class="literal">other_bucket</code> parameter can be set to add a bucket to the response which will contain all documents that do
-not match any of the given filters. The value of this parameter can be as follows:</p>
+<p>
+可以设置 <code class="literal">other_bucket</code> 参数，以便向响应中添加一个桶，该桶将包含不匹配任何给定的过滤器的所有文档。
+
+该参数的值可以设置为：
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -172,7 +173,7 @@ not match any of the given filters. The value of this parameter can be as follow
 </span>
 </dt>
 <dd>
-Does not compute the <code class="literal">other</code> bucket
+不会计算 <code class="literal">other</code> 桶
 </dd>
 <dt>
 <span class="term">
@@ -180,14 +181,18 @@ Does not compute the <code class="literal">other</code> bucket
 </span>
 </dt>
 <dd>
-Returns the <code class="literal">other</code> bucket either in a bucket (named <code class="literal">_other_</code> by default) if named filters are being used,
-or as the last bucket if anonymous filters are being used
+计算并返回 <code class="literal">other</code> 桶，当使用命名过滤器时返回一个命名(默认名称为 <code class="word">_other_</code>)的桶，否则（使用匿名过滤器时）就是返回的桶中的最后一个
 </dd>
 </dl>
 </div>
-<p>The <code class="literal">other_bucket_key</code> parameter can be used to set the key for the <code class="literal">other</code> bucket to a value other than the default <code class="literal">_other_</code>. Setting
-this parameter will implicitly set the <code class="literal">other_bucket</code> parameter to <code class="literal">true</code>.</p>
-<p>The following snippet shows a response where the <code class="literal">other</code> bucket is requested to be named <code class="literal">other_messages</code>.</p>
+<p>
+参数 <code class="literal">other_bucket_key</code> 可用于设置 <code class="literal">other</code> 桶的键，以取代默认的<code class="word">_other_</code>。
+
+设置此参数将隐式地将 <code class="literal">other_bucket</code> 参数设置为<code class="literal">true</code>。
+</p>
+<p>
+下面的代码片段显示了一个响应，其中 <code class="literal">other</code> 桶在请求中被命名为 <code class="word">other_messages</code>。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT logs/_doc/4?refresh
 {
@@ -211,7 +216,7 @@ GET logs/_search
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/462.console"></div>
-<p>The response would be something like the following:</p>
+<p>响应应该是这样的：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   "took": 3,
@@ -240,10 +245,10 @@ GET logs/_search
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-bucket-filter-aggregation.html">« Filter Aggregation</a>
+<a href="search-aggregations-bucket-filter-aggregation.html">« filter 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-geodistance-aggregation.html">Geo Distance Aggregation »</a>
+<a href2="search-aggregations-bucket-geodistance-aggregation.html">Geo Distance Aggregation »</a>
 </span>
 </div>
 </div>

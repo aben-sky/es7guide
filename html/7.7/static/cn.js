@@ -1407,8 +1407,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-bucket-filter-aggregation.html",
-                        "text": "Filter Aggregation",
-                        "title": "Filter Aggregation"
+                        "text": "filter 聚合",
+                        "title": "filter 聚合"
                     },
                     {
                         "url": "search-aggregations-bucket-filters-aggregation.html",

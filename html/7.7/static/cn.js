@@ -1417,8 +1417,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-bucket-geodistance-aggregation.html",
-                        "text": "Geo Distance Aggregation",
-                        "title": "Geo Distance Aggregation"
+                        "text": "geo_distance 聚合",
+                        "title": "geo_distance 聚合"
                     },
                     {
                         "url": "search-aggregations-bucket-geohashgrid-aggregation.html",

@@ -209,3 +209,4 @@ https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-daterange-aggregatio
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-diversified-sampler-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-filter-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-filters-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-geodistance-aggregation.html

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Geo Distance Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>geo_distance 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,29 +32,35 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">Bucket Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">桶(bucket)聚合</a></span>
 »
-<span class="breadcrumb-node">Geo Distance Aggregation</span>
+<span class="breadcrumb-node">geo_distance 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-bucket-filters-aggregation.html">« Filters Aggregation</a>
+<a href="search-aggregations-bucket-filters-aggregation.html">« filters 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-geohashgrid-aggregation.html">GeoHash grid Aggregation »</a>
+<a href2="search-aggregations-bucket-geohashgrid-aggregation.html">GeoHash grid Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-bucket-geodistance-aggregation"></a>Geo Distance Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/geodistance-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-geodistance-aggregation"></a>地理距离(geo_distance)聚合
 </h2>
 </div></div></div>
-<p>A multi-bucket aggregation that works on <code class="literal">geo_point</code> fields and conceptually works very similar to the <a class="xref" href="search-aggregations-bucket-range-aggregation.html" title="Range Aggregation">range</a> aggregation. The user can define a point of origin and a set of distance range buckets. The aggregation evaluate the distance of each document value from the origin point and determines the buckets it belongs to based on the ranges (a document belongs to a bucket if the distance between the document and the origin falls within the distance range of the bucket).</p>
+<p>
+一个多桶聚合，作用于 <code class="literal">geo_point</code> 字段，在概念上与<a class="xref" href="search-aggregations-bucket-range-aggregation.html" title="range聚合" rel="nofollow">range</a>聚合非常相似。
+
+用户可以定义一个原点和一组距离范围桶。
+
+该聚合计算每个文档值与原点的距离，并根据范围确定其所属的桶(如果文档与原点之间的距离在该桶的距离范围内，则该文档属于该桶)。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /museums
 {
@@ -99,7 +105,7 @@ POST /museums/_search?size=0
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/463.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -128,21 +134,29 @@ POST /museums/_search?size=0
     }
 }</pre>
 </div>
-<p>The specified field must be of type <code class="literal">geo_point</code> (which can only be set explicitly in the mappings). And it can also hold an array of <code class="literal">geo_point</code> fields, in which case all will be taken into account during aggregation. The origin point can accept all formats supported by the <a class="xref" href="geo-point.html" title="Geo-point datatype"><code class="literal">geo_point</code> type</a>:</p>
+<p>
+指定字段的类型必须是<code class="literal">geo_point</code> (只能在映射中显式设置)。
+
+它还可以保存一个<code class="literal">geo_point</code>字段数组，在这种情况下，所有这些都将在聚合过程中考虑在内。
+
+原点可以接受<a class="xref" href="geo-point.html" title="Geo-point datatype"><code class="literal" rel="nofollow">geo_point</code> 类型</a>支持的所有格式：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Object format: <code class="literal">{ "lat" : 52.3760, "lon" : 4.894 }</code> - this is the safest format as it is the most explicit about the <code class="literal">lat</code> &amp; <code class="literal">lon</code> values
+对象格式： <code class="literal">{ "lat" : 52.3760, "lon" : 4.894 }</code> - 这是最安全的格式，因为它对<code class="literal">lat</code> 和 <code class="literal">lon</code>值最明确
 </li>
 <li class="listitem">
-String format: <code class="literal">"52.3760, 4.894"</code> - where the first number is the <code class="literal">lat</code> and the second is the <code class="literal">lon</code>
+字符串格式：<code class="literal">"52.3760, 4.894"</code> - 第一个值是<code class="literal">lat</code>，第二个是<code class="literal">lon</code>
 </li>
 <li class="listitem">
-Array format: <code class="literal">[4.894, 52.3760]</code> - which is based on the <code class="literal">GeoJson</code> standard and where the first number is the <code class="literal">lon</code> and the second one is the <code class="literal">lat</code>
+数组格式：<code class="literal">[4.894, 52.3760]</code> - 基于<code class="literal">GeoJson</code>标准，第一个值是<code class="literal">lon</code>，第二个是<code class="literal">lat</code>
 </li>
 </ul>
 </div>
-<p>By default, the distance unit is <code class="literal">m</code> (meters) but it can also accept: <code class="literal">mi</code> (miles), <code class="literal">in</code> (inches), <code class="literal">yd</code> (yards), <code class="literal">km</code> (kilometers), <code class="literal">cm</code> (centimeters), <code class="literal">mm</code> (millimeters).</p>
+<p>
+默认情况下，距离的单位是 <code class="literal">m</code> (米)，但也接受：<code class="literal">mi</code> (英里), <code class="literal">in</code> (英尺), <code class="literal">yd</code> (码), <code class="literal">km</code> (千米), <code class="literal">cm</code> (厘米), <code class="literal">mm</code> (毫米).
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /museums/_search?size=0
 {
@@ -170,12 +184,22 @@ Array format: <code class="literal">[4.894, 52.3760]</code> - which is based on 
 <p><a href="#CO227-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The distances will be computed in kilometers</p>
+<p>距离将以千米为单位计算</p>
 </td>
 </tr>
 </table>
 </div>
-<p>There are two distance calculation modes: <code class="literal">arc</code> (the default), and <code class="literal">plane</code>. The <code class="literal">arc</code> calculation is the most accurate. The <code class="literal">plane</code> is the fastest but least accurate. Consider using <code class="literal">plane</code> when your search context is "narrow", and spans smaller geographical areas (~5km). <code class="literal">plane</code> will return higher error margins for searches across very large areas (e.g. cross continent search). The distance calculation type can be set using the <code class="literal">distance_type</code> parameter:</p>
+<p>
+有两种距离计算模式：<code class="literal">arc</code> (默认) 和 <code class="literal">plane</code>。
+
+<code class="literal">arc</code>计算是最精确的，<code class="literal">plane</code> 最快但最不精确。
+
+当搜索环境“狭窄”，并且跨越较小的地理区域(约5公里)时，请考虑使用<code class="literal">plane</code>。
+
+对于非常大的区域的搜索(例如跨洲搜索)，<code class="literal">plane</code>将返回更高的误差。。
+
+可以使用参数<code class="literal">distance_type</code>设置距离计算类型：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /museums/_search?size=0
 {
@@ -200,10 +224,10 @@ Array format: <code class="literal">[4.894, 52.3760]</code> - which is based on 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_keyed_response_5"></a>Keyed Response<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/geodistance-aggregation.asciidoc">edit</a>
+<a id="_keyed_response_5"></a>keyed 响应
 </h3>
 </div></div></div>
-<p>Setting the <code class="literal">keyed</code> flag to <code class="literal">true</code> will associate a unique string key with each bucket and return the ranges as a hash rather than an array:</p>
+<p>将 <code class="literal">keyed</code> 标志设置为 <code class="literal">true</code>会将唯一的字符串键与每个桶相关联，并将范围作为哈希而不是数组返回：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /museums/_search?size=0
 {
@@ -224,7 +248,7 @@ Array format: <code class="literal">[4.894, 52.3760]</code> - which is based on 
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/466.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -250,7 +274,7 @@ Array format: <code class="literal">[4.894, 52.3760]</code> - which is based on 
     }
 }</pre>
 </div>
-<p>It is also possible to customize the key for each range:</p>
+<p>也可以为每个范围定制一个键：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /museums/_search?size=0
 {
@@ -271,7 +295,7 @@ Array format: <code class="literal">[4.894, 52.3760]</code> - which is based on 
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/467.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -302,10 +326,10 @@ Array format: <code class="literal">[4.894, 52.3760]</code> - which is based on 
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-bucket-filters-aggregation.html">« Filters Aggregation</a>
+<a href="search-aggregations-bucket-filters-aggregation.html">« filters 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-geohashgrid-aggregation.html">GeoHash grid Aggregation »</a>
+<a href2="search-aggregations-bucket-geohashgrid-aggregation.html">GeoHash grid Aggregation »</a>
 </span>
 </div>
 </div>

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>GeoHash grid Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>geohash_grid 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,53 +32,61 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">Bucket Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">桶(bucket)聚合</a></span>
 »
-<span class="breadcrumb-node">GeoHash grid Aggregation</span>
+<span class="breadcrumb-node">geohash_grid 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-bucket-geodistance-aggregation.html">« Geo Distance Aggregation</a>
+<a href="search-aggregations-bucket-geodistance-aggregation.html">« geo_distance 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-geotilegrid-aggregation.html">GeoTile Grid Aggregation »</a>
+<a href2="search-aggregations-bucket-geotilegrid-aggregation.html">GeoTile Grid Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-bucket-geohashgrid-aggregation"></a>GeoHash grid Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/geohashgrid-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-geohashgrid-aggregation"></a>geohash网格(geohash_grid)聚合
 </h2>
 </div></div></div>
-<p>A multi-bucket aggregation that works on <code class="literal">geo_point</code> fields and groups points into buckets that represent cells in a grid.
-The resulting grid can be sparse and only contains cells that have matching data. Each cell is labeled using a <a href="http://en.wikipedia.org/wiki/Geohash" class="ulink" target="_top">geohash</a> which is of user-definable precision.</p>
+<p>
+一个多桶聚合，作用于 <code class="literal">geo_point</code> 字段，并将坐标点分组到代表网格单元格的桶中。
+
+生成的网格可以是稀疏的，只包含具有匹配数据的单元格。
+
+每个单元格都使用用户可定义精度的<a href="http://en.wikipedia.org/wiki/Geohash" class="ulink" target="_top" rel="nofollow">geohash</a>进行标注。
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-High precision geohashes have a long string length and represent cells that cover only a small area.
+高精度 geohash 的字符串长度比较长，表示仅覆盖很小区域的单元格。
 </li>
 <li class="listitem">
-Low precision geohashes have a short string length and represent cells that each cover a large area.
+低精度 geohash 的字符串长度比较短，表示每个覆盖较大区域的单元格。
 </li>
 </ul>
 </div>
-<p>Geohashes used in this aggregation can have a choice of precision between 1 and 12.</p>
+<p>此聚合中使用的 geohash 的精度可在1和12之间选择。</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The highest-precision geohash of length 12 produces cells that cover less than a square metre of land and so high-precision requests can be very costly in terms of RAM and result sizes.
-Please see the example below on how to first filter the aggregation to a smaller geographic area before requesting high-levels of detail.</p>
+<p>
+长度为12的最高精度的 geohash 生成的单元格覆盖的土地面积不到一平方米，因此高精度请求在内存和结果大小方面的成本非常高。
+
+请看下面的示例，了解如何在请求高精度的详细信息之前，先将聚合过滤到较小的地理区域。
+</p>
 </div>
 </div>
-<p>The specified field must be of type <code class="literal">geo_point</code> (which can only be set explicitly in the mappings) and it can also hold an array of <code class="literal">geo_point</code> fields, in which case all points will be taken into account during aggregation.</p>
+<p>指定字段的类型必须是<code class="literal">geo_point</code> (只能在映射中显式设置)，它还可以保存一个<code class="literal">geo_point</code>字段数组，在这种情况下，所有这些都将在聚合过程中考虑在内。</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_simple_low_precision_request"></a>Simple low-precision request<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/geohashgrid-aggregation.asciidoc">edit</a>
+<a id="_simple_low_precision_request"></a>简单的低精度的请求
 </h3>
 </div></div></div>
 <div class="pre_wrapper lang-console">
@@ -120,7 +128,7 @@ POST /museums/_search?size=0
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/468.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -149,10 +157,10 @@ POST /museums/_search?size=0
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_high_precision_requests"></a>High-precision requests<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/geohashgrid-aggregation.asciidoc">edit</a>
+<a id="_high_precision_requests"></a>高精度的请求
 </h3>
 </div></div></div>
-<p>When requesting detailed buckets (typically for displaying a "zoomed in" map) a filter like <a class="xref" href="query-dsl-geo-bounding-box-query.html" title="Geo-bounding box query">geo_bounding_box</a> should be applied to narrow the subject area otherwise potentially millions of buckets will be created and returned.</p>
+<p>当请求详细的桶(通常用于显示“放大”的地图)时，应应用类似<a class="xref" href="query-dsl-geo-bounding-box-query.html" title="geo-bounding box 查询" rel="nofollow">geo_bounding_box</a>的过滤器来缩小主题区域，否则可能会创建并返回数百万个桶。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /museums/_search?size=0
 {
@@ -179,8 +187,11 @@ POST /museums/_search?size=0
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/469.console"></div>
-<p>The geohashes returned by the <code class="literal">geohash_grid</code> aggregation can be also used for zooming in. To zoom into the
-first geohash <code class="literal">u17</code> returned in the previous example, it should be specified as both <code class="literal">top_left</code> and <code class="literal">bottom_right</code> corner:</p>
+<p>
+<code class="literal">geohash_grid</code> 聚合返回的 geohash 也可用于放大。
+
+要放大上例中返回的第一个geohash <code class="literal">u17</code>，应将它指定为<code class="literal">top_left</code> 和 <code class="literal">bottom_right</code>：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /museums/_search?size=0
 {
@@ -233,9 +244,11 @@ first geohash <code class="literal">u17</code> returned in the previous example,
     }
 }</pre>
 </div>
-<p>For "zooming in" on the system that don’t support geohashes, the bucket keys should be translated into bounding boxes using
-one of available geohash libraries. For example, for javascript the <a href="https://github.com/sunng87/node-geohash" class="ulink" target="_top">node-geohash</a> library
-can be used:</p>
+<p>
+对于不支持 geohash 的系统上的“放大”操作，应该使用一个可用的 geohash 库将桶的键转换为边界框。
+
+例如，对于 javascript，可以使用<a href="https://github.com/sunng87/node-geohash" class="ulink" target="_top" rel="nofollow">node-geohash</a>库：
+</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">var geohash = require('ngeohash');
 
@@ -248,17 +261,18 @@ var bbox = geohash.decode_bbox('u17');</pre>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_requests_with_additional_bounding_box_filtering"></a>Requests with additional bounding box filtering<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/geohashgrid-aggregation.asciidoc">edit</a>
+<a id="_requests_with_additional_bounding_box_filtering"></a>带有附加边界框过滤的请求
 </h3>
 </div></div></div>
-<p>The <code class="literal">geohash_grid</code> aggregation supports an optional <code class="literal">bounds</code> parameter
-that restricts the points considered to those that fall within the
-bounds provided. The <code class="literal">bounds</code> parameter accepts the bounding box in
-all the same <a class="xref" href="query-dsl-geo-bounding-box-query.html#query-dsl-geo-bounding-box-query-accepted-formats" title="Accepted Formats">accepted formats</a> of the
-bounds specified in the Geo Bounding Box Query. This bounding box can be used with or
-without an additional <code class="literal">geo_bounding_box</code> query filtering the points prior to aggregating.
-It is an independent bounding box that can intersect with, be equal to, or be disjoint
-to any additional <code class="literal">geo_bounding_box</code> queries defined in the context of the aggregation.</p>
+<p>
+<code class="literal">geohash_grid</code> 聚合支持一个可选的参数-<code class="literal">bounds</code>，该参数将所考虑的坐标点限制在所提供的边界内。
+
+参数 <code class="literal">bounds</code> 接受 地理边界框(geo_bounding_box)查询中的所有<a class="xref" href="query-dsl-geo-bounding-box-query.html#query-dsl-geo-bounding-box-query-accepted-formats" title="有效的格式" rel="nofollow">有效的格式</a>的边界的边界框。
+
+此边界框可与在聚合前过滤坐标点的附加<code class="literal">geo_bounding_box</code>查询一起使用，也可单独使用。
+
+它是一个独立的边界框，可以与聚合上下文中定义的任何其他<code class="literal">geo_bounding_box</code>查询相交、相等或不相交。
+</p>
 <a id="geohashgrid-aggregation-with-bounds"></a><div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /museums/_search?size=0
 {
@@ -305,11 +319,14 @@ to any additional <code class="literal">geo_bounding_box</code> queries defined 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_cell_dimensions_at_the_equator"></a>Cell dimensions at the equator<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/geohashgrid-aggregation.asciidoc">edit</a>
+<a id="_cell_dimensions_at_the_equator"></a>赤道上的单元格的空间大小
 </h3>
 </div></div></div>
-<p>The table below shows the metric dimensions for cells covered by various string lengths of geohash.
-Cell dimensions vary with latitude and so the table is for the worst-case scenario at the equator.</p>
+<p>
+下表显示了 geohash 的各种字符串长度所覆盖的单元格的空间纬度的大小。
+
+单元格的尺寸随纬度变化，因此该表适用于赤道上的最坏情况。
+</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -320,12 +337,12 @@ Cell dimensions vary with latitude and so the table is for the worst-case scenar
 <tr>
 <td valign="top">
 <p>
-<span class="strong strong"><strong>GeoHash length</strong></span>
+<span class="strong strong"><strong>geohash值长度</strong></span>
 </p>
 </td>
 <td valign="top">
 <p>
-<span class="strong strong"><strong>Area width x height</strong></span>
+<span class="strong strong"><strong>区域(宽 x 高)</strong></span>
 </p>
 </td>
 </tr>
@@ -481,7 +498,7 @@ Cell dimensions vary with latitude and so the table is for the worst-case scenar
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_options_3"></a>Options<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/geohashgrid-aggregation.asciidoc">edit</a>
+<a id="_options_3"></a>选项
 </h3>
 </div></div></div>
 <div class="informaltable">
@@ -499,7 +516,7 @@ field
 </td>
 <td valign="top">
 <p>
-Mandatory. The name of the field indexed with GeoPoints.
+必须的。使用 GeoPoints 索引的字段的名称。
 </p>
 </td>
 </tr>
@@ -511,17 +528,17 @@ precision
 </td>
 <td valign="top">
 <p>
-Optional. The string length of the geohashes used to define
-cells/buckets in the results. Defaults to 5.
-The precision can either be defined in terms of the integer
-precision levels mentioned above. Values outside of [1,12] will
-be rejected.
-Alternatively, the precision level can be approximated from a
-distance measure like "1km", "10m". The precision level is
-calculate such that cells will not exceed the specified
-size (diagonal) of the required precision. When this would lead
-to precision levels higher than the supported 12 levels,
-(e.g. for distances &lt;5.6cm) the value is rejected.
+可选。用于在结果中定义单元格/桶的 geohash 的字符串长度。默认值为 5。
+
+精度可以用上面提到的整数精度等级来定义。
+
+超出[1,12]范围的值将被拒绝。
+
+或者，可以从“1km”、“10m”这样的距离度量来近似计算精度等级。
+
+计算精度的等级，使得单元格不会超过所需精度的指定大小(对角线)。
+
+当这会导致精度等级高于支持的12级时(例如距离小于5.6厘米)，该值将被拒绝。
 </p>
 </td>
 </tr>
@@ -533,7 +550,7 @@ bounds
 </td>
 <td valign="top">
 <p>
-Optional. The bounding box to filter the points in the bucket.
+可选。用于过滤桶中的坐标点的边界框。
 </p>
 </td>
 </tr>
@@ -545,9 +562,9 @@ size
 </td>
 <td valign="top">
 <p>
-Optional. The maximum number of geohash buckets to return
-(defaults to 10,000). When results are trimmed, buckets are
-prioritised based on the volumes of documents they contain.
+可选。要返回的 geohash 桶的最大数量(默认为10,000)。
+
+当结果被修剪(trim)时，基于桶包含的文档数量来区分桶的优先级。
 </p>
 </td>
 </tr>
@@ -559,11 +576,9 @@ shard_size
 </td>
 <td valign="top">
 <p>
-Optional. To allow for more accurate counting of the top cells
-returned in the final result the aggregation defaults to
-returning <code class="literal">max(10,(size x number-of-shards))</code> buckets from each
-shard. If this heuristic is undesirable, the number considered
-from each shard can be over-ridden using this parameter.
+可选。为了对最终结果中返回的前几个单元格进行更精确的计数，该聚合默认从每个分片返回 <code class="literal">max(10,(size x number-of-shards))</code> 个桶。
+
+如果不希望采用这种启发式方法，则可以使用此参数覆盖每个分片所考虑的数字。 
 </p>
 </td>
 </tr>
@@ -575,10 +590,10 @@ from each shard can be over-ridden using this parameter.
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-bucket-geodistance-aggregation.html">« Geo Distance Aggregation</a>
+<a href="search-aggregations-bucket-geodistance-aggregation.html">« geo_distance 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-geotilegrid-aggregation.html">GeoTile Grid Aggregation »</a>
+<a href2="search-aggregations-bucket-geotilegrid-aggregation.html">GeoTile Grid Aggregation »</a>
 </span>
 </div>
 </div>

@@ -1422,8 +1422,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-bucket-geohashgrid-aggregation.html",
-                        "text": "GeoHash grid Aggregation",
-                        "title": "GeoHash grid Aggregation"
+                        "text": "geohash_grid 聚合",
+                        "title": "geohash_grid 聚合"
                     },
                     {
                         "url": "search-aggregations-bucket-geotilegrid-aggregation.html",

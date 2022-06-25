@@ -211,3 +211,4 @@ https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-filter-aggregation.h
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-filters-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-geodistance-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-geohashgrid-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-geotilegrid-aggregation.html

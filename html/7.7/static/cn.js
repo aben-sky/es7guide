@@ -1427,8 +1427,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-bucket-geotilegrid-aggregation.html",
-                        "text": "GeoTile Grid Aggregation",
-                        "title": "GeoTile Grid Aggregation"
+                        "text": "geotile_grid 聚合",
+                        "title": "geotile_grid 聚合"
                     },
                     {
                         "url": "search-aggregations-bucket-global-aggregation.html",

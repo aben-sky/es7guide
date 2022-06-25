@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>GeoTile Grid Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>geotile_grid 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,66 +32,67 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">Bucket Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">桶(bucket)聚合</a></span>
 »
-<span class="breadcrumb-node">GeoTile Grid Aggregation</span>
+<span class="breadcrumb-node">geotile_grid 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-bucket-geohashgrid-aggregation.html">« GeoHash grid Aggregation</a>
+<a href="search-aggregations-bucket-geohashgrid-aggregation.html">« geohash_grid 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-global-aggregation.html">Global Aggregation »</a>
+<a href2="search-aggregations-bucket-global-aggregation.html">Global Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-bucket-geotilegrid-aggregation"></a>GeoTile Grid Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/geotilegrid-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-geotilegrid-aggregation"></a>地理切片网格(geotile_grid)聚合
 </h2>
 </div></div></div>
-<p>A multi-bucket aggregation that works on <code class="literal">geo_point</code> fields and groups points into
-buckets that represent cells in a grid. The resulting grid can be sparse and only
-contains cells that have matching data. Each cell corresponds to a
-<a href="https://en.wikipedia.org/wiki/Tiled_web_map" class="ulink" target="_top">map tile</a> as used by many online map
-sites. Each cell is labeled using a "{zoom}/{x}/{y}" format, where zoom is equal
-to the user-specified precision.</p>
+<p>
+一个多桶聚合，用于<code class="literal">geo_point</code>字段并将坐标点分组到代表格网单元格的桶中。
+
+生成的网格可以是稀疏的，只包含具有匹配数据的单元格。 
+
+每个单元格对应于许多在线地图站点使用的<a href="https://en.wikipedia.org/wiki/Tiled_web_map" class="ulink" target="_top" rel="nofollow">地图切片</a>。
+
+每个单元格都使用“{zoom}/{x}/{y}”格式进行标注，其中 zoom 是用户指定的精度。
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-High precision keys have a larger range for x and y, and represent tiles that
-cover only a small area.
+高精度键具有较大的x和y范围，表示每个切片仅覆盖一小块区域。
 </li>
 <li class="listitem">
-Low precision keys have a smaller range for x and y, and represent tiles that
-each cover a large area.
+低精度键的x和y范围较小，表示每个切片覆盖的面积较大。
 </li>
 </ul>
 </div>
-<p>See <a href="https://wiki.openstreetmap.org/wiki/Zoom_levels" class="ulink" target="_top">Zoom level documentation</a>
-on how precision (zoom) correlates to size on the ground. Precision for this
-aggregation can be between 0 and 29, inclusive.</p>
+<p>
+请参阅<a href="https://wiki.openstreetmap.org/wiki/Zoom_levels" class="ulink" target="_top" rel="nofollow">缩放级别文档</a>，了解精度(缩放)与地面尺寸的关系。
+
+此聚合的精度可以介于0和29之间（包括0和29）。
+</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The highest-precision geotile of length 29 produces cells that cover
-less than a 10cm by 10cm of land and so high-precision requests can be very
-costly in terms of RAM and result sizes. Please see the example below on how
-to first filter the aggregation to a smaller geographic area before requesting
-high-levels of detail.</p>
+<p>
+长度为29的最高精度的 geotile 产生覆盖小于10cm×10cm土地的单元格，因此就内存和结果大小而言，高精度请求的成本可能很高。
+
+请看下面的示例，了解如何在请求高精度的详细信息之前，先将聚合过滤到较小的地理区域。
+</p>
 </div>
 </div>
-<p>The specified field must be of type <code class="literal">geo_point</code> (which can only be set
-explicitly in the mappings) and it can also hold an array of <code class="literal">geo_point</code>
-fields, in which case all points will be taken into account during aggregation.</p>
+<p>指定字段的类型必须是<code class="literal">geo_point</code> (只能在映射中显式设置)，它还可以保存一个<code class="literal">geo_point</code>字段数组，在这种情况下，所有这些都将在聚合过程中考虑在内。</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_simple_low_precision_request_2"></a>Simple low-precision request<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/geotilegrid-aggregation.asciidoc">edit</a>
+<a id="_simple_low_precision_request_2"></a>简单的低精度的请求
 </h3>
 </div></div></div>
 <div class="pre_wrapper lang-console">
@@ -133,7 +134,7 @@ POST /museums/_search?size=0
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/472.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -162,13 +163,10 @@ POST /museums/_search?size=0
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_high_precision_requests_2"></a>High-precision requests<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/geotilegrid-aggregation.asciidoc">edit</a>
+<a id="_high_precision_requests_2"></a>高精度的请求
 </h3>
 </div></div></div>
-<p>When requesting detailed buckets (typically for displaying a "zoomed in" map)
-a filter like <a class="xref" href="query-dsl-geo-bounding-box-query.html" title="Geo-bounding box query">geo_bounding_box</a> should be
-applied to narrow the subject area otherwise potentially millions of buckets
-will be created and returned.</p>
+<p>当请求详细的桶(通常用于显示“放大”的地图)时，应应用类似<a class="xref" href="query-dsl-geo-bounding-box-query.html" title="geo-bounding box 查询" rel="nofollow">geo_bounding_box</a>的过滤器来缩小主题区域，否则可能会创建并返回数百万个桶。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /museums/_search?size=0
 {
@@ -226,17 +224,18 @@ will be created and returned.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_requests_with_additional_bounding_box_filtering_2"></a>Requests with additional bounding box filtering<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/geotilegrid-aggregation.asciidoc">edit</a>
+<a id="_requests_with_additional_bounding_box_filtering_2"></a>带有附加边界框过滤的请求
 </h3>
 </div></div></div>
-<p>The <code class="literal">geotile_grid</code> aggregation supports an optional <code class="literal">bounds</code> parameter
-that restricts the points considered to those that fall within the
-bounds provided. The <code class="literal">bounds</code> parameter accepts the bounding box in
-all the same <a class="xref" href="query-dsl-geo-bounding-box-query.html#query-dsl-geo-bounding-box-query-accepted-formats" title="Accepted Formats">accepted formats</a> of the
-bounds specified in the Geo Bounding Box Query. This bounding box can be used with or
-without an additional <code class="literal">geo_bounding_box</code> query filtering the points prior to aggregating.
-It is an independent bounding box that can intersect with, be equal to, or be disjoint
-to any additional <code class="literal">geo_bounding_box</code> queries defined in the context of the aggregation.</p>
+<p>
+<code class="literal">geotile_grid</code> 聚合支持一个可选的参数-<code class="literal">bounds</code>，该参数将所考虑的坐标点限制在所提供的边界内。
+
+参数 <code class="literal">bounds</code> 接受 地理边界框(geo_bounding_box)查询中的所有<a class="xref" href="query-dsl-geo-bounding-box-query.html#query-dsl-geo-bounding-box-query-accepted-formats" title="有效的格式" rel="nofollow">有效的格式</a>的边界的边界框。
+
+此边界框可与在聚合前过滤坐标点的附加<code class="literal">geo_bounding_box</code>查询一起使用，也可单独使用。
+
+它是一个独立的边界框，可以与聚合上下文中定义的任何其他<code class="literal">geo_bounding_box</code>查询相交、相等或不相交。
+</p>
 <a id="geotilegrid-aggregation-with-bounds"></a><div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /museums/_search?size=0
 {
@@ -283,7 +282,7 @@ to any additional <code class="literal">geo_bounding_box</code> queries defined 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_options_4"></a>Options<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/geotilegrid-aggregation.asciidoc">edit</a>
+<a id="_options_4"></a>选项
 </h3>
 </div></div></div>
 <div class="informaltable">
@@ -301,7 +300,7 @@ field
 </td>
 <td valign="top">
 <p>
-Mandatory. The name of the field indexed with GeoPoints.
+必要的。使用 GeoPoints 索引的字段的名称。
 </p>
 </td>
 </tr>
@@ -313,51 +312,66 @@ precision
 </td>
 <td valign="top">
 <p>
-Optional. The integer zoom of the key used to define
-cells/buckets in the results. Defaults to 7.
-Values outside of [0,29] will be rejected.
+可选。用于定义结果中的单元格/桶的键的整数缩放。默认值为 5。
+
+超出[0,29]范围的值将被拒绝。
+</p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p>
+bounds
+</p>
+</td>
+<td valign="top">
+<p>
+可选。用于过滤桶中的坐标点的边界框。
+</p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p>
+size
+</p>
+</td>
+<td valign="top">
+<p>
+可选。要返回的 geohash 桶的最大数量(默认为10,000)。
+
+当结果被裁剪(trim)时，基于桶包含的文档数量来区分桶的优先级。
+</p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p>
+shard_size
+</p>
+</td>
+<td valign="top">
+<p>
+可选。为了对最终结果中返回的前几个单元格进行更精确的计数，该聚合默认从每个分片返回 <code class="literal">max(10,(size x number-of-shards))</code> 个桶。
+
+如果不希望采用这种启发式方法，则可以使用此参数覆盖每个分片所考虑的数字。
+ 
 </p>
 </td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>bounds:         Optional. The bounding box to filter the points in the bucket.</p>
-<div class="variablelist">
-<dl class="variablelist">
-<dt>
-<span class="term">
-size
-</span>
-</dt>
-<dd>
-Optional. The maximum number of geohash buckets to return
-(defaults to 10,000). When results are trimmed, buckets are
-prioritised based on the volumes of documents they contain.
-</dd>
-<dt>
-<span class="term">
-shard_size
-</span>
-</dt>
-<dd>
-Optional. To allow for more accurate counting of the top cells
-returned in the final result the aggregation defaults to
-returning <code class="literal">max(10,(size x number-of-shards))</code> buckets from each
-shard. If this heuristic is undesirable, the number considered
-from each shard can be over-ridden using this parameter.
-</dd>
-</dl>
 </div>
-</div>
+
 
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-bucket-geohashgrid-aggregation.html">« GeoHash grid Aggregation</a>
+<a href="search-aggregations-bucket-geohashgrid-aggregation.html">« geohash_grid 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-global-aggregation.html">Global Aggregation »</a>
+<a href2="search-aggregations-bucket-global-aggregation.html">Global Aggregation »</a>
 </span>
 </div>
 </div>

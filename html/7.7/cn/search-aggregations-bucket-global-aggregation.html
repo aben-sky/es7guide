@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Global Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>global 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,40 +32,40 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">Bucket Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">桶(bucket)聚合</a></span>
 »
-<span class="breadcrumb-node">Global Aggregation</span>
+<span class="breadcrumb-node">global 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-bucket-geotilegrid-aggregation.html">« GeoTile Grid Aggregation</a>
+<a href="search-aggregations-bucket-geotilegrid-aggregation.html">« geotile_grid 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-histogram-aggregation.html">Histogram Aggregation »</a>
+<a href2="search-aggregations-bucket-histogram-aggregation.html">Histogram Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-bucket-global-aggregation"></a>Global Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/global-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-global-aggregation"></a>global 聚合
 </h2>
 </div></div></div>
-<p>Defines a single bucket of all the documents within the search execution
-context. This context is defined by the indices and the document types you’re
-searching on, but is <span class="strong strong"><strong>not</strong></span> influenced by the search query itself.</p>
+<p>
+定义一个搜索执行上下文中所有文档的单桶聚合。
+
+这个上下文由索引和正在搜索的文档的类型定义，但<span class="strong strong"><strong>不</strong></span>受搜索查询本身的影响。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Global aggregators can only be placed as top level aggregators because
-        it doesn’t make sense to embed a global aggregator within another
-        bucket aggregator.</p>
+<p>global 聚合器只能作为顶级聚合器，因为将一个 global 聚合器嵌入另一个桶聚合器是没有意义的。</p>
 </div>
 </div>
-<p>Example:</p>
+<p>示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search?size=0
 {
@@ -91,7 +91,7 @@ searching on, but is <span class="strong strong"><strong>not</strong></span> inf
 <p><a href="#CO228-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">global</code> aggregation has an empty body</p>
+<p><code class="literal">global</code>聚合的主体为空</p>
 </td>
 </tr>
 <tr>
@@ -99,16 +99,13 @@ searching on, but is <span class="strong strong"><strong>not</strong></span> inf
 <p><a href="#CO228-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The sub-aggregations that are registered for this <code class="literal">global</code> aggregation</p>
+<p>为此<code class="literal">global</code>聚合注册的子聚合</p>
 </td>
 </tr>
 </table>
 </div>
-<p>The above aggregation demonstrates how one would compute aggregations
-(<code class="literal">avg_price</code> in this example) on all the documents in the search context,
-regardless of the query (in our example, it will compute the average price over
-all products in our catalog, not just on the "shirts").</p>
-<p>The response for the above aggregation:</p>
+<p>上面的聚合演示了如何计算搜索上下文中所有文档的聚合(在本例中为<code class="literal">avg_price</code>)，而不管查询是什么(在本例中，它将计算目录中所有产品的平均价格，而不仅仅是“t_shirts”)。</p>
+<p>上面的聚合的响应是：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -132,8 +129,7 @@ all products in our catalog, not just on the "shirts").</p>
 <p><a href="#CO229-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The number of documents that were aggregated (in our case, all documents
-within the search context)</p>
+<p>聚合的文档数量(在这个例子中，是搜索上下文中的所有文档)</p>
 </td>
 </tr>
 <tr>
@@ -141,7 +137,7 @@ within the search context)</p>
 <p><a href="#CO229-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The average price of all products in the index</p>
+<p>索引所有产品的平均价格</p>
 </td>
 </tr>
 <tr>
@@ -149,7 +145,7 @@ within the search context)</p>
 <p><a href="#CO229-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The average price of all t-shirts</p>
+<p>所有 t-shirts 的平均价格</p>
 </td>
 </tr>
 </table>
@@ -157,10 +153,10 @@ within the search context)</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-bucket-geotilegrid-aggregation.html">« GeoTile Grid Aggregation</a>
+<a href="search-aggregations-bucket-geotilegrid-aggregation.html">« geotile_grid 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-histogram-aggregation.html">Histogram Aggregation »</a>
+<a href2="search-aggregations-bucket-histogram-aggregation.html">Histogram Aggregation »</a>
 </span>
 </div>
 </div>

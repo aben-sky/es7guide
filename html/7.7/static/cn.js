@@ -1432,8 +1432,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-bucket-global-aggregation.html",
-                        "text": "Global Aggregation",
-                        "title": "Global Aggregation"
+                        "text": "global 聚合",
+                        "title": "global 聚合"
                     },
                     {
                         "url": "search-aggregations-bucket-histogram-aggregation.html",

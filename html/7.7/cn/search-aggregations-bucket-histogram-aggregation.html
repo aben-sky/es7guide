@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Histogram Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>histogram 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,45 +32,51 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">Bucket Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">桶(bucket)聚合</a></span>
 »
-<span class="breadcrumb-node">Histogram Aggregation</span>
+<span class="breadcrumb-node">histogram 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-bucket-global-aggregation.html">« Global Aggregation</a>
+<a href="search-aggregations-bucket-global-aggregation.html">« global 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-iprange-aggregation.html">IP Range Aggregation »</a>
+<a href2="search-aggregations-bucket-iprange-aggregation.html">IP Range Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-bucket-histogram-aggregation"></a>Histogram Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/histogram-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-histogram-aggregation"></a>直方图(histogram)聚合<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/histogram-aggregation.asciidoc">edit</a>
 </h2>
 </div></div></div>
-<p>A multi-bucket values source based aggregation that can be applied on numeric values or numeric range values extracted
-from the documents. It dynamically builds fixed size (a.k.a. interval) buckets over the values. For example, if the
-documents have a field that holds a price (numeric), we can configure this aggregation to dynamically build buckets with
-interval <code class="literal">5</code> (in case of price it may represent $5). When the aggregation executes, the price field of every document
-will be evaluated and will be rounded down to its closest bucket - for example, if the price is <code class="literal">32</code> and the bucket size
-is <code class="literal">5</code> then the rounding will yield <code class="literal">30</code> and thus the document will "fall" into the bucket that is associated with the
-key <code class="literal">30</code>.
-To make this more formal, here is the rounding function that is used:</p>
+<p>
+一个基于值源(value source)的多桶聚合，可应用于从文档中提取的数值或数值范围值。
+
+它根据值动态构建固定大小(也称为间隔/interval)的桶。
+
+例如，如果文档有一个保存价格<code class="literal">price</code>(数字)的字段，我们可以配置这个聚合来动态构建间隔为<code class="literal">5</code>的桶(本例中是价格，则它可以表示5元)。
+
+执行聚合时，将计算每个文档的 price 字段，并将其向下舍入到最接近的桶——例如，如果价格是<code class="literal">32</code>，桶大小是<code class="literal">5</code>，则舍入将得到<code class="literal">30</code>，因此该文档将“落入”与键<code class="literal">30</code>相关联的桶。
+
+为了更正式，这里使用了舍入函数：
+</p>
 <div class="pre_wrapper lang-java">
 <pre class="programlisting prettyprint lang-java">bucket_key = Math.floor((value - offset) / interval) * interval + offset</pre>
 </div>
-<p>For range values, a document can fall into multiple buckets. The first bucket is computed from the lower
-bound of the range in the same way as a bucket for a single value is computed.  The final bucket is computed in the same
-way from the upper bound of the range, and the range is counted in all buckets in between and including those two.</p>
-<p>The <code class="literal">interval</code> must be a positive decimal, while the <code class="literal">offset</code> must be a decimal in <code class="literal">[0, interval)</code>
-(a decimal greater than or equal to <code class="literal">0</code> and less than <code class="literal">interval</code>)</p>
-<p>The following snippet "buckets" the products based on their <code class="literal">price</code> by interval of <code class="literal">50</code>:</p>
+<p>
+对于范围值，一个文档可能会落入多个桶。
+
+第一个桶从范围的下限开始计算，计算方式与计算单个值的桶相同。
+
+最后一个桶以相同的方式从范围的上限开始计算，范围计入这两个桶之间（含）的所有桶。
+</p>
+<p><code class="literal">interval</code>必须是正的小数，而<code class="literal">offset</code>必须是<code class="literal">[0, interval)</code>中的数(大于或等于<code class="literal">0</code>且小于<code class="literal">interval</code>的小数)</p>
+<p>下面的代码片段根据<code class="literal">price</code>以<code class="literal">50</code>为间隔对产品进行“分桶”：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search?size=0
 {
@@ -85,7 +91,7 @@ way from the upper bound of the range, and the range is counted in all buckets i
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/476.console"></div>
-<p>And the following may be the response:</p>
+<p>响应可能如下所示：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -120,12 +126,16 @@ way from the upper bound of the range, and the range is counted in all buckets i
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_minimum_document_count"></a>Minimum document count<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/histogram-aggregation.asciidoc">edit</a>
+<a id="_minimum_document_count"></a>最小文档数量
 </h3>
 </div></div></div>
-<p>The response above show that no documents has a price that falls within the range of <code class="literal">[100, 150)</code>. By default the
-response will fill gaps in the histogram with empty buckets. It is possible change that and request buckets with
-a higher minimum count thanks to the <code class="literal">min_doc_count</code> setting:</p>
+<p>
+上面的响应显示没有文档的 price 在<code class="literal">[100, 150)</code>范围内。
+
+默认情况下，响应将用空桶填充直方图中的间隙。
+
+得益于<code class="literal">min_doc_count</code>设置，可以更改和请求具有更高最小数量的桶：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search?size=0
 {
@@ -141,7 +151,7 @@ a higher minimum count thanks to the <code class="literal">min_doc_count</code> 
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/477.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -169,25 +179,34 @@ a higher minimum count thanks to the <code class="literal">min_doc_count</code> 
     }
 }</pre>
 </div>
-<p><a id="search-aggregations-bucket-histogram-aggregation-extended-bounds"></a>By default the <code class="literal">histogram</code> returns all the buckets within the range of the data itself, that is, the documents with
-the smallest values (on which with histogram) will determine the min bucket (the bucket with the smallest key) and the
-documents with the highest values will determine the max bucket (the bucket with the highest key). Often, when
-requesting empty buckets, this causes a confusion, specifically, when the data is also filtered.</p>
-<p>To understand why, let’s look at an example:</p>
-<p>Lets say the you’re filtering your request to get all docs with values between <code class="literal">0</code> and <code class="literal">500</code>, in addition you’d like
-to slice the data per price using a histogram with an interval of <code class="literal">50</code>. You also specify <code class="literal">"min_doc_count" : 0</code> as you’d
-like to get all buckets even the empty ones. If it happens that all products (documents) have prices higher than <code class="literal">100</code>,
-the first bucket you’ll get will be the one with <code class="literal">100</code> as its key. This is confusing, as many times, you’d also like
-to get those buckets between <code class="literal">0 - 100</code>.</p>
-<p>With <code class="literal">extended_bounds</code> setting, you now can "force" the histogram aggregation to start building buckets on a specific
-<code class="literal">min</code> value and also keep on building buckets up to a <code class="literal">max</code> value (even if there are no documents anymore). Using
-<code class="literal">extended_bounds</code> only makes sense when <code class="literal">min_doc_count</code> is 0 (the empty buckets will never be returned if <code class="literal">min_doc_count</code>
-is greater than 0).</p>
-<p>Note that (as the name suggest) <code class="literal">extended_bounds</code> is <span class="strong strong"><strong>not</strong></span> filtering buckets. Meaning, if the <code class="literal">extended_bounds.min</code> is higher
-than the values extracted from the documents, the documents will still dictate what the first bucket will be (and the
-same goes for the <code class="literal">extended_bounds.max</code> and the last bucket). For filtering buckets, one should nest the histogram aggregation
-under a range <code class="literal">filter</code> aggregation with the appropriate <code class="literal">from</code>/<code class="literal">to</code> settings.</p>
-<p>Example:</p>
+<p><a id="search-aggregations-bucket-histogram-aggregation-extended-bounds"></a>
+默认情况下，<code class="literal">histogram</code>返回数据本身范围内的所有桶，也就是说，具有最小值的文档(使用直方图)将确定最小桶(具有最小键的桶)，具有最大值的文档将确定最大桶(具有最大键的桶)。
+
+通常，当请求空桶时，这会导致混乱，特别是当数据也被过滤时。
+</p>
+<p>为了理解其中的原因，我们来看一个例子：</p>
+<p>
+假设你正在过滤你的请求，以获取值在<code class="literal">0</code>到<code class="literal">500</code>之间的所有文档，此外，你希望使用间隔为<code class="literal">50</code>的直方图来分割每个价格的数据。
+
+你还指定了<code class="literal">"min_doc_count" : 0</code>，因为你希望获得所有的桶，即使是空的桶。
+
+如果碰巧所有产品(文档)的价格都高于 <code class="literal">100</code>，那么你将得到的第一个桶将是以<code class="literal">100</code>为键的桶。
+
+这是令人困惑的，因为很多时候，你也想得到<code class="literal">0 - 100</code>之间的那些桶。
+</p>
+<p>
+通过<code class="literal">extended_bounds</code>设置，你现在可以“强制” histogram 聚合开始根据特定的<code class="literal">min</code>值构建桶，并继续构建桶直到<code class="literal">max</code>值(即使不再有文档)。
+
+仅当<code class="literal">min_doc_count</code>为 0 时，使用<code class="literal">extended_bounds</code>才有意义(如果<code class="literal">min_doc_count</code>大于0，则永远不会返回空桶)。
+</p>
+<p>
+注意(顾名思义), <code class="literal">extended_bounds</code><span class="strong strong"><strong>不</strong></span>是过滤桶。
+
+也就是说，如果<code class="literal">extended_bounds.min</code>高于从文档中提取的值，文档仍将指示第一个桶将是什么(<code class="literal">extended_bounds.max</code>和最后一个桶也是如此)。
+
+对于过滤桶，应该使用适当的<code class="literal">from</code>/<code class="literal">to</code>设置将 histogram 聚合嵌套在范围<code class="literal">filter</code>聚合下。
+</p>
+<p>示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search?size=0
 {
@@ -209,48 +228,63 @@ under a range <code class="literal">filter</code> aggregation with the appropria
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/478.console"></div>
-<p>When aggregating ranges, buckets are based on the values of the returned documents.  This means the response may include
-buckets outside of a query’s range. For example, if your query looks for values greater than 100, and you have a range
-covering 50 to 150, and an interval of 50, that document will land in 3 buckets - 50, 100, and 150. In general, it’s
-best to think of the query and aggregation steps as independent - the query selects a set of documents, and then the
-aggregation buckets those documents without regard to how they were selected.
-See <a class="xref" href="search-aggregations-bucket-range-field-note.html" title="Subtleties of bucketing range fields">note on bucketing range
-fields</a> for more information and an example.</p>
+<p>
+聚合范围时，桶基于返回的文档的值。
+
+这意味着响应可能包含查询范围之外的桶。
+
+例如，如果查询是要查找大于100的值，并且范围从50到150，interval为50，那么该文档将位于3个桶中——50、100和150。
+
+一般来说，最好将查询和聚合步骤看作是独立的——查询负责选择一组文档，然后聚合对这些文档进行分桶，而不考虑它们是如何被选择的。
+
+更多信息和示例参考 <a class="xref" href="search-aggregations-bucket-range-field-note.html" title="Subtleties of bucketing range fields">有关范围字段分桶的提示</a>。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_order_3"></a>Order<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/histogram-aggregation.asciidoc">edit</a>
+<a id="_order_3"></a>order
 </h3>
 </div></div></div>
-<p>By default the returned buckets are sorted by their <code class="literal">key</code> ascending, though the order behaviour can be controlled using
-the <code class="literal">order</code> setting. Supports the same <code class="literal">order</code> functionality as the <a class="xref" href="search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation-order" title="Order"><code class="literal">Terms Aggregation</code></a>.</p>
+<p>
+默认情况下，返回的桶按它们的<code class="literal">key</code>升序排序，尽管可以使用<code class="literal">order</code>设置来控制排序行为。
+
+支持与<a class="xref" href="search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation-order" title="排序" rel="nofollow"><code class="literal">terms 聚合</code></a>相同的<code class="literal">order</code>功能。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_offset"></a>Offset<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/histogram-aggregation.asciidoc">edit</a>
+<a id="_offset"></a>Offset
 </h3>
 </div></div></div>
-<p>By default the bucket keys start with 0 and then continue in even spaced steps
-of <code class="literal">interval</code>, e.g. if the interval is <code class="literal">10</code>, the first three buckets (assuming
-there is data inside them) will be <code class="literal">[0, 10)</code>, <code class="literal">[10, 20)</code>, <code class="literal">[20, 30)</code>. The bucket
-boundaries can be shifted by using the <code class="literal">offset</code> option.</p>
-<p>This can be best illustrated with an example. If there are 10 documents with values ranging from 5 to 14, using interval <code class="literal">10</code> will result in
-two buckets with 5 documents each. If an additional offset <code class="literal">5</code> is used, there will be only one single bucket <code class="literal">[5, 15)</code> containing all the 10
-documents.</p>
+<p>
+默认情况下，桶的键从0开始，然后以<code class="literal">interval</code>的均匀步长继续，例如，如果 interval 是<code class="literal">10</code>，前三个桶(假设其中有数据)将是<code class="literal">[0, 10)</code>、<code class="literal">[10, 20)</code>、<code class="literal">[20, 30)</code>。
+
+可以通过使用<code class="literal">offset</code>选项来移动桶的边界。
+</p>
+<p>
+这可以用一个例子来说明。
+
+如果有10个值在5到14之间的文档，使用间隔<code class="literal">10</code>将产生两个桶，每个桶有5个文档。
+
+如果使用额外的<code class="literal">5</code> 5，将只有一个包含所有10个文档的桶<code class="literal">[5, 15)</code>。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_response_format"></a>Response Format<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/histogram-aggregation.asciidoc">edit</a>
+<a id="_response_format"></a>响应格式
 </h3>
 </div></div></div>
-<p>By default, the buckets are returned as an ordered array. It is also possible to request the response as a hash
-instead keyed by the buckets keys:</p>
+<p>
+默认情况下，桶作为有序数组返回。
+
+也可以请求以哈希形式的响应，而不是以桶的键作为键：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search?size=0
 {
@@ -266,7 +300,7 @@ instead keyed by the buckets keys:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/479.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -303,12 +337,14 @@ instead keyed by the buckets keys:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_missing_value_15"></a>Missing value<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/histogram-aggregation.asciidoc">edit</a>
+<a id="_missing_value_15"></a>缺失的值
 </h3>
 </div></div></div>
-<p>The <code class="literal">missing</code> parameter defines how documents that are missing a value should be treated.
-By default they will be ignored but it is also possible to treat them as if they
-had a value.</p>
+<p>
+参数<code class="literal">missing</code>定义应该如何处理有缺失值的文档。
+
+默认情况下，它们将被忽略，但也可以将它们视为有一个值。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search?size=0
 {
@@ -331,7 +367,7 @@ had a value.</p>
 <p><a href="#CO230-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Documents without a value in the <code class="literal">quantity</code> field will fall into the same bucket as documents that have the value <code class="literal">0</code>.</p>
+<p>字段<code class="literal">quantity</code>中没有值的文档将与值为<code class="literal">0</code>的文档落入同一个桶中。</p>
 </td>
 </tr>
 </table>
@@ -341,10 +377,10 @@ had a value.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-bucket-global-aggregation.html">« Global Aggregation</a>
+<a href="search-aggregations-bucket-global-aggregation.html">« global 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-iprange-aggregation.html">IP Range Aggregation »</a>
+<a href2="search-aggregations-bucket-iprange-aggregation.html">IP Range Aggregation »</a>
 </span>
 </div>
 </div>

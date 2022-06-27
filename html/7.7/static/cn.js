@@ -1437,8 +1437,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-bucket-histogram-aggregation.html",
-                        "text": "Histogram Aggregation",
-                        "title": "Histogram Aggregation"
+                        "text": "histogram 聚合",
+                        "title": "histogram 聚合"
                     },
                     {
                         "url": "search-aggregations-bucket-iprange-aggregation.html",

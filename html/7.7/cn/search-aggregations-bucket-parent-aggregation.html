@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Parent Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>parent 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,38 +32,38 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">Bucket Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">桶(bucket)聚合</a></span>
 »
-<span class="breadcrumb-node">Parent Aggregation</span>
+<span class="breadcrumb-node">parent 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-bucket-nested-aggregation.html">« Nested Aggregation</a>
+<a href="search-aggregations-bucket-nested-aggregation.html">« nested 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-range-aggregation.html">Range Aggregation »</a>
+<a href2="search-aggregations-bucket-range-aggregation.html">Range Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-bucket-parent-aggregation"></a>Parent Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/parent-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-parent-aggregation"></a>父(parent)聚合
 </h2>
 </div></div></div>
-<p>A special single bucket aggregation that selects parent documents that have the specified type, as defined in a <a class="xref" href="parent-join.html" title="Join datatype"><code class="literal">join</code> field</a>.</p>
-<p>This aggregation has a single option:</p>
+<p>一个特殊的单桶聚合，它选择具有指定类型的父文档，如<a class="xref" href="parent-join.html" title="join 数据类型" rel="nofollow"><code class="literal">join</code> 字段</a>中定义的那样。</p>
+<p>这个聚合只有一个选项：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">type</code> - The child type that should be selected.
+<code class="literal">type</code> - 应该选择的子类型。
 </li>
 </ul>
 </div>
-<p>For example, let’s say we have an index of questions and answers. The answer type has the following <code class="literal">join</code> field in the mapping:</p>
+<p>例如，假设我们有一个问答索引。答案(answer)的类型在映射中有一个<code class="literal">join</code>字段，如下所示：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT parent_example
 {
@@ -80,10 +80,12 @@
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/489.console"></div>
-<p>The <code class="literal">question</code> document contain a tag field and the <code class="literal">answer</code> documents contain an owner field. With the <code class="literal">parent</code>
-aggregation the owner buckets can be mapped to the tag buckets in a single request even though the two fields exist in
-two different kinds of documents.</p>
-<p>An example of a question document:</p>
+<p>
+<code class="literal">question</code>文档包含一个 tag 字段，<code class="literal">answer</code>文档包含一个 owner 字段。
+
+使用<code class="literal">parent</code>聚合，即使两个字段存在于两种不同类型的文档中，也可以在单个请求中将 owner 桶映射到 tag 桶。
+</p>
+<p>问题(<code class="literal">question</code>)文档的示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT parent_example/_doc/1
 {
@@ -100,7 +102,7 @@ two different kinds of documents.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/490.console"></div>
-<p>Examples of <code class="literal">answer</code> documents:</p>
+<p>答案(<code class="literal">answer</code>)文档的示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT parent_example/_doc/2?routing=1
 {
@@ -133,7 +135,7 @@ PUT parent_example/_doc/3?routing=1&amp;refresh
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/491.console"></div>
-<p>The following request can be built that connects the two together:</p>
+<p>可以构建以下请求，将两者连接在一起：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST parent_example/_search?size=0
 {
@@ -170,13 +172,13 @@ PUT parent_example/_doc/3?routing=1&amp;refresh
 <p><a href="#CO233-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">type</code> points to type / mapping with the name <code class="literal">answer</code>.</p>
+<p><code class="literal">type</code>指向名为<code class="literal">answer</code>的类型/映射。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>The above example returns the top answer owners and per owner the top question tags.</p>
-<p>Possible response:</p>
+<p>上面的例子返回了前几个答案的所有者(owner)和每个所有者的前几个问题的标签(tag)。</p>
+<p>响应可能是：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   "took": 9,
@@ -262,7 +264,7 @@ PUT parent_example/_doc/3?routing=1&amp;refresh
 <p><a href="#CO234-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The number of answer documents with the tag <code class="literal">Sam</code>, <code class="literal">Troll</code>, etc.</p>
+<p>带有<code class="word">Sam</code>、<code class="word">Troll</code>等标签(tag)的 <code class="literal">question</code> 文档的数量。</p>
 </td>
 </tr>
 <tr>
@@ -270,7 +272,7 @@ PUT parent_example/_doc/3?routing=1&amp;refresh
 <p><a href="#CO234-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The number of question documents that are related to answer documents with the tag <code class="literal">Sam</code>, <code class="literal">Troll</code>, etc.</p>
+<p>与带有<code class="word">Sam</code>、<code class="word">Troll</code>等标签(tag)的<code class="literal">answer</code>文档相关的<code class="literal">question</code>文档的数量。</p>
 </td>
 </tr>
 </table>
@@ -278,10 +280,10 @@ PUT parent_example/_doc/3?routing=1&amp;refresh
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-bucket-nested-aggregation.html">« Nested Aggregation</a>
+<a href="search-aggregations-bucket-nested-aggregation.html">« nested 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-range-aggregation.html">Range Aggregation »</a>
+<a href2="search-aggregations-bucket-range-aggregation.html">Range Aggregation »</a>
 </span>
 </div>
 </div>

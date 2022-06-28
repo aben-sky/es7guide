@@ -1457,8 +1457,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-bucket-parent-aggregation.html",
-                        "text": "Parent Aggregation",
-                        "title": "Parent Aggregation"
+                        "text": "parent 聚合",
+                        "title": "parent 聚合"
                     },
                     {
                         "url": "search-aggregations-bucket-range-aggregation.html",

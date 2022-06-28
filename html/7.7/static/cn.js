@@ -1447,8 +1447,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-bucket-missing-aggregation.html",
-                        "text": "Missing Aggregation",
-                        "title": "Missing Aggregation"
+                        "text": "missing 聚合",
+                        "title": "missing 聚合"
                     },
                     {
                         "url": "search-aggregations-bucket-nested-aggregation.html",

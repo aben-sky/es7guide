@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>IP Range Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>ip_range 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,30 +32,31 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">Bucket Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">桶(bucket)聚合</a></span>
 »
-<span class="breadcrumb-node">IP Range Aggregation</span>
+<span class="breadcrumb-node">ip_range 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-bucket-histogram-aggregation.html">« Histogram Aggregation</a>
+<a href="search-aggregations-bucket-histogram-aggregation.html">« histogram 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-missing-aggregation.html">Missing Aggregation »</a>
+<a href2="search-aggregations-bucket-missing-aggregation.html">Missing Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-bucket-iprange-aggregation"></a>IP Range Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/iprange-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-iprange-aggregation"></a>IP范围(ip_range)聚合
 </h2>
 </div></div></div>
-<p>Just like the dedicated <a class="xref" href="search-aggregations-bucket-daterange-aggregation.html" title="Date Range Aggregation">date</a> range aggregation, there is also a dedicated range aggregation for IP typed fields:</p>
-<p>Example:</p>
+<p>与专用的<a class="xref" href="search-aggregations-bucket-daterange-aggregation.html" title="日期范围聚合">date</a>范围聚合一样，IP类型的字段也有专用的范围聚合：
+</p>
+<p>示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /ip_addresses/_search
 {
@@ -74,7 +75,7 @@
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/481.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -97,7 +98,7 @@
     }
 }</pre>
 </div>
-<p>IP ranges can also be defined as CIDR masks:</p>
+<p>IP范围也可以定义为CIDR掩码(mask)：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /ip_addresses/_search
 {
@@ -116,7 +117,7 @@
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/482.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -144,10 +145,10 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_keyed_response_6"></a>Keyed Response<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/iprange-aggregation.asciidoc">edit</a>
+<a id="_keyed_response_6"></a>keyed 响应
 </h3>
 </div></div></div>
-<p>Setting the <code class="literal">keyed</code> flag to <code class="literal">true</code> will associate a unique string key with each bucket and return the ranges as a hash rather than an array:</p>
+<p>将<code class="literal">keyed</code>标志设置为<code class="literal">true</code>会将唯一的字符串键与每个桶相关联，并将范围作为哈希而不是数组返回：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /ip_addresses/_search
 {
@@ -167,7 +168,7 @@
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/483.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -188,7 +189,7 @@
     }
 }</pre>
 </div>
-<p>It is also possible to customize the key for each range:</p>
+<p>也可以为每个范围自定义一个键：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /ip_addresses/_search
 {
@@ -208,7 +209,7 @@
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/484.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -234,10 +235,10 @@
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-bucket-histogram-aggregation.html">« Histogram Aggregation</a>
+<a href="search-aggregations-bucket-histogram-aggregation.html">« histogram 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-missing-aggregation.html">Missing Aggregation »</a>
+<a href2="search-aggregations-bucket-missing-aggregation.html">Missing Aggregation »</a>
 </span>
 </div>
 </div>

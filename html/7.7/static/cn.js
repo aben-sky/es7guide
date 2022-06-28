@@ -1442,8 +1442,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-bucket-iprange-aggregation.html",
-                        "text": "IP Range Aggregation",
-                        "title": "IP Range Aggregation"
+                        "text": "ip_range 聚合",
+                        "title": "ip_range 聚合"
                     },
                     {
                         "url": "search-aggregations-bucket-missing-aggregation.html",

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Nested Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>nested 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,31 +32,30 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">Bucket Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">桶(bucket)聚合</a></span>
 »
-<span class="breadcrumb-node">Nested Aggregation</span>
+<span class="breadcrumb-node">nested 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-bucket-missing-aggregation.html">« Missing Aggregation</a>
+<a href="search-aggregations-bucket-missing-aggregation.html">« missing 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-parent-aggregation.html">Parent Aggregation »</a>
+<a href2="search-aggregations-bucket-parent-aggregation.html">Parent Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-bucket-nested-aggregation"></a>Nested Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/nested-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-nested-aggregation"></a>嵌套(nested)聚合
 </h2>
 </div></div></div>
-<p>A special single bucket aggregation that enables aggregating nested documents.</p>
-<p>For example, lets say we have an index of products, and each product holds the list of resellers - each having its own
-price for the product. The mapping could look like:</p>
+<p>一个特殊的单桶聚合，可以聚合嵌套(nested)文档。</p>
+<p>例如，假设我们有一个产品索引，每个产品都有一个经销商列表——每个经销商都有自己的产品价格。映射(maping)可能是这样的：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /products
 {
@@ -81,12 +80,12 @@ price for the product. The mapping could look like:</p>
 <p><a href="#CO231-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">resellers</code> is an array that holds nested documents.</p>
+<p><code class="literal">resellers</code>是保存嵌套文档的数组。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>The following request adds a product with two resellers:</p>
+<p>下面这个请求添加了一个产品，这个产品有两个经销商：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /products/_doc/0
 {
@@ -111,12 +110,12 @@ price for the product. The mapping could look like:</p>
 <p><a href="#CO232-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>We are using a dynamic mapping for the <code class="literal">name</code> attribute.</p>
+<p>我们对<code class="literal">name</code>属性使用动态映射<span class="remark">(索引的映射中没有定义)</span>。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>The following request returns the minimum price a product can be purchased for:</p>
+<p>下面这个请求返回产品的最低购买价格：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /products/_search
 {
@@ -136,9 +135,12 @@ price for the product. The mapping could look like:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/488.console"></div>
-<p>As you can see above, the nested aggregation requires the <code class="literal">path</code> of the nested documents within the top level documents.
-Then one can define any type of aggregation over these nested documents.</p>
-<p>Response:</p>
+<p>
+正如你在上面看到的，nested 聚合需要顶层文档中嵌套文档的路径（<code class="literal">path</code>）。
+
+然后可以在这些嵌套文档上定义任何类型的聚合。
+</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   ...
@@ -155,10 +157,10 @@ Then one can define any type of aggregation over these nested documents.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-bucket-missing-aggregation.html">« Missing Aggregation</a>
+<a href="search-aggregations-bucket-missing-aggregation.html">« missing 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-parent-aggregation.html">Parent Aggregation »</a>
+<a href2="search-aggregations-bucket-parent-aggregation.html">Parent Aggregation »</a>
 </span>
 </div>
 </div>

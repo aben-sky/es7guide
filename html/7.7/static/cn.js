@@ -1452,8 +1452,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-bucket-nested-aggregation.html",
-                        "text": "Nested Aggregation",
-                        "title": "Nested Aggregation"
+                        "text": "nested 聚合",
+                        "title": "nested 聚合"
                     },
                     {
                         "url": "search-aggregations-bucket-parent-aggregation.html",

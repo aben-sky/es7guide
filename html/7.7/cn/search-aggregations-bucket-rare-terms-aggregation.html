@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Rare Terms Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>rare_terms 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,40 +32,44 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">Bucket Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">桶(bucket)聚合</a></span>
 »
-<span class="breadcrumb-node">Rare Terms Aggregation</span>
+<span class="breadcrumb-node">rare_terms 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-bucket-range-aggregation.html">« Range Aggregation</a>
+<a href="search-aggregations-bucket-range-aggregation.html">« range 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-reverse-nested-aggregation.html">Reverse nested Aggregation »</a>
+<a href2="search-aggregations-bucket-reverse-nested-aggregation.html">Reverse nested Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-bucket-rare-terms-aggregation"></a>Rare Terms Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/rare-terms-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-rare-terms-aggregation"></a>稀有词项(rare_terms)聚合
 </h2>
 </div></div></div>
-<p>A multi-bucket value source based aggregation which finds "rare" terms — terms that are at the long-tail
-of the distribution and are not frequent.  Conceptually, this is like a <code class="literal">terms</code> aggregation that is
-sorted by <code class="literal">_count</code> ascending.  As noted in the <a class="xref" href="search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation-order" title="Order">terms aggregation docs</a>,
-actually ordering a <code class="literal">terms</code> agg by count ascending has unbounded error.  Instead, you should use the <code class="literal">rare_terms</code>
-aggregation</p>
+<p>
+一个多桶聚合，基于值源，用于查找“稀有”的词项，即位于分布长尾且不常用的词项。
+
+从概念上讲，这类似于按<code class="literal">_count</code>升序排序的<code class="literal">terms</code>聚合。
+
+正如<a class="xref" href="search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation-order" title="Order">terms聚合文档</a>中所指出的，实际上按计数升序对<code class="literal">terms</code>聚合进行排序会产生极大的误差。
+
+相反，应该使用<code class="literal">rare_terms</code>聚合。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_syntax_2"></a>Syntax<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/rare-terms-aggregation.asciidoc">edit</a>
+<a id="_syntax_2"></a>语法
 </h3>
 </div></div></div>
-<p>A <code class="literal">rare_terms</code> aggregation looks like this in isolation:</p>
+<p>孤立地看，<code class="literal">rare_terms</code>聚合如下所示：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
     "rare_terms": {
@@ -75,7 +79,7 @@ aggregation</p>
 }</pre>
 </div>
 <div class="table">
-<p class="title"><strong>Table 6. <code class="literal">rare_terms</code> Parameters</strong></p>
+<p class="title"><strong>表 6. <code class="literal">rare_terms</code> 参数</strong></p>
 <div class="table-contents">
 <table border="1" cellpadding="4px" summary="rare_terms Parameters">
 <colgroup>
@@ -86,53 +90,52 @@ aggregation</p>
 </colgroup>
 <tbody>
 <tr>
-<td align="left" valign="top"><p>Parameter Name</p></td>
-<td align="left" valign="top"><p>Description</p></td>
-<td align="left" valign="top"><p>Required</p></td>
-<td align="left" valign="top"><p>Default Value</p></td>
+<td align="left" valign="top"><p>参数名称</p></td>
+<td align="left" valign="top"><p>描述</p></td>
+<td align="left" valign="top"><p>是否必须</p></td>
+<td align="left" valign="top"><p>默认值</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">field</code></p></td>
-<td align="left" valign="top"><p>The field we wish to find rare terms in</p></td>
-<td align="left" valign="top"><p>Required</p></td>
+<td align="left" valign="top"><p>希望搜索稀有词项的字段</p></td>
+<td align="left" valign="top"><p>必须的</p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">max_doc_count</code></p></td>
-<td align="left" valign="top"><p>The maximum number of documents a term should appear in.</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>一个词项应该出现在文档中的最大数量。</p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p><code class="literal">1</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">precision</code></p></td>
-<td align="left" valign="top"><p>The precision of the internal CuckooFilters.  Smaller precision leads to
-better approximation, but higher memory usage. Cannot be smaller than <code class="literal">0.00001</code></p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>内部布谷鸟顾虑器(CuckooFilters)的精度。精度越小，近似值越精确，但内存使用率越高。 但是不能小于 <code class="literal">0.00001</code></p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p><code class="literal">0.01</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">include</code></p></td>
-<td align="left" valign="top"><p>Terms that should be included in the aggregation</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>应包含在聚合中的词项</p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">exclude</code></p></td>
-<td align="left" valign="top"><p>Terms that should be excluded from the aggregation</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>应从聚合中排除的词项</p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">missing</code></p></td>
-<td align="left" valign="top"><p>The value that should be used if a document does not have the field being aggregated</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>如果文档中没有正在聚合的字段，则应使用的值</p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>Example:</p>
+<p>示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -146,7 +149,7 @@ better approximation, but higher memory usage. Cannot be smaller than <code clas
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/502.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -162,8 +165,11 @@ better approximation, but higher memory usage. Cannot be smaller than <code clas
     }
 }</pre>
 </div>
-<p>In this example, the only bucket that we see is the "swing" bucket, because it is the only term that appears in
-one document.  If we increase the <code class="literal">max_doc_count</code> to <code class="literal">2</code>, we’ll see some more buckets:</p>
+<p>
+在这个例子中，我们看到的唯一的桶是“swing”桶，因为它是唯一出现在一个文档中的词项。
+
+如果我们将<code class="literal">max_doc_count</code>增加到<code class="literal">2</code>，我们将看到更多的桶：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -178,7 +184,7 @@ one document.  If we increase the <code class="literal">max_doc_count</code> to 
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/503.console"></div>
-<p>This now shows the "jazz" term which has a <code class="literal">doc_count</code> of 2":</p>
+<p>现在显示了“jazz”词项，其<code class="literal">doc_count</code>为2：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -203,84 +209,107 @@ one document.  If we increase the <code class="literal">max_doc_count</code> to 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="search-aggregations-bucket-rare-terms-aggregation-max-doc-count"></a>Maximum document count<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/rare-terms-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-rare-terms-aggregation-max-doc-count"></a>最大文档数量
 </h3>
 </div></div></div>
-<p>The <code class="literal">max_doc_count</code> parameter is used to control the upper bound of document counts that a term can have.  There
-is not a size limitation on the <code class="literal">rare_terms</code> agg like <code class="literal">terms</code> agg has.  This means that terms
-which match the <code class="literal">max_doc_count</code> criteria will be returned.  The aggregation functions in this manner to avoid
-the order-by-ascending issues that afflict the <code class="literal">terms</code> aggregation.</p>
-<p>This does, however, mean that  a large number of results can be returned if chosen incorrectly.
-To limit the danger of this setting, the maximum <code class="literal">max_doc_count</code> is 100.</p>
+<p>
+参数<code class="literal">max_doc_count</code>用于控制一个词项可以拥有的文档数量的上限。
+
+像<code class="literal">terms</code>聚合一样，<code class="literal">rare_terms</code>聚合没有大小限制。
+
+这意味着将返回符合<code class="literal">max_doc_count</code>标准的词项。
+
+聚合以这种方式运行，以避免困扰<code class="literal">terms</code>聚合的升序问题。
+</p>
+<p>
+然而，这确实意味着如果选择不正确，可能会返回大量结果。
+
+为了限制这种设置的危险性，<code class="literal">max_doc_count</code>的最大值是<code class="literal">100</code>。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="search-aggregations-bucket-rare-terms-aggregation-max-buckets"></a>Max Bucket Limit<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/rare-terms-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-rare-terms-aggregation-max-buckets"></a>最大桶数限制
 </h3>
 </div></div></div>
-<p>The Rare Terms aggregation is more liable to trip the <code class="literal">search.max_buckets</code> soft limit than other aggregations due
-to how it works.  The <code class="literal">max_bucket</code> soft-limit is evaluated on a per-shard basis while the aggregation is collecting
-results.  It is possible for a term to be "rare" on a shard but become "not rare" once all the shard results are
-merged together.  This means that individual shards tend to collect more buckets than are truly rare, because
-they only have their own local view.  This list is ultimately pruned to the correct, smaller list of rare
-terms on the coordinating node…​ but a shard may have already tripped the <code class="literal">max_buckets</code> soft limit and aborted
-the request.</p>
-<p>When aggregating on fields that have potentially many "rare" terms, you may need to increase the <code class="literal">max_buckets</code> soft
-limit.  Alternatively, you might need to find a way to filter the results to return fewer rare values (smaller time
-span, filter by category, etc), or re-evaluate your definition of "rare" (e.g. if something
-appears 100,000 times, is it truly "rare"?)</p>
+<p>
+由于其工作方式的原因，rare_terms 聚合比其他聚合更容易超出<code class="literal">search.max_buckets</code>软限制。
+
+当聚合收集结果时，<code class="literal">max_bucket</code>软限制基于每个分片进行评估。
+
+一个词项在一个分片上可能是“稀有的”，但是一旦所有分片结果合并在一起，它就变得“不稀有”了。
+
+这意味着单个分片倾向于收集比真正罕见的更多的桶，因为它们只有自己的本地视图。
+
+这个列表最终在协调节点上被删减为正确的、更小的稀有词项列表……但是一个分片可能已经触发了<code class="literal">max_buckets</code>软限制并中止了请求。
+</p>
+<p>
+当对可能包含许多“罕见”术语的字段进行聚合时，你可能需要增加<code class="literal">max_buckets</code>软限制的值。
+
+或者，你可能需要找到一种方法来过滤结果，以返回更少的稀有值(更小的时间跨度、按类别过滤等)，或者重新评估你对“稀有”的定义(例如，如果某个东西出现100,000次，它真的“稀有”吗？)
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="search-aggregations-bucket-rare-terms-aggregation-approximate-counts"></a>Document counts are approximate<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/rare-terms-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-rare-terms-aggregation-approximate-counts"></a>文档数量是近似值
 </h3>
 </div></div></div>
-<p>The naive way to determine the "rare" terms in a dataset is to place all the values in a map, incrementing counts
-as each document is visited, then return the bottom <code class="literal">n</code> rows.  This does not scale beyond even modestly sized data
-sets.  A sharded approach where only the "top n" values are retained from each shard (ala the <code class="literal">terms</code> aggregation)
-fails because the long-tail nature of the problem means it is impossible to find the "top n" bottom values without
-simply collecting all the values from all shards.</p>
-<p>Instead, the Rare Terms aggregation uses a different approximate algorithm:</p>
+<p>
+确定数据集中“罕见的”词项的简单方法是将所有值放在一个映射中，随着每个文档被访问，计数递增，然后返回底部的<code class="literal">n</code>行。
+
+这甚至不能扩展到中等大小的数据集。 
+
+一种仅保留来自每个分片的“前n”个值(也称为<code class="literal">terms</code>聚合)的分片方法会失败，因为问题的长尾特性意味着，如果不简单地收集来自所有分片的所有值，就不可能找到“前n”个底部的值。
+</p>
+<p>相反，rare_terms聚合使用不同的近似算法：</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-Values are placed in a map the first time they are seen.
+第一次看到值时，它们会被放置在一个映射中。
 </li>
 <li class="listitem">
-Each addition occurrence of the term increments a counter in the map
+该词项每增加一次，映射中的计数器就加一
 </li>
 <li class="listitem">
-If the counter &gt; the <code class="literal">max_doc_count</code> threshold, the term is removed from the map and placed in a
-<a href="https://www.cs.cmu.edu/~dga/papers/cuckoo-conext2014.pdf" class="ulink" target="_top">CuckooFilter</a>
+如果计数器大于<code class="literal">max_doc_count</code>阈值，则从映射中移除该词项，并将其放入<a href="https://www.cs.cmu.edu/~dga/papers/cuckoo-conext2014.pdf" class="ulink" target="_top" rel="nofollow">布谷鸟过滤器(CuckooFilter)</a>中
 </li>
 <li class="listitem">
-The CuckooFilter is consulted on each term.  If the value is inside the filter, it is known to be above the
-threshold already and skipped.
+每个词项都要参考布谷鸟过滤器(CuckooFilter)。
+
+如果该值在过滤器内，则已知它已经高于阈值并被跳过。
 </li>
 </ol>
 </div>
-<p>After execution, the map of values is the map of "rare" terms under the <code class="literal">max_doc_count</code> threshold.  This map and CuckooFilter
-are then merged with all other shards.  If there are terms that are greater than the threshold (or appear in
-a different shard’s CuckooFilter) the term is removed from the merged list.  The final map of values is returned
-to the user as the "rare" terms.</p>
-<p>CuckooFilters have the possibility of returning false positives (they can say a value exists in their collection when
-it actually does not).  Since the CuckooFilter is being used to see if a term is over threshold, this means a false positive
-from the CuckooFilter will mistakenly say a value is common when it is not (and thus exclude it from it final list of buckets).
-Practically, this means the aggregations exhibits false-negative behavior since the filter is being used "in reverse"
-of how people generally think of approximate set membership sketches.</p>
-<p>CuckooFilters are described in more detail in the paper:</p>
-<p><a href="https://www.cs.cmu.edu/~dga/papers/cuckoo-conext2014.pdf" class="ulink" target="_top">Fan, Bin, et al. "Cuckoo filter: Practically better than bloom."</a>
-Proceedings of the 10th ACM International on Conference on emerging Networking Experiments and Technologies. ACM, 2014.</p>
+<p>
+执行后，值的映射是<code class="literal">max_doc_count</code>阈值下的“稀有”词项的映射。
+
+然后这个映射和布谷鸟过滤器与所有其他分片合并。
+
+如果有大于阈值的此昂(或出现在不同分片的布谷鸟过滤器中),该词项将从合并列表中删除。
+
+最终的值映射作为“稀有”词项返回给用户。
+</p>
+<p>
+布谷鸟过滤器有可能返回误报(它们可以说某个值存在于它们的集合中，而实际上它并不存在)。
+
+由于布谷鸟过滤器用于查看某项是否超过阈值，这意味着布谷鸟过滤器的误报将错误地认为某个值是常见的，而实际上它并不是常见的(从而将其从桶的最终列表中排除)。
+
+实际上，这意味着聚合表现出假阴性行为，因为过滤器的使用与人们通常认为的近似集合成员草图的方式“相反”。
+</p>
+<p>布谷鸟过滤器在论文中有更详细的描述：</p>
+<p>
+<a href="https://www.cs.cmu.edu/~dga/papers/cuckoo-conext2014.pdf" class="ulink" target="_top">Fan, Bin, et al. "Cuckoo filter: Practically better than bloom."</a> 第10届ACM国际新兴网络实验和技术会议录。美国计算机学会，2014年。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_precision"></a>Precision<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/rare-terms-aggregation.asciidoc">edit</a>
+<a id="_precision"></a>精度
 </h3>
 </div></div></div>
 <p>Although the internal CuckooFilter is approximate in nature, the false-negative rate can be controlled with a
@@ -429,10 +458,10 @@ needs document scores (like a <code class="literal">top_hits</code> aggregation)
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-bucket-range-aggregation.html">« Range Aggregation</a>
+<a href="search-aggregations-bucket-range-aggregation.html">« range 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-reverse-nested-aggregation.html">Reverse nested Aggregation »</a>
+<a href2="search-aggregations-bucket-reverse-nested-aggregation.html">Reverse nested Aggregation »</a>
 </span>
 </div>
 </div>

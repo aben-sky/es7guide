@@ -1467,8 +1467,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-bucket-rare-terms-aggregation.html",
-                        "text": "Rare Terms Aggregation",
-                        "title": "Rare Terms Aggregation"
+                        "text": "rare_terms 聚合",
+                        "title": "rare_terms 聚合"
                     },
                     {
                         "url": "search-aggregations-bucket-reverse-nested-aggregation.html",

@@ -213,3 +213,8 @@ https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-geodistance-aggregat
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-geohashgrid-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-geotilegrid-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-global-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-histogram-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-iprange-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-missing-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-nested-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-parent-aggregation.html

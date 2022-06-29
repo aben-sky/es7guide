@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Range Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>range 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,31 +32,36 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">Bucket Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">桶(bucket)聚合</a></span>
 »
-<span class="breadcrumb-node">Range Aggregation</span>
+<span class="breadcrumb-node">range 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-bucket-parent-aggregation.html">« Parent Aggregation</a>
+<a href="search-aggregations-bucket-parent-aggregation.html">« parent 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-rare-terms-aggregation.html">Rare Terms Aggregation »</a>
+<a href2="search-aggregations-bucket-rare-terms-aggregation.html">Rare Terms Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-bucket-range-aggregation"></a>Range Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/range-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-range-aggregation"></a>范围(range)聚合
 </h2>
 </div></div></div>
-<p>A multi-bucket value source based aggregation that enables the user to define a set of ranges - each representing a bucket. During the aggregation process, the values extracted from each document will be checked against each bucket range and "bucket" the relevant/matching document.
-Note that this aggregation includes the <code class="literal">from</code> value and excludes the <code class="literal">to</code> value for each range.</p>
-<p>Example:</p>
+<p>
+一个基于值源的多桶聚合，使用户能够定义一组范围，每个范围代表一个桶。
+
+在聚合过程中，将根据每个桶的范围检查从每个文档中提取的值，并将相关/匹配的文档“分桶”。
+
+请注意，此聚合包括每个范围的<code class="literal">from</code>值，但不包括<code class="literal">to</code>值。
+</p>
+<p>示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -75,7 +80,7 @@ Note that this aggregation includes the <code class="literal">from</code> value 
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/493.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -106,10 +111,10 @@ Note that this aggregation includes the <code class="literal">from</code> value 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_keyed_response_7"></a>Keyed Response<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/range-aggregation.asciidoc">edit</a>
+<a id="_keyed_response_7"></a>keyed 响应
 </h3>
 </div></div></div>
-<p>Setting the <code class="literal">keyed</code> flag to <code class="literal">true</code> will associate a unique string key with each bucket and return the ranges as a hash rather than an array:</p>
+<p>将<code class="literal">keyed</code>标志设置为<code class="literal">true</code>会将唯一的字符串键与每个桶相关联，并将范围作为哈希而不是数组返回：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -129,7 +134,7 @@ Note that this aggregation includes the <code class="literal">from</code> value 
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/494.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -154,7 +159,7 @@ Note that this aggregation includes the <code class="literal">from</code> value 
     }
 }</pre>
 </div>
-<p>It is also possible to customize the key for each range:</p>
+<p>也可以为每个范围自定义一个键：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -174,7 +179,7 @@ Note that this aggregation includes the <code class="literal">from</code> value 
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/495.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -204,12 +209,15 @@ Note that this aggregation includes the <code class="literal">from</code> value 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_script_15"></a>Script<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/range-aggregation.asciidoc">edit</a>
+<a id="_script_15"></a>脚本
 </h3>
 </div></div></div>
-<p>Range aggregation accepts a <code class="literal">script</code> parameter. This parameter allows to defined an inline <code class="literal">script</code> that
-will be executed during aggregation execution.</p>
-<p>The following example shows how to use an <code class="literal">inline</code> script with the <code class="literal">painless</code> script language and no script parameters:</p>
+<p>
+range 聚合接受<code class="literal">script</code>参数。
+
+此参数允许定义一个内联的（<code class="literal">inline</code>）脚本（<code class="literal">script</code>），它将在聚合执行期间被执行。
+</p>
+<p>下面这个示例显示了如何使用无痛（<code class="literal">painless</code>）脚本语言和无脚本参数的内联（<code class="literal">inline</code>）脚本：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -231,7 +239,7 @@ will be executed during aggregation execution.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/496.console"></div>
-<p>It is also possible to use stored scripts. Here is a simple stored script:</p>
+<p>也可以使用存储(的)脚本。下面是一个简单的使用存储脚本的示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /_scripts/convert_currency
 {
@@ -242,7 +250,7 @@ will be executed during aggregation execution.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/497.console"></div>
-<p>And this new stored script can be used in the range aggregation like this:</p>
+<p>这个新的存储脚本可以用于 range 聚合，如下所示：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -273,7 +281,7 @@ will be executed during aggregation execution.</p>
 <p><a href="#CO235-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Id of the stored script</p>
+<p>存储脚本的id</p>
 </td>
 </tr>
 <tr>
@@ -281,7 +289,7 @@ will be executed during aggregation execution.</p>
 <p><a href="#CO235-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Parameters to use when executing the stored script</p>
+<p>执行存储脚本时使用的参数</p>
 </td>
 </tr>
 </table>
@@ -291,10 +299,14 @@ will be executed during aggregation execution.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_value_script_8"></a>Value Script<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/range-aggregation.asciidoc">edit</a>
+<a id="_value_script_8"></a>值脚本(value script)
 </h3>
 </div></div></div>
-<p>Lets say the product prices are in USD but we would like to get the price ranges in EURO. We can use value script to convert the prices prior the aggregation (assuming conversion rate of 0.8)</p>
+<p>
+假设产品价格以美元(USD)计算，但我们希望得到以欧元(EURO)计算的价格范围。
+
+我们可以使用值脚本在聚合之前转换价格(假设转换率为0.8)。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /sales/_search
 {
@@ -324,10 +336,10 @@ will be executed during aggregation execution.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_sub_aggregations_2"></a>Sub Aggregations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/range-aggregation.asciidoc">edit</a>
+<a id="_sub_aggregations_2"></a>子聚合
 </h3>
 </div></div></div>
-<p>The following example, not only "bucket" the documents to the different buckets but also computes statistics over the prices in each price range</p>
+<p>下面这个例子不仅将文档“分桶”到不同的桶中，还计算每个价格范围内的价格统计数据。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -351,7 +363,7 @@ will be executed during aggregation execution.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/500.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   ...
@@ -400,7 +412,11 @@ will be executed during aggregation execution.</p>
   }
 }</pre>
 </div>
-<p>If a sub aggregation is also based on the same value source as the range aggregation (like the <code class="literal">stats</code> aggregation in the example above) it is possible to leave out the value source definition for it. The following will return the same response as above:</p>
+<p>
+如果子聚合也基于与 range 聚合相同的值源(如上面示例中的<code class="literal">stats</code>聚合)，则可以省略其值源的定义。
+
+下面这个例子将返回与上面相同的响应：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -431,7 +447,7 @@ will be executed during aggregation execution.</p>
 <p><a href="#CO236-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>We don’t need to specify the <code class="literal">price</code> as we "inherit" it by default from the parent <code class="literal">range</code> aggregation</p>
+<p>不需要指定 field 为<code class="literal">price</code>，因为默认情况下，会从父级的 range 聚合中“继承”</p>
 </td>
 </tr>
 </table>
@@ -441,10 +457,10 @@ will be executed during aggregation execution.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-bucket-parent-aggregation.html">« Parent Aggregation</a>
+<a href="search-aggregations-bucket-parent-aggregation.html">« parent 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-rare-terms-aggregation.html">Rare Terms Aggregation »</a>
+<a href2="search-aggregations-bucket-rare-terms-aggregation.html">Rare Terms Aggregation »</a>
 </span>
 </div>
 </div>

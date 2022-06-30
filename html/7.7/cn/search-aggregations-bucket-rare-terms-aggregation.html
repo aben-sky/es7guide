@@ -312,47 +312,62 @@
 <a id="_precision"></a>精度
 </h3>
 </div></div></div>
-<p>Although the internal CuckooFilter is approximate in nature, the false-negative rate can be controlled with a
-<code class="literal">precision</code> parameter.  This allows the user to trade more runtime memory for more accurate results.</p>
-<p>The default precision is <code class="literal">0.001</code>, and the smallest (e.g. most accurate and largest memory overhead) is <code class="literal">0.00001</code>.
-Below are some charts which demonstrate how the accuracy of the aggregation is affected by precision and number
-of distinct terms.</p>
-<p>The X-axis shows the number of distinct values the aggregation has seen, and the Y-axis shows the percent error.
-Each line series represents one "rarity" condition (ranging from one rare item to 100,000 rare items).  For example,
-the orange "10" line means ten of the values were "rare" (<code class="literal">doc_count == 1</code>), out of 1-20m distinct values (where the
-rest of the values had <code class="literal">doc_count &gt; 1</code>)</p>
-<p>This first chart shows precision <code class="literal">0.01</code>:</p>
+<p>
+虽然内部的布谷鸟过滤器本质上是近似的，但假阴性率可以通过参数<code class="literal">precision</code>来控制。
+
+这允许用户用更多的运行时内存来换取更精确的结果。
+</p>
+<p>
+默认精度是<code class="literal">0.001</code>，最小精度值是(例如，最精确和最大的内存开销)是<code class="literal">0.00001</code>。
+
+下面是一些图表，展示了不同词项的精确度和数量如何影响聚合的准确性。
+</p>
+<p>
+X轴显示聚合看到的唯一值的数量，Y轴显示误差百分比。
+
+每条折线代表一个“稀有”条件(从一个稀有物品到100,000个稀有物品)。
+
+例如，橙色的“10”线条表示100万 ~ 2000万个唯一值中有10个值是“罕见的”(<code class="literal">doc_count == 1</code>)，其余值的<code class="literal">doc_count &gt; 1</code>
+</p>
+<p>第一张图显示的是精度为<code class="literal">0.01</code>的情况：</p>
 <p><span class="image"><img src="../static/images/rare_terms/accuracy_01.png" alt="accuracy 01"></span></p>
-<p>And precision <code class="literal">0.001</code> (the default):</p>
+<p>以及精度<code class="literal">0.001</code> (默认)的情况：</p>
 <p><span class="image"><img src="../static/images/rare_terms/accuracy_001.png" alt="accuracy 001"></span></p>
-<p>And finally <code class="literal">precision 0.0001</code>:</p>
+<p>最后一个是精度为<code class="literal">0.0001</code>的情况：</p>
 <p><span class="image"><img src="../static/images/rare_terms/accuracy_0001.png" alt="accuracy 0001"></span></p>
-<p>The default precision of <code class="literal">0.001</code> maintains an accuracy of &lt; 2.5% for the tested conditions, and accuracy slowly
-degrades in a controlled, linear fashion as the number of distinct values increases.</p>
-<p>The default precision of <code class="literal">0.001</code> has a memory profile of <code class="literal">1.748⁻⁶ * n</code> bytes, where <code class="literal">n</code> is the number
-of distinct values the aggregation has seen (it can also be roughly eyeballed, e.g. 20 million unique values is about
-30mb of memory).  The memory usage is linear to the number of distinct values regardless of which precision is chosen,
-the precision only affects the slope of the memory profile as seen in this chart:</p>
+<p>
+默认精度为<code class="literal">0.001</code>，在测试条件下保持 &lt; 2.5%的精度，随着唯一值数量的增加，精度以受控的线性方式缓慢下降。
+</p>
+<p>
+默认精度为<code class="literal">0.001</code>，内存配置为<code class="literal">1.748⁻⁶ * n</code>字节，其中<code class="literal">n</code>是聚合看到的唯一值的数量(也可以粗略估计，例如2000万个唯一值大约是30MB内存)。
+
+无论选择哪种精度，内存使用量都与唯一值的数量成线性关系，精度仅影响内存配置的斜率，如下图所示：
+</p>
 <p><span class="image"><img src="../static/images/rare_terms/memory.png" alt="memory"></span></p>
-<p>For comparison, an equivalent terms aggregation at 20 million buckets would be roughly
-<code class="literal">20m * 69b == ~1.38gb</code> (with 69 bytes being a very optimistic estimate of an empty bucket cost, far lower than what
-the circuit breaker accounts for).  So although the <code class="literal">rare_terms</code> agg is relatively heavy, it is still orders of
-magnitude smaller than the equivalent terms aggregation</p>
+<p>
+相比之下，2000万个桶的等效 terms 聚合大约为 <code class="literal">20m * 69b == ~1.38gb</code>(69字节是对空桶成本的非常乐观的估计，远远低于熔断器所占的成本)。
+
+因此，尽管<code class="literal">rare_terms</code>聚合成本相对较高，但其数量级仍然小于等价的 terms 聚合
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_filtering_values"></a>Filtering Values<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/rare-terms-aggregation.asciidoc">edit</a>
+<a id="_filtering_values"></a>对值进行过滤
 </h3>
 </div></div></div>
-<p>It is possible to filter the values for which buckets will be created. This can be done using the <code class="literal">include</code> and
-<code class="literal">exclude</code> parameters which are based on regular expression strings or arrays of exact values. Additionally,
-<code class="literal">include</code> clauses can filter using <code class="literal">partition</code> expressions.</p>
+<p>
+可以过滤将用于创建桶的值。
+
+这可以使用基于正则表达式字符串或精确值数组的<code class="literal">include</code>和<code class="literal">exclude</code>参数来完成。
+
+此外，<code class="literal">include</code>子句可以使用<code class="literal">partition</code>表达式进行过滤。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_filtering_values_with_regular_expressions"></a>Filtering Values with regular expressions<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/rare-terms-aggregation.asciidoc">edit</a>
+<a id="_filtering_values_with_regular_expressions"></a>使用正则表达式对值进行过滤
 </h4>
 </div></div></div>
 <div class="pre_wrapper lang-console">
@@ -370,21 +385,27 @@ magnitude smaller than the equivalent terms aggregation</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/504.console"></div>
-<p>In the above example, buckets will be created for all the tags that starts with <code class="literal">swi</code>, except those starting
-with <code class="literal">electro</code> (so the tag <code class="literal">swing</code> will be aggregated but not <code class="literal">electro_swing</code>). The <code class="literal">include</code> regular expression will determine what
-values are "allowed" to be aggregated, while the <code class="literal">exclude</code> determines the values that should not be aggregated. When
-both are defined, the <code class="literal">exclude</code> has precedence, meaning, the <code class="literal">include</code> is evaluated first and only then the <code class="literal">exclude</code>.</p>
-<p>The syntax is the same as <a class="xref" href="regexp-syntax.html" title="Regular expression syntax">regexp queries</a>.</p>
+<p>
+在上面的例子中，将为所有以<code class="literal">swi</code>开头的标签创建桶，除了那些以 <code class="literal">electro</code>开头的标签(因此标签<code class="literal">swing</code>将被聚合，而不是<code class="literal">electro_swing</code>)。
+
+<code class="literal">include</code>正则表达式将确定“允许”聚合哪些值，而<code class="literal">exclude</code> 将确定不应该聚合的值。
+
+当两者都被定义时，<code class="literal">exclude</code>优先，这意味着首先计算<code class="literal">include</code>，然后才计算<code class="literal">exclude</code>。
+</p>
+<p>
+语法与<a class="xref" href="regexp-syntax.html" title="Regular expression syntax">正则查询</a>相同。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_filtering_values_with_exact_values"></a>Filtering Values with exact values<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/rare-terms-aggregation.asciidoc">edit</a>
+<a id="_filtering_values_with_exact_values"></a>使用精确值对值进行过滤
 </h4>
 </div></div></div>
-<p>For matching based on exact values the <code class="literal">include</code> and <code class="literal">exclude</code> parameters can simply take an array of
-strings that represent the terms as they are found in the index:</p>
+<p>
+对于基于精确值的匹配，<code class="literal">include</code>和<code class="literal">exclude</code>参数可以简单地接受一个字符串数组，这些字符串表示在索引中找到的词项:
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -407,12 +428,12 @@ strings that represent the terms as they are found in the index:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_missing_value_16"></a>Missing value<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/rare-terms-aggregation.asciidoc">edit</a>
+<a id="_missing_value_16"></a>缺失的值
 </h3>
 </div></div></div>
-<p>The <code class="literal">missing</code> parameter defines how documents that are missing a value should be treated.
-By default they will be ignored but it is also possible to treat them as if they
-had a value.</p>
+<p>
+参数<code class="literal">missing</code>定义应该如何处理有缺失值的文档。 默认情况下，它们将被忽略，但也可以将它们视为有一个值。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -434,7 +455,7 @@ had a value.</p>
 <p><a href="#CO237-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Documents without a value in the <code class="literal">tags</code> field will fall into the same bucket as documents that have the value <code class="literal">N/A</code>.</p>
+<p>在<code class="literal">tags</code>字段中没有值的文档将与具有<code class="literal">N/A</code>值的文档落入同一个桶中。</p>
 </td>
 </tr>
 </table>
@@ -444,15 +465,21 @@ had a value.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_nested_rareterms_and_scoring_sub_aggregations"></a>Nested, RareTerms, and scoring sub-aggregations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/rare-terms-aggregation.asciidoc">edit</a>
+<a id="_nested_rareterms_and_scoring_sub_aggregations"></a>嵌套、稀有词项和评分子聚合
 </h3>
 </div></div></div>
-<p>The RareTerms aggregation has to operate in <code class="literal">breadth_first</code> mode, since it needs to prune terms as doc count thresholds
-are breached.  This requirement means the RareTerms aggregation is incompatible with certain combinations of aggregations
-that require <code class="literal">depth_first</code>. In particular, scoring sub-aggregations that are inside a <code class="literal">nested</code> force the entire aggregation tree to run
-in <code class="literal">depth_first</code> mode.  This will throw an exception since RareTerms is unable to process <code class="literal">depth_first</code>.</p>
-<p>As a concrete example, if <code class="literal">rare_terms</code> aggregation is the child of a <code class="literal">nested</code> aggregation, and one of the child aggregations of <code class="literal">rare_terms</code>
-needs document scores (like a <code class="literal">top_hits</code> aggregation), this will throw an exception.</p>
+<p>
+rear_terms 聚合必须以<code class="literal">breadth_first</code><span class="remark">(广度优先)</span>模式运行，因为它需要在文档计数阈值被突破时修剪词项。
+
+这个要求意味着 rear_terms 聚合与需要 <code class="literal">depth_first</code><span class="remark">(深度优先)</span> 的某些聚合组合不兼容。
+
+特别是，对<code class="literal">nested</code><span class="remark">(嵌套)</span>子聚合进行评分会强制整个聚合树以<code class="literal">depth_first</code><span class="remark">(深度优先)</span> 模式运行。
+
+因为 rear_terms 聚合和无法处理<code class="literal">depth_first</code><span class="remark">(深度优先)</span>，就会抛出一个异常。
+</p>
+<p>
+一个具体的例子，如果<code class="literal">rare_terms</code>聚合是<code class="literal">nested</code>聚合的子聚合，并且<code class="literal">rare_terms</code>的一个子聚合需要文档评分(比如<code class="literal">top_hits</code>聚合)，就会抛出一个异常。
+</p>
 </div>
 
 </div>

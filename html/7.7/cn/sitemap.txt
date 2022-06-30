@@ -218,3 +218,5 @@ https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-iprange-aggregation.
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-missing-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-nested-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-parent-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-range-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-rare-terms-aggregation.html

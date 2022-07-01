@@ -1472,8 +1472,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-bucket-reverse-nested-aggregation.html",
-                        "text": "Reverse nested Aggregation",
-                        "title": "Reverse nested Aggregation"
+                        "text": "reverse_nested 聚合",
+                        "title": "reverse_nested 聚合"
                     },
                     {
                         "url": "search-aggregations-bucket-sampler-aggregation.html",

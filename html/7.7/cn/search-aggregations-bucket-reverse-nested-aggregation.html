@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Reverse nested Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>reverse_nested 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,44 +32,55 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">Bucket Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">桶(bucket)聚合</a></span>
 »
-<span class="breadcrumb-node">Reverse nested Aggregation</span>
+<span class="breadcrumb-node">reverse_nested 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-bucket-rare-terms-aggregation.html">« Rare Terms Aggregation</a>
+<a href="search-aggregations-bucket-rare-terms-aggregation.html">« rare_terms 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-sampler-aggregation.html">Sampler Aggregation »</a>
+<a href2="search-aggregations-bucket-sampler-aggregation.html">Sampler Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-bucket-reverse-nested-aggregation"></a>Reverse nested Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/reverse-nested-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-reverse-nested-aggregation"></a>反向嵌套(reverse_nested)聚合
 </h2>
 </div></div></div>
-<p>A special single bucket aggregation that enables aggregating on parent docs from nested documents. Effectively this
-aggregation can break out of the nested block structure and link to other nested structures or the root document,
-which allows nesting other aggregations that aren’t part of the nested object in a nested aggregation.</p>
-<p>The <code class="literal">reverse_nested</code> aggregation must be defined inside a <code class="literal">nested</code> aggregation.</p>
+<p>
+一个特殊的单桶聚合，支持从嵌套文档聚合父文档。
+
+这种聚合可以有效地打破嵌套块结构，并链接到其他嵌套结构或根文档，这允许在嵌套聚合中嵌套不属于嵌套对象的其他聚合。 
+</p>
+<p>
+<code class="literal">reverse_nested</code>聚合必须定义在<code class="literal">nested</code>聚合内部。
+</p>
 <div class="ulist itemizedlist">
-<p class="title"><strong>Options:</strong></p>
+<p class="title"><strong>选项：</strong></p>
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">path</code> - Which defines to what nested object field should be joined back. The default is empty,
-which means that it joins back to the root / main document level. The path cannot contain a reference to
-a nested object field that falls outside the <code class="literal">nested</code> aggregation’s nested structure a <code class="literal">reverse_nested</code> is in.
+<code class="literal">path</code> - 定义应该将哪个嵌套对象字段联接回去。
+
+默认值为空，这意味着它联接回根/主文档级别。
+
+该路径(path)不能包含对嵌套对象字段的引用，该嵌套对象字段不在<code class="literal">reverse_nested</code>所在的<code class="literal">nested</code>聚合的嵌套结构中。
 </li>
 </ul>
 </div>
-<p>For example, lets say we have an index for a ticket system with issues and comments. The comments are inlined into
-the issue documents as nested documents. The mapping could look like:</p>
+<p>
+例如，假设我们有一个包含问题(issue)和评论(comment)的票据系统的索引。
+
+评论作为嵌套文档内联到问题文档中。
+
+映射看起来可能像这样：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /issues
 {
@@ -95,13 +106,16 @@ the issue documents as nested documents. The mapping could look like:</p>
 <p><a href="#CO238-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">comments</code> is an array that holds nested documents under the <code class="literal">issue</code> object.</p>
+<p>
+<code class="literal">comments</code>是一个数组，用于保存<code class="literal">issue</code>对象下的嵌套文档。
+</p>
 </td>
 </tr>
 </table>
 </div>
-<p>The following aggregations will return the top commenters' username that have commented and per top commenter the top
-tags of the issues the user has commented on:</p>
+<p>
+下面的聚合将返回已发表评论的前几名评论者的用户名，以及这几个评论者各自对用户已发表评论的问题的前几个标签：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /issues/_search
 {
@@ -137,9 +151,11 @@ tags of the issues the user has commented on:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/508.console"></div>
-<p>As you can see above, the <code class="literal">reverse_nested</code> aggregation is put in to a <code class="literal">nested</code> aggregation as this is the only place
-in the dsl where the <code class="literal">reverse_nested</code> aggregation can be used. Its sole purpose is to join back to a parent doc higher
-up in the nested structure.</p>
+<p>
+正如你在上面看到的，<code class="literal">reverse_nested</code>聚合被放入<code class="literal">nested</code>聚合中，因为这是 DSL 中唯一可以使用<code class="literal">reverse_nested</code>聚合的地方。
+
+它的唯一目的是联接回嵌套结构中更高一级的父文档。
+</p>
 <div class="calloutlist">
 <table border="0" summary="Callout list">
 <tr>
@@ -147,14 +163,16 @@ up in the nested structure.</p>
 <p><a href="#CO239-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>A <code class="literal">reverse_nested</code> aggregation that joins back to the root / main document level, because no <code class="literal">path</code> has been defined.
-Via the <code class="literal">path</code> option the <code class="literal">reverse_nested</code> aggregation can join back to a different level, if multiple layered nested
-object types have been defined in the mapping</p>
+<p>
+<code class="literal">reverse_nested</code> 聚合联接回根/主文档级别，因为尚未定义<code class="literal">path</code>。
+
+如果在映射中定义了多层嵌套对象类型，通过<code class="literal">path</code>选项，<code class="literal">reverse_nested</code>聚合可以联接回不同的级别
+</p>
 </td>
 </tr>
 </table>
 </div>
-<p>Possible response snippet:</p>
+<p>可能的响应片段：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   "aggregations": {
@@ -192,10 +210,10 @@ object types have been defined in the mapping</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-bucket-rare-terms-aggregation.html">« Rare Terms Aggregation</a>
+<a href="search-aggregations-bucket-rare-terms-aggregation.html">« rare_terms 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-sampler-aggregation.html">Sampler Aggregation »</a>
+<a href2="search-aggregations-bucket-sampler-aggregation.html">Sampler Aggregation »</a>
 </span>
 </div>
 </div>

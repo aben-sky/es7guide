@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Sampler Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>sampler 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,45 +32,46 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">Bucket Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">桶(bucket)聚合</a></span>
 »
-<span class="breadcrumb-node">Sampler Aggregation</span>
+<span class="breadcrumb-node">sampler 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-bucket-reverse-nested-aggregation.html">« Reverse nested Aggregation</a>
+<a href="search-aggregations-bucket-reverse-nested-aggregation.html">« reverse_nested 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-significantterms-aggregation.html">Significant Terms Aggregation »</a>
+<a href2="search-aggregations-bucket-significantterms-aggregation.html">Significant Terms Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-bucket-sampler-aggregation"></a>Sampler Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/sampler-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-sampler-aggregation"></a>采样器(sampler)聚合
 </h2>
 </div></div></div>
-<p>A filtering aggregation used to limit any sub aggregations' processing to a sample of the top-scoring documents.</p>
+<p>一种过滤聚合，用于将任何子聚合的处理限制在得分最高的文档样本中。</p>
 <div class="ulist itemizedlist">
-<p class="title"><strong>Example use cases:</strong></p>
+<p class="title"><strong>使用用例举例：</strong></p>
 <ul class="itemizedlist">
 <li class="listitem">
-Tightening the focus of analytics to high-relevance matches rather than the potentially very long tail of low-quality matches
+将分析的焦点集中在高相关性匹配上，而不是低质量匹配的潜在长尾上
 </li>
 <li class="listitem">
-Reducing the running cost of aggregations that can produce useful results using only samples e.g. <code class="literal">significant_terms</code>
+降低聚合的运行成本，仅使用样本即可产生有用的结果，如<code class="literal">significant_terms</code>
 </li>
 </ul>
 </div>
-<p>Example:</p>
-<p>A query on StackOverflow data for the popular term <code class="literal">javascript</code> OR the rarer term
-<code class="literal">kibana</code> will match many documents - most of them missing the word Kibana. To focus
-the <code class="literal">significant_terms</code> aggregation on top-scoring documents that are more likely to match
-the most interesting parts of our query we use a sample.</p>
+<p>示例：</p>
+<p>
+在StackOverflow数据中查询流行的词项<code class="literal">javascript</code>或较罕见的词项<code class="literal">kibana</code>，将会匹配许多文档——其中大多数都缺少单词Kibana。
+
+为了将<code class="literal">significant_terms</code>聚合集中在最有可能匹配查询中最感兴趣部分的得分最高的文档上，我们使用了一个示例。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /stackoverflow/_search?size=0
 {
@@ -97,7 +98,7 @@ the most interesting parts of our query we use a sample.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/509.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -133,14 +134,16 @@ the most interesting parts of our query we use a sample.</p>
 <p><a href="#CO240-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>200 documents were sampled in total. The cost of performing the nested significant_terms aggregation was
-therefore limited rather than unbounded.</p>
+<p>
+总共采样了200份文件。因此，执行嵌套的<code class="literal">significant_terms</code>聚合的成本是有限的，而不是无限的。
+</p>
 </td>
 </tr>
 </table>
 </div>
-<p>Without the <code class="literal">sampler</code> aggregation the request query considers the full "long tail" of low-quality matches and therefore identifies
-less significant terms such as <code class="literal">jquery</code> and <code class="literal">angular</code> rather than focusing on the more insightful Kibana-related terms.</p>
+<p>
+如果没有<code class="literal">sampler</code>聚合，请求查询会考虑低质量匹配的完整“长尾”，因此会识别不太重要的词项，如<code class="literal">jquery</code>和<code class="literal">angular</code>，而不是关注更有见地的与Kibana相关的词项。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /stackoverflow/_search?size=0
 {
@@ -161,7 +164,7 @@ less significant terms such as <code class="literal">jquery</code> and <code cla
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/510.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -196,28 +199,33 @@ less significant terms such as <code class="literal">jquery</code> and <code cla
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_shard_size_2"></a>shard_size<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/sampler-aggregation.asciidoc">edit</a>
+<a id="_shard_size_2"></a>shard_size
 </h3>
 </div></div></div>
-<p>The <code class="literal">shard_size</code> parameter limits how many top-scoring documents are collected in the sample processed on each shard.
-The default value is 100.</p>
+<p>
+参数<code class="literal">shard_size</code>限制了在每个分片上处理的样本中收集多少得分最高的文档。默认值为<code class="literal">100</code>。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_limitations_4"></a>Limitations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/sampler-aggregation.asciidoc">edit</a>
+<a id="_limitations_4"></a>局限性
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="sampler-breadth-first-nested-agg"></a>Cannot be nested under <code class="literal">breadth_first</code> aggregations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/sampler-aggregation.asciidoc">edit</a>
+<a id="sampler-breadth-first-nested-agg"></a>不能嵌套在广度优先(<code class="literal">breadth_first</code>)聚合下
 </h4>
 </div></div></div>
-<p>Being a quality-based filter the sampler aggregation needs access to the relevance score produced for each document.
-It therefore cannot be nested under a <code class="literal">terms</code> aggregation which has the <code class="literal">collect_mode</code> switched from the default <code class="literal">depth_first</code> mode to <code class="literal">breadth_first</code> as this discards scores.
-In this situation an error will be thrown.</p>
+<p>
+作为基于质量的过滤器，<code class="literal">sampler</code>聚合需要访问为每个文档产生的相关性分数。
+
+因此，它不能嵌套在将<code class="literal">collect_mode</code>从默认的深度优先(<code class="literal">depth_first</code>)模式切换到广度优先(<code class="literal">breadth_first</code>)模式的<code class="literal">terms</code>聚合下，因为这会丢弃分数。
+
+在这种情况下，将会抛出一个错误。
+</p>
 </div>
 
 </div>
@@ -225,10 +233,10 @@ In this situation an error will be thrown.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-bucket-reverse-nested-aggregation.html">« Reverse nested Aggregation</a>
+<a href="search-aggregations-bucket-reverse-nested-aggregation.html">« reverse_nested 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-significantterms-aggregation.html">Significant Terms Aggregation »</a>
+<a href2="search-aggregations-bucket-significantterms-aggregation.html">Significant Terms Aggregation »</a>
 </span>
 </div>
 </div>

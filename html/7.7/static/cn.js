@@ -1477,8 +1477,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-bucket-sampler-aggregation.html",
-                        "text": "Sampler Aggregation",
-                        "title": "Sampler Aggregation"
+                        "text": "sampler 聚合",
+                        "title": "sampler 聚合"
                     },
                     {
                         "url": "search-aggregations-bucket-significantterms-aggregation.html",

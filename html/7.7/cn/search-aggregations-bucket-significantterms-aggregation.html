@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Significant Terms Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>significant_terms 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,62 +32,68 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">Bucket Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">桶(bucket)聚合</a></span>
 »
-<span class="breadcrumb-node">Significant Terms Aggregation</span>
+<span class="breadcrumb-node">significant_terms 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-bucket-sampler-aggregation.html">« Sampler Aggregation</a>
+<a href="search-aggregations-bucket-sampler-aggregation.html">« sampler 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-significanttext-aggregation.html">Significant Text Aggregation »</a>
+<a href2="search-aggregations-bucket-significanttext-aggregation.html">Significant Text Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-bucket-significantterms-aggregation"></a>Significant Terms Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significantterms-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-significantterms-aggregation"></a>重要词项(significant_terms)聚合
 </h2>
 </div></div></div>
-<p>An aggregation that returns interesting or unusual occurrences of terms in a set.</p>
+<p>一种聚合，返回集合中有趣或不寻常的词项的聚合。 </p>
 <div class="ulist itemizedlist">
-<p class="title"><strong>Example use cases:</strong></p>
+<p class="title"><strong>用例示例：</strong></p>
 <ul class="itemizedlist">
 <li class="listitem">
-Suggesting "H5N1" when users search for "bird flu" in text
+当用户在文本中搜索“禽流感”时，提示“H5N1”
 </li>
 <li class="listitem">
-Identifying the merchant that is the "common point of compromise" from the transaction history of credit card owners reporting loss
+从信用卡持有人挂失的交易历史中确定“妥协点”的商家
 </li>
 <li class="listitem">
-Suggesting keywords relating to stock symbol $ATI for an automated news classifier
+为自动新闻分类器建议与股票代码$ATI相关的关键词
 </li>
 <li class="listitem">
-Spotting the fraudulent doctor who is diagnosing more than their fair share of whiplash injuries
+发现那个诊断出更多鞭伤的骗子医生
 </li>
 <li class="listitem">
-Spotting the tire manufacturer who has a disproportionate number of blow-outs
+发现爆胎数量不成比例的轮胎制造商
 </li>
 </ul>
 </div>
-<p>In all these cases the terms being selected are not simply the most popular terms in a set.
-They are the terms that have undergone a significant change in popularity measured between a <em>foreground</em> and <em>background</em> set.
-If the term "H5N1" only exists in 5 documents in a 10 million document index and yet is found in 4 of the 100 documents that make up a user’s search results
-that is significant and probably very relevant to their search. 5/10,000,000 vs 4/100 is a big swing in frequency.</p>
+<p>
+在这几种情况下，被选择的词项不仅仅都是一组最流行的词项。
+
+它们是在<em>前景(foreground)</em>和<em>背景(background)</em>集合之间受欢迎程度发生了显著变化的词项。
+
+如果词项“H5N1”仅存在于1000万个文档索引中的5个文档中，但是在构成用户搜索结果的100个文档中的4个中出现，则这是重要的并且可能与他们的搜索非常相关。
+
+频率 5/10,000,000 与 4/100 相比差别很大。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_single_set_analysis"></a>Single-set analysis<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significantterms-aggregation.asciidoc">edit</a>
+<a id="_single_set_analysis"></a>单个集合分析(Single-set analysis)
 </h3>
 </div></div></div>
-<p>In the simplest case, the <em>foreground</em> set of interest is the search results matched by a query and the <em>background</em>
-set used for statistical comparisons is the index or indices from which the results were gathered.</p>
-<p>Example:</p>
+<p>
+在最简单的情况下，感兴趣的<em>前景(foreground)</em>集是与查询匹配的搜索结果，而用于统计比较的<em>背景(background)</em>集则是从中收集结果的一个或多个索引。
+</p>
+<p>示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -102,7 +108,7 @@ set used for statistical comparisons is the index or indices from which the resu
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/511.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -123,23 +129,29 @@ set used for statistical comparisons is the index or indices from which the resu
     }
 }</pre>
 </div>
-<p>When querying an index of all crimes from all police forces, what these results show is that the British Transport Police force
-stand out as a force dealing with a disproportionately large number of bicycle thefts. Ordinarily, bicycle thefts represent only 1% of crimes (66799/5064554)
-but for the British Transport Police, who handle crime on railways and stations, 7% of crimes (3640/47347) is
-a bike theft. This is a significant seven-fold increase in frequency and so this anomaly was highlighted as the top crime type.</p>
-<p>The problem with using a query to spot anomalies is it only gives us one subset to use for comparisons.
-To discover all the other police forces' anomalies we would have to repeat the query for each of the different forces.</p>
-<p>This can be a tedious way to look for unusual patterns in an index</p>
+<p>
+当查询一个所有警察部队的所有犯罪的索引时，这些结果表明，英国交通警察部队（British Transport Police）在处理不成比例的大量自行车盗窃案件中表现突出。
+
+通常情况下，自行车盗窃只占犯罪的1%(66799/5064554)，但对于负责处理铁路和车站犯罪的英国交通警察来说，7%的犯罪(3640/47347)是自行车盗窃。
+
+这在频率上显著增加了七倍，因此这种异常被强调为最常见的犯罪类型。
+</p>
+<p>
+用查询来发现异常的问题是，它只给了我们一个用于比较的子集。
+
+为了发现所有其他警察部队的异常情况，我们必须对每个不同的部队重复查询。
+</p>
+<p>这可能是一种在索引中寻找不寻常模式的乏味方法 </p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_multi_set_analysis"></a>Multi-set analysis<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significantterms-aggregation.asciidoc">edit</a>
+<a id="_multi_set_analysis"></a>多个集合分析(Multi-set analysis)
 </h3>
 </div></div></div>
-<p>A simpler way to perform analysis across multiple categories is to use a parent-level aggregation to segment the data ready for analysis.</p>
-<p>Example using a parent aggregation for segmentation:</p>
+<p>跨多个类别执行分析的一种更简单的方法是使用父级聚合对数据进行分段，以便进行分析。</p>
+<p>使用父聚合进行分段的示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -156,7 +168,7 @@ To discover all the other police forces' anomalies we would have to repeat the q
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/512.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
  ...
@@ -204,9 +216,8 @@ To discover all the other police forces' anomalies we would have to repeat the q
   }
 }</pre>
 </div>
-<p>Now we have anomaly detection for each of the police forces using a single request.</p>
-<p>We can use other forms of top-level aggregations to segment our data, for example segmenting by geographic
-area to identify unusual hot-spots of a particular crime type:</p>
+<p>现在，我们只需一个请求，就可以对每支警察部队进行异常检测。</p>
+<p>我们可以使用其他形式的顶级聚合来划分数据，例如按地理区域划分，以识别特定犯罪类型的异常热点：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -226,52 +237,64 @@ area to identify unusual hot-spots of a particular crime type:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/513.console"></div>
-<p>This example uses the <code class="literal">geohash_grid</code> aggregation to create result buckets that represent geographic areas, and inside each
-bucket we can identify anomalous levels of a crime type in these tightly-focused areas e.g.</p>
+<p>上面这个示例使用<code class="literal">geohash_grid</code>聚合来创建代表地理区域的结果桶，在每个桶中，我们可以识别这些高度集中的区域中犯罪类型的异常级别，例如：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Airports exhibit unusual numbers of weapon confiscations
+机场缴获武器的数量之多的异常
 </li>
 <li class="listitem">
-Universities show uplifts of bicycle thefts
+大学里自行车盗窃的上升趋势
 </li>
 </ul>
 </div>
-<p>At a higher geohash_grid zoom-level with larger coverage areas we would start to see where an entire police-force may be
-tackling an unusual volume of a particular crime type.</p>
-<p>Obviously a time-based top-level segmentation would help identify current trends for each point in time
-where a simple <code class="literal">terms</code> aggregation would typically show the very popular "constants" that persist across all time slots.</p>
+<p>在更高的geohash_grid缩放级别和更大的覆盖区域，我们将开始看到整个警察部队可能正在处理特定犯罪类型的异常数量。</p>
+<p>
+显然，基于时间的顶级分段将有助于识别每个时间点的当前趋势，其中简单的<code class="literal">terms</code>聚合通常会显示在所有时间段持续存在的非常流行的“常数(constants)”。
+</p>
 <div class="sidebar">
 <div class="titlepage"><div><div>
-<p class="title"><strong>How are the scores calculated?</strong></p>
+<p class="title"><strong>分数是如何计算的?</strong></p>
 </div></div></div>
-<p>The numbers returned for scores are primarily intended for ranking different suggestions sensibly rather than something easily understood by end users. The scores are derived from the doc frequencies in <em>foreground</em> and <em>background</em> sets. In brief, a term is considered significant if there is a noticeable difference in the frequency in which a term appears in the subset and in the background. The way the terms are ranked can be configured, see "Parameters" section.</p>
+<p>
+返回的分数主要是为了对不同的建议进行合理的排名，而不是为了让最终用户容易理解。
+
+分数是从<em>前景(foreground)</em>和<em>背景(background)</em>集中的文档频率得出的。
+
+简而言之，如果一个词项在子集和背景中出现的频率有显著差异，则认为该词项是重要的。
+
+可以配置术语的排列方式，请参见“参数”部分。
+</p>
 </div>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_use_on_free_text_fields"></a>Use on free-text fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significantterms-aggregation.asciidoc">edit</a>
+<a id="_use_on_free_text_fields"></a>在自定义文本(free-text)字段上使用
 </h3>
 </div></div></div>
-<p>The significant_terms aggregation can be used effectively on tokenized free-text fields to suggest:</p>
+<p>significant_terms聚合可以有效地用于词元化(tokenized)的自定义文本(free-text)字段，以建议：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-keywords for refining end-user searches
+优化最终用户搜索的关键字
 </li>
 <li class="listitem">
-keywords for use in percolator queries
+用于percolator查询的关键字
 </li>
 </ul>
 </div>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Picking a free-text field as the subject of a significant terms analysis can be expensive! It will attempt
-to load every unique word into RAM. It is recommended to only use this on smaller indices.</p>
+<p>
+选择一个自定义文本(free-text)作为重要词项分析的主题的成本可能会很高！
+
+它会尝试将每个唯一的词加载到内存中。
+
+建议仅在较小的索引上使用此选项。 
+</p>
 </div>
 </div>
 <div class="sidebar">
@@ -738,10 +761,10 @@ ordinals.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-bucket-sampler-aggregation.html">« Sampler Aggregation</a>
+<a href="search-aggregations-bucket-sampler-aggregation.html">« sampler 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-significanttext-aggregation.html">Significant Text Aggregation »</a>
+<a href2="search-aggregations-bucket-significanttext-aggregation.html">Significant Text Aggregation »</a>
 </span>
 </div>
 </div>

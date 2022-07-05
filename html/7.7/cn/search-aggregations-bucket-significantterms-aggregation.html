@@ -299,21 +299,33 @@
 </div>
 <div class="sidebar">
 <div class="titlepage"><div><div>
-<p class="title"><strong>Use the <em>"like this but not this"</em> pattern</strong></p>
+<p class="title"><strong>使用<em>"像这样但又不是这样(like this but not this)"</em>模式</strong></p>
 </div></div></div>
-<p>You can spot mis-categorized content by first searching a structured field e.g. <code class="literal">category:adultMovie</code> and use significant_terms on the
-free-text "movie_description" field. Take the suggested words (I’ll leave them to your imagination) and then search for all movies NOT marked as category:adultMovie but containing these keywords.
-You now have a ranked list of badly-categorized movies that you should reclassify or at least remove from the "familyFriendly" category.</p>
-<p>The significance score from each term can also provide a useful <code class="literal">boost</code> setting to sort matches.
-Using the <code class="literal">minimum_should_match</code> setting of the <code class="literal">terms</code> query with the keywords will help control the balance of precision/recall in the result set i.e
-a high setting would have a small number of relevant results packed full of keywords and a setting of "1" would produce a more exhaustive results set with all documents containing <em>any</em> keyword.</p>
+<p>
+你可以通过首先搜索结构化字段，例如<code class="literal">category:adultMovie</code>，并在自定义文本“movie_description”字段中使用 significant_terms 来识别错误分类的内容。
+
+使用建议的词(我会让你自己想象)，然后搜索所有<b>没有</b>标记为 category:adultMovie 但包含这些关键词的电影。
+
+你现在有一个分类糟糕的电影的排名列表，你应该重新分类或至少从“familyFriendly”类别中删除。 
+</p>
+<p>
+每个词项的重要性分数也可以提供一个有用的<code class="literal">boost</code>设置来对匹配进行排序。
+
+使用带有关键字的<code class="literal">terms</code>查询的 minimum_should_match 设置将有助于控制结果集中的精确度/召回率的平衡，即高设置将使少量相关结果充满关键字，而设置“1”将产生包含<em>任何</em>关键字的所有文档的更详尽的结果集。
+</p>
 </div>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p><strong>Show significant_terms in context</strong>Free-text significant_terms are much more easily understood when viewed in context. Take the results of <code class="literal">significant_terms</code> suggestions from a
-free-text field and use them in a <code class="literal">terms</code> query on the same field with a <code class="literal">highlight</code> clause to present users with example snippets of documents. When the terms
-are presented unstemmed, highlighted, with the right case, in the right order and with some context, their significance/meaning is more readily apparent.</p>
+<p>
+<strong>在上下文中显示 significant_terms</strong><br/>
+
+自定义文本的 significant_terms 在上下文中更容易理解。
+
+从自定义文本字段中获取<code class="literal">significant_terms</code>建议的结果，并在带有<code class="literal">highlight</code>子句的相同字段上的<code class="literal">terms</code>查询中使用它们，以向用户呈现文档的示例片段。
+
+当词项不加词根、高亮显示、并以正确的大小写、正确的顺序和特定的上下文出现时，它们的重要性/意义就会更明显。 
+</p>
 </div>
 </div>
 </div>
@@ -321,62 +333,76 @@ are presented unstemmed, highlighted, with the right case, in the right order an
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_custom_background_sets"></a>Custom background sets<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significantterms-aggregation.asciidoc">edit</a>
+<a id="_custom_background_sets"></a>自定义背景集(Custom background sets)
 </h3>
 </div></div></div>
-<p>Ordinarily, the foreground set of documents is "diffed" against a background set of all the documents in your index.
-However, sometimes it may prove useful to use a narrower background set as the basis for comparisons.
-For example, a query on documents relating to "Madrid" in an index with content from all over the world might reveal that "Spanish"
-was a significant term. This may be true but if you want some more focused terms you could use a <code class="literal">background_filter</code>
-on the term <em>spain</em> to establish a narrower set of documents as context. With this as a background "Spanish" would now
-be seen as commonplace and therefore not as significant as words like "capital" that relate more strongly with Madrid.
-Note that using a background filter will slow things down - each term’s background frequency must now be derived on-the-fly from filtering posting lists rather than reading the index’s pre-computed count for a term.</p>
+<p>
+通常，前景文档集与索引中所有文档的背景集是“不同”的。
+
+然而，有时使用较窄的背景集作为比较的基础可能证明是有用的。
+
+例如，在包含世界各地内容的索引中查询与“Madrid”相关的文档，可能会发现“Spanish”是一个重要的词项。
+
+这可能是真的，但是如果你想要一些更集中的词项，你可以对词项<em>spain</em>使用<code class="literal">background_filter</code>来建立一个更窄的文档集作为上下文。
+
+有了这一背景，“Spanish”现在会被视为司空见惯的，因此没有像“capital”这样与Madrid联系更紧密的词那么重要。
+
+请注意，使用 background_filter 会减慢速度——每个词项的背景频率现在必须从过滤发布列表中即时获得，而不是读取索引中为某个词项预先计算的计数。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_limitations_5"></a>Limitations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significantterms-aggregation.asciidoc">edit</a>
+<a id="_limitations_5"></a>局限性
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_significant_terms_must_be_indexed_values"></a>Significant terms must be indexed values<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significantterms-aggregation.asciidoc">edit</a>
+<a id="_significant_terms_must_be_indexed_values"></a>重要词项必须是索引值
 </h4>
 </div></div></div>
-<p>Unlike the terms aggregation it is currently not possible to use script-generated terms for counting purposes.
-Because of the way the significant_terms aggregation must consider both <em>foreground</em> and <em>background</em> frequencies
-it would be prohibitively expensive to use a script on the entire index to obtain background frequencies for comparisons.
-Also DocValues are not supported as sources of term data for similar reasons.</p>
+<p>
+与 terms 聚合不同，目前无法使用脚本生成的词项进行计数。
+
+由于 significant_terms 聚合必须考虑<em>前景</em>和<em>背景</em>频率，因此在整个索引上使用脚本来获取背景频率进行比较的成本非常高。
+
+出于类似的原因，文档值(DocValues)也不支持作为词项数据的来源。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_no_analysis_of_floating_point_fields"></a>No analysis of floating point fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significantterms-aggregation.asciidoc">edit</a>
+<a id="_no_analysis_of_floating_point_fields"></a>不分析浮点(float)字段
 </h4>
 </div></div></div>
-<p>Floating point fields are currently not supported as the subject of significant_terms analysis.
-While integer or long fields can be used to represent concepts like bank account numbers or category numbers which
-can be interesting to track, floating point fields are usually used to represent quantities of something.
-As such, individual floating point terms are not useful for this form of frequency analysis.</p>
+<p>
+目前不支持浮点字段作为 significant_terms 分析的主题。
+
+虽然整型(integer)或长整形(long)字段可用于表示银行账号或类别号等概念，跟踪这些概念可能会很有趣，但浮点型(float)字段通常用于表示数量。
+
+因此，单个浮点项对于这种形式的频率分析没有用处。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_use_as_a_parent_aggregation"></a>Use as a parent aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significantterms-aggregation.asciidoc">edit</a>
+<a id="_use_as_a_parent_aggregation"></a>作为父聚合(parent aggregation)使用
 </h4>
 </div></div></div>
-<p>If there is the equivalent of a <code class="literal">match_all</code> query or no query criteria providing a subset of the index the significant_terms aggregation should not be used as the
-top-most aggregation - in this scenario the <em>foreground</em> set is exactly the same as the <em>background</em> set and
-so there is no difference in document frequencies to observe and from which to make sensible suggestions.</p>
-<p>Another consideration is that  the significant_terms aggregation produces many candidate results at shard level
-that are only later pruned on the reducing node once all statistics from all shards are merged. As a result,
-it can be inefficient and costly in terms of RAM to embed large child aggregations under a significant_terms
-aggregation that later discards many candidate terms. It is advisable in these cases to perform two searches - the first to provide a rationalized list of
-significant_terms and then add this shortlist of terms to a second query to go back and fetch the required child aggregations.</p>
+<p>
+如果存在<code class="literal">match_all</code>查询的等价查询，或者没有提供索引子集的查询标准，则 significant_terms 聚合不应用作最顶层的聚合——在这种情况下，<em>前景</em>集与<em>背景</em>集完全相同，因此在要观察的文档频率和从中做出合理建议的文档频率方面没有差异。
+</p>
+<p>
+另一个考虑因素是 significant_terms 聚合在分片级别产生许多候选结果，这些结果只是在所有分片的所有统计信息合并后，在缩减节点(reducing node)上进行删减。
+
+因此，从内存的角度来说，将大型子聚合嵌入到一个 significant_terms 聚合下是低效和昂贵的，这个聚合稍后会丢弃许多候选词项。 
+
+在这些情况下，建议执行两次搜索——第一次是提供一个合理化的 significant_terms 列表，然后将这个词项列表添加到第二次查询中，以便返回并获取所需的子聚合。
+</p>
 </div>
 
 <div class="section">

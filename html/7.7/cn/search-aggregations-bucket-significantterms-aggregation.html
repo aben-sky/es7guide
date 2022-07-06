@@ -408,23 +408,25 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_approximate_counts"></a>Approximate counts<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significantterms-aggregation.asciidoc">edit</a>
+<a id="_approximate_counts"></a>近似计数
 </h4>
 </div></div></div>
-<p>The counts of how many documents contain a term provided in results are based on summing the samples returned from each shard and
-as such may be:</p>
+<p>结果中提供的包含某个词项的文档数是基于从每个分片返回的样本的总和，因此可能是：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-low if certain shards did not provide figures for a given term in their top sample
+如果某些分片没有提供其前几个样本中给定词项的数字，则计数会偏低
 </li>
 <li class="listitem">
-high when considering the background frequency as it may count occurrences found in deleted documents
+当考虑背景频率时，因为它可以计算在已删除文档中发现的出现次数，则计数会偏高
 </li>
 </ul>
 </div>
-<p>Like most design decisions, this is the basis of a trade-off in which we have chosen to provide fast performance at the cost of some (typically small) inaccuracies.
-However, the <code class="literal">size</code> and <code class="literal">shard size</code> settings covered in the next section provide tools to help control the accuracy levels.</p>
+<p>
+像大多数设计决策一样，这是权衡的基础，我们选择以一些(通常很小的)不准确性为代价来提供高性能。
+
+但是，下一节中介绍的<code class="literal">size</code>和<code class="literal">shard size</code>设置提供了帮助控制精度级别的工具。
+</p>
 </div>
 
 </div>
@@ -432,37 +434,53 @@ However, the <code class="literal">size</code> and <code class="literal">shard s
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_parameters_4"></a>Parameters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significantterms-aggregation.asciidoc">edit</a>
+<a id="_parameters_4"></a>参数
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_jlh_score"></a>JLH score<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significantterms-aggregation.asciidoc">edit</a>
+<a id="_jlh_score"></a>JLH 分数
 </h4>
 </div></div></div>
-<p>The JLH score can be used as a significance score by adding the parameter</p>
+<p>通过添加参数，可以将JLH分数用作重要性分数</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">	 "jlh": {
 	 }</pre>
 </div>
-<p>The scores are derived from the doc frequencies in <em>foreground</em> and <em>background</em> sets. The <em>absolute</em> change in popularity (foregroundPercent - backgroundPercent) would favor common terms whereas the <em>relative</em> change in popularity (foregroundPercent/ backgroundPercent) would favor rare terms. Rare vs common is essentially a precision vs recall balance and so the absolute and relative changes are multiplied to provide a sweet spot between precision and recall.</p>
+<p>
+分数是从<em>前景(foreground)</em>和<em>背景(background)</em>集中的文档频率得出的。
+
+流行度的<em>绝对</em>变化(foregroundPercent - backgroundPercent)将有利于常见词项，而流行度的<em>相对</em>变化(foregroundPercent / backgroundPercent)将有利于罕见的词项。
+
+罕见与常见本质上是精确与召回的平衡，因此绝对和相对变化被放大以提供精确和召回之间的最佳点。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_mutual_information"></a>Mutual information<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significantterms-aggregation.asciidoc">edit</a>
+<a id="_mutual_information"></a>交互信息(Mutual information)
 </h4>
 </div></div></div>
-<p>Mutual information as described in "Information Retrieval", Manning et al., Chapter 13.5.1 can be used as significance score by adding the parameter</p>
+<p>在 Manning 等人的 "Information Retrieval" 第13.5.1章中描述的交互信息可以通过添加参数用作重要性分数</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">	 "mutual_information": {
 	      "include_negatives": true
 	 }</pre>
 </div>
-<p>Mutual information does not differentiate between terms that are descriptive for the subset or for documents outside the subset. The significant terms therefore can contain terms that appear more or less frequent in the subset than outside the subset. To filter out the terms that appear less often in the subset than in documents outside the subset, <code class="literal">include_negatives</code> can be set to <code class="literal">false</code>.</p>
-<p>Per default, the assumption is that the documents in the bucket are also contained in the background. If instead you defined a custom background filter that represents a different set of documents that you want to compare to, set</p>
+<p>
+交互信息不区分描述子集或子集之外的文档的词项。
+
+因此，重要的词项可以包含在子集内出现频率比在子集外出现频率高或低的词项。
+
+要过滤掉子集中出现频率低于子集外文档的词项，可以将<code class="literal">include_negatives</code>设置为<code class="literal">false</code>。
+</p>
+<p>
+默认情况下，假设桶中的文档也包含在背景中。
+
+相反，如果你定义了一个自定义背景过滤器，它代表了你要比较的一组不同的文档，请设置:
+</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">"background_is_superset": false</pre>
 </div>
@@ -471,42 +489,54 @@ However, the <code class="literal">size</code> and <code class="literal">shard s
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_chi_square"></a>Chi square<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significantterms-aggregation.asciidoc">edit</a>
+<a id="_chi_square"></a>卡方(Chi square)
 </h4>
 </div></div></div>
-<p>Chi square as described in "Information Retrieval", Manning et al., Chapter 13.5.2 can be used as significance score by adding the parameter</p>
+<p>如 Manning 等人在"Information Retrieval"第13.5.2章中述，卡方(Chi square)可以通过添加参数用作重要性分数:</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">	 "chi_square": {
 	 }</pre>
 </div>
-<p>Chi square behaves like mutual information and can be configured with the same parameters <code class="literal">include_negatives</code> and <code class="literal">background_is_superset</code>.</p>
+<p>卡方(Chi square)表现得像交互信息，并且可以用相同的参数<code class="literal">include_negatives</code>和<code class="literal">background_is_superset</code>来配置。</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_google_normalized_distance"></a>Google normalized distance<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significantterms-aggregation.asciidoc">edit</a>
+<a id="_google_normalized_distance"></a>标准Google距离(Google normalized distance)
 </h4>
 </div></div></div>
-<p>Google normalized distance  as described in "The Google Similarity Distance", Cilibrasi and Vitanyi, 2007 (<a href="http://arxiv.org/pdf/cs/0412098v3.pdf" class="ulink" target="_top">http://arxiv.org/pdf/cs/0412098v3.pdf</a>) can be used as significance score by adding the parameter</p>
+<p>如 Cilibrasi 和 Vitanyi 在2007年出版的"The Google Similarity Distance"(<a href="http://arxiv.org/pdf/cs/0412098v3.pdf" class="ulink" target="_top">http://arxiv.org/pdf/cs/0412098v3.pdf</a>)中所描述的，标准Google距离可以通过添加参数用作重要性分数:</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">	 "gnd": {
 	 }</pre>
 </div>
-<p><code class="literal">gnd</code> also accepts the <code class="literal">background_is_superset</code> parameter.</p>
+<p>
+<code class="literal">gnd</code>还接受参数<code class="literal">background_is_superset</code>
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_percentage"></a>Percentage<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significantterms-aggregation.asciidoc">edit</a>
+<a id="_percentage"></a>百分比(Percentage)
 </h4>
 </div></div></div>
-<p>A simple calculation of the number of documents in the foreground sample with a term divided by the number of documents in the background with the term.
-By default this produces a score greater than zero and less than one.</p>
-<p>The benefit of this heuristic is that the scoring logic is simple to explain to anyone familiar with a "per capita" statistic. However, for fields with high cardinality there is a tendency for this heuristic to select the rarest terms such as typos that occur only once because they score 1/1 = 100%.</p>
-<p>It would be hard for a seasoned boxer to win a championship if the prize was awarded purely on the basis of percentage of fights won - by these rules a newcomer with only one fight under their belt would be impossible to beat.
-Multiple observations are typically required to reinforce a view so it is recommended in these cases to set both <code class="literal">min_doc_count</code> and <code class="literal">shard_min_doc_count</code> to a higher value such as 10 in order to filter out the low-frequency terms that otherwise take precedence.</p>
+<p>
+一个简单的计算方法，用前景样本中带有词项的文档数除以背景样本中带有词项的文档数。
+
+默认情况下，这会产生一个大于0、小于1的分数。
+</p>
+<p>
+这种启发式的好处是，评分逻辑很容易向熟悉“人均”统计数据的人解释。 
+
+然而，对于高基数(high cardinality)的字段，这种试探倾向于选择最罕见的词项，例如只出现一次的错别字，因为它们的得分为 1/1 = 100%。
+</p>
+<p>
+如果一个奖项完全基于获胜的比赛的百分比，一个经验丰富的拳击手很难赢得冠军——根据这些规则，一个只参加过一场比赛的新人是不可能被打败的。
+
+通常需要多次观察来强化一个视图，因此在这些情况下，建议将<code class="literal">min_doc_count</code> 和 <code class="literal">shard_min_doc_count</code>都设置为更高的值，如 10，以便过滤掉优先出现的低频词项。 
+</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">	 "percentage": {
 	 }</pre>
@@ -516,21 +546,39 @@ Multiple observations are typically required to reinforce a view so it is recomm
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_which_one_is_best"></a>Which one is best?<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significantterms-aggregation.asciidoc">edit</a>
+<a id="_which_one_is_best"></a>哪个是最好的?
 </h4>
 </div></div></div>
-<p>Roughly, <code class="literal">mutual_information</code> prefers high frequent terms even if they occur also frequently in the background. For example, in an analysis of natural language text this might lead to selection of stop words. <code class="literal">mutual_information</code> is unlikely to select very rare terms like misspellings. <code class="literal">gnd</code> prefers terms with a high co-occurrence and avoids selection of stopwords. It might be better suited for synonym detection. However, <code class="literal">gnd</code> has a tendency to select very rare terms that are, for example, a result of misspelling. <code class="literal">chi_square</code> and <code class="literal">jlh</code> are somewhat in-between.</p>
-<p>It is hard to say which one of the different heuristics will be the best choice as it depends on what the significant terms are used for (see for example [Yang and Pedersen, "A Comparative Study on Feature Selection in Text Categorization", 1997](<a href="http://courses.ischool.berkeley.edu/i256/f06/papers/yang97comparative.pdf" class="ulink" target="_top">http://courses.ischool.berkeley.edu/i256/f06/papers/yang97comparative.pdf</a>) for a study on using significant terms for feature selection for text classification).</p>
-<p>If none of the above measures suits your usecase than another option is to implement a custom significance measure:</p>
+<p>
+粗略地说，<code class="literal">mutual_information</code>偏好高频词项，即使它们在背景中也频繁出现。
+
+例如，在自然语言文本的分析中，这可能导致停用词被选中。
+
+<code class="literal">mutual_information</code>不太可能选择像拼写错误这样非常罕见的词项。
+
+<code class="literal">gnd</code>偏好高频的共同出现的词项，避免选择停用词。
+
+它可能更适合于同义词检测。
+
+然而，<code class="literal">gnd</code>倾向于选择非常罕见的词项，例如，拼写错误的结果。
+
+<code class="literal">chi_square</code>和<code class="literal">jlh</code>介于两者之间。
+</p>
+<p>
+很难说不同的试探法中哪一种是最佳选择，因为这取决于重要词项的用途。
+
+有关使用重要词项进行文本分类特征选择的研究的示例，请参考 Yang 和 Pedersen于1997年写的"<a href="http://courses.ischool.berkeley.edu/i256/f06/papers/yang97comparative.pdf" class="ulink" target="_top">A Comparative Study on Feature Selection in Text Categorization</a>"。
+</p>
+<p>如果上述方法都不适合你的用例，那么另一个选择是实施自定义重要性的判断方法:</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_scripted"></a>Scripted<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significantterms-aggregation.asciidoc">edit</a>
+<a id="_scripted"></a>脚本化的(Scripted)
 </h4>
 </div></div></div>
-<p>Customized scores can be implemented via a script:</p>
+<p>可以通过脚本实现自定义的分数：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">	    "script_heuristic": {
               "script": {
@@ -539,8 +587,12 @@ Multiple observations are typically required to reinforce a view so it is recomm
 	      }
             }</pre>
 </div>
-<p>Scripts can be inline (as in above example), indexed or stored on disk. For details on the options, see <a class="xref" href="modules-scripting.html" title="Scripting">script documentation</a>.</p>
-<p>Available parameters in the script are</p>
+<p>
+脚本可以是内联的(如上例)，索引或存储在磁盘上。
+
+有关选项的详细信息，请参考 <a class="xref" href="modules-scripting.html" title="编写脚本" rel="nofollow">脚本文档</a>。
+</p>
+<p>脚本中可用的参数有：</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -556,7 +608,7 @@ Multiple observations are typically required to reinforce a view so it is recomm
 </td>
 <td valign="top">
 <p>
-Number of documents the term appears in the subset.
+词项在子集中出现的文档数。 
 </p>
 </td>
 </tr>
@@ -568,7 +620,7 @@ Number of documents the term appears in the subset.
 </td>
 <td valign="top">
 <p>
-Number of documents the term appears in the superset.
+词项在超集中出现的文档数。 
 </p>
 </td>
 </tr>
@@ -580,7 +632,7 @@ Number of documents the term appears in the superset.
 </td>
 <td valign="top">
 <p>
-Number of documents in the subset.
+子集中的文档数量。
 </p>
 </td>
 </tr>
@@ -592,7 +644,7 @@ Number of documents in the subset.
 </td>
 <td valign="top">
 <p>
-Number of documents in the superset.
+超集中的文档数。
 </p>
 </td>
 </tr>
@@ -604,28 +656,38 @@ Number of documents in the superset.
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="sig-terms-shard-size"></a>Size &amp; Shard Size<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significantterms-aggregation.asciidoc">edit</a>
+<a id="sig-terms-shard-size"></a>size 和 shard size
 </h4>
 </div></div></div>
-<p>The <code class="literal">size</code> parameter can be set to define how many term buckets should be returned out of the overall terms list. By
-default, the node coordinating the search process will request each shard to provide its own top term buckets
-and once all shards respond, it will reduce the results to the final list that will then be returned to the client.
-If the number of unique terms is greater than <code class="literal">size</code>, the returned list can be slightly off and not accurate
-(it could be that the term counts are slightly off and it could even be that a term that should have been in the top
-size buckets was not returned).</p>
-<p>To ensure better accuracy a multiple of the final <code class="literal">size</code> is used as the number of terms to request from each shard
-(<code class="literal">2 * (size * 1.5 + 10)</code>). To take manual control of this setting the <code class="literal">shard_size</code> parameter
-can be  used to control the volumes of candidate terms produced by each shard.</p>
-<p>Low-frequency terms can turn out to be the most interesting ones once all results are combined so the
-significant_terms aggregation can produce higher-quality results when the <code class="literal">shard_size</code> parameter is set to
-values significantly higher than the <code class="literal">size</code> setting. This ensures that a bigger volume of promising candidate terms are given
-a consolidated review by the reducing node before the final selection. Obviously large candidate term lists
-will cause extra network traffic and RAM usage so this is  quality/cost trade off that needs to be balanced.  If <code class="literal">shard_size</code> is set to -1 (the default) then <code class="literal">shard_size</code> will be automatically estimated based on the number of shards and the <code class="literal">size</code> parameter.</p>
+<p>
+可以设置参数<code class="literal">size</code>来定义应该从整个词项列表中返回多少个词项桶。
+
+默认情况下，协调搜索过程的节点将请求每个分片提供各自的前几个词项桶，一旦所有分片做出响应，它将把结果缩减为最终列表，然后返回给客户端。
+
+如果唯一的词项的数量大于<code class="literal">size</code>，则返回的列表可能稍有偏差且不准确(可能是词项计数稍有偏差，甚至可能是本应该是前<code class="literal">size</code>个桶中的词项没有返回)。
+</p>
+<p>
+为了确保更好的准确性，使用最终<code class="literal">size</code>的倍数作为从每个分片请求的词项数(<code class="literal">2 * (size * 1.5 + 10)</code>)。
+
+为了手动控制这个设置，可以使用参数<code class="literal">shard_size</code>来控制每个分片产生的候选词项的数量。
+</p>
+<p>
+所有结果合并后，低频词项可能会成为最有趣的词项，因此当参数<code class="literal">shard_size</code>设置为明显高于<code class="literal">size</code>设置的值时，significant_terms聚合可以生成更高质量的结果。
+
+这确保了在最终选择之前，缩减节点会对大量有希望的候选词项进行综合审查。
+
+很明显，大的候选词项列表将导致额外的网络流量和内存使用，因此这是需要平衡的质量/成本权衡。
+
+如果<code class="literal">shard_size</code>设置为-1(默认值)，那么<code class="literal">shard_size</code>将根据分片数量和<code class="literal">size</code>参数自动估算。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p><code class="literal">shard_size</code> cannot be smaller than <code class="literal">size</code> (as it doesn’t make much sense). When it is, Elasticsearch will
-        override it and reset it to be equal to <code class="literal">size</code>.</p>
+<p>
+<code class="literal">shard_size</code>不能小于<code class="literal">size</code>(因为没有太大意义)。
+
+当出现这种情况时，Elasticsearch将覆盖它并将其重置为与<code class="literal">size</code>相等。
+</p>
 </div>
 </div>
 </div>
@@ -633,10 +695,10 @@ will cause extra network traffic and RAM usage so this is  quality/cost trade of
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_minimum_document_count_2"></a>Minimum document count<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significantterms-aggregation.asciidoc">edit</a>
+<a id="_minimum_document_count_2"></a>最小文档数量
 </h4>
 </div></div></div>
-<p>It is possible to only return terms that match more than a configured number of hits using the <code class="literal">min_doc_count</code> option:</p>
+<p>使用<code class="literal">min_doc_count</code>选项可以只返回匹配超过配置的命中数的词项：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -651,18 +713,50 @@ will cause extra network traffic and RAM usage so this is  quality/cost trade of
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/514.console"></div>
-<p>The above aggregation would only return tags which have been found in 10 hits or more. Default value is <code class="literal">3</code>.</p>
-<p>Terms that score highly will be collected on a shard level and merged with the terms collected from other shards in a second step. However, the shard does not have the information about the global term frequencies available. The decision if a term is added to a candidate list depends only on the score computed on the shard using local shard frequencies, not the global frequencies of the word. The <code class="literal">min_doc_count</code> criterion is only applied after merging local terms statistics of all shards. In a way the decision to add the term as a candidate is made without being very <em>certain</em> about if the term will actually reach the required <code class="literal">min_doc_count</code>. This might cause many (globally) high frequent terms to be missing in the final result if low frequent but high scoring terms populated the candidate lists. To avoid this, the <code class="literal">shard_size</code> parameter can be increased to allow more candidate terms on the shards. However, this increases memory consumption and network traffic.</p>
-<p><code class="literal">shard_min_doc_count</code> parameter</p>
-<p>The parameter <code class="literal">shard_min_doc_count</code> regulates the <em>certainty</em> a shard has if the term should actually be added to the candidate list or not with respect to the <code class="literal">min_doc_count</code>. Terms will only be considered if their local shard frequency within the set is higher than the <code class="literal">shard_min_doc_count</code>. If your dictionary contains many low frequent words and you are not interested in these (for example misspellings), then you can set the <code class="literal">shard_min_doc_count</code> parameter to filter out candidate terms on a shard level that will with a reasonable certainty not reach the required <code class="literal">min_doc_count</code> even after merging the local frequencies. <code class="literal">shard_min_doc_count</code> is set to <code class="literal">1</code> per default and has no effect unless you explicitly set it.</p>
+<p>上面这个聚合将仅返回在10次或更多次点击中出现的tag。默认值为<code class="literal">3</code>。</p>
+<p>
+得分高的词项将在一个分片级别上进行收集，并在第二步中与从其他分片收集的词项合并。
+
+然而，分片没有关于可用的全局词项频率的信息。
+
+是否将一个词项添加到候选列表的决定只取决于使用局部分片频率在分片上计算的分数，而不是该词的全局频率。
+
+<code class="literal">min_doc_count</code>标准仅在合并所有分片的本地词项统计之后应用。
+
+在某种程度上，在没有非常<em>确定</em>该词项是否将实际达到所需的<code class="literal">min_doc_count</code>的情况下，就做出了将该词项添加为候选项的决定。
+
+如果低频但得分高的词项填充了候选列表，这可能导致许多(全局)高频的词项在最终结果中丢失。
+
+为了避免这种情况，可以增加<code class="literal">shard_size</code>参数，以允许分片上有更多的候选项。
+
+但是，这会增加内存消耗和网络流量。
+</p>
+<p>
+<code class="literal">shard_min_doc_count</code> 参数
+</p>
+<p>
+参数<code class="literal">shard_min_doc_count</code>规定了一个分片相对于<code class="literal">min_doc_count</code>是否应该被实际添加到候选列表中的<em>确定性</em>。
+
+只有当词项在集合中的本地分片频率高于<code class="literal">shard_min_doc_count</code>时，才会考虑这些词项。
+
+如果你的字典包含许多低频的单词，而你对这些单词不感兴趣(例如拼写错误)，那么你可以设置<code class="literal">shard_min_doc_count</code>参数来过滤掉分级别上的候选词，即使在合并本地频率之后，这些候选词也肯定不会达到所需的<code class="literal">min_doc_count</code>。
+
+默认情况下，<code class="literal">shard_min_doc_count</code>设置为<code class="literal">1</code>，除非你显式设置它，否则它不起作用。
+</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Setting <code class="literal">min_doc_count</code> to <code class="literal">1</code> is generally not advised as it tends to return terms that
-         are typos or other bizarre curiosities. Finding more than one instance of a term helps
-         reinforce that, while still rare, the term was not the result of a one-off accident. The
-         default value of 3 is used to provide a minimum weight-of-evidence.
-         Setting <code class="literal">shard_min_doc_count</code> too high will cause significant candidate terms to be filtered out on a shard level. This value should be set much lower than <code class="literal">min_doc_count/#shards</code>.</p>
+<p>
+通常不建议将<code class="literal">min_doc_count</code>设置为<code class="literal">1</code>，因为它会返回拼写错误或其他奇怪的词。
+
+找到一个词项的不止一个实例有助于强化这一点，尽管这种情况仍然很少见，但这个词项不是一次性事故的结果。
+
+默认值 3 用于提供最小证据权重。 
+
+<code class="literal">shard_min_doc_count</code>设置得太高会导致重要的候选词项在分片级别被过滤掉。
+
+该值应设置为远低于 <code class="literal">min_doc_count/#shards</code>。
+</p>
 </div>
 </div>
 </div>
@@ -670,12 +764,10 @@ will cause extra network traffic and RAM usage so this is  quality/cost trade of
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_custom_background_context"></a>Custom background context<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significantterms-aggregation.asciidoc">edit</a>
+<a id="_custom_background_context"></a>自定义背景上下文
 </h4>
 </div></div></div>
-<p>The default source of statistical information for background term frequencies is the entire index and this
-scope can be narrowed through the use of a <code class="literal">background_filter</code> to focus in on significant terms within a narrower
-context:</p>
+<p>背景词项频率的统计信息的默认来源是整个索引，并且可以通过使用<code class="literal">background_filter</code>来缩小该范围，以便在更窄的上下文中聚焦于重要的词项：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -697,13 +789,11 @@ context:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/515.console"></div>
-<p>The above filter would help focus in on terms that were peculiar to the city of Madrid rather than revealing
-terms like "Spanish" that are unusual in the full index’s worldwide context but commonplace in the subset of documents containing the
-word "Spain".</p>
+<p>上述过滤器将有助于集中在 Madrid 市特有的词项上，而不是显示诸如“Spanish”的词项，这些词项在完整索引的全局上下文中是不常见的，但是在包含单词“Spain”的文档子集中是常见的。</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Use of background filters will slow the query as each term’s postings must be filtered to determine a frequency</p>
+<p>使用背景过滤器会降低查询速度，因为必须过滤每个词的帖子来确定频率</p>
 </div>
 </div>
 </div>
@@ -711,12 +801,16 @@ word "Spain".</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_filtering_values_2"></a>Filtering Values<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significantterms-aggregation.asciidoc">edit</a>
+<a id="_filtering_values_2"></a>过滤值
 </h4>
 </div></div></div>
-<p>It is possible (although rarely required) to filter the values for which buckets will be created. This can be done using the <code class="literal">include</code> and
-<code class="literal">exclude</code> parameters which are based on a regular expression string or arrays of exact terms. This functionality mirrors the features
-described in the <a class="xref" href="search-aggregations-bucket-terms-aggregation.html" title="Terms Aggregation">terms aggregation</a> documentation.</p>
+<p>
+可以(尽管很少需要)过滤将为其创建桶的值。
+
+这可以使用基于正则表达式字符串或精确项数组的<code class="literal">include</code>和<code class="literal">exclude</code>参数来完成。
+
+此功能反映了<a class="xref" href="search-aggregations-bucket-terms-aggregation.html" title="terms 聚合" rel="nofollow">terms聚合</a>文档中描述的功能。
+</p>
 </div>
 
 </div>
@@ -724,37 +818,48 @@ described in the <a class="xref" href="search-aggregations-bucket-terms-aggregat
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_collect_mode"></a>Collect mode<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significantterms-aggregation.asciidoc">edit</a>
+<a id="_collect_mode"></a>回收模式
 </h3>
 </div></div></div>
-<p>To avoid memory issues, the <code class="literal">significant_terms</code> aggregation always computes child aggregations in <code class="literal">breadth_first</code> mode.
-A description of the different collection modes can be found in the
-<a class="xref" href="search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation-collect" title="Collect mode">terms aggregation</a> documentation.</p>
+<p>
+为了避免内存问题，<code class="literal">significant_terms</code>聚合始终以 广度优先(<code class="literal">breadth_first</code>) 模式计算子聚合。
+
+不同收集模式的描述可以在<a class="xref" href="search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation-collect" title="回收模式" rel="nofollow">terms聚合</a>文档中找到。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_execution_hint_2"></a>Execution hint<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significantterms-aggregation.asciidoc">edit</a>
+<a id="_execution_hint_2"></a>执行机制(execution hint)
 </h3>
 </div></div></div>
-<p>There are different mechanisms by which terms aggregations can be executed:</p>
+<p>
+可以通过不同的机制来执行词项聚合(terms aggregation):
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-by using field values directly in order to aggregate data per-bucket (<code class="literal">map</code>)
+通过直接使用字段值来聚合每个桶的数据 (<code class="literal">map</code>)
 </li>
 <li class="listitem">
-by using global ordinals of the field and allocating one bucket per global ordinal (<code class="literal">global_ordinals</code>)
+通过使用字段的全局序数并为每个全局序数分配一个桶 (<code class="literal">global_ordinals</code>)
 </li>
 </ul>
 </div>
-<p>Elasticsearch tries to have sensible defaults so this is something that generally doesn’t need to be configured.</p>
-<p><code class="literal">global_ordinals</code> is the default option for <code class="literal">keyword</code> field, it uses global ordinals to allocates buckets dynamically
-so memory usage is linear to the number of values of the documents that are part of the aggregation scope.</p>
-<p><code class="literal">map</code> should only be considered when very few documents match a query. Otherwise the ordinals-based execution mode
-is significantly faster. By default, <code class="literal">map</code> is only used when running an aggregation on scripts, since they don’t have
-ordinals.</p>
+<p>
+Elasticsearch会尝试使用合理的默认值，所以这通常不需要配置。
+</p>
+<p>
+<code class="literal">global_ordinals</code>是<code class="literal">keyword</code>类型字段的默认选项，它使用全局序数来动态分配桶，因此内存使用量与聚合范围内的文档值的数量成线性关系。
+</p>
+<p>
+只有当很少文档与查询匹配时，才应该考虑<code class="literal">map</code>。
+
+否则，基于序数的执行模式要快得多。
+
+默认情况下，<code class="literal">map</code>仅在脚本上运行聚合时使用，因为它们没有序号。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -776,12 +881,12 @@ ordinals.</p>
 <p><a href="#CO241-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>the possible values are <code class="literal">map</code>, <code class="literal">global_ordinals</code></p>
+<p>可能的值有<code class="literal">map</code>、<code class="literal">global_ordinals</code></p>
 </td>
 </tr>
 </table>
 </div>
-<p>Please note that Elasticsearch will ignore this execution hint if it is not applicable.</p>
+<p>请注意，如果不适用，Elasticsearch将忽略这个执行机制(execution_hint)。</p>
 </div>
 
 </div>

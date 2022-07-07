@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Significant Text Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>significant_text 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,79 +32,88 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">Bucket Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">桶(bucket)聚合</a></span>
 »
-<span class="breadcrumb-node">Significant Text Aggregation</span>
+<span class="breadcrumb-node">significant_text 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-bucket-significantterms-aggregation.html">« Significant Terms Aggregation</a>
+<a href="search-aggregations-bucket-significantterms-aggregation.html">« significant_terms 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-terms-aggregation.html">Terms Aggregation »</a>
+<a href2="search-aggregations-bucket-terms-aggregation.html">Terms Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-bucket-significanttext-aggregation"></a>Significant Text Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significanttext-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-significanttext-aggregation"></a>重要文本(significant_text)聚合
 </h2>
 </div></div></div>
-<p>An aggregation that returns interesting or unusual occurrences of free-text terms in a set.
-It is like the <a class="xref" href="search-aggregations-bucket-significantterms-aggregation.html" title="Significant Terms Aggregation">significant terms</a> aggregation but differs in that:</p>
+<p>
+一种聚合，返回集合中有趣或不寻常的自定义文本的聚合。
+
+它类似于<a class="xref" href="search-aggregations-bucket-significantterms-aggregation.html" title="重要词项聚合">significant_terms</a>聚合，但不同之处在于:
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-It is specifically designed for use on type <code class="literal">text</code> fields
+它是专门设计用于<code class="literal">text</code>类型的字段的
 </li>
 <li class="listitem">
-It does not require field data or doc-values
+它不需要字段数据或文档值
 </li>
 <li class="listitem">
-It re-analyzes text content on-the-fly meaning it can also filter duplicate sections of
-noisy text that otherwise tend to skew statistics.
+它可以动态地重新分析文本内容，这意味着它还可以过滤噪音文本的重复部分，否则这些重复部分会影响统计数据。
 </li>
 </ul>
 </div>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Re-analyzing <em>large</em> result sets will require a lot of time and memory. It is recommended that the significant_text
-         aggregation is used as a child of either the <a class="xref" href="search-aggregations-bucket-sampler-aggregation.html" title="Sampler Aggregation">sampler</a> or
-         <a class="xref" href="search-aggregations-bucket-diversified-sampler-aggregation.html" title="Diversified Sampler Aggregation">diversified sampler</a> aggregation to limit the analysis
-         to a <em>small</em> selection of top-matching documents e.g. 200. This will typically improve speed, memory use and quality of
-         results.</p>
+<p>
+重新分析<em>大</em>结果集将需要大量的时间和内存。
+
+建议将 significant_text 聚合用作 <a class="xref" href="search-aggregations-bucket-sampler-aggregation.html" title="采样器聚合">sampler</a> 或 <a class="xref" href="search-aggregations-bucket-diversified-sampler-aggregation.html" title="多样化取样聚合">diversified_sampler</a> 聚合的子元素，以将分析限制在一小部分最匹配的文档中，例如200个。
+
+这通常会提高速度、内存使用和结果的质量。
+</p>
 </div>
 </div>
 <div class="ulist itemizedlist">
-<p class="title"><strong>Example use cases:</strong></p>
+<p class="title"><strong>用例示例：</strong></p>
 <ul class="itemizedlist">
 <li class="listitem">
-Suggesting "H5N1" when users search for "bird flu" to help expand queries
+当用户搜索“禽流感”时，提示“H5N1”以扩展查询
 </li>
 <li class="listitem">
-Suggesting keywords relating to stock symbol $ATI for use in an automated news classifier
+在自动新闻分类器中使用的与股票代码 $ATI 相关的建议关键字
 </li>
 </ul>
 </div>
-<p>In these cases the words being selected are not simply the most popular terms in results. The most popular words tend to be
-very boring (<em>and, of, the, we, I, they</em> …​).
-The significant words are the ones that have undergone a significant change in popularity measured between a <em>foreground</em> and <em>background</em> set.
-If the term "H5N1" only exists in 5 documents in a 10 million document index and yet is found in 4 of the 100 documents that make up a user’s search results
-that is significant and probably very relevant to their search. 5/10,000,000 vs 4/100 is a big swing in frequency.</p>
+<p>
+在这些情况下，被选择的单词不仅仅是结果中最流行的词项。
+
+最流行的词往往很无聊(<em>and, of, the, we, I, they</em> …​)。
+
+重要的单词是在<em>前景(foreground)</em>和<em>背景(background)</em>集之间受欢迎程度发生了显著变化的词项。
+
+如果词项“H5N1”仅存在于1000万个文档索引中的5个文档中，但是在构成用户搜索结果的100个文档中的4个中出现，则这是重要的并且可能与他们的搜索非常相关。
+
+频率 5/10,000,000 与 4/100 相比差别很大。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_basic_use"></a>Basic use<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significanttext-aggregation.asciidoc">edit</a>
+<a id="_basic_use"></a>基本用法
 </h3>
 </div></div></div>
-<p>In the typical use case, the <em>foreground</em> set of interest is a selection of the top-matching search results for a query
-and the _background_set used for statistical comparisons is the index or indices from which the results were gathered.</p>
-<p>Example:</p>
+<p>在典型的用例中，感兴趣的<em>前景</em>集是对查询的最佳匹配搜索结果的选择，而用于统计比较的<em>背景</em>集则是从中收集结果的一个或多个索引。</p>
+<p>示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET news/_search
 {
@@ -126,7 +135,7 @@ and the _background_set used for statistical comparisons is the index or indices
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/517.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   "took": 9,
@@ -152,26 +161,32 @@ and the _background_set used for statistical comparisons is the index or indices
     }
 }</pre>
 </div>
-<p>The results show that "h5n1" is one of several terms strongly associated with bird flu.
-It only occurs 5 times in our index as a whole (see the <code class="literal">bg_count</code>) and yet 4 of these
-were lucky enough to appear in our 100 document sample of "bird flu" results. That suggests
-a significant word and one which the user can potentially add to their search.</p>
+<p>
+结果显示，“h5n1”是与“bird flu”（禽流感）密切相关的几个词项之一。
+
+作为一个整体，它在我们的索引中只出现了5次(见<code class="literal">bg_count</code>)，但其中4次幸运地出现在我们的100份“bird flu”结果样本中。
+
+这表明了它是一个重要的词，用户可以潜在地添加到他们的搜索中去。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="filter-duplicate-text-noisy-data"></a>Dealing with noisy data using <code class="literal">filter_duplicate_text</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significanttext-aggregation.asciidoc">edit</a>
+<a id="filter-duplicate-text-noisy-data"></a>使用<code class="literal">filter_duplicate_text</code>处理噪声数据
 </h3>
 </div></div></div>
-<p>Free-text fields often contain a mix of original content and mechanical copies of text (cut-and-paste biographies, email reply chains,
-retweets, boilerplate headers/footers, page navigation menus, sidebar news links, copyright notices, standard disclaimers, addresses).</p>
-<p>In real-world data these duplicate sections of text tend to feature heavily in <code class="literal">significant_text</code> results if they aren’t filtered out.
-Filtering near-duplicate text is a difficult task at index-time but we can cleanse the data on-the-fly at query time using the
-<code class="literal">filter_duplicate_text</code> setting.</p>
-<p>First let’s look at an unfiltered real-world example using the  <a href="http://research.signalmedia.co/newsir16/signal-dataset.html" class="ulink" target="_top">Signal media dataset</a> of
-a million news articles covering a wide variety of news. Here are the raw significant text results for a search for the articles
-mentioning "elasticsearch":</p>
+<p>自定义字段通常包含原始内容和文本的机械副本(剪切和粘贴传记、电子邮件回复链、转发、样板页眉/页脚、页面导航菜单、侧栏新闻链接、版权声明、标准免责声明、地址)。</p>
+<p>
+在真实世界的数据中，如果不过滤掉这些重复的文本部分，它们往往会在<code class="literal">significant_text</code>结果中占据重要位置。
+
+在索引时过滤近似重复的文本是一项困难的任务，但是我们可以使用<code class="literal">filter_duplicate_text</code>设置在查询时即时清理数据。
+</p>
+<p>
+首先，让我们来看一个未经过滤的真实世界的例子，它使用了涵盖各种新闻的一百万篇新闻文章的<a href="http://research.signalmedia.co/newsir16/signal-dataset.html" class="ulink" target="_top">Signal media数据集</a>。
+
+以下是搜索提及“elasticsearch”的文章的原始重要文本结果:
+</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
     ...
@@ -205,9 +220,11 @@ mentioning "elasticsearch":</p>
 
 }</pre>
 </div>
-<p>The uncleansed documents have thrown up some odd-looking terms that are, on the face of it, statistically
-correlated with appearances of our search term "elasticsearch" e.g. "pozmantier".
-We can drill down into examples of these documents to see why pozmantier is connected using this query:</p>
+<p>
+未清理的文档中出现了一些看起来很奇怪的词，从表面上看，这些词与我们的搜索词“elasticsearch”在统计上是相关的，例如“pozmantier”。
+
+我们可以深入到这些文档的示例中，看看为什么使用以下查询会关联到"pozmantier"：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET news/_search
 {
@@ -228,7 +245,7 @@ We can drill down into examples of these documents to see why pozmantier is conn
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/518.console"></div>
-<p>The results show a series of very similar news articles about a judging panel for a number of tech projects:</p>
+<p>结果显示了一系列非常相似的新闻文章，内容是关于一些科技项目的评审小组:</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
   ...
@@ -262,12 +279,13 @@ We can drill down into examples of these documents to see why pozmantier is conn
       },
       ...</pre>
 </div>
-<p>Mike Pozmantier was one of many judges on a panel and elasticsearch was used in one of many projects being judged.</p>
-<p>As is typical, this lengthy press release was cut-and-paste by a variety of news sites and consequently any rare names, numbers or
-typos they contain become statistically correlated with our matching query.</p>
-<p>Fortunately similar documents tend to rank similarly so as part of examining the stream of top-matching documents the significant_text
-aggregation can apply a filter to remove sequences of any 6 or more tokens that have already been seen. Let’s try this same query now but
-with the <code class="literal">filter_duplicate_text</code> setting turned on:</p>
+<p>Mike Pozmantier是评审团中的众多评委之一，elasticsearch 被用于众多被评的项目中的一个。</p>
+<p>通常情况下，这篇冗长的新闻稿会被各种新闻网站剪切和粘贴，因此，它们包含的任何罕见的名称、数字或拼写错误都会在统计上与我们的匹配查询相关。</p>
+<p>
+幸运的是，相似的文档倾向于相似地排序，因此作为检查最匹配文档流的一部分，significant_text 聚合可以应用过滤器来移除已经看到的任何 6 个或更多个词元(token)的序号。
+
+现在让我们来尝试同样的查询，但是打开<code class="literal">filter_duplicate_text</code>设置：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET news/_search
 {
@@ -294,7 +312,7 @@ with the <code class="literal">filter_duplicate_text</code> setting turned on:</
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/519.console"></div>
-<p>The results from analysing our deduplicated text are obviously of higher quality to anyone familiar with the elastic stack:</p>
+<p>对于任何熟悉 elastic stack 的人来说，分析我们的去重的文本的结果显然质量更高：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
   ...
@@ -328,21 +346,26 @@ with the <code class="literal">filter_duplicate_text</code> setting turned on:</
   }
 }</pre>
 </div>
-<p>Mr Pozmantier and other one-off associations with elasticsearch no longer appear in the aggregation
-results as a consequence of copy-and-paste operations or other forms of mechanical repetition.</p>
-<p>If your duplicate or near-duplicate content is identifiable via a single-value indexed field  (perhaps
-a hash of the article’s <code class="literal">title</code> text or an <code class="literal">original_press_release_url</code> field) then it would be more
-efficient to use a parent <a class="xref" href="search-aggregations-bucket-diversified-sampler-aggregation.html" title="Diversified Sampler Aggregation">diversified sampler</a> aggregation
-to eliminate these documents from the sample set based on that single key. The less duplicate content you can feed into
-the significant_text aggregation up front the better in terms of performance.</p>
+<p>由于复制粘贴操作或其他形式的机械重复，Pozmantier先生和其他与elasticsearch的一次性关联不再出现在聚合结果中。</p>
+<p>
+如果你的重复或近似重复的内容可通过单值索引字段(可能是文章的<code class="literal">title</code>文本的哈希或<code class="literal">original_press_release_url</code>字段)来识别，那么使用父<a class="xref" href="search-aggregations-bucket-diversified-sampler-aggregation.html" title="Diversified Sampler Aggregation">diversified_sampler</a>聚合来从基于该单个关键字的样本集中消除这些文档会更有效。
+
+从性能的角度来看，你可以预先提供给 significant_text 聚合的重复内容越少，性能就越好。
+</p>
 <div class="sidebar">
 <div class="titlepage"><div><div>
 <p class="title"><strong>How are the significance scores calculated?</strong></p>
 </div></div></div>
-<p>The numbers returned for scores are primarily intended for ranking different suggestions sensibly rather than something easily
-understood by end users. The scores are derived from the doc frequencies in <em>foreground</em> and <em>background</em> sets. In brief, a
-term is considered significant if there is a noticeable difference in the frequency in which a term appears in the subset and
-in the background. The way the terms are ranked can be configured, see "Parameters" section.</p>
+<p>
+
+The numbers returned for scores are primarily intended for ranking different suggestions sensibly rather than something easily understood by end users.
+
+The scores are derived from the doc frequencies in <em>foreground</em> and <em>background</em> sets.
+
+In brief, a term is considered significant if there is a noticeable difference in the frequency in which a term appears in the subset and in the background.
+
+The way the terms are ranked can be configured, see "Parameters" section.
+</p>
 </div>
 <div class="sidebar">
 <div class="titlepage"><div><div>
@@ -592,10 +615,10 @@ described in the <a class="xref" href="search-aggregations-bucket-terms-aggregat
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-bucket-significantterms-aggregation.html">« Significant Terms Aggregation</a>
+<a href="search-aggregations-bucket-significantterms-aggregation.html">« significant_terms 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-terms-aggregation.html">Terms Aggregation »</a>
+<a href2="search-aggregations-bucket-terms-aggregation.html">Terms Aggregation »</a>
 </span>
 </div>
 </div>

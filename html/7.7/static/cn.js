@@ -1487,8 +1487,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-bucket-significanttext-aggregation.html",
-                        "text": "Significant Text Aggregation",
-                        "title": "Significant Text Aggregation"
+                        "text": "significant_text 聚合",
+                        "title": "significant_text 聚合"
                     },
                     {
                         "url": "search-aggregations-bucket-terms-aggregation.html",

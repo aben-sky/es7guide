@@ -354,94 +354,104 @@
 </p>
 <div class="sidebar">
 <div class="titlepage"><div><div>
-<p class="title"><strong>How are the significance scores calculated?</strong></p>
+<p class="title"><strong>重要性分数是如何计算的？</strong></p>
 </div></div></div>
 <p>
+返回的分数主要是为了对不同的建议进行合理的排名，而不是为了让最终用户容易理解。
 
-The numbers returned for scores are primarily intended for ranking different suggestions sensibly rather than something easily understood by end users.
+分数是从<em>前景</em>和<em>背景</em>集中的文档频率得出的。
 
-The scores are derived from the doc frequencies in <em>foreground</em> and <em>background</em> sets.
+简而言之，如果一个词在子集和背景中出现的频率有显著差异，则认为该词是重要的。
 
-In brief, a term is considered significant if there is a noticeable difference in the frequency in which a term appears in the subset and in the background.
-
-The way the terms are ranked can be configured, see "Parameters" section.
+可以配置词项的排列方式，请参见“参数”部分。
 </p>
 </div>
 <div class="sidebar">
 <div class="titlepage"><div><div>
-<p class="title"><strong>Use the <em>"like this but not this"</em> pattern</strong></p>
+<p class="title"><strong>使用<em>"像这样但又不是这样(like this but not this)"</em>模式</strong></p>
 </div></div></div>
-<p>You can spot mis-categorized content by first searching a structured field e.g. <code class="literal">category:adultMovie</code> and use significant_text on the
-text "movie_description" field. Take the suggested words (I’ll leave them to your imagination) and then search for all movies NOT marked as category:adultMovie but containing these keywords.
-You now have a ranked list of badly-categorized movies that you should reclassify or at least remove from the "familyFriendly" category.</p>
-<p>The significance score from each term can also provide a useful <code class="literal">boost</code> setting to sort matches.
-Using the <code class="literal">minimum_should_match</code> setting of the <code class="literal">terms</code> query with the keywords will help control the balance of precision/recall in the result set i.e
-a high setting would have a small number of relevant results packed full of keywords and a setting of "1" would produce a more exhaustive results set with all documents containing <em>any</em> keyword.</p>
+<p>
+你可以通过首先搜索结构化字段，例如<code class="literal">category:adultMovie</code>，并在自定义文本“movie_description”字段中使用 significant_text 来识别错误分类的内容。
+
+使用建议的词(我会让你自己想象)，然后搜索所有<b>没有</b>标记为 category:adultMovie 但包含这些关键词的电影。
+
+你现在有一个分类糟糕的电影的排名列表，你应该重新分类或至少从“familyFriendly”类别中删除。 
+</p>
+<p>
+每个词项的重要性分数也可以提供一个有用的<code class="literal">boost</code>设置来对匹配进行排序。
+
+使用带有关键字的<code class="literal">terms</code>查询的<code class="literal">minimum_should_match</code>设置将有助于控制结果集中的精确度/召回率的平衡，即高设置将使少量相关结果充满关键字，而设置“1”将产生包含<em>任何</em>关键字的所有文档的更详尽的结果集。
+</p>
 </div>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_limitations_6"></a>Limitations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significanttext-aggregation.asciidoc">edit</a>
+<a id="_limitations_6"></a>局限性
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_no_support_for_child_aggregations"></a>No support for child aggregations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significanttext-aggregation.asciidoc">edit</a>
+<a id="_no_support_for_child_aggregations"></a>不支持子聚合
 </h4>
 </div></div></div>
-<p>The significant_text aggregation intentionally does not support the addition of child aggregations because:</p>
+<p>significant_text 聚合故意不支持添加子聚合，因为：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-It would come with a high memory cost
+这将带来很高的内存成本
 </li>
 <li class="listitem">
-It isn’t a generally useful feature and there is a workaround for those that need it
+这不是一个普遍有用的功能，对于那些需要它的人有一个变通的方法
 </li>
 </ul>
 </div>
-<p>The volume of candidate terms is generally very high and these are pruned heavily before the final
-results are returned. Supporting child aggregations would generate additional churn and be inefficient.
-Clients can always take the heavily-trimmed set of results from a <code class="literal">significant_text</code> request and
-make a subsequent follow-up query using a <code class="literal">terms</code> aggregation with an <code class="literal">include</code> clause and child
-aggregations to perform further analysis of selected keywords in a more efficient fashion.</p>
+<p>
+候选词的数量通常非常大，并且在返回最终结果之前会被大量删减。
+
+支持子聚合会产生额外的波动，而且效率低下。 
+
+客户端总是可以从一个<code class="literal">significant_text</code>请求中获得大量精简的结果集，并使用带有<code class="literal">include</code>子句的<code class="literal">terms</code>聚合和子聚合进行后续查询，从而以更高效的方式对选定的关键字进行进一步分析。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_no_support_for_nested_objects"></a>No support for nested objects<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significanttext-aggregation.asciidoc">edit</a>
+<a id="_no_support_for_nested_objects"></a>不支持嵌套对象
 </h4>
 </div></div></div>
-<p>The significant_text aggregation currently also cannot be used with text fields in
-nested objects, because it works with the document JSON source. This makes this
-feature inefficient when matching nested docs from stored JSON given a matching
-Lucene docID.</p>
+<p>
+significant_text 聚合目前还不能用于嵌套对象中的 text 字段，因为它适用于文档 JSON 源。
+
+在给定一个匹配的 Lucene docID(文档ID)的情况下，当从存储的 JSON 中匹配嵌套文档时，这使得这个特性效率很低。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_approximate_counts_2"></a>Approximate counts<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significanttext-aggregation.asciidoc">edit</a>
+<a id="_approximate_counts_2"></a>近似计数
 </h4>
 </div></div></div>
-<p>The counts of how many documents contain a term provided in results are based on summing the samples returned from each shard and
-as such may be:</p>
+<p>结果中提供的包含某个词项的文档数是基于从每个分片返回的样本的总和，因此可能是：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-low if certain shards did not provide figures for a given term in their top sample
+如果某些分片没有提供其前几个样本中给定词项的数字，则计数会偏低
 </li>
 <li class="listitem">
-high when considering the background frequency as it may count occurrences found in deleted documents
+当考虑背景频率时，因为它可以计算在已删除文档中发现的出现次数，则计数会偏高
 </li>
 </ul>
 </div>
-<p>Like most design decisions, this is the basis of a trade-off in which we have chosen to provide fast performance at the cost of some (typically small) inaccuracies.
-However, the <code class="literal">size</code> and <code class="literal">shard size</code> settings covered in the next section provide tools to help control the accuracy levels.</p>
+<p>
+像大多数设计决策一样，这是权衡的基础，我们选择以一些(通常很小的)不准确性为代价来提供高性能。
+
+但是，下一节中介绍的<code class="literal">size</code>和<code class="literal">shard size</code>设置提供了帮助控制精度级别的工具。
+</p>
 </div>
 
 </div>
@@ -449,43 +459,53 @@ However, the <code class="literal">size</code> and <code class="literal">shard s
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_parameters_5"></a>Parameters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significanttext-aggregation.asciidoc">edit</a>
+<a id="_parameters_5"></a>参数
 </h3>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_significance_heuristics"></a>Significance heuristics<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significanttext-aggregation.asciidoc">edit</a>
+<a id="_significance_heuristics"></a>重要性启发法(Significance heuristics)
 </h4>
 </div></div></div>
-<p>This aggregation supports the same scoring heuristics (JLH, mutual_information, gnd, chi_square etc) as the <a class="xref" href="search-aggregations-bucket-significantterms-aggregation.html" title="Significant Terms Aggregation">significant terms</a> aggregation</p>
+<p>这种聚合支持与<a class="xref" href="search-aggregations-bucket-significantterms-aggregation.html" title="Significant Terms Aggregation">significant_terms</a>聚合相同的评分试探法(JLH、交互信息、gnd、卡方等)</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="sig-text-shard-size"></a>Size &amp; Shard Size<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significanttext-aggregation.asciidoc">edit</a>
+<a id="sig-text-shard-size"></a>size 和 shard size
 </h4>
 </div></div></div>
-<p>The <code class="literal">size</code> parameter can be set to define how many term buckets should be returned out of the overall terms list. By
-default, the node coordinating the search process will request each shard to provide its own top term buckets
-and once all shards respond, it will reduce the results to the final list that will then be returned to the client.
-If the number of unique terms is greater than <code class="literal">size</code>, the returned list can be slightly off and not accurate
-(it could be that the term counts are slightly off and it could even be that a term that should have been in the top
-size buckets was not returned).</p>
-<p>To ensure better accuracy a multiple of the final <code class="literal">size</code> is used as the number of terms to request from each shard
-(<code class="literal">2 * (size * 1.5 + 10)</code>). To take manual control of this setting the <code class="literal">shard_size</code> parameter
-can be  used to control the volumes of candidate terms produced by each shard.</p>
-<p>Low-frequency terms can turn out to be the most interesting ones once all results are combined so the
-significant_terms aggregation can produce higher-quality results when the <code class="literal">shard_size</code> parameter is set to
-values significantly higher than the <code class="literal">size</code> setting. This ensures that a bigger volume of promising candidate terms are given
-a consolidated review by the reducing node before the final selection. Obviously large candidate term lists
-will cause extra network traffic and RAM usage so this is  quality/cost trade off that needs to be balanced.  If <code class="literal">shard_size</code> is set to -1 (the default) then <code class="literal">shard_size</code> will be automatically estimated based on the number of shards and the <code class="literal">size</code> parameter.</p>
+<p>
+可以设置参数<code class="literal">size</code>来定义应该从整个词项列表中返回多少个词项桶。
+
+默认情况下，协调搜索过程的节点将请求每个分片提供各自的前几个词项桶，一旦所有分片做出响应，它将把结果缩减为最终列表，然后返回给客户端。
+
+如果唯一的词项的数量大于<code class="literal">size</code>，则返回的列表可能稍有偏差且不准确(可能是词项计数稍有偏差，甚至可能是本应该是前<code class="literal">size</code>个桶中的词项没有返回)。
+</p>
+<p>
+为了确保更好的准确性，使用最终<code class="literal">size</code>的倍数作为从每个分片请求的词项数(<code class="literal">2 * (size * 1.5 + 10)</code>)。
+
+为了手动控制这个设置，可以使用参数<code class="literal">shard_size</code>来控制每个分片产生的候选词项的数量。
+</p>
+<p>
+所有结果合并后，低频词项可能会成为最有趣的词项，因此当参数<code class="literal">shard_size</code>设置为明显高于<code class="literal">size</code>设置的值时，significant_terms聚合可以生成更高质量的结果。
+
+这确保了在最终选择之前，缩减节点会对大量有希望的候选词项进行综合审查。
+
+很明显，大的候选词项列表将导致额外的网络流量和内存使用，因此这是需要平衡的质量/成本权衡。
+
+如果<code class="literal">shard_size</code>设置为-1(默认值)，那么<code class="literal">shard_size</code>将根据分片数量和<code class="literal">size</code>参数自动估算。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p><code class="literal">shard_size</code> cannot be smaller than <code class="literal">size</code> (as it doesn’t make much sense). When it is, elasticsearch will
-        override it and reset it to be equal to <code class="literal">size</code>.</p>
+<p>
+<code class="literal">shard_size</code>不能小于<code class="literal">size</code>(因为没有太大意义)。
+
+当出现这种情况时，Elasticsearch将覆盖它并将其重置为与<code class="literal">size</code>相等。
+</p>
 </div>
 </div>
 </div>
@@ -493,35 +513,52 @@ will cause extra network traffic and RAM usage so this is  quality/cost trade of
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_minimum_document_count_3"></a>Minimum document count<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significanttext-aggregation.asciidoc">edit</a>
+<a id="_minimum_document_count_3"></a>最小文档数量
 </h4>
 </div></div></div>
-<p>It is possible to only return terms that match more than a configured number of hits using the <code class="literal">min_doc_count</code> option.
-The Default value is 3.</p>
-<p>Terms that score highly will be collected on a shard level and merged with the terms collected from other shards in a second step.
-However, the shard does not have the information about the global term frequencies available. The decision if a term is added to a
-candidate list depends only on the score computed on the shard using local shard frequencies, not the global frequencies of the word.
-The <code class="literal">min_doc_count</code> criterion is only applied after merging local terms statistics of all shards. In a way the decision to add the
-term as a candidate is made without being very <em>certain</em> about if the term will actually reach the required <code class="literal">min_doc_count</code>.
-This might cause many (globally) high frequent terms to be missing in the final result if low frequent but high scoring terms populated
-the candidate lists. To avoid this, the <code class="literal">shard_size</code> parameter can be increased to allow more candidate terms on the shards.
-However, this increases memory consumption and network traffic.</p>
-<p><code class="literal">shard_min_doc_count</code> parameter</p>
-<p>The parameter <code class="literal">shard_min_doc_count</code> regulates the <em>certainty</em> a shard has if the term should actually be added to the candidate list or
-not with respect to the <code class="literal">min_doc_count</code>. Terms will only be considered if their local shard frequency within the set is higher than the
-<code class="literal">shard_min_doc_count</code>. If your dictionary contains many low frequent words and you are not interested in these (for example misspellings),
-then you can set the <code class="literal">shard_min_doc_count</code> parameter to filter out candidate terms on a shard level that will with a reasonable certainty
-not reach the required <code class="literal">min_doc_count</code> even after merging the local frequencies. <code class="literal">shard_min_doc_count</code> is set to <code class="literal">1</code> per default and has
-no effect unless you explicitly set it.</p>
+<p>使用<code class="literal">min_doc_count</code>选项可以只返回匹配超过配置的命中次数的词项。默认值为 <code class="literal">3</code>。</p>
+<p>
+得分高的词项将在一个分片级别上进行收集，并在第二步中与从其他分片收集的词项合并。
+
+然而，分片没有关于可用的全局词项频率的信息。
+
+
+是否将一个词项添加到候选列表的决定只取决于使用局部分片频率在分片上计算的分数，而不是该词的全局频率。
+
+<code class="literal">min_doc_count</code>标准仅在合并所有分片的本地词项统计之后应用。
+
+在某种程度上，在没有非常<em>确定</em>该词项是否将实际达到所需的<code class="literal">min_doc_count</code>的情况下，就做出了将该词项添加为候选项的决定。
+
+如果低频但得分高的词项填充了候选列表，这可能导致许多(全局)高频的词项在最终结果中丢失。
+
+为了避免这种情况，可以增加<code class="literal">shard_size</code>参数，以允许分片上有更多的候选项。
+
+但是，这会增加内存消耗和网络流量。
+</p>
+<p>参数<code class="literal">shard_min_doc_count</code></p>
+<p>
+参数<code class="literal">shard_min_doc_count</code>规定了一个分片相对于<code class="literal">min_doc_count</code>是否应该被实际添加到候选列表中的<em>确定性</em>。
+
+只有当词项在集合中的本地分片频率高于<code class="literal">shard_min_doc_count</code>时，才会考虑这些词项。
+
+如果你的字典包含许多低频的单词，而你对这些单词不感兴趣(例如拼写错误)，那么你可以设置<code class="literal">shard_min_doc_count</code>参数来过滤掉分级别上的候选词，即使在合并本地频率之后，这些候选词也肯定不会达到所需的<code class="literal">min_doc_count</code>。
+
+默认情况下，<code class="literal">shard_min_doc_count</code>设置为<code class="literal">1</code>，除非你显式设置它，否则它不起作用。
+</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Setting <code class="literal">min_doc_count</code> to <code class="literal">1</code> is generally not advised as it tends to return terms that
-         are typos or other bizarre curiosities. Finding more than one instance of a term helps
-         reinforce that, while still rare, the term was not the result of a one-off accident. The
-         default value of 3 is used to provide a minimum weight-of-evidence.
-         Setting <code class="literal">shard_min_doc_count</code> too high will cause significant candidate terms to be filtered out on a shard level.
-         This value should be set much lower than <code class="literal">min_doc_count/#shards</code>.</p>
+<p>
+通常不建议将<code class="literal">min_doc_count</code>设置为<code class="literal">1</code>，因为它会返回拼写错误或其他奇怪的词。
+
+找到一个词项的不止一个实例有助于强化这一点，尽管这种情况仍然很少见，但这个词项不是一次性事故的结果。
+
+默认值 3 用于提供最小证据权重。 
+
+<code class="literal">shard_min_doc_count</code>设置得太高会导致重要的候选词项在分片级别被过滤掉。
+
+该值应设置为远低于 <code class="literal">min_doc_count/#shards</code>。
+</p>
 </div>
 </div>
 </div>
@@ -529,12 +566,10 @@ no effect unless you explicitly set it.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_custom_background_context_2"></a>Custom background context<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significanttext-aggregation.asciidoc">edit</a>
+<a id="_custom_background_context_2"></a>自定义背景上下文
 </h4>
 </div></div></div>
-<p>The default source of statistical information for background term frequencies is the entire index and this
-scope can be narrowed through the use of a <code class="literal">background_filter</code> to focus in on significant terms within a narrower
-context:</p>
+<p>背景词项频率的统计信息的默认来源是整个索引，并且可以通过使用<code class="literal">background_filter</code>来缩小该范围，以便在更窄的上下文中聚焦于重要的词项：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET news/_search
 {
@@ -556,13 +591,11 @@ context:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/520.console"></div>
-<p>The above filter would help focus in on terms that were peculiar to the city of Madrid rather than revealing
-terms like "Spanish" that are unusual in the full index’s worldwide context but commonplace in the subset of documents containing the
-word "Spain".</p>
+<p>上述过滤器将有助于集中在 Madrid 市特有的词项上，而不是显示诸如“Spanish”的词项，这些词项在完整索引的全局上下文中是不常见的，但是在包含单词“Spain”的文档子集中是常见的。</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Use of background filters will slow the query as each term’s postings must be filtered to determine a frequency</p>
+<p>使用背景过滤器会降低查询速度，因为必须过滤每个词的帖子来确定频率</p>
 </div>
 </div>
 </div>
@@ -570,14 +603,16 @@ word "Spain".</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_dealing_with_source_and_index_mappings"></a>Dealing with source and index mappings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significanttext-aggregation.asciidoc">edit</a>
+<a id="_dealing_with_source_and_index_mappings"></a>处理源和索引映射
 </h4>
 </div></div></div>
-<p>Ordinarily the indexed field name and the original JSON field being retrieved share the same name.
-However with more complex field mappings using features like <code class="literal">copy_to</code> the source
-JSON field(s) and the indexed field being aggregated can differ.
-In these cases it is possible to list the JSON _source fields from which text
-will be analyzed using the <code class="literal">source_fields</code> parameter:</p>
+<p>
+通常，索引的字段名和被检索的原始 JSON 字段共享相同的名称。
+
+然而，对于使用<code class="literal">copy_to</code>源 JSON 字段和被聚合的索引字段等特性的更复杂的字段映射，可能会有所不同。
+
+在这些情况下，可以使用参数<code class="literal">source_fields</code>列出从中分析文本的 JSON _source 字段：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET news/_search
 {
@@ -602,12 +637,16 @@ will be analyzed using the <code class="literal">source_fields</code> parameter:
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_filtering_values_3"></a>Filtering Values<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/significanttext-aggregation.asciidoc">edit</a>
+<a id="_filtering_values_3"></a>过滤值
 </h4>
 </div></div></div>
-<p>It is possible (although rarely required) to filter the values for which buckets will be created. This can be done using the <code class="literal">include</code> and
-<code class="literal">exclude</code> parameters which are based on a regular expression string or arrays of exact terms. This functionality mirrors the features
-described in the <a class="xref" href="search-aggregations-bucket-terms-aggregation.html" title="Terms Aggregation">terms aggregation</a> documentation.</p>
+<p>
+可以(尽管很少需要)过滤将为其创建桶的值。
+
+这可以使用基于正则表达式字符串或精确项数组的<code class="literal">include</code>和<code class="literal">exclude</code>参数来完成。
+
+此功能反映了<a class="xref" href="search-aggregations-bucket-terms-aggregation.html" title="terms 聚合" rel="nofollow">terms聚合</a>文档中描述的功能。
+</p>
 </div>
 
 </div>

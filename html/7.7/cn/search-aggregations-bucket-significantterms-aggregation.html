@@ -311,7 +311,7 @@
 <p>
 每个词项的重要性分数也可以提供一个有用的<code class="literal">boost</code>设置来对匹配进行排序。
 
-使用带有关键字的<code class="literal">terms</code>查询的 minimum_should_match 设置将有助于控制结果集中的精确度/召回率的平衡，即高设置将使少量相关结果充满关键字，而设置“1”将产生包含<em>任何</em>关键字的所有文档的更详尽的结果集。
+使用带有关键字的<code class="literal">terms</code>查询的<code class="literal">minimum_should_match</code>设置将有助于控制结果集中的精确度/召回率的平衡，即高设置将使少量相关结果充满关键字，而设置“1”将产生包含<em>任何</em>关键字的所有文档的更详尽的结果集。
 </p>
 </div>
 <div class="tip admon">
@@ -732,7 +732,7 @@
 但是，这会增加内存消耗和网络流量。
 </p>
 <p>
-<code class="literal">shard_min_doc_count</code> 参数
+参数<code class="literal">shard_min_doc_count</code>
 </p>
 <p>
 参数<code class="literal">shard_min_doc_count</code>规定了一个分片相对于<code class="literal">min_doc_count</code>是否应该被实际添加到候选列表中的<em>确定性</em>。

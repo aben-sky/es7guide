@@ -223,3 +223,4 @@ https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-rare-terms-aggregati
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-reverse-nested-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-sampler-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-significantterms-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-significanttext-aggregation.html

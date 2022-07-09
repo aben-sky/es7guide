@@ -1492,8 +1492,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-bucket-terms-aggregation.html",
-                        "text": "Terms Aggregation",
-                        "title": "Terms Aggregation"
+                        "text": "terms 聚合",
+                        "title": "terms 聚合"
                     },
                     {
                         "url": "search-aggregations-bucket-range-field-note.html",

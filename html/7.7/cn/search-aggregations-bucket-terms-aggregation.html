@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Terms Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>terms 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,30 +32,30 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">Bucket Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">桶(bucket)聚合</a></span>
 »
-<span class="breadcrumb-node">Terms Aggregation</span>
+<span class="breadcrumb-node">terms 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-bucket-significanttext-aggregation.html">« Significant Text Aggregation</a>
+<a href="search-aggregations-bucket-significanttext-aggregation.html">« significant_text 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-range-field-note.html">Subtleties of bucketing range fields »</a>
+<a href2="search-aggregations-bucket-range-field-note.html">Subtleties of bucketing range fields »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-bucket-terms-aggregation"></a>Terms Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/terms-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-terms-aggregation"></a>词项(terms)聚合
 </h2>
 </div></div></div>
-<p>A multi-bucket value source based aggregation where buckets are dynamically built - one per unique value.</p>
-<p>Example:</p>
+<p>一种基于多桶值源的聚合，其中桶是用一个个的唯一值动态构建的。</p>
+<p>示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -74,13 +74,16 @@
 <p><a href="#CO242-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">terms</code> aggregation should be a field of type <code class="literal">keyword</code> or any other data type suitable for bucket aggregations. In order to use it with <code class="literal">text</code> you will need to enable
-<a class="xref" href="fielddata.html" title="fielddata">fielddata</a>.</p>
+<p>
+<code class="literal">terms</code>聚合应该是<code class="literal">keyword</code>类型的字段或任何其他适合于桶聚合的数据类型。
+
+为了与<code class="literal">text</code>一起使用，需要启用<a class="xref" href="fielddata.html" title="fielddata" rel="nofollow">fielddata</a>。
+</p>
 </td>
 </tr>
 </table>
 </div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -113,7 +116,8 @@
 <p><a href="#CO243-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>an upper bound of the error on the document counts for each term, see <a class="xref" href="search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation-approximate-counts" title="Document counts are approximate">below</a></p>
+<p>每个词项的文档计数的误差上限，见<a class="xref" href="search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation-approximate-counts" title="Document counts are approximate">下文</a>
+</p>
 </td>
 </tr>
 <tr>
@@ -121,7 +125,7 @@
 <p><a href="#CO243-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>when there are lots of unique terms, Elasticsearch only returns the top terms; this number is the sum of the document counts for all buckets that are not part of the response</p>
+<p>当有很多唯一的词时，Elasticsearch只返回前面几个词；此数字是不属于响应的所有桶的文档计数总和</p>
 </td>
 </tr>
 <tr>
@@ -919,10 +923,10 @@ This can result in a loss of precision in the bucket values.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-bucket-significanttext-aggregation.html">« Significant Text Aggregation</a>
+<a href="search-aggregations-bucket-significanttext-aggregation.html">« significant_text 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-bucket-range-field-note.html">Subtleties of bucketing range fields »</a>
+<a href2="search-aggregations-bucket-range-field-note.html">Subtleties of bucketing range fields »</a>
 </span>
 </div>
 </div>

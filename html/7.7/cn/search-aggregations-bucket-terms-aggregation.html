@@ -133,32 +133,37 @@
 <p><a href="#CO243-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>the list of the top buckets, the meaning of <code class="literal">top</code> being defined by the <a class="xref" href="search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation-order" title="Order">order</a></p>
+<p>前几个(top)桶的列表，<code class="literal">top</code>是由<a class="xref" href="search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation-order" title="Order">order</a>定义的</p>
 </td>
 </tr>
 </table>
 </div>
-<p>By default, the <code class="literal">terms</code> aggregation will return the buckets for the top ten terms ordered by the <code class="literal">doc_count</code>. One can
-change this default behaviour by setting the <code class="literal">size</code> parameter.</p>
+<p>
+默认情况下，<code class="literal">terms</code>聚合将返回按<code class="literal">doc_count</code>排序的前10个词的桶。
+
+可以通过设置参数<code class="literal">size</code>来改变这种默认行为。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="search-aggregations-bucket-terms-aggregation-size"></a>Size<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/terms-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-terms-aggregation-size"></a>size
 </h3>
 </div></div></div>
-<p>The <code class="literal">size</code> parameter can be set to define how many term buckets should be returned out of the overall terms list. By
-default, the node coordinating the search process will request each shard to provide its own top <code class="literal">size</code> term buckets
-and once all shards respond, it will reduce the results to the final list that will then be returned to the client.
-This means that if the number of unique terms is greater than <code class="literal">size</code>, the returned list is slightly off and not accurate
-(it could be that the term counts are slightly off and it could even be that a term that should have been in the top
-size buckets was not returned).</p>
+<p>
+参数<code class="literal">size</code>可以用来定义应该从整个词项列表中返回多少个词项桶。
+
+默认情况下，协调搜索过程的节点(被称为协调节点)将请求每个分片提供其自己的前<code class="literal">size</code>个词项桶，并且一旦所有分片做出响应，它将把结果缩小到最终列表，然后将该列表返回给客户端。
+
+这意味着，如果唯一词的数量大于<code class="literal">size</code>，则返回的列表会稍有偏差且不准确(可能是词项计数稍有偏差，甚至可能是本应该在前 size 个桶中的项没有返回)。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If you want to retrieve <span class="strong strong"><strong>all</strong></span> terms or all combinations of terms in a nested <code class="literal">terms</code> aggregation
-      you should use the <a class="xref" href="search-aggregations-bucket-composite-aggregation.html" title="Composite aggregation">Composite</a> aggregation which
-      allows to paginate over all possible terms rather than setting a size greater than the cardinality of the field in the
-      <code class="literal">terms</code> aggregation. The <code class="literal">terms</code> aggregation is meant to return the <code class="literal">top</code> terms and does not allow pagination.</p>
+<p>
+如果你想要检索嵌套<code class="literal">terms</code>聚合中的<span class="strong strong"><strong>所有</strong></span>词项或所有词项组合，应该使用<a class="xref" href="search-aggregations-bucket-composite-aggregation.html" title="composite聚合">composite</a>聚合，它允许对所有可能的词项进行分页，而不是将size设置为大于<code class="literal">terms</code>聚合中字段的基数。
+
+<code class="literal">terms</code>聚合旨在返回<code class="literal">top</code>(前几个)词项，不允许分页。
+</p>
 </div>
 </div>
 </div>
@@ -166,57 +171,63 @@ size buckets was not returned).</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="search-aggregations-bucket-terms-aggregation-approximate-counts"></a>Document counts are approximate<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/terms-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-terms-aggregation-approximate-counts"></a>文档计数是近似值
 </h3>
 </div></div></div>
-<p>Document counts (and the results of any sub aggregations) in the terms
-aggregation are not always accurate. Each shard provides its own view of what
-the ordered list of terms should be. These views are combined to give a final
-view.</p>
+<p>
+terms 聚合中的文档计数(以及任何子聚合的结果)并不总是准确的。
+
+每一个分片都提供了自己的 terms 排序列表视图。
+
+这些视图被组合起来以给出最终视图。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_shard_size_3"></a>Shard Size<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/terms-aggregation.asciidoc">edit</a>
+<a id="_shard_size_3"></a>分片大小(shard_size)
 </h3>
 </div></div></div>
-<p>The higher the requested <code class="literal">size</code> is, the more accurate the results will be, but also, the more expensive it will be to
-compute the final results (both due to bigger priority queues that are managed on a shard level and due to bigger data
-transfers between the nodes and the client).</p>
-<p>The <code class="literal">shard_size</code> parameter can be  used to minimize the extra work that comes with bigger requested <code class="literal">size</code>. When defined,
-it will determine how many terms the coordinating node will request from each shard. Once all the shards responded, the
-coordinating node will then reduce them to a final result which will be based on the <code class="literal">size</code> parameter - this way,
-one can increase the accuracy of the returned terms and avoid the overhead of streaming a big list of buckets back to
-the client.</p>
+<p>请求的<code class="literal">size</code>越高，结果就越准确，但是计算最终结果的成本也就越高(这是因为在分片级别上管理的优先级队列越大，以及节点和客户端之间传输的数据越多)。</p>
+<p>
+参数<code class="literal">shard_size</code>可用于最小化因请求的<code class="literal">size</code>较大而带来的额外工作。
+
+一旦定义了，它将决定协调节点将从每个分片请求多少个词项。
+
+一旦所有的分片都作出响应，协调节点就会将它们缩小到基于参数<code class="literal">size</code>的最终结果——通过这种方式，可以提高返回项的准确性，并避免将一个大的桶列表流回客户端的开销。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p><code class="literal">shard_size</code> cannot be smaller than <code class="literal">size</code> (as it doesn’t make much sense). When it is, Elasticsearch will
-        override it and reset it to be equal to <code class="literal">size</code>.</p>
+<p><code class="literal">shard_size</code> 不能小于<code class="literal">size</code>(因为没有太大意义)。当它存在时，Elasticsearch将覆盖它并将其重置为与<code class="literal">size</code>相等。</p>
 </div>
 </div>
-<p>The default <code class="literal">shard_size</code> is <code class="literal">(size * 1.5 + 10)</code>.</p>
-</div>
-
-<div class="section">
-<div class="titlepage"><div><div>
-<h3 class="title">
-<a id="_calculating_document_count_error"></a>Calculating Document Count Error<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/terms-aggregation.asciidoc">edit</a>
-</h3>
-</div></div></div>
-<p>There are two error values which can be shown on the terms aggregation. The first gives a value for the aggregation as
-a whole which represents the maximum potential document count for a term which did not make it into the final list of
-terms. This is calculated as the sum of the document count from the last term returned from each shard.</p>
+<p><code class="literal">shard_size</code> 的默认值为 <code class="literal">(size * 1.5 + 10)</code>。</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_per_bucket_document_count_error"></a>Per bucket document count error<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/terms-aggregation.asciidoc">edit</a>
+<a id="_calculating_document_count_error"></a>当计算文档数量有误差时
 </h3>
 </div></div></div>
-<p>The second error value can be enabled by setting the <code class="literal">show_term_doc_count_error</code> parameter to true:</p>
+<p>
+在 terms 聚合中可以显示两个误差值。
+
+第一个给出了聚合的整体值，该值表示没有进入最终词项列表的词项的最大潜在文档数。
+
+它被计算为从每个分片返回的最后一个词项的文档计数的总和。
+</p>
+</div>
+
+<div class="section">
+<div class="titlepage"><div><div>
+<h3 class="title">
+<a id="_per_bucket_document_count_error"></a>单个桶的文档数量计算有误差
+</h3>
+</div></div></div>
+<p>通过将<code class="literal">show_term_doc_count_error</code>参数设置为true，可以启用第二个误差值：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -232,38 +243,49 @@ terms. This is calculated as the sum of the document count from the last term re
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/523.console"></div>
-<p>This shows an error value for each term returned by the aggregation which represents the <em>worst case</em> error in the document count
-and can be useful when deciding on a value for the <code class="literal">shard_size</code> parameter. This is calculated by summing the document counts for
-the last term returned by all shards which did not return the term.</p>
-<p>These errors can only be calculated in this way when the terms are ordered by descending document count. When the aggregation is
-ordered by the terms values themselves (either ascending or descending) there is no error in the document count since if a shard
-does not return a particular term which appears in the results from another shard, it must not have that term in its index. When the
-aggregation is either sorted by a sub aggregation or in order of ascending document count, the error in the document counts cannot be
-determined and is given a value of -1 to indicate this.</p>
+<p>
+这显示了聚合返回的每个词项的误差值，它代表了文档计数中<em>最差情况</em>的误差，在决定<code class="literal">shard_size</code>参数的值时非常有用。
+
+这是通过对没有返回词项的所有分片返回的最后一个词项的文档计数求和来计算的。
+</p>
+<p>
+只有当词项按文档计数降序排列时，才能以这种方式计算这些误差。
+
+当聚合按词项值本身排序(升序或降序)时，在文档计数中没有误差，因为如果一个分片没有返回出现在另一个分片的结果中的特定词项，则它的索引中一定没有该词项。
+
+当聚合按子聚合或按文档计数升序排序时，无法确定文档计数中的误差，并给定一个值 -1 来表示这一点。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="search-aggregations-bucket-terms-aggregation-order"></a>Order<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/terms-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-terms-aggregation-order"></a>排序(order)
+
 </h3>
 </div></div></div>
-<p>The order of the buckets can be customized by setting the <code class="literal">order</code> parameter. By default, the buckets are ordered by
-their <code class="literal">doc_count</code> descending.  It is possible to change this behaviour as documented below:</p>
+<p>
+可以通过设置参数<code class="literal">order</code>来指定桶的顺序。
+
+默认情况下，桶按照<code class="literal">doc_count</code>降序排列。
+
+有可能改变这种行为，如下所示：
+</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Sorting by ascending <code class="literal">_count</code> or by sub aggregation is discouraged as it increases the
-<a class="xref" href="search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation-approximate-counts" title="Document counts are approximate">error</a> on document counts.
-It is fine when a single shard is queried, or when the field that is being aggregated was used
-as a routing key at index time: in these cases results will be accurate since shards have disjoint
-values. However otherwise, errors are unbounded. One particular case that could still be useful
-is sorting by <a class="xref" href="search-aggregations-metrics-min-aggregation.html" title="Min Aggregation"><code class="literal">min</code></a> or
-<a class="xref" href="search-aggregations-metrics-max-aggregation.html" title="Max Aggregation"><code class="literal">max</code></a> aggregation: counts will not be accurate
-but at least the top buckets will be correctly picked.</p>
+<p>
+不鼓励使用<code class="literal">_count</code>升序或子查询进行排序，因为这会增加文档计数的<a class="xref" href="search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation-approximate-counts" title="Document counts are approximate">误差</a>。
+
+当查询单个分片时，或者当被聚集的字段在索引时被用作路由键时，这是没有问题的:在这些情况下，结果将是准确的，因为分片具有不相交的值。
+
+然而，除此之外，误差是没有上限的。
+
+仍然有用的一种特殊情况是按<a class="xref" href="search-aggregations-metrics-min-aggregation.html" title="min 聚合"><code class="literal">min</code></a>或<a class="xref" href="search-aggregations-metrics-max-aggregation.html" title="max 聚合"><code class="literal">max</code></a>聚合排序：计数不准确，但至少会正确选择最前面的几个桶。
+</p>
 </div>
 </div>
-<p>Ordering the buckets by their doc <code class="literal">_count</code> in an ascending manner:</p>
+<p>将桶按文档的<code class="literal">_count</code>升序排序：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -278,7 +300,7 @@ but at least the top buckets will be correctly picked.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/524.console"></div>
-<p>Ordering the buckets alphabetically by their terms in an ascending manner:</p>
+<p>将桶按按词项的字母顺序的升序排序：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -296,11 +318,11 @@ but at least the top buckets will be correctly picked.</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<h3>Deprecated in 6.0.0.</h3>
-<p>Use <code class="literal">_key</code> instead of <code class="literal">_term</code> to order buckets by their term</p>
+<h3>在6.0.0版本中废弃</h3>
+<p>使用<code class="literal">_key</code>代替<code class="literal">_term</code>，将桶按词项排序</p>
 </div>
 </div>
-<p>Ordering the buckets by single value metrics sub-aggregation (identified by the aggregation name):</p>
+<p>按单值指标子聚合对桶进行排序(由聚合名称标识)：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -318,7 +340,7 @@ but at least the top buckets will be correctly picked.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/526.console"></div>
-<p>Ordering the buckets by multi value metrics sub-aggregation (identified by the aggregation name):</p>
+<p>按多值指标子聚集对桶进行排序(由聚合名称标识)：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -339,18 +361,22 @@ but at least the top buckets will be correctly picked.</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<h3>Pipeline aggs cannot be used for sorting</h3>
-<p><a class="xref" href="search-aggregations-pipeline.html" title="Pipeline Aggregations">Pipeline aggregations</a> are run during the
-reduce phase after all other aggregations have already completed.  For this
-reason, they cannot be used for ordering.</p>
+<h3>管道(pipeline)聚合不能用于排序</h3>
+<p>
+<a class="xref" href="search-aggregations-pipeline.html" title="Pipeline Aggregations">管道(pipeline)聚合</a>在所有其他聚合完成后的压缩阶段运行。
+
+因此，它们不能用于排序。
+</p>
 </div>
 </div>
-<p>It is also possible to order the buckets based on a "deeper" aggregation in the hierarchy. This is supported as long
-as the aggregations path are of a single-bucket type, where the last aggregation in the path may either be a single-bucket
-one or a metrics one. If it’s a single-bucket type, the order will be defined by the number of docs in the bucket (i.e. <code class="literal">doc_count</code>),
-in case it’s a metrics one, the same rules as above apply (where the path must indicate the metric name to sort by in case of
-a multi-value metrics aggregation, and in case of a single-value metrics aggregation the sort will be applied on that value).</p>
-<p>The path must be defined in the following form:</p>
+<p>
+还可以根据层次结构中“更深”的聚合对桶进行排序。
+
+只要聚合路径是单桶类型，就支持这一点，其中路径中的最后一个聚合可以是单桶聚合，也可以是度量聚合。
+
+如果是单桶类型，则顺序将由桶中的文档数(即<code class="literal">doc_count</code>)来定义，如果是指标类型，则应用与上述相同的规则(如果是多值指标聚合，则路径必须指示要排序的指标名称，如果是单值指标聚合，则排序将应用于该值)。
+</p>
+<p>路径必须按以下形式定义：</p>
 <div class="pre_wrapper lang-ebnf">
 <pre class="programlisting prettyprint lang-ebnf">AGG_SEPARATOR       =  '&gt;' ;
 METRIC_SEPARATOR    =  '.' ;
@@ -380,8 +406,8 @@ PATH                =  &lt;AGG_NAME&gt; [ &lt;AGG_SEPARATOR&gt;, &lt;AGG_NAME&gt
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/528.console"></div>
-<p>The above will sort the artist’s countries buckets based on the average play count among the rock songs.</p>
-<p>Multiple criteria can be used to order the buckets by providing an array of order criteria such as the following:</p>
+<p>上面的查询将根据摇滚歌曲的平均播放次数对 艺术家的国家(artist.country) 进行分类。</p>
+<p>通过提供一组排序标准，可以使用多个标准来对桶进行排序，如下所示：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -404,13 +430,13 @@ PATH                =  &lt;AGG_NAME&gt; [ &lt;AGG_SEPARATOR&gt;, &lt;AGG_NAME&gt
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/529.console"></div>
-<p>The above will sort the artist’s countries buckets based on the average play count among the rock songs and then by
-their <code class="literal">doc_count</code> in descending order.</p>
+<p>
+上面的查询将根据摇滚歌曲的 平均播放次数(playback_stats.avg)，然后按照<code class="literal">doc_count</code>降序排列 艺术家的国家(artist.country) 类别。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>In the event that two buckets share the same values for all order criteria the bucket’s term value is used as a
-tie-breaker in ascending alphabetical order to prevent non-deterministic ordering of buckets.</p>
+<p>如果两个桶在所有排序标准中共享相同的值，则将再按桶的词项值升序排序，以防止桶的不确定性排序。</p>
 </div>
 </div>
 </div>
@@ -418,10 +444,10 @@ tie-breaker in ascending alphabetical order to prevent non-deterministic orderin
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_minimum_document_count_4"></a>Minimum document count<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/terms-aggregation.asciidoc">edit</a>
+<a id="_minimum_document_count_4"></a>最小文档数量
 </h3>
 </div></div></div>
-<p>It is possible to only return terms that match more than a configured number of hits using the <code class="literal">min_doc_count</code> option:</p>
+<p>使用<code class="literal">min_doc_count</code>选项可以只返回匹配超过配置的命中数的词项：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -436,26 +462,54 @@ tie-breaker in ascending alphabetical order to prevent non-deterministic orderin
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/530.console"></div>
-<p>The above aggregation would only return tags which have been found in 10 hits or more. Default value is <code class="literal">1</code>.</p>
-<p>Terms are collected and ordered on a shard level and merged with the terms collected from other shards in a second step. However, the shard does not have the information about the global document count available. The decision if a term is added to a candidate list depends only on the order computed on the shard using local shard frequencies. The <code class="literal">min_doc_count</code> criterion is only applied after merging local terms statistics of all shards. In a way the decision to add the term as a candidate is made without being very <em>certain</em> about if the term will actually reach the required <code class="literal">min_doc_count</code>. This might cause many (globally) high frequent terms to be missing in the final result if low frequent terms populated the candidate lists. To avoid this, the <code class="literal">shard_size</code> parameter can be increased to allow more candidate terms on the shards. However, this increases memory consumption and network traffic.</p>
-<p><code class="literal">shard_min_doc_count</code> parameter</p>
-<p>The parameter <code class="literal">shard_min_doc_count</code> regulates the <em>certainty</em> a shard has if the term should actually be added to the candidate list or not with respect to the <code class="literal">min_doc_count</code>. Terms will only be considered if their local shard frequency within the set is higher than the <code class="literal">shard_min_doc_count</code>. If your dictionary contains many low frequent terms and you are not interested in those (for example misspellings), then you can set the <code class="literal">shard_min_doc_count</code> parameter to filter out candidate terms on a shard level that will with a reasonable certainty not reach the required <code class="literal">min_doc_count</code> even after merging the local counts. <code class="literal">shard_min_doc_count</code> is set to <code class="literal">0</code> per default and has no effect unless you explicitly set it.</p>
+<p>上述聚集将仅返回有10次或更多次命中出现的 tags。默认值为<code class="literal">1</code>。</p>
+<p>
+词项在分片级别上被收集和排序，并在第二步中与从其他分片收集的词项合并。
+
+然而，分片没有关于可用的全局词项计数的信息。
+
+是否将一个词项添加到候选列表的决定只取决于使用局部分片频率在分片上计算的排序。
+
+<code class="literal">min_doc_count</code>标准仅在合并所有分片的本地词项统计之后应用。
+
+在某种程度上，在没有非常<em>确定</em>该词项是否将实际达到所需的<code class="literal">min_doc_count</code>的情况下，就做出了将该词项添加为候选项的决定。
+
+如果低频的词项填充了候选列表，这可能导致许多(全局)高频的词项在最终结果中丢失。
+
+为了避免这种情况，可以增加<code class="literal">shard_size</code>参数，以允许分片上有更多的候选项。
+
+但是，这会增加内存消耗和网络流量。
+</p>
+<p>参数<code class="literal">shard_min_doc_count</code></p>
+<p>
+参数<code class="literal">shard_min_doc_count</code>规定了一个分片相对于<code class="literal">min_doc_count</code>是否应该被实际添加到候选列表中的<em>确定性</em>。
+
+只有当词项在集合中的本地分片频率高于<code class="literal">shard_min_doc_count</code>时，才会考虑这些词项。
+
+如果你的字典包含许多低频的单词，而你对这些单词不感兴趣(例如拼写错误)，那么你可以设置<code class="literal">shard_min_doc_count</code>参数来过滤掉分级别上的候选词，即使在合并本地频率之后，这些候选词也肯定不会达到所需的<code class="literal">min_doc_count</code>。 
+
+默认情况下，<code class="literal">shard_min_doc_count</code>设置为<code class="literal">0</code>，除非你显式设置它，否则它不起作用。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Setting <code class="literal">min_doc_count</code>=<code class="literal">0</code> will also return buckets for terms that didn’t match any hit. However, some of
-         the returned terms which have a document count of zero might only belong to deleted documents or documents
-         from other types, so there is no warranty that a <code class="literal">match_all</code> query would find a positive document count for
-         those terms.</p>
+<p>
+设置<code class="literal">min_doc_count</code>=<code class="literal">0</code>也还是会返回不匹配任何匹配项的桶。
+
+但是，某些返回的文档计数为零的词项可能只属于已删除的文档或其他类型的文档，因此不能保证<code class="literal">match_all</code>查询会为这些词项找到正的文档计数。
+</p>
 </div>
 </div>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>When NOT sorting on <code class="literal">doc_count</code> descending, high values of <code class="literal">min_doc_count</code> may return a number of buckets
-         which is less than <code class="literal">size</code> because not enough data was gathered from the shards. Missing buckets can be
-         back by increasing <code class="literal">shard_size</code>.
-         Setting <code class="literal">shard_min_doc_count</code> too high will cause terms to be filtered out on a shard level. This value should be set much lower than <code class="literal">min_doc_count/#shards</code>.</p>
+<p>
+当不对<code class="literal">doc_count</code>进行降序排序时，<code class="literal">min_doc_count</code>的高值可能会返回小于<code class="literal">size</code>的桶数，因为没有从分片中收集足够的数据。
+
+将<code class="literal">shard_min_doc_count</code>设置得太高会导致词项在分片级别被过滤掉。
+
+该值应设置为远低于<code class="literal">min_doc_count/#shards</code>。
+</p>
 </div>
 </div>
 </div>
@@ -463,10 +517,10 @@ tie-breaker in ascending alphabetical order to prevent non-deterministic orderin
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="search-aggregations-bucket-terms-aggregation-script"></a>Script<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/terms-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-terms-aggregation-script"></a>脚本
 </h3>
 </div></div></div>
-<p>Generating the terms using a script:</p>
+<p>使用脚本生成一个词：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {

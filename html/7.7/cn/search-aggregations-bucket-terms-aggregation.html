@@ -537,7 +537,7 @@ PATH                =  &lt;AGG_NAME&gt; [ &lt;AGG_SEPARATOR&gt;, &lt;AGG_NAME&gt
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/531.console"></div>
-<p>This will interpret the <code class="literal">script</code> parameter as an <code class="literal">inline</code> script with the default script language and no script parameters. To use a stored script use the following syntax:</p>
+<p>这将把<code class="literal">script</code>参数解释为使用默认脚本语言且没有脚本参数的 <code class="literal">内联(inline)</code>脚本。要使用存储的脚本，请使用以下语法：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -561,7 +561,7 @@ PATH                =  &lt;AGG_NAME&gt; [ &lt;AGG_SEPARATOR&gt;, &lt;AGG_NAME&gt
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_value_script_9"></a>Value Script<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/terms-aggregation.asciidoc">edit</a>
+<a id="_value_script_9"></a>值脚本(value script)
 </h3>
 </div></div></div>
 <div class="pre_wrapper lang-console">
@@ -586,16 +586,22 @@ PATH                =  &lt;AGG_NAME&gt; [ &lt;AGG_SEPARATOR&gt;, &lt;AGG_NAME&gt
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_filtering_values_4"></a>Filtering Values<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/terms-aggregation.asciidoc">edit</a>
+<a id="_filtering_values_4"></a>对值进行过滤
 </h3>
 </div></div></div>
-<p>It is possible to filter the values for which buckets will be created. This can be done using the <code class="literal">include</code> and
-<code class="literal">exclude</code> parameters which are based on regular expression strings or arrays of exact values. Additionally,
-<code class="literal">include</code> clauses can filter using <code class="literal">partition</code> expressions.</p>
+<p>
+可以过滤将用于创建桶的值。
+
+这可以使用基于正则表达式字符串或精确值数组的<code class="literal">include</code>和<code class="literal">exclude</code>参数来完成。
+
+此功能反映了 terms 聚合文档中描述的功能。
+
+此外，<code class="literal">include</code>子句可以使用<code class="literal">partition</code>表达式进行过滤。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_filtering_values_with_regular_expressions_2"></a>Filtering Values with regular expressions<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/terms-aggregation.asciidoc">edit</a>
+<a id="_filtering_values_with_regular_expressions_2"></a>使用正则表达式对值进行过滤
 </h4>
 </div></div></div>
 <div class="pre_wrapper lang-console">
@@ -613,21 +619,23 @@ PATH                =  &lt;AGG_NAME&gt; [ &lt;AGG_SEPARATOR&gt;, &lt;AGG_NAME&gt
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/534.console"></div>
-<p>In the above example, buckets will be created for all the tags that has the word <code class="literal">sport</code> in them, except those starting
-with <code class="literal">water_</code> (so the tag <code class="literal">water_sports</code> will not be aggregated). The <code class="literal">include</code> regular expression will determine what
-values are "allowed" to be aggregated, while the <code class="literal">exclude</code> determines the values that should not be aggregated. When
-both are defined, the <code class="literal">exclude</code> has precedence, meaning, the <code class="literal">include</code> is evaluated first and only then the <code class="literal">exclude</code>.</p>
-<p>The syntax is the same as <a class="xref" href="regexp-syntax.html" title="Regular expression syntax">regexp queries</a>.</p>
+<p>
+在上面的例子中，将为所有包含单词<code class="literal">sport</code>的 tags 创建桶，除了那些以<code class="literal">water_</code>开头的标签(因此值为<code class="literal">water_sports</code>的 tag 不会被聚合)。
+
+<code class="literal">include</code>正则表达式将决定“允许”聚合哪些值，而<code class="literal">exclude</code>将决定不应该聚合的值。
+
+当二者都被定义时，<code class="literal">exclude</code>优先，这意味着首先计算<code class="literal">include</code>，然后才计算<code class="literal">exclude</code>。
+</p>
+<p>语法同 <a class="xref" href="regexp-syntax.html" title="正则表达式语法">正则查询</a>。</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_filtering_values_with_exact_values_2"></a>Filtering Values with exact values<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/terms-aggregation.asciidoc">edit</a>
+<a id="_filtering_values_with_exact_values_2"></a>使用精确值对值进行过滤
 </h4>
 </div></div></div>
-<p>For matching based on exact values the <code class="literal">include</code> and <code class="literal">exclude</code> parameters can simply take an array of
-strings that represent the terms as they are found in the index:</p>
+<p>对于基于精确值的匹配，<code class="literal">include</code>和<code class="literal">exclude</code>参数可以简单地接受一个字符串数组，这些字符串表示在索引中找到的词项：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -653,14 +661,16 @@ strings that represent the terms as they are found in the index:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_filtering_values_with_partitions"></a>Filtering Values with partitions<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/terms-aggregation.asciidoc">edit</a>
+<a id="_filtering_values_with_partitions"></a>使用partition对值进行过滤
 </h4>
 </div></div></div>
-<p>Sometimes there are too many unique terms to process in a single request/response pair so
-it can be useful to break the analysis up into multiple requests.
-This can be achieved by grouping the field’s values into a number of partitions at query-time and processing
-only one partition in each request.
-Consider this request which is looking for accounts that have not logged any access recently:</p>
+<p>
+有时在一个请求/响应对中需要处理非常多独特的词，因此将分析分成多个请求会很有用。
+
+这可以通过在查询时将字段值分组到多个 partition(分区) 中，并在每个请求中只处理一个  partition(分区) 来实现。
+
+看一下下面这个请求，它寻找最近没有任何访问记录的帐户：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -690,44 +700,54 @@ Consider this request which is looking for accounts that have not logged any acc
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/536.console"></div>
-<p>This request is finding the last logged access date for a subset of customer accounts because we
-might want to expire some customer accounts who haven’t been seen for a long while.
-The <code class="literal">num_partitions</code> setting has requested that the unique account_ids are organized evenly into twenty
-partitions (0 to 19). and the <code class="literal">partition</code> setting in this request filters to only consider account_ids falling
-into partition 0. Subsequent requests should ask for partitions 1 then 2 etc to complete the expired-account analysis.</p>
-<p>Note that the <code class="literal">size</code> setting for the number of results returned needs to be tuned with the <code class="literal">num_partitions</code>.
-For this particular account-expiration example the process for balancing values for <code class="literal">size</code> and <code class="literal">num_partitions</code> would be as follows:</p>
+<p>
+此请求是为了查找客户帐户子集记录的最后访问日期，因为我们可能希望终止一些很久没有出现的客户帐户。
+
+<code class="literal">num_partitions</code>设置要求将唯一的 account_ids 平均组织成20个分区(0到19)。
+
+并且该请求中的<code class="literal">partition</code>设置对仅考虑落入分区0的account_ids进行过滤。
+
+后续请求应该请求分区1、分区2等，以完成堆过期帐户的分析。 
+</p>
+<p>
+注意，返回结果数量的<code class="literal">size</code>设置需要和<code class="literal">num_partitions</code>一起调整。
+
+对于这个特定的帐户到期的例子，平衡<code class="literal">size</code>和<code class="literal">num_partitions</code>值的过程如下:
+</p>
 <div class="olist orderedlist">
 <ol class="orderedlist">
 <li class="listitem">
-Use the <code class="literal">cardinality</code> aggregation to estimate the total number of unique account_id values
+使用<code class="literal">cardinality</code>聚合来估计唯一 account_id 值的总数
 </li>
 <li class="listitem">
-Pick a value for <code class="literal">num_partitions</code> to break the number from 1) up into more manageable chunks
+为<code class="literal">num_partitions</code>选择一个值，将数字从 1) 分成更易于管理的块
 </li>
 <li class="listitem">
-Pick a <code class="literal">size</code> value for the number of responses we want from each partition
+为我们希望从每个分区得到的响应数量选择一个<code class="literal">size</code>值
 </li>
 <li class="listitem">
-Run a test request
+运行一个请求做测试
 </li>
 </ol>
 </div>
-<p>If we have a circuit-breaker error we are trying to do too much in one request and must increase <code class="literal">num_partitions</code>.
-If the request was successful but the last account ID in the date-sorted test response was still an account we might want to
-expire then we may be missing accounts of interest and have set our numbers too low. We must either</p>
+<p>
+如果我们试图在一个请求中做太多事情而遇到断路器错误，则必须增加<code class="literal">num_partitions</code>。
+
+如果请求成功，但按日期排序的测试响应中的最后一个帐户ID仍然是我们可能想要过期的帐户，那么我们可能会错过感兴趣的帐户，而且我们可能将这个数字设置得太低了。
+
+以下必须二选一：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-increase the <code class="literal">size</code> parameter to return more results per partition (could be heavy on memory) or
+增加参数<code class="literal">size</code>的值以让每个分区返回更多结果(可能会占用大量内存)，或者
 </li>
 <li class="listitem">
-increase the <code class="literal">num_partitions</code> to consider less accounts per request (could increase overall processing time as we need to make more requests)
+增加<code class="literal">num_partitions</code>以减少每个请求的帐户数量(可能会增加总处理时间，因为我们需要发出更多的请求)
 </li>
 </ul>
 </div>
-<p>Ultimately this is a balancing act between managing the Elasticsearch resources required to process a single request and the volume
-of requests that the client application must issue to complete a task.</p>
+<p>最终，这是在管理处理单个请求所需的Elasticsearch资源和客户端应用程序为完成任务必须发出的请求量之间的一个平衡。</p>
 </div>
 
 </div>
@@ -735,41 +755,38 @@ of requests that the client application must issue to complete a task.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_multi_field_terms_aggregation"></a>Multi-field terms aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/terms-aggregation.asciidoc">edit</a>
+<a id="_multi_field_terms_aggregation"></a>多个字段词项聚合(Multi-field terms aggregation)
 </h3>
 </div></div></div>
-<p>The <code class="literal">terms</code> aggregation does not support collecting terms from multiple fields
-in the same document.  The reason is that the <code class="literal">terms</code> agg doesn’t collect the
-string term values themselves, but rather uses
-<a class="xref" href="search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation-execution-hint" title="Execution hint">global ordinals</a>
-to produce a list of all of the unique values in the field.  Global ordinals
-results in an important performance boost which would not be possible across
-multiple fields.</p>
-<p>There are two approaches that you can use to perform a <code class="literal">terms</code> agg across
-multiple fields:</p>
+<p>
+<code class="literal">terms</code>聚合不支持从同一文档中的多个字段收集词项。
+
+原因是<code class="literal">terms</code>聚合本身并不收集字符串词项值，而是使用<a class="xref" href="search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation-execution-hint" title="执行提示">全局序号(global ordinals)</a>来生成字段中所有唯一值的列表。
+
+全局序号(global ordinals)可以带来重要的性能提升，这在多个字段中是不可能实现的。
+</p>
+<p>有两种方法可用于跨多个字段执行<code class="literal">terms</code>聚合：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<a class="xref" href="search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation-script" title="Script">Script</a>
+<a class="xref" href="search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation-script" title="Script">脚本</a>
 </span>
 </dt>
 <dd>
-Use a script to retrieve terms from multiple fields.  This disables the global
-ordinals optimization and will be slower than collecting terms from a single
-field, but it gives you the flexibility to implement this option at search
-time.
+使用脚本从多个字段中检索词项。
+
+这将禁用全局序号优化，并且比从单个字段中收集词项要慢，但它为你提供了在搜索时实现此选项的灵活性。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="copy-to.html" title="copy_to"><code class="literal">copy_to</code> field</a>
+<a class="xref" href="copy-to.html" title="copy_to"><code class="literal">copy_to</code>字段</a>
 </span>
 </dt>
 <dd>
-If you know ahead of time that you want to collect the terms from two or more
-fields, then use <code class="literal">copy_to</code> in your mapping to create a new dedicated field at
-index time which contains the values from both fields.  You can aggregate on
-this single field, which will benefit from the global ordinals optimization.
+如果你事先知道要从两个或更多字段中收集词项，那么可以在映射中使用<code class="literal">copy_to</code>在编制索引时创建一个新的专用字段，其中包含两个字段的值。
+
+可以在这个单一字段上进行聚合，而这将可以利用全局序号优化带来的好处。 
 </dd>
 </dl>
 </div>
@@ -778,15 +795,19 @@ this single field, which will benefit from the global ordinals optimization.
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="search-aggregations-bucket-terms-aggregation-collect"></a>Collect mode<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/terms-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-terms-aggregation-collect"></a>收集模式
 </h3>
 </div></div></div>
-<p>Deferring calculation of child aggregations</p>
-<p>For fields with many unique terms and a small number of required results it can be more efficient to delay the calculation
-of child aggregations until the top parent-level aggs have been pruned. Ordinarily, all branches of the aggregation tree
-are expanded in one depth-first pass and only then any pruning occurs.
-In some scenarios this can be very wasteful and can hit memory constraints.
-An example problem scenario is querying a movie database for the 10 most popular actors and their 5 most common co-stars:</p>
+<p>推迟子聚合的计算</p>
+<p>
+对于具有许多唯一词项和少量必需结果的字段，将子聚合的计算延迟到顶层父级聚合被删除后进行可能会更有效。
+
+通常，聚合树的所有分支都在一次深度优先的遍历中展开，然后才进行任何修剪。
+
+在某些情况下，这可能是非常浪费的，并且会达到内存限制。
+
+一个此类问题场景的例子是在电影数据库中查询10个最受欢迎的演员和他们的5个最常见的联合主演:
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -809,15 +830,21 @@ An example problem scenario is querying a movie database for the 10 most popular
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/537.console"></div>
-<p>Even though the number of actors may be comparatively small and we want only 50 result buckets there is a combinatorial explosion of buckets
-during calculation - a single actor can produce n² buckets where n is the number of actors. The sane option would be to first determine
-the 10 most popular actors and only then examine the top co-stars for these 10 actors. This alternative strategy is what we call the <code class="literal">breadth_first</code> collection
-mode as opposed to the <code class="literal">depth_first</code> mode.</p>
+<p>
+尽管参与者的数量可能相对较少，我们只需要50个结果桶，但是在计算过程中会出现桶的组合爆炸——一个参与者可以产生 n² 个桶（其中n是参与者的数量）。
+
+明智的选择是首先确定10个最受欢迎的演员，然后才检查这10个演员的最佳联合主演。
+
+这种替代策略就是我们所说的<code class="literal">广度优先(breadth_first)</code>收集模式，与 <code class="literal">深度优先(depth_first)</code>模式相对。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The <code class="literal">breadth_first</code> is the default mode for fields with a cardinality bigger than the requested size or when the cardinality is unknown (numeric fields or scripts for instance).
-It is possible to override the default heuristic and to provide a collect mode directly in the request:</p>
+<p>
+<code class="literal">广度优先(breadth_first)</code>是基数大于请求大小的字段或基数未知的字段(例如数值字段或脚本)的默认模式。
+
+可以覆盖默认启发式规则，并在请求中直接指定收集模式：
+</p>
 </div>
 </div>
 <div class="pre_wrapper lang-console">
@@ -850,20 +877,20 @@ It is possible to override the default heuristic and to provide a collect mode d
 <p><a href="#CO244-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>the possible values are <code class="literal">breadth_first</code> and <code class="literal">depth_first</code></p>
+<p>可能的值是<code class="literal">breadth_first</code>和<code class="literal">depth_first</code></p>
 </td>
 </tr>
 </table>
 </div>
-<p>When using <code class="literal">breadth_first</code> mode the set of documents that fall into the uppermost buckets are
-cached for subsequent replay so there is a memory overhead in doing this which is linear with the number of matching documents.
-Note that the <code class="literal">order</code> parameter can still be used to refer to data from a child aggregation when using the <code class="literal">breadth_first</code> setting - the parent
-aggregation understands that this child aggregation will need to be called first before any of the other child aggregations.</p>
+<p>
+当使用<code class="literal">广度优先(breadth_first)</code>模式时，落入最主要的桶中的文档集被缓存以供后续重放，因此这样做存在与匹配文档的数量成线性关系的内存开销。
+
+请注意，在使用<code class="literal">breadth_first</code>设置时，参数<code class="literal">order</code>仍可用于引用子聚合中的数据——父聚合知道需要在调用任何其他子聚合之前首先调用该子聚合。
+</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Nested aggregations such as <code class="literal">top_hits</code> which require access to score information under an aggregation that uses the <code class="literal">breadth_first</code>
-collection mode need to replay the query on the second pass but only for the documents belonging to the top buckets.</p>
+<p>诸如<code class="literal">top_hits</code>之类的嵌套聚合，需要访问使用<code class="literal">breadth_first</code>收集模式的聚合下的得分信息，需要在第二次传递时重放查询，但只针对属于前几个桶的文档。</p>
 </div>
 </div>
 </div>
@@ -871,26 +898,23 @@ collection mode need to replay the query on the second pass but only for the doc
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="search-aggregations-bucket-terms-aggregation-execution-hint"></a>Execution hint<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/terms-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-bucket-terms-aggregation-execution-hint"></a>执行提示（execution hint）
 </h3>
 </div></div></div>
-<p>There are different mechanisms by which terms aggregations can be executed:</p>
+<p>可以通过不同的机制来执行 terms 聚合：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-by using field values directly in order to aggregate data per-bucket (<code class="literal">map</code>)
+通过直接使用字段值来聚合每个桶的数据 (<code class="literal">map</code>)
 </li>
 <li class="listitem">
-by using global ordinals of the field and allocating one bucket per global ordinal (<code class="literal">global_ordinals</code>)
+通过使用字段的全局序号并为每个全局序号分配一个桶 (<code class="literal">global_ordinals</code>)
 </li>
 </ul>
 </div>
-<p>Elasticsearch tries to have sensible defaults so this is something that generally doesn’t need to be configured.</p>
-<p><code class="literal">global_ordinals</code> is the default option for <code class="literal">keyword</code> field, it uses global ordinals to allocates buckets dynamically
-so memory usage is linear to the number of values of the documents that are part of the aggregation scope.</p>
-<p><code class="literal">map</code> should only be considered when very few documents match a query. Otherwise the ordinals-based execution mode
-is significantly faster. By default, <code class="literal">map</code> is only used when running an aggregation on scripts, since they don’t have
-ordinals.</p>
+<p>Elasticsearch试图使用合理的默认值，所以这通常不需要配置。</p>
+<p><code class="literal">global_ordinals</code>是<code class="literal">keyword</code>类型字段的默认选项，它使用全局序号来动态分配桶，因此内存使用量与聚合范围内的文档值的数量成线性关系。</p>
+<p>只有当很少文档与查询匹配时，才应该考虑<code class="literal">map</code>。默认情况下，<code class="literal">map</code>仅在脚本上运行聚合时使用，因为它们没有序号。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -912,23 +936,21 @@ ordinals.</p>
 <p><a href="#CO245-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The possible values are <code class="literal">map</code>, <code class="literal">global_ordinals</code></p>
+<p>可能的值是<code class="literal">map</code>、<code class="literal">global_ordinals</code></p>
 </td>
 </tr>
 </table>
 </div>
-<p>Please note that Elasticsearch will ignore this execution hint if it is not applicable and that there is no backward compatibility guarantee on these hints.</p>
+<p>请注意，如果这个执行提示不适用，并且对这些提示没有向后兼容性保证，Elasticsearch将忽略它。</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_missing_value_17"></a>Missing value<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/terms-aggregation.asciidoc">edit</a>
+<a id="_missing_value_17"></a>缺失的值
 </h3>
 </div></div></div>
-<p>The <code class="literal">missing</code> parameter defines how documents that are missing a value should be treated.
-By default they will be ignored but it is also possible to treat them as if they
-had a value.</p>
+<p>参数<code class="literal">missing</code>定义应该如何处理缺少值的文档。默认情况下，它们将被忽略，但也可以将它们视为有一个值。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -950,7 +972,7 @@ had a value.</p>
 <p><a href="#CO246-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Documents without a value in the <code class="literal">tags</code> field will fall into the same bucket as documents that have the value <code class="literal">N/A</code>.</p>
+<p><code class="literal">tags</code>字段中没有值的文档将与具有<code class="literal">N/A</code>值的文档落入同一个桶中。</p>
 </td>
 </tr>
 </table>
@@ -960,16 +982,19 @@ had a value.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_mixing_field_types"></a>Mixing field types<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/terms-aggregation.asciidoc">edit</a>
+<a id="_mixing_field_types"></a>混合字段类型
 </h3>
 </div></div></div>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>When aggregating on multiple indices the type of the aggregated field may not be the same in all indices.
-Some types are compatible with each other (<code class="literal">integer</code> and <code class="literal">long</code> or <code class="literal">float</code> and <code class="literal">double</code>) but when the types are a mix
-of decimal and non-decimal number the terms aggregation will promote the non-decimal numbers to decimal numbers.
-This can result in a loss of precision in the bucket values.</p>
+<p>
+在多个索引上执行聚合时，所有索引中聚合字段的类型可能不相同。
+
+有些类型是相互兼容的(<code class="literal">integer</code>和<code class="literal">long</code>，<code class="literal">float</code>和<code class="literal">double</code>)，但是当类型是十进制数和非十进制数的混合时，terms 聚合会将非十进制数转换为十进制数。
+
+这可能会导致桶值的精度损失。
+</p>
 </div>
 </div>
 </div>

@@ -1497,8 +1497,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-bucket-range-field-note.html",
-                        "text": "Subtleties of bucketing range fields",
-                        "title": "Subtleties of bucketing range fields"
+                        "text": "给范围字段分桶的微妙之处",
+                        "title": "给范围字段分桶的微妙之处"
                     }
                 ]
             },

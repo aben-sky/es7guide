@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Subtleties of bucketing range fields | ElasticSearch 7.7 权威指南中文版</title>
+	<title>给范围字段分桶的微妙之处 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,39 +32,41 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">Bucket Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-bucket.html">桶(bucket)聚合</a></span>
 »
-<span class="breadcrumb-node">Subtleties of bucketing range fields</span>
+<span class="breadcrumb-node">给范围字段分桶的微妙之处</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-bucket-terms-aggregation.html">« Terms Aggregation</a>
+<a href="search-aggregations-bucket-terms-aggregation.html">« terms 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-pipeline.html">Pipeline Aggregations »</a>
+<a href2="search-aggregations-pipeline.html">Pipeline Aggregations »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-bucket-range-field-note"></a>Subtleties of bucketing range fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/range-field-note.asciidoc">edit</a>
+<a id="search-aggregations-bucket-range-field-note"></a>给范围字段分桶的微妙之处
 </h2>
 </div></div></div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_documents_are_counted_for_each_bucket_they_land_in"></a>Documents are counted for each bucket they land in<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/range-field-note.asciidoc">edit</a>
+<a id="_documents_are_counted_for_each_bucket_they_land_in"></a>文档会根据它们落入的桶进行计数
 </h3>
 </div></div></div>
-<p>Since a range represents multiple values, running a bucket aggregation over a
-range field can result in the same document landing in multiple buckets. This
-can lead to surprising behavior, such as the sum of bucket counts being higher
-than the number of matched documents.  For example, consider the following
-index:</p>
+<p>
+因为一个范围代表多个值，所以对一个范围字段运行桶聚合会导致同一文档出现在多个桶中。
+
+这可能导致令人惊讶的结果，例如桶计数的总和高于匹配文档的数量。
+
+例如，看下面这个索引：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT range_index
 {
@@ -97,8 +99,7 @@ PUT range_index/_doc/1?refresh
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/541.console"></div>
-<p>The range is wider than the interval in the following aggregation, and thus the
-document will land in multiple buckets.</p>
+<p>该范围<span class="remark">(10 ~ 20)</span>比下面这个聚合中的 interval 更宽，因此文档将落入多个桶中。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /range_index/_search?size=0
 {
@@ -113,8 +114,7 @@ document will land in multiple buckets.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/542.console"></div>
-<p>Since the interval is <code class="literal">5</code> (and the offset is <code class="literal">0</code> by default), we expect buckets <code class="literal">10</code>,
-<code class="literal">15</code>, and <code class="literal">20</code>. Our range document will fall in all three of these buckets.</p>
+<p>因为 interval 是<code class="literal">5</code>(默认情况下偏移量是<code class="literal">0</code>)，所以我们期望桶是 <code class="literal">10</code>、<code class="literal">15</code> 和 <code class="literal">20</code>。上面那个范围文档将属于这三个桶。</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   ...
@@ -138,22 +138,26 @@ document will land in multiple buckets.</p>
   }
 }</pre>
 </div>
-<p>A document cannot exist partially in a bucket; For example, the above document
-cannot count as one-third in each of the above three buckets. In this example,
-since the document’s range landed in multiple buckets, the full value of that
-document would also be counted in any sub-aggregations for each bucket as well.</p>
+<p>
+文档不能部分存在于一个桶中；比如上面的文档，在上面的三个桶里都不能算三分之一。
+
+在这个例子中，由于文档的范围落在多个桶中，该文档的全部值也将计入每个桶的任何子聚合中。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_query_bounds_are_not_aggregation_filters"></a>Query bounds are not aggregation filters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/bucket/range-field-note.asciidoc">edit</a>
+<a id="_query_bounds_are_not_aggregation_filters"></a>查询界限不是聚合过滤器
 </h3>
 </div></div></div>
-<p>Another unexpected behavior can arise when a query is used to filter on the
-field being aggregated. In this case, a document could match the query but
-still have one or both of the endpoints of the range outside the query.
-Consider the following aggregation on the above document:</p>
+<p>
+查询用于过滤正在聚合的字段时，可能会出现另一种意外的行为。
+
+在这种情况下，文档可能与查询匹配，但仍有一个或两个端点在查询范围之外。
+
+比如下面这个对上述文档的聚合：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /range_index/_search?size=0
 {
@@ -177,9 +181,7 @@ Consider the following aggregation on the above document:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/543.console"></div>
-<p>Even though the query only considers days in November, the aggregation
-generates 8 buckets (4 in October, 4 in November) because the aggregation is
-calculated over the ranges of all matching documents.</p>
+<p>尽管这个查询只考虑11月的天数，但聚合产生了8个时段(10月4个，11月4个)，因为聚合是在所有匹配文档的范围内计算的。</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   ...
@@ -231,20 +233,22 @@ calculated over the ranges of all matching documents.</p>
   }
 }</pre>
 </div>
-<p>Depending on the use case, a <code class="literal">CONTAINS</code> query could limit the documents to only
-those that fall entirely in the queried range.  In this example, the one
-document would not be included and the aggregation would be empty.  Filtering
-the buckets after the aggregation is also an option, for use cases where the
-document should be counted but the out of bounds data can be safely ignored.</p>
+<p>
+根据用例的不同，<code class="literal">CONTAINS</code>查询可以将文档限制为完全属于查询范围的文档。
+
+在本例中，那个文档不会被包括进去，聚合将为空。
+
+对于应该对文档进行计数，但是可以安全地忽略越界数据的用例，在聚合之后对桶进行过滤也是一种选择。
+</p>
 </div>
 
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-bucket-terms-aggregation.html">« Terms Aggregation</a>
+<a href="search-aggregations-bucket-terms-aggregation.html">« terms 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-pipeline.html">Pipeline Aggregations »</a>
+<a href2="search-aggregations-pipeline.html">Pipeline Aggregations »</a>
 </span>
 </div>
 </div>

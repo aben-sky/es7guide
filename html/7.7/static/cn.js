@@ -1504,8 +1504,8 @@ var esNavLinks = [
             },
             {
                 "url": "search-aggregations-pipeline.html",
-                "text": "Pipeline Aggregations",
-                "title": "Pipeline Aggregations",
+                "text": "管道(pipeline)聚合",
+                "title": "管道(pipeline)聚合",
                 "sub": [
                     {
                         "url": "search-aggregations-pipeline-bucket-script-aggregation.html",

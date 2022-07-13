@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Pipeline Aggregations | ElasticSearch 7.7 权威指南中文版</title>
+	<title>管道(pipeline)聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,29 +32,31 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-node">Pipeline Aggregations</span>
+<span class="breadcrumb-node">管道(pipeline)聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-bucket-range-field-note.html">« Subtleties of bucketing range fields</a>
+<a href="search-aggregations-bucket-range-field-note.html">« 给范围字段分桶的微妙之处</a>
 </span>
 <span class="next">
-<a href="search-aggregations-pipeline-bucket-script-aggregation.html">Bucket Script Aggregation »</a>
+<a href2="search-aggregations-pipeline-bucket-script-aggregation.html">Bucket Script Aggregation »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-pipeline"></a>Pipeline Aggregations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline.asciidoc">edit</a>
+<a id="search-aggregations-pipeline"></a>管道(pipeline)聚合
 </h2>
 </div></div></div>
-<p>Pipeline aggregations work on the outputs produced from other aggregations rather than from document sets, adding
-information to the output tree. There are many different types of pipeline aggregation, each computing different information from
-other aggregations, but these types can be broken down into two families:</p>
+<p>
+管道聚合处理其他聚合(而不是文档集)产生的输出，将信息添加到输出树中。 
+
+管道聚合有很多不同的类型，每一种都计算来自其他聚合的不同信息，但这些类型可以分为两类：
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -63,8 +65,7 @@ other aggregations, but these types can be broken down into two families:</p>
 </span>
 </dt>
 <dd>
-A family of pipeline aggregations that is provided with the output of its parent aggregation and is able
-to compute new buckets or new aggregations to add to existing buckets.
+一系列管道聚合，提供其父聚合的输出，并能够计算新桶或新聚合以添加到现有桶。 
 </dd>
 <dt>
 <span class="term">
@@ -72,29 +73,32 @@ to compute new buckets or new aggregations to add to existing buckets.
 </span>
 </dt>
 <dd>
-Pipeline aggregations that are provided with the output of a sibling aggregation and are able to compute a
-new aggregation which will be at the same level as the sibling aggregation.
+与同级聚合的输出提供的管道聚合，并且能够计算与同级聚合同级别的新聚合。
 </dd>
 </dl>
 </div>
-<p>Pipeline aggregations can reference the aggregations they need to perform their computation by using the <code class="literal">buckets_path</code>
-parameter to indicate the paths to the required metrics. The syntax for defining these paths can be found in the
-<a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path Syntax"><code class="literal">buckets_path</code> Syntax</a> section below.</p>
-<p>Pipeline aggregations cannot have sub-aggregations but depending on the type it can reference another pipeline in the <code class="literal">buckets_path</code>
-allowing pipeline aggregations to be chained.  For example, you can chain together two derivatives to calculate the second derivative
-(i.e. a derivative of a derivative).</p>
+<p>
+管道聚合可以引用执行计算所需的聚合，方法是使用<code class="literal">buckets_path</code>参数来指示所需度量的路径。
+
+定义这些路径的语法可以在下面的<a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path Syntax"><code class="literal">buckets_path</code>语法</a>部分找到。
+</p>
+<p>
+管道聚合不能有子聚合，但是根据类型，它可以引用<code class="literal">buckets_path</code>中的另一个管道，从而允许将管道聚合链接起来。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Because pipeline aggregations only add to the output, when chaining pipeline aggregations the output of each pipeline aggregation
-will be included in the final output.</p>
+<p>因为管道聚合只会添加到输出中，所以在链接管道聚合时，每个管道聚合的输出都将包括在最终输出中。</p>
 </div>
 </div>
 <h3>
-<a id="buckets-path-syntax"></a><code class="literal">buckets_path</code> Syntax<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline.asciidoc">edit</a>
+<a id="buckets-path-syntax"></a><code class="literal">buckets_path</code>语法
 </h3>
-<p>Most pipeline aggregations require another aggregation as their input.  The input aggregation is defined via the <code class="literal">buckets_path</code>
-parameter, which follows a specific format:</p>
+<p>
+大多数管道聚合需要另一个聚合作为其输入。
+
+输入聚合是通过参数<code class="literal">buckets_path</code>定义的，它遵循特定的格式：
+</p>
 <div class="pre_wrapper lang-ebnf">
 <pre class="programlisting prettyprint lang-ebnf">AGG_SEPARATOR       =  `&gt;` ;
 METRIC_SEPARATOR    =  `.` ;
@@ -103,11 +107,14 @@ METRIC              =  &lt;the name of the metric (in case of multi-value metric
 MULTIBUCKET_KEY     =  `[&lt;KEY_NAME&gt;]`
 PATH                =  &lt;AGG_NAME&gt;&lt;MULTIBUCKET_KEY&gt;? (&lt;AGG_SEPARATOR&gt;, &lt;AGG_NAME&gt; )* ( &lt;METRIC_SEPARATOR&gt;, &lt;METRIC&gt; ) ;</pre>
 </div>
-<p>For example, the path <code class="literal">"my_bucket&gt;my_stats.avg"</code> will path to the <code class="literal">avg</code> value in the <code class="literal">"my_stats"</code> metric, which is
-contained in the <code class="literal">"my_bucket"</code> bucket aggregation.</p>
-<p>Paths are relative from the position of the pipeline aggregation; they are not absolute paths, and the path cannot go back "up" the
-aggregation tree. For example, this moving average is embedded inside a date_histogram and refers to a "sibling"
-metric <code class="literal">"the_sum"</code>:</p>
+<p>
+例如，路径<code class="literal">"my_bucket&gt;my_stats.avg"</code>将指向<code class="literal">"my_stats"</code>指标中的<code class="literal">avg</code>值，该值包含在<code class="literal">"my_bucket"</code>桶聚合中。
+</p>
+<p>
+路径相对于管道聚合位置; 它们不是绝对路径，并且路径不能回到聚合树的“上面”。
+
+例如，下面这个查询将移动平均值嵌入在 date_histogram（日期直方图）中，并引用“Sibling”(同级)指标<code class="literal">"the_sum"</code>：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /_search
 {
@@ -137,7 +144,7 @@ metric <code class="literal">"the_sum"</code>:</p>
 <p><a href="#CO247-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The metric is called <code class="literal">"the_sum"</code></p>
+<p>该指标被称为<code class="literal">"the_sum"</code></p>
 </td>
 </tr>
 <tr>
@@ -145,14 +152,16 @@ metric <code class="literal">"the_sum"</code>:</p>
 <p><a href="#CO247-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">buckets_path</code> refers to the metric via a relative path <code class="literal">"the_sum"</code></p>
+<p><code class="literal">buckets_path</code>通过相对路径<code class="literal">"the_sum"</code>引用指标</p>
 </td>
 </tr>
 </table>
 </div>
-<p><code class="literal">buckets_path</code> is also used for Sibling pipeline aggregations, where the aggregation is "next" to a series of buckets
-instead of embedded "inside" them.  For example, the <code class="literal">max_bucket</code> aggregation uses the <code class="literal">buckets_path</code> to specify
-a metric embedded inside a sibling aggregation:</p>
+<p>
+<code class="literal">buckets_path</code>还用于 Sibling 管道聚合，其中聚合位于一系列桶的“旁边”,而不是嵌入在桶的“内部”。
+
+例如，<code class="literal">max_bucket</code>聚合使用<code class="literal">buckets_path</code>来指定嵌入在 Sibling 聚合中的指标：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /_search
 {
@@ -186,15 +195,16 @@ a metric embedded inside a sibling aggregation:</p>
 <p><a href="#CO248-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">buckets_path</code> instructs this max_bucket aggregation that we want the maximum value of the <code class="literal">sales</code> aggregation in the
-<code class="literal">sales_per_month</code> date histogram.</p>
+<p><code class="literal">buckets_path</code>指示 max_bucket 聚合，我们需要<code class="literal">sales_per_month</code>日期直方图中<code class="literal">sales</code>聚合的最大值。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>If a Sibling pipeline agg references a multi-bucket aggregation, such as a <code class="literal">terms</code> agg, it also has the option to
-select specific keys from the multi-bucket.  For example, a <code class="literal">bucket_script</code> could select two specific buckets (via
-their bucket keys) to perform the calculation:</p>
+<p>
+如果 Sibling 管道聚合引用一个多桶聚合，如<code class="literal">terms</code>聚合，它还可以选择从多桶中选择特定的键。
+
+例如，<code class="literal">bucket_script</code>可以(通过它们的桶的键)选择两个特定的桶来执行计算:
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /_search
 {
@@ -239,17 +249,23 @@ their bucket keys) to perform the calculation:</p>
 <p><a href="#CO249-1"><i class="conum" data-value="1"></i></a><a href="#CO249-2"></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">buckets_path</code> selects the hats and bags buckets (via <code class="literal">['hat']</code>/<code class="literal">['bag']`</code>) to use in the script specifically,
-instead of fetching all the buckets from <code class="literal">sale_type</code> aggregation</p>
+<p>
+<code class="literal">buckets_path</code>选择 hats 和 bags 桶(通过<code class="literal">['hat']</code>/<code class="literal">['bag']`</code>)专门在脚本中使用，而不是从<code class="literal">sale_type</code>聚合中获取所有桶
+</p>
 </td>
 </tr>
 </table>
 </div>
 <h3>
-<a id="_special_paths"></a>Special Paths<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline.asciidoc">edit</a>
+<a id="_special_paths"></a>特殊的路径
 </h3>
-<p>Instead of pathing to a metric, <code class="literal">buckets_path</code> can use a special <code class="literal">"_count"</code> path.  This instructs
-the pipeline aggregation to use the document count as its input.  For example, a moving average can be calculated on the document count of each bucket, instead of a specific metric:</p>
+<p>
+<code class="literal">buckets_path</code>可以使用一个特殊的<code class="literal">"_count"</code>路径，而不是一个指标的路径。
+
+这将指示管道聚合使用文档数量作为其输入。
+
+例如，可以根据每个时段的文档数计算移动平均值(moving_avg)，而不是特定的指标：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /_search
 {
@@ -403,10 +419,10 @@ proceed as normal.
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-bucket-range-field-note.html">« Subtleties of bucketing range fields</a>
+<a href="search-aggregations-bucket-range-field-note.html">« 给范围字段分桶的微妙之处</a>
 </span>
 <span class="next">
-<a href="search-aggregations-pipeline-bucket-script-aggregation.html">Bucket Script Aggregation »</a>
+<a href2="search-aggregations-pipeline-bucket-script-aggregation.html">Bucket Script Aggregation »</a>
 </span>
 </div>
 </div>

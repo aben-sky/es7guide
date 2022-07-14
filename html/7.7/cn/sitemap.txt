@@ -225,3 +225,5 @@ https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-sampler-aggregation.
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-significantterms-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-significanttext-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-terms-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-bucket-range-field-note.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline.html

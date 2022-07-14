@@ -292,14 +292,16 @@ PATH                =  &lt;AGG_NAME&gt;&lt;MULTIBUCKET_KEY&gt;? (&lt;AGG_SEPARAT
 <p><a href="#CO250-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>By using <code class="literal">_count</code> instead of a metric name, we can calculate the moving average of document counts in the histogram</p>
+<p>通过使用<code class="literal">_count</code>代替指标名称，我们可以计算直方图中文档计数的移动平均值</p>
 </td>
 </tr>
 </table>
 </div>
-<p>The <code class="literal">buckets_path</code> can also use <code class="literal">"_bucket_count"</code> and path to a multi-bucket aggregation to use the number of buckets
-returned by that aggregation in the pipeline aggregation instead of a metric. for example a <code class="literal">bucket_selector</code> can be
-used here to filter out buckets which contain no buckets for an inner terms aggregation:</p>
+<p>
+<code class="literal">buckets_path</code>还可以使用<code class="literal">_bucket_count</code>和多桶聚合的路径，以使用管道聚合中该聚合返回的桶数，而不是指标。
+
+例如，这里可以使用<code class="literal">bucket_selector</code>来过滤出不包含内部词项聚合的桶：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search
 {
@@ -339,45 +341,52 @@ used here to filter out buckets which contain no buckets for an inner terms aggr
 <p><a href="#CO251-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>By using <code class="literal">_bucket_count</code> instead of a metric name, we can filter out <code class="literal">histo</code> buckets where they contain no buckets
-for the <code class="literal">categories</code> aggregation</p>
+<p>通过使用<code class="literal">_bucket_count</code>而不是指标名称，我们可以过滤掉<code class="literal">histo</code>桶，其中不包含用于<code class="literal">categories</code>聚合的桶</p>
 </td>
 </tr>
 </table>
 </div>
 <h3>
-<a id="dots-in-agg-names"></a>Dealing with dots in agg names<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline.asciidoc">edit</a>
+<a id="dots-in-agg-names"></a>处理聚合名称中的点
 </h3>
-<p>An alternate syntax is supported to cope with aggregations or metrics which
-have dots in the name, such as the <code class="literal">99.9</code>th
-<a class="xref" href="search-aggregations-metrics-percentile-aggregation.html" title="Percentiles Aggregation">percentile</a>. This metric
-may be referred to as:</p>
+<p>
+支持一种替代语法来处理名称中带有点的聚合或指标，如<code class="literal">99.9</code><a class="xref" href="search-aggregations-metrics-percentile-aggregation.html" title="百分位数聚合">百分位数</a>。
+
+该指标可以这样引用：
+</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">"buckets_path": "my_percentile[99.9]"</pre>
 </div>
 <h3>
-<a id="gap-policy"></a>Dealing with gaps in the data<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline.asciidoc">edit</a>
+<a id="gap-policy"></a>处理数据中的间隙(gap)
 </h3>
-<p>Data in the real world is often noisy and sometimes contains <span class="strong strong"><strong>gaps</strong></span> — places where data simply doesn’t exist.  This can
-occur for a variety of reasons, the most common being:</p>
+<p>
+现实世界中的数据通常是嘈杂的，有时包含<span class="strong strong"><strong>间隙(gap)</strong></span>，即数据根本不存在的地方。
+
+出现这种情况有多种原因，最常见的是：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Documents falling into a bucket do not contain a required field
+落入桶中的文档不包含必需的字段
 </li>
 <li class="listitem">
-There are no documents matching the query for one or more buckets
+没有与一个或多个桶的查询匹配的文档
 </li>
 <li class="listitem">
-The metric being calculated is unable to generate a value, likely because another dependent bucket is missing a value.
-Some pipeline aggregations have specific requirements that must be met (e.g. a derivative cannot calculate a metric for the
-first value because there is no previous value, HoltWinters moving average need "warmup" data to begin calculating, etc)
+正在计算的指标无法生成值，可能是因为另一个相关的桶缺少值。
+
+一些管道聚合有必须满足的特定要求(例如，由于没有之前的值，导数<span class="remark">(derivative)</span>不能计算第一个值的指标，HoltWinters移动平均需要“预热”数据才能开始计算，等等) 
 </li>
 </ul>
 </div>
-<p>Gap policies are a mechanism to inform the pipeline aggregation about the desired behavior when "gappy" or missing
-data is encountered.  All pipeline aggregations accept the <code class="literal">gap_policy</code> parameter.  There are currently two gap policies
-to choose from:</p>
+<p>
+间隙策略(gap policy)是一种机制，用于在遇到“间隙”或缺失数据时通知管道聚合所需的行为。
+
+所有管道聚合都接受<code class="literal">gap_policy</code>参数。
+
+目前有两种间隙策略可供选择：
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -386,8 +395,9 @@ to choose from:</p>
 </span>
 </dt>
 <dd>
-This option treats missing data as if the bucket does not exist.  It will skip the bucket and continue
-calculating using the next available value.
+此选项将缺失的数据视为桶不存在。
+
+它将跳过这个桶，并使用下一个可用值继续计算。
 </dd>
 <dt>
 <span class="term">
@@ -395,8 +405,7 @@ calculating using the next available value.
 </span>
 </dt>
 <dd>
-This option will replace missing values with a zero (<code class="literal">0</code>) and pipeline aggregation computation will
-proceed as normal.
+此选项将用零(<code class="literal">0</code>)替换缺失的值，管道聚合计算将照常进行。
 </dd>
 </dl>
 </div>

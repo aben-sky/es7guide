@@ -1509,8 +1509,8 @@ var esNavLinks = [
                 "sub": [
                     {
                         "url": "search-aggregations-pipeline-bucket-script-aggregation.html",
-                        "text": "Bucket Script Aggregation",
-                        "title": "Bucket Script Aggregation"
+                        "text": "bucket_script 聚合",
+                        "title": "bucket_script 聚合"
                     },
                     {
                         "url": "search-aggregations-pipeline-bucket-selector-aggregation.html",

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Bucket Script Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>bucket_script 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,37 +32,40 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-pipeline.html">Pipeline Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-pipeline.html">Pipeline管道(pipeline)聚合</span>
 »
-<span class="breadcrumb-node">Bucket Script Aggregation</span>
+<span class="breadcrumb-node">bucket_script 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-pipeline.html">« Pipeline Aggregations</a>
+<a href="search-aggregations-pipeline.html">« 管道聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-pipeline-bucket-selector-aggregation.html">Bucket Selector Aggregation »</a>
+<a href2="search-aggregations-pipeline-bucket-selector-aggregation.html">Bucket Selector Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-pipeline-bucket-script-aggregation"></a>Bucket Script Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/bucket-script-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-pipeline-bucket-script-aggregation"></a>桶脚本(bucket_script)聚合
 </h2>
 </div></div></div>
-<p>A parent pipeline aggregation which executes a script which can perform per bucket computations on specified metrics
-in the parent multi-bucket aggregation. The specified metric must be numeric and the script must return a numeric value.</p>
+<p>
+执行脚本的父管道聚合，该脚本可以对父级多桶聚合中的特定的指标按桶进行计算。
+
+指定的指标必须是数字的，脚本必须返回一个数值。 
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="bucket-script-agg-syntax"></a>Syntax<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/bucket-script-aggregation.asciidoc">edit</a>
+<a id="bucket-script-agg-syntax"></a>语法
 </h3>
 </div></div></div>
-<p>A <code class="literal">bucket_script</code> aggregation looks like this in isolation:</p>
+<p>孤立地看，<code class="literal">bucket_script</code>聚合如下所示：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
     "bucket_script": {
@@ -81,15 +84,14 @@ in the parent multi-bucket aggregation. The specified metric must be numeric and
 <p><a href="#CO252-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Here, <code class="literal">my_var1</code> is the name of the variable for this buckets path to use in the script, <code class="literal">the_sum</code> is the path to
-the metrics to use for that variable.</p>
+<p>这里，<code class="literal">my_var1</code>是脚本中使用的 buckets_path 的变量名，<code class="literal">the_sum</code>是该变量使用的指标的路径。</p>
 </td>
 </tr>
 </table>
 </div>
 <div class="table">
 <a id="bucket-script-params"></a>
-<p class="title"><strong>Table 7. <code class="literal">bucket_script</code> Parameters</strong></p>
+<p class="title"><strong>表 7. <code class="literal">bucket_script</code> 参数</strong></p>
 <div class="table-contents">
 <table border="1" cellpadding="4px" summary="bucket_script Parameters">
 <colgroup>
@@ -100,45 +102,48 @@ the metrics to use for that variable.</p>
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Parameter Name</th>
-<th align="left" valign="top">Description</th>
-<th align="left" valign="top">Required</th>
-<th align="left" valign="top">Default Value</th>
+<th align="left" valign="top">参数名称</th>
+<th align="left" valign="top">描述</th>
+<th align="left" valign="top">是否必需</th>
+<th align="left" valign="top">默认值</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">script</code></p></td>
-<td align="left" valign="top"><p>The script to run for this aggregation. The script can be inline, file or indexed. (see <a class="xref" href="modules-scripting.html" title="Scripting">Scripting</a>
-for more details)</p></td>
-<td align="left" valign="top"><p>Required</p></td>
+<td align="left" valign="top"><p>
+为此聚合运行的脚本。脚本可以是内联、文件或索引化的。(更多详情请参考 <a class="xref" href="modules-scripting.html" title="脚本" rel="nofollow">脚本</a>)
+</p></td>
+<td align="left" valign="top"><p>必需</p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">buckets_path</code></p></td>
-<td align="left" valign="top"><p>A map of script variables and their associated path to the buckets we wish to use for the variable
-(see <a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path Syntax"><code class="literal">buckets_path</code> Syntax</a> for more details)</p></td>
-<td align="left" valign="top"><p>Required</p></td>
+<td align="left" valign="top"><p>
+脚本变量及其关联路径到我们希望用于变量的桶的映射(更多详情请参考 <a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path语法" rel="nofollow"><code class="literal">buckets_path</code>语法</a>)
+</p></td>
+<td align="left" valign="top"><p>必需</p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">gap_policy</code></p></td>
-<td align="left" valign="top"><p>The policy to apply when gaps are found in the data (see <a class="xref" href="search-aggregations-pipeline.html#gap-policy" title="Dealing with gaps in the data">Dealing with gaps in the data</a> for more
- details)</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>
+在数据中发现间隙时应用的策略(更多详情请参考<a class="xref" href="search-aggregations-pipeline.html#gap-policy" title="处理数据中的间隙">处理数据中的间隙</a>)
+ </p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p><code class="literal">skip</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">format</code></p></td>
-<td align="left" valign="top"><p>format to apply to the output value of this aggregation</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>应用于此聚合的输出值的格式</p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p><code class="literal">null</code></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>The following snippet calculates the ratio percentage of t-shirt sales compared to total sales each month:</p>
+<p>下面这个代码片段计算了每个月的T恤衫的销售额占总销售额的百分比：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search
 {
@@ -184,7 +189,7 @@ for more details)</p></td>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/549.console"></div>
-<p>And the following may be the response:</p>
+<p>响应可能是这样的：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
    "took": 11,
@@ -255,10 +260,10 @@ for more details)</p></td>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-pipeline.html">« Pipeline Aggregations</a>
+<a href="search-aggregations-pipeline.html">« 管道聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-pipeline-bucket-selector-aggregation.html">Bucket Selector Aggregation »</a>
+<a href2="search-aggregations-pipeline-bucket-selector-aggregation.html">Bucket Selector Aggregation »</a>
 </span>
 </div>
 </div>

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Bucket Selector Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>bucket_selector 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,46 +32,54 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-pipeline.html">Pipeline Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-pipeline.html">管道聚合</span>
 »
-<span class="breadcrumb-node">Bucket Selector Aggregation</span>
+<span class="breadcrumb-node">bucket_selector 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-pipeline-bucket-script-aggregation.html">« Bucket Script Aggregation</a>
+<a href="search-aggregations-pipeline-bucket-script-aggregation.html">« bucket_script 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-pipeline-bucket-sort-aggregation.html">Bucket Sort Aggregation »</a>
+<a href2="search-aggregations-pipeline-bucket-sort-aggregation.html">Bucket Sort Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-pipeline-bucket-selector-aggregation"></a>Bucket Selector Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/bucket-selector-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-pipeline-bucket-selector-aggregation"></a>桶选择器(bucket_selector)聚合
 </h2>
 </div></div></div>
-<p>A parent pipeline aggregation which executes a script which determines whether the current bucket will be retained
-in the parent multi-bucket aggregation. The specified metric must be numeric and the script must return a boolean value.
-If the script language is <code class="literal">expression</code> then a numeric return value is permitted. In this case 0.0 will be evaluated as <code class="literal">false</code>
-and all other values will evaluate to true.</p>
+<p>
+一种执行脚本的父管道聚合，该脚本确定当前桶是否将保留在父多桶聚合中。
+
+指定的指标必须是数字，并且脚本必须返回布尔值。
+
+如果脚本语言是<code class="literal">expression</code>，则允许返回值是数值。
+
+在这种情况下，0.0将被当作<code class="literal">false</code>，所有其他值将被当作<code class="literal">true</code>。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The bucket_selector aggregation, like all pipeline aggregations, executes after all other sibling aggregations. This means that
-using the bucket_selector aggregation to filter the returned buckets in the response does not save on execution time running the aggregations.</p>
+<p>
+与所有管道聚合一样，bucket_selector 聚合在所有其他同级聚合之后执行。
+
+这意味着使用 bucket_selector 聚合来过滤响应中返回的桶并不会节省运行聚合的执行时间。
+</p>
 </div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_syntax_3"></a>Syntax<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/bucket-selector-aggregation.asciidoc">edit</a>
+<a id="_syntax_3"></a>语法
 </h3>
 </div></div></div>
-<p>A <code class="literal">bucket_selector</code> aggregation looks like this in isolation:</p>
+<p>一个单独的<code class="literal">bucket_selector</code>看起来像这样：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
     "bucket_selector": {
@@ -90,15 +98,14 @@ using the bucket_selector aggregation to filter the returned buckets in the resp
 <p><a href="#CO253-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Here, <code class="literal">my_var1</code> is the name of the variable for this buckets path to use in the script, <code class="literal">the_sum</code> is the path to
-the metrics to use for that variable.</p>
+<p>这里，<code class="literal">my_var1</code>是脚本中使用的桶路径的变量名，<code class="literal">the_sum</code>是该变量使用的指标的路径。</p>
 </td>
 </tr>
 </table>
 </div>
 <div class="table">
 <a id="bucket-selector-params"></a>
-<p class="title"><strong>Table 8. <code class="literal">bucket_selector</code> Parameters</strong></p>
+<p class="title"><strong>表 8. <code class="literal">bucket_selector</code>参数</strong></p>
 <div class="table-contents">
 <table border="1" cellpadding="4px" summary="bucket_selector Parameters">
 <colgroup>
@@ -109,39 +116,44 @@ the metrics to use for that variable.</p>
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Parameter Name</th>
-<th align="left" valign="top">Description</th>
-<th align="left" valign="top">Required</th>
-<th align="left" valign="top">Default Value</th>
+<th align="left" valign="top">参数名称</th>
+<th align="left" valign="top">描述</th>
+<th align="left" valign="top">是否必需</th>
+<th align="left" valign="top">默认值</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">script</code></p></td>
-<td align="left" valign="top"><p>The script to run for this aggregation. The script can be inline, file or indexed. (see <a class="xref" href="modules-scripting.html" title="Scripting">Scripting</a>
-for more details)</p></td>
-<td align="left" valign="top"><p>Required</p></td>
+<td align="left" valign="top"><p>
+为此聚合运行的脚本。
+
+脚本可以是内联、文件或索引化的。(更多详情请参考<a class="xref" href="modules-scripting.html" title="Scripting">脚本</a>)
+</p></td>
+<td align="left" valign="top"><p>必需</p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">buckets_path</code></p></td>
-<td align="left" valign="top"><p>A map of script variables and their associated path to the buckets we wish to use for the variable
-(see <a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path Syntax"><code class="literal">buckets_path</code> Syntax</a> for more details)</p></td>
-<td align="left" valign="top"><p>Required</p></td>
+<td align="left" valign="top"><p>
+脚本变量及其关联路径到我们希望用于变量的桶的映射(更多详情请参考 <a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path语法" rel="nofollow"><code class="literal">buckets_path</code>语法</a>)
+</p></td>
+<td align="left" valign="top"><p>必需</p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">gap_policy</code></p></td>
-<td align="left" valign="top"><p>The policy to apply when gaps are found in the data (see <a class="xref" href="search-aggregations-pipeline.html#gap-policy" title="Dealing with gaps in the data">Dealing with gaps in the data</a> for more
- details)</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>
+在数据中发现间隙时应用的策略(更多详情请参考<a class="xref" href="search-aggregations-pipeline.html#gap-policy" title="处理数据中的间隙">处理数据中的间隙</a>)
+</p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p><code class="literal">skip</code></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>The following snippet only retains buckets where the total sales for the month is more than 200:</p>
+<p>下面这个代码片段仅保留当月总销售额超过200的桶：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search
 {
@@ -172,7 +184,7 @@ for more details)</p></td>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/550.console"></div>
-<p>And the following may be the response:</p>
+<p>响应可能像下面这样：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
    "took": 11,
@@ -210,7 +222,7 @@ for more details)</p></td>
 <p><a href="#CO254-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Bucket for <code class="literal">2015/02/01 00:00:00</code> has been removed as its total sales was less than 200</p>
+<p>已移除<code class="literal">2015/02/01 00:00:00</code>的桶，因为其总销售额不足200</p>
 </td>
 </tr>
 </table>
@@ -220,10 +232,10 @@ for more details)</p></td>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-pipeline-bucket-script-aggregation.html">« Bucket Script Aggregation</a>
+<a href="search-aggregations-pipeline-bucket-script-aggregation.html">« bucket_script 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-pipeline-bucket-sort-aggregation.html">Bucket Sort Aggregation »</a>
+<a href2="search-aggregations-pipeline-bucket-sort-aggregation.html">Bucket Sort Aggregation »</a>
 </span>
 </div>
 </div>

@@ -1514,8 +1514,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-pipeline-bucket-selector-aggregation.html",
-                        "text": "Bucket Selector Aggregation",
-                        "title": "Bucket Selector Aggregation"
+                        "text": "bucket_selector 聚合",
+                        "title": "bucket_selector 聚合"
                     },
                     {
                         "url": "search-aggregations-pipeline-bucket-sort-aggregation.html",

@@ -1519,8 +1519,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-pipeline-bucket-sort-aggregation.html",
-                        "text": "Bucket Sort Aggregation",
-                        "title": "Bucket Sort Aggregation"
+                        "text": "bucket_sort 聚合",
+                        "title": "bucket_sort 聚合"
                     },
                     {
                         "url": "search-aggregations-pipeline-avg-bucket-aggregation.html",

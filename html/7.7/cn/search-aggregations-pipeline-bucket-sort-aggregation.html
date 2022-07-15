@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Bucket Sort Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>bucket_sort 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,48 +32,56 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-pipeline.html">Pipeline Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-pipeline.html">管道聚合</span>
 »
-<span class="breadcrumb-node">Bucket Sort Aggregation</span>
+<span class="breadcrumb-node">bucket_sort 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-pipeline-bucket-selector-aggregation.html">« Bucket Selector Aggregation</a>
+<a href="search-aggregations-pipeline-bucket-selector-aggregation.html">« bucket_selector 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-pipeline-avg-bucket-aggregation.html">Avg Bucket Aggregation »</a>
+<a href2="search-aggregations-pipeline-avg-bucket-aggregation.html">Avg Bucket Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-pipeline-bucket-sort-aggregation"></a>Bucket Sort Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/bucket-sort-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-pipeline-bucket-sort-aggregation"></a>桶排序(bucket_sort)聚合
 </h2>
 </div></div></div>
-<p>A parent pipeline aggregation which sorts the buckets of its parent multi-bucket aggregation.
-Zero or more sort fields may be specified together with the corresponding sort order.
-Each bucket may be sorted based on its <code class="literal">_key</code>, <code class="literal">_count</code> or its sub-aggregations.
-In addition, parameters <code class="literal">from</code> and <code class="literal">size</code> may be set in order to truncate the result buckets.</p>
+<p>
+对其父多桶聚合的桶进行排序的父管道聚合。
+
+可以指定零个或多个排序字段以及相应的排序顺序。
+
+每个桶可以基于其<code class="literal">_key</code>、<code class="literal">_count</code>或其子聚合进行排序。
+
+此外，可以参数<code class="literal">from</code>和<code class="literal">size</code>，以便截断结果桶。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The <code class="literal">bucket_sort</code> aggregation, like all pipeline aggregations, is executed after all other non-pipeline aggregations.
-This means the sorting only applies to whatever buckets are already returned from the parent aggregation. For example,
-if the parent aggregation is <code class="literal">terms</code> and its <code class="literal">size</code> is set to <code class="literal">10</code>, the <code class="literal">bucket_sort</code> will only sort over those 10
-returned term buckets.</p>
+<p>
+与所有管道聚合一样，<code class="literal">bucket_sort</code>聚合在所有其他非管道聚合之后执行。
+
+这意味着排序只适用于已经从父聚合返回的任何桶。
+
+例如，如果父聚合是<code class="literal">terms</code>聚合，并其参数<code class="literal">size</code>设置为<code class="literal">10</code>，那么<code class="literal">bucket_sort</code>将只对这 10 个返回的词项桶进行排序。
+</p>
 </div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_syntax_4"></a>Syntax<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/bucket-sort-aggregation.asciidoc">edit</a>
+<a id="_syntax_4"></a>语法
 </h3>
 </div></div></div>
-<p>A <code class="literal">bucket_sort</code> aggregation looks like this in isolation:</p>
+<p>一个单独的<code class="literal">bucket_sort</code>看起来像这样：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
     "bucket_sort": {
@@ -94,15 +102,16 @@ returned term buckets.</p>
 <p><a href="#CO255-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Here, <code class="literal">sort_field_1</code> is the bucket path to the variable to be used as the primary sort and its order
-is ascending.</p>
+<p>
+这里，<code class="literal">sort_field_1</code>是要用作主要排序的变量的桶路径，其顺序是升序(asc)。
+</p>
 </td>
 </tr>
 </table>
 </div>
 <div class="table">
 <a id="bucket-sort-params"></a>
-<p class="title"><strong>Table 9. <code class="literal">bucket_sort</code> Parameters</strong></p>
+<p class="title"><strong>表 9. <code class="literal">bucket_sort</code>参数</strong></p>
 <div class="table-contents">
 <table border="1" cellpadding="4px" summary="bucket_sort Parameters">
 <colgroup>
@@ -113,43 +122,44 @@ is ascending.</p>
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Parameter Name</th>
-<th align="left" valign="top">Description</th>
-<th align="left" valign="top">Required</th>
-<th align="left" valign="top">Default Value</th>
+<th align="left" valign="top">参数名称</th>
+<th align="left" valign="top">描述</th>
+<th align="left" valign="top">是否必需</th>
+<th align="left" valign="top">默认值</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">sort</code></p></td>
-<td align="left" valign="top"><p>The list of fields to sort on. See <a class="xref" href="search-request-body.html#request-body-search-sort" title="Sort"><code class="literal">sort</code></a> for more details.</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>
+排序所依据的字段列表。有关更多详细信息请参见<a class="xref" href="search-request-body.html#request-body-search-sort" title="排序" rel="nofollow"><code class="literal">排序(sort)</code></a>。
+</p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">from</code></p></td>
-<td align="left" valign="top"><p>Buckets in positions prior to the set value will be truncated.</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>给定的值之前位置的桶将被截断</p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p><code class="literal">0</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">size</code></p></td>
-<td align="left" valign="top"><p>The number of buckets to return. Defaults to all buckets of the parent aggregation.</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>要返回的桶数。默认为父聚合的所有桶。</p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">gap_policy</code></p></td>
-<td align="left" valign="top"><p>The policy to apply when gaps are found in the data (see <a class="xref" href="search-aggregations-pipeline.html#gap-policy" title="Dealing with gaps in the data">Dealing with gaps in the data</a> for more
- details)</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>在数据中发现间隙时应用的策略(更多详情请参考<a class="xref" href="search-aggregations-pipeline.html#gap-policy" title="Dealing with gaps in the data">处理数据中的间隙</a>)</p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p><code class="literal">skip</code></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>The following snippet returns the buckets corresponding to the 3 months with the highest total sales in descending order:</p>
+<p>下面这个代码片段按降序返回与总销售额最高的3个月相对应的桶：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search
 {
@@ -187,7 +197,7 @@ is ascending.</p>
 <p><a href="#CO256-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">sort</code> is set to use the values of <code class="literal">total_sales</code> in descending order</p>
+<p><code class="literal">sort</code>设置为按降序使用<code class="literal">total_sales</code>的值</p>
 </td>
 </tr>
 <tr>
@@ -195,12 +205,12 @@ is ascending.</p>
 <p><a href="#CO256-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">size</code> is set to <code class="literal">3</code> meaning only the top 3 months in <code class="literal">total_sales</code> will be returned</p>
+<p><code class="literal">size</code>设置为3，表示将只返回<code class="literal">total_sales</code>中的前3个月</p>
 </td>
 </tr>
 </table>
 </div>
-<p>And the following may be the response:</p>
+<p>响应可能像下面这样：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
    "took": 82,
@@ -244,13 +254,15 @@ is ascending.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_truncating_without_sorting"></a>Truncating without sorting<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/bucket-sort-aggregation.asciidoc">edit</a>
+<a id="_truncating_without_sorting"></a>不排序截断
 </h3>
 </div></div></div>
-<p>It is also possible to use this aggregation in order to truncate the result buckets
-without doing any sorting. To do so, just use the <code class="literal">from</code> and/or <code class="literal">size</code> parameters
-without specifying <code class="literal">sort</code>.</p>
-<p>The following example simply truncates the result so that only the second bucket is returned:</p>
+<p>
+也可以使用这种聚合来截断结果桶，而不进行任何排序。
+
+为此，只需使用<code class="literal">from</code>和/或<code class="literal">size</code>参数，无需指定<code class="literal">sort</code>。
+</p>
+<p>下面这个例子简单地截断结果，只返回第二个桶：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search
 {
@@ -274,7 +286,7 @@ without specifying <code class="literal">sort</code>.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/552.console"></div>
-<p>Response:</p>
+<p>响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
    "took": 11,
@@ -299,10 +311,10 @@ without specifying <code class="literal">sort</code>.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-pipeline-bucket-selector-aggregation.html">« Bucket Selector Aggregation</a>
+<a href="search-aggregations-pipeline-bucket-selector-aggregation.html">« bucket_selector 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-pipeline-avg-bucket-aggregation.html">Avg Bucket Aggregation »</a>
+<a href2="search-aggregations-pipeline-avg-bucket-aggregation.html">Avg Bucket Aggregation »</a>
 </span>
 </div>
 </div>

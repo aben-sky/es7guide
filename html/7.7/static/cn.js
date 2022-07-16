@@ -1524,8 +1524,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-pipeline-avg-bucket-aggregation.html",
-                        "text": "Avg Bucket Aggregation",
-                        "title": "Avg Bucket Aggregation"
+                        "text": "avg_bucket 聚合",
+                        "title": "avg_bucket 聚合"
                     },
                     {
                         "url": "search-aggregations-pipeline-max-bucket-aggregation.html",

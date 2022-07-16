@@ -36,7 +36,7 @@
 »
 <span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-metrics.html">指标(metric)聚合</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-metrics.html">度量聚合</a></span>
 »
 <span class="breadcrumb-node">percentile_ranks 聚合</span>
 </div>
@@ -55,7 +55,7 @@
 </h2>
 </div></div></div>
 <p>
-一个 <code class="literal">multi-value</code>(多值) 指标聚合，计算从聚合文档中提取的数值的一个或多个百分位数排名。
+一个 <code class="literal">multi-value</code>(多值) 度量聚合，计算从聚合文档中提取的数值的一个或多个百分位数排名。
 
 这些值可以由给定的脚本生成，也可以从文档中的特定数值或 <a class="xref" href="histogram.html" title="histogram 数据类型" rel="nofollow">histogram 字段</a> 中提取。
 </p>
@@ -180,7 +180,7 @@
 </h3>
 </div></div></div>
 <p>
-百分位数等级指标支持脚本。
+百分位数等级度量支持脚本。
 
 例如，如果加载时间是以毫秒为单位的，但我们希望以秒为单位提供值，我们可以使用一个脚本来进行动态转换：
 </p>

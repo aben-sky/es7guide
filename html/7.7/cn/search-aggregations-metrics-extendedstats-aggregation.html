@@ -36,7 +36,7 @@
 »
 <span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-metrics.html">指标(metric)聚合</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-metrics.html">度量聚合</a></span>
 »
 <span class="breadcrumb-node">extended_stats 聚合</span>
 </div>
@@ -55,10 +55,10 @@
 </h2>
 </div></div></div>
 <p>
-一种<code class="literal">multi-value(多值)</code>指标聚合，计算从聚合文档中提取的数值的统计(stats)数据。 值可以从文档的给定的 numeric 字段中提取，也可以由脚本生成。
+一种<code class="literal">multi-value(多值)</code>度量聚合，计算从聚合文档中提取的数值的统计(stats)数据。 值可以从文档的给定的 numeric 字段中提取，也可以由脚本生成。
 </p>
 <p>
-<code class="literal">extended_stats</code> 聚合是 <a class="xref" href="search-aggregations-metrics-stats-aggregation.html" title="stats 聚合"><code class="literal">stats</code></a> 聚合的扩展版本，其中添加了额外的指标，如<code class="literal">sum_of_squares</code>、<code class="literal">variance</code>、<code class="literal">std_deviation</code> 和 <code class="literal">std_deviation_bounds</code>。
+<code class="literal">extended_stats</code> 聚合是 <a class="xref" href="search-aggregations-metrics-stats-aggregation.html" title="stats 聚合"><code class="literal">stats</code></a> 聚合的扩展版本，其中添加了额外的度量，如<code class="literal">sum_of_squares</code>、<code class="literal">variance</code>、<code class="literal">std_deviation</code> 和 <code class="literal">std_deviation_bounds</code>。
 </p>
 <p>
 假设数据由代表学生考试成绩(0到100之间)的文档组成：
@@ -110,7 +110,7 @@
 </h3>
 </div></div></div>
 <p>
-默认情况下，<code class="literal">extended_stats</code> 指标将返回一个名为 <code class="literal">std_deviation_bounds</code> 的对象，该对象提供了一个距离平均值正负两个标准差的区间。
+默认情况下，<code class="literal">extended_stats</code> 度量将返回一个名为 <code class="literal">std_deviation_bounds</code> 的对象，该对象提供了一个距离平均值正负两个标准差的区间。
 
 这是一种可视化数据差异的有用方法。
 
@@ -158,7 +158,7 @@
 <p>
 默认情况下会显示标准差及其界限，但它们并不总是适用于所有数据集。
 
-数据必须是正态分布的，这样指标才有意义。
+数据必须是正态分布的，这样度量才有意义。
 
 标准差背后的统计会假设数据呈正态分布，因此，如果数据严重向左或向右倾斜，返回的值将会产生误导。
 </p>

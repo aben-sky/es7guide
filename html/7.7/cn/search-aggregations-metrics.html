@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>指标(metric)聚合 | ElasticSearch 7.7 权威指南中文版</title>
+	<title>度量聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -36,7 +36,7 @@
 »
 <span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-node">指标(metric)聚合</span>
+<span class="breadcrumb-node">度量聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
@@ -49,20 +49,20 @@
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-metrics"></a>指标聚合 (metrics aggregations)
+<a id="search-aggregations-metrics"></a>度量聚合 (metrics aggregations)
 </h2>
 </div></div></div>
 <p>
-该系列中的聚合基于以某种方式从被聚合的文档中提取的值来计算指标。
+该系列中的聚合基于以某种方式从被聚合的文档中提取的值来计算度量。
 
 这些值通常从文档的字段中提取(使用字段数据)，但也可以使用脚本生成。
 </p>
 <p>
-数字指标聚合是一种特殊类型的指标聚合，它输出数值。
+数字度量聚合是一种特殊类型的度量聚合，它输出数值。
 
-一些聚合输出单个数字指标(例如 <code class="literal">avg</code>)，称为<code class="literal">single-value numeric metrics aggregation</code>(单值数字指标聚合)，其他聚合生成多个指标(例如 <code class="literal">stats</code>)，称为<code class="literal">multi-value numeric metrics aggregation</code>(多值数字指标聚合)。
+一些聚合输出单个数字度量(例如 <code class="literal">avg</code>)，称为<code class="literal">single-value numeric metrics aggregation</code>(单值数字度量聚合)，其他聚合生成多个度量(例如 <code class="literal">stats</code>)，称为<code class="literal">multi-value numeric metrics aggregation</code>(多值数字度量聚合)。
 
-当单值和多值数字指标聚合作为某些桶聚合的直接子聚合时，这些聚合之间的区别就很重要(某些桶聚合使你能够根据每个桶中的数字指标对返回的桶进行排序)。
+当单值和多值数字度量聚合作为某些桶聚合的直接子聚合时，这些聚合之间的区别就很重要(某些桶聚合使你能够根据每个桶中的数字度量对返回的桶进行排序)。
 </p>
 
 

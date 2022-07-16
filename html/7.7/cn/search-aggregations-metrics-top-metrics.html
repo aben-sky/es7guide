@@ -36,7 +36,7 @@
 »
 <span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-metrics.html">指标(metric)聚合</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-metrics.html">度量聚合</a></span>
 »
 <span class="breadcrumb-node">top_metrics 聚合</span>
 </div>
@@ -51,11 +51,11 @@
 <div class="section xpack">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-metrics-top-metrics"></a>最顶端的指标(top_metrics)聚合<a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
+<a id="search-aggregations-metrics-top-metrics"></a>最顶端的度量(top_metrics)聚合<a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
 </h2>
 </div></div></div>
 <p>
-<code class="literal">top_metrics</code> 聚合从文档中选择具有最大或最小 "sort"(排序) 值的指标。
+<code class="literal">top_metrics</code> 聚合从文档中选择具有最大或最小 "sort"(排序) 值的度量。
 
 下面的例子将获得文档中具有最大值 <code class="literal">s</code> 的文档的 <code class="literal">m</code> 字段的值：
 </p>
@@ -100,13 +100,13 @@ POST /test/_search?filter_path=aggregations
 </h3>
 </div></div></div>
 <p>
-指标请求中的 <code class="literal">sort</code> 字段与 <a class="xref" href="search-request-body.html#request-body-search-sort" title="sort" rel="nofollow">search</a> 请求中的 <code class="literal">sort</code> 字段功能完全相同，除了：
+度量请求中的 <code class="literal">sort</code> 字段与 <a class="xref" href="search-request-body.html#request-body-search-sort" title="sort" rel="nofollow">search</a> 请求中的 <code class="literal">sort</code> 字段功能完全相同，除了：
 
 * 它不能用于 <a class="xref" href="binary.html" title="binary 数据类型" rel="nofollow">binary</a>、<a class="xref" href="flattened.html" title="flattened 数据类型" rel="nofollow">flattened</a>、<a class="xref" href="ip.html" title="ip 数据类型" rel="nofollow">ip</a>、<a class="xref" href="keyword.html" title="keyword 数据类型" rel="nofollow">keyword</a> 和 <a class="xref" href="text.html" title="text 数据类型" rel="nofollow">text</a> 字段。
 
 * 它只支持单个 排序(sort) 值，因此当排序值相同时无法区分哪个在前。
 </p>
-<p>聚合返回的指标是搜索请求返回的第一个命中结果。因此，</p>
+<p>聚合返回的度量是搜索请求返回的第一个命中结果。因此，</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -115,7 +115,7 @@ POST /test/_search?filter_path=aggregations
 </span>
 </dt>
 <dd>
-从具有最大 <code class="literal">s</code> 值的文档中获取指标
+从具有最大 <code class="literal">s</code> 值的文档中获取度量
 </dd>
 <dt>
 <span class="term">
@@ -123,7 +123,7 @@ POST /test/_search?filter_path=aggregations
 </span>
 </dt>
 <dd>
-从具有最小 <code class="literal">s</code> 值的文档中获取指标
+从具有最小 <code class="literal">s</code> 值的文档中获取度量
 </dd>
 <dt>
 <span class="term">
@@ -131,7 +131,7 @@ POST /test/_search?filter_path=aggregations
 </span>
 </dt>
 <dd>
-从 <code class="literal">location</code>(位置) <span class="strong strong"><strong>最接近</strong></span> <code class="literal">35.7796, -78.6382</code>的文档中获取指标
+从 <code class="literal">location</code>(位置) <span class="strong strong"><strong>最接近</strong></span> <code class="literal">35.7796, -78.6382</code>的文档中获取度量
 </dd>
 <dt>
 <span class="term">
@@ -139,7 +139,7 @@ POST /test/_search?filter_path=aggregations
 </span>
 </dt>
 <dd>
-从相关性评分最高的文档中获取指标
+从相关性评分最高的文档中获取度量
 </dd>
 </dl>
 </div>
@@ -154,7 +154,7 @@ POST /test/_search?filter_path=aggregations
 <p>
 <code class="literal">metrics</code> 选择要从"最顶端(top)"的文档返回的字段。
 
-可以使用类似 <code class="literal">"metric": {"field": "m"}</code> 什么的来请求单个指标，或者通过使用类似 <code class="literal">"metric": [{"field": "m"}, {"field": "i"}</code> 的指标列表来请求多个指标。
+可以使用类似 <code class="literal">"metric": {"field": "m"}</code> 什么的来请求单个度量，或者通过使用类似 <code class="literal">"metric": [{"field": "m"}, {"field": "i"}</code> 的度量列表来请求多个度量。
 
 下面是一个更完整的例子:
 </p>
@@ -216,7 +216,7 @@ POST /test/_search?filter_path=aggregations
 <a id="_size"></a><code class="literal">size</code>
 </h3>
 </div></div></div>
-<p><code class="literal">top_metrics</code> 可以使用 size 参数返回前几个文档的指标值:</p>
+<p><code class="literal">top_metrics</code> 可以使用 size 参数返回前几个文档的度量值:</p>
 <a id="search-aggregations-metrics-top-metrics-size"></a><div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /test/_bulk?refresh
 {"index": {}}
@@ -356,7 +356,7 @@ POST /node/_search?filter_path=aggregations
   }
 }</pre>
 </div>
-<p>与 <code class="literal">top_hits</code> 不同的是，可以根据此指标的结果对桶进行排序:</p>
+<p>与 <code class="literal">top_hits</code> 不同的是，可以根据此度量的结果对桶进行排序:</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /node/_search?filter_path=aggregations
 {

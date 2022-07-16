@@ -36,7 +36,7 @@
 »
 <span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-metrics.html">指标(metric)聚合</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-metrics.html">度量聚合</a></span>
 »
 <span class="breadcrumb-node">scripted_metric 聚合</span>
 </div>
@@ -54,7 +54,7 @@
 <a id="search-aggregations-metrics-scripted-metric-aggregation"></a>scripted_metric 聚合
 </h2>
 </div></div></div>
-<p>使用脚本执行以提供指标输出的指标聚合。</p>
+<p>使用脚本执行以提供度量输出的度量聚合。</p>
 <p>示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST ledger/_search?size=0
@@ -176,7 +176,7 @@
 <a id="scripted-metric-aggregation-scope"></a>脚本的范围
 </h3>
 </div></div></div>
-<p>脚本化指标聚合在其执行的 4 个阶段中使用脚本：</p>
+<p>脚本化度量聚合在其执行的 4 个阶段中使用脚本：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -451,7 +451,7 @@ params
 </h3>
 </div></div></div>
 <p>
-如果脚本化指标聚合的父桶没有收集任何文档，将从分片返回一个值为 <code class="literal">null</code> 的空聚合响应。
+如果脚本化度量聚合的父桶没有收集任何文档，将从分片返回一个值为 <code class="literal">null</code> 的空聚合响应。
 
 在这种情况下，<code class="literal">reduce_script</code> 的 <code class="literal">states</code> 变量将包含 <code class="literal">null</code> 作为来自该分片的响应。
 

@@ -36,7 +36,7 @@
 »
 <span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-metrics.html">指标(metric)聚合</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-metrics.html">度量聚合</a></span>
 »
 <span class="breadcrumb-node">cardinality 聚合</span>
 </div>
@@ -55,7 +55,7 @@
 </h2>
 </div></div></div>
 <p>
-计算不同值的近似计数的<code class="literal">single-value(单值)</code>指标聚合。
+计算不同值的近似计数的<code class="literal">single-value(单值)</code>度量聚合。
 
 值可以从文档的给定的字段中提取，也可以由脚本生成。
 </p>
@@ -212,7 +212,7 @@ HyperLogLog++ 算法依赖于散列值的前导零，散列在数据集中的确
 </h3>
 </div></div></div>
 <p>
-<code class="literal">cardinality</code> 指标支持脚本，但是性能会受到明显影响，因为散列需要动态计算。
+<code class="literal">cardinality</code> 度量支持脚本，但是性能会受到明显影响，因为散列需要动态计算。
 </p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search?size=0

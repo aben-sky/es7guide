@@ -108,12 +108,12 @@ MULTIBUCKET_KEY     =  `[&lt;KEY_NAME&gt;]`
 PATH                =  &lt;AGG_NAME&gt;&lt;MULTIBUCKET_KEY&gt;? (&lt;AGG_SEPARATOR&gt;, &lt;AGG_NAME&gt; )* ( &lt;METRIC_SEPARATOR&gt;, &lt;METRIC&gt; ) ;</pre>
 </div>
 <p>
-例如，路径<code class="literal">"my_bucket&gt;my_stats.avg"</code>将指向<code class="literal">"my_stats"</code>指标中的<code class="literal">avg</code>值，该值包含在<code class="literal">"my_bucket"</code>桶聚合中。
+例如，路径<code class="literal">"my_bucket&gt;my_stats.avg"</code>将指向<code class="literal">"my_stats"</code>度量中的<code class="literal">avg</code>值，该值包含在<code class="literal">"my_bucket"</code>桶聚合中。
 </p>
 <p>
 路径相对于管道聚合位置; 它们不是绝对路径，并且路径不能回到聚合树的“上面”。
 
-例如，下面这个查询将移动平均值嵌入在 date_histogram（日期直方图）中，并引用“Sibling”(同级)指标<code class="literal">"the_sum"</code>：
+例如，下面这个查询将移动平均值嵌入在 date_histogram（日期直方图）中，并引用“Sibling”(同级)度量<code class="literal">"the_sum"</code>：
 </p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /_search
@@ -144,7 +144,7 @@ PATH                =  &lt;AGG_NAME&gt;&lt;MULTIBUCKET_KEY&gt;? (&lt;AGG_SEPARAT
 <p><a href="#CO247-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>该指标被称为<code class="literal">"the_sum"</code></p>
+<p>该度量被称为<code class="literal">"the_sum"</code></p>
 </td>
 </tr>
 <tr>
@@ -152,7 +152,7 @@ PATH                =  &lt;AGG_NAME&gt;&lt;MULTIBUCKET_KEY&gt;? (&lt;AGG_SEPARAT
 <p><a href="#CO247-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">buckets_path</code>通过相对路径<code class="literal">"the_sum"</code>引用指标</p>
+<p><code class="literal">buckets_path</code>通过相对路径<code class="literal">"the_sum"</code>引用度量</p>
 </td>
 </tr>
 </table>
@@ -160,7 +160,7 @@ PATH                =  &lt;AGG_NAME&gt;&lt;MULTIBUCKET_KEY&gt;? (&lt;AGG_SEPARAT
 <p>
 <code class="literal">buckets_path</code>还用于 Sibling 管道聚合，其中聚合位于一系列桶的“旁边”,而不是嵌入在桶的“内部”。
 
-例如，<code class="literal">max_bucket</code>聚合使用<code class="literal">buckets_path</code>来指定嵌入在 Sibling 聚合中的指标：
+例如，<code class="literal">max_bucket</code>聚合使用<code class="literal">buckets_path</code>来指定嵌入在 Sibling 聚合中的度量：
 </p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /_search
@@ -260,11 +260,11 @@ PATH                =  &lt;AGG_NAME&gt;&lt;MULTIBUCKET_KEY&gt;? (&lt;AGG_SEPARAT
 <a id="_special_paths"></a>特殊的路径
 </h3>
 <p>
-<code class="literal">buckets_path</code>可以使用一个特殊的<code class="literal">"_count"</code>路径，而不是一个指标的路径。
+<code class="literal">buckets_path</code>可以使用一个特殊的<code class="literal">"_count"</code>路径，而不是一个度量的路径。
 
 这将指示管道聚合使用文档数量作为其输入。
 
-例如，可以根据每个时段的文档数计算移动平均值(moving_avg)，而不是特定的指标：
+例如，可以根据每个时段的文档数计算移动平均值(moving_avg)，而不是特定的度量：
 </p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /_search
@@ -292,13 +292,13 @@ PATH                =  &lt;AGG_NAME&gt;&lt;MULTIBUCKET_KEY&gt;? (&lt;AGG_SEPARAT
 <p><a href="#CO250-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>通过使用<code class="literal">_count</code>代替指标名称，我们可以计算直方图中文档计数的移动平均值</p>
+<p>通过使用<code class="literal">_count</code>代替度量名称，我们可以计算直方图中文档计数的移动平均值</p>
 </td>
 </tr>
 </table>
 </div>
 <p>
-<code class="literal">buckets_path</code>还可以使用<code class="literal">_bucket_count</code>和多桶聚合的路径，以使用管道聚合中该聚合返回的桶数，而不是指标。
+<code class="literal">buckets_path</code>还可以使用<code class="literal">_bucket_count</code>和多桶聚合的路径，以使用管道聚合中该聚合返回的桶数，而不是度量。
 
 例如，这里可以使用<code class="literal">bucket_selector</code>来过滤出不包含内部词项聚合的桶：
 </p>
@@ -341,7 +341,7 @@ PATH                =  &lt;AGG_NAME&gt;&lt;MULTIBUCKET_KEY&gt;? (&lt;AGG_SEPARAT
 <p><a href="#CO251-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>通过使用<code class="literal">_bucket_count</code>而不是指标名称，我们可以过滤掉<code class="literal">histo</code>桶，其中不包含用于<code class="literal">categories</code>聚合的桶</p>
+<p>通过使用<code class="literal">_bucket_count</code>而不是度量名称，我们可以过滤掉<code class="literal">histo</code>桶，其中不包含用于<code class="literal">categories</code>聚合的桶</p>
 </td>
 </tr>
 </table>
@@ -350,9 +350,9 @@ PATH                =  &lt;AGG_NAME&gt;&lt;MULTIBUCKET_KEY&gt;? (&lt;AGG_SEPARAT
 <a id="dots-in-agg-names"></a>处理聚合名称中的点
 </h3>
 <p>
-支持一种替代语法来处理名称中带有点的聚合或指标，如<code class="literal">99.9</code><a class="xref" href="search-aggregations-metrics-percentile-aggregation.html" title="百分位数聚合">百分位数</a>。
+支持一种替代语法来处理名称中带有点的聚合或度量，如<code class="literal">99.9</code><a class="xref" href="search-aggregations-metrics-percentile-aggregation.html" title="百分位数聚合">百分位数</a>。
 
-该指标可以这样引用：
+该度量可以这样引用：
 </p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">"buckets_path": "my_percentile[99.9]"</pre>
@@ -374,9 +374,9 @@ PATH                =  &lt;AGG_NAME&gt;&lt;MULTIBUCKET_KEY&gt;? (&lt;AGG_SEPARAT
 没有与一个或多个桶的查询匹配的文档
 </li>
 <li class="listitem">
-正在计算的指标无法生成值，可能是因为另一个相关的桶缺少值。
+正在计算的度量无法生成值，可能是因为另一个相关的桶缺少值。
 
-一些管道聚合有必须满足的特定要求(例如，由于没有之前的值，导数<span class="remark">(derivative)</span>不能计算第一个值的指标，HoltWinters移动平均需要“预热”数据才能开始计算，等等) 
+一些管道聚合有必须满足的特定要求(例如，由于没有之前的值，导数<span class="remark">(derivative)</span>不能计算第一个值的度量，HoltWinters移动平均需要“预热”数据才能开始计算，等等) 
 </li>
 </ul>
 </div>

@@ -322,7 +322,7 @@ terms 聚合中的文档计数(以及任何子聚合的结果)并不总是准确
 <p>使用<code class="literal">_key</code>代替<code class="literal">_term</code>，将桶按词项排序</p>
 </div>
 </div>
-<p>按单值指标子聚合对桶进行排序(由聚合名称标识)：</p>
+<p>按单值度量子聚合对桶进行排序(由聚合名称标识)：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -340,7 +340,7 @@ terms 聚合中的文档计数(以及任何子聚合的结果)并不总是准确
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/526.console"></div>
-<p>按多值指标子聚集对桶进行排序(由聚合名称标识)：</p>
+<p>按多值度量子聚集对桶进行排序(由聚合名称标识)：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -374,7 +374,7 @@ terms 聚合中的文档计数(以及任何子聚合的结果)并不总是准确
 
 只要聚合路径是单桶类型，就支持这一点，其中路径中的最后一个聚合可以是单桶聚合，也可以是度量聚合。
 
-如果是单桶类型，则顺序将由桶中的文档数(即<code class="literal">doc_count</code>)来定义，如果是指标类型，则应用与上述相同的规则(如果是多值指标聚合，则路径必须指示要排序的指标名称，如果是单值指标聚合，则排序将应用于该值)。
+如果是单桶类型，则顺序将由桶中的文档数(即<code class="literal">doc_count</code>)来定义，如果是度量类型，则应用与上述相同的规则(如果是多值度量聚合，则路径必须指示要排序的度量名称，如果是单值度量聚合，则排序将应用于该值)。
 </p>
 <p>路径必须按以下形式定义：</p>
 <div class="pre_wrapper lang-ebnf">

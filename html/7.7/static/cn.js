@@ -1529,8 +1529,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-pipeline-max-bucket-aggregation.html",
-                        "text": "Max Bucket Aggregation",
-                        "title": "Max Bucket Aggregation"
+                        "text": "max_bucket 聚合",
+                        "title": "max_bucket 聚合"
                     },
                     {
                         "url": "search-aggregations-pipeline-min-bucket-aggregation.html",

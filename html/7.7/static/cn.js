@@ -1534,8 +1534,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-pipeline-min-bucket-aggregation.html",
-                        "text": "Min Bucket Aggregation",
-                        "title": "Min Bucket Aggregation"
+                        "text": "min_bucket 聚合",
+                        "title": "min_bucket 聚合"
                     },
                     {
                         "url": "search-aggregations-pipeline-sum-bucket-aggregation.html",

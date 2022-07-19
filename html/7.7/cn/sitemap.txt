@@ -232,3 +232,5 @@ https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-bucket-selector-ag
 https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-bucket-sort-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-avg-bucket-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-max-bucket-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-min-bucket-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-sum-bucket-aggregation.html

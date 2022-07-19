@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Cumulative Cardinality Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>cumulative_cardinality 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,42 +32,47 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-pipeline.html">Pipeline Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-pipeline.html">管道聚合</span>
 »
-<span class="breadcrumb-node">Cumulative Cardinality Aggregation</span>
+<span class="breadcrumb-node">cumulative_cardinality 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-pipeline-sum-bucket-aggregation.html">« Sum Bucket Aggregation</a>
+<a href="search-aggregations-pipeline-sum-bucket-aggregation.html">« sum_bucket 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-pipeline-cumulative-sum-aggregation.html">Cumulative Sum Aggregation »</a>
+<a href2="search-aggregations-pipeline-cumulative-sum-aggregation.html">Cumulative Sum Aggregation »</a>
 </span>
 </div>
 <div class="section xpack">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-pipeline-cumulative-cardinality-aggregation"></a>Cumulative Cardinality Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/cumulative-cardinality-aggregation.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
+<a id="search-aggregations-pipeline-cumulative-cardinality-aggregation"></a>累积基数(cumulative_cardinality)聚合
 </h2>
 </div></div></div>
-<p>A parent pipeline aggregation which calculates the Cumulative Cardinality in a parent histogram (or date_histogram)
-aggregation. The specified metric must be a cardinality aggregation and the enclosing histogram
-must have <code class="literal">min_doc_count</code> set to <code class="literal">0</code> (default for <code class="literal">histogram</code> aggregations).</p>
-<p>The <code class="literal">cumulative_cardinality</code> agg is useful for finding "total new items", like the number of new visitors to your
-website each day.  A regular cardinality aggregation will tell you how many unique visitors came each day, but doesn’t
-differentiate between "new" or "repeat" visitors.  The Cumulative Cardinality aggregation can be used to determine
-how many of each day’s unique visitors are "new".</p>
+<p>
+一种父管道聚合，用于计算父直方图(或日期直方图<span class="remark">date_histogram</span>)聚合中的累积基数。
+
+指定的度量必须是一个基数聚合，并且封闭直方图必须将<code class="literal">min_doc_count</code>设置为<code class="literal">0</code>(<code class="literal">histogram</code>聚合的默认值)。
+</p>
+<p>
+<code class="literal">cumulative_cardinality</code>聚合对于查找“总的新项目”非常有用，比如每天访问你的网站的新访客的数量。
+
+常规的基数聚合会告诉你每天有多少独立访问者，但不会区分“新”或“重复”的访问者。
+
+累积基数聚合可用于确定每天有多少独立访问者是“新的”。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_syntax_8"></a>Syntax<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/cumulative-cardinality-aggregation.asciidoc">edit</a>
+<a id="_syntax_8"></a>语法
 </h3>
 </div></div></div>
-<p>A <code class="literal">cumulative_cardinality</code> aggregation looks like this in isolation:</p>
+<p>一个单独的<code class="literal">cumulative_cardinality</code>看起来像这样：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
     "cumulative_cardinality": {
@@ -77,7 +82,7 @@ how many of each day’s unique visitors are "new".</p>
 </div>
 <div class="table">
 <a id="cumulative-cardinality-params"></a>
-<p class="title"><strong>Table 14. <code class="literal">cumulative_cardinality</code> Parameters</strong></p>
+<p class="title"><strong>表 14. <code class="literal">cumulative_cardinality</code>参数</strong></p>
 <div class="table-contents">
 <table border="1" cellpadding="4px" summary="cumulative_cardinality Parameters">
 <colgroup>
@@ -88,31 +93,32 @@ how many of each day’s unique visitors are "new".</p>
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Parameter Name</th>
-<th align="left" valign="top">Description</th>
-<th align="left" valign="top">Required</th>
-<th align="left" valign="top">Default Value</th>
+<th align="left" valign="top">参数名称</th>
+<th align="left" valign="top">描述</th>
+<th align="left" valign="top">是否必需</th>
+<th align="left" valign="top">默认值</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">buckets_path</code></p></td>
-<td align="left" valign="top"><p>The path to the cardinality aggregation we wish to find the cumulative cardinality for (see <a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path Syntax"><code class="literal">buckets_path</code> Syntax</a> for more
- details)</p></td>
-<td align="left" valign="top"><p>Required</p></td>
+<td align="left" valign="top"><p>
+我们希望找到其累积基数的基数聚合的路径(更多详情请参考 <a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path语法" rel="nofollow"><code class="literal">buckets_path</code>语法</a>)
+</p></td>
+<td align="left" valign="top"><p>必须</p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">format</code></p></td>
-<td align="left" valign="top"><p>format to apply to the output value of this aggregation</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>应用于此聚合的输出值的格式</p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p><code class="literal">null</code></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>The following snippet calculates the cumulative cardinality of the total daily <code class="literal">users</code>:</p>
+<p>下面这个代码片段计算了每日<code class="literal">users</code>总数的累积基数：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /user_hits/_search
 {
@@ -147,12 +153,12 @@ how many of each day’s unique visitors are "new".</p>
 <p><a href="#CO263-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">buckets_path</code> instructs this aggregation to use the output of the <code class="literal">distinct_users</code> aggregation for the cumulative cardinality</p>
+<p><code class="literal">buckets_path</code>指示该聚合将<code class="literal">distinct_users</code>聚合的输出用于累积基数</p>
 </td>
 </tr>
 </table>
 </div>
-<p>And the following may be the response:</p>
+<p>响应可能像下面这样：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
    "took": 11,
@@ -200,22 +206,31 @@ how many of each day’s unique visitors are "new".</p>
    }
 }</pre>
 </div>
-<p>Note how the second day, <code class="literal">2019-01-02</code>, has two distinct users but the <code class="literal">total_new_users</code> metric generated by the
-cumulative pipeline agg only increments to three.  This means that only one of the two users that day were
-new, the other had already been seen in the previous day.  This happens again on the third day, where only
-one of three users is completely new.</p>
+<p>
+请注意第二天，<code class="literal">2019-01-02</code>，有两个不同的用户，但由累积管道聚合生成的<code class="literal">total_new_users</code>度量仅增加到三个。
+
+这意味着那天的两个用户中只有一个是新的，另一个在前一天已经出现过了。
+
+这种情况在第三天再次发生，三个用户中只有一个是全新的。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_incremental_cumulative_cardinality"></a>Incremental cumulative cardinality<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/cumulative-cardinality-aggregation.asciidoc">edit</a>
+<a id="_incremental_cumulative_cardinality"></a>增量累积基数(incremental cumulative cardinality)
 </h3>
 </div></div></div>
-<p>The <code class="literal">cumulative_cardinality</code> agg will show you the total, distinct count since the beginning of the time period
-being queried.  Sometimes, however, it is useful to see the "incremental" count.  Meaning, how many new users
-are added each day, rather than the total cumulative count.</p>
-<p>This can be accomplished by adding a <code class="literal">derivative</code> aggregation to our query:</p>
+<p>
+<code class="literal">cumulative_cardinality</code>聚合将向你展示自被查询的时间段开始以来的总的非重复计数。
+
+然而，有时查看“增量”计数是有用的。
+
+也就是说，每天有多少新用户加入，而不是累计的总数。
+</p>
+<p>
+这可以通过在查询中添加一个<code class="literal">derivative</code>聚合来实现：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /user_hits/_search
 {
@@ -248,7 +263,7 @@ are added each day, rather than the total cumulative count.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/558.console"></div>
-<p>And the following may be the response:</p>
+<p>响应可能像下面这样：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
    "took": 11,
@@ -307,10 +322,10 @@ are added each day, rather than the total cumulative count.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-pipeline-sum-bucket-aggregation.html">« Sum Bucket Aggregation</a>
+<a href="search-aggregations-pipeline-sum-bucket-aggregation.html">« sum_bucket 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-pipeline-cumulative-sum-aggregation.html">Cumulative Sum Aggregation »</a>
+<a href2="search-aggregations-pipeline-cumulative-sum-aggregation.html">Cumulative Sum Aggregation »</a>
 </span>
 </div>
 </div>

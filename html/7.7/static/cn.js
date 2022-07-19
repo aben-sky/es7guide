@@ -1544,8 +1544,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-pipeline-cumulative-cardinality-aggregation.html",
-                        "text": "Cumulative Cardinality Aggregation",
-                        "title": "Cumulative Cardinality Aggregation"
+                        "text": "cumulative_cardinality 聚合",
+                        "title": "cumulative_cardinality 聚合"
                     },
                     {
                         "url": "search-aggregations-pipeline-cumulative-sum-aggregation.html",

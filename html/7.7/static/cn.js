@@ -1539,8 +1539,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-pipeline-sum-bucket-aggregation.html",
-                        "text": "Sum Bucket Aggregation",
-                        "title": "Sum Bucket Aggregation"
+                        "text": "sum_bucket 聚合",
+                        "title": "sum_bucket 聚合"
                     },
                     {
                         "url": "search-aggregations-pipeline-cumulative-cardinality-aggregation.html",

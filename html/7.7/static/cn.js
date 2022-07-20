@@ -1549,8 +1549,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-pipeline-cumulative-sum-aggregation.html",
-                        "text": "Cumulative Sum Aggregation",
-                        "title": "Cumulative Sum Aggregation"
+                        "text": "cumulative_sum 聚合",
+                        "title": "cumulative_sum 聚合"
                     },
                     {
                         "url": "search-aggregations-pipeline-derivative-aggregation.html",

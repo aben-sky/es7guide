@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Cumulative Sum Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>cumulative_sum 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,38 +32,40 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-pipeline.html">Pipeline Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-pipeline.html">管道聚合</span>
 »
-<span class="breadcrumb-node">Cumulative Sum Aggregation</span>
+<span class="breadcrumb-node">cumulative_sum 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-pipeline-cumulative-cardinality-aggregation.html">« Cumulative Cardinality Aggregation</a>
+<a href="search-aggregations-pipeline-cumulative-cardinality-aggregation.html">« cumulative_cardinality 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-pipeline-derivative-aggregation.html">Derivative Aggregation »</a>
+<a href2="search-aggregations-pipeline-derivative-aggregation.html">Derivative Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-pipeline-cumulative-sum-aggregation"></a>Cumulative Sum Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/cumulative-sum-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-pipeline-cumulative-sum-aggregation"></a>累积总和(cumulative_sum)聚合
 </h2>
 </div></div></div>
-<p>A parent pipeline aggregation which calculates the cumulative sum of a specified metric in a parent histogram (or date_histogram)
-aggregation. The specified metric must be numeric and the enclosing histogram must have <code class="literal">min_doc_count</code> set to <code class="literal">0</code> (default
-for <code class="literal">histogram</code> aggregations).</p>
+<p>
+父管道聚合，用于计算父直方图(或日期直方图<span class="remark">date_histogram</span>)聚合中指定度量的累积总和。
+
+指定的度量必须是数字，并且封闭直方图的<code class="literal">min_doc_count</code>必须设置为<code class="literal">0</code>(<code class="literal">histogram</code>聚合的默认值)。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_syntax_9"></a>Syntax<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/cumulative-sum-aggregation.asciidoc">edit</a>
+<a id="_syntax_9"></a>语法
 </h3>
 </div></div></div>
-<p>A <code class="literal">cumulative_sum</code> aggregation looks like this in isolation:</p>
+<p>一个单独的<code class="literal">cumulative_sum</code>看起来像这样：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
     "cumulative_sum": {
@@ -73,7 +75,7 @@ for <code class="literal">histogram</code> aggregations).</p>
 </div>
 <div class="table">
 <a id="cumulative-sum-params"></a>
-<p class="title"><strong>Table 15. <code class="literal">cumulative_sum</code> Parameters</strong></p>
+<p class="title"><strong>表 15. <code class="literal">cumulative_sum</code>参数</strong></p>
 <div class="table-contents">
 <table border="1" cellpadding="4px" summary="cumulative_sum Parameters">
 <colgroup>
@@ -84,31 +86,34 @@ for <code class="literal">histogram</code> aggregations).</p>
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Parameter Name</th>
-<th align="left" valign="top">Description</th>
-<th align="left" valign="top">Required</th>
-<th align="left" valign="top">Default Value</th>
+<th align="left" valign="top">参数名称</th>
+<th align="left" valign="top">描述</th>
+<th align="left" valign="top">是否必需</th>
+<th align="left" valign="top">默认值</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">buckets_path</code></p></td>
-<td align="left" valign="top"><p>The path to the buckets we wish to find the cumulative sum for (see <a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path Syntax"><code class="literal">buckets_path</code> Syntax</a> for more
- details)</p></td>
-<td align="left" valign="top"><p>Required</p></td>
+<td align="left" valign="top"><p>
+我们希望找到其累积总和的桶的路径(更多详情请参考 <a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path语法" rel="nofollow"><code class="literal">buckets_path</code>语法</a>)
+</p></td>
+<td align="left" valign="top"><p>必需</p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">format</code></p></td>
-<td align="left" valign="top"><p>format to apply to the output value of this aggregation</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>应用于此聚合的输出值的格式</p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p><code class="literal">null</code></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>The following snippet calculates the cumulative sum of the total monthly <code class="literal">sales</code>:</p>
+<p>
+下面这个代码片段计算每月总销售额(<code class="literal">sales</code>)的累计总和：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search
 {
@@ -143,12 +148,14 @@ for <code class="literal">histogram</code> aggregations).</p>
 <p><a href="#CO264-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">buckets_path</code> instructs this cumulative sum aggregation to use the output of the <code class="literal">sales</code> aggregation for the cumulative sum</p>
+<p>
+<code class="literal">buckets_path</code>指示此累积总和聚合将<code class="literal">sales</code>聚合的输出用于累积总和
+</p>
 </td>
 </tr>
 </table>
 </div>
-<p>And the following may be the response:</p>
+<p>响应可能像下面这样：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
    "took": 11,
@@ -201,10 +208,10 @@ for <code class="literal">histogram</code> aggregations).</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-pipeline-cumulative-cardinality-aggregation.html">« Cumulative Cardinality Aggregation</a>
+<a href="search-aggregations-pipeline-cumulative-cardinality-aggregation.html">« cumulative_cardinality 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-pipeline-derivative-aggregation.html">Derivative Aggregation »</a>
+<a href2="search-aggregations-pipeline-derivative-aggregation.html">Derivative Aggregation »</a>
 </span>
 </div>
 </div>

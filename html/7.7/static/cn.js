@@ -1554,8 +1554,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-pipeline-derivative-aggregation.html",
-                        "text": "Derivative Aggregation",
-                        "title": "Derivative Aggregation"
+                        "text": "derivative 聚合",
+                        "title": "derivative 聚合"
                     },
                     {
                         "url": "search-aggregations-pipeline-percentiles-bucket-aggregation.html",

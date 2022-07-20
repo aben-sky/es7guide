@@ -234,3 +234,5 @@ https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-avg-bucket-aggrega
 https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-max-bucket-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-min-bucket-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-sum-bucket-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-cumulative-cardinality-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-cumulative-sum-aggregation.html

@@ -1559,8 +1559,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-pipeline-percentiles-bucket-aggregation.html",
-                        "text": "Percentiles Bucket Aggregation",
-                        "title": "Percentiles Bucket Aggregation"
+                        "text": "percentiles_bucket 聚合",
+                        "title": "percentiles_bucket 聚合"
                     },
                     {
                         "url": "search-aggregations-pipeline-movavg-aggregation.html",

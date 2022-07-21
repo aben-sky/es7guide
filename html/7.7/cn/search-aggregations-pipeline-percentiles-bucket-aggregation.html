@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Percentiles Bucket Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>percentiles_bucket 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,37 +32,40 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-pipeline.html">Pipeline Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-pipeline.html">管道聚合</span>
 »
-<span class="breadcrumb-node">Percentiles Bucket Aggregation</span>
+<span class="breadcrumb-node">percentiles_bucket 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-pipeline-derivative-aggregation.html">« Derivative Aggregation</a>
+<a href="search-aggregations-pipeline-derivative-aggregation.html">« derivative 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-pipeline-movavg-aggregation.html">Moving Average Aggregation »</a>
+<a href2="search-aggregations-pipeline-movavg-aggregation.html">Moving Average Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-pipeline-percentiles-bucket-aggregation"></a>Percentiles Bucket Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/percentiles-bucket-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-pipeline-percentiles-bucket-aggregation"></a>百分位数桶(percentiles_bucket)聚合
 </h2>
 </div></div></div>
-<p>A sibling pipeline aggregation which calculates percentiles across all bucket of a specified metric in a sibling aggregation.
-The specified metric must be numeric and the sibling aggregation must be a multi-bucket aggregation.</p>
+<p>
+一种同级管道聚合，用于计算同级聚合中指定度量的所有桶的百分位数。
+
+指定的度量必须是数字，并且同级聚合必须是多桶聚合。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_syntax_11"></a>Syntax<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/percentiles-bucket-aggregation.asciidoc">edit</a>
+<a id="_syntax_11"></a>语法
 </h3>
 </div></div></div>
-<p>A <code class="literal">percentiles_bucket</code> aggregation looks like this in isolation:</p>
+<p>一个单独的<code class="literal">percentiles_bucket</code>看起来像这样：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
     "percentiles_bucket": {
@@ -72,7 +75,7 @@ The specified metric must be numeric and the sibling aggregation must be a multi
 </div>
 <div class="table">
 <a id="percentiles-bucket-params"></a>
-<p class="title"><strong>Table 17. <code class="literal">percentiles_bucket</code> Parameters</strong></p>
+<p class="title"><strong>表 17. <code class="literal">percentiles_bucket</code>参数</strong></p>
 <div class="table-contents">
 <table border="1" cellpadding="4px" summary="percentiles_bucket Parameters">
 <colgroup>
@@ -83,50 +86,54 @@ The specified metric must be numeric and the sibling aggregation must be a multi
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Parameter Name</th>
-<th align="left" valign="top">Description</th>
-<th align="left" valign="top">Required</th>
-<th align="left" valign="top">Default Value</th>
+<th align="left" valign="top">参数名称</th>
+<th align="left" valign="top">描述</th>
+<th align="left" valign="top">是否必需</th>
+<th align="left" valign="top">默认值</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">buckets_path</code></p></td>
-<td align="left" valign="top"><p>The path to the buckets we wish to find the percentiles for (see <a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path Syntax"><code class="literal">buckets_path</code> Syntax</a> for more
- details)</p></td>
-<td align="left" valign="top"><p>Required</p></td>
+<td align="left" valign="top"><p>
+我们希望找到百分位数的桶的路径(更多详情请参考 <a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path语法" rel="nofollow"><code class="literal">buckets_path</code>语法</a>)
+ </p></td>
+<td align="left" valign="top"><p>必需</p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">gap_policy</code></p></td>
-<td align="left" valign="top"><p>The policy to apply when gaps are found in the data (see <a class="xref" href="search-aggregations-pipeline.html#gap-policy" title="Dealing with gaps in the data">Dealing with gaps in the data</a> for more
- details)</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>
+在数据中发现间隙时应用的策略(更多详情请参考<a class="xref" href="search-aggregations-pipeline.html#gap-policy" title="处理数据中的间隙">处理数据中的间隙</a>)
+</p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p><code class="literal">skip</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">format</code></p></td>
-<td align="left" valign="top"><p>format to apply to the output value of this aggregation</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>应用于此聚合的输出值的格式</p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p><code class="literal">null</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">percents</code></p></td>
-<td align="left" valign="top"><p>The list of percentiles to calculate</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>要计算的百分位数值的列表</p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p><code class="literal">[ 1, 5, 25, 50, 75, 95, 99 ]</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">keyed</code></p></td>
-<td align="left" valign="top"><p>Flag which returns the range as an hash instead of an array of key-value pairs</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>一个标志, 是否将范围作为哈希而不是键值对数组返回</p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p><code class="literal">true</code></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>The following snippet calculates the percentiles for the total monthly <code class="literal">sales</code> buckets:</p>
+<p>
+下面这个代码片段计算每月总销售额(<code class="literal">sales</code>)的百分位数：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search
 {
@@ -162,8 +169,9 @@ The specified metric must be numeric and the sibling aggregation must be a multi
 <p><a href="#CO271-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">buckets_path</code> instructs this percentiles_bucket aggregation that we want to calculate percentiles for
-the <code class="literal">sales</code> aggregation in the <code class="literal">sales_per_month</code> date histogram.</p>
+<p>
+<code class="literal">buckets_path</code>指示这个 percentiles_bucket 聚合，我们要为<code class="literal">sales_per_month</code>日期直方图中的<code class="literal">sales</code>聚合计算百分位数。
+</p>
 </td>
 </tr>
 <tr>
@@ -171,12 +179,14 @@ the <code class="literal">sales</code> aggregation in the <code class="literal">
 <p><a href="#CO271-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">percents</code> specifies which percentiles we wish to calculate, in this case, the 25th, 50th and 75th percentiles.</p>
+<p>
+<code class="literal">percents</code>指定我们希望计算哪些百分位数，在本例中，是第25、50和75个百分位。
+</p>
 </td>
 </tr>
 </table>
 </div>
-<p>And the following may be the response:</p>
+<p>响应可能像下面这样：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
    "took": 11,
@@ -227,24 +237,28 @@ the <code class="literal">sales</code> aggregation in the <code class="literal">
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_percentiles_bucket_implementation"></a>Percentiles_bucket implementation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/percentiles-bucket-aggregation.asciidoc">edit</a>
+<a id="_percentiles_bucket_implementation"></a>percentiles_bucket的实现
 </h3>
 </div></div></div>
-<p>The Percentile Bucket returns the nearest input data point that is not greater than the requested percentile; it does not
-interpolate between data points.</p>
-<p>The percentiles are calculated exactly and is not an approximation (unlike the Percentiles Metric). This means
-the implementation maintains an in-memory, sorted list of your data to compute the percentiles, before discarding the
-data.  You may run into memory pressure issues if you attempt to calculate percentiles over many millions of
-data-points in a single <code class="literal">percentiles_bucket</code>.</p>
+<p>
+百分位桶返回不大于所请求的百分位的最接近的输入数据点；它不会在数据点之间进行插值。
+</p>
+<p>
+百分位数是精确计算的，不是近似值(不同于百分位数度量<span class="remark">percentiles metric</span>)。
+
+这意味着在丢弃数据之前，该实现在内存中维护一个数据的排序列表来计算百分位数。
+
+如果你试图在一个<code class="literal">percentiles_bucket</code>中计算数百万个数据点的百分位数，则可能会遇到内存压力问题。
+</p>
 </div>
 
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-pipeline-derivative-aggregation.html">« Derivative Aggregation</a>
+<a href="search-aggregations-pipeline-derivative-aggregation.html">« derivative 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-pipeline-movavg-aggregation.html">Moving Average Aggregation »</a>
+<a href2="search-aggregations-pipeline-movavg-aggregation.html">Moving Average Aggregation »</a>
 </span>
 </div>
 </div>

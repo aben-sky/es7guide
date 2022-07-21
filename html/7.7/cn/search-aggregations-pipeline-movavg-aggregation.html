@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Moving Average Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>moving_avg 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,17 +32,17 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-pipeline.html">Pipeline Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-pipeline.html">管道聚合</span>
 »
-<span class="breadcrumb-node">Moving Average Aggregation</span>
+<span class="breadcrumb-node">moving_avg 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-pipeline-percentiles-bucket-aggregation.html">« Percentiles Bucket Aggregation</a>
+<a href="search-aggregations-pipeline-percentiles-bucket-aggregation.html">« percentiles_bucket 聚合</a>
 </span>
 <span class="next">
 <a href="search-aggregations-pipeline-movfn-aggregation.html">Moving Function Aggregation »</a>
@@ -51,18 +51,24 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-pipeline-movavg-aggregation"></a>Moving Average Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/movavg-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-pipeline-movavg-aggregation"></a>移动平均(moving_avg)聚合
 </h2>
 </div></div></div>
 <p><span class="Admonishment Admonishment--change">
 [<span class="Admonishment-version u-mono u-strikethrough">6.4.0</span>]
 <span class="Admonishment-detail">
-Deprecated in 6.4.0. The Moving Average aggregation has been deprecated in favor of the more general <a class="xref" href="search-aggregations-pipeline-movfn-aggregation.html" title="Moving Function Aggregation">Moving Function Aggregation</a>.  The new Moving Function aggregation provides all the same functionality as the Moving Average aggregation, but also provides more flexibility.
+在6.4.0版本中废弃。
+
+移动平均聚合已被弃用，取而代之的是更通用的<a class="xref" href="search-aggregations-pipeline-movfn-aggregation.html" title="移动函数聚合" rel="nofollow">移动函数(moving function)聚合</a>。
+
+新的移动函数聚合提供了与移动平均聚合相同的功能，但也提供了更多的灵活性。
 </span>
 </span></p>
-<p>Given an ordered series of data, the Moving Average aggregation will slide a window across the data and emit the average
-value of that window.  For example, given the data <code class="literal">[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</code>, we can calculate a simple moving
-average with windows size of <code class="literal">5</code> as follows:</p>
+<p>
+给定一系列有序的数据，移动平均聚合将在数据上滑动一个窗口，并得出该窗口的平均值。
+
+例如，给定数据<code class="literal">[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</code>，我们可以计算窗口大小为<code class="literal">5</code>的简单移动平均值，如下所示：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
@@ -75,20 +81,24 @@ average with windows size of <code class="literal">5</code> as follows:</p>
 (3 + 4 + 5 + 6 + 7) / 5 = 5
 </li>
 <li class="listitem">
-etc
+等等...
 </li>
 </ul>
 </div>
-<p>Moving averages are a simple method to smooth sequential data.  Moving averages are typically applied to time-based data,
-such as stock prices or server metrics.  The smoothing can be used to eliminate high frequency fluctuations or random noise,
-which allows the lower frequency trends to be more easily visualized, such as seasonality.</p>
+<p>
+移动平均是平滑连续数据的一种简单方法。
+
+移动平均通常应用于基于时间的数据，如股票价格或服务器指标。
+
+平滑可用于消除高频波动或随机噪声，这使得低频趋势更容易被可视化，如季节性。 
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_syntax_12"></a>Syntax<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/movavg-aggregation.asciidoc">edit</a>
+<a id="_syntax_12"></a>语法
 </h3>
 </div></div></div>
-<p>A <code class="literal">moving_avg</code> aggregation looks like this in isolation:</p>
+<p>一个单独的<code class="literal">moving_avg</code>看起来像这样：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
     "moving_avg": {
@@ -103,7 +113,7 @@ which allows the lower frequency trends to be more easily visualized, such as se
 }</pre>
 </div>
 <div class="table">
-<p class="title"><strong>Table 18. <code class="literal">moving_avg</code> Parameters</strong></p>
+<p class="title"><strong>表 18. <code class="literal">moving_avg</code>参数</strong></p>
 <div class="table-contents">
 <table border="1" cellpadding="4px" summary="moving_avg Parameters">
 <colgroup>
@@ -114,54 +124,62 @@ which allows the lower frequency trends to be more easily visualized, such as se
 </colgroup>
 <tbody>
 <tr>
-<td align="left" valign="top"><p>Parameter Name</p></td>
-<td align="left" valign="top"><p>Description</p></td>
-<td align="left" valign="top"><p>Required</p></td>
-<td align="left" valign="top"><p>Default Value</p></td>
+<th align="left" valign="top">参数名称</th>
+<th align="left" valign="top">描述</th>
+<th align="left" valign="top">是否必需</th>
+<th align="left" valign="top">默认值</th>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">buckets_path</code></p></td>
-<td align="left" valign="top"><p>Path to the metric of interest (see <a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path Syntax"><code class="literal">buckets_path</code> Syntax</a> for more details</p></td>
-<td align="left" valign="top"><p>Required</p></td>
+<td align="left" valign="top"><p>
+感兴趣的度量的路径 (更多详情请参考 <a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path语法" rel="nofollow"><code class="literal">buckets_path</code>语法</a>)
+</p></td>
+<td align="left" valign="top"><p>必需</p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">model</code></p></td>
-<td align="left" valign="top"><p>The moving average weighting model that we wish to use</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>我们希望使用的移动平均加权模型</p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p><code class="literal">simple</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">gap_policy</code></p></td>
-<td align="left" valign="top"><p>Determines what should happen when a gap in the data is encountered.</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>
+确定当遇到数据中的间隙时应该发生什么
+</p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p><code class="literal">insert_zeros</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">window</code></p></td>
-<td align="left" valign="top"><p>The size of window to "slide" across the histogram.</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>在直方图上“滑动”的窗口大小</p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p><code class="literal">5</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">minimize</code></p></td>
-<td align="left" valign="top"><p>If the model should be algorithmically minimized.  See <a class="xref" href="search-aggregations-pipeline-movavg-aggregation.html#movavg-minimizer" title="Minimization">Minimization</a> for more
- details</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
-<td align="left" valign="top"><p><code class="literal">false</code> for most models</p></td>
+<td align="left" valign="top"><p>
+模型是否应该在算法上最小化。更多细节请参考<a class="xref" href="search-aggregations-pipeline-movavg-aggregation.html#movavg-minimizer" title="Minimization">最小化</a>
+</p></td>
+<td align="left" valign="top"><p>可选</p></td>
+<td align="left" valign="top"><p>大多数模型用<code class="literal">false</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">settings</code></p></td>
-<td align="left" valign="top"><p>Model-specific settings, contents which differ depending on the model specified.</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>特定于模型的设置，内容根据指定的模型而有所不同。</p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><code class="literal">moving_avg</code> aggregations must be embedded inside of a <code class="literal">histogram</code> or <code class="literal">date_histogram</code> aggregation.  They can be
-embedded like any other metric aggregation:</p>
+<p>
+<code class="literal">moving_avg</code>聚合必须嵌入一个<code class="literal">histogram</code>或<code class="literal">date_histogram</code>聚合中。
+
+它们可以像任何其他度量聚合一样嵌入：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /_search
 {
@@ -192,7 +210,9 @@ embedded like any other metric aggregation:</p>
 <p><a href="#CO272-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>A <code class="literal">date_histogram</code> named "my_date_histo" is constructed on the "timestamp" field, with one-day intervals</p>
+<p>
+名为“my_date_histo”的 <code class="literal">date_histogram</code>是在“timestamp”字段上构建的，间隔为一天
+</p>
 </td>
 </tr>
 <tr>
@@ -200,7 +220,11 @@ embedded like any other metric aggregation:</p>
 <p><a href="#CO272-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>A <code class="literal">sum</code> metric is used to calculate the sum of a field.  This could be any metric (sum, min, max, etc)</p>
+<p>
+<code class="literal">sum</code>度量用于计算字段的总和。
+
+这可以是任何度量(sum、min、max等)
+</p>
 </td>
 </tr>
 <tr>
@@ -208,16 +232,23 @@ embedded like any other metric aggregation:</p>
 <p><a href="#CO272-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Finally, we specify a <code class="literal">moving_avg</code> aggregation which uses "the_sum" metric as its input.</p>
+<p>
+最后，我们指定一个<code class="literal">moving_avg</code>聚合，它使用“the_sum”度量作为其输入。
+</p>
 </td>
 </tr>
 </table>
 </div>
-<p>Moving averages are built by first specifying a <code class="literal">histogram</code> or <code class="literal">date_histogram</code> over a field.  You can then optionally
-add normal metrics, such as a <code class="literal">sum</code>, inside of that histogram.  Finally, the <code class="literal">moving_avg</code> is embedded inside the histogram.
-The <code class="literal">buckets_path</code> parameter is then used to "point" at one of the sibling metrics inside of the histogram (see
-<a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path Syntax"><code class="literal">buckets_path</code> Syntax</a> for a description of the syntax for <code class="literal">buckets_path</code>.</p>
-<p>An example response from the above aggregation may look like:</p>
+<p>
+移动平均的构建，首先要指定一个字段的<code class="literal">histogram</code>或<code class="literal">date_histogram</code>。
+
+然后，你可以选择在直方图中添加一个常用的度量，比如<code class="literal">sum</code>。
+
+最后，<code class="literal">moving_avg</code> 被嵌入直方图中。
+
+然后，<code class="literal">buckets_path</code>参数用于“指向”直方图内的一个同级指标(有关<code class="literal">buckets_path</code>语法的描述，请参见<a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path语法"><code class="literal">buckets_path</code>语法</a>)。
+</p>
+<p>来自上述聚合的示例响应可能如下所示：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
    "took": 11,
@@ -267,7 +298,7 @@ The <code class="literal">buckets_path</code> parameter is then used to "point" 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_models"></a>Models<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/movavg-aggregation.asciidoc">edit</a>
+<a id="_models"></a>模型
 </h3>
 </div></div></div>
 <p>The <code class="literal">moving_avg</code> aggregation includes four different moving average "models".  The main difference is how the values in the
@@ -819,10 +850,10 @@ poorer fitting moving averages at the beginning of the series.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-pipeline-percentiles-bucket-aggregation.html">« Percentiles Bucket Aggregation</a>
+<a href="search-aggregations-pipeline-percentiles-bucket-aggregation.html">« percentiles_bucket 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-pipeline-movfn-aggregation.html">Moving Function Aggregation »</a>
+<a href2="search-aggregations-pipeline-movfn-aggregation.html">Moving Function Aggregation »</a>
 </span>
 </div>
 </div>

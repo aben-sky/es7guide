@@ -1564,8 +1564,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-pipeline-movavg-aggregation.html",
-                        "text": "Moving Average Aggregation",
-                        "title": "Moving Average Aggregation"
+                        "text": "moving_avg 聚合",
+                        "title": "moving_avg 聚合"
                     },
                     {
                         "url": "search-aggregations-pipeline-movfn-aggregation.html",

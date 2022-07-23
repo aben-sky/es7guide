@@ -45,7 +45,7 @@
 <a href="search-aggregations-pipeline-percentiles-bucket-aggregation.html">« percentiles_bucket 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-pipeline-movfn-aggregation.html">Moving Function Aggregation »</a>
+<a href2="search-aggregations-pipeline-movfn-aggregation.html">Moving Function Aggregation »</a>
 </span>
 </div>
 <div class="section">
@@ -809,7 +809,7 @@ multiplicative holt-winters 模型可以<a class="xref" href="search-aggregation
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_prediction"></a>预测
+<a id="_prediction"></a>prediction (预测模式)
 </h3>
 </div></div></div>
 <div class="warning admon">
@@ -822,11 +822,16 @@ Elastic将尽最大努力解决任何问题，但实验功能不受官方GA功�
 </p>
 </div>
 </div>
-<p>All the moving average model support a "prediction" mode, which will attempt to extrapolate into the future given the
-current smoothed, moving average.  Depending on the model and parameter, these predictions may or may not be accurate.</p>
-<p>Predictions are enabled by adding a <code class="literal">predict</code> parameter to any moving average aggregation, specifying the number of
-predictions you would like appended to the end of the series.  These predictions will be spaced out at the same interval
-as your buckets:</p>
+<p>
+所有移动平均模型都支持“prediction(预测)”模式，该模式将尝试在给定当前平滑移动平均的情况下推断未来。
+
+根据模型和参数的不同，这些预测可能准确，也可能不准确。
+</p>
+<p>
+通过向任何移动平均聚合添加一个<code class="literal">predict</code>参数，指定要追加到序列末尾的预测数，可以启用预测。
+
+这些预测将按照与桶相同的间隔排列：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /_search
 {
@@ -855,58 +860,78 @@ as your buckets:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/571.console"></div>
-<p>The <code class="literal">simple</code>, <code class="literal">linear</code> and <code class="literal">ewma</code> models all produce "flat" predictions: they essentially converge on the mean
-of the last value in the series, producing a flat:</p>
+<p>
+<code class="literal">simple</code>、<code class="literal">linear</code>和<code class="literal">ewma</code>模型都产生“扁平的”预测：它们基本上收敛于序列中最后一个值的平均值，产生平坦的预测：
+</p>
 <div id="simple_prediction" class="imageblock">
 <div class="content">
 <img src="../static/images/pipeline_movavg/simple_prediction.png" alt="simple prediction">
 </div>
-<div class="title">Figure 13. Simple moving average with window of size 10, predict = 50</div>
+<div class="title">图 13. simple 移动平均线(窗口大小为10, predict = 50)</div>
 </div>
-<p>In contrast, the <code class="literal">holt</code> model can extrapolate based on local or global constant trends.  If we set a high <code class="literal">beta</code>
-value, we can extrapolate based on local constant trends (in this case the predictions head down, because the data at the end
-of the series was heading in a downward direction):</p>
+<p>
+相比之下，<code class="literal">holt</code>模型可以根据局部或全局的恒定趋势进行推断。
+
+如果我们设置一个较高的<code class="literal">beta</code>值，则可以根据局部的恒定趋势进行推断(在这种情况下，预测是向下的，因为系列末尾的数据是向下的):
+</p>
 <div id="double_prediction_local" class="imageblock">
 <div class="content">
 <img src="../static/images/pipeline_movavg/double_prediction_local.png" alt="double prediction local">
 </div>
-<div class="title">Figure 14. Holt-Linear moving average with window of size 100, predict = 20, alpha = 0.5, beta = 0.8</div>
+<div class="title">图 14. holt-linear 移动平均线(窗口大小100, predict = 20, alpha = 0.5, beta = 0.8)</div>
 </div>
-<p>In contrast, if we choose a small <code class="literal">beta</code>, the predictions are based on the global constant trend.  In this series, the
-global trend is slightly positive, so the prediction makes a sharp u-turn and begins a positive slope:</p>
+<p>
+相比之下，如果我们选择一个小的<code class="literal">beta</code>值，预测是基于全局不变的趋势。
+
+在这一系列中，全局趋势略显积极，因此预测做了一个急转弯，开始了一个正斜率：
+</p>
 <div id="double_prediction_global" class="imageblock">
 <div class="content">
 <img src="../static/images/pipeline_movavg/double_prediction_global.png" alt="double prediction global">
 </div>
-<div class="title">Figure 15. Double Exponential moving average with window of size 100, predict = 20, alpha = 0.5, beta = 0.1</div>
+<div class="title">图 15. 二级指数 移动平均线(窗口大小100, predict = 20, alpha = 0.5, beta = 0.1)</div>
 </div>
-<p>The <code class="literal">holt_winters</code> model has the potential to deliver the best predictions, since it also incorporates seasonal
-fluctuations into the model:</p>
+<p>
+<code class="literal">holt_winters</code>模型具有提供最佳预测的潜力，因为它还将季节性波动纳入了模型：
+</p>
 <div id="holt_winters_prediction_global" class="imageblock">
 <div class="content">
 <img src="../static/images/pipeline_movavg/triple_prediction.png" alt="triple prediction">
 </div>
-<div class="title">Figure 16. Holt-Winters moving average with window of size 120, predict = 25, alpha = 0.8, beta = 0.2, gamma = 0.7, period = 30</div>
+<div class="title">图 16. Holt-Winters 移动平均线(窗口大小 120, predict = 25, alpha = 0.8, beta = 0.2, gamma = 0.7, period = 30)</div>
 </div>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="movavg-minimizer"></a>Minimization<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/movavg-aggregation.asciidoc">edit</a>
+<a id="movavg-minimizer"></a>最小化
 </h3>
 </div></div></div>
-<p>Some of the models (EWMA, Holt-Linear, Holt-Winters) require one or more parameters to be configured.  Parameter choice
-can be tricky and sometimes non-intuitive.  Furthermore, small deviations in these parameters can sometimes have a drastic
-effect on the output moving average.</p>
-<p>For that reason, the three "tunable" models can be algorithmically <span class="strong strong"><strong>minimized</strong></span>.  Minimization is a process where parameters
-are tweaked until the predictions generated by the model closely match the output data.  Minimization is not fullproof
-and can be susceptible to overfitting, but it often gives better results than hand-tuning.</p>
-<p>Minimization is disabled by default for <code class="literal">ewma</code> and <code class="literal">holt_linear</code>, while it is enabled by default for <code class="literal">holt_winters</code>.
-Minimization is most useful with Holt-Winters, since it helps improve the accuracy of the predictions.  EWMA and
-Holt-Linear are not great predictors, and mostly used for smoothing data, so minimization is less useful on those
-models.</p>
-<p>Minimization is enabled/disabled via the <code class="literal">minimize</code> parameter:</p>
+<p>
+一些模型(EWMA, Holt-Linear, Holt-Winters)需要配置一个或多个参数。
+
+参数选择可能很棘手，有时不直观。
+
+此外，这些参数的微小偏差有时会对输出的移动平均值产生巨大影响。
+</p>
+<p>
+出于这个原因，这三个“可调”模型可以在算法上<span class="strong strong"><strong>最小化</strong></span>。
+
+最小化是一个调整参数的过程，直到模型生成的预测与输出数据高度匹配。
+
+最小化并不是完全可靠的，而且容易受到过度拟合的影响，但它通常会比手动调优提供更好的结果。
+</p>
+<p>
+<code class="literal">ewma</code>和<code class="literal">holt_linear</code>模型默认禁用了最小化，而<code class="literal">holt_winters</code>模型则默认启用了最小化。
+
+最小化对<code class="literal">holt_winters</code>最有用，因为它有助于提高预测的准确性。
+
+<code class="literal">ewma</code>和<code class="literal">holt_linear</code>主要用于平滑数据，但不是很好的预测工具，因此最小化在这两个模型上用处不大。
+</p>
+<p>
+通过<code class="literal">minimize</code>参数启用/禁用最小化：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /_search
 {
@@ -945,23 +970,35 @@ models.</p>
 <p><a href="#CO273-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Minimization is enabled with the <code class="literal">minimize</code> parameter</p>
+<p>通过参数<code class="literal">minimize</code>启用了最小化</p>
 </td>
 </tr>
 </table>
 </div>
-<p>When enabled, minimization will find the optimal values for <code class="literal">alpha</code>, <code class="literal">beta</code> and <code class="literal">gamma</code>.  The user should still provide
-appropriate values for <code class="literal">window</code>, <code class="literal">period</code> and <code class="literal">type</code>.</p>
+<p>
+启用时，最小化将找到<code class="literal">alpha</code>、<code class="literal">beta</code>和<code class="literal">gamma</code>的最佳值。
+
+用户仍然应该为<code class="literal">window</code>、<code class="literal">period</code>和<code class="literal">type</code>提供适当的值。
+</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Minimization works by running a stochastic process called <span class="strong strong"><strong>simulated annealing</strong></span>.  This process will usually generate
-a good solution, but is not guaranteed to find the global optimum.  It also requires some amount of additional
-computational power, since the model needs to be re-run multiple times as the values are tweaked.  The run-time of
-minimization is linear to the size of the window being processed: excessively large windows may cause latency.</p>
-<p>Finally, minimization fits the model to the last <code class="literal">n</code> values, where <code class="literal">n = window</code>.  This generally produces
-better forecasts into the future, since the parameters are tuned around the end of the series.  It can, however, generate
-poorer fitting moving averages at the beginning of the series.</p>
+<p>
+最小化的工作原理是运行一个叫做<span class="strong strong"><strong>simulated annealing（模拟退火）</strong></span>的随机过程。
+
+这个过程通常会产生一个好的解决方案，但不能保证找到全局最优解。
+
+它还需要一些额外的计算能力，因为随着值的调整，模型需要重新运行多次。
+
+最小化的运行时间与窗口大小成线性关系：过大的窗口可能会导致延迟。
+</p>
+<p>
+最后，最小化将模型拟合到最后<code class="literal">n</code>个值，其中<code class="literal">n = window</code>。
+
+这通常会对未来产生更好的预测，因为参数是在系列结束时调整的。
+
+但是，它可能会在系列开始时生成较差的拟合移动平均线。
+</p>
 </div>
 </div>
 </div>

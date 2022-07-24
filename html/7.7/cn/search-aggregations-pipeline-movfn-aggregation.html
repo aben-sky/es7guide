@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Moving Function Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>moving_fn 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,40 +32,43 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-pipeline.html">Pipeline Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-pipeline.html">管道聚合</span>
 »
-<span class="breadcrumb-node">Moving Function Aggregation</span>
+<span class="breadcrumb-node">moving_fn 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-pipeline-movavg-aggregation.html">« Moving Average Aggregation</a>
+<a href="search-aggregations-pipeline-movavg-aggregation.html">« moving_avg 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-pipeline-serialdiff-aggregation.html">Serial Differencing Aggregation »</a>
+<a href2="search-aggregations-pipeline-serialdiff-aggregation.html">Serial Differencing Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-pipeline-movfn-aggregation"></a>Moving Function Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/movfn-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-pipeline-movfn-aggregation"></a>移动函数(moving_fn)聚合
 </h2>
 </div></div></div>
-<p>Given an ordered series of data, the Moving Function aggregation will slide a window across the data and allow the user to specify a custom
-script that is executed on each window of data.  For convenience, a number of common functions are predefined such as min/max, moving averages,
-etc.</p>
-<p>This is conceptually very similar to the <a class="xref" href="search-aggregations-pipeline-movavg-aggregation.html" title="Moving Average Aggregation">Moving Average</a> pipeline aggregation, except
-it provides more functionality.</p>
+<p>
+给定一系列有序的数据，移动函数(moving function)聚合将在数据上滑动一个窗口，并允许用户指定在每个数据窗口上执行自定义的脚本。
+
+为方便起见，预定义了一些常用函数，如min/max、移动平均值(moving average)等。
+</p>
+<p>
+这在概念上与<a class="xref" href="search-aggregations-pipeline-movavg-aggregation.html" title="moving_avg 聚合">移动平均(moving average)</a>管道聚合非常相似，不过它提供了更多的功能。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_syntax_13"></a>Syntax<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/movfn-aggregation.asciidoc">edit</a>
+<a id="_syntax_13"></a>语法
 </h3>
 </div></div></div>
-<p>A <code class="literal">moving_fn</code> aggregation looks like this in isolation:</p>
+<p>一个单独的<code class="literal">moving_fn</code>看起来像这样：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
     "moving_fn": {
@@ -77,7 +80,7 @@ it provides more functionality.</p>
 </div>
 <div class="table">
 <a id="moving-fn-params"></a>
-<p class="title"><strong>Table 19. <code class="literal">moving_fn</code> Parameters</strong></p>
+<p class="title"><strong>表 19. <code class="literal">moving_fn</code>参数</strong></p>
 <div class="table-contents">
 <table border="1" cellpadding="4px" summary="moving_fn Parameters">
 <colgroup>
@@ -88,35 +91,37 @@ it provides more functionality.</p>
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Parameter Name</th>
-<th align="left" valign="top">Description</th>
-<th align="left" valign="top">Required</th>
-<th align="left" valign="top">Default Value</th>
+<th align="left" valign="top">参数名称</th>
+<th align="left" valign="top">描述</th>
+<th align="left" valign="top">是否必需</th>
+<th align="left" valign="top">默认值</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">buckets_path</code></p></td>
-<td align="left" valign="top"><p>Path to the metric of interest (see <a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path Syntax"><code class="literal">buckets_path</code> Syntax</a> for more details</p></td>
-<td align="left" valign="top"><p>Required</p></td>
+<td align="left" valign="top"><p>
+感兴趣的度量的路径(更多详情请参考 <a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path语法" rel="nofollow"><code class="literal">buckets_path</code>语法</a>)
+</p></td>
+<td align="left" valign="top"><p>必需</p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">window</code></p></td>
-<td align="left" valign="top"><p>The size of window to "slide" across the histogram.</p></td>
-<td align="left" valign="top"><p>Required</p></td>
+<td align="left" valign="top"><p>在直方图上“滑动”的窗口大小。</p></td>
+<td align="left" valign="top"><p>必需</p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">script</code></p></td>
-<td align="left" valign="top"><p>The script that should be executed on each window of data</p></td>
-<td align="left" valign="top"><p>Required</p></td>
+<td align="left" valign="top"><p>应该在每个数据窗口上执行的脚本</p></td>
+<td align="left" valign="top"><p>必需</p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">shift</code></p></td>
-<td align="left" valign="top"><p><a class="xref" href="search-aggregations-pipeline-movfn-aggregation.html#shift-parameter" title="shift parameter">Shift</a> of window position.</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>窗口位置的<a class="xref" href="search-aggregations-pipeline-movfn-aggregation.html#shift-parameter" title="shift parameter">移动(shift)</a></p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p>0</p></td>
 </tr>
 </tbody>
@@ -991,10 +996,10 @@ the holt-winters function.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-pipeline-movavg-aggregation.html">« Moving Average Aggregation</a>
+<a href="search-aggregations-pipeline-movavg-aggregation.html">« moving_avg 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-pipeline-serialdiff-aggregation.html">Serial Differencing Aggregation »</a>
+<a href2="search-aggregations-pipeline-serialdiff-aggregation.html">Serial Differencing Aggregation »</a>
 </span>
 </div>
 </div>

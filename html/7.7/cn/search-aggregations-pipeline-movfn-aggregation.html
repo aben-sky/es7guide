@@ -128,8 +128,11 @@
 </table>
 </div>
 </div>
-<p><code class="literal">moving_fn</code> aggregations must be embedded inside of a <code class="literal">histogram</code> or <code class="literal">date_histogram</code> aggregation.  They can be
-embedded like any other metric aggregation:</p>
+<p>
+<code class="literal">moving_fn</code>聚合必须嵌入<code class="literal">histogram</code>或<code class="literal">date_histogram</code>聚合中。
+
+它们可以像任何其他度量聚合一样嵌入：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /_search
 {
@@ -164,7 +167,9 @@ embedded like any other metric aggregation:</p>
 <p><a href="#CO274-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>A <code class="literal">date_histogram</code> named "my_date_histo" is constructed on the "timestamp" field, with one-day intervals</p>
+<p>
+一个名为“my_date_histo”的<code class="literal">date_histogram</code>聚合是在“timestamp”字段上构建的，间隔为一天
+</p>
 </td>
 </tr>
 <tr>
@@ -172,7 +177,11 @@ embedded like any other metric aggregation:</p>
 <p><a href="#CO274-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>A <code class="literal">sum</code> metric is used to calculate the sum of a field.  This could be any numeric metric (sum, min, max, etc)</p>
+<p>
+<code class="literal">sum</code>度量用于计算字段的总和。
+
+这可以是任何数字度量(sum、min、max等)
+</p>
 </td>
 </tr>
 <tr>
@@ -180,16 +189,23 @@ embedded like any other metric aggregation:</p>
 <p><a href="#CO274-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Finally, we specify a <code class="literal">moving_fn</code> aggregation which uses "the_sum" metric as its input.</p>
+<p>
+最后，我们指定一个<code class="literal">moving_fn</code>聚合，它使用“the_sum”度量作为其输入。
+</p>
 </td>
 </tr>
 </table>
 </div>
-<p>Moving averages are built by first specifying a <code class="literal">histogram</code> or <code class="literal">date_histogram</code> over a field.  You can then optionally
-add numeric metrics, such as a <code class="literal">sum</code>, inside of that histogram.  Finally, the <code class="literal">moving_fn</code> is embedded inside the histogram.
-The <code class="literal">buckets_path</code> parameter is then used to "point" at one of the sibling metrics inside of the histogram (see
-<a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path Syntax"><code class="literal">buckets_path</code> Syntax</a> for a description of the syntax for <code class="literal">buckets_path</code>.</p>
-<p>An example response from the above aggregation may look like:</p>
+<p>
+移动平均值的构建，首先要指定一个字段的<code class="literal">histogram</code>或<code class="literal">date_histogram</code>聚合。
+
+然后，你可以选择在那个直方图中添加数字度量，如<code class="literal">sum</code>。
+
+最后，<code class="literal">moving_fn</code>被嵌入直方图中。
+
+然后，<code class="literal">buckets_path</code>参数用于“指向”直方图内的一个同级指标(有关<code class="literal">buckets_path</code>语法的描述，请参见<a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path Syntax"><code class="literal">buckets_path</code>语法</a>)。
+</p>
+<p>来自上述聚合的示例响应可能如下所示：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
    "took": 11,
@@ -242,13 +258,23 @@ The <code class="literal">buckets_path</code> parameter is then used to "point" 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_custom_user_scripting"></a>Custom user scripting<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/movfn-aggregation.asciidoc">edit</a>
+<a id="_custom_user_scripting"></a>自定义用户脚本
 </h3>
 </div></div></div>
-<p>The Moving Function aggregation allows the user to specify any arbitrary script to define custom logic.  The script is invoked each time a
-new window of data is collected.  These values are provided to the script in the <code class="literal">values</code> variable.  The script should then perform some
-kind of calculation and emit a single <code class="literal">double</code> as the result.  Emitting <code class="literal">null</code> is not permitted, although <code class="literal">NaN</code> and +/- <code class="literal">Inf</code> are allowed.</p>
-<p>For example, this script will simply return the first value from the window, or <code class="literal">NaN</code> if no values are available:</p>
+<p>
+移动函数聚合允许用户指定任意脚本来定义自定义逻辑。
+
+每次收集新的数据窗口时都会调用该脚本。
+
+这些值在<code class="literal">values</code>变量中提供给脚本。
+
+然后，脚本应该执行某种计算，并输出单个<code class="literal">double</code>(双精度浮点数)作为结果。
+
+虽然允许<code class="literal">NaN</code>和 +/- <code class="literal">Inf</code>，但不允许输出<code class="literal">null</code>。
+</p>
+<p>
+例如，下面这个脚本将只返回窗口中的第一个值，如果没有可用的值，则返回<code class="literal">NaN</code>：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /_search
 {
@@ -281,34 +307,41 @@ kind of calculation and emit a single <code class="literal">double</code> as the
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="shift-parameter"></a>shift parameter<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/movfn-aggregation.asciidoc">edit</a>
+<a id="shift-parameter"></a>参数"shift"
 </h3>
 </div></div></div>
-<p>By default (with <code class="literal">shift = 0</code>), the window that is offered for calculation is the last <code class="literal">n</code> values excluding the current bucket.
-Increasing <code class="literal">shift</code> by 1 moves starting window position by <code class="literal">1</code> to the right.</p>
+<p>
+默认情况下(<code class="literal">shift = 0</code>)，为计算提供的窗口是除当前桶之外的最后<code class="literal">n</code>个值。
+
+将<code class="literal">shift</code>增加<code class="literal">1</code>会将起始窗口位置向右移动<code class="literal">1</code>。
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-To include current bucket to the window, use <code class="literal">shift = 1</code>.
+要将当前桶包括到窗口中，请使用<code class="literal">shift = 1</code>。
 </li>
 <li class="listitem">
-For center alignment (<code class="literal">n / 2</code> values before and after the current bucket), use <code class="literal">shift = window / 2</code>.
+对于中心对齐(当前桶前后的<code class="literal">n / 2</code>个值)，使用<code class="literal">shift = window / 2</code>。
 </li>
 <li class="listitem">
-For right alignment (<code class="literal">n</code> values after the current bucket), use <code class="literal">shift = window</code>.
+对于右对齐(当前桶后的<code class="literal">n</code>个值)，使用<code class="literal">shift = window</code>。
 </li>
 </ul>
 </div>
-<p>If either of window edges moves outside the borders of data series, the window shrinks to include available values only.</p>
+<p>
+如果任何一个窗口边缘移出了数据序列的边界，则窗口将收缩以只包含可用值。 
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_pre_built_functions"></a>Pre-built Functions<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/movfn-aggregation.asciidoc">edit</a>
+<a id="_pre_built_functions"></a>预先构建的函数
 </h3>
 </div></div></div>
-<p>For convenience, a number of functions have been prebuilt and are available inside the <code class="literal">moving_fn</code> script context:</p>
+<p>
+为了方便起见，已经预先构建了许多函数，这些函数在<code class="literal">moving_fn</code>脚本上下文中可用：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
@@ -340,18 +373,25 @@ For right alignment (<code class="literal">n</code> values after the current buc
 </li>
 </ul>
 </div>
-<p>The functions are available from the <code class="literal">MovingFunctions</code> namespace.  E.g. <code class="literal">MovingFunctions.max()</code></p>
+<p>
+这些函数可从<code class="literal">MovingFunctions</code>命名空间中获得。例如<code class="literal">MovingFunctions.max()</code>
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_max_function"></a>max Function<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/movfn-aggregation.asciidoc">edit</a>
+<a id="_max_function"></a>max 函数
 </h4>
 </div></div></div>
-<p>This function accepts a collection of doubles and returns the maximum value in that window. <code class="literal">null</code> and <code class="literal">NaN</code> values are ignored; the maximum
-is only calculated over the real values. If the window is empty, or all values are <code class="literal">null</code>/<code class="literal">NaN</code>, <code class="literal">NaN</code> is returned as the result.</p>
+<p>
+该函数接受一个双精度值的集合，并返回该窗口中的最大值。
+
+<code class="literal">null</code>和<code class="literal">NaN</code>值被忽略；最大值仅在实际值上计算。
+
+如果窗口为空，或者所有值都为<code class="literal">null</code>或<code class="literal">NaN</code>，则返回<code class="literal">NaN</code>作为结果。
+</p>
 <div class="table">
 <a id="max-params"></a>
-<p class="title"><strong>Table 20. <code class="literal">max(double[] values)</code> Parameters</strong></p>
+<p class="title"><strong>表 20. <code class="literal">max(double[] values)</code>参数</strong></p>
 <div class="table-contents">
 <table border="1" cellpadding="4px" summary="max(double[] values) Parameters">
 <colgroup>
@@ -360,14 +400,14 @@ is only calculated over the real values. If the window is empty, or all values a
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Parameter Name</th>
-<th align="left" valign="top">Description</th>
+<th align="left" valign="top">参数名称</th>
+<th align="left" valign="top">描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">values</code></p></td>
-<td align="left" valign="top"><p>The window of values to find the maximum</p></td>
+<td align="left" valign="top"><p>用于查找最大值的值窗口</p></td>
 </tr>
 </tbody>
 </table>
@@ -405,14 +445,19 @@ is only calculated over the real values. If the window is empty, or all values a
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_min_function"></a>min Function<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/movfn-aggregation.asciidoc">edit</a>
+<a id="_min_function"></a>min 函数
 </h4>
 </div></div></div>
-<p>This function accepts a collection of doubles and returns the minimum value in that window.  <code class="literal">null</code> and <code class="literal">NaN</code> values are ignored; the minimum
-is only calculated over the real values. If the window is empty, or all values are <code class="literal">null</code>/<code class="literal">NaN</code>, <code class="literal">NaN</code> is returned as the result.</p>
+<p>
+该函数接受一个双精度值的集合，并返回该窗口中的最小值。
+
+<code class="literal">null</code>和<code class="literal">NaN</code>值被忽略；最大值仅在实际值上计算。
+
+如果窗口为空，或者所有值都为<code class="literal">null</code>或<code class="literal">NaN</code>，则返回<code class="literal">NaN</code>作为结果。
+</p>
 <div class="table">
 <a id="min-params"></a>
-<p class="title"><strong>Table 21. <code class="literal">min(double[] values)</code> Parameters</strong></p>
+<p class="title"><strong>表 21. <code class="literal">min(double[] values)</code>参数</strong></p>
 <div class="table-contents">
 <table border="1" cellpadding="4px" summary="min(double[] values) Parameters">
 <colgroup>
@@ -421,14 +466,14 @@ is only calculated over the real values. If the window is empty, or all values a
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Parameter Name</th>
-<th align="left" valign="top">Description</th>
+<th align="left" valign="top">参数名称</th>
+<th align="left" valign="top">描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">values</code></p></td>
-<td align="left" valign="top"><p>The window of values to find the minimum</p></td>
+<td align="left" valign="top"><p>用于查找最小值的值窗口</p></td>
 </tr>
 </tbody>
 </table>
@@ -466,14 +511,19 @@ is only calculated over the real values. If the window is empty, or all values a
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_sum_function"></a>sum Function<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/movfn-aggregation.asciidoc">edit</a>
+<a id="_sum_function"></a>sum 函数
 </h4>
 </div></div></div>
-<p>This function accepts a collection of doubles and returns the sum of the values in that window.  <code class="literal">null</code> and <code class="literal">NaN</code> values are ignored;
-the sum is only calculated over the real values.  If the window is empty, or all values are <code class="literal">null</code>/<code class="literal">NaN</code>, <code class="literal">0.0</code> is returned as the result.</p>
+<p>
+该函数接受一个双精度值的集合，并返回该窗口中值的总和。
+
+<code class="literal">null</code>和<code class="literal">NaN</code>值被忽略；总和仅在实际值上计算。
+
+如果窗口为空，或者所有值都为<code class="literal">null</code>或<code class="literal">NaN</code>，则返回<code class="literal">0.0</code>作为结果。
+</p>
 <div class="table">
 <a id="sum-params"></a>
-<p class="title"><strong>Table 22. <code class="literal">sum(double[] values)</code> Parameters</strong></p>
+<p class="title"><strong>表 22. <code class="literal">sum(double[] values)</code>参数</strong></p>
 <div class="table-contents">
 <table border="1" cellpadding="4px" summary="sum(double[] values) Parameters">
 <colgroup>
@@ -482,14 +532,14 @@ the sum is only calculated over the real values.  If the window is empty, or all
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Parameter Name</th>
-<th align="left" valign="top">Description</th>
+<th align="left" valign="top">参数名称</th>
+<th align="left" valign="top">描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">values</code></p></td>
-<td align="left" valign="top"><p>The window of values to find the sum of</p></td>
+<td align="left" valign="top"><p>要计算总和的值的窗口</p></td>
 </tr>
 </tbody>
 </table>
@@ -527,15 +577,19 @@ the sum is only calculated over the real values.  If the window is empty, or all
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_stddev_function"></a>stdDev Function<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/movfn-aggregation.asciidoc">edit</a>
+<a id="_stddev_function"></a>stdDev 函数
 </h4>
 </div></div></div>
-<p>This function accepts a collection of doubles and average, then returns the standard deviation of the values in that window.
-<code class="literal">null</code> and <code class="literal">NaN</code> values are ignored; the sum is only calculated over the real values.  If the window is empty, or all values are
-<code class="literal">null</code>/<code class="literal">NaN</code>, <code class="literal">0.0</code> is returned as the result.</p>
+<p>
+该函数接受双精度浮点数(double)和平均值(average)的集合，然后返回该窗口中值的标准差。
+
+<code class="literal">null</code>和<code class="literal">NaN</code>值被忽略；平均值仅在实际值上计算。
+
+如果窗口为空，或者所有值都为<code class="literal">null</code>或<code class="literal">NaN</code>，则返回<code class="literal">0.0</code>作为结果。
+</p>
 <div class="table">
 <a id="stddev-params"></a>
-<p class="title"><strong>Table 23. <code class="literal">stdDev(double[] values)</code> Parameters</strong></p>
+<p class="title"><strong>表 23. <code class="literal">stdDev(double[] values)</code>参数</strong></p>
 <div class="table-contents">
 <table border="1" cellpadding="4px" summary="stdDev(double[] values) Parameters">
 <colgroup>
@@ -544,18 +598,18 @@ the sum is only calculated over the real values.  If the window is empty, or all
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Parameter Name</th>
-<th align="left" valign="top">Description</th>
+<th align="left" valign="top">参数名称</th>
+<th align="left" valign="top">描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">values</code></p></td>
-<td align="left" valign="top"><p>The window of values to find the standard deviation of</p></td>
+<td align="left" valign="top"><p>用于计算标准差的值窗口</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">avg</code></p></td>
-<td align="left" valign="top"><p>The average of the window</p></td>
+<td align="left" valign="top"><p>窗口的平均值</p></td>
 </tr>
 </tbody>
 </table>
@@ -588,26 +642,36 @@ the sum is only calculated over the real values.  If the window is empty, or all
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/578.console"></div>
-<p>The <code class="literal">avg</code> parameter must be provided to the standard deviation function because different styles of averages can be computed on the window
-(simple, linearly weighted, etc).  The various moving averages that are detailed below can be used to calculate the average for the
-standard deviation function.</p>
+<p>
+<code class="literal">avg</code>参数必须提供给标准差函数，因为可以在窗口上计算不同类型的平均值(简单<span class="remark">(simple)</span>、线性加权<span class="remark">(linearly weighted)</span>等)。
+
+下面详述的各种移动平均值可用于计算标准差函数的平均值。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_unweightedavg_function"></a>unweightedAvg Function<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/movfn-aggregation.asciidoc">edit</a>
+<a id="_unweightedavg_function"></a>unweightedAvg 函数
 </h4>
 </div></div></div>
-<p>The <code class="literal">unweightedAvg</code> function calculates the sum of all values in the window, then divides by the size of the window.  It is effectively
-a simple arithmetic mean of the window.  The simple moving average does not perform any time-dependent weighting, which means
-the values from a <code class="literal">simple</code> moving average tend to "lag" behind the real data.</p>
-<p><code class="literal">null</code> and <code class="literal">NaN</code> values are ignored; the average is only calculated over the real values. If the window is empty, or all values are
-<code class="literal">null</code>/<code class="literal">NaN</code>, <code class="literal">NaN</code> is returned as the result.  This means that the count used in the average calculation is count of non-<code class="literal">null</code>,non-<code class="literal">NaN</code>
-values.</p>
+<p>
+<code class="literal">unweightedAvg</code>函数计算窗口中所有值的总和，然后除以窗口的大小。
+
+它实际上是窗口的简单算术平均值。
+
+简单移动平均值不执行任何时间相关的加权，这意味着<code class="literal">simple</code>(简单)移动平均的值往往“滞后”于真实数据。
+</p>
+<p>
+<code class="literal">null</code>和<code class="literal">NaN</code>值被忽略；平均值仅根据真实值计算得出。
+
+如果窗口为空，或者所有值都为<code class="literal">null</code>或<code class="literal">NaN</code>，则返回<code class="literal">NaN</code>作为结果。
+
+这意味着平均值计算中使用的计数是非<code class="literal">null</code>、非<code class="literal">NaN</code>值的计数。
+</p>
 <div class="table">
 <a id="unweightedavg-params"></a>
-<p class="title"><strong>Table 24. <code class="literal">unweightedAvg(double[] values)</code> Parameters</strong></p>
+<p class="title"><strong>表 24. <code class="literal">unweightedAvg(double[] values)</code>参数</strong></p>
 <div class="table-contents">
 <table border="1" cellpadding="4px" summary="unweightedAvg(double[] values) Parameters">
 <colgroup>
@@ -616,14 +680,14 @@ values.</p>
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Parameter Name</th>
-<th align="left" valign="top">Description</th>
+<th align="left" valign="top">参数名称</th>
+<th align="left" valign="top">描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">values</code></p></td>
-<td align="left" valign="top"><p>The window of values to find the sum of</p></td>
+<td align="left" valign="top"><p>要计算总和的值的窗口</p></td>
 </tr>
 </tbody>
 </table>
@@ -663,16 +727,20 @@ values.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_linearweightedavg_function"></a>linearWeightedAvg Function<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/movfn-aggregation.asciidoc">edit</a>
+<a id="_linearweightedavg_function"></a>linearWeightedAvg 函数
 </h3>
 </div></div></div>
-<p>The <code class="literal">linearWeightedAvg</code> function assigns a linear weighting to points in the series, such that "older" datapoints (e.g. those at
-the beginning of the window) contribute a linearly less amount to the total average.  The linear weighting helps reduce
-the "lag" behind the data’s mean, since older points have less influence.</p>
-<p>If the window is empty, or all values are <code class="literal">null</code>/<code class="literal">NaN</code>, <code class="literal">NaN</code> is returned as the result.</p>
+<p>
+<code class="literal">linearWeightedAvg</code>函数为序列中的点分配线性权重，使得“较老的”数据点(例如，窗口开始处的那些)对总平均值的贡献线性较小。
+
+线性加权有助于减少数据均值的“滞后”，因为较老的数据点的影响较小。
+</p>
+<p>
+如果窗口为空，或者所有值都为<code class="literal">null</code>或<code class="literal">NaN</code>，则返回<code class="literal">NaN</code>作为结果。
+</p>
 <div class="table">
 <a id="linearweightedavg-params"></a>
-<p class="title"><strong>Table 25. <code class="literal">linearWeightedAvg(double[] values)</code> Parameters</strong></p>
+<p class="title"><strong>表 25. <code class="literal">linearWeightedAvg(double[] values)</code>参数</strong></p>
 <div class="table-contents">
 <table border="1" cellpadding="4px" summary="linearWeightedAvg(double[] values) Parameters">
 <colgroup>
@@ -681,14 +749,14 @@ the "lag" behind the data’s mean, since older points have less influence.</p>
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Parameter Name</th>
-<th align="left" valign="top">Description</th>
+<th align="left" valign="top">参数名称</th>
+<th align="left" valign="top">描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">values</code></p></td>
-<td align="left" valign="top"><p>The window of values to find the sum of</p></td>
+<td align="left" valign="top"><p>要计算总和的值的窗口</p></td>
 </tr>
 </tbody>
 </table>
@@ -726,21 +794,29 @@ the "lag" behind the data’s mean, since older points have less influence.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_ewma_function"></a>ewma Function<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/movfn-aggregation.asciidoc">edit</a>
+<a id="_ewma_function"></a>ewma 函数
 </h3>
 </div></div></div>
-<p>The <code class="literal">ewma</code> function (aka "single-exponential") is similar to the <code class="literal">linearMovAvg</code> function,
-except older data-points become exponentially less important,
-rather than linearly less important.  The speed at which the importance decays can be controlled with an <code class="literal">alpha</code>
-setting.  Small values make the weight decay slowly, which provides greater smoothing and takes into account a larger
-portion of the window.  Larger values make the weight decay quickly, which reduces the impact of older values on the
-moving average.  This tends to make the moving average track the data more closely but with less smoothing.</p>
-<p><code class="literal">null</code> and <code class="literal">NaN</code> values are ignored; the average is only calculated over the real values. If the window is empty, or all values are
-<code class="literal">null</code>/<code class="literal">NaN</code>, <code class="literal">NaN</code> is returned as the result.  This means that the count used in the average calculation is count of non-<code class="literal">null</code>,non-<code class="literal">NaN</code>
-values.</p>
+<p>
+<code class="literal">ewma</code>函数(也称为“单指数”)类似于<code class="literal">linearMovAvg</code>函数，不同的是，旧的数据点的重要性是以指数级降低，而不是线性降低。
+
+重要性衰减的速度可以通过设置<code class="literal">alpha</code>来控制。
+
+较小的值使权重缓慢衰减，这提供了更大的平滑度，并考虑了窗口的更大部分。
+
+较大的值会使权重迅速衰减，从而降低较旧值对移动平均线的影响。
+
+这往往会使移动平均线更密切地跟踪数据，但却不太平滑。
+</p>
+<p>
+<code class="literal">null</code>和<code class="literal">NaN</code>值被忽略；平均值仅根据真实值计算得出。
+
+如果窗口为空，或者所有值都为<code class="literal">null</code>或<code class="literal">NaN</code>，则返回<code class="literal">NaN</code>作为结果。
+
+这意味着平均值计算中使用的计数是非<code class="literal">null</code>、非<code class="literal">NaN</code>值的计数。
 <div class="table">
 <a id="ewma-params"></a>
-<p class="title"><strong>Table 26. <code class="literal">ewma(double[] values, double alpha)</code> Parameters</strong></p>
+<p class="title"><strong>表 26. <code class="literal">ewma(double[] values, double alpha)</code>参数</strong></p>
 <div class="table-contents">
 <table border="1" cellpadding="4px" summary="ewma(double[] values, double alpha) Parameters">
 <colgroup>
@@ -749,18 +825,18 @@ values.</p>
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Parameter Name</th>
-<th align="left" valign="top">Description</th>
+<th align="left" valign="top">参数名称</th>
+<th align="left" valign="top">描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">values</code></p></td>
-<td align="left" valign="top"><p>The window of values to find the sum of</p></td>
+<td align="left" valign="top"><p>要计算总和的值的窗口</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">alpha</code></p></td>
-<td align="left" valign="top"><p>Exponential decay</p></td>
+<td align="left" valign="top"><p>指数衰减</p></td>
 </tr>
 </tbody>
 </table>
@@ -798,23 +874,38 @@ values.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_holt_function"></a>holt Function<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/movfn-aggregation.asciidoc">edit</a>
+<a id="_holt_function"></a>holt 函数
 </h3>
 </div></div></div>
-<p>The <code class="literal">holt</code> function (aka "double exponential") incorporates a second exponential term which
-tracks the data’s trend.  Single exponential does not perform well when the data has an underlying linear trend.  The
-double exponential model calculates two values internally: a "level" and a "trend".</p>
-<p>The level calculation is similar to <code class="literal">ewma</code>, and is an exponentially weighted view of the data.  The difference is
-that the previously smoothed value is used instead of the raw value, which allows it to stay close to the original series.
-The trend calculation looks at the difference between the current and last value (e.g. the slope, or trend, of the
-smoothed data).  The trend value is also exponentially weighted.</p>
-<p>Values are produced by multiplying the level and trend components.</p>
-<p><code class="literal">null</code> and <code class="literal">NaN</code> values are ignored; the average is only calculated over the real values. If the window is empty, or all values are
-<code class="literal">null</code>/<code class="literal">NaN</code>, <code class="literal">NaN</code> is returned as the result.  This means that the count used in the average calculation is count of non-<code class="literal">null</code>,non-<code class="literal">NaN</code>
-values.</p>
+<p>
+<code class="literal">holt</code>函数(又名“二次指数”)结合了跟踪数据趋势的第二个指数项。
+
+当数据具有潜在的线性趋势时，单指数表现不佳。
+
+二次指数模型在内部计算两个值：“水平(level)”和“趋势(trend)”。
+</p>
+<p>
+水平(level)计算类似于<code class="literal">ewma</code>，是数据的指数加权视图。
+
+不同之处在于，使用了之前平滑的值，而不是原始值，这使其接近原始序列。
+
+趋势(trend)计算着眼于当前值和上一个值之间的差异(例如，平滑数据的斜率或趋势)。
+
+趋势值也是指数加权的。
+</p>
+<p>
+数值是由水平(level)分量和趋势(trend)分量相乘产生的。
+</p>
+<p>
+<code class="literal">null</code>和<code class="literal">NaN</code>值被忽略；平均值仅根据真实值计算得出。
+
+如果窗口为空，或者所有值都为<code class="literal">null</code>或<code class="literal">NaN</code>，则返回<code class="literal">NaN</code>作为结果。
+
+这意味着平均值计算中使用的计数是非<code class="literal">null</code>、非<code class="literal">NaN</code>值的计数。
+</p>
 <div class="table">
 <a id="holt-params"></a>
-<p class="title"><strong>Table 27. <code class="literal">holt(double[] values, double alpha)</code> Parameters</strong></p>
+<p class="title"><strong>表 27. <code class="literal">holt(double[] values, double alpha)</code>参数</strong></p>
 <div class="table-contents">
 <table border="1" cellpadding="4px" summary="holt(double[] values, double alpha) Parameters">
 <colgroup>
@@ -823,22 +914,22 @@ values.</p>
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Parameter Name</th>
-<th align="left" valign="top">Description</th>
+<th align="left" valign="top">参数名称</th>
+<th align="left" valign="top">描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">values</code></p></td>
-<td align="left" valign="top"><p>The window of values to find the sum of</p></td>
+<td align="left" valign="top"><p>要计算总和的值的窗口</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">alpha</code></p></td>
-<td align="left" valign="top"><p>Level decay value</p></td>
+<td align="left" valign="top"><p>level 衰减值</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">beta</code></p></td>
-<td align="left" valign="top"><p>Trend decay value</p></td>
+<td align="left" valign="top"><p>trend 衰减值</p></td>
 </tr>
 </tbody>
 </table>
@@ -871,10 +962,15 @@ values.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/582.console"></div>
-<p>In practice, the <code class="literal">alpha</code> value behaves very similarly in <code class="literal">holtMovAvg</code> as <code class="literal">ewmaMovAvg</code>: small values produce more smoothing
-and more lag, while larger values produce closer tracking and less lag.  The value of <code class="literal">beta</code> is often difficult
-to see.  Small values emphasize long-term trends (such as a constant linear trend in the whole series), while larger
-values emphasize short-term trends.</p>
+<p>
+
+In practice, the <code class="literal">alpha</code> value behaves very similarly in <code class="literal">holtMovAvg</code> as <code class="literal">ewmaMovAvg</code>: small values produce more smoothing and more lag, while larger values produce closer tracking and less lag.
+
+The value of <code class="literal">beta</code> is often difficult
+to see.
+
+Small values emphasize long-term trends (such as a constant linear trend in the whole series), while larger values emphasize short-term trends.
+</p>
 </div>
 
 <div class="section">

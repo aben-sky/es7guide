@@ -963,37 +963,49 @@
 </div>
 <div class="console_widget" data-snippet="snippets/582.console"></div>
 <p>
+实际上，<code class="literal">alpha</code>值在<code class="literal">holtMovAvg</code>中的表现与<code class="literal">ewmaMovAvg</code>非常相似：小值产生更多平滑和更多滞后，而大值产生更密切的跟踪和更少的滞后。
 
-In practice, the <code class="literal">alpha</code> value behaves very similarly in <code class="literal">holtMovAvg</code> as <code class="literal">ewmaMovAvg</code>: small values produce more smoothing and more lag, while larger values produce closer tracking and less lag.
+<code class="literal">beta</code>的值往往很难看出。
 
-The value of <code class="literal">beta</code> is often difficult
-to see.
-
-Small values emphasize long-term trends (such as a constant linear trend in the whole series), while larger values emphasize short-term trends.
+较小的值强调长期趋势(例如整个系列中的恒定线性趋势)，而较大的值强调短期趋势。
 </p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_holtwinters_function"></a>holtWinters Function<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/movfn-aggregation.asciidoc">edit</a>
+<a id="_holtwinters_function"></a>holtWinters 函数
 </h3>
 </div></div></div>
-<p>The <code class="literal">holtWinters</code> function (aka "triple exponential") incorporates a third exponential term which
-tracks the seasonal aspect of your data.  This aggregation therefore smooths based on three components: "level", "trend"
-and "seasonality".</p>
-<p>The level and trend calculation is identical to <code class="literal">holt</code> The seasonal calculation looks at the difference between
-the current point, and the point one period earlier.</p>
-<p>Holt-Winters requires a little more handholding than the other moving averages.  You need to specify the "periodicity"
-of your data: e.g. if your data has cyclic trends every 7 days, you would set <code class="literal">period = 7</code>.  Similarly if there was
-a monthly trend, you would set it to <code class="literal">30</code>.  There is currently no periodicity detection, although that is planned
-for future enhancements.</p>
-<p><code class="literal">null</code> and <code class="literal">NaN</code> values are ignored; the average is only calculated over the real values. If the window is empty, or all values are
-<code class="literal">null</code>/<code class="literal">NaN</code>, <code class="literal">NaN</code> is returned as the result.  This means that the count used in the average calculation is count of non-<code class="literal">null</code>,non-<code class="literal">NaN</code>
-values.</p>
+<p>
+<code class="literal">holtWinters</code>函数(又名“三级指数”)包含第三个指数项，用于跟踪数据的季节性。
+
+因此，这种聚合基于三个要素进行平滑：“水平(level)”、“趋势(trend)”和“季节性(seasonality)”。
+</p>
+<p>
+水平(level)和趋势(trend)计算与<code class="literal">holt</code>里的相同。
+
+季节性(seasonal)计算着眼于当前点与前一时段点之间的差异。
+</p>
+<p>
+与其他移动平均线相比，holt-winters 需要更多的操作。 
+
+你需要指定数据的“周期(periodicity)”：例如，如果你的数据每7天有一个循环趋势，可以设置<code class="literal">period: 7</code>。
+
+类似地，如果有月趋势，你可以把它设置为<code class="literal">30</code>。
+
+目前没有周期性检测，尽管计划在未来进行增强。
+</p>
+<p>
+<code class="literal">null</code>和<code class="literal">NaN</code>值被忽略；平均值仅根据真实值计算得出。
+
+如果窗口为空，或者所有值都为<code class="literal">null</code>或<code class="literal">NaN</code>，则返回<code class="literal">NaN</code>作为结果。
+
+这意味着平均值计算中使用的计数是非<code class="literal">null</code>、非<code class="literal">NaN</code>值的计数。
+</p>
 <div class="table">
 <a id="holtwinters-params"></a>
-<p class="title"><strong>Table 28. <code class="literal">holtWinters(double[] values, double alpha)</code> Parameters</strong></p>
+<p class="title"><strong>表 28. <code class="literal">holtWinters(double[] values, double alpha)</code>参数</strong></p>
 <div class="table-contents">
 <table border="1" cellpadding="4px" summary="holtWinters(double[] values, double alpha) Parameters">
 <colgroup>
@@ -1002,34 +1014,34 @@ values.</p>
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Parameter Name</th>
-<th align="left" valign="top">Description</th>
+<th align="left" valign="top">参数名称</th>
+<th align="left" valign="top">描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">values</code></p></td>
-<td align="left" valign="top"><p>The window of values to find the sum of</p></td>
+<td align="left" valign="top"><p>要计算总和的值的窗口</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">alpha</code></p></td>
-<td align="left" valign="top"><p>Level decay value</p></td>
+<td align="left" valign="top"><p>水平(level)衰减值</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">beta</code></p></td>
-<td align="left" valign="top"><p>Trend decay value</p></td>
+<td align="left" valign="top"><p>趋势(trend)衰减值</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">gamma</code></p></td>
-<td align="left" valign="top"><p>Seasonality decay value</p></td>
+<td align="left" valign="top"><p>季节性(seasonality)衰减值</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">period</code></p></td>
-<td align="left" valign="top"><p>The periodicity of the data</p></td>
+<td align="left" valign="top"><p>数据的周期性</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">multiplicative</code></p></td>
-<td align="left" valign="top"><p>True if you wish to use multiplicative holt-winters, false to use additive</p></td>
+<td align="left" valign="top"><p>为true时使用乘法holt-winters，为false时使用加法</p></td>
 </tr>
 </tbody>
 </table>
@@ -1065,26 +1077,39 @@ values.</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Multiplicative Holt-Winters works by dividing each data point by the seasonal value.  This is problematic if any of
-your data is zero, or if there are gaps in the data (since this results in a divid-by-zero).  To combat this, the
-<code class="literal">mult</code> Holt-Winters pads all values by a very small amount (1*10<sup>-10</sup>) so that all values are non-zero.  This affects
-the result, but only minimally.  If your data is non-zero, or you prefer to see <code class="literal">NaN</code> when zero’s are encountered,
-you can disable this behavior with <code class="literal">pad: false</code></p>
+<p>
+乘法霍尔特-温特斯的工作原理是将每个数据点除以季节值。
+
+如果任何数据为零，或者数据中有间隙(因为这会导致除以零)，那么这就有问题了。
+
+为了解决这个问题，<code class="literal">mult</code> Holt-Winters用一个非常小的量(1*10<sup>-10</sup>)填充所有的值，这样所有的值都是非零的。
+
+这会影响结果，但影响很小。
+
+如果你的数据是非零的，或者你希望在遇到零时看到<code class="literal">NaN</code>，则可以使用<code class="literal">pad: false</code>禁用此行为
+</p>
 </div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h4 class="title">
-<a id="_cold_start_2"></a>"Cold Start"<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/movfn-aggregation.asciidoc">edit</a>
+<a id="_cold_start_2"></a>"cold start" (冷启动)
 </h4>
 </div></div></div>
-<p>Unfortunately, due to the nature of Holt-Winters, it requires two periods of data to "bootstrap" the algorithm.  This
-means that your <code class="literal">window</code> must always be <span class="strong strong"><strong>at least</strong></span> twice the size of your period.  An exception will be thrown if it
-isn’t.  It also means that Holt-Winters will not emit a value for the first <code class="literal">2 * period</code> buckets; the current algorithm
-does not backcast.</p>
-<p>You’ll notice in the above example we have an <code class="literal">if ()</code> statement checking the size of values.  This is checking to make sure
-we have two periods worth of data (<code class="literal">5 * 2</code>, where 5 is the period specified in the <code class="literal">holtWintersMovAvg</code> function) before calling
-the holt-winters function.</p>
+<p>
+不幸的是，由于 holt-winters 的性质，它需要两个周期(period)的数据来“引导”该算法。
+
+这意味着你的<code class="literal">window</code>值必须<span class="strong strong"><strong>至少</strong></span>是周期(period)的两倍。
+
+如果不是，将会抛出异常。
+
+这也意味着holt-winters不会为第一个<code class="literal">2 * period</code>桶生成值；当前算法不进行回溯。
+</p>
+<p>
+你会注意到在上面的例子中我们有一个<code class="literal">if ()</code>语句来检查值的大小。
+
+这是在调用 holt-winters 函数之前，检查以确保我们有两个周期的数据(<code class="literal">5 * 2</code>，其中5是在<code class="literal">holtWintersMovAvg</code>函数中指定的周期)。
+</p>
 </div>
 
 </div>

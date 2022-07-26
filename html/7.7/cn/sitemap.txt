@@ -236,3 +236,7 @@ https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-min-bucket-aggrega
 https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-sum-bucket-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-cumulative-cardinality-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-cumulative-sum-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-derivative-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-percentiles-bucket-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-movavg-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-movfn-aggregation.html

@@ -240,3 +240,4 @@ https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-derivative-aggrega
 https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-percentiles-bucket-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-movavg-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-movfn-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-serialdiff-aggregation.html

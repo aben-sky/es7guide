@@ -1569,13 +1569,13 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-pipeline-movfn-aggregation.html",
-                        "text": "moving_function 聚合",
-                        "title": "moving_function 聚合"
+                        "text": "moving_fn 聚合",
+                        "title": "moving_fn 聚合"
                     },
                     {
                         "url": "search-aggregations-pipeline-serialdiff-aggregation.html",
-                        "text": "Serial Differencing Aggregation",
-                        "title": "Serial Differencing Aggregation"
+                        "text": "serial_diff 聚合",
+                        "title": "serial_diff 聚合"
                     },
                     {
                         "url": "search-aggregations-pipeline-stats-bucket-aggregation.html",

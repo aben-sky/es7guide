@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Serial Differencing Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>serial_diff 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,61 +32,85 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-pipeline.html">Pipeline Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-pipeline.html">管道聚合</span>
 »
-<span class="breadcrumb-node">Serial Differencing Aggregation</span>
+<span class="breadcrumb-node">serial_diff 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-pipeline-movfn-aggregation.html">« Moving Function Aggregation</a>
+<a href="search-aggregations-pipeline-movfn-aggregation.html">« moving_fn 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-pipeline-stats-bucket-aggregation.html">Stats Bucket Aggregation »</a>
+<a href2="search-aggregations-pipeline-stats-bucket-aggregation.html">Stats Bucket Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-pipeline-serialdiff-aggregation"></a>Serial Differencing Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/serial-diff-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-pipeline-serialdiff-aggregation"></a>序列差分(serial differencing, serial_diff)聚合
 </h2>
 </div></div></div>
-<p>Serial differencing is a technique where values in a time series are subtracted from itself at
-different time lags or periods. For example, the datapoint f(x) = f(x<sub>t</sub>) - f(x<sub>t-n</sub>), where n is the period being used.</p>
-<p>A period of 1 is equivalent to a derivative with no time normalization: it is simply the change from one point to the
-next. Single periods are useful for removing constant, linear trends.</p>
-<p>Single periods are also useful for transforming data into a stationary series. In this example, the Dow Jones is
-plotted over ~250 days. The raw data is not stationary, which would make it difficult to use with some techniques.</p>
-<p>By calculating the first-difference, we de-trend the data (e.g. remove a constant, linear trend).  We can see that the
-data becomes a stationary series (e.g. the first difference is randomly distributed around zero, and doesn’t seem to
-exhibit any pattern/behavior). The transformation reveals that the dataset is following a random-walk; the value is the
-previous value +/- a random amount.  This insight allows selection of further tools for analysis.</p>
+<p>
+序列差分是一种技术，时间序列中的值在不同的时间延迟或周期中被减去。 
+
+例如，数据点 f(x) = f(x<sub>t</sub>) - f(x<sub>t-n</sub>)，其中n是使用的周期。
+</p>
+<p>
+周期为1相当于没有时间归一化的导数：它只是从一个点到下一个点的变化。
+
+单周期对于去除固定值的线性趋势很有用。
+</p>
+<p>
+单周期对于将数据转换为平稳序列也很有用。
+
+在这个例子中，道琼斯指数(Dow Jones)是在大约250天内绘制的。
+
+原始数据不是固定的，这使得一些技术很难使用。 
+</p>
+<p>
+通过计算第一差值，我们对数据进行去趋势化处理(例如，去除一个固定值的线性趋势)。
+
+我们可以看到，数据变成了一个平稳的序列(例如，第一个差异随机分布在零附近，似乎没有表现出任何模式/行为)。
+
+这个转换显示出数据集呈随机游走分布状态; 该值是前一个值+/-一个随机量。 
+
+这种洞察力允许选择进一步的分析工具。
+</p>
 <div id="serialdiff_dow" class="imageblock">
 <div class="content">
 <img src="../static/images/pipeline_serialdiff/dow.png" alt="dow">
 </div>
-<div class="title">Figure 17. Dow Jones plotted and made stationary with first-differencing</div>
+<div class="title">图 17. 道琼斯用一阶差分作图并使之平稳</div>
 </div>
-<p>Larger periods can be used to remove seasonal / cyclic behavior. In this example, a population of lemmings was
-synthetically generated with a sine wave + constant linear trend + random noise. The sine wave has a period of 30 days.</p>
-<p>The first-difference removes the constant trend, leaving just a sine wave. The 30th-difference is then applied to the
-first-difference to remove the cyclic behavior, leaving a stationary series which is amenable to other analysis.</p>
+<p>
+更长的周期可用于移除季节性/周期性行为。
+
+在这个例子中，一群旅鼠是用正弦波+固定线性趋势+随机噪声合成生成的。
+
+正弦波的周期为30天。
+</p>
+<p>
+第一个差异去除了固定趋势，只留下一个正弦波。
+
+然后将第30次差应用于第1次差，以消除循环行为，留下一个可用于其他分析的平稳序列。
+</p>
 <div id="serialdiff_lemmings" class="imageblock">
 <div class="content">
 <img src="../static/images/pipeline_serialdiff/lemmings.png" alt="lemmings">
 </div>
-<div class="title">Figure 18. Lemmings data plotted made stationary with 1st and 30th difference</div>
+<div class="title">图 18. 用第1和第30个差分绘制的旅鼠数据是稳定的</div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_syntax_14"></a>Syntax<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/serial-diff-aggregation.asciidoc">edit</a>
+<a id="_syntax_14"></a>语法
 </h3>
 </div></div></div>
-<p>A <code class="literal">serial_diff</code> aggregation looks like this in isolation:</p>
+<p>一个单独的<code class="literal">serial_diff</code>看起来像这样：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
     "serial_diff": {
@@ -97,7 +121,7 @@ first-difference to remove the cyclic behavior, leaving a stationary series whic
 </div>
 <div class="table">
 <a id="serial-diff-params"></a>
-<p class="title"><strong>Table 29. <code class="literal">serial_diff</code> Parameters</strong></p>
+<p class="title"><strong>表 29. <code class="literal">serial_diff</code>参数</strong></p>
 <div class="table-contents">
 <table border="1" cellpadding="4px" summary="serial_diff Parameters">
 <colgroup>
@@ -108,43 +132,54 @@ first-difference to remove the cyclic behavior, leaving a stationary series whic
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Parameter Name</th>
-<th align="left" valign="top">Description</th>
-<th align="left" valign="top">Required</th>
-<th align="left" valign="top">Default Value</th>
+<th align="left" valign="top">参数名称</th>
+<th align="left" valign="top">描述</th>
+<th align="left" valign="top">是否必需</th>
+<th align="left" valign="top">默认值</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">buckets_path</code></p></td>
-<td align="left" valign="top"><p>Path to the metric of interest (see <a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path Syntax"><code class="literal">buckets_path</code> Syntax</a> for more details</p></td>
-<td align="left" valign="top"><p>Required</p></td>
+<td align="left" valign="top"><p>
+感兴趣的度量的路径 (更多详情请参考 <a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path语法"><code class="literal">buckets_path</code>语法</a>
+</p></td>
+<td align="left" valign="top"><p>必需</p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">lag</code></p></td>
-<td align="left" valign="top"><p>The historical bucket to subtract from the current value. E.g. a lag of 7 will subtract the current value from
- the value 7 buckets ago. Must be a positive, non-zero integer</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>
+要从当前值中减去的历史桶。
+
+例如，滞后7将从7个桶之前的值中减去当前值。
+
+必须是非零正整数
+</p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p><code class="literal">1</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">gap_policy</code></p></td>
-<td align="left" valign="top"><p>Determines what should happen when a gap in the data is encountered.</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>
+确定当遇到数据中的间隙时应该发生什么。
+</p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p><code class="literal">insert_zero</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">format</code></p></td>
-<td align="left" valign="top"><p>Format to apply to the output value of this aggregation</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>应用于此聚合的输出值的格式</p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p><code class="literal">null</code></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><code class="literal">serial_diff</code> aggregations must be embedded inside of a <code class="literal">histogram</code> or <code class="literal">date_histogram</code> aggregation:</p>
+<p>
+<code class="literal">serial_diff</code>聚合必须嵌入一个<code class="literal">histogram</code>或<code class="literal">date_histogram</code>聚合中：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /_search
 {
@@ -180,7 +215,9 @@ first-difference to remove the cyclic behavior, leaving a stationary series whic
 <p><a href="#CO275-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>A <code class="literal">date_histogram</code> named "my_date_histo" is constructed on the "timestamp" field, with one-day intervals</p>
+<p>
+一个名为“my_date_histo”的<code class="literal">date_histogram</code>聚合是在“timestamp”字段上构建的，间隔为一天
+</p>
 </td>
 </tr>
 <tr>
@@ -188,7 +225,11 @@ first-difference to remove the cyclic behavior, leaving a stationary series whic
 <p><a href="#CO275-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>A <code class="literal">sum</code> metric is used to calculate the sum of a field.  This could be any metric (sum, min, max, etc)</p>
+<p>
+<code class="literal">sum</code>度量用于计算字段的总和。
+
+这可以是任何(数字)度量(sum、min、max等)
+</p>
 </td>
 </tr>
 <tr>
@@ -196,24 +237,31 @@ first-difference to remove the cyclic behavior, leaving a stationary series whic
 <p><a href="#CO275-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Finally, we specify a <code class="literal">serial_diff</code> aggregation which uses "the_sum" metric as its input.</p>
+<p>
+最后，我们指定一个<code class="literal">serial_diff</code>聚合，它使用“the_sum”度量作为其输入。
+</p>
 </td>
 </tr>
 </table>
 </div>
-<p>Serial differences are built by first specifying a <code class="literal">histogram</code> or <code class="literal">date_histogram</code> over a field.  You can then optionally
-add normal metrics, such as a <code class="literal">sum</code>, inside of that histogram.  Finally, the <code class="literal">serial_diff</code> is embedded inside the histogram.
-The <code class="literal">buckets_path</code> parameter is then used to "point" at one of the sibling metrics inside of the histogram (see
-<a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path Syntax"><code class="literal">buckets_path</code> Syntax</a> for a description of the syntax for <code class="literal">buckets_path</code>.</p>
+<p>
+序列差分的构建，首先要指定一个字段的<code class="literal">histogram</code>或<code class="literal">date_histogram</code>聚合。
+
+然后，你可以选择在那个直方图中添加普通的度量，如<code class="literal">sum</code>。
+
+最后，<code class="literal">serial_diff</code>被嵌入直方图中。
+
+然后，<code class="literal">buckets_path</code>参数用于“指向”直方图内的一个同级度量(有关<code class="literal">buckets_path</code>语法的描述，请参见<a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path Syntax"><code class="literal">buckets_path</code>语法</a>)。
+</p>
 </div>
 
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-pipeline-movfn-aggregation.html">« Moving Function Aggregation</a>
+<a href="search-aggregations-pipeline-movfn-aggregation.html">« moving_fn 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-pipeline-stats-bucket-aggregation.html">Stats Bucket Aggregation »</a>
+<a href2="search-aggregations-pipeline-stats-bucket-aggregation.html">Stats Bucket Aggregation »</a>
 </span>
 </div>
 </div>

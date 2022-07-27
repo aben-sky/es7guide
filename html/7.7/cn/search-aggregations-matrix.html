@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Matrix Aggregations | ElasticSearch 7.7 权威指南中文版</title>
+	<title>矩阵(matrix)聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,42 +32,49 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-node">Matrix Aggregations</span>
+<span class="breadcrumb-node">矩阵(matrix)聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-pipeline-extended-stats-bucket-aggregation.html">« Extended Stats Bucket Aggregation</a>
+<a href="search-aggregations-pipeline-extended-stats-bucket-aggregation.html">« extended_stats_bucket 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-matrix-stats-aggregation.html">Matrix Stats »</a>
+<a href="search-aggregations-matrix-stats-aggregation.html">矩阵统计(matrix_stats) »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-matrix"></a>Matrix Aggregations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/matrix.asciidoc">edit</a>
+<a id="search-aggregations-matrix"></a>矩阵(matrix)聚合
 </h2>
 </div></div></div>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>This functionality is experimental and may be changed or removed completely in a future release. Elastic will take a best effort approach to fix any issues, but experimental features are not subject to the support SLA of official GA features.</p>
+<p>
+此功能是试验性的，在未来的版本中可能会被更改或完全删除。
+
+Elastic将尽最大努力解决任何问题，但实验功能不受官方GA功能的支持SLA的约束。
+</p>
 </div>
 </div>
-<p>The aggregations in this family operate on multiple fields and produce a matrix result based on the values extracted from
-the requested document fields. Unlike metric and bucket aggregations, this aggregation family does not yet support scripting.</p>
+<p>
+该系列中的聚合对多个字段进行操作，并根据从请求的文档字段中提取的值生成矩阵结果。
+
+与度量(metric)和桶(bucket)聚合不同，此聚合系列尚不支持脚本。
+</p>
 
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-pipeline-extended-stats-bucket-aggregation.html">« Extended Stats Bucket Aggregation</a>
+<a href="search-aggregations-pipeline-extended-stats-bucket-aggregation.html">« extended_stats_bucket 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-matrix-stats-aggregation.html">Matrix Stats »</a>
+<a href="search-aggregations-matrix-stats-aggregation.html">矩阵统计(matrix_stats) »</a>
 </span>
 </div>
 </div>

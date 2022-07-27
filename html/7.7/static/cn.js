@@ -1596,8 +1596,8 @@ var esNavLinks = [
                 "sub": [
                     {
                         "url": "search-aggregations-matrix-stats-aggregation.html",
-                        "text": "Matrix Stats",
-                        "title": "Matrix Stats"
+                        "text": "矩阵统计(matrix_stats)",
+                        "title": "矩阵统计(matrix_stats)"
                     }
                 ]
             },

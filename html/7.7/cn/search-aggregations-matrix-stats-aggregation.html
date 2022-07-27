@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Matrix Stats | ElasticSearch 7.7 权威指南中文版</title>
+	<title>矩阵统计(matrix_stats) | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,29 +32,31 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-matrix.html">Matrix Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-matrix.html">矩阵聚合</a></span>
 »
-<span class="breadcrumb-node">Matrix Stats</span>
+<span class="breadcrumb-node">矩阵统计(matrix_stats)</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-matrix.html">« Matrix Aggregations</a>
+<a href="search-aggregations-matrix.html">« 矩阵(matrix)聚合</a>
 </span>
 <span class="next">
-<a href="caching-heavy-aggregations.html">Caching heavy aggregations »</a>
+<a href2="caching-heavy-aggregations.html">Caching heavy aggregations »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-matrix-stats-aggregation"></a>Matrix Stats<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/matrix/stats-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-matrix-stats-aggregation"></a>矩阵统计(matrix_stats)
 </h2>
 </div></div></div>
-<p>The <code class="literal">matrix_stats</code> aggregation is a numeric aggregation that computes the following statistics over a set of document fields:</p>
+<p>
+<code class="literal">matrix_stats</code>聚合是一种数值聚合，它对一组文档字段计算以下统计信息：
+</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -70,7 +72,7 @@
 </td>
 <td valign="top">
 <p>
-Number of per field samples included in the calculation.
+计算中包含的每字段样本数。
 </p>
 </td>
 </tr>
@@ -82,7 +84,7 @@ Number of per field samples included in the calculation.
 </td>
 <td valign="top">
 <p>
-The average value for each field.
+每个字段的平均值。
 </p>
 </td>
 </tr>
@@ -94,7 +96,8 @@ The average value for each field.
 </td>
 <td valign="top">
 <p>
-Per field Measurement for how spread out the samples are from the mean.
+每个字段的测量对样本平均值的分布情况。
+<span class="remark">(原文: Per field Measurement for how spread out the samples are from the mean.</span>
 </p>
 </td>
 </tr>
@@ -106,7 +109,7 @@ Per field Measurement for how spread out the samples are from the mean.
 </td>
 <td valign="top">
 <p>
-Per field measurement quantifying the asymmetric distribution around the mean.
+每个字段的测量量化平均值周围的不对称分布。
 </p>
 </td>
 </tr>
@@ -337,10 +340,10 @@ This is done by adding a set of fieldname : value mappings to specify default va
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-matrix.html">« Matrix Aggregations</a>
+<a href="search-aggregations-matrix.html">« 矩阵(matrix)聚合</a>
 </span>
 <span class="next">
-<a href="caching-heavy-aggregations.html">Caching heavy aggregations »</a>
+<a href2="caching-heavy-aggregations.html">Caching heavy aggregations »</a>
 </span>
 </div>
 </div>

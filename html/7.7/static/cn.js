@@ -1584,8 +1584,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-aggregations-pipeline-extended-stats-bucket-aggregation.html",
-                        "text": "Extended Stats Bucket Aggregation",
-                        "title": "Extended Stats Bucket Aggregation"
+                        "text": "extended_stats_bucket 聚合",
+                        "title": "extended_stats_bucket 聚合"
                     }
                 ]
             },

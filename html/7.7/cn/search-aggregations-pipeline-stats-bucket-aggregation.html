@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Stats Bucket Aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>stats_bucket 聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,37 +32,40 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations-pipeline.html">Pipeline Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations-pipeline.html">管道聚合</span>
 »
-<span class="breadcrumb-node">Stats Bucket Aggregation</span>
+<span class="breadcrumb-node">stats_bucket 聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-pipeline-serialdiff-aggregation.html">« Serial Differencing Aggregation</a>
+<a href="search-aggregations-pipeline-serialdiff-aggregation.html">« serial_diff 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-pipeline-extended-stats-bucket-aggregation.html">Extended Stats Bucket Aggregation »</a>
+<a href2="search-aggregations-pipeline-extended-stats-bucket-aggregation.html">Extended Stats Bucket Aggregation »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-aggregations-pipeline-stats-bucket-aggregation"></a>Stats Bucket Aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/stats-bucket-aggregation.asciidoc">edit</a>
+<a id="search-aggregations-pipeline-stats-bucket-aggregation"></a>统计桶(stats_bucket)聚合
 </h2>
 </div></div></div>
-<p>A sibling pipeline aggregation which calculates a variety of stats across all bucket of a specified metric in a sibling aggregation.
-The specified metric must be numeric and the sibling aggregation must be a multi-bucket aggregation.</p>
+<p>
+一种同级管道聚合，计算同级聚合中指定度量的所有桶的各种统计信息。
+
+指定的度量必须是数字，并且同级聚合必须是多桶聚合。
+</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_syntax_15"></a>Syntax<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/pipeline/stats-bucket-aggregation.asciidoc">edit</a>
+<a id="_syntax_15"></a>语法
 </h3>
 </div></div></div>
-<p>A <code class="literal">stats_bucket</code> aggregation looks like this in isolation:</p>
+<p>一个单独的<code class="literal">stats_bucket</code>看起来像这样：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
     "stats_bucket": {
@@ -72,7 +75,7 @@ The specified metric must be numeric and the sibling aggregation must be a multi
 </div>
 <div class="table">
 <a id="stats-bucket-params"></a>
-<p class="title"><strong>Table 30. <code class="literal">stats_bucket</code> Parameters</strong></p>
+<p class="title"><strong>表 30. <code class="literal">stats_bucket</code>参数</strong></p>
 <div class="table-contents">
 <table border="1" cellpadding="4px" summary="stats_bucket Parameters">
 <colgroup>
@@ -83,38 +86,40 @@ The specified metric must be numeric and the sibling aggregation must be a multi
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Parameter Name</th>
-<th align="left" valign="top">Description</th>
-<th align="left" valign="top">Required</th>
-<th align="left" valign="top">Default Value</th>
+<th align="left" valign="top">参数名称</th>
+<th align="left" valign="top">描述</th>
+<th align="left" valign="top">是否必需</th>
+<th align="left" valign="top">默认值</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">buckets_path</code></p></td>
-<td align="left" valign="top"><p>The path to the buckets we wish to calculate stats for (see <a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path Syntax"><code class="literal">buckets_path</code> Syntax</a> for more
- details)</p></td>
-<td align="left" valign="top"><p>Required</p></td>
+<td align="left" valign="top"><p>
+我们希望为其计算统计数据的桶的路径 (更多详情请参考 <a class="xref" href="search-aggregations-pipeline.html#buckets-path-syntax" title="buckets_path语法"><code class="literal">buckets_path</code>语法</a>
+ </p></td>
+<td align="left" valign="top"><p>必需</p></td>
 <td align="left" valign="top"><p></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">gap_policy</code></p></td>
-<td align="left" valign="top"><p>The policy to apply when gaps are found in the data (see <a class="xref" href="search-aggregations-pipeline.html#gap-policy" title="Dealing with gaps in the data">Dealing with gaps in the data</a> for more
- details)</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>
+在数据中发现间隙时应用的策略 (更多详情请参考 <a class="xref" href="search-aggregations-pipeline.html#gap-policy" title="处理数据中的间隙">处理数据中的间隙</a>)
+ </p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p><code class="literal">skip</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">format</code></p></td>
-<td align="left" valign="top"><p>format to apply to the output value of this aggregation</p></td>
-<td align="left" valign="top"><p>Optional</p></td>
+<td align="left" valign="top"><p>应用于此聚合的输出值的格式</p></td>
+<td align="left" valign="top"><p>可选</p></td>
 <td align="left" valign="top"><p><code class="literal">null</code></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>The following snippet calculates the stats for monthly <code class="literal">sales</code>:</p>
+<p>下面这个代码片段计算月 销售额(<code class="literal">sales</code>) 的统计数据：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /sales/_search
 {
@@ -149,13 +154,14 @@ The specified metric must be numeric and the sibling aggregation must be a multi
 <p><a href="#CO276-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">bucket_paths</code> instructs this <code class="literal">stats_bucket</code> aggregation that we want the calculate stats for the <code class="literal">sales</code> aggregation in the
-<code class="literal">sales_per_month</code> date histogram.</p>
+<p>
+<code class="literal">bucket_paths</code>指示这个<code class="literal">stats_bucket</code>聚合，我们希望在<code class="literal">sales_per_month</code>日期直方图中计算<code class="literal">sales</code>聚合的统计信息。
+</p>
 </td>
 </tr>
 </table>
 </div>
-<p>And the following may be the response:</p>
+<p>响应可能如下所示：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
    "took": 11,
@@ -206,10 +212,10 @@ The specified metric must be numeric and the sibling aggregation must be a multi
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-pipeline-serialdiff-aggregation.html">« Serial Differencing Aggregation</a>
+<a href="search-aggregations-pipeline-serialdiff-aggregation.html">« serial_diff 聚合</a>
 </span>
 <span class="next">
-<a href="search-aggregations-pipeline-extended-stats-bucket-aggregation.html">Extended Stats Bucket Aggregation »</a>
+<a href2="search-aggregations-pipeline-extended-stats-bucket-aggregation.html">Extended Stats Bucket Aggregation »</a>
 </span>
 </div>
 </div>

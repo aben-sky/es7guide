@@ -96,7 +96,7 @@
 </td>
 <td valign="top">
 <p>
-每个字段的测量对样本平均值的分布情况。
+(方差,离散)每个字段的测量对样本平均值的分布情况。
 <span class="remark">(原文: Per field Measurement for how spread out the samples are from the mean.</span>
 </p>
 </td>
@@ -109,7 +109,7 @@
 </td>
 <td valign="top">
 <p>
-每个字段的测量量化平均值周围的不对称分布。
+(偏度)每个字段的测量量化平均值周围的不对称分布。
 </p>
 </td>
 </tr>
@@ -121,7 +121,8 @@
 </td>
 <td valign="top">
 <p>
-Per field measurement quantifying the shape of the distribution.
+(峰态)对分布形状进行量化的字段测量。
+<span class="remark">(原文: Per field measurement quantifying the shape of the distribution.</span>
 </p>
 </td>
 </tr>
@@ -133,7 +134,7 @@ Per field measurement quantifying the shape of the distribution.
 </td>
 <td valign="top">
 <p>
-A matrix that quantitatively describes how changes in one field are associated with another.
+(协方差)定量描述一个领域中的变化如何与另一个领域相关联的矩阵。
 </p>
 </td>
 </tr>
@@ -145,15 +146,16 @@ A matrix that quantitatively describes how changes in one field are associated w
 </td>
 <td valign="top">
 <p>
-The covariance matrix scaled to a range of -1 to 1, inclusive. Describes the relationship between field
-distributions.
+协方差(covariance)矩阵限定在-1到1（包括-1和1）范围内。
+
+描述字段分布之间的关系。
 </p>
 </td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>The following example demonstrates the use of matrix stats to describe the relationship between income and poverty.</p>
+<p>下面的例子演示了如何使用矩阵统计来描述收入和贫困之间的关系。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -167,8 +169,11 @@ distributions.
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/587.console"></div>
-<p>The aggregation type is <code class="literal">matrix_stats</code> and the <code class="literal">fields</code> setting defines the set of fields (as an array) for computing
-the statistics. The above request returns the following response:</p>
+<p>
+聚合类型是<code class="literal">matrix_stats</code>，<code class="literal">fields</code>设置定义了用于计算统计数据的一组字段(数组格式)。
+
+上述请求返回以下响应：
+</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...
@@ -210,15 +215,20 @@ the statistics. The above request returns the following response:</p>
     }
 }</pre>
 </div>
-<p>The <code class="literal">doc_count</code> field indicates the number of documents involved in the computation of the statistics.</p>
+<p><code class="literal">doc_count</code>字段指示统计计算中涉及的文档数量。</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_multi_value_fields"></a>Multi Value Fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/matrix/stats-aggregation.asciidoc">edit</a>
+<a id="_multi_value_fields"></a>多值字段
 </h3>
 </div></div></div>
-<p>The <code class="literal">matrix_stats</code> aggregation treats each document field as an independent sample. The <code class="literal">mode</code> parameter controls what
-array value the aggregation will use for array or multi-valued fields. This parameter can take one of the following:</p>
+<p>
+<code class="literal">matrix_stats</code>聚合将每个文档字段视为一个独立的样本。
+
+参数<code class="literal">mode</code>控制聚合将对数组或多值字段使用什么数组值。
+
+该参数的值可以是下列之一：
+</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -234,7 +244,7 @@ array value the aggregation will use for array or multi-valued fields. This para
 </td>
 <td valign="top">
 <p>
-(default) Use the average of all values.
+(默认) 使用所有值的平均值。
 </p>
 </td>
 </tr>
@@ -246,7 +256,7 @@ array value the aggregation will use for array or multi-valued fields. This para
 </td>
 <td valign="top">
 <p>
-Pick the lowest value.
+选择最低值。
 </p>
 </td>
 </tr>
@@ -258,7 +268,7 @@ Pick the lowest value.
 </td>
 <td valign="top">
 <p>
-Pick the highest value.
+选择最高值。
 </p>
 </td>
 </tr>
@@ -270,7 +280,7 @@ Pick the highest value.
 </td>
 <td valign="top">
 <p>
-Use the sum of all values.
+使用所有值的总和。
 </p>
 </td>
 </tr>
@@ -282,7 +292,7 @@ Use the sum of all values.
 </td>
 <td valign="top">
 <p>
-Use the median of all values.
+使用所有值的中位数。
 </p>
 </td>
 </tr>
@@ -294,12 +304,14 @@ Use the median of all values.
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_missing_values_3"></a>Missing Values<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/matrix/stats-aggregation.asciidoc">edit</a>
+<a id="_missing_values_3"></a>缺失的值
 </h3>
 </div></div></div>
-<p>The <code class="literal">missing</code> parameter defines how documents that are missing a value should be treated.
-By default they will be ignored but it is also possible to treat them as if they had a value.
-This is done by adding a set of fieldname : value mappings to specify default values per field.</p>
+<p>
+参数<code class="literal">missing</code>定义应该如何处理有缺失值的文档。 默认情况下，它们将被忽略，但也可以将它们视为有一个值。
+
+这是通过添加一组 fieldname : value 映射来指定每个字段的默认值来实现的。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /_search
 {
@@ -321,7 +333,9 @@ This is done by adding a set of fieldname : value mappings to specify default va
 <p><a href="#CO278-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Documents without a value in the <code class="literal">income</code> field will have the default value <code class="literal">50000</code>.</p>
+<p>
+字段<code class="literal">income</code>中没有值的文档将使用默认值<code class="literal">50000</code>。
+</p>
 </td>
 </tr>
 </table>
@@ -331,10 +345,10 @@ This is done by adding a set of fieldname : value mappings to specify default va
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_script_16"></a>Script<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/matrix/stats-aggregation.asciidoc">edit</a>
+<a id="_script_16"></a>脚本
 </h3>
 </div></div></div>
-<p>This aggregation family does not yet support scripting.</p>
+<p>此聚合系列尚不支持脚本。</p>
 </div>
 
 </div>

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Caching heavy aggregations | ElasticSearch 7.7 权威指南中文版</title>
+	<title>重度缓存的聚合 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,38 +32,39 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-node">Caching heavy aggregations</span>
+<span class="breadcrumb-node">重度缓存的聚合</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-aggregations-matrix-stats-aggregation.html">« Matrix Stats</a>
+<a href="search-aggregations-matrix-stats-aggregation.html">« 矩阵统计(matrix_stats)</a>
 </span>
 <span class="next">
-<a href="returning-only-agg-results.html">Returning only aggregation results »</a>
+<a href="returning-only-agg-results.html">只返回聚合的结果 »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="caching-heavy-aggregations"></a>Caching heavy aggregations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/misc.asciidoc">edit</a>
+<a id="caching-heavy-aggregations"></a>重度缓存的聚合(Caching heavy aggregations)
 </h2>
 </div></div></div>
-<p>Frequently used aggregations (e.g. for display on the home page of a website)
-can be cached for faster responses. These cached results are the same results
-that would be returned by an uncached aggregation — you will never get stale
-results.</p>
-<p>See <a class="xref" href="shard-request-cache.html" title="Shard request cache settings">Shard request cache settings</a> for more details.</p>
+<p>
+经常使用的聚合(例如，用于在网站的主页上显示)可以被缓存以获得更快的响应。
+
+这些缓存的结果与未缓存的聚合返回的结果相同，你永远不会得到过时的结果。
+</p>
+<p>更多详情请参考 <a class="xref" href="shard-request-cache.html" title="分片请求缓存设置">分片的请求缓存设置</a>。</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-aggregations-matrix-stats-aggregation.html">« Matrix Stats</a>
+<a href="search-aggregations-matrix-stats-aggregation.html">« 矩阵统计(matrix_stats)</a>
 </span>
 <span class="next">
-<a href="returning-only-agg-results.html">Returning only aggregation results »</a>
+<a href="returning-only-agg-results.html">只返回聚合的结果 »</a>
 </span>
 </div>
 </div>

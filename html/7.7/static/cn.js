@@ -1603,8 +1603,8 @@ var esNavLinks = [
             },
             {
                 "url": "caching-heavy-aggregations.html",
-                "text": "Caching heavy aggregations",
-                "title": "Caching heavy aggregations"
+                "text": "重度缓存的聚合",
+                "title": "重度缓存的聚合"
             },
             {
                 "url": "returning-only-agg-results.html",

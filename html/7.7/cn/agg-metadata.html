@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Aggregation Metadata | ElasticSearch 7.7 权威指南中文版</title>
+	<title>聚合元数据 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,29 +32,32 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-node">Aggregation Metadata</span>
+<span class="breadcrumb-node">聚合元数据</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="returning-only-agg-results.html">« Returning only aggregation results</a>
+<a href="returning-only-agg-results.html">« 只返回聚合的结果</a>
 </span>
 <span class="next">
-<a href="returning-aggregation-type.html">Returning the type of the aggregation »</a>
+<a href2="returning-aggregation-type.html">Returning the type of the aggregation »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="agg-metadata"></a>Aggregation Metadata<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/misc.asciidoc">edit</a>
+<a id="agg-metadata"></a>聚合元数据
 </h2>
 </div></div></div>
-<p>You can associate a piece of metadata with individual aggregations at request time that will be returned in place
-at response time.</p>
-<p>Consider this example where we want to associate the color blue with our <code class="literal">terms</code> aggregation.</p>
+<p>
+可以在请求时将一段元数据与个别聚合相关联，这些元数据将在响应时就地返回。
+</p>
+<p>
+比如，我们希望将蓝色(blue)与<code class="literal">terms</code>聚合相关联：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /twitter/_search
 {
@@ -72,7 +75,9 @@ at response time.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/590.console"></div>
-<p>Then that piece of metadata will be returned in place for our <code class="literal">titles</code> terms aggregation</p>
+<p>
+然后，那段元数据将被返回到我们的<code class="literal">titles</code>词项集合(terms agg)中
+</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     "aggregations": {
@@ -92,10 +97,10 @@ at response time.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="returning-only-agg-results.html">« Returning only aggregation results</a>
+<a href="returning-only-agg-results.html">« 只返回聚合的结果</a>
 </span>
 <span class="next">
-<a href="returning-aggregation-type.html">Returning the type of the aggregation »</a>
+<a href2="returning-aggregation-type.html">Returning the type of the aggregation »</a>
 </span>
 </div>
 </div>

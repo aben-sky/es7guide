@@ -1613,8 +1613,8 @@ var esNavLinks = [
             },
             {
                 "url": "agg-metadata.html",
-                "text": "Aggregation Metadata",
-                "title": "Aggregation Metadata"
+                "text": "聚合元数据",
+                "title": "聚合元数据"
             },
             {
                 "url": "returning-aggregation-type.html",

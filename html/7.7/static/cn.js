@@ -1608,8 +1608,8 @@ var esNavLinks = [
             },
             {
                 "url": "returning-only-agg-results.html",
-                "text": "Returning only aggregation results",
-                "title": "Returning only aggregation results"
+                "text": "只返回聚合的结果",
+                "title": "只返回聚合的结果"
             },
             {
                 "url": "agg-metadata.html",

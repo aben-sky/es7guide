@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Returning only aggregation results | ElasticSearch 7.7 权威指南中文版</title>
+	<title>只返回聚合的结果 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,28 +32,27 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-node">Returning only aggregation results</span>
+<span class="breadcrumb-node">只返回聚合的结果</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="caching-heavy-aggregations.html">« Caching heavy aggregations</a>
+<a href="caching-heavy-aggregations.html">« 重度缓存的聚合</a>
 </span>
 <span class="next">
-<a href="agg-metadata.html">Aggregation Metadata »</a>
+<a href2="agg-metadata.html">Aggregation Metadata »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="returning-only-agg-results"></a>Returning only aggregation results<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/misc.asciidoc">edit</a>
+<a id="returning-only-agg-results"></a>只返回聚合的结果
 </h2>
 </div></div></div>
-<p>There are many occasions when aggregations are required but search hits are not.  For these cases the hits can be ignored by
-setting <code class="literal">size=0</code>. For example:</p>
+<p>在许多情况下，需要聚合，但不需要搜索命中(结果)。对于这些情况，可以通过设置<code class="literal">size=0</code>来忽略命中。例如：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /twitter/_search
 {
@@ -68,14 +67,16 @@ setting <code class="literal">size=0</code>. For example:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/589.console"></div>
-<p>Setting <code class="literal">size</code> to <code class="literal">0</code> avoids executing the fetch phase of the search making the request more efficient.</p>
+<p>
+将<code class="literal">size</code>设置为<code class="literal">0</code>可以避免执行搜索的命中提取阶段，使得请求更高效。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="caching-heavy-aggregations.html">« Caching heavy aggregations</a>
+<a href="caching-heavy-aggregations.html">« 重度缓存的聚合</a>
 </span>
 <span class="next">
-<a href="agg-metadata.html">Aggregation Metadata »</a>
+<a href2="agg-metadata.html">Aggregation Metadata »</a>
 </span>
 </div>
 </div>

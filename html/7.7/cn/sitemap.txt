@@ -241,3 +241,10 @@ https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-percentiles-bucket
 https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-movavg-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-movfn-aggregation.html
 https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-serialdiff-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-stats-bucket-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-pipeline-extended-stats-bucket-aggregation.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-matrix.html
+https://www.pipiho.com/es/7.7/cn/search-aggregations-matrix-stats-aggregation.html
+https://www.pipiho.com/es/7.7/cn/caching-heavy-aggregations.html
+https://www.pipiho.com/es/7.7/cn/returning-only-agg-results.html
+https://www.pipiho.com/es/7.7/cn/agg-metadata.html

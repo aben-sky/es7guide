@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Returning the type of the aggregation | ElasticSearch 7.7 权威指南中文版</title>
+	<title>返回聚合的类型 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,31 +32,34 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="search-aggregations.html">Aggregations</a></span>
+<span class="breadcrumb-link"><a href="search-aggregations.html">聚合</a></span>
 »
-<span class="breadcrumb-node">Returning the type of the aggregation</span>
+<span class="breadcrumb-node">返回聚合的类型</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="agg-metadata.html">« Aggregation Metadata</a>
+<a href="agg-metadata.html">« 聚合元数据</a>
 </span>
 <span class="next">
-<a href="indexing-aggregation-results.html">Indexing aggregation results with transforms »</a>
+<a href2="indexing-aggregation-results.html">Indexing aggregation results with transforms »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="returning-aggregation-type"></a>Returning the type of the aggregation<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/aggregations/misc.asciidoc">edit</a>
+<a id="returning-aggregation-type"></a>返回聚合的类型
 </h2>
 </div></div></div>
-<p>Sometimes you need to know the exact type of an aggregation in order to parse its results. The <code class="literal">typed_keys</code> parameter
- can be used to change the aggregation’s name in the response so that it will be prefixed by its internal type.</p>
-<p>Considering the following <a class="xref" href="search-aggregations-bucket-datehistogram-aggregation.html" title="Date histogram aggregation"><code class="literal">date_histogram</code> aggregation</a> named
-<code class="literal">tweets_over_time</code> which has a sub <a class="xref" href="search-aggregations-metrics-top-hits-aggregation.html" title="Top Hits Aggregation">'top_hits` aggregation</a> named
- <code class="literal">top_users</code>:</p>
+<p>
+有时需要知道聚合的确切类型，以便解析结果。
+
+参数<code class="literal">typed_keys</code>可用于更改响应中的聚合名称，以便以其内部类型作为前缀。
+</p>
+<p>
+考虑以下名为<code class="literal">tweets_over_time</code>的<a class="xref" href="search-aggregations-bucket-datehistogram-aggregation.html" title="Date histogram aggregation"><code class="literal">日期直方图(date_histogram)</code>聚合</a>，它有一个名为<code class="literal">top_users</code>的子<a class="xref" href="search-aggregations-metrics-top-hits-aggregation.html" title="top_hits聚合">top_hits聚合</a>：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /twitter/_search?typed_keys
 {
@@ -78,8 +81,9 @@
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/591.console"></div>
-<p>In the response, the aggregations names will be changed to respectively <code class="literal">date_histogram#tweets_over_time</code> and
-<code class="literal">top_hits#top_users</code>, reflecting the internal types of each aggregation:</p>
+<p>
+在响应中，聚合的名称将分别更改为<code class="literal">date_histogram#tweets_over_time</code>和<code class="literal">top_hits#top_users</code>，以反映每个聚合的内部类型：
+</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     "aggregations": {
@@ -126,7 +130,9 @@
 <p><a href="#CO279-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The name <code class="literal">tweets_over_time</code> now contains the <code class="literal">date_histogram</code> prefix.</p>
+<p>
+名称<code class="literal">tweets_over_time</code>现在包含了<code class="literal">date_histogram</code>前缀。
+</p>
 </td>
 </tr>
 <tr>
@@ -134,7 +140,9 @@
 <p><a href="#CO279-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The name <code class="literal">top_users</code> now contains the <code class="literal">top_hits</code> prefix.</p>
+<p>
+名称<code class="literal">top_users</code>现在包含了<code class="literal">top_hits</code>前缀。
+</p>
 </td>
 </tr>
 </table>
@@ -142,20 +150,23 @@
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>For some aggregations, it is possible that the returned type is not the same as the one provided with the
-request. This is the case for Terms, Significant Terms and Percentiles aggregations, where the returned type
-also contains information about the type of the targeted field: <code class="literal">lterms</code> (for a terms aggregation on a Long field),
- <code class="literal">sigsterms</code> (for a significant terms aggregation on a String field), <code class="literal">tdigest_percentiles</code> (for a percentile
- aggregation based on the TDigest algorithm).</p>
+<p>
+对于某些聚合，返回的类型可能与请求中提供的类型不同。<br/><br/>
+
+terms、significant_terms 和 percentiles(百分位数)聚合就是这种情况，其中返回的类型还包含有关目标字段类型的信息：
+<code class="literal">lterms</code>(用于长整形字段上的词项聚合)，
+<code class="literal">sigsterms</code>(用于字符串字段上的重要词项聚合)，
+<code class="literal">tdigest_percentiles</code>(用于基于 TDigest 算法的百分位数聚合)。
+</p>
 </div>
 </div>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="agg-metadata.html">« Aggregation Metadata</a>
+<a href="agg-metadata.html">« 聚合元数据</a>
 </span>
 <span class="next">
-<a href="indexing-aggregation-results.html">Indexing aggregation results with transforms »</a>
+<a href2="indexing-aggregation-results.html">Indexing aggregation results with transforms »</a>
 </span>
 </div>
 </div>

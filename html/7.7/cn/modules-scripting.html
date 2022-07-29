@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Scripting | ElasticSearch 7.7 权威指南中文版</title>
+	<title>脚本 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,38 +32,44 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-node">Scripting</span>
+<span class="breadcrumb-node">脚本</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="indexing-aggregation-results.html">« Indexing aggregation results with transforms</a>
+<a href="indexing-aggregation-results.html">« 使用转换对聚合结果进行索引</a>
 </span>
 <span class="next">
-<a href="modules-scripting-using.html">How to use scripts »</a>
+<a href2="modules-scripting-using.html">How to use scripts »</a>
 </span>
 </div>
 <div class="part">
 <div class="titlepage"><div><div>
 <h1 class="title">
-<a id="modules-scripting"></a>Scripting<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting.asciidoc">edit</a>
+<a id="modules-scripting"></a>脚本
 </h1>
 </div></div></div>
 <div class="openblock partintro">
 <div class="content">
-<p>With scripting, you can evaluate custom expressions in Elasticsearch. For example, you
-could use a script to return "script fields" as part of a search request or
-evaluate a custom score for a query.</p>
-<p>The default scripting language is <a class="xref" href="modules-scripting-painless.html" title="Painless scripting language"><code class="literal">Painless</code></a>.
-Additional <code class="literal">lang</code> plugins enable you to run scripts written in other languages.
-Everywhere a script can be used, you can include a <code class="literal">lang</code> parameter
-to specify the language of the script.</p>
+<p>
+通过使用脚本，你可以在Elasticsearch中评估自定义表达式。
+
+例如，你可以使用脚本返回“脚本字段(script fields)”作为搜索请求的一部分，或者评估查询的自定义分数。
+</p>
+<p>
+默认的脚本语言是<a class="xref" href="modules-scripting-painless.html" title="Painless scripting language"><code class="literal">Painless</code></a>。
+
+附加的<code class="literal">lang</code>插件使你能够运行用其他语言编写的脚本。
+
+在任何可以使用脚本的地方，都可以包含一个<code class="literal">lang</code>参数来指定脚本的语言。
+</p>
 <h2>
-<a id="_general_purpose_languages"></a>General-purpose languages<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting.asciidoc">edit</a>
+<a id="_general_purpose_languages"></a>通用语言
 </h2>
-<p>These languages can be used for any purpose in the scripting APIs,
-and give the most flexibility.</p>
+<p>
+这些语言可以在脚本API中用于任何目的，并提供最大的灵活性。
+</p>
 <div class="informaltable">
 <table border="1" cellpadding="4px">
 <colgroup>
@@ -73,25 +79,24 @@ and give the most flexibility.</p>
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Language</th>
-<th align="left" valign="top">Sandboxed</th>
-<th align="left" valign="top">Required plugin</th>
+<th align="left" valign="top">语言</th>
+<th align="left" valign="top">是否沙箱化</th>
+<th align="left" valign="top">必要的插件</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><a class="xref" href="modules-scripting-painless.html" title="Painless scripting language"><code class="literal">painless</code></a></p></td>
-<td align="left" valign="top"><p>yes</p></td>
-<td align="left" valign="top"><p>built-in</p></td>
+<td align="left" valign="top"><p>是</p></td>
+<td align="left" valign="top"><p>(内置的，不需要)</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <h2>
-<a id="_special_purpose_languages"></a>Special-purpose languages<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting.asciidoc">edit</a>
+<a id="_special_purpose_languages"></a>特殊用途的语言
 </h2>
-<p>These languages are less flexible, but typically have higher performance for
-certain tasks.</p>
+<p>这些语言不太灵活，但对于某些任务来说通常具有更好的性能。</p>
 <div class="informaltable">
 <table border="1" cellpadding="4px">
 <colgroup>
@@ -102,30 +107,30 @@ certain tasks.</p>
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Language</th>
-<th align="left" valign="top">Sandboxed</th>
-<th align="left" valign="top">Required plugin</th>
-<th align="left" valign="top">Purpose</th>
+<th align="left" valign="top">语言</th>
+<th align="left" valign="top">是否沙箱化</th>
+<th align="left" valign="top">必要的插件</th>
+<th align="left" valign="top">目的</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><a class="xref" href="modules-scripting-expression.html" title="Lucene expressions language"><code class="literal">expression</code></a></p></td>
-<td align="left" valign="top"><p>yes</p></td>
-<td align="left" valign="top"><p>built-in</p></td>
-<td align="left" valign="top"><p>fast custom ranking and sorting</p></td>
+<td align="left" valign="top"><p>是</p></td>
+<td align="left" valign="top"><p>(内置)</p></td>
+<td align="left" valign="top"><p>快速自定义排名和排序</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><a class="xref" href="search-template.html" title="Search Template"><code class="literal">mustache</code></a></p></td>
-<td align="left" valign="top"><p>yes</p></td>
-<td align="left" valign="top"><p>built-in</p></td>
-<td align="left" valign="top"><p>templates</p></td>
+<td align="left" valign="top"><p>是</p></td>
+<td align="left" valign="top"><p>(内置)</p></td>
+<td align="left" valign="top"><p>模板</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><a class="xref" href="modules-scripting-engine.html" title="Advanced scripts using script engines"><code class="literal">java</code></a></p></td>
-<td align="left" valign="top"><p>n/a</p></td>
-<td align="left" valign="top"><p>you write it!</p></td>
-<td align="left" valign="top"><p>expert API</p></td>
+<td align="left" valign="top"><p>未知</p></td>
+<td align="left" valign="top"><p>你自己写!</p></td>
+<td align="left" valign="top"><p>专家级API</p></td>
 </tr>
 </tbody>
 </table>
@@ -133,10 +138,12 @@ certain tasks.</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<h3>Scripts and security</h3>
-<p>Languages that are sandboxed are designed with security in mind. However, non-
-sandboxed languages can be a security issue, please read
-<a class="xref" href="modules-scripting-security.html" title="Scripting and security">Scripting and security</a> for more details.</p>
+<h3>脚本和安全</h3>
+<p>
+沙盒化语言的设计考虑了安全性。
+
+然而，非沙盒化语言可能是一个安全问题，请阅读<a class="xref" href="modules-scripting-security.html" title="脚本和安全性" rel="nofollow">脚本和安全性</a>以了解更多细节。
+</p>
 </div>
 </div>
 </div>
@@ -150,10 +157,10 @@ sandboxed languages can be a security issue, please read
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="indexing-aggregation-results.html">« Indexing aggregation results with transforms</a>
+<a href="indexing-aggregation-results.html">« 使用转换对聚合结果进行索引</a>
 </span>
 <span class="next">
-<a href="modules-scripting-using.html">How to use scripts »</a>
+<a href2="modules-scripting-using.html">How to use scripts »</a>
 </span>
 </div>
 </div>

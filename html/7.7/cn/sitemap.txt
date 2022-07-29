@@ -248,3 +248,6 @@ https://www.pipiho.com/es/7.7/cn/search-aggregations-matrix-stats-aggregation.ht
 https://www.pipiho.com/es/7.7/cn/caching-heavy-aggregations.html
 https://www.pipiho.com/es/7.7/cn/returning-only-agg-results.html
 https://www.pipiho.com/es/7.7/cn/agg-metadata.html
+https://www.pipiho.com/es/7.7/cn/returning-aggregation-type.html
+https://www.pipiho.com/es/7.7/cn/indexing-aggregation-results.html
+https://www.pipiho.com/es/7.7/cn/modules-scripting.html

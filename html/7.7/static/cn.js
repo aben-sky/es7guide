@@ -1630,8 +1630,8 @@ var esNavLinks = [
     },
     {
         "url": "modules-scripting.html",
-        "text": "Scripting",
-        "title": "Scripting",
+        "text": "脚本",
+        "title": "脚本",
         "sub": [
             {
                 "url": "modules-scripting-using.html",

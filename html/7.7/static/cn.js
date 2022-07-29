@@ -1623,8 +1623,8 @@ var esNavLinks = [
             },
             {
                 "url": "indexing-aggregation-results.html",
-                "text": "Indexing aggregation results with transforms",
-                "title": "Indexing aggregation results with transforms"
+                "text": "使用转换对聚合结果进行索引",
+                "title": "使用转换对聚合结果进行索引"
             }
         ]
     },

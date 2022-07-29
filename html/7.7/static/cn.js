@@ -1635,8 +1635,8 @@ var esNavLinks = [
         "sub": [
             {
                 "url": "modules-scripting-using.html",
-                "text": "How to use scripts",
-                "title": "How to use scripts"
+                "text": "如何使用脚本",
+                "title": "如何使用脚本"
             },
             {
                 "url": "modules-scripting-fields.html",

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>How to use scripts | ElasticSearch 7.7 权威指南中文版</title>
+	<title>如何使用脚本 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,28 +32,29 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="modules-scripting.html">Scripting</a></span>
+<span class="breadcrumb-link"><a href="modules-scripting.html">脚本</a></span>
 »
-<span class="breadcrumb-node">How to use scripts</span>
+<span class="breadcrumb-node">如何使用脚本</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="modules-scripting.html">« Scripting</a>
+<a href="modules-scripting.html">« 脚本</a>
 </span>
 <span class="next">
-<a href="modules-scripting-fields.html">Accessing document fields and special variables »</a>
+<a href2="modules-scripting-fields.html">Accessing document fields and special variables »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="modules-scripting-using"></a>How to use scripts<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting/using.asciidoc">edit</a>
+<a id="modules-scripting-using"></a>如何使用脚本
 </h2>
 </div></div></div>
-<p>Wherever scripting is supported in the Elasticsearch API, the syntax follows
-the same pattern:</p>
+<p>
+只要是Elasticsearch API中支持脚本的地方，语法都遵循相同的模式：
+</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">  "script": {
     "lang":   "...",  <a id="CO280-1"></a><i class="conum" data-value="1"></i>
@@ -68,7 +69,7 @@ the same pattern:</p>
 <p><a href="#CO280-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The language the script is written in, which defaults to <code class="literal">painless</code>.</p>
+<p>编写脚本的语言，默认为<code class="literal">painless</code>。</p>
 </td>
 </tr>
 <tr>
@@ -76,21 +77,21 @@ the same pattern:</p>
 <p><a href="#CO280-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The script itself which may be specified as <code class="literal">source</code> for an inline script or <code class="literal">id</code> for a stored script.</p>
-</td>
+<p>可以被指定为内联脚本的<code class="literal">source</code>或存储脚本的<code class="literal">id</code>的脚本本身。</td>
 </tr>
 <tr>
 <td align="left" valign="top" width="5%">
 <p><a href="#CO280-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Any named parameters that should be passed into the script.</p>
+<p>应该传递到脚本中的任何命名参数。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>For example, the following script is used in a search request to return a
-<a class="xref" href="search-request-body.html#request-body-search-script-fields" title="Script Fields">scripted field</a>:</p>
+<p>
+例如，下面的脚本在搜索请求中用于返回<a class="xref" href="search-request-body.html#request-body-search-script-fields" title="Script Fields">脚本字段(scripted field)</a>：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index/_doc/1
 {
@@ -114,7 +115,7 @@ GET my_index/_search
 </div>
 <div class="console_widget" data-snippet="snippets/592.console"></div>
 <h3>
-<a id="_script_parameters"></a>Script parameters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting/using.asciidoc">edit</a>
+<a id="_script_parameters"></a>脚本参数
 </h3>
 <div class="variablelist">
 <dl class="variablelist">
@@ -124,7 +125,7 @@ GET my_index/_search
 </span>
 </dt>
 <dd>
-Specifies the language the script is written in.  Defaults to <code class="literal">painless</code>.
+指定编写脚本的语言。默认为<code class="literal">painless</code>。
 </dd>
 <dt>
 <span class="term">
@@ -132,9 +133,11 @@ Specifies the language the script is written in.  Defaults to <code class="liter
 </span>
 </dt>
 <dd>
-Specifies the source of the script.  An <code class="literal">inline</code> script is specified
-<code class="literal">source</code> as in the example above. A <code class="literal">stored</code> script is specified <code class="literal">id</code>
-and is retrieved from the cluster state (see <a class="xref" href="modules-scripting-using.html#modules-scripting-stored-scripts" title="Stored scripts">Stored Scripts</a>).
+指定脚本的源(source)。
+
+如上例所示，<code class="literal">内联(inline)</code>脚本被指定为源(<code class="literal">source</code>)。
+
+存储的(<code class="literal">stored</code>)脚本是指定<code class="literal">id</code>，并从集群状态中检索(请参见<a class="xref" href="modules-scripting-using.html#modules-scripting-stored-scripts" title="存储的脚本">存储的脚本</a>)。
 </dd>
 <dt>
 <span class="term">
@@ -142,77 +145,95 @@ and is retrieved from the cluster state (see <a class="xref" href="modules-scrip
 </span>
 </dt>
 <dd>
-Specifies any named parameters that are passed into the script as
-variables.
+指定作为变量传递到脚本中的任何命名参数。
 </dd>
 </dl>
 </div>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<h3>Prefer parameters<a id="prefer-params"></a>
+<h3>首选参数<a id="prefer-params"></a>
 </h3>
-<p>The first time Elasticsearch sees a new script, it compiles it and stores the
-compiled version in a cache. Compilation can be a heavy process.</p>
-<p>If you need to pass variables into the script, you should pass them in as
-named <code class="literal">params</code> instead of hard-coding values into the script itself.  For
-example, if you want to be able to multiply a field value by different
-multipliers, don’t hard-code the multiplier into the script:</p>
+<p>
+Elasticsearch第一次看到一个新脚本时，它会编译它并将编译后的版本存储在缓存中。
+
+编译可能是一个繁重的处理过程。
+</p>
+<p>
+如果你需要将变量传递到脚本中，应该将它们作为命名的<code class="literal">params</code>传递，而不是将值硬编码到脚本本身中。
+
+例如，如果你希望能够将字段值乘以不同的乘数，请不要将乘数硬编码到脚本中：
+</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">  "source": "doc['my_field'] * 2"</pre>
 </div>
-<p>Instead, pass it in as a named parameter:</p>
+<p>相反，将其作为命名参数传入：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">  "source": "doc['my_field'] * multiplier",
   "params": {
     "multiplier": 2
   }</pre>
 </div>
-<p>The first version has to be recompiled every time the multiplier changes.  The
-second version is only compiled once.</p>
-<p>If you compile too many unique scripts within a small amount of time,
-Elasticsearch will reject the new dynamic scripts with a
-<code class="literal">circuit_breaking_exception</code> error. By default, up to 15 inline scripts per
-minute will be compiled. You can change this setting dynamically by setting
-<code class="literal">script.max_compilations_rate</code>.</p>
+<p>
+每当乘数改变时，第一个版本必须重新编译，而第二个版本只编译一次。
+</p>
+<p>
+如果你在很短的时间内编译了太多不同的脚本，Elasticsearch将拒绝新的动态脚本，并抛出一个<code class="literal">circuit_breaking_exception</code>错误。
+
+默认情况下，每分钟最多可以编译15个内联脚本。
+
+可以通过设置<code class="literal">script.max_compilations_rate</code>来动态更改此设置。
+</p>
 </div>
 </div>
 <h3>
-<a id="modules-scripting-short-script-form"></a>Short script form<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting/using.asciidoc">edit</a>
+<a id="modules-scripting-short-script-form"></a>短脚本形式(short script form)
 </h3>
-<p>A short script form can be used for brevity. In the short form, <code class="literal">script</code> is represented
-by a string instead of an object. This string contains the source of the script.</p>
-<p>Short form:</p>
+<p>
+为了简洁，可以使用简短的脚本形式。
+
+短形式下，<code class="literal">script</code>由字符串而不是对象表示。
+
+该字符串包含脚本的源(source)。
+</p>
+<p>脚本的简短形式：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">  "script": "ctx._source.likes++"</pre>
 </div>
-<p>The same script in the normal form:</p>
+<p>而相同脚本的一般形式是：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">  "script": {
     "source": "ctx._source.likes++"
   }</pre>
 </div>
 <h3>
-<a id="modules-scripting-stored-scripts"></a>Stored scripts<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting/using.asciidoc">edit</a>
+<a id="modules-scripting-stored-scripts"></a>存储的脚本
 </h3>
-<p>Scripts may be stored in and retrieved from the cluster state using the
-<code class="literal">_scripts</code> end-point.</p>
-<p>If the Elasticsearch security features are enabled, you must have the following
-privileges to create, retrieve, and delete stored scripts:</p>
+<p>
+可以使用<code class="literal">_scripts</code>终端在集群状态中存储和检索脚本。
+</p>
+<p>
+如果启用了Elasticsearch安全功能，你必须拥有以下权限才能创建、检索和删除存储的脚本：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-cluster: <code class="literal">all</code> or <code class="literal">manage</code>
+cluster: <code class="literal">all</code> 或 <code class="literal">manage</code>
 </li>
 </ul>
 </div>
-<p>For more information, see <a class="xref" href="security-privileges.html" title="Security privileges">Security privileges</a>.</p>
+<p>
+有关更多信息，请参见<a class="xref" href="security-privileges.html" title="安全权限" rel="nofollow">安全权限</a>。
+</p>
 <h4>
-<a id="_request_examples"></a>Request examples<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting/using.asciidoc">edit</a>
+<a id="_request_examples"></a>请求示例
 </h4>
-<p>The following are examples of using a stored script that lives at
-<code class="literal">/_scripts/{id}</code>.</p>
-<p>First, create the script called <code class="literal">calculate-score</code> in the cluster state:</p>
+<p>
+下面是一个使用位于<code class="literal">/_scripts/{id}</code>的存储脚本的示例。
+</p>
+<p>
+首先，在集群状态中创建名为<code class="literal">calculate-score</code>的脚本：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST _scripts/calculate-score
 {
@@ -223,9 +244,9 @@ cluster: <code class="literal">all</code> or <code class="literal">manage</code>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/593.console"></div>
-<p>You may also specify a context as part of the url path to compile a
-stored script against that specific context in the form of
-<code class="literal">/_scripts/{id}/{context}</code>:</p>
+<p>
+你还可以指定一个上下文作为url路径的一部分，以<code class="literal">/_scripts/{id}/{context}</code>的形式根据该特定上下文编译存储的脚本：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST _scripts/calculate-score/score
 {
@@ -236,12 +257,16 @@ stored script against that specific context in the form of
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/594.console"></div>
-<p>This same script can be retrieved with:</p>
+<p>
+同样的脚本可以通过以下方式检索：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET _scripts/calculate-score</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/595.console"></div>
-<p>Stored scripts can be used by specifying the <code class="literal">id</code> parameters as follows:</p>
+<p>
+可以通过指定参数<code class="literal">id</code>来使用存储的脚本，如下所示：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET twitter/_search
 {
@@ -263,60 +288,81 @@ stored script against that specific context in the form of
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/596.console"></div>
-<p>And deleted with:</p>
+<p>删除脚本：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">DELETE _scripts/calculate-score</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/597.console"></div>
 <h3>
-<a id="modules-scripting-search-templates"></a>Search templates<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting/using.asciidoc">edit</a>
+<a id="modules-scripting-search-templates"></a>搜索模板(search templates)
 </h3>
-<p>You can also use the <code class="literal">_scripts</code> API to store <span class="strong strong"><strong>search templates</strong></span>. Search
-templates save specific <a class="xref" href="search-search.html" title="Search API">search requests</a> with placeholder
-values, called template parameters.</p>
-<p>You can use stored search templates to run searches without writing out the
-entire query. Just provide the stored template’s ID and the template parameters.
-This is useful when you want to run a commonly used query quickly and without
-mistakes.</p>
-<p>Search templates use the <a href="http://mustache.github.io/mustache.5.html" class="ulink" target="_top">mustache
-templating language</a>. See <a class="xref" href="search-template.html" title="Search Template">Search Template</a> for more information and examples.</p>
+<p>
+还可以使用<code class="literal">_scripts</code> API来存储<span class="strong strong"><strong>搜索模板(search templates)</strong></span>。
+
+搜索模板保存带有占位符值(称为模板参数)的特定<a class="xref" href="search-search.html" title="搜索 API" rel="nofollow">搜索请求</a>。
+</p>
+<p>
+你可以使用存储的搜索模板来运行搜索，而无需写出整个查询。
+
+只需提供存储模板的ID和模板参数。
+
+当你希望快速无误地运行常用查询时，这很有用。
+</p>
+<p>
+搜索模板使用<a href="http://mustache.github.io/mustache.5.html" class="ulink" target="_top">mustache模板语言</a>。
+
+更多详情和示例请参见<a class="xref" href="search-template.html" title="Search Template">搜索模板</a>。
+</p>
 <h3>
-<a id="modules-scripting-using-caching"></a>Script caching<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting/using.asciidoc">edit</a>
+<a id="modules-scripting-using-caching"></a>脚本缓存
 </h3>
-<p>All scripts are cached by default so that they only need to be recompiled
-when updates occur. By default, scripts do not have a time-based expiration, but
-you can change this behavior by using the <code class="literal">script.cache.expire</code> setting.
-You can configure the size of this cache by using the <code class="literal">script.cache.max_size</code> setting.
-By default, the cache size is <code class="literal">100</code>.</p>
+<p>
+默认情况下，所有脚本都会被缓存，它们只需要在变更时重新编译。
+
+默认情况下，脚本没有过期时间，但是你可以通过使用<code class="literal">script.cache.expire</code>设置来更改此行为。
+
+可以使用<code class="literal">script.cache.max_size</code>设置来配置此缓存的个数。
+
+默认情况下，缓存的脚本的个数为<code class="literal">100</code>。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The size of scripts is limited to 65,535 bytes. This can be
-changed by setting <code class="literal">script.max_size_in_bytes</code> setting to increase that soft
-limit, but if scripts are really large then a
-<a class="xref" href="modules-scripting-engine.html" title="Advanced scripts using script engines">native script engine</a> should be considered.</p>
+<p>
+脚本的大小限制为65,535字节。
+
+这可以通过设置<code class="literal">script.max_size_in_bytes</code>设置来增加该软限制，但如果脚本非常大，则应考虑使用<a class="xref" href="modules-scripting-engine.html" title="高级脚本使用脚本引擎" rel="nofollow">原生脚本引擎(native script engine)</a>。
+</p>
 </div>
 </div>
 <h3>
-<a id="modules-scripting-errors"></a>Script errors<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting/using.asciidoc">edit</a>
+<a id="modules-scripting-errors"></a>脚本错误
 </h3>
-<p>Elasticsearch returns error details when there is a compliation or runtime
-exception.  The contents of this response are useful for tracking down the
-problem.</p>
+<p>
+当存在编译或运行时异常时，Elasticsearch会返回错误的详细信息。
+
+此响应的内容有助于跟踪问题。
+</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>This functionality is experimental and may be changed or removed completely in a future release. Elastic will take a best effort approach to fix any issues, but experimental features are not subject to the support SLA of official GA features.</p>
+<p>
+此功能是试验性的，在未来的版本中可能会被更改或完全删除。
+
+Elastic将尽最大努力解决任何问题，但实验功能不受官方GA功能的支持SLA的约束。
+</p>
 </div>
 </div>
-<p>The contents of <code class="literal">position</code> are experimental and subject to change.</p>
+<p>
+<code class="literal">position</code>的内容是实验性的，可能会发生变化。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="modules-scripting.html">« Scripting</a>
+<a href="modules-scripting.html">« 脚本</a>
 </span>
 <span class="next">
-<a href="modules-scripting-fields.html">Accessing document fields and special variables »</a>
+<a href2="modules-scripting-fields.html">Accessing document fields and special variables »</a>
 </span>
 </div>
 </div>

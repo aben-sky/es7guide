@@ -1645,8 +1645,8 @@ var esNavLinks = [
             },
             {
                 "url": "modules-scripting-security.html",
-                "text": "Scripting and security",
-                "title": "Scripting and security"
+                "text": "脚本与安全",
+                "title": "脚本与安全"
             },
             {
                 "url": "modules-scripting-painless.html",

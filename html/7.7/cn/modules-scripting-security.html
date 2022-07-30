@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Scripting and security | ElasticSearch 7.7 权威指南中文版</title>
+	<title>脚本与安全 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,58 +32,65 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="modules-scripting.html">Scripting</a></span>
+<span class="breadcrumb-link"><a href="modules-scripting.html">脚本</a></span>
 »
-<span class="breadcrumb-node">Scripting and security</span>
+<span class="breadcrumb-node">脚本与安全</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="modules-scripting-fields.html">« Accessing document fields and special variables</a>
+<a href="modules-scripting-fields.html">« 访问文档字段和特殊变量</a>
 </span>
 <span class="next">
-<a href="modules-scripting-painless.html">Painless scripting language »</a>
+<a href2="modules-scripting-painless.html">Painless scripting language »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="modules-scripting-security"></a>Scripting and security<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting/security.asciidoc">edit</a>
+<a id="modules-scripting-security"></a>脚本与安全
 </h2>
 </div></div></div>
-<p>While Elasticsearch contributors make every effort to prevent scripts from
-running amok, security is something best done in
-<a href="https://en.wikipedia.org/wiki/Defense_in_depth_(computing)" class="ulink" target="_top">layers</a> because
-all software has bugs and it is important to minimize the risk of failure in
-any security layer. Find below rules of thumb for how to keep Elasticsearch
-from being a vulnerability.</p>
+<p>
+虽然Elasticsearch的贡献者尽一切努力防止脚本失控，但安全是最好在<a href="https://en.wikipedia.org/wiki/Defense_in_depth_(computing)" class="ulink" target="_top">layers</a>中完成的事情，因为所有软件都有漏洞，最大限度地降低任何安全层中的失败风险是很重要的。
+
+下面是一些避免Elasticsearch成为漏洞的经验法则。
+</p>
 <h3>
-<a id="_do_not_run_as_root"></a>Do not run as root<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting/security.asciidoc">edit</a>
+<a id="_do_not_run_as_root"></a>不要以root身份运行
 </h3>
-<p>First and foremost, never run Elasticsearch as the <code class="literal">root</code> user as this would
-allow any successful effort to circumvent the other security layers to do
-<span class="strong strong"><strong>anything</strong></span> on your server. Elasticsearch will refuse to start if it detects
-that it is running as <code class="literal">root</code> but this is so important that it is worth double
-and triple checking.</p>
+<p>
+首先，也最重要的是，永远不要以<code class="literal">root</code>用户的身份运行Elasticsearch，因为这将允许<span class="strong strong"><strong>任何</strong></span>成功绕过其他安全层的尝试在服务器上执行任何操作。
+
+
+Elasticsearch will refuse to start if it detects that it is running as <code class="literal">root</code> but this is so important that it is worth double and triple checking.
+</p>
 <h3>
-<a id="_do_not_expose_elasticsearch_directly_to_users"></a>Do not expose Elasticsearch directly to users<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting/security.asciidoc">edit</a>
+<a id="_do_not_expose_elasticsearch_directly_to_users"></a>不要直接向用户公开Elasticsearch
 </h3>
-<p>Do not expose Elasticsearch directly to users, instead have an application
-make requests on behalf of users. If this is not possible, have an application
-to sanitize requests from users. If <span class="strong strong"><strong>that</strong></span> is not possible then have some
-mechanism to track which users did what. Understand that it is quite possible
-to write a <a class="xref" href="search.html" title="Search APIs"><code class="literal">_search</code></a> that overwhelms Elasticsearch and brings down
-the cluster. All such searches should be considered bugs and the Elasticsearch
-contributors make an effort to prevent this but they are still possible.</p>
+<p>
+
+Do not expose Elasticsearch directly to users, instead have an application make requests on behalf of users.
+
+If this is not possible, have an application to sanitize requests from users.
+
+If <span class="strong strong"><strong>that</strong></span> is not possible then have some mechanism to track which users did what. Understand that it is quite possible to write a <a class="xref" href="search.html" title="Search APIs"><code class="literal">_search</code></a> that overwhelms Elasticsearch and brings down the cluster.
+
+All such searches should be considered bugs and the Elasticsearch contributors make an effort to prevent this but they are still possible.
+</p>
 <h3>
-<a id="_do_not_expose_elasticsearch_directly_to_the_internet"></a>Do not expose Elasticsearch directly to the Internet<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting/security.asciidoc">edit</a>
+<a id="_do_not_expose_elasticsearch_directly_to_the_internet"></a>不要将Elasticsearch直接暴露在互联网上
 </h3>
-<p>Do not expose Elasticsearch to the Internet, instead have an application
-make requests on behalf of the Internet. Do not entertain the thought of having
-an application "sanitize" requests to Elasticsearch. Understand that it is
-possible for a sufficiently determined malicious user to write searches that
-overwhelm the Elasticsearch cluster and bring it down. For example:</p>
+<p>
+
+Do not expose Elasticsearch to the Internet, instead have an application make requests on behalf of the Internet.
+
+Do not entertain the thought of having an application "sanitize" requests to Elasticsearch.
+
+Understand that it is possible for a sufficiently determined malicious user to write searches that overwhelm the Elasticsearch cluster and bring it down.
+For example:
+</p>
 <p>Good:</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
@@ -185,10 +192,10 @@ aggs or plugin scripts (or any other contexts).</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="modules-scripting-fields.html">« Accessing document fields and special variables</a>
+<a href="modules-scripting-fields.html">« 访问文档字段和特殊变量</a>
 </span>
 <span class="next">
-<a href="modules-scripting-painless.html">Painless scripting language »</a>
+<a href2="modules-scripting-painless.html">Painless scripting language »</a>
 </span>
 </div>
 </div>

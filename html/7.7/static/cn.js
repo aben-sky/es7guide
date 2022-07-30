@@ -1640,8 +1640,8 @@ var esNavLinks = [
             },
             {
                 "url": "modules-scripting-fields.html",
-                "text": "Accessing document fields and special variables",
-                "title": "Accessing document fields and special variables"
+                "text": "访问文档字段和特殊变量",
+                "title": "访问文档字段和特殊变量"
             },
             {
                 "url": "modules-scripting-security.html",

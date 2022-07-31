@@ -63,93 +63,95 @@
 <p>
 首先，也最重要的是，永远不要以<code class="literal">root</code>用户的身份运行Elasticsearch，因为这将允许<span class="strong strong"><strong>任何</strong></span>成功绕过其他安全层的尝试在服务器上执行任何操作。
 
-
-Elasticsearch will refuse to start if it detects that it is running as <code class="literal">root</code> but this is so important that it is worth double and triple checking.
+如果Elasticsearch检测到它以<code class="literal">root</code>用户身份运行，就会拒绝启动，但这非常重要，值得再三检查。
 </p>
 <h3>
 <a id="_do_not_expose_elasticsearch_directly_to_users"></a>不要直接向用户公开Elasticsearch
 </h3>
 <p>
+不要直接向用户公开Elasticsearch，而是让一个应用程序代表用户发出请求。
 
-Do not expose Elasticsearch directly to users, instead have an application make requests on behalf of users.
+如果这是不可能的，请使用一个应用程序来净化来自用户的请求。
 
-If this is not possible, have an application to sanitize requests from users.
+如果<span class="strong strong"><strong>这</strong></span>是不可能的，那么就需要一些机制来跟踪哪些用户做了什么。
 
-If <span class="strong strong"><strong>that</strong></span> is not possible then have some mechanism to track which users did what. Understand that it is quite possible to write a <a class="xref" href="search.html" title="Search APIs"><code class="literal">_search</code></a> that overwhelms Elasticsearch and brings down the cluster.
+要明白，编写一个<a class="xref" href="search.html" title="Search APIs"><code class="literal">_search</code></a>来压垮Elasticsearch并关闭集群是很有可能的。
 
-All such searches should be considered bugs and the Elasticsearch contributors make an effort to prevent this but they are still possible.
+所有这样的搜索都应该被认为是缺陷，Elasticsearch的贡献者努力阻止这种情况，但它们仍然是可能的。
 </p>
 <h3>
 <a id="_do_not_expose_elasticsearch_directly_to_the_internet"></a>不要将Elasticsearch直接暴露在互联网上
 </h3>
 <p>
+不要将Elasticsearch暴露给互联网，而是让一个应用程序代表互联网发出请求。
 
-Do not expose Elasticsearch to the Internet, instead have an application make requests on behalf of the Internet.
+不要考虑让应用程序“净化”对Elasticsearch的请求。
 
-Do not entertain the thought of having an application "sanitize" requests to Elasticsearch.
+要知道，一个非常有决心的恶意用户可能会编写搜索，使Elasticsearch集群不堪重负，并使其崩溃。 
 
-Understand that it is possible for a sufficiently determined malicious user to write searches that overwhelm the Elasticsearch cluster and bring it down.
-For example:
+例如：
 </p>
-<p>Good:</p>
+<p>好的做法：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Users type text into a search box and the text is sent directly to a
-<a class="xref" href="query-dsl-match-query.html" title="Match query">Match</a>, <a class="xref" href="query-dsl-match-query-phrase.html" title="Match phrase query">Match phrase</a>,
-<a class="xref" href="query-dsl-simple-query-string-query.html" title="Simple query string query">Simple query string</a>, or any of the <a class="xref" href="search-suggesters.html" title="Suggesters">Suggesters</a>.
+用户在搜索框中键入文本，文本将被直接发送到<a class="xref" href="query-dsl-match-query.html" title="匹配查询" rel="nofollow">匹配(match)</a>、<a class="xref" href="query-dsl-match-query-phrase.html" title="匹配短语查询" rel="nofollow">匹配短语(match phrase)</a>、<a class="xref" href="query-dsl-simple-query-string-query.html" title="Simple query string query" rel="nofollow">简单查询字符串</a>或任何<a class="xref" href="search-suggesters.html" title="suggesters" rel="nofollow">suggesters</a>。
 </li>
 <li class="listitem">
-Running a script with any of the above queries that was written as part of
-the application development process.
+运行包含上述任何查询的脚本，该脚本是作为应用程序开发过程的一部分编写的。
 </li>
 <li class="listitem">
-Running a script with <code class="literal">params</code> provided by users.
+使用用户提供的<code class="literal">params</code>运行脚本。
 </li>
 <li class="listitem">
-User actions makes documents with a fixed structure.
+用户操作使文档具有固定的结构。
 </li>
 </ul>
 </div>
-<p>Bad:</p>
+<p>坏的做法：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Users can write arbitrary scripts, queries, <code class="literal">_search</code> requests.
+用户可以编写任意脚本、查询和<code class="literal">_search</code>请求。
 </li>
 <li class="listitem">
-User actions make documents with structure defined by users.
+用户操作使文档具有用户定义的结构。
 </li>
 </ul>
 </div>
 <h3>
-<a id="modules-scripting-other-layers"></a>Other security layers<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting/security.asciidoc">edit</a>
+<a id="modules-scripting-other-layers"></a>其他安全层
 </h3>
-<p>In addition to user privileges and script sandboxing Elasticsearch uses the
-<a href="http://www.oracle.com/technetwork/java/seccodeguide-139067.html" class="ulink" target="_top">Java Security Manager</a>
-and native security tools as additional layers of security.</p>
-<p>As part of its startup sequence Elasticsearch enables the Java Security Manager
-which limits the actions that can be taken by portions of the code. Painless
-uses this to limit the actions that generated Painless scripts can take,
-preventing them from being able to do things like write files and listen to
-sockets.</p>
-<p>Elasticsearch uses
-<a href="https://en.wikipedia.org/wiki/Seccomp" class="ulink" target="_top">seccomp</a> in Linux,
-<a href="https://www.chromium.org/developers/design-documents/sandbox/osx-sandboxing-design" class="ulink" target="_top">Seatbelt</a>
-in macOS, and
-<a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms684147" class="ulink" target="_top">ActiveProcessLimit</a>
-on Windows to prevent Elasticsearch from forking or executing other processes.</p>
-<p>Below this we describe the security settings for scripts and how you can
-change from the defaults described above. You should be very, very careful
-when allowing more than the defaults. Any extra permissions weakens the total
-security of the Elasticsearch deployment.</p>
+<p>
+除了用户权限和脚本沙箱，Elasticsearch使用<a href="http://www.oracle.com/technetwork/java/seccodeguide-139067.html" class="ulink" target="_top">Java安全管理器</a>和本地安全工具作为额外的安全层。
+</p>
+<p>
+作为启动序列的一部分，Elasticsearch启用了Java安全管理器，它限制了部分代码可以采取的动作。
+
+painless 使用这个来限制生成的 painless 脚本可以采取的动作，防止它们能够做像写文件和监听套接字这样的事情。
+</p>
+<p>
+Elasticsearch在Linux中使用<a href="https://en.wikipedia.org/wiki/Seccomp" class="ulink" target="_top">seccomp</a>、在macOS中使用<a href="https://www.chromium.org/developers/design-documents/sandbox/osx-sandboxing-design" class="ulink" target="_top">Seatbelt</a>、在Windows中使用<a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms684147" class="ulink" target="_top">ActiveProcessLimit</a>来防止 Elasticsearch fork或执行其他进程。
+</p>
+<p>
+下面将会描述脚本的安全设置，以及如何改变上述的默认设置。
+
+当允许超过默认值时，你应该非常非常小心。
+
+任何额外的权限都会削弱Elasticsearch部署的整体安全性。
+</p>
 <h3>
-<a id="allowed-script-types-setting"></a>Allowed script types setting<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting/security.asciidoc">edit</a>
+<a id="allowed-script-types-setting"></a>允许的脚本类型设置
 </h3>
-<p>By default all script types are allowed to be executed.  This can be modified using the
-setting <code class="literal">script.allowed_types</code>.  Only the types specified as part of the setting will be
-allowed to be executed.  To specify no types are allowed, set <code class="literal">script.allowed_types</code> to
-be <code class="literal">none</code>.</p>
+<p>
+默认情况下允许执行所有脚本类型。
+
+这可以使用设置<code class="literal">script.allowed_types</code>来修改。
+
+只允许执行设置中指定的类型。
+
+若要指定不允许任何类型，请将<code class="literal">script.allowed_types</code>设置为<code class="literal">none</code>。
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">script.allowed_types: inline <a id="CO281-1"></a><i class="conum" data-value="1"></i></pre>
 </div>
@@ -160,19 +162,25 @@ be <code class="literal">none</code>.</p>
 <p><a href="#CO281-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>This will allow only inline scripts to be executed but not stored scripts
-(or any other types).</p>
+<p>
+这将只允许执行内联脚本，而不允许执行存储的脚本（及任何其他类型的脚本）。
+</p>
 </td>
 </tr>
 </table>
 </div>
 <h3>
-<a id="allowed-script-contexts-setting"></a>Allowed script contexts setting<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting/security.asciidoc">edit</a>
+<a id="allowed-script-contexts-setting"></a>允许的脚本上下文设置
 </h3>
-<p>By default all script contexts are allowed to be executed.  This can be modified using the
-setting <code class="literal">script.allowed_contexts</code>.  Only the contexts specified as part of the setting will
-be allowed to be executed.  To specify no contexts are allowed, set <code class="literal">script.allowed_contexts</code>
-to be <code class="literal">none</code>.</p>
+<p>
+默认情况下，允许执行所有脚本上下文。
+
+这可以使用设置<code class="literal">script.allowed_contexts</code>来修改。
+
+只允许执行设置中指定的上下文。
+
+要指定不允许任何上下文，请将<code class="literal">script.allowed_contexts</code>设置为<code class="literal">none</code>。
+</p>
 <div class="pre_wrapper lang-yaml">
 <pre class="programlisting prettyprint lang-yaml">script.allowed_contexts: score, update <a id="CO282-1"></a><i class="conum" data-value="1"></i></pre>
 </div>
@@ -183,8 +191,9 @@ to be <code class="literal">none</code>.</p>
 <p><a href="#CO282-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>This will allow only scoring and update scripts to be executed but not
-aggs or plugin scripts (or any other contexts).</p>
+<p>
+这将只允许执行评分(score)和更新(update)脚本，而不允许执行聚合及插件脚本(以及任何其他上下文)。
+</p>
 </td>
 </tr>
 </table>

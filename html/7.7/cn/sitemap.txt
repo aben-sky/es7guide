@@ -252,3 +252,5 @@ https://www.pipiho.com/es/7.7/cn/returning-aggregation-type.html
 https://www.pipiho.com/es/7.7/cn/indexing-aggregation-results.html
 https://www.pipiho.com/es/7.7/cn/modules-scripting.html
 https://www.pipiho.com/es/7.7/cn/modules-scripting-using.html
+https://www.pipiho.com/es/7.7/cn/modules-scripting-fields.html
+https://www.pipiho.com/es/7.7/cn/modules-scripting-security.html

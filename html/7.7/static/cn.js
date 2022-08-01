@@ -1660,8 +1660,8 @@ var esNavLinks = [
             },
             {
                 "url": "modules-scripting-engine.html",
-                "text": "Advanced scripts using script engines",
-                "title": "Advanced scripts using script engines"
+                "text": "高级脚本使用脚本引擎",
+                "title": "高级脚本使用脚本引擎"
             }
         ]
     },

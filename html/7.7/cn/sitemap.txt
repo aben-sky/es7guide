@@ -254,3 +254,6 @@ https://www.pipiho.com/es/7.7/cn/modules-scripting.html
 https://www.pipiho.com/es/7.7/cn/modules-scripting-using.html
 https://www.pipiho.com/es/7.7/cn/modules-scripting-fields.html
 https://www.pipiho.com/es/7.7/cn/modules-scripting-security.html
+https://www.pipiho.com/es/7.7/cn/modules-scripting-painless.html
+https://www.pipiho.com/es/7.7/cn/modules-scripting-expression.html
+https://www.pipiho.com/es/7.7/cn/modules-scripting-engine.html

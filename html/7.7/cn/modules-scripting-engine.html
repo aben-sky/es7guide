@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Advanced scripts using script engines | ElasticSearch 7.7 权威指南中文版</title>
+	<title>高级脚本使用脚本引擎 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,37 +32,43 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="modules-scripting.html">Scripting</a></span>
+<span class="breadcrumb-link"><a href="modules-scripting.html">脚本</a></span>
 »
-<span class="breadcrumb-node">Advanced scripts using script engines</span>
+<span class="breadcrumb-node">高级脚本使用脚本引擎</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="modules-scripting-expression.html">« Lucene expressions language</a>
+<a href="modules-scripting-expression.html">« Lucene表达式语言</a>
 </span>
 <span class="next">
-<a href="mapping.html">Mapping »</a>
+<a href2="mapping.html">Mapping »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="modules-scripting-engine"></a>Advanced scripts using script engines<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting/engine.asciidoc">edit</a>
+<a id="modules-scripting-engine"></a>高级脚本使用脚本引擎
 </h2>
 </div></div></div>
-<p>A <code class="literal">ScriptEngine</code> is a backend for implementing a scripting language. It may also
-be used to write scripts that need to use advanced internals of scripting. For example,
-a script that wants to use term frequencies while scoring.</p>
-<p>The plugin <a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/plugin-authors.html" class="ulink" target="_top">documentation</a> has more information on
-how to write a plugin so that Elasticsearch will properly load it. To register
-the <code class="literal">ScriptEngine</code>, your plugin should implement the <code class="literal">ScriptPlugin</code> interface
-and override the <code class="literal">getScriptEngine(Settings settings)</code> method.</p>
-<p>The following is an example of a custom <code class="literal">ScriptEngine</code> which uses the language
-name <code class="literal">expert_scripts</code>. It implements a single script called <code class="literal">pure_df</code> which
-may be used as a search script to override each document’s score as
-the document frequency of a provided term.</p>
+<p>
+<code class="literal">ScriptEngine</code>是实现脚本语言的后端。
+
+它还可以用来编写需要使用高级脚本内部机制的脚本。
+
+例如，一个脚本希望在评分时使用词项的频率。
+</p>
+<p>
+<a href="https://www.elastic.co/guide/en/elasticsearch/plugins/7.7/plugin-authors.html" class="ulink" target="_top">插件文档</a>中有更多关于如何编写插件的信息，这样Elasticsearch就可以正确地加载它。
+
+要注册<code class="literal">ScriptEngine</code>，插件应该实现<code class="literal">ScriptPlugin</code>接口并重写<code class="literal">getScriptEngine(Settings settings)</code>方法。
+</p>
+<p>
+下面是一个使用语言名称为<code class="literal">expert_scripts</code>的自定义脚本引擎的示例。
+
+它实现了一个名为<code class="literal">pure_df</code>的脚本，该脚本可以用作搜索脚本来覆盖每个文档的分数，作为所提供词项的文档频率。
+</p>
 <div class="pre_wrapper lang-java">
 <pre class="programlisting prettyprint lang-java">private static class MyExpertScriptEngine implements ScriptEngine {
     @Override
@@ -202,8 +208,7 @@ the document frequency of a provided term.</p>
     }
 }</pre>
 </div>
-<p>You can execute the script by specifying its <code class="literal">lang</code> as <code class="literal">expert_scripts</code>, and the name
-of the script as the script source:</p>
+<p>可以通过将脚本的<code class="literal">lang</code>指定为<code class="literal">expert_scripts</code>，并将脚本的名称指定为脚本源来执行脚本：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /_search
 {
@@ -236,10 +241,10 @@ of the script as the script source:</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="modules-scripting-expression.html">« Lucene expressions language</a>
+<a href="modules-scripting-expression.html">« Lucene表达式语言</a>
 </span>
 <span class="next">
-<a href="mapping.html">Mapping »</a>
+<a href2="mapping.html">Mapping »</a>
 </span>
 </div>
 </div>

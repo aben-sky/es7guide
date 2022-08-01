@@ -1655,8 +1655,8 @@ var esNavLinks = [
             },
             {
                 "url": "modules-scripting-expression.html",
-                "text": "Lucene expressions language",
-                "title": "Lucene expressions language"
+                "text": "Lucene表达式语言",
+                "title": "Lucene表达式语言"
             },
             {
                 "url": "modules-scripting-engine.html",

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Lucene expressions language | ElasticSearch 7.7 权威指南中文版</title>
+	<title>Lucene表达式语言 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,63 +32,69 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="modules-scripting.html">Scripting</a></span>
+<span class="breadcrumb-link"><a href="modules-scripting.html">脚本</a></span>
 »
-<span class="breadcrumb-node">Lucene expressions language</span>
+<span class="breadcrumb-node">Lucene表达式语言</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="modules-scripting-painless.html">« Painless scripting language</a>
+<a href="modules-scripting-painless.html">« painless脚本语言</a>
 </span>
 <span class="next">
-<a href="modules-scripting-engine.html">Advanced scripts using script engines »</a>
+<a href2="modules-scripting-engine.html">Advanced scripts using script engines »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="modules-scripting-expression"></a>Lucene expressions language<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting/expression.asciidoc">edit</a>
+<a id="modules-scripting-expression"></a>Lucene表达式语言
 </h2>
 </div></div></div>
-<p>Lucene’s expressions compile a <code class="literal">javascript</code> expression to bytecode. They are
-designed for high-performance custom ranking and sorting functions and are
-enabled for <code class="literal">inline</code> and <code class="literal">stored</code> scripting by default.</p>
+<p>
+Lucene的表达式将<code class="literal">javascript</code>表达式编译成字节码。
+
+它们是为高性能定制 排名(ranking)和排序(sorting) 功能而设计的，默认情况下支持内联(<code class="literal">inline</code>)和存储的(<code class="literal">stored</code>)脚本。
+</p>
 <h3>
-<a id="_performance"></a>Performance<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting/expression.asciidoc">edit</a>
+<a id="_performance"></a>性能
 </h3>
-<p>Expressions were designed to have competitive performance with custom Lucene code.
-This performance is due to having low per-document overhead as opposed to other
-scripting engines: expressions do more "up-front".</p>
-<p>This allows for very fast execution, even faster than if you had written a <code class="literal">native</code> script.</p>
+<p>
+表达式被设计成具有与自定义Lucene代码相媲美的性能。 
+
+这种性能是因为与其他脚本引擎相比，每个文档的开销较低：表达式做了更多的“预先准备”。
+</p>
+<p>
+这使得执行速度非常快，甚至比编写原生(<code class="literal">native</code>)脚本还要快。
+</p>
 <h3>
-<a id="_syntax_17"></a>Syntax<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting/expression.asciidoc">edit</a>
+<a id="_syntax_17"></a>语法
 </h3>
-<p>Expressions support a subset of javascript syntax: a single expression.</p>
-<p>See the <a href="http://lucene.apache.org/core/6_0_0/expressions/index.html?org/apache/lucene/expressions/js/package-summary.html" class="ulink" target="_top">expressions module documentation</a>
-for details on what operators and functions are available.</p>
-<p>Variables in <code class="literal">expression</code> scripts are available to access:</p>
+<p>表达式支持javascript语法的子集：单个表达式。</p>
+<p>有关可用运算符和函数的详细信息，请参见<a href="http://lucene.apache.org/core/6_0_0/expressions/index.html?org/apache/lucene/expressions/js/package-summary.html" class="ulink" target="_top">表达式模块文档</a>。</p>
+<p><code class="literal">expression</code>脚本中的变量可用于访问：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-document fields, e.g. <code class="literal">doc['myfield'].value</code>
+文档的字段，比如：<code class="literal">doc['myfield'].value</code>
 </li>
 <li class="listitem">
-variables and methods that the field supports, e.g. <code class="literal">doc['myfield'].empty</code>
+字段支持的变量和函数，比如：<code class="literal">doc['myfield'].empty</code>
 </li>
 <li class="listitem">
-Parameters passed into the script, e.g. <code class="literal">mymodifier</code>
+传递给脚本的参数，比如 <code class="literal">mymodifier</code>
 </li>
 <li class="listitem">
-The current document’s score, <code class="literal">_score</code> (only available when used in a <code class="literal">script_score</code>)
+当前文档的得分 <code class="literal">_score</code> (仅在<code class="literal">script_score</code>中使用时有效)
 </li>
 </ul>
 </div>
-<p>You can use Expressions scripts for <code class="literal">script_score</code>, <code class="literal">script_fields</code>, sort scripts, and numeric aggregation
-scripts, simply set the <code class="literal">lang</code> parameter to <code class="literal">expression</code>.</p>
+<p>
+可以将表达式脚本用于<code class="literal">script_score</code>、<code class="literal">script_fields</code>、排序脚本和数值聚合脚本，只需将参数<code class="literal">lang</code>设置为<code class="literal">expression</code>。
+</p>
 <h3>
-<a id="_numeric_field_api"></a>Numeric field API<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting/expression.asciidoc">edit</a>
+<a id="_numeric_field_api"></a>numeric字段API
 </h3>
 <div class="informaltable">
 <table border="1" cellpadding="4px">
@@ -98,59 +104,67 @@ scripts, simply set the <code class="literal">lang</code> parameter to <code cla
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Expression</th>
-<th align="left" valign="top">Description</th>
+<th align="left" valign="top">表达式</th>
+<th align="left" valign="top">描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].value</code></p></td>
-<td align="left" valign="top"><p>The value of the field, as a <code class="literal">double</code></p></td>
+<td align="left" valign="top"><p>字段的值，双精度(<code class="literal">double</code>)值</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].empty</code></p></td>
-<td align="left" valign="top"><p>A boolean indicating if the field has no
-values within the doc.</p></td>
+<td align="left" valign="top"><p>一个布尔值，指示该字段在文档中是否为空值。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].length</code></p></td>
-<td align="left" valign="top"><p>The number of values in this document.</p></td>
+<td align="left" valign="top"><p>该文档中值的数量。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].min()</code></p></td>
-<td align="left" valign="top"><p>The minimum value of the field in this document.</p></td>
+<td align="left" valign="top"><p>该文档中字段的最小值。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].max()</code></p></td>
-<td align="left" valign="top"><p>The maximum value of the field in this document.</p></td>
+<td align="left" valign="top"><p>该文档中字段的最大值。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].median()</code></p></td>
-<td align="left" valign="top"><p>The median value of the field in this document.</p></td>
+<td align="left" valign="top"><p>该文档中字段值的中位数。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].avg()</code></p></td>
-<td align="left" valign="top"><p>The average of the values in this document.</p></td>
+<td align="left" valign="top"><p>该文档中字段值的平均数。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].sum()</code></p></td>
-<td align="left" valign="top"><p>The sum of the values in this document.</p></td>
+<td align="left" valign="top"><p>该文档中字段值的总和。</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>When a document is missing the field completely, by default the value will be treated as <code class="literal">0</code>.
-You can treat it as another value instead, e.g. <code class="literal">doc['myfield'].empty ? 100 : doc['myfield'].value</code></p>
-<p>When a document has multiple values for the field, by default the minimum value is returned.
-You can choose a different value instead, e.g. <code class="literal">doc['myfield'].sum()</code>.</p>
-<p>When a document is missing the field completely, by default the value will be treated as <code class="literal">0</code>.</p>
-<p>Boolean fields are exposed as numerics, with <code class="literal">true</code> mapped to <code class="literal">1</code> and <code class="literal">false</code> mapped to <code class="literal">0</code>.
-For example: <code class="literal">doc['on_sale'].value ? doc['price'].value * 0.5 : doc['price'].value</code></p>
+<p>
+当文档完全缺少该字段时，默认情况下，该值将被视为<code class="literal">0</code>。
+
+你也可以将其视为另一个值，例如 <code class="literal">doc['myfield'].empty ? 100 : doc['myfield'].value</code>
+</p>
+<p>
+当文档的字段有多个值时，默认情况下返回最小值。
+
+你也可以选择一个不同的值，例如 <code class="literal">doc['myfield'].sum()</code>。
+</p>
+<p>
+布尔(bool)字段显示为数字，<code class="literal">true</code>映射为<code class="literal">1</code>，<code class="literal">false</code>映射为<code class="literal">0</code>。
+
+例如：<code class="literal">doc['on_sale'].value ? doc['price'].value * 0.5 : doc['price'].value</code>
+</p>
 <h3>
-<a id="_date_field_api"></a>Date field API<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting/expression.asciidoc">edit</a>
+<a id="_date_field_api"></a>date字段API
 </h3>
-<p>Date fields are treated as the number of milliseconds since January 1, 1970 and
-support the Numeric Fields API above, plus access to some date-specific fields:</p>
+<p>
+date字段被视为自1970年1月1日以来的毫秒数，并支持上述numeric字段API，以及对某些特定的日期字段的访问:
+</p>
 <div class="informaltable">
 <table border="1" cellpadding="4px">
 <colgroup>
@@ -159,82 +173,84 @@ support the Numeric Fields API above, plus access to some date-specific fields:<
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Expression</th>
-<th align="left" valign="top">Description</th>
+<th align="left" valign="top">表达式</th>
+<th align="left" valign="top">描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].date.centuryOfEra</code></p></td>
-<td align="left" valign="top"><p>Century (1-2920000)</p></td>
+<td align="left" valign="top"><p>世纪 (1-2920000)</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].date.dayOfMonth</code></p></td>
-<td align="left" valign="top"><p>Day (1-31), e.g. <code class="literal">1</code> for the first of the month.</p></td>
+<td align="left" valign="top"><p>天 (1-31)，比如 <code class="literal">1</code> 表示每个月的第一天</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].date.dayOfWeek</code></p></td>
-<td align="left" valign="top"><p>Day of the week (1-7), e.g. <code class="literal">1</code> for Monday.</p></td>
+<td align="left" valign="top"><p>星期几 (1-7)，比如<code class="literal">1</code> 代表星期一</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].date.dayOfYear</code></p></td>
-<td align="left" valign="top"><p>Day of the year, e.g. <code class="literal">1</code> for January 1.</p></td>
+<td align="left" valign="top"><p>一年中的某一天，比如<code class="literal">1</code> 表示一月1号。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].date.era</code></p></td>
-<td align="left" valign="top"><p>Era: <code class="literal">0</code> for BC, <code class="literal">1</code> for AD.</p></td>
+<td align="left" valign="top"><p>纪元，<code class="literal">0</code> 表示 公元前(BC)，<code class="literal">1</code> 表示公元(AD)。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].date.hourOfDay</code></p></td>
-<td align="left" valign="top"><p>Hour (0-23).</p></td>
+<td align="left" valign="top"><p>小时(0-23)。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].date.millisOfDay</code></p></td>
-<td align="left" valign="top"><p>Milliseconds within the day (0-86399999).</p></td>
+<td align="left" valign="top"><p>一天中的毫秒数(0-86399999)。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].date.millisOfSecond</code></p></td>
-<td align="left" valign="top"><p>Milliseconds within the second (0-999).</p></td>
+<td align="left" valign="top"><p>一秒内的毫秒(0-999)。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].date.minuteOfDay</code></p></td>
-<td align="left" valign="top"><p>Minute within the day (0-1439).</p></td>
+<td align="left" valign="top"><p>一天中的分钟(0-1439)。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].date.minuteOfHour</code></p></td>
-<td align="left" valign="top"><p>Minute within the hour (0-59).</p></td>
+<td align="left" valign="top"><p>一小时内的分钟(0-59).</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].date.monthOfYear</code></p></td>
-<td align="left" valign="top"><p>Month within the year (1-12), e.g. <code class="literal">1</code> for January.</p></td>
+<td align="left" valign="top"><p>一年中的月数(1-12)，比如<code class="literal">1</code> 表示一月份</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].date.secondOfDay</code></p></td>
-<td align="left" valign="top"><p>Second within the day (0-86399).</p></td>
+<td align="left" valign="top"><p>一天中的秒数(0-86399)</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].date.secondOfMinute</code></p></td>
-<td align="left" valign="top"><p>Second within the minute (0-59).</p></td>
+<td align="left" valign="top"><p>一分钟内的描述(0-59)</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].date.year</code></p></td>
-<td align="left" valign="top"><p>Year (-292000000 - 292000000).</p></td>
+<td align="left" valign="top"><p>年(-292000000 - 292000000)</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].date.yearOfCentury</code></p></td>
-<td align="left" valign="top"><p>Year within the century (1-100).</p></td>
+<td align="left" valign="top"><p>一个世纪中的年数(1-100)</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].date.yearOfEra</code></p></td>
-<td align="left" valign="top"><p>Year within the era (1-292000000).</p></td>
+<td align="left" valign="top"><p>一个纪元中的年(1-292000000)</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>The following example shows the difference in years between the <code class="literal">date</code> fields date0 and date1:</p>
+<p>
+下面这个例子显示了<code class="literal">date</code>字段 date0 和 date1 之间的年份差异：
+</p>
 <p><code class="literal">doc['date1'].date.year - doc['date0'].date.year</code></p>
 <h3>
-<a id="geo-point-field-api"></a><code class="literal">geo_point</code> field API<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting/expression.asciidoc">edit</a>
+<a id="geo-point-field-api"></a><code class="literal">geo_point</code>字段API
 </h3>
 <div class="informaltable">
 <table border="1" cellpadding="4px">
@@ -244,52 +260,52 @@ support the Numeric Fields API above, plus access to some date-specific fields:<
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Expression</th>
-<th align="left" valign="top">Description</th>
+<th align="left" valign="top">表达式</th>
+<th align="left" valign="top">描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].empty</code></p></td>
-<td align="left" valign="top"><p>A boolean indicating if the field has no
-values within the doc.</p></td>
+<td align="left" valign="top"><p>一个布尔值，指示该字段在文档中是否为空值。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].lat</code></p></td>
-<td align="left" valign="top"><p>The latitude of the geo point.</p></td>
+<td align="left" valign="top"><p>地理位置坐标点的纬度值</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">doc['field_name'].lon</code></p></td>
-<td align="left" valign="top"><p>The longitude of the geo point.</p></td>
+<td align="left" valign="top"><p>地理位置坐标点的经度值</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>The following example computes distance in kilometers from Washington, DC:</p>
+<p>下面这个例子计算与华盛顿市区的距离（单位为公里）：</p>
 <p><code class="literal">haversin(38.9072, 77.0369, doc['field_name'].lat, doc['field_name'].lon)</code></p>
-<p>In this example the coordinates could have been passed as parameters to the script,
-e.g. based on geolocation of the user.</p>
+<p>
+在这个例子中，坐标可以作为参数传递给脚本，例如基于用户的地理位置。
+</p>
 <h3>
-<a id="_limitations_7"></a>Limitations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/scripting/expression.asciidoc">edit</a>
+<a id="_limitations_7"></a>局限性
 </h3>
-<p>There are a few limitations relative to other script languages:</p>
+<p>相对于其他脚本语言有一些限制：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Only numeric, boolean, date, and geo_point fields may be accessed
+只能访问 numeric、boolean、date 及 geo_point 字段
 </li>
 <li class="listitem">
-Stored fields are not available
+存储(的)字段不可用
 </li>
 </ul>
 </div>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="modules-scripting-painless.html">« Painless scripting language</a>
+<a href="modules-scripting-painless.html">« painless脚本语言</a>
 </span>
 <span class="next">
-<a href="modules-scripting-engine.html">Advanced scripts using script engines »</a>
+<a href2="modules-scripting-engine.html">Advanced scripts using script engines »</a>
 </span>
 </div>
 </div>

@@ -1650,8 +1650,8 @@ var esNavLinks = [
             },
             {
                 "url": "modules-scripting-painless.html",
-                "text": "Painless scripting language",
-                "title": "Painless scripting language"
+                "text": "painless脚本语言",
+                "title": "painless脚本语言"
             },
             {
                 "url": "modules-scripting-expression.html",

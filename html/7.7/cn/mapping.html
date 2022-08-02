@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Mapping | ElasticSearch 7.7 权威指南中文版</title>
+	<title>映射 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,117 +32,119 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-node">Mapping</span>
+<span class="breadcrumb-node">映射</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="modules-scripting-engine.html">« Advanced scripts using script engines</a>
+<a href="modules-scripting-engine.html">« 高级脚本使用脚本引擎</a>
 </span>
 <span class="next">
-<a href="removal-of-types.html">Removal of mapping types »</a>
+<a href2="removal-of-types.html">Removal of mapping types »</a>
 </span>
 </div>
 <div class="part">
 <div class="titlepage"><div><div>
 <h1 class="title">
-<a id="mapping"></a>Mapping<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping.asciidoc">edit</a>
+<a id="mapping"></a>映射(mapping)
 </h1>
 </div></div></div>
 <div class="openblock partintro">
 <div class="content">
-<p>Mapping is the process of defining how a document, and the fields it contains,
-are stored and indexed. For instance, use mappings to define:</p>
+<p>
+映射(mapping)是定义如何存储和索引文档及其包含的字段的过程。
+
+例如，可以使用映射来定义：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-which string fields should be treated as full text fields.
+哪些字符串字段应被视为全文字段。
 </li>
 <li class="listitem">
-which fields contain numbers, dates, or geolocations.
+哪些字段包含数字、日期或地理位置。
 </li>
 <li class="listitem">
-the <a class="xref" href="mapping-date-format.html" title="format">format</a> of date values.
-</li>
+日期值的<a class="xref" href="mapping-date-format.html" title="格式" rel="nofollow">格式(format)</a>
+。</li>
 <li class="listitem">
-custom rules to control the mapping for
-<a class="xref" href="dynamic-mapping.html" title="Dynamic Mapping">dynamically added fields</a>.
+控制<a class="xref" href="dynamic-mapping.html" title="Dynamic Mapping">动态添加字段</a>映射的自定义规则。
 </li>
 </ul>
 </div>
-<p>A mapping definition has:</p>
+<p>映射的定义具有：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
 <span class="term">
-<a class="xref" href="mapping-fields.html" title="Meta-Fields">Meta-fields</a>
+<a class="xref" href="mapping-fields.html" title="元字段" rel="nofollow">元字段(meta-fields)</a>
 </span>
 </dt>
 <dd>
-Meta-fields are used to customize how a document’s associated metadata is
-treated. Examples of meta-fields include the document’s
-<a class="xref" href="mapping-index-field.html" title="_index field"><code class="literal">_index</code></a>, <a class="xref" href="mapping-id-field.html" title="_id field"><code class="literal">_id</code></a>, and
-<a class="xref" href="mapping-source-field.html" title="_source field"><code class="literal">_source</code></a> fields.
+元字段(meta-fields)用于定制如何处理文档关联的元数据。
+
+元字段的例子包括文档的 <a class="xref" href="mapping-index-field.html" title="_index字段" rel="nofollow"><code class="literal">_index</code></a>、<a class="xref" href="mapping-id-field.html" title="_id字段" rel="nofollow"><code class="literal">_id</code></a> 及 <a class="xref" href="mapping-source-field.html" title="_source字段" rel="nofollow"><code class="literal">_source</code></a>字段。
 </dd>
 <dt>
 <span class="term">
-<a class="xref" href="mapping-types.html" title="Field datatypes">Fields</a> or <em>properties</em>
+<a class="xref" href="mapping-types.html" title="Field datatypes">字段(fields)</a>或<em>属性(properties)</em>
 </span>
 </dt>
 <dd>
-A mapping contains a list of fields or <code class="literal">properties</code> pertinent to the
-document.
+映射包含与文档相关的 字段(field) 或 属性(<code class="literal">properties</code>) 的列表。
 </dd>
 </dl>
 </div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Before 7.0.0, the <em>mappings</em> definition used to include a type name.
-For more details, please see <a class="xref" href="removal-of-types.html" title="Removal of mapping types"><em>Removal of mapping types</em></a>.</p>
+<p>
+在7.0.0之前，<em>mappings</em>定义曾经包含 type。
+
+更多信息请参考 <a class="xref" href="removal-of-types.html" title="Removal of mapping types"><em>删除的映射类型</em></a>。
+</p>
 </div>
 </div>
 <h2>
-<a id="field-datatypes"></a>Field datatypes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping.asciidoc">edit</a>
+<a id="field-datatypes"></a>字段数据类型
 </h2>
-<p>Each field has a data <code class="literal">type</code> which can be:</p>
+<p>每个字段都有一个数据类型(<code class="literal">type</code>)，可以是：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-a simple type like <a class="xref" href="text.html" title="Text datatype"><code class="literal">text</code></a>, <a class="xref" href="keyword.html" title="Keyword datatype"><code class="literal">keyword</code></a>, <a class="xref" href="date.html" title="Date datatype"><code class="literal">date</code></a>, <a class="xref" href="number.html" title="Numeric datatypes"><code class="literal">long</code></a>,
-<a class="xref" href="number.html" title="Numeric datatypes"><code class="literal">double</code></a>, <a class="xref" href="boolean.html" title="Boolean datatype"><code class="literal">boolean</code></a> or <a class="xref" href="ip.html" title="IP datatype"><code class="literal">ip</code></a>.
+简单类型，如<a class="xref" href="text.html" title="text 数据类型" rel="nofollow"><code class="literal">text</code></a>、<a class="xref" href="keyword.html" title="keyword 数据类型" rel="nofollow"><code class="literal">keyword</code></a>、<a class="xref" href="date.html" title="date 数据类型" rel="nofollow"><code class="literal">date</code></a>、<a class="xref" href="number.html" title="numeric 数据类型" rel="nofollow"><code class="literal">long</code></a>、<a class="xref" href="number.html" title="numeric 数据类型" rel="nofollow"><code class="literal">double</code></a>、<a class="xref" href="boolean.html" title="boolean 数据类型" rel="nofollow"><code class="literal">boolean</code></a> 及 <a class="xref" href="ip.html" title="ip 数据类型" rel="nofollow"><code class="literal">ip</code></a>。
 </li>
 <li class="listitem">
-a type which supports the hierarchical nature of JSON such as
-<a class="xref" href="object.html" title="Object datatype"><code class="literal">object</code></a> or <a class="xref" href="nested.html" title="Nested datatype"><code class="literal">nested</code></a>.
+支持JSON分层性质的类型，如<a class="xref" href="object.html" title="object 数据类型" rel="nofollow"><code class="literal">object</code></a> 及 <a class="xref" href="nested.html" title="nested 数据类型" rel="nofollow"><code class="literal">nested</code></a>。
 </li>
 <li class="listitem">
-or a specialised type like <a class="xref" href="geo-point.html" title="Geo-point datatype"><code class="literal">geo_point</code></a>,
-<a class="xref" href="geo-shape.html" title="Geo-shape datatype"><code class="literal">geo_shape</code></a>, or <a class="xref" href="search-suggesters.html#completion-suggester" title="Completion Suggester"><code class="literal">completion</code></a>.
+或者一种特殊的类型，如 <a class="xref" href="geo-point.html" title="geo-point 数据类型" rel="nofollow"><code class="literal">geo_point</code></a>、<a class="xref" href="geo-shape.html" title="geo-shape 数据类型" rel="nofollow"><code class="literal">geo_shape</code></a> 及 <a class="xref" href="search-suggesters.html#completion-suggester" title="完成建议" rel="nofollow"><code class="literal">completion</code></a>。
 </li>
 </ul>
 </div>
-<p>It is often useful to index the same field in different ways for different
-purposes. For instance, a <code class="literal">string</code> field could be <a class="xref" href="mapping-index.html" title="index">indexed</a> as
-a <code class="literal">text</code> field for full-text search, and as a <code class="literal">keyword</code> field for
-sorting or aggregations.  Alternatively, you could index a string field with
-the <a class="xref" href="analysis-standard-analyzer.html" title="Standard Analyzer"><code class="literal">standard</code> analyzer</a>, the
-<a class="xref" href="analysis-lang-analyzer.html#english-analyzer" title="english analyzer"><code class="literal">english</code></a> analyzer, and the
-<a class="xref" href="analysis-lang-analyzer.html#french-analyzer" title="french analyzer"><code class="literal">french</code> analyzer</a>.</p>
-<p>This is the purpose of <em>multi-fields</em>.  Most datatypes support multi-fields
-via the <a class="xref" href="multi-fields.html" title="fields"><code class="literal">fields</code></a> parameter.</p>
+<p>
+出于不同的目的，以不同的方式索引同一个字段通常是有用的。
+
+例如，一个<code class="literal">string</code>字段可以<a class="xref" href="mapping-index.html" title="index">索引(indexed)</a>为一个<code class="literal">text</code>字段用于全文搜索，也可以索引为一个<code class="literal">keyword</code>字段用于排序或聚合。
+
+或者，你可以使用<a class="xref" href="analysis-standard-analyzer.html" title="Standard 分析器" rel="nofollow"><code class="literal">standard</code>分析器</a>、<a class="xref" href="analysis-lang-analyzer.html#english-analyzer" title="english 分析器" rel="nofollow"><code class="literal">english</code>分析器</a>和<a class="xref" href="analysis-lang-analyzer.html#french-analyzer" title="french 分析器" rel="nofollow"><code class="literal">french</code>分析器</a>来索引一个 string 字段。
+</p>
+<p>
+这就是 多字段(<em>multi-fields</em>) 的目的。
+
+大多数数据类型通过参数<a class="xref" href="multi-fields.html" title="字段" rel="nofollow"><code class="literal">fields</code></a>支持多字段。
+</p>
 <h3>
-<a id="mapping-limit-settings"></a>Settings to prevent mappings explosion<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping.asciidoc">edit</a>
+<a id="mapping-limit-settings"></a>防止映射爆炸的设置
 </h3>
-<p>Defining too many fields in an index can lead to a
-mapping explosion, which can cause out of memory errors and difficult
-situations to recover from.</p>
-<p>Consider a situation where every new document inserted
-introduces new fields, such as with <a class="xref" href="dynamic-mapping.html" title="Dynamic Mapping">dynamic mapping</a>.
-Each new field is added to the index mapping, which can become a
-problem as the mapping grows.</p>
-<p>Use the following settings to limit the number of field mappings (created manually or dynamically) and prevent documents from causing a mapping explosion:</p>
+<p>在索引中定义太多字段会导致映射爆炸，从而导致内存不足错误和难以恢复的情况。</p>
+<p>
+考虑这样一种情况，其中插入的每个新文档都引入了新的字段，例如<a class="xref" href="dynamic-mapping.html" title="动态映射" rel="nofollow">动态映射(dynamic mapping)</a>。
+
+每个新字段都被添加到索引的映射中，随着映射的增长，这可能会成为一个问题。
+</p>
+<p>使用以下设置来限制(手动或动态创建的)字段映射的数量，并防止文档导致映射爆炸：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -152,24 +154,25 @@ problem as the mapping grows.</p>
 </dt>
 <dd>
 <p>
-The maximum number of fields in an index. Field and object mappings, as well as
-field aliases count towards this limit. The default value is <code class="literal">1000</code>.
+索引中字段的最大数量。字段和对象映射以及字段别名都计入此限制。默认值为 <code class="literal">1000</code>。
 </p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The limit is in place to prevent mappings and searches from becoming too
-large. Higher values can lead to performance degradations and memory issues,
-especially in clusters with a high load or few resources.</p>
-<p>If you increase this setting, we recommend you also increase the
-<a class="xref" href="search-settings.html" title="Search settings"><code class="literal">indices.query.bool.max_clause_count</code></a> setting, which
-limits the maximum number of <a class="xref" href="query-dsl-bool-query.html" title="Boolean query">boolean clauses</a> in a query.</p>
+<p>
+这个限制是为了防止映射和搜索变得太大。
+
+较大的值可能会导致性能下降和内存问题，尤其是在负载高或资源少的集群中。
+</p>
+<p>
+如果增加了此设置，我们建议也增加<a class="xref" href="search-settings.html" title="搜索设置" rel="nofollow"><code class="literal">indices.query.bool.max_clause_count</code></a>设置，该设置限制查询中<a class="xref" href="query-dsl-bool-query.html" title="布尔查询" rel="nofollow">布尔(bool)子句</a>的最大数量。
+</p>
 </div>
 </div>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If your field mappings contain a large, arbitrary set of keys, consider using the <a class="xref" href="flattened.html" title="Flattened datatype">flattened</a> datatype.</p>
+<p>如果字段映射中包含一组大型的任意键，请考虑使用<a class="xref" href="flattened.html" title="flattened 数据类型" rel="nofollow">flattened</a>数据类型。</p>
 </div>
 </div>
 </dd>
@@ -179,10 +182,11 @@ limits the maximum number of <a class="xref" href="query-dsl-bool-query.html" ti
 </span>
 </dt>
 <dd>
-The maximum depth for a field, which is measured as the number of inner
-objects. For instance, if all fields are defined at the root object level,
-then the depth is <code class="literal">1</code>. If there is one object mapping, then the depth is
-<code class="literal">2</code>, etc. Default is <code class="literal">20</code>.
+字段的最大深度，以内部对象的数量来度量。
+
+例如，如果所有字段都是在根对象级别定义的，那么深度就是<code class="literal">1</code>。
+
+如果有一个对象映射，则深度为<code class="literal">2</code>，等等。默认值为<code class="literal">20</code>。
 </dd>
 </dl>
 </div>
@@ -392,10 +396,10 @@ contains a large number of fields.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="modules-scripting-engine.html">« Advanced scripts using script engines</a>
+<a href="modules-scripting-engine.html">« 高级脚本使用脚本引擎</a>
 </span>
 <span class="next">
-<a href="removal-of-types.html">Removal of mapping types »</a>
+<a href2="removal-of-types.html">Removal of mapping types »</a>
 </span>
 </div>
 </div>

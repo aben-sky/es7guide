@@ -1667,8 +1667,8 @@ var esNavLinks = [
     },
     {
         "url": "mapping.html",
-        "text": "Mapping",
-        "title": "Mapping",
+        "text": "映射",
+        "title": "映射",
         "sub": [
             {
                 "url": "removal-of-types.html",

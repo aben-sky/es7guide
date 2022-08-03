@@ -198,8 +198,13 @@
 </span>
 </dt>
 <dd>
-The maximum number of distinct <code class="literal">nested</code> mappings in an index. The <code class="literal">nested</code> type should only be used in special cases, when arrays of objects need to be queried independently of each other. To safeguard against poorly designed mappings, this setting
-limits the number of unique <code class="literal">nested</code> types per index. Default is <code class="literal">50</code>.
+索引中不同 嵌套的(<code class="literal">nested</code>) 映射的最大数量。
+
+<code class="literal">nested</code>类型应该只在特殊情况下使用：当对象数组需要彼此独立地查询时。
+
+为了防止映射设计不当，该设置限制了每个索引的唯一的<code class="literal">nested</code>类型的数量。
+
+默认值为<code class="literal">50</code>。
 </dd>
 </dl>
 </div>
@@ -211,9 +216,11 @@ limits the number of unique <code class="literal">nested</code> types per index.
 </span>
 </dt>
 <dd>
-The maximum number of nested JSON objects that a single document can contain across all
-<code class="literal">nested</code> types. This limit helps to prevent out of memory errors when a document contains too many nested
-objects. Default is <code class="literal">10000</code>.
+单个文档在所有<code class="literal">nested</code>类型中可以包含的嵌套(的)JSON对象的最大数量。
+
+此限制有助于防止由于文档包含太多嵌套对象而直到内存不足的错误。
+
+默认值为<code class="literal">10000</code>。
 </dd>
 <dt>
 <span class="term">
@@ -221,36 +228,40 @@ objects. Default is <code class="literal">10000</code>.
 </span>
 </dt>
 <dd>
-Setting for the maximum length of a field name. This setting isn’t really something that addresses
-mappings explosion but might still be useful if you want to limit the field length.
-It usually shouldn’t be necessary to set this setting. The default is okay
-unless a user starts to add a huge number of fields with really long names. Default is
-<code class="literal">Long.MAX_VALUE</code> (no limit).
+字段名的最大长度设置。
+
+这个设置并不能真正解决映射爆炸的问题，但是如果你想要限制字段长度，它可能仍然有用。
+
+通常没有必要设置这个设置。
+
+默认设置就可以了，除非用户开始添加大量具有很长名称的字段。
+
+默认值为<code class="literal">Long.MAX_VALUE</code> (没有限制)。
 </dd>
 </dl>
 </div>
 <h2>
-<a id="_dynamic_mapping"></a>Dynamic mapping<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping.asciidoc">edit</a>
+<a id="_dynamic_mapping"></a>动态映射 (dynamic mapping)
 </h2>
-<p>Fields and mapping types do not need to be defined before being used. Thanks
-to <em>dynamic mapping</em>, new field names will be added automatically, just by
-indexing a document. New fields can be added both to the top-level mapping
-type, and to inner <a class="xref" href="object.html" title="Object datatype"><code class="literal">object</code></a>  and <a class="xref" href="nested.html" title="Nested datatype"><code class="literal">nested</code></a> fields.</p>
-<p>The <a class="xref" href="dynamic-mapping.html" title="Dynamic Mapping">dynamic mapping</a> rules can be configured to customise
-the mapping that is used for new fields.</p>
+<p>
+在使用之前，不需要定义字段和映射类型。
+
+得益于<em>dynamic mapping</em>，只需对文档进行索引，新的字段名称就会自动添加。
+
+新字段既可以添加到顶级映射类型，也可以添加到内部<a class="xref" href="object.html" title="object 数据类型" rel="nofollow"><code class="literal">object</code></a>和<a class="xref" href="nested.html" title="nested 数据类型" rel="nofollow"><code class="literal">nested</code></a>字段。
+</p>
+<p>
+<a class="xref" href="dynamic-mapping.html" title="动态映射" rel="nofollow">动态映射</a>规则可以配置为用于定制新字段的映射。
+</p>
 <h2>
-<a id="_explicit_mappings"></a>Explicit mappings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping.asciidoc">edit</a>
+<a id="_explicit_mappings"></a>显式映射 (explicit mapping)
 </h2>
-<p>You know more about your data than Elasticsearch can guess, so while dynamic
-mapping can be useful to get started, at some point you will want to specify
-your own explicit mappings.</p>
-<p>You can create field mappings when you <a class="xref" href="mapping.html#create-mapping" title="Create an index with an explicit mapping">create an index</a> and
-<a class="xref" href="mapping.html#add-field-mapping" title="Add a field to an existing mapping">add fields to an existing index</a>.</p>
+<p>你对数据的了解要比Elasticsearch所能猜测的多得多，因此尽管动态映射在刚开始时很有用，但在某个时候你会希望显式的去指定自己的映射。</p>
+<p>在<a class="xref" href="mapping.html#create-mapping" title="使用显示映射创建索引" rel="nofollow">创建索引</a>及<a class="xref" href="mapping.html#add-field-mapping" title="向已有的映射中添加字段" rel="nofollow">向已有的映射中添加字段</a>时，可以创建字段映射。</p>
 <h2>
-<a id="create-mapping"></a>Create an index with an explicit mapping<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping.asciidoc">edit</a>
+<a id="create-mapping"></a>使用显示映射创建索引
 </h2>
-<p>You can use the <a class="xref" href="indices-create-index.html" title="Create index API">create index</a> API to create a new index
-with an explicit mapping.</p>
+<p>可以使用<a class="xref" href="indices-create-index.html" title="创建索引API" rel="nofollow">创建索引(create index)</a>API创建一个带有显式映射的新索引。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /my-index
 {
@@ -271,7 +282,7 @@ with an explicit mapping.</p>
 <p><a href="#CO283-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Creates <code class="literal">age</code>, an <a class="xref" href="number.html" title="Numeric datatypes"><code class="literal">integer</code></a> field</p>
+<p>创建一个<a class="xref" href="number.html" title="numeric 数据类型" rel="nofollow"><code class="literal">integer</code></a>类型的字段：<code class="literal">age</code></p>
 </td>
 </tr>
 <tr>
@@ -279,7 +290,7 @@ with an explicit mapping.</p>
 <p><a href="#CO283-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Creates <code class="literal">email</code>, a <a class="xref" href="keyword.html" title="Keyword datatype"><code class="literal">keyword</code></a> field</p>
+<p>创建一个<a class="xref" href="keyword.html" title="keyword 数据类型" rel="nofollow"><code class="literal">keyword</code></a>类型的字段：<code class="literal">email</code></p>
 </td>
 </tr>
 <tr>
@@ -287,19 +298,21 @@ with an explicit mapping.</p>
 <p><a href="#CO283-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Creates <code class="literal">name</code>, a <a class="xref" href="text.html" title="Text datatype"><code class="literal">text</code></a> field</p>
+<p>创建一个<a class="xref" href="text.html" title="text 数据类型" rel="nofollow"><code class="literal">text</code></a>类型的字段：<code class="literal">name</code></p>
 </td>
 </tr>
 </table>
 </div>
 <h2>
-<a id="add-field-mapping"></a>Add a field to an existing mapping<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping.asciidoc">edit</a>
+<a id="add-field-mapping"></a>向已有的映射中添加字段
 </h2>
-<p>You can use the <a class="xref" href="indices-put-mapping.html" title="Put mapping API">put mapping</a> API to add one or more new
-fields to an existing index.</p>
-<p>The following example adds <code class="literal">employee-id</code>, a <code class="literal">keyword</code> field with an
-<a class="xref" href="mapping-index.html" title="index"><code class="literal">index</code></a> mapping parameter value of <code class="literal">false</code>. This means values
-for the <code class="literal">employee-id</code> field are stored but not indexed or available for search.</p>
+<p>可以使用<a class="xref" href="indices-put-mapping.html" title="put mapping API" rel="nofollow">put mapping</a>API向已有的索引添加一个或多个新字段。
+</p>
+<p>
+下面这个示例添加一个<a class="xref" href="mapping-index.html" title="index"><code class="literal">index</code></a>映射参数值为<code class="literal">false</code>的<code class="literal">keyword</code>类型的字段<code class="literal">employee-id</code>。
+
+这意味着字段<code class="literal">employee-id</code>的值被存储，但是不会被索引，也就不能用于搜索。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /my-index/_mapping
 {
@@ -313,26 +326,28 @@ for the <code class="literal">employee-id</code> field are stored but not indexe
 </div>
 <div class="console_widget" data-snippet="snippets/604.console"></div>
 <h3>
-<a id="update-mapping"></a>Update the mapping of a field<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping.asciidoc">edit</a>
+<a id="update-mapping"></a>更新映射的一个字段
 </h3>
-<p>Except for supported <a class="xref" href="mapping-params.html" title="Mapping parameters">mapping parameters</a>,
-you can’t change the mapping or field type of an existing field.
-Changing an existing field could invalidate data that’s already indexed.</p>
-<p>If you need to change the mapping of a field,
-create a new index with the correct mapping
-and <a class="xref" href="docs-reindex.html" title="Reindex API">reindex</a> your data into that index.</p>
-<p>Renaming a field would invalidate data already indexed under the old field name.
-Instead, add an <a class="xref" href="alias.html" title="Alias datatype"><code class="literal">alias</code></a> field to create an alternate field name.</p>
+<p>
+除了受支持的<a class="xref" href="mapping-params.html" title="映射参数" rel="nofollow">映射参数</a>之外，不能更改现有字段的映射或字段类型。
+
+更改已有字段可能会使已经索引的数据无效。
+</p>
+<p>如果需要更改字段的映射，请创建一个具有正确映射的新索引，并将数据<a class="xref" href="docs-reindex.html" title="reindex API" rel="nofollow">重新索引(reindex)</a>到该索引中。</p>
+<p>
+重命名一个字段会使已在旧字段名称下索引的数据失效。
+
+相反，应该添加一个<a class="xref" href="alias.html" title="alias 数据类型" rel="nofollow"><code class="literal">alias</code></a>(别名)字段来创建备用字段名称。
+</p>
 <h2>
-<a id="view-mapping"></a>View the mapping of an index<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping.asciidoc">edit</a>
+<a id="view-mapping"></a>查看一个索引的映射定义
 </h2>
-<p>You can use the <a class="xref" href="indices-get-mapping.html" title="Get mapping API">get mapping</a> API to view the mapping of
-an existing index.</p>
+<p>可以使用<a class="xref" href="indices-get-mapping.html" title="get mapping API" rel="nofollow">get mapping</a>API来查看已有索引的映射。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /my-index/_mapping</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/605.console"></div>
-<p>The API returns the following response:</p>
+<p>API返回下面的响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   "my-index" : {
@@ -357,18 +372,16 @@ an existing index.</p>
 }</pre>
 </div>
 <h2>
-<a id="view-field-mapping"></a>View the mapping of specific fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping.asciidoc">edit</a>
+<a id="view-field-mapping"></a>查看特定字段的映射
 </h2>
-<p>If you only want to view the mapping of one or more specific fields, you can use
-the <a class="xref" href="indices-get-field-mapping.html" title="Get field mapping API">get field mapping</a> API.</p>
-<p>This is useful if you don’t need the complete mapping of an index or your index
-contains a large number of fields.</p>
-<p>The following request retrieves the mapping for the <code class="literal">employee-id</code> field.</p>
+<p>如果只想查看一个或多个特定字段的映射，可以使用<a class="xref" href="indices-get-field-mapping.html" title="get field mapping API" rel="nofollow">get field mapping</a> API。</p>
+<p>如果不需要索引的完整映射，或者索引包含大量字段，这将非常有用。</p>
+<p>下面这个请求检索字段<code class="literal">employee-id</code>的映射。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /my-index/_mapping/field/employee-id</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/606.console"></div>
-<p>The API returns the following response:</p>
+<p>API返回下面的响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   "my-index" : {

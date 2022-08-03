@@ -257,3 +257,4 @@ https://www.pipiho.com/es/7.7/cn/modules-scripting-security.html
 https://www.pipiho.com/es/7.7/cn/modules-scripting-painless.html
 https://www.pipiho.com/es/7.7/cn/modules-scripting-expression.html
 https://www.pipiho.com/es/7.7/cn/modules-scripting-engine.html
+https://www.pipiho.com/es/7.7/cn/mapping.html

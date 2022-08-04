@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Removal of mapping types | ElasticSearch 7.7 权威指南中文版</title>
+	<title>删除的映射类型 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,50 +32,48 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping.html">Mapping</a></span>
+<span class="breadcrumb-link"><a href="mapping.html">映射</a></span>
 »
-<span class="breadcrumb-node">Removal of mapping types</span>
+<span class="breadcrumb-node">删除的映射类型</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="mapping.html">« Mapping</a>
+<a href="mapping.html">« 映射</a>
 </span>
 <span class="next">
-<a href="mapping-types.html">Field datatypes »</a>
+<a href2="mapping-types.html">Field datatypes »</a>
 </span>
 </div>
 <div class="chapter">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="removal-of-types"></a>Removal of mapping types<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/removal_of_types.asciidoc">edit</a>
+<a id="removal-of-types"></a>删除的映射类型
 </h2>
 </div></div></div>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Indices created in Elasticsearch 7.0.0 or later no longer accept a
-<code class="literal">_default_</code> mapping. Indices created in 6.x will continue to function as before
-in Elasticsearch 6.x. Types are deprecated in APIs in 7.0, with breaking changes
-to the index creation, put mapping, get mapping, put template, get template and
-get field mappings APIs.</p>
+<p>
+在 Elasticsearch 7.0.0 或更高版本中创建的索引不再接受<code class="literal">_default_</code>映射。
+
+在 6.x 中创建的索引将继续像以前一样在 Elasticsearch 6.x 中运行。
+
+在7.0的API中 type 被废弃，对索引创建、设置映射、获取映射、设置模板、获取模板及获取字段映射API进行了重大更改。
+</p>
 </div>
 </div>
 <h3>
-<a id="_what_are_mapping_types"></a>What are mapping types?<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/removal_of_types.asciidoc">edit</a>
+<a id="_what_are_mapping_types"></a>映射类型是什么?
 </h3>
-<p>Since the first release of Elasticsearch, each document has been stored in a
-single index and assigned a single mapping type.  A mapping type was used to
-represent the type of document or entity being indexed, for instance a
-<code class="literal">twitter</code> index might have a <code class="literal">user</code> type and a <code class="literal">tweet</code> type.</p>
-<p>Each mapping type could have its own fields, so the <code class="literal">user</code> type might have a
-<code class="literal">full_name</code> field, a <code class="literal">user_name</code> field, and an <code class="literal">email</code> field, while the
-<code class="literal">tweet</code> type could have a <code class="literal">content</code> field, a <code class="literal">tweeted_at</code> field and, like the
-<code class="literal">user</code> type, a <code class="literal">user_name</code> field.</p>
-<p>Each document had a <code class="literal">_type</code> meta-field containing the type name, and searches
-could be limited to one or more types by specifying the type name(s) in the
-URL:</p>
+<p>
+自从Elasticsearch第一次发布以来，每个文档都存储在一个索引中，并被分配一个映射类型。
+
+映射类型用于表示被索引的文档或实体的类型，例如，一个名为<code class="literal">twitter</code>的索引可能有一个<code class="literal">user</code>类型和一个<code class="literal">tweet</code>类型。
+</p>
+<p>每种映射类型都有自己的字段，因此用户类型可能有一个<code class="literal">full_name</code>字段、一个<code class="literal">user_name</code>字段和一个<code class="literal">email</code>字段；而<code class="literal">tweet</code>类型可能有一个<code class="literal">content</code>字段、一个<code class="literal">tweeted_at</code>字段，和用户类型一样，还有一个<code class="literal">user_name</code>字段。</p>
+<p>每个文档都有一个包含类型名称的<code class="literal">_type</code>元字段，通过在URL中指定类型名称，可以将搜索限制到一个或多个类型：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">GET twitter/user,tweet/_search
 {
@@ -86,73 +84,63 @@ URL:</p>
   }
 }</pre>
 </div>
-<p>The <code class="literal">_type</code> field was combined with the document’s <code class="literal">_id</code> to generate a <code class="literal">_uid</code>
-field, so documents of different types with the same <code class="literal">_id</code> could exist in a
-single index.</p>
-<p>Mapping types were also used to establish a
-<a class="xref" href="parent-join.html" title="Join datatype">parent-child relationship</a>
-between documents, so documents of type <code class="literal">question</code> could be parents to
-documents of type <code class="literal">answer</code>.</p>
+<p>字段<code class="literal">_type</code>与文档的<code class="literal">_id</code>组合起来生成字段<code class="literal">_uid</code>，因此具有相同<code class="literal">_id</code>的不同类型的文档可以存在于一个索引中。</p>
+<p>映射类型还用于建立文档之间的<a class="xref" href="parent-join.html" title="Join datatype">父-子关系</a>，因此<code class="literal">question</code>类型的文档可以是<code class="literal">answer</code>类型文档的父文档。</p>
 <h3>
-<a id="_why_are_mapping_types_being_removed"></a>Why are mapping types being removed?<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/removal_of_types.asciidoc">edit</a>
+<a id="_why_are_mapping_types_being_removed"></a>为什么要删除映射类型？
 </h3>
-<p>Initially, we spoke about an “index” being similar to a “database” in an
-SQL database, and a “type” being equivalent to a
-“table”.</p>
-<p>This was a bad analogy that led to incorrect assumptions. In an SQL database,
-tables are independent of each other.  The columns in one table have no
-bearing on columns with the same name in another table.  This is not the case
-for fields in a mapping type.</p>
-<p>In an Elasticsearch index, fields that have the same name in different mapping
-types are backed by the same Lucene field internally.  In other words, using
-the example above, the <code class="literal">user_name</code> field in the <code class="literal">user</code> type is stored in
-exactly the same field as the <code class="literal">user_name</code> field in the <code class="literal">tweet</code> type, and both
-<code class="literal">user_name</code> fields must have the same mapping (definition) in both types.</p>
-<p>This can lead to frustration when, for example, you want <code class="literal">deleted</code> to be a
-<code class="literal">date</code> field in one type and a <code class="literal">boolean</code> field in another type in the same
-index.</p>
-<p>On top of that, storing different entities that have few or no fields in
-common in the same index leads to sparse data and interferes with Lucene’s
-ability to compress documents efficiently.</p>
-<p>For these reasons, we have decided to remove the concept of mapping types from
-Elasticsearch.</p>
+<p>最初，我们谈到“索引(index)”类似于SQL数据库中的“数据库(database)”，而“类型(type)”相当于“表(tbale)”。</p>
+<p>
+这是一个糟糕的类比，导致了错误的假设。
+
+在SQL数据库中，表是相互独立的。
+
+一个表中的列与另一个表中同名的列没有关系。
+
+对于映射类型中的字段，情况却并非如此。
+</p>
+<p>
+在一个 Elasticsearch 索引中，不同映射类型中具有相同名称的字段在内部由相同的 Lucene 字段支持。
+
+换句话说，使用上面的例子，<code class="literal">user</code>类型中的字段<code class="literal">user_name</code>与<code class="literal">tweet</code>类型中的字段<code class="literal">user_name</code>存储在完全相同的字段中，并且两个<code class="literal">user_name</code>字段在两种类型中必须具有相同的映射(定义)。
+</p>
+<p>例如，当你希望在同一个索引中，字段<code class="literal">deleted</code>在一种类型下是<code class="literal">date</code>(类型的)字段，而在另一种类型下是<code class="literal">boolean</code>(类型的)字段时，这可能会导致失败。</p>
+<p>最重要的是，在同一个索引中存储很少或没有共同字段的不同实体会导致数据稀疏，并干扰 Lucene 有效压缩文档的能力。</p>
+<p>出于这些原因，我们决定从Elasticsearch中删除映射类型的概念。</p>
 <h3>
-<a id="_alternatives_to_mapping_types"></a>Alternatives to mapping types<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/removal_of_types.asciidoc">edit</a>
+<a id="_alternatives_to_mapping_types"></a>映射类型的替代方法
 </h3>
 <h4>
-<a id="_index_per_document_type"></a>Index per document type<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/removal_of_types.asciidoc">edit</a>
+<a id="_index_per_document_type"></a>一个文档类型一个索引
 </h4>
-<p>The first alternative is to have an index per document type.  Instead of
-storing tweets and users in a single <code class="literal">twitter</code> index, you could store tweets
-in the <code class="literal">tweets</code> index and users in the <code class="literal">user</code> index. Indices are completely
-independent of each other and so there will be no conflict of field types
-between indices.</p>
-<p>This approach has two benefits:</p>
+<p>
+第一种方法是为每种文档类型建立一个索引。
+
+可以将 tweets 存储在索引<code class="literal">tweets</code>中，将 users 存储在索引<code class="literal">user</code>中，而不是将 tweets 和 users 存储在同一个索引<code class="literal">twitter</code>中。
+
+索引彼此完全独立，因此索引之间不会有字段类型冲突。
+</p>
+<p>这种方法有两个有点：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Data is more likely to be dense and so benefit from compression techniques
-used in Lucene.
+数据更可能是密集的，因此可以受益于Lucene中使用的压缩技术。
 </li>
 <li class="listitem">
-The term statistics used for scoring in full text search are more likely to
-be accurate because all documents in the same index represent a single
-entity.
+在全文搜索中用于评分的词项统计更有可能是准确的，因为同一索引中的所有文档都代表一个实体。
 </li>
 </ul>
 </div>
-<p>Each index can be sized appropriately for the number of documents it will
-contain: you can use a smaller number of primary shards for <code class="literal">users</code> and a
-larger number of primary shards for <code class="literal">tweets</code>.</p>
+<p>每个索引可以根据其包含的文档数量进行适当调整：你可以为索引<code class="literal">users</code>使用较少数量的主分片，而为索引<code class="literal">tweets</code>使用较多数量的主分片。</p>
 <h4>
-<a id="_custom_type_field"></a>Custom type field<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/removal_of_types.asciidoc">edit</a>
+<a id="_custom_type_field"></a>自定义类型字段
 </h4>
-<p>Of course, there is a limit to how many primary shards can exist in a cluster
-so you may not want to waste an entire shard for a collection of only a few
-thousand documents.  In this case, you can implement your own custom <code class="literal">type</code>
-field which will work in a similar way to the old <code class="literal">_type</code>.</p>
-<p>Let’s take the <code class="literal">user</code>/<code class="literal">tweet</code> example above.  Originally, the workflow would
-have looked something like this:</p>
+<p>
+当然，一个集群中可存在的主分片的数量是有限制的，所以你可能不希望为了几千个文档的集合而浪费整个分片。
+
+在这种情况下，你可以实现自己的自定义<code class="literal">type</code>字段，其工作方式与老的<code class="literal">_type</code>类似。
+</p>
+<p>让我们以上面的<code class="literal">user</code>/<code class="literal">tweet</code>为例。最初，工作流应该是这样的：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">PUT twitter
 {
@@ -197,7 +185,7 @@ GET twitter/tweet/_search
   }
 }</pre>
 </div>
-<p>You can achieve the same thing by adding a custom <code class="literal">type</code> field as follows:</p>
+<p>可以通过添加自定义的<code class="literal">type</code>字段来实现相同的目的，如下所示：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">PUT twitter
 {
@@ -256,25 +244,25 @@ GET twitter/_search
 <p><a href="#CO284-1"><i class="conum" data-value="1"></i></a><a href="#CO284-2"></a><a href="#CO284-3"></a><a href="#CO284-4"></a></p>
 </td>
 <td align="left" valign="top">
-<p>The explicit <code class="literal">type</code> field takes the place of the implicit <code class="literal">_type</code> field.</p>
+<p>显式的<code class="literal">type</code>字段取代了显式的<code class="literal">_type</code>字段。</p>
 </td>
 </tr>
 </table>
 </div>
 <h4>
-<a id="parent-child-mapping-types"></a>Parent/Child without mapping types<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/removal_of_types.asciidoc">edit</a>
+<a id="parent-child-mapping-types"></a>没有映射类型的父/子
 </h4>
-<p>Previously, a parent-child relationship was represented by making one mapping
-type the parent, and one or more other mapping types the children.  Without
-types, we can no longer use this syntax.  The parent-child feature will
-continue to function as before, except that the way of expressing the
-relationship between documents has been changed to use the new
-<a class="xref" href="parent-join.html" title="Join datatype"><code class="literal">join</code> field</a>.</p>
+<p>
+以前，父-子关系是通过将一个映射类型作为父类型，将一个或多个其他映射类型作为子类型来表示的。
+
+没有类型，我们就不能再使用这种语法。
+
+父子特性将继续像以前一样工作，只是表达文档之间关系的方式已经更改为使用新的<a class="xref" href="parent-join.html" title="join 数据类型" rel="nofollow"><code class="literal">join</code>字段</a>。
+</p>
 <h3>
-<a id="_schedule_for_removal_of_mapping_types"></a>Schedule for removal of mapping types<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/removal_of_types.asciidoc">edit</a>
+<a id="_schedule_for_removal_of_mapping_types"></a>映射类型的删除计划
 </h3>
-<p>This is a big change for our users, so we have tried to make it as painless as
-possible.  The change will roll out as follows:</p>
+<p>对于我们的用户来说，这是一个很大的变化，所以我们尽量让它不那么痛苦。变更将按如下方式展开：</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -286,12 +274,10 @@ Elasticsearch 5.6.0
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Setting <code class="literal">index.mapping.single_type: true</code> on an index will enable the
-single-type-per-index behaviour which will be enforced in 6.0.
+在索引上设置<code class="literal">index.mapping.single_type: true</code>将启用每个索引一个类型的行为，这将在 6.0 中强制实施。
 </li>
 <li class="listitem">
-The <a class="xref" href="parent-join.html" title="Join datatype"><code class="literal">join</code> field</a> replacement for parent-child is available
-on indices created in 5.6.
+父-子关系的<a class="xref" href="parent-join.html" title="join 数据类型" rel="nofollow"><code class="literal">join</code>字段</a>替换在 5.6 中创建的索引上可用。
 </li>
 </ul>
 </div>
@@ -305,32 +291,32 @@ Elasticsearch 6.x
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Indices created in 5.x will continue to function in 6.x as they did in 5.x.
+在 5.x 中创建的索引将像在 5.x 中一样继续在 6.x 中运行。
 </li>
 <li class="listitem">
-Indices created in 6.x only allow a single-type per index.  Any name
-can be used for the type, but there can be only one. The preferred type name
-is <code class="literal">_doc</code>, so that index APIs have the same path as they will have in 7.0:
-<code class="literal">PUT {index}/_doc/{id}</code> and <code class="literal">POST {index}/_doc</code>
+在 6.x 中创建的索引只允许一个索引一个类型。
+
+类型可以使用任何名称，但只能有一个。
+
+首选的类型名称是<code class="literal">_doc</code>，这样索引API就有了与 7.0 中相同的路径：<code class="literal">PUT {index}/_doc/{id}</code> 及 <code class="literal">POST {index}/_doc</code>
 </li>
 <li class="listitem">
-The <code class="literal">_type</code> name can no longer be combined with the <code class="literal">_id</code> to form the <code class="literal">_uid</code>
-field. The <code class="literal">_uid</code> field has become an alias for the <code class="literal">_id</code> field.
+<code class="literal">_type</code>名称不能再与<code class="literal">_id</code>组合形成字段<code class="literal">_uid</code>。
+
+字段<code class="literal">_uid</code>已成为字段<code class="literal">_id</code>的别名。
 </li>
 <li class="listitem">
-New indices no longer support the old-style of parent/child and should
-use the <a class="xref" href="parent-join.html" title="Join datatype"><code class="literal">join</code> field</a> instead.
+新的索引不再支持旧式的父/子索引，而应该使用<a class="xref" href="parent-join.html" title="join 数据类型" rel="nofollow"><code class="literal">join</code>字段</a>代替。
 </li>
 <li class="listitem">
-The <code class="literal">_default_</code> mapping type is deprecated.
+<code class="literal">_default_</code>映射类型已废弃。
 </li>
 <li class="listitem">
-In 6.8, the index creation, index template, and mapping APIs support a query
-string parameter (<code class="literal">include_type_name</code>) which indicates whether requests and
-responses should include a type name. It defaults to <code class="literal">true</code>, and should be set
-to an explicit value to prepare to upgrade to 7.0. Not setting <code class="literal">include_type_name</code>
-will result in a deprecation warning. Indices which don’t have an explicit type will
-use the dummy type name <code class="literal">_doc</code>.
+在6.8中，索引创建、索引模板和映射API支持查询字符串参数(<code class="literal">include_type_name</code>)，该参数指示请求和响应是否应包含类型名称。
+
+它默认为<code class="literal">true</code>，如果准备升级到 7.0 则应该显式的设置一个值。
+
+没有显式类型的索引将使用名为<code class="literal">_doc</code>的虚拟类型。
 </li>
 </ul>
 </div>
@@ -344,19 +330,21 @@ Elasticsearch 7.x
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Specifying types in requests is deprecated. For instance, indexing a
-document no longer requires a document <code class="literal">type</code>.  The new index APIs
-are <code class="literal">PUT {index}/_doc/{id}</code> in case of explicit ids and <code class="literal">POST {index}/_doc</code>
-for auto-generated ids. Note that in 7.0, <code class="literal">_doc</code> is a permanent part of the
-path, and represents the endpoint name rather than the document type.
+在请求中指定类型已被废弃。
+
+例如，为文档编制索引不再需要文档<code class="literal">type</code>。
+
+新的编制索引API在显式指定 id 的情况下是<code class="literal">PUT {index}/_doc/{id}</code>，在自动生成 id 的情况下<code class="literal">POST {index}/_doc</code>。
+
+请注意，在 7.0 中，<code class="literal">_doc</code>是路径的永久部分，它表示终端名称，而不是文档类型。 
 </li>
 <li class="listitem">
-The <code class="literal">include_type_name</code> parameter in the index creation, index template,
-and mapping APIs will default to <code class="literal">false</code>. Setting the parameter at all will
-result in a deprecation warning.
+索引创建、索引模板和映射API中的参数<code class="literal">include_type_name</code>将默认为<code class="literal">false</code>。
+
+设置该参数将导致一个废弃警告。
 </li>
 <li class="listitem">
-The <code class="literal">_default_</code> mapping type is removed.
+<code class="literal">_default_</code>映射类型已被删除。
 </li>
 </ul>
 </div>
@@ -370,10 +358,10 @@ Elasticsearch 8.x
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Specifying types in requests is no longer supported.
+不再支持在请求中指定类型。
 </li>
 <li class="listitem">
-The <code class="literal">include_type_name</code> parameter is removed.
+参数<code class="literal">include_type_name</code>已被删除。
 </li>
 </ul>
 </div>
@@ -381,17 +369,21 @@ The <code class="literal">include_type_name</code> parameter is removed.
 </dl>
 </div>
 <h3>
-<a id="_migrating_multi_type_indices_to_single_type"></a>Migrating multi-type indices to single-type<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/removal_of_types.asciidoc">edit</a>
+<a id="_migrating_multi_type_indices_to_single_type"></a>将多类型索引迁移到单一类型
 </h3>
-<p>The <a class="xref" href="docs-reindex.html" title="Reindex API">Reindex API</a> can be used to convert multi-type indices to
-single-type indices. The following examples can be used in Elasticsearch 5.6
-or Elasticsearch 6.x.  In 6.x, there is no need to specify
-<code class="literal">index.mapping.single_type</code> as that is the default.</p>
+<p>
+<a class="xref" href="docs-reindex.html" title="reindex API" rel="nofollow">重新索引(reindex) API</a>可用于将多类型索引转换为单一类型索引。
+
+下面这个示例可用于 Elasticsearch 5.6 或 Elasticsearch 6.x。
+
+在 6.x 中，不需要指定<code class="literal">index.mapping.single_type</code>，因为这是默认值。
+</p>
 <h4>
-<a id="_index_per_document_type_2"></a>Index per document type<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/removal_of_types.asciidoc">edit</a>
+<a id="_index_per_document_type_2"></a>一个文档类型一个索引
 </h4>
-<p>This first example splits our <code class="literal">twitter</code> index into a <code class="literal">tweets</code> index and a
-<code class="literal">users</code> index:</p>
+<p>
+第一个例子将索引<code class="literal">twitter</code>切分为索引<code class="literal">tweets</code>和<code class="literal">users</code>：
+</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">PUT users
 {
@@ -811,10 +803,10 @@ versions of queries that perform document lookups, such as <code class="literal"
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="mapping.html">« Mapping</a>
+<a href="mapping.html">« 映射</a>
 </span>
 <span class="next">
-<a href="mapping-types.html">Field datatypes »</a>
+<a href2="mapping-types.html">Field datatypes »</a>
 </span>
 </div>
 </div>

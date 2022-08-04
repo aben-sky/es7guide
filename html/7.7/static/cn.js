@@ -1672,8 +1672,8 @@ var esNavLinks = [
         "sub": [
             {
                 "url": "removal-of-types.html",
-                "text": "Removal of mapping types",
-                "title": "Removal of mapping types"
+                "text": "删除的映射类型",
+                "title": "删除的映射类型"
             },
             {
                 "url": "mapping-types.html",

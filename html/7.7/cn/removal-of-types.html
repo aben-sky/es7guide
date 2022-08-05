@@ -454,11 +454,13 @@ POST _reindex
 }</pre>
 </div>
 <h4>
-<a id="_custom_type_field_2"></a>Custom type field<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/removal_of_types.asciidoc">edit</a>
+<a id="_custom_type_field_2"></a>自定义 type 字段
 </h4>
-<p>This next example adds a custom <code class="literal">type</code> field and sets it to the value of the
-original <code class="literal">_type</code>.  It also adds the type to the <code class="literal">_id</code> in case there are any
-documents of different types which have conflicting IDs:</p>
+<p>
+下一个示例添加了一个自定义<code class="literal">type</code>字段，并将其设置为原始的<code class="literal">_type</code>值。
+
+它还将类型添加到<code class="literal">_id</code>中，以防有任何不同类型的文档具有冲突的id:
+</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">PUT new_twitter
 {
@@ -507,33 +509,39 @@ POST _reindex
 }</pre>
 </div>
 <h3>
-<a id="_typeless_apis_in_7_0"></a>Typeless APIs in 7.0<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/removal_of_types.asciidoc">edit</a>
+<a id="_typeless_apis_in_7_0"></a>7.0 中的无类型API
 </h3>
-<p>In Elasticsearch 7.0, each API will support typeless requests,
-and specifying a type will produce a deprecation warning.</p>
+<p>在 Elasticsearch 7.0中，每个API都将支持无类型请求，指定一个类型会产生一个弃用警告。</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Typeless APIs work even if the target index contains a custom type.
-For example, if an index has the custom type name <code class="literal">my_type</code>, we can add
-documents to it using typeless <code class="literal">index</code> calls, and load documents with typeless
-<code class="literal">get</code> calls.</p>
+<p>
+即使目标索引包含自定义类型(type)，无类型API也能工作。
+
+例如，如果一个索引有一个自定义的类型<code class="literal">my_type</code>，我们可以使用无类型<code class="literal">index</code>调用向它添加文档，并使用无类型<code class="literal">get</code>调用加载文档。
+</p>
 </div>
 </div>
 <h4>
-<a id="_index_apis"></a>Index APIs<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/removal_of_types.asciidoc">edit</a>
+<a id="_index_apis"></a>索引 API
 </h4>
-<p>Index creation, index template, and mapping APIs support a new <code class="literal">include_type_name</code>
-URL parameter that specifies whether mapping definitions in requests and responses
-should contain the type name. The parameter defaults to <code class="literal">true</code> in version 6.8 to
-match the pre-7.0 behavior of using type names in mappings. It defaults to <code class="literal">false</code>
-in version 7.0 and will be removed in version 8.0.</p>
-<p>It should be set explicitly in 6.8 to prepare to upgrade to 7.0. To avoid deprecation
-warnings in 6.8, the parameter can be set to either <code class="literal">true</code> or <code class="literal">false</code>. In 7.0, setting
-<code class="literal">include_type_name</code> at all will result in a deprecation warning.</p>
-<p>See some examples of interactions with Elasticsearch with this option set to <code class="literal">false</code>:</p>
+<p>
+索引创建、索引模板和映射API都支持一个新的<code class="literal">include_type_name</code> URL参数，该参数指定请求和响应中的映射定义是否应该包含类型的名称。
+
+在 6.8 版中，该参数默认为<code class="literal">true</code>，以匹配 7.0 版之前在映射中使用类型名的行为。
+
+在 7.0 版中默认为<code class="literal">false</code>，在 8.0 版中将被移除。
+</p>
+<p>
+如果准备升级到 7.0， 应该在 6.8 版本的索引中显式设置。
+
+为了避免在 6.8 中出现弃用警告，可以将该参数设置为<code class="literal">true</code>或<code class="literal">false</code>。
+
+在 7.0 中，设置<code class="literal">include_type_name</code>将导致弃用警告。
+</p>
+<p>查看此选项设置为<code class="literal">false</code>时与Elasticsearch交互的一些示例：</p>
 <div class="pre_wrapper lang-console">
-<pre class="programlisting prettyprint lang-console">PUT index?include_type_name=false
+<pre class="programlisting prettyprint lang-console">PUT index_name?include_type_name=false
 {
   "mappings": {
     "properties": { <a id="CO285-1"></a><i class="conum" data-value="1"></i>
@@ -552,13 +560,13 @@ warnings in 6.8, the parameter can be set to either <code class="literal">true</
 <p><a href="#CO285-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Mappings are included directly under the <code class="literal">mappings</code> key, without a type name.</p>
+<p>映射直接包含在<code class="literal">mappings</code>键下，没有类型名。</p>
 </td>
 </tr>
 </table>
 </div>
 <div class="pre_wrapper lang-console">
-<pre class="programlisting prettyprint lang-console">PUT index/_mappings?include_type_name=false
+<pre class="programlisting prettyprint lang-console">PUT index_name/_mappings?include_type_name=false
 {
   "properties": { <a id="CO286-1"></a><i class="conum" data-value="1"></i>
     "bar": {
@@ -575,19 +583,19 @@ warnings in 6.8, the parameter can be set to either <code class="literal">true</
 <p><a href="#CO286-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Mappings are included directly under the <code class="literal">mappings</code> key, without a type name.</p>
+<p>映射直接包含在<code class="literal">mappings</code>键下，没有类型名。</p>
 </td>
 </tr>
 </table>
 </div>
 <div class="pre_wrapper lang-console">
-<pre class="programlisting prettyprint lang-console">GET index/_mappings?include_type_name=false</pre>
+<pre class="programlisting prettyprint lang-console">GET index_name/_mappings?include_type_name=false</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/609.console"></div>
-<p>The above call returns</p>
+<p>上面的调用返回：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
-  "index": {
+  "index_name": {
     "mappings": {
       "properties": { <a id="CO287-1"></a><i class="conum" data-value="1"></i>
         "foo": {
@@ -608,18 +616,17 @@ warnings in 6.8, the parameter can be set to either <code class="literal">true</
 <p><a href="#CO287-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Mappings are included directly under the <code class="literal">mappings</code> key, without a type name.</p>
+<p>映射直接包含在<code class="literal">mappings</code>键下，没有类型名。</p>
 </td>
 </tr>
 </table>
 </div>
 <h4>
-<a id="_document_apis"></a>Document APIs<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/removal_of_types.asciidoc">edit</a>
+<a id="_document_apis"></a>文档API
 </h4>
-<p>In 7.0, index APIs must be called with the <code class="literal">{index}/_doc</code> path for automatic
-generation of the <code class="literal">_id</code> and <code class="literal">{index}/_doc/{id}</code> with explicit ids.</p>
+<p>在 7.0 中，要调用编制索引API，必须使用<code class="literal">{index}/_doc</code>路径以自动生成<code class="literal">_id</code>，显式指定id时使用<code class="literal">{index}/_doc/{id}</code>路径。</p>
 <div class="pre_wrapper lang-console">
-<pre class="programlisting prettyprint lang-console">PUT index/_doc/1
+<pre class="programlisting prettyprint lang-console">PUT index_name/_doc/1
 {
   "foo": "baz"
 }</pre>
@@ -627,7 +634,7 @@ generation of the <code class="literal">_id</code> and <code class="literal">{in
 <div class="console_widget" data-snippet="snippets/610.console"></div>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
-  "_index": "index",
+  "_index": "index_name",
   "_id": "1",
   "_type": "_doc",
   "_version": 1,
@@ -641,73 +648,81 @@ generation of the <code class="literal">_id</code> and <code class="literal">{in
   "_primary_term": 1
 }</pre>
 </div>
-<p>Similarly, the <code class="literal">get</code> and <code class="literal">delete</code> APIs use the path <code class="literal">{index}/_doc/{id}</code>:</p>
+<p>类似的，<code class="literal">get</code>和<code class="literal">delete</code> API使用<code class="literal">{index}/_doc/{id}</code>路径：</p>
 <div class="pre_wrapper lang-console">
-<pre class="programlisting prettyprint lang-console">GET index/_doc/1</pre>
+<pre class="programlisting prettyprint lang-console">GET index_name/_doc/1</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/611.console"></div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>In 7.0, <code class="literal">_doc</code> represents the endpoint name instead of the document type.
-The <code class="literal">_doc</code> component is a permanent part of the path for the document <code class="literal">index</code>,
-<code class="literal">get</code>, and <code class="literal">delete</code> APIs going forward, and will not be removed in 8.0.</p>
+<p>
+在 7.0 中，<code class="literal">_doc</code>代表终端名称，而不是文档类型。
+
+<code class="literal">_doc</code>组件是<code class="literal">index</code>、<code class="literal">get</code>及<code class="literal">delete</code> API的永久路径部分，在 8.0 中不会被删除。
+</p>
 </div>
 </div>
-<p>For API paths that contain both a type and endpoint name like <code class="literal">_update</code>,
-in 7.0 the endpoint will immediately follow the index name:</p>
+<p>对于包含类型和终端名称(如<code class="literal">_update</code>)的API路径，在 7.0 中，终端将紧跟在索引名称之后：</p>
 <div class="pre_wrapper lang-console">
-<pre class="programlisting prettyprint lang-console">POST index/_update/1
+<pre class="programlisting prettyprint lang-console">POST index_name/_update/1
 {
     "doc" : {
         "foo" : "qux"
     }
 }
 
-GET /index/_source/1</pre>
+GET /index_name/_source/1</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/612.console"></div>
-<p>Types should also no longer appear in the body of requests. The following
-example of bulk indexing omits the type both in the URL, and in the individual
-bulk commands:</p>
+<p>
+类型也不应该出现在请求体中。
+
+下面这个批量(bulk)编制索引的示例省略了URL和各个批量命令中的类型：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST _bulk
-{ "index" : { "_index" : "index", "_id" : "3" } }
+{ "index" : { "_index" : "index_name", "_id" : "3" } }
 { "foo" : "baz" }
-{ "index" : { "_index" : "index", "_id" : "4" } }
+{ "index" : { "_index" : "index_name", "_id" : "4" } }
 { "foo" : "qux" }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/613.console"></div>
 <h4>
-<a id="_search_apis"></a>Search APIs<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/removal_of_types.asciidoc">edit</a>
+<a id="_search_apis"></a>搜索 API
 </h4>
-<p>When calling a search API such <code class="literal">_search</code>, <code class="literal">_msearch</code>, or <code class="literal">_explain</code>, types
-should not be included in the URL. Additionally, the <code class="literal">_type</code> field should not
-be used in queries, aggregations, or scripts.</p>
+<p>
+当调用搜索API(如<code class="literal">_search</code>、<code class="literal">_msearch</code>或<code class="literal">_explain</code>)时，URL中不应包含类型。
+
+此外，不应在查询、聚合或脚本中使用<code class="literal">_type</code>字段。
+</p>
 <h4>
-<a id="_types_in_responses"></a>Types in responses<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/removal_of_types.asciidoc">edit</a>
+<a id="_types_in_responses"></a>响应中的类型
 </h4>
-<p>The document and search APIs will continue to return a <code class="literal">_type</code> key in
-responses, to avoid breaks to response parsing. However, the key is
-considered deprecated and should no longer be referenced. Types will
-be completely removed from responses in 8.0.</p>
-<p>Note that when a deprecated typed API is used, the index’s mapping type will be
-returned as normal, but that typeless APIs will return the dummy type <code class="literal">_doc</code>
-in the response. For example, the following typeless <code class="literal">get</code> call will always
-return <code class="literal">_doc</code> as the type, even if the mapping has a custom type name like
-<code class="literal">my_type</code>:</p>
+<p>
+文档和搜索API将继续在响应中返回<code class="literal">_type</code>键，以避免响应解析中断。
+
+但是，该键被认为是废弃的，不应再被引用。
+
+在8.0中，类型将从响应中完全删除。
+</p>
+<p>
+请注意，当使用已废弃的类型化API时，索引的映射类型将正常返回，但是无类型API将在响应中返回伪类型<code class="literal">_doc</code>。
+
+例如，下面的无类型<code class="literal">get</code>调用将始终返回<code class="literal">_doc</code>作为类型，即使映射具有像<code class="literal">my_type</code>这样的自定义类型名称：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT index/my_type/1
 {
   "foo": "baz"
 }
 
-GET index/_doc/1</pre>
+GET index_name/_doc/1</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/614.console"></div>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
-    "_index" : "index",
+    "_index" : "index_name",
     "_type" : "_doc",
     "_id" : "1",
     "_version" : 1,
@@ -720,19 +735,20 @@ GET index/_doc/1</pre>
 }</pre>
 </div>
 <h4>
-<a id="_index_templates"></a>Index templates<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/removal_of_types.asciidoc">edit</a>
+<a id="_index_templates"></a>索引模板
 </h4>
-<p>It is recommended to make index templates typeless by re-adding them with
-<code class="literal">include_type_name</code> set to <code class="literal">false</code>. Under the hood, typeless templates will use
-the dummy type <code class="literal">_doc</code> when creating indices.</p>
-<p>In case typeless templates are used with typed index creation calls or typed
-templates are used with typeless index creation calls, the template will still
-be applied but the index creation call decides whether there should be a type
-or not. For instance in the below example, <code class="literal">index-1-01</code> will have a type in
-spite of the fact that it matches a template that is typeless, and <code class="literal">index-2-01</code>
-will be typeless in spite of the fact that it matches a template that defines
-a type. Both <code class="literal">index-1-01</code> and <code class="literal">index-2-01</code> will inherit the <code class="literal">foo</code> field from
-the template that they match.</p>
+<p>
+建议通过将<code class="literal">include_type_name</code>设置为<code class="literal">false</code>来重新添加索引模板，以使其无类型。
+
+在底层，无类型模板在创建索引时将使用伪类型<code class="literal">_doc</code>。 
+</p>
+<p>
+如果无类型模板与类型化索引创建调用一起使用，或者类型化模板与无类型索引创建调用一起使用，则模板仍将被应用，但是索引创建调用将决定是否应该有类型。
+
+例如，在下面的例子中，索引<code class="literal">index-1-01</code>将具有类型，尽管它匹配无类型的模板，而索引<code class="literal">index-2-01</code>将是无类型的，尽管它匹配定义类型的模板。
+
+索引<code class="literal">index-1-01</code>和<code class="literal">index-2-01</code>都将从它们匹配的模板中继承<code class="literal">foo</code>字段。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT _template/template1
 {
@@ -785,21 +801,24 @@ PUT index-2-01
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/615.console"></div>
-<p>In case of implicit index creation, because of documents that get indexed in
-an index that doesn’t exist yet, the template is always honored. This is
-usually not a problem due to the fact that typeless index calls work on typed
-indices.</p>
+<p>
+在隐式索引创建的情况下，由于文档被索引到一个尚不存在的索引中，所以总是使用模板。
+
+这通常不是问题，因为无类型索引调用对类型化索引有效。 
+</p>
 <h4>
-<a id="_mixed_version_clusters"></a>Mixed-version clusters<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/removal_of_types.asciidoc">edit</a>
+<a id="_mixed_version_clusters"></a>混合版本集群
 </h4>
-<p>In a cluster composed of both 6.8 and 7.0 nodes, the parameter
-<code class="literal">include_type_name</code> should be specified in index APIs like index
-creation. This is because the parameter has a different default between
-6.8 and 7.0, so the same mapping definition will not be valid for both
-node versions.</p>
-<p>Typeless document APIs such as <code class="literal">bulk</code> and <code class="literal">update</code> are only available as of
-7.0, and will not work with 6.8 nodes. This also holds true for the typeless
-versions of queries that perform document lookups, such as <code class="literal">terms</code>.</p>
+<p>
+在由 6.8 和 7.0 节点组成的集群中，参数<code class="literal">include_type_name</code>应该在索引API(如索引创建)中指定。
+
+这是因为该参数在 6.8 和 7.0 之间有不同的默认值，因此相同的映射定义对两个节点版本都无效。
+</p>
+<p>
+无类型文档API(如<code class="literal">bulk</code>和<code class="literal">update</code>)仅在 7.0 版本中可用，不适用于 6.8 版本的节点。
+
+这也适用于执行文档查找的无类型版本的查询，例如<code class="literal">terms</code>查询。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">

@@ -1677,8 +1677,8 @@ var esNavLinks = [
             },
             {
                 "url": "mapping-types.html",
-                "text": "Field datatypes",
-                "title": "Field datatypes",
+                "text": "字段数据类型",
+                "title": "字段数据类型",
                 "sub": [
                     {
                         "url": "alias.html",

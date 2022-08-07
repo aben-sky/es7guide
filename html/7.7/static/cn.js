@@ -1682,8 +1682,8 @@ var esNavLinks = [
                 "sub": [
                     {
                         "url": "alias.html",
-                        "text": "Alias",
-                        "title": "Alias"
+                        "text": "alias(别名)",
+                        "title": "alias(别名)"
                     },
                     {
                         "url": "array.html",

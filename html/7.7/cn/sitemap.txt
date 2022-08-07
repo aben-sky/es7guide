@@ -259,3 +259,5 @@ https://www.pipiho.com/es/7.7/cn/modules-scripting-expression.html
 https://www.pipiho.com/es/7.7/cn/modules-scripting-engine.html
 https://www.pipiho.com/es/7.7/cn/mapping.html
 https://www.pipiho.com/es/7.7/cn/removal-of-types.html
+https://www.pipiho.com/es/7.7/cn/mapping-types.html
+https://www.pipiho.com/es/7.7/cn/alias.html

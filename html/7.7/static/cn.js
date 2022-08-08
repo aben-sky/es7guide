@@ -1692,8 +1692,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "binary.html",
-                        "text": "Binary",
-                        "title": "Binary"
+                        "text": "binary(二进制)",
+                        "title": "binary(二进制)"
                     },
                     {
                         "url": "boolean.html",

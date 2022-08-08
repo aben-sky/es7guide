@@ -1687,8 +1687,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "array.html",
-                        "text": "Arrays",
-                        "title": "Arrays"
+                        "text": "数组",
+                        "title": "数组"
                     },
                     {
                         "url": "binary.html",

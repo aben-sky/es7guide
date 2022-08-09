@@ -1687,8 +1687,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "array.html",
-                        "text": "数组",
-                        "title": "数组"
+                        "text": "array(数组)",
+                        "title": "array(数组)"
                     },
                     {
                         "url": "binary.html",
@@ -1702,8 +1702,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "date.html",
-                        "text": "Date",
-                        "title": "Date"
+                        "text": "date(日期)",
+                        "title": "date(日期)"
                     },
                     {
                         "url": "date_nanos.html",

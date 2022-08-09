@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Date datatype | ElasticSearch 7.7 权威指南中文版</title>
+	<title>date(日期)数据类型 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,63 +32,58 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping.html">Mapping</a></span>
+<span class="breadcrumb-link"><a href="mapping.html">映射</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping-types.html">Field datatypes</a></span>
+<span class="breadcrumb-link"><a href="mapping-types.html">字段数据类型</a></span>
 »
-<span class="breadcrumb-node">Date datatype</span>
+<span class="breadcrumb-node">date(日期)数据类型</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="boolean.html">« Boolean datatype</a>
+<a href="boolean.html">« boolean(布尔)数据类型</a>
 </span>
 <span class="next">
-<a href="date_nanos.html">Date nanoseconds datatype »</a>
+<a href2="date_nanos.html">Date nanoseconds datatype »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="date"></a>Date datatype<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/date.asciidoc">edit</a>
+<a id="date"></a>date(日期)数据类型
 </h2>
 </div></div></div>
 
-<p>JSON doesn’t have a date datatype, so dates in Elasticsearch can either be:</p>
+<p>JSON没有日期数据类型，因此Elasticsearch中的日期可以是下列之一：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-strings containing formatted dates, e.g. <code class="literal">"2015-01-01"</code> or <code class="literal">"2015/01/01 12:10:30"</code>.
+包含格式化日期的字符串，例如 <code class="literal">"2015-01-01"</code>或<code class="literal">"2015/01/01 12:10:30"</code>。
 </li>
 <li class="listitem">
-a long number representing <em>milliseconds-since-the-epoch</em>.
+一个长整型数字，表示<em>自纪元以来的毫秒数</em><span class="remark">(milliseconds-since-the-epoch)</span>。
 </li>
 <li class="listitem">
-an integer representing <em>seconds-since-the-epoch</em>.
+一个整型数字，表示<em>从纪元开始的秒数</em><span class="remark">(seconds-since-the-epoch)</span>。
 </li>
 </ul>
 </div>
-<p>Internally, dates are converted to UTC (if the time-zone is specified) and
-stored as a long number representing milliseconds-since-the-epoch.</p>
-<p>Queries on dates are internally converted to range queries on this long
-representation, and the result of aggregations and stored fields is converted
-back to a string depending on the date format that is associated with the field.</p>
+<p>在内部，日期被转换为UTC(如果指定了时区)并存储为一个长整型数字，表示自纪元以来的毫秒数。</p>
+<p>对日期的查询在内部转换为对这种长整型表示形式的范围查询，聚合的结果和存储的字段根据与字段相关联的日期格式转换回字符串。</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Dates will always be rendered as strings, even if they were initially
-supplied as a long in the JSON document.</p>
+<p>日期总是以字符串的形式呈现，即使它们最初在JSON文档中是以长整型形式提供的。</p>
 </div>
 </div>
-<p>Date formats can be customised, but if no <code class="literal">format</code> is specified then it uses
-the default:</p>
+<p>可以自定义日期格式，但是如果没有指定<code class="literal">format</code>，则使用默认格式：</p>
 <pre class="literallayout">"strict_date_optional_time||epoch_millis"</pre>
 
-<p>This means that it will accept dates with optional timestamps, which conform
-to the formats supported by <a class="xref" href="mapping-date-format.html#strict-date-time"><code class="literal">strict_date_optional_time</code></a>
-or milliseconds-since-the-epoch.</p>
-<p>For instance:</p>
+<p>
+这意味着它将接受带有可选时间戳的日期，这些时间戳符合<a class="xref" href="mapping-date-format.html#strict-date-time" rel="nofollow"><code class="literal">strict_date_optional_time</code></a>或 自纪元以来的毫秒数<span class="remark">(milliseconds-sin-the-epoch)</span>支持的格式。
+</p>
+<p>例如：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index
 {
@@ -123,7 +118,7 @@ GET my_index/_search
 <p><a href="#CO292-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">date</code> field uses the default <code class="literal">format</code>.</p>
+<p>字段<code class="literal">date</code>使用默认的<code class="literal">format</code>。</p>
 </td>
 </tr>
 <tr>
@@ -131,7 +126,7 @@ GET my_index/_search
 <p><a href="#CO292-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>This document uses a plain date.</p>
+<p>这个文档使用普通日期。</p>
 </td>
 </tr>
 <tr>
@@ -139,7 +134,7 @@ GET my_index/_search
 <p><a href="#CO292-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>This document includes a time.</p>
+<p>这个文档包含时间。</p>
 </td>
 </tr>
 <tr>
@@ -147,7 +142,7 @@ GET my_index/_search
 <p><a href="#CO292-4"><i class="conum" data-value="4"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>This document uses milliseconds-since-the-epoch.</p>
+<p>这个文档使用自纪元以来的毫秒数。</p>
 </td>
 </tr>
 <tr>
@@ -155,7 +150,7 @@ GET my_index/_search
 <p><a href="#CO292-5"><i class="conum" data-value="5"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Note that the <code class="literal">sort</code> values that are returned are all in milliseconds-since-the-epoch.</p>
+<p>注意，返回的<code class="literal">sort</code>值都是自纪元以来的毫秒。</p>
 </td>
 </tr>
 </table>
@@ -163,13 +158,16 @@ GET my_index/_search
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="multiple-date-formats"></a>Multiple date formats<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/date.asciidoc">edit</a>
+<a id="multiple-date-formats"></a>多日期格式
 </h3>
 </div></div></div>
-<p>Multiple formats can be specified by separating them with <code class="literal">||</code> as a separator.
-Each format will be tried in turn until a matching format is found.  The first
-format will be used to convert the <em>milliseconds-since-the-epoch</em> value back
-into a string.</p>
+<p>
+可以指定多种格式，用<code class="literal">||</code>作为分隔符将它们分隔开。
+
+将依次尝试每种格式，直到找到匹配的格式。
+
+第一种格式将用于将<em>自纪元以来的毫秒</em><span class="remark">(milliseconds-since-the-epoch)</span>值转换回字符串。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index
 {
@@ -189,10 +187,10 @@ into a string.</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="date-params"></a>Parameters for <code class="literal">date</code> fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/date.asciidoc">edit</a>
+<a id="date-params"></a><code class="literal">date</code>字段的参数
 </h3>
 </div></div></div>
-<p>The following parameters are accepted by <code class="literal">date</code> fields:</p>
+<p><code class="literal">date</code>字段接受以下参数：</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -208,8 +206,8 @@ into a string.</p>
 </td>
 <td valign="top">
 <p>
-Mapping field-level query time boosting. Accepts a floating point number, defaults
 to <code class="literal">1.0</code>.
+映射字段级查询时 提升(boost)。接受一个浮点数，默认值为 <code class="literal">1.0</code>。
 </p>
 </td>
 </tr>
@@ -221,9 +219,7 @@ to <code class="literal">1.0</code>.
 </td>
 <td valign="top">
 <p>
-Should the field be stored on disk in a column-stride fashion, so that it
-can later be used for sorting, aggregations, or scripting? Accepts <code class="literal">true</code>
-(default) or <code class="literal">false</code>.
+是否应该以列步幅(column-stride)的方式将字段存储在磁盘上，以便以后用于排序、聚合或编写脚本? 接受<code class="literal">true</code> (默认)和<code class="literal">false</code>。
 </p>
 </td>
 </tr>
@@ -235,8 +231,9 @@ can later be used for sorting, aggregations, or scripting? Accepts <code class="
 </td>
 <td valign="top">
 <p>
-The date format(s) that can be parsed.  Defaults to
-<code class="literal">strict_date_optional_time||epoch_millis</code>.
+可以解析的日期格式。
+
+默认为<code class="literal">strict_date_optional_time||epoch_millis</code>。
 </p>
 </td>
 </tr>
@@ -248,9 +245,9 @@ The date format(s) that can be parsed.  Defaults to
 </td>
 <td valign="top">
 <p>
-The locale to use when parsing dates since months do not have the same names
-and/or abbreviations in all languages. The default is the
-<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html#ROOT" class="ulink" target="_top"><code class="literal">ROOT</code> locale</a>,
+解析日期时要使用的区域设置，因为月份在所有语言中都没有相同的名称和（或）缩写。
+
+默认为<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html#ROOT" class="ulink" target="_top"><code class="literal">ROOT</code> locale</a>。
 </p>
 </td>
 </tr>
@@ -262,8 +259,9 @@ and/or abbreviations in all languages. The default is the
 </td>
 <td valign="top">
 <p>
-If <code class="literal">true</code>, malformed numbers are ignored. If <code class="literal">false</code> (default), malformed
-numbers throw an exception and reject the whole document.
+如果为<code class="literal">true</code>，则将忽略格式错误的数字。
+
+如果为<code class="literal">false</code> (默认)，格式错误的数值将抛出异常并拒绝整个文档。
 </p>
 </td>
 </tr>
@@ -275,7 +273,7 @@ numbers throw an exception and reject the whole document.
 </td>
 <td valign="top">
 <p>
-Should the field be searchable? Accepts <code class="literal">true</code> (default) and <code class="literal">false</code>.
+字段是否可以搜索？接受<code class="literal">true</code>(默认)和<code class="literal">false</code>。
 </p>
 </td>
 </tr>
@@ -287,9 +285,9 @@ Should the field be searchable? Accepts <code class="literal">true</code> (defau
 </td>
 <td valign="top">
 <p>
-Accepts a date value in one of the configured <code class="literal">format</code>'s as the field
-which is substituted for any explicit <code class="literal">null</code> values.  Defaults to <code class="literal">null</code>,
-which means the field is treated as missing.
+接受一个已配置的<code class="literal">format</code>的日期值作为替换任何显式<code class="literal">null</code>的字段。
+
+默认为<code class="literal">null</code>，这意味着该字段被视为缺失。
 </p>
 </td>
 </tr>
@@ -301,9 +299,9 @@ which means the field is treated as missing.
 </td>
 <td valign="top">
 <p>
-Whether the field value should be stored and retrievable separately from
-the <a class="xref" href="mapping-source-field.html" title="_source field"><code class="literal">_source</code></a> field. Accepts <code class="literal">true</code> or <code class="literal">false</code>
-(default).
+字段值是否应该与<a class="xref" href="mapping-source-field.html" title="_source字段" rel="nofollow"><code class="literal">_source</code></a>字段分开存储和检索。
+
+接受<code class="literal">true</code>和<code class="literal">false</code>(默认)。
 </p>
 </td>
 </tr>
@@ -315,7 +313,7 @@ the <a class="xref" href="mapping-source-field.html" title="_source field"><code
 </td>
 <td valign="top">
 <p>
-Metadata about the field.
+与该字段有关的元信息。
 </p>
 </td>
 </tr>
@@ -327,10 +325,10 @@ Metadata about the field.
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="boolean.html">« Boolean datatype</a>
+<a href="boolean.html">« boolean(布尔)数据类型</a>
 </span>
 <span class="next">
-<a href="date_nanos.html">Date nanoseconds datatype »</a>
+<a href2="date_nanos.html">Date nanoseconds datatype »</a>
 </span>
 </div>
 </div>

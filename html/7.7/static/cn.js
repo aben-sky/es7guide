@@ -1697,8 +1697,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "boolean.html",
-                        "text": "Boolean",
-                        "title": "Boolean"
+                        "text": "boolean(布尔)",
+                        "title": "boolean(布尔)"
                     },
                     {
                         "url": "date.html",

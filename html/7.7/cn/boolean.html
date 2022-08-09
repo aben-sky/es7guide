@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Boolean datatype | ElasticSearch 7.7 权威指南中文版</title>
+	<title>boolean(布尔)数据类型 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,31 +32,30 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping.html">Mapping</a></span>
+<span class="breadcrumb-link"><a href="mapping.html">映射</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping-types.html">Field datatypes</a></span>
+<span class="breadcrumb-link"><a href="mapping-types.html">字段数据类型</a></span>
 »
-<span class="breadcrumb-node">Boolean datatype</span>
+<span class="breadcrumb-node">boolean(布尔)数据类型</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="binary.html">« Binary datatype</a>
+<a href="binary.html">« binary(二进制)数据类型</a>
 </span>
 <span class="next">
-<a href="date.html">Date datatype »</a>
+<a href2="date.html">Date datatype »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="boolean"></a>Boolean datatype<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/boolean.asciidoc">edit</a>
+<a id="boolean"></a>boolean(布尔)数据类型
 </h2>
 </div></div></div>
 
-<p>Boolean fields accept JSON <code class="literal">true</code> and <code class="literal">false</code> values, but can also accept
-strings which are interpreted as either true or false:</p>
+<p>布尔字段接受JSON <code class="literal">true</code>和<code class="literal">false</code>值，但也可以接受被解释为 true 或 false 的字符串：</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -67,19 +66,19 @@ strings which are interpreted as either true or false:</p>
 <tr>
 <td valign="top">
 <p>
-False values
+false 值
 </p>
 </td>
 <td valign="top">
 <p>
-<code class="literal">false</code>, <code class="literal">"false"</code>, <code class="literal">""</code> (empty string)
+<code class="literal">false</code>, <code class="literal">"false"</code>, <code class="literal">""</code> (空字符串)
 </p>
 </td>
 </tr>
 <tr>
 <td valign="top">
 <p>
-True values
+true 值
 </p>
 </td>
 <td valign="top">
@@ -91,7 +90,7 @@ True values
 </tbody>
 </table>
 </div>
-<p>For example:</p>
+<p>例如：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index
 {
@@ -126,7 +125,7 @@ GET my_index/_search
 <p><a href="#CO291-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Indexing a document with <code class="literal">"true"</code>, which is interpreted as <code class="literal">true</code>.</p>
+<p>用<code class="literal">"true"</code>对文档进行索引，这被解释为<code class="literal">true</code>。</p>
 </td>
 </tr>
 <tr>
@@ -134,15 +133,16 @@ GET my_index/_search
 <p><a href="#CO291-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Searching for documents with a JSON <code class="literal">true</code>.</p>
+<p>搜索值为JSON <code class="literal">true</code>的文档。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>Aggregations like the <a class="xref" href="search-aggregations-bucket-terms-aggregation.html" title="Terms Aggregation"><code class="literal">terms</code>
-aggregation</a>  use <code class="literal">1</code> and <code class="literal">0</code> for the <code class="literal">key</code>, and the strings <code class="literal">"true"</code> and
-<code class="literal">"false"</code> for the <code class="literal">key_as_string</code>. Boolean fields  when used in scripts,
-return <code class="literal">1</code> and <code class="literal">0</code>:</p>
+<p>
+像<a class="xref" href="search-aggregations-bucket-terms-aggregation.html" title="terms 聚合"><code class="literal">terms</code>聚合</a>这样的聚合使用<code class="literal">1</code>和<code class="literal">0</code>作为键，使用字符串<code class="literal">"true"</code>和<code class="literal">"false"</code>作为<code class="literal">key_as_string</code>。
+
+布尔字段在脚本中使用时，返回<code class="literal">1</code>和<code class="literal">0</code>：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST my_index/_doc/1
 {
@@ -177,10 +177,10 @@ GET my_index/_search
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="boolean-params"></a>Parameters for <code class="literal">boolean</code> fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/boolean.asciidoc">edit</a>
+<a id="boolean-params"></a><code class="literal">boolean</code>字段的参数
 </h3>
 </div></div></div>
-<p>The following parameters are accepted by <code class="literal">boolean</code> fields:</p>
+<p><code class="literal">boolean</code>字段接受以下参数：</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -196,8 +196,7 @@ GET my_index/_search
 </td>
 <td valign="top">
 <p>
-Mapping field-level query time boosting. Accepts a floating point number, defaults
-to <code class="literal">1.0</code>.
+映射字段级查询时 提升(boost)。接受一个浮点数，默认值为 <code class="literal">1.0</code>。
 </p>
 </td>
 </tr>
@@ -209,9 +208,7 @@ to <code class="literal">1.0</code>.
 </td>
 <td valign="top">
 <p>
-Should the field be stored on disk in a column-stride fashion, so that it
-can later be used for sorting, aggregations, or scripting? Accepts <code class="literal">true</code>
-(default) or <code class="literal">false</code>.
+是否应该以列步幅(column-stride)的方式将字段存储在磁盘上，以便以后用于排序、聚合或编写脚本? 接受<code class="literal">true</code> (默认)和<code class="literal">false</code>。
 </p>
 </td>
 </tr>
@@ -223,7 +220,7 @@ can later be used for sorting, aggregations, or scripting? Accepts <code class="
 </td>
 <td valign="top">
 <p>
-Should the field be searchable? Accepts <code class="literal">true</code> (default) and <code class="literal">false</code>.
+字段是否可以搜索？接受<code class="literal">true</code>(默认)和<code class="literal">false</code>。
 </p>
 </td>
 </tr>
@@ -235,9 +232,11 @@ Should the field be searchable? Accepts <code class="literal">true</code> (defau
 </td>
 <td valign="top">
 <p>
-Accepts any of the true or false values listed above. The value is
-substituted for any explicit <code class="literal">null</code> values.  Defaults to <code class="literal">null</code>, which
-means the field is treated as missing.
+接受上面列出的任何 true 或 false 值。
+
+该值将替换任何显式的<code class="literal">null</code>值。
+
+默认为<code class="literal">null</code>，这意味着该字段被视为缺失。
 </p>
 </td>
 </tr>
@@ -249,9 +248,9 @@ means the field is treated as missing.
 </td>
 <td valign="top">
 <p>
-Whether the field value should be stored and retrievable separately from
-the <a class="xref" href="mapping-source-field.html" title="_source field"><code class="literal">_source</code></a> field. Accepts <code class="literal">true</code> or <code class="literal">false</code>
-(default).
+字段值是否应该与<a class="xref" href="mapping-source-field.html" title="_source字段" rel="nofollow"><code class="literal">_source</code></a>字段分开存储和检索。
+
+接受<code class="literal">true</code>和<code class="literal">false</code>(默认)。
 </p>
 </td>
 </tr>
@@ -263,7 +262,7 @@ the <a class="xref" href="mapping-source-field.html" title="_source field"><code
 </td>
 <td valign="top">
 <p>
-Metadata about the field.
+与该字段有关的元信息。
 </p>
 </td>
 </tr>
@@ -275,10 +274,10 @@ Metadata about the field.
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="binary.html">« Binary datatype</a>
+<a href="binary.html">« binary(二进制)数据类型</a>
 </span>
 <span class="next">
-<a href="date.html">Date datatype »</a>
+<a href2="date.html">Date datatype »</a>
 </span>
 </div>
 </div>

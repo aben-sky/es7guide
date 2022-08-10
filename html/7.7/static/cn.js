@@ -1707,8 +1707,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "date_nanos.html",
-                        "text": "Date nanoseconds",
-                        "title": "Date nanoseconds"
+                        "text": "date_nanos(日期纳秒)",
+                        "title": "date_nanos(日期纳秒)"
                     },
                     {
                         "url": "dense-vector.html",

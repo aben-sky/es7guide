@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Dense vector datatype | ElasticSearch 7.7 权威指南中文版</title>
+	<title>dense_vector(密集矢量)数据类型 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,38 +32,44 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping.html">Mapping</a></span>
+<span class="breadcrumb-link"><a href="mapping.html">映射</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping-types.html">Field datatypes</a></span>
+<span class="breadcrumb-link"><a href="mapping-types.html">字段数据类型</a></span>
 »
-<span class="breadcrumb-node">Dense vector datatype</span>
+<span class="breadcrumb-node">dense_vector(密集矢量)数据类型</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="date_nanos.html">« Date nanoseconds datatype</a>
+<a href="date_nanos.html">« date_nanos(日期纳秒)数据类型</a>
 </span>
 <span class="next">
-<a href="histogram.html">Histogram datatype »</a>
+<a href2="histogram.html">Histogram datatype »</a>
 </span>
 </div>
 <div class="section xpack">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="dense-vector"></a>Dense vector datatype<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/dense-vector.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
+<a id="dense-vector"></a>dense_vector(密集矢量)数据类型
 </h2>
 </div></div></div>
 
-<p>A <code class="literal">dense_vector</code> field stores dense vectors of float values.
-The maximum number of dimensions that can be in a vector should
-not exceed 2048. A <code class="literal">dense_vector</code> field is a single-valued field.</p>
-<p>These vectors can be used for <a class="xref" href="query-dsl-script-score-query.html#vector-functions" title="Functions for vector fields">document scoring</a>.
-For example, a document score can represent a distance between
-a given query vector and the indexed document vector.</p>
-<p>You index a dense vector as an array of floats.</p>
+<p>
+<code class="literal">dense_vector</code>类型的字段存储浮点值的密集向量。
+
+向量中的最大维数不应超过2048。
+
+<code class="literal">dense_vector</code>类型的字段是一个单值字段。
+</p>
+<p>
+这些向量可用于<a class="xref" href="query-dsl-script-score-query.html#vector-functions" title="用于vector字段的函数">文档评分</a>。
+
+例如，文档得分可以表示给定查询向量和索引文档向量之间的距离。
+</p>
+<p>将密集向量索引为一个浮点数组。</p>
 <div class="pre_wrapper lang-console">
-<pre class="programlisting prettyprint lang-console">PUT my_index
+<pre class="programlisting prettyprint lang-console">PUT /my_index
 {
   "mappings": {
     "properties": {
@@ -98,21 +104,23 @@ PUT my_index/_doc/2
 <p><a href="#CO294-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>dims—the number of dimensions in the vector, required parameter.</p>
+<p>dims - 向量的维数，必需的参数。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>Internally, each document’s dense vector is encoded as a binary
-doc value. Its size in bytes is equal to
-<code class="literal">4 * dims + 4</code>, where <code class="literal">dims</code>—the number of the vector’s dimensions.</p>
+<p>
+在内部，每个文档的密集向量被编码为一个二进制的文档值。
+
+它的字节大小等于<code class="literal">4 * dims + 4</code>，其中<code class="literal">dims</code>是向量的维数。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="date_nanos.html">« Date nanoseconds datatype</a>
+<a href="date_nanos.html">« date_nanos(日期纳秒)数据类型</a>
 </span>
 <span class="next">
-<a href="histogram.html">Histogram datatype »</a>
+<a href2="histogram.html">Histogram datatype »</a>
 </span>
 </div>
 </div>

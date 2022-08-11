@@ -265,3 +265,5 @@ https://www.pipiho.com/es/7.7/cn/array.html
 https://www.pipiho.com/es/7.7/cn/binary.html
 https://www.pipiho.com/es/7.7/cn/boolean.html
 https://www.pipiho.com/es/7.7/cn/date.html
+https://www.pipiho.com/es/7.7/cn/date_nanos.html
+https://www.pipiho.com/es/7.7/cn/dense-vector.html

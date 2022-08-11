@@ -1712,8 +1712,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "dense-vector.html",
-                        "text": "Dense vector",
-                        "title": "Dense vector"
+                        "text": "dense_vector(密集矢量)",
+                        "title": "dense_vector(密集矢量)"
                     },
                     {
                         "url": "histogram.html",

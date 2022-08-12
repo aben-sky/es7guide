@@ -1717,8 +1717,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "histogram.html",
-                        "text": "Histogram",
-                        "title": "Histogram"
+                        "text": "histogram(直方图)",
+                        "title": "histogram(直方图)"
                     },
                     {
                         "url": "flattened.html",

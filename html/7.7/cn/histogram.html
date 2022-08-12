@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Histogram datatype | ElasticSearch 7.7 权威指南中文版</title>
+	<title>histogram(直方图)数据类型 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,56 +32,62 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping.html">Mapping</a></span>
+<span class="breadcrumb-link"><a href="mapping.html">映射</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping-types.html">Field datatypes</a></span>
+<span class="breadcrumb-link"><a href="mapping-types.html">字段数据类型</a></span>
 »
-<span class="breadcrumb-node">Histogram datatype</span>
+<span class="breadcrumb-node">histogram(直方图)数据类型</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="dense-vector.html">« Dense vector datatype</a>
+<a href="dense-vector.html">« dense_vector(密集矢量)数据类型</a>
 </span>
 <span class="next">
-<a href="flattened.html">Flattened datatype »</a>
+<a href2="flattened.html">Flattened datatype »</a>
 </span>
 </div>
 <div class="section xpack">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="histogram"></a>Histogram datatype<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/histogram.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
+<a id="histogram"></a>histogram(直方图)数据类型
 </h2>
 </div></div></div>
 
-<p>A  field to store pre-aggregated numerical data representing a histogram.
-This data is defined using two paired arrays:</p>
+<p>
+一种存储表示直方图的预聚合数值数据的字段。
+
+该数据使用两个成对的数组来定义：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-A <code class="literal">values</code> array of <a class="xref" href="number.html" title="Numeric datatypes"><code class="literal">double</code></a> numbers, representing the buckets for
-the histogram. These values must be provided in ascending order.
+一个名为<code class="literal">values</code>的<a class="xref" href="number.html" title="numeric 数据类型" rel="nofollow"><code class="literal">double</code></a>类型值的数组，表示直方图的桶。
+
+这些值必须按升序提供。
 </li>
 <li class="listitem">
-A corresponding <code class="literal">counts</code> array of <a class="xref" href="number.html" title="Numeric datatypes"><code class="literal">integer</code></a> numbers, representing how
-many values fall into each bucket. These numbers must be positive or zero.
+一个名为<code class="literal">counts</code>的与 values 中的值相对应的<a class="xref" href="number.html" title="Numeric 数值类型" rel="nofollow"><code class="literal">integer</code></a>数组，表示每个桶中有多少个值。
+
+这些数字必须是正数或零。
 </li>
 </ul>
 </div>
-<p>Because the elements in the <code class="literal">values</code> array correspond to the elements in the
-same position of the <code class="literal">count</code> array, these two arrays must have the same length.</p>
+<p>因为<code class="literal">values</code>数组中的元素对应于<code class="literal">counts</code>数组中相同位置的元素，所以这两个数组的长度必须相同。
+</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-A <code class="literal">histogram</code> field can only store a single pair of <code class="literal">values</code> and <code class="literal">count</code> arrays
-per document. Nested arrays are not supported.
+<code class="literal">histogram</code>字段只能为每个文档存储一对<code class="literal">values</code>和<code class="literal">counts</code>数组。
+
+不支持嵌套数组。
 </li>
 <li class="listitem">
-<code class="literal">histogram</code> fields do not support sorting.
+<code class="literal">histogram</code>字段不支持排序。
 </li>
 </ul>
 </div>
@@ -90,28 +96,30 @@ per document. Nested arrays are not supported.
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="histogram-uses"></a>Uses<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/histogram.asciidoc">edit</a>
+<a id="histogram-uses"></a>使用
 </h3>
 </div></div></div>
-<p><code class="literal">histogram</code> fields are primarily intended for use with aggregations. To make it
-more readily accessible for aggregations, <code class="literal">histogram</code> field data is stored as a
-binary <a class="xref" href="doc-values.html" title="doc_values">doc values</a> and not indexed. Its size in bytes is at most
-<code class="literal">13 * numValues</code>, where <code class="literal">numValues</code> is the length of the provided arrays.</p>
-<p>Because the data is not indexed, you only can use <code class="literal">histogram</code> fields for the
-following aggregations and queries:</p>
+<p>
+<code class="literal">histogram</code>字段主要用于聚合。
+
+为了使聚合更容易访问<code class="literal">histogram</code>类型字段的数据，<code class="literal">histogram</code>字段数据存储为二进制<a class="xref" href="doc-values.html" title="doc_values" rel="nofollow">文档值(doc_values)</a>，且不会进行索引。
+
+它的字节大小最多为<code class="literal">13 * numValues</code>，其中<code class="literal">numValues</code>是所给定数组的长度。
+</p>
+<p>因为数据没有进行索引，所以只能对以下聚合和查询使用<code class="literal">histogram</code>字段：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<a class="xref" href="search-aggregations-metrics-percentile-aggregation.html" title="Percentiles Aggregation">percentiles</a> aggregation
+<a class="xref" href="search-aggregations-metrics-percentile-aggregation.html" title="百分位数聚合">percentiles</a>(百分位数)聚合
 </li>
 <li class="listitem">
-<a class="xref" href="search-aggregations-metrics-percentile-rank-aggregation.html" title="Percentile Ranks Aggregation">percentile ranks</a> aggregation
+<a class="xref" href="search-aggregations-metrics-percentile-rank-aggregation.html" title="百分位数等级聚合">percentile ranks</a>(百分位数等级)聚合
 </li>
 <li class="listitem">
-<a class="xref" href="search-aggregations-metrics-boxplot-aggregation.html" title="Boxplot Aggregation">boxplot</a> aggregation
+<a class="xref" href="search-aggregations-metrics-boxplot-aggregation.html" title="Boxplot Aggregation">boxplot</a>(箱线图聚集)聚合
 </li>
 <li class="listitem">
-<a class="xref" href="query-dsl-exists-query.html" title="Exists query">exists</a> query
+<a class="xref" href="query-dsl-exists-query.html" title="存在查询">exists</a>(存在)查询
 </li>
 </ul>
 </div>
@@ -120,47 +128,51 @@ following aggregations and queries:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="mapping-types-histogram-building-histogram"></a>Building a histogram<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/histogram.asciidoc">edit</a>
+<a id="mapping-types-histogram-building-histogram"></a>构建一个直方图
 </h3>
 </div></div></div>
-<p>When using a histogram as part of an aggregation, the accuracy of the results will depend on how the
-histogram was constructed. It is important to consider the percentiles aggregation mode that will be used
-to build it. Some possibilities include:</p>
+<p>
+当使用直方图作为聚合的一部分时，结果的准确性将取决于直方图的构造方式。
+
+重要的是要考虑将用于构建它的百分位数聚合模式。 
+
+一些可能性包括:
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-For the <a class="xref" href="search-aggregations-metrics-percentile-aggregation.html" title="Percentiles Aggregation">T-Digest</a> mode, the <code class="literal">values</code> array represents
-the mean centroid positions and the <code class="literal">counts</code> array represents the number of values that are attributed to each
-centroid. If the algorithm has already started to approximate the percentiles, this inaccuracy is
-carried over in the histogram.
+对于<a class="xref" href="search-aggregations-metrics-percentile-aggregation.html" title="百分位数聚合">T-Digest</a>模式，<code class="literal">values</code>数组表示平均质心位置，<code class="literal">counts</code>数组表示归属于每个质心的值的数量。
+
+如果算法已经开始逼近百分位数，这种不准确性会在直方图中延续。
 </li>
 <li class="listitem">
-For the <a class="xref" href="search-aggregations-metrics-percentile-aggregation.html#_hdr_histogram" title="HDR Histogram">High Dynamic Range (HDR)</a> histogram mode, the <code class="literal">values</code> array represents fixed upper
-limits of each bucket interval, and the <code class="literal">counts</code> array represents the number of values that are attributed to each
-interval. This implementation maintains a fixed worse-case percentage error (specified as a number of significant digits),
-therefore the value used when generating the histogram would be the maximum accuracy you can achieve at aggregation time.
+对于<a class="xref" href="search-aggregations-metrics-percentile-aggregation.html#_hdr_histogram" title="HDR 直方图">高动态范围(HDR)</a>直方图模式，<code class="literal">values</code>数组表示每个时段间隔的固定上限，<code class="literal">counts</code>数组表示归属于每个间隔的值的数量。
+
+该实现保持固定的最坏情况百分比误差(指定为有效数字的数量)，因此生成直方图时使用的值将是你在聚合时可以达到的最大精度。
 </li>
 </ul>
 </div>
-<p>The histogram field is "algorithm agnostic" and does not store data specific to either T-Digest or HDRHistogram. While this
-means the field can technically be aggregated with either algorithm, in practice the user should chose one algorithm and
-index data in that manner (e.g. centroids for T-Digest or intervals for HDRHistogram) to ensure best accuracy.</p>
+<p>
+直方图字段是“算法不可知的”，不存储特定于 T-Digest 或 HDRHistogram 的数据。
+
+虽然这意味着该字段在技术上可以使用任何一种算法进行聚合，但在实践中，用户应该选择一种算法并以这种方式索引数据(例如 T-Digest 的质心或 HDRHistogram 的区间)以确保最佳准确性。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="histogram-ex"></a>Examples<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/histogram.asciidoc">edit</a>
+<a id="histogram-ex"></a>示例
 </h3>
 </div></div></div>
-<p>The following <a class="xref" href="indices-create-index.html" title="Create index API">create index</a> API request creates a new index with two field mappings:</p>
+<p>下面的<a class="xref" href="indices-create-index.html" title="创建索引API" rel="nofollow">创建索引(create index)</a>API 请求创建了一个具有两个字段映射的新索引：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">my_histogram</code>, a <code class="literal">histogram</code> field used to store percentile data
+<code class="word">my_histogram</code>，一个<code class="literal">histogram</code>类型的字段，用于存储百分位数数据
 </li>
 <li class="listitem">
-<code class="literal">my_text</code>, a <code class="literal">keyword</code> field used to store a title for the histogram
+<code class="word">my_text</code>，一个<code class="literal">keyword</code>类型的字段，用于存储直方图的标题
 </li>
 </ul>
 </div>
@@ -180,8 +192,9 @@ index data in that manner (e.g. centroids for T-Digest or intervals for HDRHisto
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/627.console"></div>
-<p>The following <a class="xref" href="docs-index_.html" title="Index API">index</a> API requests store pre-aggregated for
-two histograms: <code class="literal">histogram_1</code> and <code class="literal">histogram_2</code>.</p>
+<p>
+下面的 <a class="xref" href="docs-index_.html" title="index API" rel="nofollow">编制索引(index)</a> API 请求存储两个直方图的预聚合：<code class="word">histogram_1</code>和<code class="word">histogram_2</code>。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index/_doc/1
 {
@@ -209,9 +222,15 @@ PUT my_index/_doc/2
 <p><a href="#CO295-1"><i class="conum" data-value="1"></i></a><a href="#CO295-3"></a></p>
 </td>
 <td align="left" valign="top">
-<p>Values for each bucket. Values in the array are treated as doubles and must be given in
-increasing order. For <a class="xref" href="search-aggregations-metrics-percentile-aggregation.html#search-aggregations-metrics-percentile-aggregation-approximation" title="Percentiles are (usually) approximate">T-Digest</a>
-histograms this value represents the mean value. In case of HDR histograms this represents the value iterated to.</p>
+<p>
+每个桶的值。
+
+数组中的值被视为双精度值，必须按升序排列。
+
+对于<a class="xref" href="search-aggregations-metrics-percentile-aggregation.html#search-aggregations-metrics-percentile-aggregation-approximation" title="百分位数(通常)是近似值">T-Digest</a>直方图，该值代表平均值。
+
+在 HDR 直方图的情况下，这表示迭代的值。
+</p>
 </td>
 </tr>
 <tr>
@@ -219,8 +238,15 @@ histograms this value represents the mean value. In case of HDR histograms this 
 <p><a href="#CO295-2"><i class="conum" data-value="2"></i></a><a href="#CO295-4"></a></p>
 </td>
 <td align="left" valign="top">
-<p>Count for each bucket. Values in the arrays are treated as integers and must be positive or zero.
-Negative values will be rejected. The relation between a bucket and a count is given by the position in the array.</p>
+<p>
+每个桶中的计数。
+
+数组中的值被视为整数，并且必须是正数或零。
+
+负值将被拒绝。
+
+桶和计数之间的关系由数组中的位置给出。
+</p>
 </td>
 </tr>
 </table>
@@ -230,10 +256,10 @@ Negative values will be rejected. The relation between a bucket and a count is g
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="dense-vector.html">« Dense vector datatype</a>
+<a href="dense-vector.html">« dense_vector(密集矢量)数据类型</a>
 </span>
 <span class="next">
-<a href="flattened.html">Flattened datatype »</a>
+<a href2="flattened.html">Flattened datatype »</a>
 </span>
 </div>
 </div>

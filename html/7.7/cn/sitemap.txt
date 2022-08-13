@@ -268,3 +268,4 @@ https://www.pipiho.com/es/7.7/cn/date.html
 https://www.pipiho.com/es/7.7/cn/date_nanos.html
 https://www.pipiho.com/es/7.7/cn/dense-vector.html
 https://www.pipiho.com/es/7.7/cn/histogram.html
+https://www.pipiho.com/es/7.7/cn/flattened.html

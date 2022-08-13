@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Flattened datatype | ElasticSearch 7.7 权威指南中文版</title>
+	<title>flattened(扁平)数据类型 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,55 +32,64 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping.html">Mapping</a></span>
+<span class="breadcrumb-link"><a href="mapping.html">映射</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping-types.html">Field datatypes</a></span>
+<span class="breadcrumb-link"><a href="mapping-types.html">字段数据类型</a></span>
 »
-<span class="breadcrumb-node">Flattened datatype</span>
+<span class="breadcrumb-node">flattened(扁平)数据类型</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="histogram.html">« Histogram datatype</a>
+<a href="histogram.html">« histogram(直方图)数据类型</a>
 </span>
 <span class="next">
-<a href="geo-point.html">Geo-point datatype »</a>
+<a href2="geo-point.html">Geo-point datatype »</a>
 </span>
 </div>
 <div class="section xpack">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="flattened"></a>Flattened datatype<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/flattened.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
+<a id="flattened"></a>flattened(扁平)数据类型
 </h2>
 </div></div></div>
 
-<p>By default, each subfield in an object is mapped and indexed separately. If
-the names or types of the subfields are not known in advance, then they are
-<a class="xref" href="dynamic-mapping.html" title="Dynamic Mapping">mapped dynamically</a>.</p>
-<p>The <code class="literal">flattened</code> type provides an alternative approach, where the entire
-object is mapped as a single field. Given an object, the <code class="literal">flattened</code>
-mapping will parse out its leaf values and index them into one field as
-keywords. The object’s contents can then be searched through simple queries
-and aggregations.</p>
-<p>This data type can be useful for indexing objects with a large or unknown
-number of unique keys. Only one field mapping is created for the whole JSON
-object, which can help prevent a <a class="xref" href="mapping.html#mapping-limit-settings" title="Settings to prevent mappings explosion">mappings explosion</a>
-from having too many distinct field mappings.</p>
-<p>On the other hand, flattened object fields present a trade-off in terms of
-search functionality. Only basic queries are allowed, with no support for
-numeric range queries or highlighting. Further information on the limitations
-can be found in the <a class="xref" href="flattened.html#supported-operations" title="Supported operations">Supported operations</a> section.</p>
+<p>
+默认情况下，对象中的每个子字段都被单独映射和索引。
+
+如果事先不知道子字段的名称或类型，则它们会被<a class="xref" href="dynamic-mapping.html" title="动态映射" rel="nofollow">动态映射</a>。
+</p>
+<p>
+<code class="literal">flattened</code>类型提供了另一种方法，将整个对象映射为单个字段。
+
+给定一个对象，<code class="literal">flattened</code>映射将解析出它的叶子值<span class="remark">(leave value)</span>，并将它们作为关键字索引到一个字段中。
+
+然后，可以通过简单的查询和聚合来搜索对象的内容。
+</p>
+<p>
+这种数据类型对于索引具有大量或未知数量的唯一键的对象非常有用。
+
+对于整个JSON对象，只创建一个字段映射，这有助于防止<a class="xref" href="mapping.html#mapping-limit-settings" title="防止映射爆炸的设置">映射爆炸</a>，因为有太多不同的字段映射。
+</p>
+<p>
+另一方面，扁平化的对象字段在搜索功能方面有所取舍。
+
+只允许基本查询，不支持数值范围查询或高亮。
+
+有关限制的更多信息，请参见<a class="xref" href="flattened.html#supported-operations" title="支持的操作">支持的操作</a>部分。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The <code class="literal">flattened</code> mapping type should <span class="strong strong"><strong>not</strong></span> be used for indexing all
-document content, as it treats all values as keywords and does not provide full
-search functionality. The default approach, where each subfield has its own
-entry in the mappings, works well in the majority of cases.</p>
+<p>
+<code class="literal">flattened</code>映射类型<span class="strong strong"><strong>不</strong></span>应用于索引所有文档内容，因为它将所有值视为<span class="literal">keyword</span>类型，并且不提供全文搜索功能。
+
+默认的方法是每个子字段在映射中都有自己的入口，这种方法在大多数情况下都能很好地工作。
+</p>
 </div>
 </div>
-<p>An flattened object field can be created as follows:</p>
+<p>可以按如下方式创建一个 flattened 对象字段：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT bug_reports
 {
@@ -110,11 +119,12 @@ POST bug_reports/_doc/1
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/629.console"></div>
-<p>During indexing, tokens are created for each leaf value in the JSON object. The
-values are indexed as string keywords, without analysis or special handling for
-numbers or dates.</p>
-<p>Querying the top-level <code class="literal">flattened</code> field searches all leaf values in the
-object:</p>
+<p>
+在编制索引的过程中，会为 JSON 对象中的每个叶子值创建 词元(token)。
+
+这些值作为字符串值形式的 keyword 进行索引，不需要对数字或日期进行分析或特殊处理。
+</p>
+<p>查询<code class="literal">flattened</code>字段的顶级键，会搜索对象中的所有叶子值：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST bug_reports/_search
 {
@@ -124,7 +134,7 @@ object:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/630.console"></div>
-<p>To query on a specific key in the flattened object, object dot notation is used:</p>
+<p>要查询<code class="literal">flattened</code>对象中的特定键，可以使用对象点标记法：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST bug_reports/_search
 {
@@ -137,17 +147,15 @@ object:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="supported-operations"></a>Supported operations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/flattened.asciidoc">edit</a>
+<a id="supported-operations"></a>支持的操作
 </h3>
 </div></div></div>
-<p>Because of the similarities in the way values are indexed, <code class="literal">flattened</code>
-fields share much of the same mapping and search functionality as
-<a class="xref" href="keyword.html" title="Keyword datatype"><code class="literal">keyword</code></a> fields.</p>
-<p>Currently, flattened object fields can be used with the following query types:</p>
+<p>由于值的索引方式相似，<code class="literal">flattened</code>字段与<a class="xref" href="keyword.html" title="keyword 数据类型" rel="nofollow"><code class="literal">keyword</code></a>字段共享许多相同的映射和搜索功能。</p>
+<p>目前，flattened 对象类型的字段可用于以下查询类型：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-<code class="literal">term</code>, <code class="literal">terms</code>, and <code class="literal">terms_set</code>
+<code class="literal">term</code>、<code class="literal">terms</code>和<code class="literal">terms_set</code>
 </li>
 <li class="listitem">
 <code class="literal">prefix</code>
@@ -156,36 +164,44 @@ fields share much of the same mapping and search functionality as
 <code class="literal">range</code>
 </li>
 <li class="listitem">
-<code class="literal">match</code> and <code class="literal">multi_match</code>
+<code class="literal">match</code>和<code class="literal">multi_match</code>
 </li>
 <li class="listitem">
-<code class="literal">query_string</code> and <code class="literal">simple_query_string</code>
+<code class="literal">query_string</code>和<code class="literal">simple_query_string</code>
 </li>
 <li class="listitem">
 <code class="literal">exists</code>
 </li>
 </ul>
 </div>
-<p>When querying, it is not possible to refer to field keys using wildcards, as in
-<code class="literal">{ "term": {"labels.time*": 1541457010}}</code>. Note that all queries, including
-<code class="literal">range</code>, treat the values as string keywords. Highlighting is not supported on
-<code class="literal">flattened</code> fields.</p>
-<p>It is possible to sort on an flattened object field, as well as perform simple
-keyword-style aggregations such as <code class="literal">terms</code>. As with queries, there is no
-special support for numerics — all values in the JSON object are treated as
-keywords. When sorting, this implies that values are compared
-lexicographically.</p>
-<p>Flattened object fields currently cannot be stored. It is not possible to
-specify the <a class="xref" href="mapping-store.html" title="store"><code class="literal">store</code></a> parameter in the mapping.</p>
+<p>
+查询时，不能使用通配符引用字段的键，如在 <code class="literal">{ "term": {"labels.time*": 1541457010}}</code>中。
+
+请注意，包括<code class="literal">range</code>在内的所有查询都将这些值视为字符串 keyword 类型。
+
+<code class="literal">flattened</code>字段不支持高亮。
+</p>
+<p>
+可以对 flattened 对象字段进行排序，也可以执行简单的 keyword 式聚合，如<code class="literal">terms</code>。
+
+与查询一样，没有对数值的特殊支持 - JSON对象中的所有值都被视为 keyword 类型。
+
+这意味着排序时会按字典顺序进行值的比较。
+</p>
+<p>
+当前无法存储 flattened 对象字段。
+
+不能在映射中指定参数<a class="xref" href="mapping-store.html" title="store" rel="nofollow"><code class="literal">store</code></a>。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="flattened-params"></a>Parameters for flattened object fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/flattened.asciidoc">edit</a>
+<a id="flattened-params"></a>flattened 对象字段的参数
 </h3>
 </div></div></div>
-<p>The following mapping parameters are accepted:</p>
+<p>支持以下几个映射参数：</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -201,8 +217,7 @@ specify the <a class="xref" href="mapping-store.html" title="store"><code class=
 </td>
 <td valign="top">
 <p>
-Mapping field-level query time boosting. Accepts a floating point number,
-defaults to <code class="literal">1.0</code>.
+映射字段级查询时的提升。接受浮点数，默认值为<code class="literal">1.0</code>。
 </p>
 </td>
 </tr>
@@ -214,10 +229,13 @@ defaults to <code class="literal">1.0</code>.
 </td>
 <td valign="top">
 <p>
-The maximum allowed depth of the flattened object field, in terms of nested
-inner objects. If a flattened object field exceeds this limit, then an
-error will be thrown. Defaults to <code class="literal">20</code>. Note that <code class="literal">depth_limit</code> can be
-updated dynamically through the <a class="xref" href="indices-put-mapping.html" title="Put mapping API">put mapping</a> API.
+就嵌套内部对象而言，flattened 对象字段的最大允许深度。
+
+如果 flattened 对象字段超过此限制，则会抛出错误。
+
+默认值为 <code class="literal">20</code>。
+
+注意，<code class="literal">depth_limit</code>可以通过<a class="xref" href="indices-put-mapping.html" title="映射设置 API" rel="nofollow">映射设置</a> API 动态更新。
 </p>
 </td>
 </tr>
@@ -229,9 +247,7 @@ updated dynamically through the <a class="xref" href="indices-put-mapping.html" 
 </td>
 <td valign="top">
 <p>
-Should the field be stored on disk in a column-stride fashion, so that it
-can later be used for sorting, aggregations, or scripting? Accepts <code class="literal">true</code>
-(default) or <code class="literal">false</code>.
+该字段是否应该以列步幅(column-stride)的方式存储在磁盘上，以便以后用于排序、聚合或编写脚本？接受<code class="literal">true</code> (默认) 和 <code class="literal">false</code>。
 </p>
 </td>
 </tr>
@@ -243,9 +259,11 @@ can later be used for sorting, aggregations, or scripting? Accepts <code class="
 </td>
 <td valign="top">
 <p>
-Should global ordinals be loaded eagerly on refresh? Accepts <code class="literal">true</code> or
-<code class="literal">false</code> (default). Enabling this is a good idea on fields that are
-frequently used for terms aggregations.
+是否应该在刷新时加载全局序号?
+
+接受<code class="literal">true</code>和<code class="literal">false</code>(默认)。
+
+对于常用于 terms 聚合的字段，启用此功能是个好主意。
 </p>
 </td>
 </tr>
@@ -257,10 +275,11 @@ frequently used for terms aggregations.
 </td>
 <td valign="top">
 <p>
-Leaf values longer than this limit will not be indexed. By default, there
-is no limit and all values will be indexed. Note that this limit applies
-to the leaf values within the flattened object field, and not the length of
-the entire field.
+超过此限制的叶子值将不会被索引。
+
+默认情况下，没有限制，所有值都将被索引。
+
+请注意，此限制适用于 flattened 对象字段内的叶子值，而不是整个字段的长度。
 </p>
 </td>
 </tr>
@@ -272,8 +291,7 @@ the entire field.
 </td>
 <td valign="top">
 <p>
-Determines if the field should be searchable. Accepts <code class="literal">true</code> (default) or
-<code class="literal">false</code>.
+确定字段是否应可搜索。接受<code class="literal">true</code> (默认) 和 <code class="literal">false</code>。
 </p>
 </td>
 </tr>
@@ -285,9 +303,9 @@ Determines if the field should be searchable. Accepts <code class="literal">true
 </td>
 <td valign="top">
 <p>
-What information should be stored in the index for scoring purposes.
-Defaults to <code class="literal">docs</code> but can also be set to <code class="literal">freqs</code> to take term frequency
-into account when computing scores.
+出于评分目的，应该在索引中存储什么信息。
+
+默认为<code class="literal">docs</code>，但也可以设置为<code class="literal">freqs</code>，以便在计算分数时考虑词项的频率。
 </p>
 </td>
 </tr>
@@ -299,9 +317,9 @@ into account when computing scores.
 </td>
 <td valign="top">
 <p>
-A string value which is substituted for any explicit <code class="literal">null</code> values within
-the flattened object field. Defaults to <code class="literal">null</code>, which means null sields are
-treated as if it were missing.
+替换 flattened 对象字段中任何显式<code class="literal">null</code>值的字符串值。
+
+默认为<code class="literal">null</code>，这意味着 null 字段被视为缺失。
 </p>
 </td>
 </tr>
@@ -313,8 +331,7 @@ treated as if it were missing.
 </td>
 <td valign="top">
 <p>
-Which scoring algorithm or <em>similarity</em> should be used. Defaults
-to <code class="literal">BM25</code>.
+应该使用哪种评分或<em>相似度</em>算法。默认为<code class="literal">BM25</code>。
 </p>
 </td>
 </tr>
@@ -326,9 +343,9 @@ to <code class="literal">BM25</code>.
 </td>
 <td valign="top">
 <p>
-Whether <a class="xref" href="full-text-queries.html" title="Full text queries">full text queries</a> should split the input on
-whitespace when building a query for this field. Accepts <code class="literal">true</code> or <code class="literal">false</code>
-(default).
+为该字段构建查询时，<a class="xref" href="full-text-queries.html" title="全文查询">全文查询</a>是否应该使用"空白"拆分输入。
+
+接受<code class="literal">true</code>和<code class="literal">false</code> (默认)。
 </p>
 </td>
 </tr>
@@ -340,10 +357,10 @@ whitespace when building a query for this field. Accepts <code class="literal">t
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="histogram.html">« Histogram datatype</a>
+<a href="histogram.html">« histogram(直方图)数据类型</a>
 </span>
 <span class="next">
-<a href="geo-point.html">Geo-point datatype »</a>
+<a href2="geo-point.html">Geo-point datatype »</a>
 </span>
 </div>
 </div>

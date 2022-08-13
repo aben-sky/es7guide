@@ -1722,8 +1722,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "flattened.html",
-                        "text": "Flattened",
-                        "title": "Flattened"
+                        "text": "flattened(扁平)",
+                        "title": "flattened(扁平)"
                     },
                     {
                         "url": "geo-point.html",

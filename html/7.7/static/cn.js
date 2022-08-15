@@ -1727,8 +1727,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "geo-point.html",
-                        "text": "Geo-point",
-                        "title": "Geo-point"
+                        "text": "geo_point(地理坐标点)",
+                        "title": "geo_point(地理坐标点)"
                     },
                     {
                         "url": "geo-shape.html",

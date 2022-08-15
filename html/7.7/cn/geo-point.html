@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Geo-point datatype | ElasticSearch 7.7 权威指南中文版</title>
+	<title>geo_point(地理坐标点)数据类型 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,50 +32,47 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping.html">Mapping</a></span>
+<span class="breadcrumb-link"><a href="mapping.html">映射</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping-types.html">Field datatypes</a></span>
+<span class="breadcrumb-link"><a href="mapping-types.html">字段数据类型</a></span>
 »
-<span class="breadcrumb-node">Geo-point datatype</span>
+<span class="breadcrumb-node">geo_point(地理坐标点)数据类型</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="flattened.html">« Flattened datatype</a>
+<a href="flattened.html">« flattened(扁平)数据类型</a>
 </span>
 <span class="next">
-<a href="geo-shape.html">Geo-shape datatype »</a>
+<a href2="geo-shape.html">Geo-shape datatype »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="geo-point"></a>Geo-point datatype<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/geo-point.asciidoc">edit</a>
+<a id="geo-point"></a>geo_point(地理坐标点)数据类型
 </h2>
 </div></div></div>
 
-<p>Fields of type <code class="literal">geo_point</code> accept latitude-longitude pairs, which can be used:</p>
+<p><code class="literal">geo_point</code>类型的字段接受经度-纬度对，可用于：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-to find geo-points within a <a class="xref" href="query-dsl-geo-bounding-box-query.html" title="Geo-bounding box query">bounding box</a>,
-within a certain <a class="xref" href="query-dsl-geo-distance-query.html" title="Geo-distance query">distance</a> of a central point,
-or within a <a class="xref" href="query-dsl-geo-polygon-query.html" title="Geo-polygon query">polygon</a> or within a <a class="xref" href="query-dsl-geo-shape-query.html" title="Geo-shape query">geo_shape query</a>.
+查找<a class="xref" href="query-dsl-geo-bounding-box-query.html" title="geo-bounding box查询">边界框(bounding box)</a>内、中心点的特定<a class="xref" href="query-dsl-geo-distance-query.html" title="geo-distance查询">距离(distance)</a>内、<a class="xref" href="query-dsl-geo-polygon-query.html" title="geo-polygon查询">多边形(polygon)</a>内或<a class="xref" href="query-dsl-geo-shape-query.html" title="geo-shape查询">geo_shape查询</a>内的地理坐标点。
 </li>
 <li class="listitem">
-to aggregate documents <a class="xref" href="search-aggregations-bucket-geohashgrid-aggregation.html" title="GeoHash grid Aggregation">geographically</a>
-or by <a class="xref" href="search-aggregations-bucket-geodistance-aggregation.html" title="Geo Distance Aggregation">distance</a> from a central point.
+按<a class="xref" href="search-aggregations-bucket-geohashgrid-aggregation.html" title="geohash网格聚合">地理位置</a>或离中心点的<a class="xref" href="search-aggregations-bucket-geodistance-aggregation.html" title="geo距离聚合">距离(distance)</a>来聚合文件。
 </li>
 <li class="listitem">
-to integrate distance into a document’s <a class="xref" href="query-dsl-function-score-query.html" title="Function score query">relevance score</a>.
+将距离整合到文档的<a class="xref" href="query-dsl-function-score-query.html" title="函数评分查询">相关性评分</a>中。
 </li>
 <li class="listitem">
-to <a class="xref" href="search-request-body.html#geo-sorting" title="Geo Distance Sorting">sort</a> documents by distance.
+按距离<a class="xref" href="search-request-body.html#geo-sorting" title="Geo Distance Sorting">排序(sort)</a>文档。
 </li>
 </ul>
 </div>
-<p>There are five ways that a geo-point may be specified, as demonstrated below:</p>
+<p>有五种方法可以指定 geo-point，如下所示：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index
 {
@@ -147,7 +144,7 @@ GET my_index/_search
 <p><a href="#CO296-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Geo-point expressed as an object, with <code class="literal">lat</code> and <code class="literal">lon</code> keys.</p>
+<p>表示为对象的geo-point，带有<code class="literal">lat</code>(纬度)和<code class="literal">lon</code>(经度)键。</p>
 </td>
 </tr>
 <tr>
@@ -155,7 +152,7 @@ GET my_index/_search
 <p><a href="#CO296-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Geo-point expressed as a string with the format: <code class="literal">"lat,lon"</code>.</p>
+<p>以字符串形式表示的geo-point，格式为：<code class="literal">"lat,lon"</code>。</p>
 </td>
 </tr>
 <tr>
@@ -163,7 +160,7 @@ GET my_index/_search
 <p><a href="#CO296-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Geo-point expressed as a geohash.</p>
+<p>表示为 geohash 的geo-point。</p>
 </td>
 </tr>
 <tr>
@@ -171,7 +168,7 @@ GET my_index/_search
 <p><a href="#CO296-4"><i class="conum" data-value="4"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Geo-point expressed as an array with the format: [ <code class="literal">lon</code>, <code class="literal">lat</code>]</p>
+<p>以数组形式表示的geo-point，格式为：[ <code class="literal">lon</code>, <code class="literal">lat</code>]。</p>
 </td>
 </tr>
 <tr>
@@ -179,8 +176,7 @@ GET my_index/_search
 <p><a href="#CO296-5"><i class="conum" data-value="5"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Geo-point expressed as a <a href="http://docs.opengeospatial.org/is/12-063r5/12-063r5.html" class="ulink" target="_top">Well-Known Text</a>
-POINT with the format: <code class="literal">"POINT(lon lat)"</code></p>
+<p>表示为<a href="http://docs.opengeospatial.org/is/12-063r5/12-063r5.html" class="ulink" target="_top">众所周知的文本</a>点，格式为：<code class="literal">"POINT(lon lat)"</code></p>
 </td>
 </tr>
 <tr>
@@ -188,7 +184,9 @@ POINT with the format: <code class="literal">"POINT(lon lat)"</code></p>
 <p><a href="#CO296-6"><i class="conum" data-value="6"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>A geo-bounding box query which finds all geo-points that fall inside the box.</p>
+<p>
+一种地理边界框查询，用于查找落在该框内的所有 geo-point。
+</p>
 </td>
 </tr>
 </table>
@@ -196,34 +194,40 @@ POINT with the format: <code class="literal">"POINT(lon lat)"</code></p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<h3>Geo-points expressed as an array or string</h3>
-<p>Please note that string geo-points are ordered as <code class="literal">lat,lon</code>, while array
-geo-points are ordered as the reverse: <code class="literal">lon,lat</code>.</p>
-<p>Originally, <code class="literal">lat,lon</code> was used for both array and string, but the array
-format was changed early on to conform to the format used by GeoJSON.</p>
+<h3>表示为数组或字符串的 geo-point</h3>
+<p>请注意，字符串格式的 geo-point 按 <code class="literal">lat,lon</code>排序，而数组格式的 geo-point 按相反顺序排序：<code class="literal">lon,lat</code>。</p>
+<p>最初，<code class="literal">lat,lon</code>顺序都在数组和字符串中使用，但是数组格式在早期被改变以符合 GeoJSON 使用的格式。</p>
 </div>
 </div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>A point can be expressed as a <a href="http://en.wikipedia.org/wiki/Geohash" class="ulink" target="_top">geohash</a>.
-Geohashes are <a href="https://en.wikipedia.org/wiki/Base32" class="ulink" target="_top">base32</a> encoded strings of
-the bits of the latitude and longitude interleaved. Each character in a geohash
-adds additional 5 bits to the precision. So the longer the hash, the more
-precise it is. For the indexing purposed geohashs are translated into
-latitude-longitude pairs. During this process only first 12 characters are
-used, so specifying more than 12 characters in a geohash doesn’t increase the
-precision. The 12 characters provide 60 bits, which should reduce a possible
-error to less than 2cm.</p>
+<p>
+一个地理位置坐标点可以表示为一个<a href="http://en.wikipedia.org/wiki/Geohash" class="ulink" target="_top">geohash</a>值。
+<br/>
+<br/>
+<br/>
+geohash 是经纬度交织的<a href="https://en.wikipedia.org/wiki/Base32" class="ulink" target="_top">base32</a>编码的字符串。
+
+geohash 中的每个字符都会为精度增加5比特位。
+
+所以 hash 越长，就越精确。
+
+出于索引的目的，geohash被转换成纬度-经度对。
+
+在此过程中，仅使用前12个字符，因此在 geohash 中指定超过12个字符并不会提高精度。
+
+12个字符提供了60个比特位，这应该会将可能的误差减少到小于2厘米。
+</p>
 </div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="geo-point-params"></a>Parameters for <code class="literal">geo_point</code> fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/geo-point.asciidoc">edit</a>
+<a id="geo-point-params"></a><code class="literal">geo_point</code>字段的参数
 </h3>
 </div></div></div>
-<p>The following parameters are accepted by <code class="literal">geo_point</code> fields:</p>
+<p><code class="literal">geo_point</code>字段接受以下参数：</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -239,8 +243,9 @@ error to less than 2cm.</p>
 </td>
 <td valign="top">
 <p>
-If <code class="literal">true</code>, malformed geo-points are ignored. If <code class="literal">false</code> (default),
-malformed geo-points throw an exception and reject the whole document.
+如果为<code class="literal">true</code>，将忽略格式错误的geo-point值。
+
+如果为<code class="literal">false</code>(默认)，格式错误的geo-point值会引发异常并拒绝整个文档。
 </p>
 </td>
 </tr>
@@ -252,10 +257,9 @@ malformed geo-points throw an exception and reject the whole document.
 </td>
 <td valign="top">
 <p>
-If <code class="literal">true</code> (default) three dimension points will be accepted (stored in source)
-but only latitude and longitude values will be indexed; the third dimension is
-ignored. If <code class="literal">false</code>, geo-points containing any more than latitude and longitude
-(two dimensions) values throw an exception and reject the whole document.
+如果为<code class="literal">true</code>(默认)，将接受三个维度点(存储在 source 中),但仅索引纬度和经度值；第三维度被忽略。
+
+如果为<code class="literal">false</code>，包含任何超过纬度和经度(二维)值的 geo-point 值会引发异常并拒绝整个文档。
 </p>
 </td>
 </tr>
@@ -267,8 +271,9 @@ ignored. If <code class="literal">false</code>, geo-points containing any more t
 </td>
 <td valign="top">
 <p>
-Accepts an geopoint value which is substituted for any explicit <code class="literal">null</code> values.
-Defaults to <code class="literal">null</code>, which means the field is treated as missing.
+接受 geo-point 值，该值将替代任何显式的<code class="literal">null</code>值。
+
+默认为<code class="literal">null</code>，这意味着该字段被视为缺失。
 </p>
 </td>
 </tr>
@@ -280,18 +285,18 @@ Defaults to <code class="literal">null</code>, which means the field is treated 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_using_geo_points_in_scripts"></a>Using geo-points in scripts<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/geo-point.asciidoc">edit</a>
+<a id="_using_geo_points_in_scripts"></a>在脚本中使用 geo-point
 </h3>
 </div></div></div>
-<p>When accessing the value of a geo-point in a script, the value is returned as
-a <code class="literal">GeoPoint</code> object, which allows access to the <code class="literal">.lat</code> and <code class="literal">.lon</code> values
-respectively:</p>
+<p>
+当在脚本中访问 geo-point 的值时，该值作为一个<code class="literal">GeoPoint</code>对象返回，该对象允许分别访问<code class="literal">.lat</code>和<code class="literal">.lon</code>值：
+</p>
 <div class="pre_wrapper lang-painless">
 <pre class="programlisting prettyprint lang-painless">def geopoint = doc['location'].value;
 def lat      = geopoint.lat;
 def lon      = geopoint.lon;</pre>
 </div>
-<p>For performance reasons, it is better to access the lat/lon values directly:</p>
+<p>出于性能原因，最好直接访问 lat/lon 的值：</p>
 <div class="pre_wrapper lang-painless">
 <pre class="programlisting prettyprint lang-painless">def lat      = doc['location'].lat;
 def lon      = doc['location'].lon;</pre>
@@ -301,10 +306,10 @@ def lon      = doc['location'].lon;</pre>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="flattened.html">« Flattened datatype</a>
+<a href="flattened.html">« flattened(扁平)数据类型</a>
 </span>
 <span class="next">
-<a href="geo-shape.html">Geo-shape datatype »</a>
+<a href2="geo-shape.html">Geo-shape datatype »</a>
 </span>
 </div>
 </div>

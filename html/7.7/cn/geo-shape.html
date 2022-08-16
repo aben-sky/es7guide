@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Geo-shape datatype | ElasticSearch 7.7 权威指南中文版</title>
+	<title>geo_shape(地理形状)数据类型 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,41 +32,43 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping.html">Mapping</a></span>
+<span class="breadcrumb-link"><a href="mapping.html">映射</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping-types.html">Field datatypes</a></span>
+<span class="breadcrumb-link"><a href="mapping-types.html">字段数据类型</a></span>
 »
-<span class="breadcrumb-node">Geo-shape datatype</span>
+<span class="breadcrumb-node">geo_shape(地理形状)数据类型</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="geo-point.html">« Geo-point datatype</a>
+<a href="geo-point.html">« geo_point(地理坐标点)数据类型</a>
 </span>
 <span class="next">
-<a href="ip.html">IP datatype »</a>
+<a href2="ip.html">IP datatype »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="geo-shape"></a>Geo-shape datatype<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/geo-shape.asciidoc">edit</a>
+<a id="geo-shape"></a>geo_shape(地理形状)数据类型
 </h2>
 </div></div></div>
 
-<p>The <code class="literal">geo_shape</code> datatype facilitates the indexing of and searching
-with arbitrary geo shapes such as rectangles and polygons. It should be
-used when either the data being indexed or the queries being executed
-contain shapes other than just points.</p>
-<p>You can query documents using this type using
-<a class="xref" href="query-dsl-geo-shape-query.html" title="Geo-shape query">geo_shape Query</a>.</p>
+<p>
+<code class="literal">geo_shape</code>数据类型便于索引和搜索任意地理形状，如矩形和多边形。
+
+当被索引的数据或被执行的查询包含形状而不仅仅是坐标点时，应该使用它。
+</p>
+<p>可以使用<a class="xref" href="query-dsl-geo-shape-query.html" title="Geo-shape query">geo_shape查询</a>来查询使用此类型的文档。</p>
 <h4>
-<a id="geo-shape-mapping-options"></a>Mapping Options<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/geo-shape.asciidoc">edit</a>
+<a id="geo-shape-mapping-options"></a>映射之选项
 </h4>
-<p>The geo_shape mapping maps geo_json geometry objects to the geo_shape
-type. To enable it, users must explicitly map fields to the geo_shape
-type.</p>
+<p>
+geo_shape 映射将 geo_json 几何对象映射到 geo_shape 类型。
+
+要启用它，用户必须显式地将字段映射为 geo_shape 类型。
+</p>
 <div class="informaltable">
 <table border="1" cellpadding="4px">
 <colgroup>
@@ -76,9 +78,9 @@ type.</p>
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Option</th>
-<th align="left" valign="top">Description</th>
-<th align="left" valign="top">Default</th>
+<th align="left" valign="top">选项</th>
+<th align="left" valign="top">描述</th>
+<th align="left" valign="top">默认值</th>
 </tr>
 </thead>
 <tbody>
@@ -87,12 +89,13 @@ type.</p>
 <td align="left" valign="top"><p><span class="Admonishment Admonishment--change">
 [<span class="Admonishment-version u-mono u-strikethrough">6.6</span>]
 <span class="Admonishment-detail">
-Deprecated in 6.6. PrefixTrees no longer used
+在6.6版本中废弃。不再使用 前缀树(PrefixTree)。
 </span>
-</span> Name of the PrefixTree
-implementation to be used: <code class="literal">geohash</code> for GeohashPrefixTree and <code class="literal">quadtree</code>
-for QuadPrefixTree. Note: This parameter is only relevant for <code class="literal">term</code> and
-<code class="literal">recursive</code> strategies.</p></td>
+</span>
+要使用的PrefixTree实现的名称：实现 GeohashPrefixTree 的是<code class="literal">geohash</code>，实现 QuadPrefixTree 的是<code class="literal">quadtree</code>。
+
+注意：此参数仅与<code class="literal">term</code>(词项) 和 <code class="literal">recursive</code>(递归) 策略相关。
+</p></td>
 <td align="left" valign="top"><p><code class="literal">quadtree</code></p></td>
 </tr>
 <tr>
@@ -100,17 +103,20 @@ for QuadPrefixTree. Note: This parameter is only relevant for <code class="liter
 <td align="left" valign="top"><p><span class="Admonishment Admonishment--change">
 [<span class="Admonishment-version u-mono u-strikethrough">6.6</span>]
 <span class="Admonishment-detail">
-Deprecated in 6.6. PrefixTrees no longer used
+在6.6版本中废弃。不再使用 前缀树(PrefixTree)。
 </span>
-</span> This parameter may
-be used instead of <code class="literal">tree_levels</code> to set an appropriate value for the
-<code class="literal">tree_levels</code> parameter. The value specifies the desired precision and
-Elasticsearch will calculate the best tree_levels value to honor this
-precision. The value should be a number followed by an optional distance
-unit. Valid distance units include: <code class="literal">in</code>, <code class="literal">inch</code>, <code class="literal">yd</code>, <code class="literal">yard</code>, <code class="literal">mi</code>,
-<code class="literal">miles</code>, <code class="literal">km</code>, <code class="literal">kilometers</code>, <code class="literal">m</code>,<code class="literal">meters</code>, <code class="literal">cm</code>,<code class="literal">centimeters</code>, <code class="literal">mm</code>,
-<code class="literal">millimeters</code>. Note: This parameter is only relevant for <code class="literal">term</code> and
-<code class="literal">recursive</code> strategies.</p></td>
+</span>
+可以使用此参数代替<code class="literal">tree_levels</code>来为<code class="literal">tree_levels</code>参数设置适当的值。
+
+该值指定了所需的精度，Elasticsearch 将计算最佳的 tree_levels 值来满足该精度。
+
+该值应当是后面跟可选距离单位的数字。
+
+有效的距离单位包括：<code class="literal">in</code>、<code class="literal">inch</code>, <code class="literal">yd</code>、<code class="literal">yard</code>、<code class="literal">mi</code>、<code class="literal">miles</code>、<code class="literal">km</code>、<code class="literal">kilometers</code>、<code class="literal">m</code>、<code class="literal">meters</code>、<code class="literal">cm</code>、<code class="literal">centimeters</code>、<code class="literal">mm</code>、<code class="literal">millimeters</code>。
+
+注意：此参数仅与<code class="literal">term</code>(词项) 和 <code class="literal">recursive</code>(递归) 策略相关。
+</p>
+</td>
 <td align="left" valign="top"><p><code class="literal">50m</code></p></td>
 </tr>
 <tr>
@@ -118,18 +124,21 @@ unit. Valid distance units include: <code class="literal">in</code>, <code class
 <td align="left" valign="top"><p><span class="Admonishment Admonishment--change">
 [<span class="Admonishment-version u-mono u-strikethrough">6.6</span>]
 <span class="Admonishment-detail">
-Deprecated in 6.6. PrefixTrees no longer used
+在6.6版本中废弃。不再使用 前缀树(PrefixTree)。
 </span>
-</span> Maximum number
-of layers to be used by the PrefixTree. This can be used to control the
-precision of shape representations andtherefore how many terms are
-indexed. Defaults to the default value of the chosen PrefixTree
-implementation. Since this parameter requires a certain level of
-understanding of the underlying implementation, users may use the
-<code class="literal">precision</code> parameter instead. However, Elasticsearch only uses the
-tree_levels parameter internally and this is what is returned via the
-mapping API even if you use the precision parameter. Note: This parameter
-is only relevant for <code class="literal">term</code> and <code class="literal">recursive</code> strategies.</p></td>
+</span>
+PrefixTree 可以使用的最大层数。
+
+这可以用来控制形状表示的精度，从而控制索引的词项的数量。
+
+默认为所选的 PrefixTree 实现的默认值。
+
+由于此参数需要对底层实现有一定程度的了解，因此用户可以使用<code class="literal">precision</code>参数代替之。
+
+然而，Elasticsearch只在内部使用 tree_levels 参数，即使你使用了参数<code class="literal">precision</code>，这也是通过映射API返回的。
+
+注意：此参数仅与<code class="literal">term</code>(词项) 和 <code class="literal">recursive</code>(递归) 策略相关。
+</p></td>
 <td align="left" valign="top"><p>various</p></td>
 </tr>
 <tr>
@@ -137,19 +146,21 @@ is only relevant for <code class="literal">term</code> and <code class="literal"
 <td align="left" valign="top"><p><span class="Admonishment Admonishment--change">
 [<span class="Admonishment-version u-mono u-strikethrough">6.6</span>]
 <span class="Admonishment-detail">
-Deprecated in 6.6. PrefixTrees no longer used
+在6.6版本中废弃。不再使用 前缀树(PrefixTree)。
 </span>
-</span> The strategy
-parameter defines the approach for how to represent shapes at indexing
-and search time. It also influences the capabilities available so it
-is recommended to let Elasticsearch set this parameter automatically.
-There are two strategies available: <code class="literal">recursive</code>, and <code class="literal">term</code>.
-Recursive and Term strategies are deprecated and will be removed in a
-future version. While they are still available, the Term strategy
-supports point types only (the <code class="literal">points_only</code> parameter will be
-automatically set to true) while Recursive strategy supports all
-shape types. (IMPORTANT: see <a class="xref" href="geo-shape.html#prefix-trees" title="Prefix trees">Prefix trees</a> for more
-detailed information about these strategies)</p></td>
+</span>
+参数strategy定义了在编制索引和搜索时如何表示形状的方法。
+
+它还会影响可用的功能，因此建议让 Elasticsearch 自动设置该参数。
+
+有两种可用的参数：<code class="literal">recursive</code>和<code class="literal">term</code>。
+
+recursive 和 term 策略已废弃，在未来的版本中将会删除。
+
+虽然它们仍然可用，但 term 策略仅支持 point(坐标点) 类型(参数<code class="literal">points_only</code>将自动设置为 true)，而 recursive 策略支持所有 shape(形状) 类型。
+
+(重要提示：有关这些策略的更多详细信息，请参考<a class="xref" href="geo-shape.html#prefix-trees" title="前缀树">前缀树</a>)
+</p></td>
 <td align="left" valign="top"><p><code class="literal">recursive</code></p></td>
 </tr>
 <tr>
@@ -157,33 +168,40 @@ detailed information about these strategies)</p></td>
 <td align="left" valign="top"><p><span class="Admonishment Admonishment--change">
 [<span class="Admonishment-version u-mono u-strikethrough">6.6</span>]
 <span class="Admonishment-detail">
-Deprecated in 6.6. PrefixTrees no longer used
+在6.6版本中废弃。不再使用 前缀树(PrefixTree)。
 </span>
-</span> Used as a
-hint to the PrefixTree about how precise it should be. Defaults to 0.025 (2.5%)
-with 0.5 as the maximum supported value. PERFORMANCE NOTE: This value will
-default to 0 if a <code class="literal">precision</code> or <code class="literal">tree_level</code> definition is explicitly defined.
-This guarantees spatial precision at the level defined in the mapping. This can
-lead to significant memory usage for high resolution shapes with low error
-(e.g., large shapes at 1m with &lt; 0.001 error). To improve indexing performance
-(at the cost of query accuracy) explicitly define <code class="literal">tree_level</code> or <code class="literal">precision</code>
-along with a reasonable <code class="literal">distance_error_pct</code>, noting that large shapes will have
-greater false positives. Note: This parameter is only relevant for <code class="literal">term</code> and
-<code class="literal">recursive</code> strategies.</p></td>
+</span>
+用作 PrefixTree 的暗示，告诉它应该有多精确。
+
+默认值为 0.025 (2.5%)，支持的最大值为 0.5。
+
+性能说明：如果明确申明了<code class="literal">precision</code>或<code class="literal">tree_level</code>定义，该值将默认为 0。
+
+这保证了映射中定义的空间精度。
+
+这可能导致低误差的高分辨率形状占用大量内存(例如，1m 精度的大形状误差小于 0.001)。
+
+为了提高索引性能(以牺牲查询精度为代价)，显式地定义<code class="literal">tree_level</code>或 <code class="literal">precision</code>，并使用合理的<code class="literal">distance_error_pct</code>，注意大的形状会有更大的误报。
+
+注意：此参数仅与<code class="literal">term</code>(词项) 和 <code class="literal">recursive</code>(递归) 策略相关。
+</p></td>
 <td align="left" valign="top"><p><code class="literal">0.025</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">orientation</code></p></td>
-<td align="left" valign="top"><p>Optionally define how to interpret vertex order for
-polygons / multipolygons.  This parameter defines one of two coordinate
-system rules (Right-hand or Left-hand) each of which can be specified in three
-different ways. 1. Right-hand rule: <code class="literal">right</code>, <code class="literal">ccw</code>, <code class="literal">counterclockwise</code>,
-2. Left-hand rule: <code class="literal">left</code>, <code class="literal">cw</code>, <code class="literal">clockwise</code>. The default orientation
-(<code class="literal">counterclockwise</code>) complies with the OGC standard which defines
-outer ring vertices in counterclockwise order with inner ring(s) vertices (holes)
-in clockwise order. Setting this parameter in the geo_shape mapping explicitly
-sets vertex order for the coordinate list of a geo_shape field but can be
-overridden in each individual GeoJSON or WKT document.</p></td>
+<td align="left" valign="top"><p>
+选择性地定义如何解释多边形/多重多边形的顶点顺序。
+
+该参数定义了两个坐标系规则(右手 right-hand 或左手 left-hand)中的一个，每一个都可以用三种不同的方式指定。
+
+1. 右手(right-hand) 规则：<code class="literal">right</code>、<code class="literal">ccw</code>、<code class="literal">counterclockwise</code><span class="remark">(逆时针)</span>；
+
+2. 左手(left-hand)规则：<code class="literal">left</code>、<code class="literal">cw</code>、<code class="literal">clockwise</code><span class="remark">(顺时针)</span>。
+
+默认方向(<code class="literal">counterclockwise</code>，逆时针)符合 OGC 标准，该标准以逆时针顺序定义外环顶点，以顺时针顺序定义内环顶点(孔)。
+
+在 geo_shape 映射中设置此参数会为 geo_shape 字段的坐标列表显式设置折点顺序，但可以被每个单独的 GeoJSON 或 WKT 文档所覆盖。
+</p></td>
 <td align="left" valign="top"><p><code class="literal">ccw</code></p></td>
 </tr>
 <tr>
@@ -191,125 +209,132 @@ overridden in each individual GeoJSON or WKT document.</p></td>
 <td align="left" valign="top"><p><span class="Admonishment Admonishment--change">
 [<span class="Admonishment-version u-mono u-strikethrough">6.6</span>]
 <span class="Admonishment-detail">
-Deprecated in 6.6. PrefixTrees no longer used
+在6.6版本中废弃。不再使用 前缀树(PrefixTree)。
 </span>
-</span> Setting this option to
-<code class="literal">true</code> (defaults to <code class="literal">false</code>) configures the <code class="literal">geo_shape</code> field type for point
-shapes only (NOTE: Multi-Points are not yet supported). This optimizes index and
-search performance for the <code class="literal">geohash</code> and <code class="literal">quadtree</code> when it is known that only points
-will be indexed. At present geo_shape queries can not be executed on <code class="literal">geo_point</code>
-field types. This option bridges the gap by improving point performance on a
-<code class="literal">geo_shape</code> field so that <code class="literal">geo_shape</code> queries are optimal on a point only field.</p></td>
+</span>
+将此选项设置为<code class="literal">true</code>(默认为<code class="literal">false</code>)将仅为 点(point) 形状配置 geo_shape 字段类型(注意：尚不支持多点)。
+
+当已知只有点将被索引时，这优化了 <code class="literal">geohash</code> 和 <code class="literal">quadtree</code> 的索引编制和搜索性能。
+
+目前，不能在<code class="literal">geo_point</code>类型的字段上执行 geo_shape 查询。
+
+此选项通过提高<code class="literal">geo_shape</code>字段的点性能来弥补这一差距，从而使<code class="literal">geo_shape</code>查询在 "point only" 字段上达到最佳效果。
+</p></td>
 <td align="left" valign="top"><p><code class="literal">false</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">ignore_malformed</code></p></td>
-<td align="left" valign="top"><p>If true, malformed GeoJSON or WKT shapes are ignored. If
-false (default), malformed GeoJSON and WKT shapes throw an exception and reject the
-entire document.</p></td>
+<td align="left" valign="top"><p>
+如果为 true，则忽略格式错误的 GeoJSON 或 WKT 形状。
+
+如果为 false(默认值)，格式错误的 GeoJSON 和 WKT 形状将导致异常并拒绝整个文档。
+</p></td>
 <td align="left" valign="top"><p><code class="literal">false</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">ignore_z_value</code></p></td>
-<td align="left" valign="top"><p>If <code class="literal">true</code> (default) three dimension points will be accepted (stored in source)
-but only latitude and longitude values will be indexed; the third dimension is ignored. If <code class="literal">false</code>,
-geo-points containing any more than latitude and longitude (two dimensions) values throw an exception
-and reject the whole document.</p></td>
+<td align="left" valign="top"><p>
+如果为<code class="literal">true</code>(默认)，将接受三个维度点(存储在source中),但仅索引纬度(latitude)和经度(longitude)值；第三维度被忽略。
+
+如果为<code class="literal">false</code>，包含任何超过纬度和经度(二维)值的地理坐标点将导致异常并拒绝整个文档。
+</p></td>
 <td align="left" valign="top"><p><code class="literal">true</code></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">coerce</code></p></td>
-<td align="left" valign="top"><p>If <code class="literal">true</code> unclosed linear rings in polygons will be automatically closed.</p></td>
+<td align="left" valign="top"><p>如果为<code class="literal">true</code>，多边形中未闭合的线性环将自动闭合。</p></td>
 <td align="left" valign="top"><p><code class="literal">false</code></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <h4>
-<a id="geoshape-indexing-approach"></a>Indexing approach<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/geo-shape.asciidoc">edit</a>
+<a id="geoshape-indexing-approach"></a>编制索引的方法
 </h4>
-<p>GeoShape types are indexed by decomposing the shape into a triangular mesh and
-indexing each triangle as a 7 dimension point in a BKD tree. This provides
-near perfect spatial resolution (down to 1e-7 decimal degree precision) since all
-spatial relations are computed using an encoded vector representation of the
-original shape instead of a raster-grid representation as used by the
-<a class="xref" href="geo-shape.html#prefix-trees" title="Prefix trees">Prefix trees</a> indexing approach. Performance of the tessellator primarily
-depends on the number of vertices that define the polygon/multi-polygon. While
-this is the default indexing technique prefix trees can still be used by setting
-the <code class="literal">tree</code> or <code class="literal">strategy</code> parameters according to the appropriate
-<a class="xref" href="geo-shape.html#geo-shape-mapping-options" title="Mapping Options">Mapping Options</a>. Note that these parameters are now deprecated
-and will be removed in a future version.</p>
-<p><span class="strong strong"><strong>IMPORTANT NOTES</strong></span></p>
-<p><code class="literal">CONTAINS</code> relation query - when using the new default vector indexing strategy, <code class="literal">geo_shape</code>
-queries with <code class="literal">relation</code> defined as <code class="literal">contains</code> are supported for indices created with
-ElasticSearch 7.5.0 or higher.</p>
+<p>
+通过将形状分解成三角形网格并将每个三角形索引为 BKD 树中的 7 维点来索引 geo_shape 类型。
+
+这提供了近乎完美的空间分辨率(低至1e<sup>-7</sup>十进制精度)，因为所有空间关系都是使用原始形状的编码矢量表示来计算的，而不是<a class="xref" href="geo-shape.html#prefix-trees" title="前缀树">前缀树(prefix trees)</a>索引方法所使用的光栅网格表示。
+
+镶嵌器的性能主要取决于定义多边形/多多边形的顶点数量。
+
+虽然这是默认的索引技术，但是仍然可以通过根据适当的<a class="xref" href="geo-shape.html#geo-shape-mapping-options" title="映射选项">M映射选项</a>设置<code class="literal">tree</code>或<code class="literal">strategy</code>参数来使用前缀树。
+
+请注意，这些参数现在已被废弃，并将在未来版本中删除。
+</p>
+<p><span class="strong strong"><strong>重要提示</strong></span></p>
+<p>
+<code class="literal">CONTAINS</code>(包含) 关系查询 - 当使用新的默认向量索引策略时，使用7.5.0或更高版本的 ElasticSearch 创建的索引支持把<code class="literal">relation</code>定义为<code class="word">contains</code>的<code class="literal">geo_shape</code>查询。
+</p>
 <h4>
-<a id="prefix-trees"></a>Prefix trees<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/geo-shape.asciidoc">edit</a>
+<a id="prefix-trees"></a>前缀树(prefix trees)
 </h4>
 <p><span class="Admonishment Admonishment--change">
 [<span class="Admonishment-version u-mono u-strikethrough">6.6</span>]
 <span class="Admonishment-detail">
-Deprecated in 6.6. PrefixTrees no longer used
+在6.6版本中废弃。不再使用 前缀树(PrefixTree)。
 </span>
-</span> To efficiently represent shapes in
-an inverted index, Shapes are converted into a series of hashes representing
-grid squares (commonly referred to as "rasters") using implementations of a
-PrefixTree. The tree notion comes from the fact that the PrefixTree uses multiple
-grid layers, each with an increasing level of precision to represent the Earth.
-This can be thought of as increasing the level of detail of a map or image at higher
-zoom levels. Since this approach causes precision issues with indexed shape, it has
-been deprecated in favor of a vector indexing approach that indexes the shapes as a
-triangular mesh (see <a class="xref" href="geo-shape.html#geoshape-indexing-approach" title="Indexing approach">Indexing approach</a>).</p>
-<p>Multiple PrefixTree implementations are provided:</p>
+</span>
+为了在倒排索引中有效地表示形状，使用 PrefixTree (前缀树)的实现将形状转换为一系列表示网格正方形(通常称为 rasters, 即“栅格”)的哈希。
+
+树的概念来自于 PrefixTree 使用多个网格层的事实，每个网格层都以越来越高的精度来表示 Earth(地球)。
+
+这可以被认为是在更高的缩放级别下增加地图或图像的细节级别。
+
+由于这种方法会导致索引的形状的精度问题，因此它已被弃用，取而代之的是将形状索引为三角形网格的矢量索引方法(参考<a class="xref" href="geo-shape.html#geoshape-indexing-approach" title="索引方法">索引方法</a>)。
+</p>
+<p>提供了多个 PrefixTree 实现方法：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-GeohashPrefixTree - Uses
-<a href="http://en.wikipedia.org/wiki/Geohash" class="ulink" target="_top">geohashes</a> for grid squares.
-Geohashes are base32 encoded strings of the bits of the latitude and
-longitude interleaved. So the longer the hash, the more precise it is.
-Each character added to the geohash represents another tree level and
-adds 5 bits of precision to the geohash. A geohash represents a
-rectangular area and has 32 sub rectangles. The maximum number of levels
-in Elasticsearch is 24; the default is 9.
+GeohashPrefixTree：将<a href="http://en.wikipedia.org/wiki/Geohash" class="ulink" target="_top">geohash(地理哈希)</a>用于网格正方形。
+
+geohash 是经纬度交织的 base32 编码的字符串。
+
+添加到 geohash 的每个字符代表另一个树级别，并为 geohash 增加 5 比特位的精度。
+
+geohash 表示一个矩形区域，有32个子矩形。
+
+Elasticsearch中的最大级数为 24；默认值为 9。
 </li>
 <li class="listitem">
-QuadPrefixTree - Uses a
-<a href="http://en.wikipedia.org/wiki/Quadtree" class="ulink" target="_top">quadtree</a> for grid squares.
-Similar to geohash, quad trees interleave the bits of the latitude and
-longitude the resulting hash is a bit set. A tree level in a quad tree
-represents 2 bits in this bit set, one for each coordinate. The maximum
-number of levels for the quad trees in Elasticsearch is 29; the default is 21.
+QuadPrefixTree：将<a href="http://en.wikipedia.org/wiki/Quadtree" class="ulink" target="_top">quadtree(四叉树)</a>用于网格正方形。
+
+与 geohash 类似，quadtree(四叉树)交织纬度和经度的比特位，产生的哈希是一个比特位集。
+
+四叉树中的树级别表示该比特位集中的 2 位，每个坐标一位。
+
+Elasticsearch中四叉树的最大层数是 29；默认值为 21。
 </li>
 </ul>
 </div>
 <h5>
-<a id="spatial-strategy"></a>Spatial strategies<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/geo-shape.asciidoc">edit</a>
+<a id="spatial-strategy"></a>空间策略
 </h5>
 <p><span class="Admonishment Admonishment--change">
 [<span class="Admonishment-version u-mono u-strikethrough">6.6</span>]
 <span class="Admonishment-detail">
-Deprecated in 6.6. PrefixTrees no longer used
+在6.6版本中废弃。不再使用 前缀树(PrefixTree)。
 </span>
-</span>  The indexing implementation
-selected relies on a  SpatialStrategy for choosing how to decompose the shapes
-(either as grid  squares or a tessellated triangular mesh). Each strategy
-answers the following:</p>
+</span>
+所选择的索引实现方法依赖于选择如何分解形状(作为网格正方形或镶嵌的三角形网格)的空间策略。
+
+每个策略回答以下问题：
+</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-What type of Shapes can be indexed?
+什么类型的形状可以被索引？
 </li>
 <li class="listitem">
-What types of Query Operations and Shapes can be used?
+可以使用哪些类型的查询操作和形状？
 </li>
 <li class="listitem">
-Does it support more than one Shape per field?
+它是否支持每个字段有多个形状？
 </li>
 </ul>
 </div>
-<p>The following Strategy implementations (with corresponding capabilities)
-are provided:</p>
+<p>提供了以下策略实现方法(具有相应的功能)：</p>
 <div class="informaltable">
 <table border="1" cellpadding="4px">
 <colgroup>
@@ -320,43 +345,43 @@ are provided:</p>
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Strategy</th>
-<th align="left" valign="top">Supported Shapes</th>
-<th align="left" valign="top">Supported Queries</th>
-<th align="left" valign="top">Multiple Shapes</th>
+<th align="left" valign="top">策略</th>
+<th align="left" valign="top">支持的形状</th>
+<th align="left" valign="top">支持的查询</th>
+<th align="left" valign="top">多形状</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left" valign="top"><p><code class="literal">recursive</code></p></td>
-<td align="left" valign="top"><p><a class="xref" href="geo-shape.html#input-structure" title="Input Structure">All</a></p></td>
-<td align="left" valign="top"><p><code class="literal">INTERSECTS</code>, <code class="literal">DISJOINT</code>, <code class="literal">WITHIN</code>, <code class="literal">CONTAINS</code></p></td>
-<td align="left" valign="top"><p>Yes</p></td>
+<td align="left" valign="top"><p><a class="xref" href="geo-shape.html#input-structure" title="Input Structure">所有</a></p></td>
+<td align="left" valign="top"><p><code class="literal">INTERSECTS</code>、<code class="literal">DISJOINT</code>、<code class="literal">WITHIN</code>、<code class="literal">CONTAINS</code></p></td>
+<td align="left" valign="top"><p>是</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">term</code></p></td>
-<td align="left" valign="top"><p><a class="xref" href="shape.html#point" title="Point">Points</a></p></td>
+<td align="left" valign="top"><p><a class="xref" href="shape.html#point" title="点">点</a></p></td>
 <td align="left" valign="top"><p><code class="literal">INTERSECTS</code></p></td>
-<td align="left" valign="top"><p>Yes</p></td>
+<td align="left" valign="top"><p>是</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <h5>
-<a id="_accuracy"></a>Accuracy<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/geo-shape.asciidoc">edit</a>
+<a id="_accuracy"></a>精确度
 </h5>
-<p><code class="literal">Recursive</code> and <code class="literal">Term</code> strategies do not provide 100% accuracy and depending on
-how they are configured it may return some false positives for <code class="literal">INTERSECTS</code>,
-<code class="literal">WITHIN</code> and <code class="literal">CONTAINS</code> queries, and some false negatives for <code class="literal">DISJOINT</code> queries.
-To mitigate this, it is important to select an appropriate value for the tree_levels
-parameter and to adjust expectations accordingly. For example, a point may be near
-the border of a particular grid cell and may thus not match a query that only matches
-the cell right next to it — even though the shape is very close to the point.</p>
+<p>
+<code class="literal">recursive</code>和<code class="literal">term</code>策略不能提供100%的准确性，并且根据它们的配置方式，它可能会为<code class="literal">INTERSECTS</code>、<code class="literal">WITHIN</code>和<code class="literal">CONTAINS</code>查询返回一些假阳性，为<code class="literal">DISJOINT</code>查询返回一些假阴性。
+
+为了减轻这种情况，为参数 tree_levels 选择一个合适的值并相应地调整期望值是很重要的。
+
+例如，某个点可能靠近特定网格单元的边界，因此可能与仅匹配其旁边单元的查询不匹配，即使形状非常接近该点。
+</p>
 <h5>
-<a id="_example_5"></a>Example<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/geo-shape.asciidoc">edit</a>
+<a id="_example_5"></a>示例
 </h5>
 <div class="pre_wrapper lang-console">
-<pre class="programlisting prettyprint lang-console">PUT /example
+<pre class="programlisting prettyprint lang-console">PUT /index_name
 {
     "mappings": {
         "properties": {
@@ -809,10 +834,10 @@ field.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="geo-point.html">« Geo-point datatype</a>
+<a href="geo-point.html">« geo_point(地理坐标点)数据类型</a>
 </span>
 <span class="next">
-<a href="ip.html">IP datatype »</a>
+<a href2="ip.html">IP datatype »</a>
 </span>
 </div>
 </div>

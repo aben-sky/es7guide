@@ -1732,8 +1732,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "geo-shape.html",
-                        "text": "Geo-shape",
-                        "title": "Geo-shape"
+                        "text": "geo_shape(地理形状)",
+                        "title": "geo_shape(地理形状)"
                     },
                     {
                         "url": "ip.html",

@@ -393,45 +393,55 @@ Elasticsearch中四叉树的最大层数是 29；默认值为 21。
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/633.console"></div>
-<p>This mapping definition maps the location field to the geo_shape
-type using the default vector implementation. It provides
-approximately 1e-7 decimal degree precision.</p>
+<p>
+这个映射定义使用默认的矢量实现将 location 字段映射为 geo_shape 类型。
+
+它提供大约 1e<sup>-7</sup>十进制的精度。
+</p>
 <h5>
-<a id="_performance_considerations_with_prefix_trees"></a>Performance considerations with Prefix Trees<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/geo-shape.asciidoc">edit</a>
+<a id="_performance_considerations_with_prefix_trees"></a>前缀树(prefix tree)的性能考量
 </h5>
 <p><span class="Admonishment Admonishment--change">
 [<span class="Admonishment-version u-mono u-strikethrough">6.6</span>]
 <span class="Admonishment-detail">
-Deprecated in 6.6. PrefixTrees no longer used
+在6.6版本中废弃。不再使用 前缀树(PrefixTree)。
 </span>
-</span> With prefix trees,
-Elasticsearch uses the paths in the tree as terms in the inverted index
-and in queries. The higher the level (and thus the precision), the more
-terms are generated. Of course, calculating the terms, keeping them in
-memory, and storing them on disk all have a price. Especially with higher
-tree levels, indices can become extremely large even with a modest amount
-of data. Additionally, the size of the features also matters. Big, complex
-polygons can take up a lot of space at higher tree levels. Which setting
-is right depends on the use case. Generally one trades off accuracy against
-index size and query performance.</p>
-<p>The defaults in Elasticsearch for both implementations are a compromise
-between index size and a reasonable level of precision of 50m at the
-equator. This allows for indexing tens of millions of shapes without
-overly bloating the resulting index too much relative to the input size.</p>
+</span>
+使用前缀树，Elasticsearch 在倒排索引和查询中使用树中的路径作为词项。
+
+级别越高(精度也越高)，生成的词项就越多。
+
+当然，计算这些词项，将它们保存在内存中，以及将它们存储在磁盘上都是有代价的。
+
+尤其是在树级别较高的情况下，即使数据量不多，索引也会变得非常大。
+
+此外，特征的大小也很重要。
+
+大而复杂的多边形会在较高的树级别上占用大量空间。
+
+哪个设置是正确的取决于用例。
+
+通常，人们会在准确性与索引大小和查询性能之间进行权衡。
+</p>
+<p>
+对于这两种实现，Elasticsearch中的默认值是索引大小和赤道上50米的合理精度之间的折衷。
+
+允许对数千万个形状进行索引，而不会使结果索引相对于输入大小过于膨胀。
+</p>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Geo-shape queries on geo-shapes implemented with PrefixTrees will not be executed if
-<a class="xref" href="query-dsl.html#query-dsl-allow-expensive-queries"><code class="literal">search.allow_expensive_queries</code></a> is set to false.</p>
+<p>如果<a class="xref" href="query-dsl.html#query-dsl-allow-expensive-queries"><code class="literal">search.allow_expensive_queries</code></a>设置为 false，则不会对使用前缀树实现的地理形状执行 geo-shape 查询。</p>
 </div>
 </div>
 <h4>
-<a id="input-structure"></a>Input Structure<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/geo-shape.asciidoc">edit</a>
+<a id="input-structure"></a>输入结构
 </h4>
-<p>Shapes can be represented using either the <a href="http://www.geojson.org" class="ulink" target="_top">GeoJSON</a>
-or <a href="http://docs.opengeospatial.org/is/12-063r5/12-063r5.html" class="ulink" target="_top">Well-Known Text</a>
-(WKT) format. The following table provides a mapping of GeoJSON and WKT
-to Elasticsearch types:</p>
+<p>
+可以使用<a href="http://www.geojson.org" class="ulink" target="_top">GeoJSON</a>或<a href="http://docs.opengeospatial.org/is/12-063r5/12-063r5.html" class="ulink" target="_top">众所周知的文本</a> (WKT) 格式来表示形状。
+
+下表提供了 GeoJSON 和 WKT 与 Elasticsearch 类型的映射：
+</p>
 <div class="informaltable">
 <table border="1" cellpadding="4px">
 <colgroup>
@@ -442,10 +452,10 @@ to Elasticsearch types:</p>
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">GeoJSON Type</th>
-<th align="left" valign="top">WKT Type</th>
-<th align="left" valign="top">Elasticsearch Type</th>
-<th align="left" valign="top">Description</th>
+<th align="left" valign="top">GeoJSON 类型</th>
+<th align="left" valign="top">WKT 类型</th>
+<th align="left" valign="top">Elasticsearch 类型</th>
+<th align="left" valign="top">描述</th>
 </tr>
 </thead>
 <tbody>
@@ -453,62 +463,56 @@ to Elasticsearch types:</p>
 <td align="left" valign="top"><p><code class="literal">Point</code></p></td>
 <td align="left" valign="top"><p><code class="literal">POINT</code></p></td>
 <td align="left" valign="top"><p><code class="literal">point</code></p></td>
-<td align="left" valign="top"><p>A single geographic coordinate. Note: Elasticsearch uses WGS-84 coordinates only.</p></td>
+<td align="left" valign="top"><p>一个地理坐标。注意：Elasticsearch 仅使用 WGS-84 坐标。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">LineString</code></p></td>
 <td align="left" valign="top"><p><code class="literal">LINESTRING</code></p></td>
 <td align="left" valign="top"><p><code class="literal">linestring</code></p></td>
-<td align="left" valign="top"><p>An arbitrary line given two or more points.</p></td>
+<td align="left" valign="top"><p>给定两点或多点的任意直线。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">Polygon</code></p></td>
 <td align="left" valign="top"><p><code class="literal">POLYGON</code></p></td>
 <td align="left" valign="top"><p><code class="literal">polygon</code></p></td>
-<td align="left" valign="top"><p>A <em>closed</em> polygon whose first and last point
-must match, thus requiring <code class="literal">n + 1</code> vertices to create an <code class="literal">n</code>-sided
-polygon and a minimum of <code class="literal">4</code> vertices.</p></td>
+<td align="left" valign="top"><p>
+一个<em>闭合的</em>多边形，其第一个点和最后一个点必须匹配，因此需要<code class="literal">n + 1</code>个顶点来创建一个<code class="literal">n</code>边形和至少<code class="literal">4</code>个顶点。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">MultiPoint</code></p></td>
 <td align="left" valign="top"><p><code class="literal">MULTIPOINT</code></p></td>
 <td align="left" valign="top"><p><code class="literal">multipoint</code></p></td>
-<td align="left" valign="top"><p>An array of unconnected, but likely related
-points.</p></td>
+<td align="left" valign="top"><p>一组未连接但可能相关的点。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">MultiLineString</code></p></td>
 <td align="left" valign="top"><p><code class="literal">MULTILINESTRING</code></p></td>
 <td align="left" valign="top"><p><code class="literal">multilinestring</code></p></td>
-<td align="left" valign="top"><p>An array of separate linestrings.</p></td>
+<td align="left" valign="top"><p>一组独立的直线。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">MultiPolygon</code></p></td>
 <td align="left" valign="top"><p><code class="literal">MULTIPOLYGON</code></p></td>
 <td align="left" valign="top"><p><code class="literal">multipolygon</code></p></td>
-<td align="left" valign="top"><p>An array of separate polygons.</p></td>
+<td align="left" valign="top"><p>一组独立的多边形。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">GeometryCollection</code></p></td>
 <td align="left" valign="top"><p><code class="literal">GEOMETRYCOLLECTION</code></p></td>
 <td align="left" valign="top"><p><code class="literal">geometrycollection</code></p></td>
-<td align="left" valign="top"><p>A GeoJSON shape similar to the
-<code class="literal">multi*</code> shapes except that multiple types can coexist (e.g., a Point
-and a LineString).</p></td>
+<td align="left" valign="top"><p>类似于<code class="literal">multi*</code>形状的 GeoJSON 形状，只是多种类型可以共存(例如，Point 和 LineString)。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">N/A</code></p></td>
 <td align="left" valign="top"><p><code class="literal">BBOX</code></p></td>
 <td align="left" valign="top"><p><code class="literal">envelope</code></p></td>
-<td align="left" valign="top"><p>A bounding rectangle, or envelope, specified by
-specifying only the top left and bottom right points.</p></td>
+<td align="left" valign="top"><p>通过仅指定左上角和右下角的点来指定的边界矩形或封套。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p><code class="literal">N/A</code></p></td>
 <td align="left" valign="top"><p><code class="literal">N/A</code></p></td>
 <td align="left" valign="top"><p><code class="literal">circle</code></p></td>
-<td align="left" valign="top"><p>A circle specified by a center point and radius with
-units, which default to <code class="literal">METERS</code>.</p></td>
+<td align="left" valign="top"><p>由圆心和半径指定的圆，其单位默认为<code class="literal">METERS</code>。</p></td>
 </tr>
 </tbody>
 </table>
@@ -516,20 +520,22 @@ units, which default to <code class="literal">METERS</code>.</p></td>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>For all types, both the inner <code class="literal">type</code> and <code class="literal">coordinates</code> fields are
-required.</p>
-<p>In GeoJSON and WKT, and therefore Elasticsearch, the correct <span class="strong strong"><strong>coordinate
-order is longitude, latitude (X, Y)</strong></span> within coordinate arrays. This
-differs from many Geospatial APIs (e.g., Google Maps) that generally
-use the colloquial latitude, longitude (Y, X).</p>
+<p>对于所有类型，内部<code class="literal">type</code>和<code class="literal">coordinates</code>(坐标)字段都是必需的。</p>
+<p>
+在 GeoJSON 和 WKT 以及 Elasticsearch 中，坐标数组中正确的<span class="strong strong"><strong>坐标顺序是经度(longitude)、纬度(latitude) (X，Y)</strong></span>。
+
+这不同于许多地理空间API(例如Google Maps)，它们通常使用通俗的纬度、经度(Y，X)。
+</p>
 </div>
 </div>
 <h5>
-<a id="geo-point-type"></a><a href="http://geojson.org/geojson-spec.html#id2" class="ulink" target="_top">Point</a><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/geo-shape.asciidoc">edit</a>
+<a id="geo-point-type"></a><a href="http://geojson.org/geojson-spec.html#id2" class="ulink" target="_top">Point</a>
 </h5>
-<p>A point is a single geographic coordinate, such as the location of a
-building or the current position given by a smartphone’s Geolocation
-API. The following is an example of a point in GeoJSON.</p>
+<p>
+一个 point (点) 是一个地理坐标，比如一栋建筑的位置或者智能手机的 Geolocation API 给出的当前位置。
+
+下面是 GeoJSON 中一个 point 的例子：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /example/_doc
 {
@@ -540,7 +546,7 @@ API. The following is an example of a point in GeoJSON.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/634.console"></div>
-<p>The following is an example of a point in WKT:</p>
+<p>下面是 WKT 中一个 point 的例子：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /example/_doc
 {
@@ -549,12 +555,17 @@ API. The following is an example of a point in GeoJSON.</p>
 </div>
 <div class="console_widget" data-snippet="snippets/635.console"></div>
 <h5>
-<a id="geo-linestring"></a><a href="http://geojson.org/geojson-spec.html#id3" class="ulink" target="_top">LineString</a><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/geo-shape.asciidoc">edit</a>
+<a id="geo-linestring"></a><a href="http://geojson.org/geojson-spec.html#id3" class="ulink" target="_top">LineString</a>
 </h5>
-<p>A <code class="literal">linestring</code> defined by an array of two or more positions. By
-specifying only two points, the <code class="literal">linestring</code> will represent a straight
-line.  Specifying more than two points creates an arbitrary path. The
-following is an example of a LineString in GeoJSON.</p>
+<p>
+由两个或多个位置的数组定义的<code class="literal">linestring</code>。
+
+通过仅指定两个点，<code class="literal">linestring</code>将表示一条直线。
+
+指定两个以上的点会创建任意路径。
+
+下面是 GeoJSON 中一个 LineString 的例子：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /example/_doc
 {
@@ -565,7 +576,7 @@ following is an example of a LineString in GeoJSON.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/636.console"></div>
-<p>The following is an example of a LineString in WKT:</p>
+<p>下面是 WKT 中一个 LineString 的例子：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /example/_doc
 {
@@ -573,14 +584,17 @@ following is an example of a LineString in GeoJSON.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/637.console"></div>
-<p>The above <code class="literal">linestring</code> would draw a straight line starting at the White
-House to the US Capitol Building.</p>
+<p>上面的<code class="literal">linestring</code>将画一条从白宫到美国国会大厦的直线。</p>
 <h5>
-<a id="geo-polygon"></a><a href="http://www.geojson.org/geojson-spec.html#id4" class="ulink" target="_top">Polygon</a><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/geo-shape.asciidoc">edit</a>
+<a id="geo-polygon"></a><a href="http://www.geojson.org/geojson-spec.html#id4" class="ulink" target="_top">Polygon</a>
 </h5>
-<p>A polygon is defined by a list of a list of points. The first and last
-points in each (outer) list must be the same (the polygon must be
-closed). The following is an example of a Polygon in GeoJSON.</p>
+<p>
+多边形是由一系列点定义的。
+
+每个(外部)列表中的第一个和最后一个点必须相同(多边形必须是闭合的)。
+
+下面是 GeoJSON 中一个 Polygon 的例子：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /example/_doc
 {
@@ -593,7 +607,7 @@ closed). The following is an example of a Polygon in GeoJSON.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/638.console"></div>
-<p>The following is an example of a Polygon in WKT:</p>
+<p>下面是 WKT 中一个 Polygon 的例子：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /example/_doc
 {
@@ -601,9 +615,11 @@ closed). The following is an example of a Polygon in GeoJSON.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/639.console"></div>
-<p>The first array represents the outer boundary of the polygon, the other
-arrays represent the interior shapes ("holes"). The following is a GeoJSON example
-of a polygon with a hole:</p>
+<p>
+第一个数组表示多边形的外部边界，其他数组表示内部形状(“孔”)。
+
+下面是 GeoJSON 中一个有孔的 Polygon 的例子：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /example/_doc
 {
@@ -617,7 +633,7 @@ of a polygon with a hole:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/640.console"></div>
-<p>The following is an example of a Polygon with a hole in WKT:</p>
+<p>下面是 WKT 中一个有孔的 Polygon 的例子：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /example/_doc
 {
@@ -625,22 +641,21 @@ of a polygon with a hole:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/641.console"></div>
-<p><span class="strong strong"><strong>IMPORTANT NOTE:</strong></span> WKT does not enforce a specific order for vertices thus
-ambiguous polygons around the dateline and poles are possible.
-<a href="https://tools.ietf.org/html/rfc7946#section-3.1.6" class="ulink" target="_top">GeoJSON</a> mandates that the
-outer polygon must be counterclockwise and interior shapes must be clockwise,
-which agrees with the Open Geospatial Consortium (OGC)
-<a href="http://www.opengeospatial.org/standards/sfa" class="ulink" target="_top">Simple Feature Access</a>
-specification for vertex ordering.</p>
-<p>Elasticsearch accepts both clockwise and counterclockwise polygons if they
-appear not to cross the dateline (i.e. they cross less than 180° of longitude),
-but for polygons that do cross the dateline (or for other polygons wider than
-180°) Elasticsearch requires the vertex ordering to comply with the OGC and
-GeoJSON specifications. Otherwise, an unintended polygon may be created and
-unexpected query/filter results will be returned.</p>
-<p>The following provides an example of an ambiguous polygon.  Elasticsearch will
-apply the GeoJSON standard to eliminate ambiguity resulting in a polygon that
-crosses the dateline.</p>
+<p>
+<span class="strong strong"><strong>重要提示：</strong></span>WKT 没有强制顶点的特定顺序，因此日期变更线和极点周围的多边形可能不明确。
+
+<a href="https://tools.ietf.org/html/rfc7946#section-3.1.6" class="ulink" target="_top">GeoJSON</a>要求外部多边形必须为逆时针方向，内部形状必须为顺时针方向，这符合开放地理空间联盟(Open Geospatial Consortium，OGC)关于顶点排序的<a href="http://www.opengeospatial.org/standards/sfa" class="ulink" target="_top">简单特性访问</a>规范。
+</p>
+<p>
+如果顺时针和逆时针多边形看起来没有穿过日期变更线(即，它们穿过的经度小于180°)，则 Elasticsearch 接受这两种多边形，但对于穿过日期变更线的多边形(或宽度大于180°的其他多边形), Elasticsearch 要求顶点排序符合 OGC 和 GeoJSON 规范。
+
+否则，可能会创建非预期的多边形，并会返回意外的查询/过滤结果。
+</p>
+<p>
+下面提供了一个不明确多边形的示例。
+
+Elasticsearch 将应用 GeoJSON 标准来消除导致与日期变更线相交的多边形的模糊性。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /example/_doc
 {
@@ -654,9 +669,15 @@ crosses the dateline.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/642.console"></div>
-<p>An <code class="literal">orientation</code> parameter can be defined when setting the geo_shape mapping (see <a class="xref" href="geo-shape.html#geo-shape-mapping-options" title="Mapping Options">Mapping Options</a>). This will define vertex
-order for the coordinate list on the mapped geo_shape field. It can also be overridden on each document.  The following is an example for
-overriding the orientation on a document:</p>
+<p>
+设置 geo_shape 映射时，可以定义一个参数<code class="literal">orientation</code>(请参见<a class="xref" href="geo-shape.html#geo-shape-mapping-options" title="Mapping Options">映射选项</a>)。
+
+这将为映射的 geo_shape 字段上的坐标列表定义顶点顺序。
+
+它也可以在每个文档上被覆盖。
+
+以下是一个覆盖文档上的方向的示例：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /example/_doc
 {
@@ -671,9 +692,9 @@ overriding the orientation on a document:</p>
 </div>
 <div class="console_widget" data-snippet="snippets/643.console"></div>
 <h5>
-<a id="geo-multipoint"></a><a href="http://www.geojson.org/geojson-spec.html#id5" class="ulink" target="_top">MultiPoint</a><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/geo-shape.asciidoc">edit</a>
+<a id="geo-multipoint"></a><a href="http://www.geojson.org/geojson-spec.html#id5" class="ulink" target="_top">MultiPoint</a>
 </h5>
-<p>The following is an example of a list of geojson points:</p>
+<p>下面是一个 GeoJSON 格式 point 列表的示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /example/_doc
 {
@@ -686,7 +707,7 @@ overriding the orientation on a document:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/644.console"></div>
-<p>The following is an example of a list of WKT points:</p>
+<p>下面是一个 WKT 格式 point 列表的示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /example/_doc
 {
@@ -695,9 +716,9 @@ overriding the orientation on a document:</p>
 </div>
 <div class="console_widget" data-snippet="snippets/645.console"></div>
 <h5>
-<a id="geo-multilinestring"></a><a href="http://www.geojson.org/geojson-spec.html#id6" class="ulink" target="_top">MultiLineString</a><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/geo-shape.asciidoc">edit</a>
+<a id="geo-multilinestring"></a><a href="http://www.geojson.org/geojson-spec.html#id6" class="ulink" target="_top">MultiLineString</a>
 </h5>
-<p>The following is an example of a list of geojson linestrings:</p>
+<p>下面是一个 GeoJSON 格式 linestring 列表的示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /example/_doc
 {
@@ -712,7 +733,7 @@ overriding the orientation on a document:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/646.console"></div>
-<p>The following is an example of a list of WKT linestrings:</p>
+<p>下面是一个 WKT 格式 linestring 列表的示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /example/_doc
 {
@@ -721,9 +742,9 @@ overriding the orientation on a document:</p>
 </div>
 <div class="console_widget" data-snippet="snippets/647.console"></div>
 <h5>
-<a id="geo-multipolygon"></a><a href="http://www.geojson.org/geojson-spec.html#id7" class="ulink" target="_top">MultiPolygon</a><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/geo-shape.asciidoc">edit</a>
+<a id="geo-multipolygon"></a><a href="http://www.geojson.org/geojson-spec.html#id7" class="ulink" target="_top">MultiPolygon</a>
 </h5>
-<p>The following is an example of a list of geojson polygons (second polygon contains a hole):</p>
+<p>下面是一个 GeoJSON 格式 polygon 列表的示例(第二个多边形包含一个孔)：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /example/_doc
 {
@@ -738,7 +759,7 @@ overriding the orientation on a document:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/648.console"></div>
-<p>The following is an example of a list of WKT polygons (second polygon contains a hole):</p>
+<p>下面是一个 WKT 格式 polygon 列表的示例(第二个多边形包含一个孔)：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /example/_doc
 {
@@ -747,9 +768,9 @@ overriding the orientation on a document:</p>
 </div>
 <div class="console_widget" data-snippet="snippets/649.console"></div>
 <h5>
-<a id="geo-geometry_collection"></a><a href="http://geojson.org/geojson-spec.html#geometrycollection" class="ulink" target="_top">Geometry Collection</a><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/geo-shape.asciidoc">edit</a>
+<a id="geo-geometry_collection"></a><a href="http://geojson.org/geojson-spec.html#geometrycollection" class="ulink" target="_top">Geometry Collection</a>
 </h5>
-<p>The following is an example of a collection of geojson geometry objects:</p>
+<p>下面是一个 GeoJSON 格式 几何对象集合的示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /example/_doc
 {
@@ -769,7 +790,7 @@ overriding the orientation on a document:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/650.console"></div>
-<p>The following is an example of a collection of WKT geometry objects:</p>
+<p>下面是一个 WKT 格式 几何对象集合的示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /example/_doc
 {
@@ -778,11 +799,9 @@ overriding the orientation on a document:</p>
 </div>
 <div class="console_widget" data-snippet="snippets/651.console"></div>
 <h5>
-<a id="_envelope"></a>Envelope<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/geo-shape.asciidoc">edit</a>
+<a id="_envelope"></a>envelope (边界矩形)
 </h5>
-<p>Elasticsearch supports an <code class="literal">envelope</code> type, which consists of coordinates
-for upper left and lower right points of the shape to represent a
-bounding rectangle in the format <code class="literal">[[minLon, maxLat], [maxLon, minLat]]</code>:</p>
+<p>Elasticsearch 支持一种<code class="literal">envelope</code>类型，它由形状的左上角和右下角的坐标组成，以<code class="literal">[[minLon, maxLat], [maxLon, minLat]]</code>格式表示一个边界矩形：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /example/_doc
 {
@@ -793,8 +812,11 @@ bounding rectangle in the format <code class="literal">[[minLon, maxLat], [maxLo
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/652.console"></div>
-<p>The following is an example of an envelope using the WKT BBOX format:</p>
-<p><span class="strong strong"><strong>NOTE:</strong></span> WKT specification expects the following order: minLon, maxLon, maxLat, minLat.</p>
+<p>以下是使用 WKT BBOX 格式的 envelope 的示例: </p>
+<p>
+
+<span class="strong strong"><strong>注意：</strong></span> WKT规范要求以下顺序：minLon，maxLon，maxLat，minLat。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /example/_doc
 {
@@ -803,13 +825,15 @@ bounding rectangle in the format <code class="literal">[[minLon, maxLat], [maxLo
 </div>
 <div class="console_widget" data-snippet="snippets/653.console"></div>
 <h5>
-<a id="_circle"></a>Circle<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/geo-shape.asciidoc">edit</a>
+<a id="_circle"></a>circle (圆形)
 </h5>
-<p>Elasticsearch supports a <code class="literal">circle</code> type, which consists of a center
-point with a radius. Note that this circle representation can only
-be indexed when using the <code class="literal">recursive</code> Prefix Tree strategy. For
-the default <a class="xref" href="geo-shape.html#geoshape-indexing-approach" title="Indexing approach">Indexing approach</a> circles should be approximated using
-a <code class="literal">POLYGON</code>.</p>
+<p>
+Elasticsearch 支持一种<code class="literal">circle</code>类型，由一个中心点和一个半径组成。
+
+注意，只有在 前缀树(prefix tree) 使用<code class="literal">recursive</code>策略时，才能对这个圆的表示进行索引。
+
+对于默认的<a class="xref" href="geo-shape.html#geoshape-indexing-approach" title="索引方法">索引方法</a>，circle 应该使用<code class="literal">POLYGON</code>来近似表示。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /example/_doc
 {
@@ -821,16 +845,24 @@ a <code class="literal">POLYGON</code>.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/654.console"></div>
-<p>Note: The inner <code class="literal">radius</code> field is required. If not specified, then
-the units of the <code class="literal">radius</code> will default to <code class="literal">METERS</code>.</p>
-<p><span class="strong strong"><strong>NOTE:</strong></span> Neither GeoJSON or WKT support a point-radius circle type.</p>
+<p>
+注意：内 <code class="literal">radius</code>(半径) 字段是必需的。
+
+如果半径的数值后面没有指定单位，那么半径的单位将默认为<code class="literal">METERS</code>。
+</p>
+<p>
+注意:GeoJSON和WKT都不支持点半径圆类型。
+
+<span class="strong strong"><strong>注意：</strong></span> GeoJSON 和 WKT 都不支持 point-radius circle 类型。
+</p>
 <h4>
-<a id="_sorting_and_retrieving_index_shapes"></a>Sorting and Retrieving index Shapes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/geo-shape.asciidoc">edit</a>
+<a id="_sorting_and_retrieving_index_shapes"></a>排序和检索索引形状
 </h4>
-<p>Due to the complex input structure and index representation of shapes,
-it is not currently possible to sort shapes or retrieve their fields
-directly. The geo_shape value is only retrievable through the <code class="literal">_source</code>
-field.</p>
+<p>
+由于形状的复杂的输入结构和索引表示，目前无法对形状进行排序或直接检索它们的字段。
+
+geo_shape 值只能通过<code class="literal">_source</code>字段检索。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">

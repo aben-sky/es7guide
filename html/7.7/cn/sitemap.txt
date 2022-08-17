@@ -269,3 +269,5 @@ https://www.pipiho.com/es/7.7/cn/date_nanos.html
 https://www.pipiho.com/es/7.7/cn/dense-vector.html
 https://www.pipiho.com/es/7.7/cn/histogram.html
 https://www.pipiho.com/es/7.7/cn/flattened.html
+https://www.pipiho.com/es/7.7/cn/geo-point.html
+https://www.pipiho.com/es/7.7/cn/geo-shape.html

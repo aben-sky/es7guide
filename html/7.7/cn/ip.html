@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>IP datatype | ElasticSearch 7.7 权威指南中文版</title>
+	<title>IP 数据类型 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,31 +32,30 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping.html">Mapping</a></span>
+<span class="breadcrumb-link"><a href="mapping.html">映射</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping-types.html">Field datatypes</a></span>
+<span class="breadcrumb-link"><a href="mapping-types.html">字段数据类型</a></span>
 »
-<span class="breadcrumb-node">IP datatype</span>
+<span class="breadcrumb-node">IP 数据类型</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="geo-shape.html">« Geo-shape datatype</a>
+<a href="geo-shape.html">« geo_shape(地理形状)数据类型</a>
 </span>
 <span class="next">
-<a href="parent-join.html">Join datatype »</a>
+<a href2="parent-join.html">Join datatype »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="ip"></a>IP datatype<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/ip.asciidoc">edit</a>
+<a id="ip"></a>IP 数据类型
 </h2>
 </div></div></div>
 
-<p>An <code class="literal">ip</code> field can index/store either <a href="https://en.wikipedia.org/wiki/IPv4" class="ulink" target="_top">IPv4</a> or
-<a href="https://en.wikipedia.org/wiki/IPv6" class="ulink" target="_top">IPv6</a> addresses.</p>
+<p><code class="literal">ip</code>字段可以索引/存储<a href="https://en.wikipedia.org/wiki/IPv4" class="ulink" target="_top">IPv4</a>及<a href="https://en.wikipedia.org/wiki/IPv6" class="ulink" target="_top">IPv6</a>地址。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index
 {
@@ -87,16 +86,16 @@ GET my_index/_search
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>You can also store ip ranges in a single field using an <a class="xref" href="range.html" title="Range datatypes">ip_range datatype</a>.</p>
+<p>还可以使用 <a class="xref" href="range.html" title="范围数据类型" rel="nofollow">ip_range 数据类型</a> 在单个字段中存储 IP 范围。</p>
 </div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="ip-params"></a>Parameters for <code class="literal">ip</code> fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/ip.asciidoc">edit</a>
+<a id="ip-params"></a><code class="literal">ip</code>字段的参数
 </h3>
 </div></div></div>
-<p>The following parameters are accepted by <code class="literal">ip</code> fields:</p>
+<p><code class="literal">ip</code>字段接受以下参数：</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -112,8 +111,7 @@ GET my_index/_search
 </td>
 <td valign="top">
 <p>
-Mapping field-level query time boosting. Accepts a floating point number, defaults
-to <code class="literal">1.0</code>.
+映射字段级查询时提升，默认值为 <code class="literal">1.0</code>。
 </p>
 </td>
 </tr>
@@ -125,9 +123,9 @@ to <code class="literal">1.0</code>.
 </td>
 <td valign="top">
 <p>
-Should the field be stored on disk in a column-stride fashion, so that it
-can later be used for sorting, aggregations, or scripting? Accepts <code class="literal">true</code>
-(default) or <code class="literal">false</code>.
+是否应该以列步幅(column-stride)的方式将字段存储在磁盘上，以便以后用于排序、聚合或编写脚本? 
+
+接受<code class="literal">true</code>(默认) 或<code class="literal">false</code>。
 </p>
 </td>
 </tr>
@@ -139,7 +137,7 @@ can later be used for sorting, aggregations, or scripting? Accepts <code class="
 </td>
 <td valign="top">
 <p>
-Should the field be searchable? Accepts <code class="literal">true</code> (default) and <code class="literal">false</code>.
+该字段应该是可搜索的吗？接受 <code class="literal">true</code> (默认) 和 <code class="literal">false</code>。
 </p>
 </td>
 </tr>
@@ -151,8 +149,9 @@ Should the field be searchable? Accepts <code class="literal">true</code> (defau
 </td>
 <td valign="top">
 <p>
-Accepts an IPv4 value which is substituted for any explicit <code class="literal">null</code> values.
-Defaults to <code class="literal">null</code>, which means the field is treated as missing.
+接受替换任何显式<code class="literal">null</code>的 IPv4 值。
+
+默认值为 <code class="literal">null</code>，这意味着该字段被视为缺失。
 </p>
 </td>
 </tr>
@@ -164,9 +163,9 @@ Defaults to <code class="literal">null</code>, which means the field is treated 
 </td>
 <td valign="top">
 <p>
-Whether the field value should be stored and retrievable separately from
-the <a class="xref" href="mapping-source-field.html" title="_source field"><code class="literal">_source</code></a> field. Accepts <code class="literal">true</code> or <code class="literal">false</code>
-(default).
+字段值是否应该与<a class="xref" href="mapping-source-field.html" title="_source 字段" rel="nofollow"><code class="literal">_source</code></a>字段分开存储和检索。
+
+接受<code class="literal">true</code>或<code class="literal">false</code> (默认)。
 </p>
 </td>
 </tr>
@@ -178,12 +177,11 @@ the <a class="xref" href="mapping-source-field.html" title="_source field"><code
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="query-ip-fields"></a>Querying <code class="literal">ip</code> fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/ip.asciidoc">edit</a>
+<a id="query-ip-fields"></a><code class="literal">ip</code>字段的查询
 </h3>
 </div></div></div>
-<p>The most common way to query ip addresses is to use the
-<a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation" class="ulink" target="_top">CIDR</a>
-notation: <code class="literal">[ip_address]/[prefix_length]</code>. For instance:</p>
+<p>查询ip地址最常用的方法是使用<a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation" class="ulink" target="_top">CIDR</a>符号：<code class="literal">[ip_address]/[prefix_length]</code>。例如：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_index/_search
 {
@@ -195,7 +193,7 @@ notation: <code class="literal">[ip_address]/[prefix_length]</code>. For instanc
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/656.console"></div>
-<p>or</p>
+<p>或者</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_index/_search
 {
@@ -207,10 +205,11 @@ notation: <code class="literal">[ip_address]/[prefix_length]</code>. For instanc
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/657.console"></div>
-<p>Also beware that colons are special characters to the
-<a class="xref" href="query-dsl-query-string-query.html" title="Query string query"><code class="literal">query_string</code></a> query, so ipv6 addresses will
-need to be escaped. The easiest way to do so is to put quotes around the
-searched value:</p>
+<p>
+还要注意，冒号在<a class="xref" href="query-dsl-query-string-query.html" title="Query string query"><code class="literal">query_string</code></a>查询中是特殊字符，因此 ipv6 地址需要转义。
+
+最简单的方法是用引号将搜索的值括起来:
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_index/_search
 {
@@ -227,10 +226,10 @@ searched value:</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="geo-shape.html">« Geo-shape datatype</a>
+<a href="geo-shape.html">« geo_shape(地理形状)数据类型</a>
 </span>
 <span class="next">
-<a href="parent-join.html">Join datatype »</a>
+<a href2="parent-join.html">Join datatype »</a>
 </span>
 </div>
 </div>

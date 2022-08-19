@@ -1742,8 +1742,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "parent-join.html",
-                        "text": "Join",
-                        "title": "Join"
+                        "text": "join(联结)",
+                        "title": "join(联结)"
                     },
                     {
                         "url": "keyword.html",

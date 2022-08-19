@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Join datatype | ElasticSearch 7.7 权威指南中文版</title>
+	<title>join(联结)数据类型 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,36 +32,38 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping.html">Mapping</a></span>
+<span class="breadcrumb-link"><a href="mapping.html">映射</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping-types.html">Field datatypes</a></span>
+<span class="breadcrumb-link"><a href="mapping-types.html">字段数据类型</a></span>
 »
-<span class="breadcrumb-node">Join datatype</span>
+<span class="breadcrumb-node">join(联结)数据类型</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="ip.html">« IP datatype</a>
+<a href="ip.html">« IP 数据类型</a>
 </span>
 <span class="next">
-<a href="keyword.html">Keyword datatype »</a>
+<a href2="keyword.html">Keyword datatype »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="parent-join"></a>Join datatype<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/parent-join.asciidoc">edit</a>
+<a id="parent-join"></a>join(联结)数据类型
 </h2>
 </div></div></div>
 
-<p>The <code class="literal">join</code> datatype is a special field that creates
-parent/child relation within documents of the same index.
-The <code class="literal">relations</code> section defines a set of possible relations within the documents,
-each relation being a parent name and a child name.
-A parent/child relation can be defined as follows:</p>
+<p>
+<code class="literal">join</code>数据类型是一种特殊的字段，它在同一个索引的文档中创建父-子关系。
+
+<code class="literal">relations</code>部分定义了文档中一组可能的关系，每个关系都是一个父名称和一个子名称。
+
+父-子关系可以定义如下：
+</p>
 <div class="pre_wrapper lang-console">
-<pre class="programlisting prettyprint lang-console">PUT my_index
+<pre class="programlisting prettyprint lang-console">PUT /my_index
 {
   "mappings": {
     "properties": {
@@ -86,7 +88,7 @@ A parent/child relation can be defined as follows:</p>
 <p><a href="#CO297-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The name for the field</p>
+<p>字段名称</p>
 </td>
 </tr>
 <tr>
@@ -94,16 +96,18 @@ A parent/child relation can be defined as follows:</p>
 <p><a href="#CO297-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Defines a single relation where <code class="literal">question</code> is parent of <code class="literal">answer</code>.</p>
+<p>定义<code class="literal">question</code>是<code class="literal">answer</code>的父项的单一关系。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>To index a document with a join, the name of the relation and the optional parent
-of the document must be provided in the <code class="literal">source</code>.
-For instance the following example creates two <code class="literal">parent</code> documents in the <code class="literal">question</code> context:</p>
+<p>
+要使用 join 对文档进行索引，必须在<code class="literal">source</code>中提供关系的名称和文档的可选父文档。
+
+例如，下面这个例子在<code class="literal">question</code>上下文中创建了两个 <code class="literal">parent</code> 文档：
+</p>
 <div class="pre_wrapper lang-console">
-<pre class="programlisting prettyprint lang-console">PUT my_index/_doc/1?refresh
+<pre class="programlisting prettyprint lang-console">PUT /my_index/_doc/1?refresh
 {
   "my_id": "1",
   "text": "This is a question",
@@ -112,7 +116,7 @@ For instance the following example creates two <code class="literal">parent</cod
   }
 }
 
-PUT my_index/_doc/2?refresh
+PUT /my_index/_doc/2?refresh
 {
   "my_id": "2",
   "text": "This is another question",
@@ -129,13 +133,12 @@ PUT my_index/_doc/2?refresh
 <p><a href="#CO298-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>This document is a <code class="literal">question</code> document.</p>
+<p>该文档是一个<code class="literal">question</code>文档。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>When indexing parent documents, you can choose to specify just the name of the relation
-as a shortcut instead of encapsulating it in the normal object notation:</p>
+<p>在给父文档编制索引时，可以选择仅指定关系的名称作为快捷方式，而不是将其封装在普通对象符号中：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index/_doc/1?refresh
 {
@@ -159,21 +162,21 @@ PUT my_index/_doc/2?refresh
 <p><a href="#CO299-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Simpler notation for a parent document just uses the relation name.</p>
+<p>更简单的父文档符号只使用关系名。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>When indexing a child, the name of the relation as well as the parent id of the document
-must be added in the <code class="literal">_source</code>.</p>
+<p>
+当为子文档编制索引时，必须在<code class="literal">_source</code>中添加关系的名称以及文档的父id。
+</p>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>It is required to index the lineage of a parent in the same shard so you must
-always route child documents using their greater parent id.</p>
+<p>需要在同一个分片中索引父文档的传承关系，因此必须始终使用更大的父id来路由子文档。</p>
 </div>
 </div>
-<p>For instance the following example shows how to index two <code class="literal">child</code> documents:</p>
+<p>例如，下面这个例子显示了如何索引两个 <code class="literal">child</code> 文档：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index/_doc/3?routing=1&amp;refresh <a id="CO300-1"></a><i class="conum" data-value="1"></i>
 {
@@ -203,7 +206,7 @@ PUT my_index/_doc/4?routing=1&amp;refresh
 <p><a href="#CO300-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The routing value is mandatory because parent and child documents must be indexed on the same shard</p>
+<p>路由值是必需的，因为父文档和子文档必须在同一个分片上建立索引</p>
 </td>
 </tr>
 <tr>
@@ -211,7 +214,7 @@ PUT my_index/_doc/4?routing=1&amp;refresh
 <p><a href="#CO300-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">answer</code> is the name of the join for this document</p>
+<p><code class="literal">answer</code>是该文档的联结(join)的名字</p>
 </td>
 </tr>
 <tr>
@@ -219,7 +222,7 @@ PUT my_index/_doc/4?routing=1&amp;refresh
 <p><a href="#CO300-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The parent id of this child document</p>
+<p>子文档的父id</p>
 </td>
 </tr>
 </table>
@@ -227,44 +230,49 @@ PUT my_index/_doc/4?routing=1&amp;refresh
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_parent_join_and_performance"></a>Parent-join and performance.<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/parent-join.asciidoc">edit</a>
+<a id="_parent_join_and_performance"></a>父联结及性能
 </h3>
 </div></div></div>
-<p>The join field shouldn’t be used like joins in a relation database. In Elasticsearch the key to good performance
-is to de-normalize your data into documents. Each join field, <code class="literal">has_child</code> or <code class="literal">has_parent</code> query adds a
-significant tax to your query performance.</p>
-<p>The only case where the join field makes sense is if your data contains a one-to-many relationship where
-one entity significantly outnumbers the other entity. An example of such case is a use case with products
-and offers for these products. In the case that offers significantly outnumbers the number of products then
-it makes sense to model the product as parent document and the offer as child document.</p>
+<p>
+join 字段不应该像关系型数据库中的 JOIN 一样使用。
+
+在Elasticsearch中，良好性能的关键是将数据反归一化到文档中。
+
+每个 join 字段、<code class="literal">has_child</code>或<code class="literal">has_parent</code>查询都会显著提高查询性能。
+</p>
+<p>
+join 字段有意义的唯一情况是数据包含一对多关系，其中一个实体的数量远远超过另一个实体。
+
+这种情况的一个例子是产品及其优惠信息的用例。
+
+在优惠信息明显多于产品数量的情况下，将产品建模为父文档，将优惠建模为子文档是有意义的。
+</p>
 </div>
 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_parent_join_restrictions"></a>Parent-join restrictions<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/parent-join.asciidoc">edit</a>
+<a id="_parent_join_restrictions"></a>父联结的限制
 </h3>
 </div></div></div>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-Only one <code class="literal">join</code> field mapping is allowed per index.
+每个索引中只能有一个<code class="literal">join</code>字段映射。
 </li>
 <li class="listitem">
-Parent and child documents must be indexed on the same shard.
-This means that the same <code class="literal">routing</code> value needs to be provided when
-<a class="xref" href="docs-get.html" title="Get API">getting</a>, <a class="xref" href="docs-delete.html" title="Delete API">deleting</a>, or <a class="xref" href="docs-update.html" title="Update API">updating</a>
-a child document.
+父文档和子文档必须被索引在同一个分片上。
+
+这意味着在<a class="xref" href="docs-get.html" title="get API" rel="nofollow">获取</a>、<a class="xref" href="docs-delete.html" title="delete API" rel="nofollow">删除</a>或<a class="xref" href="docs-update.html" title="update API" rel="nofollow">更新</a>子文档时，需要提供相同的 <code class="literal">routing</code>(路由) 值。
 </li>
 <li class="listitem">
-An element can have multiple children but only one parent.
+一个元素可以有多个子元素，但只能有一个父元素。
 </li>
 <li class="listitem">
-It is possible to add a new relation to an existing <code class="literal">join</code> field.
+可以向现有的<code class="literal">join</code>字段添加新的关系。
 </li>
 <li class="listitem">
-It is also possible to add a child to an existing element
-but only if the element is already a parent.
+也可以向现有元素添加子元素，但前提是该元素已经是父元素。
 </li>
 </ul>
 </div>
@@ -273,21 +281,23 @@ but only if the element is already a parent.
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_searching_with_parent_join"></a>Searching with parent-join<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/parent-join.asciidoc">edit</a>
+<a id="_searching_with_parent_join"></a>使用父联结(parent join)进行搜索
 </h3>
 </div></div></div>
-<p>The parent-join creates one field to index the name of the relation
-within the document (<code class="literal">my_parent</code>, <code class="literal">my_child</code>, …​).</p>
-<p>It also creates one field per parent/child relation.
-The name of this field is the name of the <code class="literal">join</code> field followed by <code class="literal">#</code> and the
-name of the parent in the relation.
-So for instance for the <code class="literal">my_parent</code> → [<code class="literal">my_child</code>, <code class="literal">another_child</code>] relation,
-the <code class="literal">join</code> field creates an additional field named <code class="literal">my_join_field#my_parent</code>.</p>
-<p>This field contains the parent <code class="literal">_id</code> that the document links to
-if the document is a child (<code class="literal">my_child</code> or <code class="literal">another_child</code>) and the <code class="literal">_id</code> of
-document if it’s a parent (<code class="literal">my_parent</code>).</p>
-<p>When searching an index that contains a <code class="literal">join</code> field, these two fields are always
-returned in the search response:</p>
+<p>
+父联结(parent join)创建一个字段来索引文档中关系的名称(<code class="literal">my_parent</code>, <code class="literal">my_child</code>，...)。
+</p>
+<p>
+它还为每个父-子关系创建一个字段。
+
+该字段的名称是<code class="literal">join</code>字段的名称，后跟<code class="literal">#</code>及关系中父字段的名称。
+
+例如，对于<code class="literal">my_parent</code> → [<code class="literal">my_child</code>, <code class="literal">another_child</code>]关系，<code class="literal">join</code>字段会创建一个名为<code class="literal">my_join_field#my_parent</code>的附加字段。
+</p>
+<p>
+如果该文档是一个子文档(<code class="literal">my_child</code> or <code class="literal">another_child</code>)，则此字段包含文档链接到的父文档的<code class="literal">_id</code>，如果它是一个父文档(<code class="literal">my_parent</code>)，则包含文档的<code class="literal">_id</code>。
+</p>
+<p>当搜索一个包含<code class="literal">join</code>字段的索引时，搜索响应中总是返回这两个字段：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_index/_search
 {
@@ -298,7 +308,7 @@ returned in the search response:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/663.console"></div>
-<p>Will return:</p>
+<p>它将返回：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
     ...,
@@ -384,7 +394,7 @@ returned in the search response:</p>
 <p><a href="#CO301-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>This document belongs to the <code class="literal">question</code> join</p>
+<p>该文档属于<code class="literal">question</code>联结</p>
 </td>
 </tr>
 <tr>
@@ -392,7 +402,7 @@ returned in the search response:</p>
 <p><a href="#CO301-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>This document belongs to the <code class="literal">question</code> join</p>
+<p>该文档属于<code class="literal">question</code>联结</p>
 </td>
 </tr>
 <tr>
@@ -400,7 +410,7 @@ returned in the search response:</p>
 <p><a href="#CO301-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>This document belongs to the <code class="literal">answer</code> join</p>
+<p>该文档属于<code class="literal">answer</code>联结</p>
 </td>
 </tr>
 <tr>
@@ -408,7 +418,7 @@ returned in the search response:</p>
 <p><a href="#CO301-4"><i class="conum" data-value="4"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The linked parent id for the child document</p>
+<p>与子文档关联的父id</p>
 </td>
 </tr>
 </table>
@@ -418,16 +428,15 @@ returned in the search response:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_parent_join_queries_and_aggregations"></a>Parent-join queries and aggregations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/parent-join.asciidoc">edit</a>
+<a id="_parent_join_queries_and_aggregations"></a>父联结查询及聚合
 </h3>
 </div></div></div>
-<p>See the <a class="xref" href="query-dsl-has-child-query.html" title="Has child query"><code class="literal">has_child</code></a> and
-<a class="xref" href="query-dsl-has-parent-query.html" title="Has parent query"><code class="literal">has_parent</code></a> queries,
-the <a class="xref" href="search-aggregations-bucket-children-aggregation.html" title="Children Aggregation"><code class="literal">children</code></a> aggregation,
-and <a class="xref" href="search-request-body.html#parent-child-inner-hits" title="Parent/child inner hits">inner hits</a> for more information.</p>
-<p>The value of the <code class="literal">join</code> field is accessible in aggregations
-and scripts, and may be queried with the
-<a class="xref" href="query-dsl-parent-id-query.html" title="Parent ID query"><code class="literal">parent_id</code> query</a>:</p>
+<p>
+更多信息，请参考<a class="xref" href="query-dsl-has-child-query.html" title="has_child查询"><code class="literal">has_child</code></a>和<a class="xref" href="query-dsl-has-parent-query.html" title="has_parent查询"><code class="literal">has_parent</code></a>查询，<a class="xref" href="search-aggregations-bucket-children-aggregation.html" title="children聚合"><code class="literal">children</code></a>聚合及<a class="xref" href="search-request-body.html#parent-child-inner-hits" title="parent/child内部命中" rel="nofollow">内部命中(inner hits)</a>。
+</p>
+<p>
+可以在聚合和脚本中访问<code class="literal">join</code>字段的值，并且可以使用<a class="xref" href="query-dsl-parent-id-query.html" title="parent_id查询"><code class="literal">parent_id</code>查询</a>进行查询：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_index/_search
 {
@@ -462,7 +471,9 @@ and scripts, and may be queried with the
 <p><a href="#CO302-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Querying the <code class="literal">parent id</code> field (also see the <a class="xref" href="query-dsl-has-parent-query.html" title="Has parent query"><code class="literal">has_parent</code> query</a> and the <a class="xref" href="query-dsl-has-child-query.html" title="Has child query"><code class="literal">has_child</code> query</a>)</p>
+<p>
+查询<code class="literal">parent id</code>字段(另请参见<a class="xref" href="query-dsl-has-parent-query.html" title="has_parent查询"><code class="literal">has_parent</code>查询</a>和<a class="xref" href="query-dsl-has-child-query.html" title="has_child查询"><code class="literal">has_child</code>查询</a>)
+</p>
 </td>
 </tr>
 <tr>
@@ -470,7 +481,9 @@ and scripts, and may be queried with the
 <p><a href="#CO302-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Aggregating on the <code class="literal">parent id</code> field (also see the <a class="xref" href="search-aggregations-bucket-children-aggregation.html" title="Children Aggregation"><code class="literal">children</code></a> aggregation)</p>
+<p>
+在<code class="literal">parent id</code>字段上聚合(另请参见<a class="xref" href="search-aggregations-bucket-children-aggregation.html" title="children聚合"><code class="literal">children</code></a>聚合)
+</p>
 </td>
 </tr>
 <tr>
@@ -478,7 +491,7 @@ and scripts, and may be queried with the
 <p><a href="#CO302-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Accessing the parent id` field in scripts</p>
+<p>在脚本中访问父对象的id字段</p>
 </td>
 </tr>
 </table>
@@ -488,23 +501,28 @@ and scripts, and may be queried with the
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_global_ordinals"></a>Global ordinals<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/parent-join.asciidoc">edit</a>
+<a id="_global_ordinals"></a>全局序号(global ordinals)
 </h3>
 </div></div></div>
-<p>The <code class="literal">join</code> field uses <a class="xref" href="eager-global-ordinals.html" title="eager_global_ordinals">global ordinals</a> to speed up joins.
-Global ordinals need to be rebuilt after any change to a shard. The more
-parent id values are stored in a shard, the longer it takes to rebuild the
-global ordinals for the <code class="literal">join</code> field.</p>
-<p>Global ordinals, by default, are built eagerly: if the index has changed,
-global ordinals for the <code class="literal">join</code> field will be rebuilt as part of the refresh.
-This can add significant time to the refresh. However most of the times this is the
-right trade-off, otherwise global ordinals are rebuilt when the first parent-join
-query or aggregation is used. This can introduce a significant latency spike for
-your users and usually this is worse as multiple global ordinals for the <code class="literal">join</code>
-field may be attempt rebuilt within a single refresh interval when many writes
-are occurring.</p>
-<p>When the <code class="literal">join</code> field is used infrequently and writes occur frequently it may
-make sense to disable eager loading:</p>
+<p>
+字段使用<code class="literal">join</code> field uses <a class="xref" href="eager-global-ordinals.html" title="eager_global_ordinals" rel="nofollow">全局序号(global ordinals)</a>来加速联结。
+
+在对分片进行任何更改后，都需要重新构建全局序号。
+
+一个分片中存储的父 id 值越多，为<code class="literal">join</code>字段重新构建全局序号所需的时间就越长。
+</p>
+<p>
+默认情况下，会急切地构建全局序号：如果索引发生了变化，那么<code class="literal">join</code>字段的全局序号将作为 refresh 的一部分重新构建。
+
+这可能会大大增加 refresh 的时间。
+
+然而，大多数情况下这是正确的权衡，否则当使用第一个 父联结(parent-join) 查询或聚合时，将重新构建全局序号。
+
+这可能会给你的用户带来显著的延迟峰值，通常情况下，当发生多次写入时，可能会在单个 refresh 间隔内尝试重建<code class="literal">join</code>字段的多个全局序号，这种情况会更糟。
+</p>
+<p>
+当<code class="literal">join</code>字段很少使用但频繁写入时，禁用 快速加载(eager loading) 可能是有意义的：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index
 {
@@ -522,8 +540,9 @@ make sense to disable eager loading:</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/665.console"></div>
-<p>The amount of heap used by global ordinals can be checked per parent relation
-as follows:</p>
+<p>
+可以按如下方式检查每个父关系的全局序号使用的 heap 的大小：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console"># Per-index
 GET _stats/fielddata?human&amp;fields=my_join_field#question
@@ -537,10 +556,10 @@ GET _nodes/stats/indices/fielddata?human&amp;fields=my_join_field#question</pre>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_multiple_children_per_parent"></a>Multiple children per parent<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/parent-join.asciidoc">edit</a>
+<a id="_multiple_children_per_parent"></a>一父多子
 </h3>
 </div></div></div>
-<p>It is also possible to define multiple children for a single parent:</p>
+<p>也可以为单个父对象定义多个子对象：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index
 {
@@ -564,7 +583,7 @@ GET _nodes/stats/indices/fielddata?human&amp;fields=my_join_field#question</pre>
 <p><a href="#CO303-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">question</code> is parent of <code class="literal">answer</code> and <code class="literal">comment</code>.</p>
+<p><code class="literal">question</code>是<code class="literal">answer</code>和<code class="literal">comment</code>的父对象。</p>
 </td>
 </tr>
 </table>
@@ -574,18 +593,22 @@ GET _nodes/stats/indices/fielddata?human&amp;fields=my_join_field#question</pre>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_multiple_levels_of_parent_join"></a>Multiple levels of parent join<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/parent-join.asciidoc">edit</a>
+<a id="_multiple_levels_of_parent_join"></a>多层级父联结
 </h3>
 </div></div></div>
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Using multiple levels of relations to replicate a relational model is not recommended.
-Each level of relation adds an overhead at query time in terms of memory and computation.
-You should de-normalize your data if you care about performance.</p>
+<p>
+不建议使用多层关系来复制关系模型。
+
+每一级关系都会在查询时增加内存和计算方面的开销。
+
+如果你关心性能，应该对数据进行反归一化。
+</p>
 </div>
 </div>
-<p>Multiple levels of parent/child:</p>
+<p>多层级的父-子关系：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index
 {
@@ -610,7 +633,7 @@ You should de-normalize your data if you care about performance.</p>
 <p><a href="#CO304-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">question</code> is parent of <code class="literal">answer</code> and <code class="literal">comment</code></p>
+<p><code class="literal">question</code>是<code class="literal">answer</code>和<code class="literal">comment</code>的父对象</p>
 </td>
 </tr>
 <tr>
@@ -618,12 +641,12 @@ You should de-normalize your data if you care about performance.</p>
 <p><a href="#CO304-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">answer</code> is parent of <code class="literal">vote</code></p>
+<p><code class="literal">answer</code>是<code class="literal">vote</code>的父级</p>
 </td>
 </tr>
 </table>
 </div>
-<p>The mapping above represents the following tree:</p>
+<p>上面的映射表示下面的树状结构：</p>
 <pre class="literallayout">   question
     /    \
    /      \
@@ -632,8 +655,9 @@ comment  answer
            |
           vote</pre>
 
-<p>Indexing a grandchild document requires a <code class="literal">routing</code> value equals
-to the grand-parent (the greater parent of the lineage):</p>
+<p>
+为孙子文档编制索引需要<code class="literal">routing</code>值等于曾祖父(曾祖父的传承)：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index/_doc/3?routing=1&amp;refresh <a id="CO305-1"></a><i class="conum" data-value="1"></i>
 {
@@ -652,7 +676,7 @@ to the grand-parent (the greater parent of the lineage):</p>
 <p><a href="#CO305-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>This child document must be on the same shard than its grand-parent and parent</p>
+<p>子文档必须与其祖父文档和父文档在同一个分片上</p>
 </td>
 </tr>
 <tr>
@@ -660,7 +684,7 @@ to the grand-parent (the greater parent of the lineage):</p>
 <p><a href="#CO305-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The parent id of this document (must points to an <code class="literal">answer</code> document)</p>
+<p>此文档的父id(必须指向一个<code class="literal">answer</code>文档)</p>
 </td>
 </tr>
 </table>
@@ -670,10 +694,10 @@ to the grand-parent (the greater parent of the lineage):</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="ip.html">« IP datatype</a>
+<a href="ip.html">« IP 数据类型</a>
 </span>
 <span class="next">
-<a href="keyword.html">Keyword datatype »</a>
+<a href2="keyword.html">Keyword datatype »</a>
 </span>
 </div>
 </div>

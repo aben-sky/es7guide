@@ -1747,8 +1747,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "keyword.html",
-                        "text": "Keyword",
-                        "title": "Keyword"
+                        "text": "keyword(关键词)",
+                        "title": "keyword(关键词)"
                     },
                     {
                         "url": "nested.html",

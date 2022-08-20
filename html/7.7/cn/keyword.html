@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Keyword datatype | ElasticSearch 7.7 权威指南中文版</title>
+	<title>keyword(关键词)数据类型 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,37 +32,39 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping.html">Mapping</a></span>
+<span class="breadcrumb-link"><a href="mapping.html">映射</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping-types.html">Field datatypes</a></span>
+<span class="breadcrumb-link"><a href="mapping-types.html">字段数据类型</a></span>
 »
-<span class="breadcrumb-node">Keyword datatype</span>
+<span class="breadcrumb-node">keyword(关键词)数据类型</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="parent-join.html">« Join datatype</a>
+<a href="parent-join.html">« join(联结)数据类型</a>
 </span>
 <span class="next">
-<a href="nested.html">Nested datatype »</a>
+<a href2="nested.html">Nested datatype »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="keyword"></a>Keyword datatype<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/keyword.asciidoc">edit</a>
+<a id="keyword"></a>keyword(关键词)数据类型
 </h2>
 </div></div></div>
 
-<p>A field to index structured content such as IDs, email addresses, hostnames,
-status codes, zip codes or tags.</p>
-<p>They are typically used for filtering (<em>Find me all blog posts where
-<code class="literal">status</code> is <code class="literal">published</code></em>), for sorting, and for aggregations. Keyword
-fields are only searchable by their exact value.</p>
-<p>If you need to index full text content such as email bodies or product
-descriptions, it is likely that you should rather use a <a class="xref" href="text.html" title="Text datatype"><code class="literal">text</code></a> field.</p>
-<p>Below is an example of a mapping for a keyword field:</p>
+<p>一种索引结构化内容的字段，如 ID、电子邮件地址、主机名、状态码、邮政编码或标签。</p>
+<p>
+它们通常用于过滤(比如，<em>查找 <code class="literal">status</code>(状态) 为<code class="literal">published</code>的所有博客帖子</em>)、排序和聚合。
+
+keyword 字段只能通过它们的确切值进行搜索。
+</p>
+<p>
+如果你需要索引全文内容，如电子邮件正文或产品描述，你可能更愿意使用<a class="xref" href="text.html" title="text数据类型" rel="nofollow"><code class="literal">text</code></a>字段。
+</p>
+<p>下面是一个是 keyword 字段的映射示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index
 {
@@ -79,38 +81,44 @@ descriptions, it is likely that you should rather use a <a class="xref" href="te
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<h3>Mapping numeric identifiers</h3>
-<p>Not all numeric data should be mapped as a <a class="xref" href="number.html" title="Numeric datatypes">numeric</a> field datatype.
-Elasticsearch optimizes numeric fields, such as <code class="literal">integer</code> or <code class="literal">long</code>, for
-<a class="xref" href="query-dsl-range-query.html" title="Range query"><code class="literal">range</code></a> queries. However, <a class="xref" href="keyword.html" title="Keyword datatype"><code class="literal">keyword</code></a> fields
-are better for <a class="xref" href="query-dsl-term-query.html" title="Term query"><code class="literal">term</code></a> and other
-<a class="xref" href="term-level-queries.html" title="Term-level queries">term-level</a> queries.</p>
-<p>Identifiers, such as an ISBN or a product ID, are rarely used in <code class="literal">range</code>
-queries. However, they are often retrieved using term-level queries.</p>
-<p>Consider mapping a numeric identifier as a <code class="literal">keyword</code> if:</p>
+<h3>映射数值型标识</h3>
+<p>
+并非所有数值数据都应映射为<a class="xref" href="number.html" title="numeric数据类型" rel="nofollow">数值型</a>字段数据类型。
+
+Elasticsearch 为<a class="xref" href="query-dsl-range-query.html" title="范围查询"><code class="literal">范围(range)</code></a>查询优化数值型字段，如<code class="literal">integer</code>或<code class="literal">long</code>。
+
+但是，<code class="literal">keyword</code>字段更适合于<a class="xref" href="query-dsl-term-query.html" title="Term query"><code class="literal">term</code></a>和其他<a class="xref" href="term-level-queries.html" title="词项级查询">词项级</a>的查询。
+</p>
+<p>
+标识(identifier)，如 ISBN 或产品ID，很少在<code class="literal">范围(range)</code>查询中使用。
+
+但是，通常使用词项级查询来检索它们。
+</p>
+<p>在以下情况下，考虑将数值型标识映射为<code class="literal">keyword</code>：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-You don’t plan to search for the identifier data using
-<a class="xref" href="query-dsl-range-query.html" title="Range query"><code class="literal">range</code></a> queries.
+你不打算使用<a class="xref" href="query-dsl-range-query.html" title="范围查询"><code class="literal">range</code></a>查询来搜索标识数据。
 </li>
 <li class="listitem">
-Fast retrieval is important. <code class="literal">term</code> query searches on <code class="literal">keyword</code> fields are
-often faster than <code class="literal">term</code> searches on numeric fields.
+快速检索很重要。
+
+<code class="literal">keyword</code>字段上的<code class="literal">term</code>查询搜索通常比数值型字段上的<code class="literal">term</code>搜索更快。
 </li>
 </ul>
 </div>
-<p>If you’re unsure which to use, you can use a <a class="xref" href="multi-fields.html" title="fields">multi-field</a> to map
-the data as both a <code class="literal">keyword</code> <em>and</em> a numeric datatype.</p>
+<p>
+如果你不确定应该使用哪一种，可以使用<a class="xref" href="multi-fields.html" title="fields">多字段(multi-field)</a>将数据映射为<code class="literal">keyword</code><em>和</em>数值型数据类型。
+</p>
 </div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="keyword-params"></a>Parameters for keyword fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/keyword.asciidoc">edit</a>
+<a id="keyword-params"></a>keyword字段的参数
 </h3>
 </div></div></div>
-<p>The following parameters are accepted by <code class="literal">keyword</code> fields:</p>
+<p><code class="literal">keyword</code>字段接受以下参数：</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -125,10 +133,7 @@ the data as both a <code class="literal">keyword</code> <em>and</em> a numeric d
 </p>
 </td>
 <td valign="top">
-<p>
-Mapping field-level query time boosting. Accepts a floating point number, defaults
-to <code class="literal">1.0</code>.
-</p>
+<p>映射字段级查询时提升。接受浮点数，默认值为<code class="literal">1.0</code>。</p>
 </td>
 </tr>
 <tr>
@@ -139,9 +144,7 @@ to <code class="literal">1.0</code>.
 </td>
 <td valign="top">
 <p>
-Should the field be stored on disk in a column-stride fashion, so that it
-can later be used for sorting, aggregations, or scripting? Accepts <code class="literal">true</code>
-(default) or <code class="literal">false</code>.
+是否应该以列步幅(column-stride)的方式将字段存储在磁盘上，以便以后用于排序、聚合或编写脚本? 接受<code class="literal">true</code>(默认) 或<code class="literal">false</code>.。
 </p>
 </td>
 </tr>
@@ -153,9 +156,11 @@ can later be used for sorting, aggregations, or scripting? Accepts <code class="
 </td>
 <td valign="top">
 <p>
-Should global ordinals be loaded eagerly on refresh? Accepts <code class="literal">true</code> or <code class="literal">false</code>
-(default). Enabling this is a good idea on fields that are frequently used for
-terms aggregations.
+refresh 时应该急切地加载全局序号吗？
+
+接受<code class="literal">true</code>或<code class="literal">false</code>(默认)。
+
+对于常用于词项聚合的字段，启用此功能是个好主意。
 </p>
 </td>
 </tr>
@@ -166,11 +171,7 @@ terms aggregations.
 </p>
 </td>
 <td valign="top">
-<p>
-Multi-fields allow the same string value to be indexed in multiple ways for
-different purposes, such as one field for search and a multi-field for
-sorting and aggregations.
-</p>
+<p>多字段(multi-fields)允许出于不同目的以多种方式索引相同的字符串值，例如一个字段用于搜索，一个多字段用于排序和聚合。</p>
 </td>
 </tr>
 <tr>
@@ -181,10 +182,11 @@ sorting and aggregations.
 </td>
 <td valign="top">
 <p>
-Do not index any string longer than this value.  Defaults to <code class="literal">2147483647</code>
-so that all values would be accepted. Please however note that default
-dynamic mapping rules create a sub <code class="literal">keyword</code> field that overrides this
-default by setting <code class="literal">ignore_above: 256</code>.
+不要索引任何长度超过此值的字符串。
+
+默认值为<code class="literal">2147483647</code>，以便接受所有值。
+
+但是请注意，默认的动态映射规则会创建一个子<code class="literal">keyword</code>字段，通过设置<code class="literal">ignore_above: 256</code>来覆盖此默认设置。
 </p>
 </td>
 </tr>
@@ -196,7 +198,7 @@ default by setting <code class="literal">ignore_above: 256</code>.
 </td>
 <td valign="top">
 <p>
-Should the field be searchable? Accepts <code class="literal">true</code> (default) or <code class="literal">false</code>.
+该字段应该是可搜索的吗？接受<code class="literal">true</code> (默认) 和 <code class="literal">false</code>。
 </p>
 </td>
 </tr>
@@ -208,9 +210,9 @@ Should the field be searchable? Accepts <code class="literal">true</code> (defau
 </td>
 <td valign="top">
 <p>
-What information should be stored in the index, for scoring purposes.
-Defaults to <code class="literal">docs</code> but can also be set to <code class="literal">freqs</code> to take term frequency into account
-when computing scores.
+出于评分目的，什么信息应该存储在索引中。
+
+默认为<code class="literal">docs</code>，但也可以设置为<code class="literal">freqs</code>，以便在计算分数时考虑词项的频率。
 </p>
 </td>
 </tr>
@@ -222,8 +224,9 @@ when computing scores.
 </td>
 <td valign="top">
 <p>
-Whether field-length should be taken into account when scoring queries.
-Accepts <code class="literal">true</code> or <code class="literal">false</code> (default).
+在需要计算分数的查询时是否应考虑字段长度。
+
+接受<code class="literal">true</code>或<code class="literal">false</code> (默认)。
 </p>
 </td>
 </tr>
@@ -235,8 +238,9 @@ Accepts <code class="literal">true</code> or <code class="literal">false</code> 
 </td>
 <td valign="top">
 <p>
-Accepts a string value which is substituted for any explicit <code class="literal">null</code>
-values.  Defaults to <code class="literal">null</code>, which means the field is treated as missing.
+接受替换任何显式<code class="literal">null</code>值的字符串值。
+
+默认值为<code class="literal">null</code>，这意味着该字段被视为缺失。
 </p>
 </td>
 </tr>
@@ -248,9 +252,9 @@ values.  Defaults to <code class="literal">null</code>, which means the field is
 </td>
 <td valign="top">
 <p>
-Whether the field value should be stored and retrievable separately from
-the <a class="xref" href="mapping-source-field.html" title="_source field"><code class="literal">_source</code></a> field. Accepts <code class="literal">true</code> or <code class="literal">false</code>
-(default).
+字段值是否应该与<a class="xref" href="mapping-source-field.html" title="_source字段" rel="nofollow"><code class="literal">_source</code></a>字段分开存储和检索。
+
+接受<code class="literal">true</code>或<code class="literal">false</code> (默认)。
 </p>
 </td>
 </tr>
@@ -262,8 +266,9 @@ the <a class="xref" href="mapping-source-field.html" title="_source field"><code
 </td>
 <td valign="top">
 <p>
-Which scoring algorithm or <em>similarity</em> should be used. Defaults
-to <code class="literal">BM25</code>.
+应该使用哪种评分或<em>相似度</em>算法。
+
+默认为<code class="literal">BM25</code>。
 </p>
 </td>
 </tr>
@@ -275,8 +280,9 @@ to <code class="literal">BM25</code>.
 </td>
 <td valign="top">
 <p>
-How to pre-process the keyword prior to indexing. Defaults to <code class="literal">null</code>,
-meaning the keyword is kept as-is.
+如何在编制索引前预处理 keyword？
+
+默认为<code class="literal">null</code>，表示保持 keyword 不变。
 </p>
 </td>
 </tr>
@@ -288,9 +294,9 @@ meaning the keyword is kept as-is.
 </td>
 <td valign="top">
 <p>
-Whether <a class="xref" href="full-text-queries.html" title="Full text queries">full text queries</a> should split the input on whitespace
-when building a query for this field.
-Accepts <code class="literal">true</code> or <code class="literal">false</code> (default).
+为该字段构建查询时，<a class="xref" href="full-text-queries.html" title="全文查询">全文查询</a>是否应该使用"空白"拆分输入。
+
+接受<code class="literal">true</code>和<code class="literal">false</code> (默认)。
 </p>
 </td>
 </tr>
@@ -301,9 +307,7 @@ Accepts <code class="literal">true</code> or <code class="literal">false</code> 
 </p>
 </td>
 <td valign="top">
-<p>
-Metadata about the field.
-</p>
+<p>字段的元数据。</p>
 </td>
 </tr>
 </tbody>
@@ -312,11 +316,15 @@ Metadata about the field.
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Indexes imported from 2.x do not support <code class="literal">keyword</code>. Instead they will
-attempt to downgrade <code class="literal">keyword</code> into <code class="literal">string</code>. This allows you to merge modern
-mappings with legacy mappings. Long lived indexes will have to be recreated
-before upgrading to 6.x but mapping downgrade gives you the opportunity to do
-the recreation on your own schedule.</p>
+<p>
+从 2.x 版本导入的索引不支持<code class="literal">keyword</code>类型的字段。
+
+相反，他们会尝试将<code class="literal">keyword</code>降级为<code class="literal">string</code>。
+
+这允许你将现代映射与已过时但仍然被广泛使用的映射合并。
+
+在升级到6.x版本之前，必须重新创建将被长期使用的索引，但是映射降级让你有机会按照自己的计划重新创建索引。
+</p>
 </div>
 </div>
 </div>
@@ -324,10 +332,10 @@ the recreation on your own schedule.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="parent-join.html">« Join datatype</a>
+<a href="parent-join.html">« join(联结)数据类型</a>
 </span>
 <span class="next">
-<a href="nested.html">Nested datatype »</a>
+<a href2="nested.html">Nested datatype »</a>
 </span>
 </div>
 </div>

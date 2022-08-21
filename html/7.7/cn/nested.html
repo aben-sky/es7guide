@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Nested datatype | ElasticSearch 7.7 权威指南中文版</title>
+	<title>nested(嵌套)数据类型 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,48 +32,55 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping.html">Mapping</a></span>
+<span class="breadcrumb-link"><a href="mapping.html">映射</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping-types.html">Field datatypes</a></span>
+<span class="breadcrumb-link"><a href="mapping-types.html">字段数据类型</a></span>
 »
-<span class="breadcrumb-node">Nested datatype</span>
+<span class="breadcrumb-node">nested(嵌套)数据类型</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="keyword.html">« Keyword datatype</a>
+<a href="keyword.html">« keyword(关键词)数据类型</a>
 </span>
 <span class="next">
-<a href="number.html">Numeric datatypes »</a>
+<a href2="number.html">Numeric datatypes »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="nested"></a>Nested datatype<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/nested.asciidoc">edit</a>
+<a id="nested"></a>nested(嵌套)数据类型
 </h2>
 </div></div></div>
 
-<p>The <code class="literal">nested</code> type is a specialised version of the <a class="xref" href="object.html" title="Object datatype"><code class="literal">object</code></a> datatype
-that allows arrays of objects to be indexed in a way that they can be queried
-independently of each other.</p>
+<p><code class="literal">nested</code>类型是<a class="xref" href="object.html" title="object数据类型" rel="nofollow"><code class="literal">object</code></a>数据类型的一个特殊版本，它允许以一种可以相互独立查询的方式对对象数组进行索引。</p>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>When ingesting key-value pairs with a large, arbitrary set of keys, you might consider modeling each key-value pair as its own nested document with <code class="literal">key</code> and <code class="literal">value</code> fields. Instead, consider using the <a class="xref" href="flattened.html" title="Flattened datatype">flattened</a> datatype, which maps an entire object as a single field and allows for simple searches over its contents.
-Nested documents and queries are typically expensive, so using the <code class="literal">flattened</code> datatype for this use case is a better option.</p>
+<p>
+当摄入包含大量任意键的键值对时，可以考虑将每个键值对建模为包含<code class="literal">key</code>和<code class="literal">value</code>字段的嵌套文档。
+
+相反，可以考虑使用<a class="xref" href="flattened.html" title="Flattened datatype">flattened</a>数据类型，它将整个对象映射为单个字段，并允许对其内容进行简单的搜索。
+
+嵌套的文档及其查询的代价通常是很高的，因此对于这个用例使用<code class="literal">flattened</code>数据类型是一个更好的选择。
+</p>
 </div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="nested-arrays-flattening-objects"></a>How arrays of objects are flattened<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/nested.asciidoc">edit</a>
+<a id="nested-arrays-flattening-objects"></a>对象数组是如何扁平化的?
 </h3>
 </div></div></div>
-<p>Elasticsearch has no concept of inner objects. Therefore, it flattens object
-hierarchies into a simple list of field names and values. For instance, consider the
-following document:</p>
+<p>
+Elasticsearch没有内部对象的概念。
+
+因此，它将对象层次结构简化为字段名称和值的简单列表。
+
+例如，考虑以下文档：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index/_doc/1
 {
@@ -98,12 +105,12 @@ following document:</p>
 <p><a href="#CO306-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">user</code> field is dynamically added as a field of type <code class="literal">object</code>.</p>
+<p>字段<code class="literal">user</code>是自动添加的，其字段类型为<code class="literal">object</code>。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>The previous document would be transformed internally into a document that looks more like this:</p>
+<p>上面的文档将在内部转换成如下所示的文档：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
   "group" :        "fans",
@@ -111,9 +118,11 @@ following document:</p>
   "user.last" :  [ "smith", "white" ]
 }</pre>
 </div>
-<p>The <code class="literal">user.first</code> and <code class="literal">user.last</code> fields are flattened into multi-value fields,
-and the association between <code class="literal">alice</code> and <code class="literal">white</code> is lost.  This document would
-incorrectly match a query for <code class="literal">alice AND smith</code>:</p>
+<p>
+<code class="literal">user.first</code>和<code class="literal">user.last</code>字段被展平为多值字段，<code class="literal">alice</code>和<code class="literal">white</code>之间的关联丢失。
+
+该文档将错误地匹配查询<code class="literal">alice AND smith</code>：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_index/_search
 {
@@ -133,15 +142,11 @@ incorrectly match a query for <code class="literal">alice AND smith</code>:</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="nested-fields-array-objects"></a>Using <code class="literal">nested</code> fields for arrays of objects<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/nested.asciidoc">edit</a>
+<a id="nested-fields-array-objects"></a>将<code class="literal">nested</code>字段用于对象数组
 </h3>
 </div></div></div>
-<p>If you need to index arrays of objects and to maintain the independence of
-each object in the array, use the <code class="literal">nested</code> datatype instead of the
-<a class="xref" href="object.html" title="Object datatype"><code class="literal">object</code></a> datatype.</p>
-<p>Internally, nested objects index each object in
-the array as a separate hidden document, meaning that each nested object can be
-queried independently of the others with the <a class="xref" href="query-dsl-nested-query.html" title="Nested query"><code class="literal">nested</code> query</a>:</p>
+<p>如果需要索引对象数组并保持数组中每个对象的独立性，请使用<code class="literal">nested</code>数据类型而不是<a class="xref" href="object.html" title="object数据类型" rel="nofollow"><code class="literal">object</code></a>数据类型。</p>
+<p>在内部，嵌套对象将数组中的每个对象作为单独的隐藏文档进行索引，这意味着可以使用<a class="xref" href="query-dsl-nested-query.html" title="嵌套查询"><code class="literal">nested</code>查询</a>独立于其他对象来查询每个嵌套对象：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index
 {
@@ -218,7 +223,7 @@ GET my_index/_search
 <p><a href="#CO307-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">user</code> field is mapped as type <code class="literal">nested</code> instead of type <code class="literal">object</code>.</p>
+<p>字段<code class="literal">user</code>被映射为<code class="literal">nested</code>类型，而不是<code class="literal">object</code>。</p>
 </td>
 </tr>
 <tr>
@@ -226,7 +231,7 @@ GET my_index/_search
 <p><a href="#CO307-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>This query doesn’t match because <code class="literal">Alice</code> and <code class="literal">Smith</code> are not in the same nested object.</p>
+<p>这个查询不能匹配（该文档），因为<code class="literal">Alice</code>和<code class="literal">Smith</code>不是在同一个嵌套对象里。</p>
 </td>
 </tr>
 <tr>
@@ -234,7 +239,7 @@ GET my_index/_search
 <p><a href="#CO307-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>This query matches because <code class="literal">Alice</code> and <code class="literal">White</code> are in the same nested object.</p>
+<p>这个查询能匹配，因为<code class="literal">Alice</code>和<code class="literal">White</code>是在同一个嵌套对象里。</p>
 </td>
 </tr>
 <tr>
@@ -242,7 +247,7 @@ GET my_index/_search
 <p><a href="#CO307-4"><i class="conum" data-value="4"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">inner_hits</code> allow us to highlight the matching nested documents.</p>
+<p><code class="literal">inner_hits</code>允许突出显示匹配的嵌套文档。</p>
 </td>
 </tr>
 </table>
@@ -252,7 +257,7 @@ GET my_index/_search
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="nested-accessing-documents"></a>Interacting with <code class="literal">nested</code> documents<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/nested.asciidoc">edit</a>
+<a id="nested-accessing-documents"></a>与<code class="literal">nested</code>文档交互
 </h3>
 </div></div></div>
 <p>Nested documents can be:</p>
@@ -387,10 +392,10 @@ objects it contains must be below the limit.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="keyword.html">« Keyword datatype</a>
+<a href="keyword.html">« keyword(关键词)数据类型</a>
 </span>
 <span class="next">
-<a href="number.html">Numeric datatypes »</a>
+<a href2="number.html">Numeric datatypes »</a>
 </span>
 </div>
 </div>

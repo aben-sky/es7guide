@@ -1752,8 +1752,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "nested.html",
-                        "text": "Nested",
-                        "title": "Nested"
+                        "text": "nested(嵌套)",
+                        "title": "nested(嵌套)"
                     },
                     {
                         "url": "number.html",

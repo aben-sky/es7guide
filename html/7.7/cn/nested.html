@@ -105,7 +105,7 @@ Elasticsearch没有内部对象的概念。
 <p><a href="#CO306-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>字段<code class="literal">user</code>是自动添加的，其字段类型为<code class="literal">object</code>。</p>
+<p>字段<code class="word">user</code>是自动添加的，其字段类型为<code class="literal">object</code>。</p>
 </td>
 </tr>
 </table>
@@ -119,9 +119,9 @@ Elasticsearch没有内部对象的概念。
 }</pre>
 </div>
 <p>
-<code class="literal">user.first</code>和<code class="literal">user.last</code>字段被展平为多值字段，<code class="literal">alice</code>和<code class="literal">white</code>之间的关联丢失。
+<code class="word">user.first</code>和<code class="word">user.last</code>字段被展平为多值字段，<code class="word">alice</code>和<code class="word">white</code>之间的关联丢失。
 
-该文档将错误地匹配查询<code class="literal">alice AND smith</code>：
+该文档将错误地匹配查询<code class="word">alice AND smith</code>：
 </p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_index/_search
@@ -223,7 +223,7 @@ GET my_index/_search
 <p><a href="#CO307-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>字段<code class="literal">user</code>被映射为<code class="literal">nested</code>类型，而不是<code class="literal">object</code>。</p>
+<p>字段<code class="literal">word</code>被映射为<code class="literal">nested</code>类型，而不是<code class="literal">object</code>。</p>
 </td>
 </tr>
 <tr>
@@ -231,7 +231,7 @@ GET my_index/_search
 <p><a href="#CO307-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>这个查询不能匹配（该文档），因为<code class="literal">Alice</code>和<code class="literal">Smith</code>不是在同一个嵌套对象里。</p>
+<p>这个查询不能匹配（该文档），因为<code class="word">Alice</code>和<code class="word">Smith</code>不是在同一个嵌套对象里。</p>
 </td>
 </tr>
 <tr>
@@ -239,7 +239,7 @@ GET my_index/_search
 <p><a href="#CO307-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>这个查询能匹配，因为<code class="literal">Alice</code>和<code class="literal">White</code>是在同一个嵌套对象里。</p>
+<p>这个查询能匹配，因为<code class="word">Alice</code>和<code class="word">White</code>是在同一个嵌套对象里。</p>
 </td>
 </tr>
 <tr>
@@ -260,37 +260,36 @@ GET my_index/_search
 <a id="nested-accessing-documents"></a>与<code class="literal">nested</code>文档交互
 </h3>
 </div></div></div>
-<p>Nested documents can be:</p>
+<p>嵌套文档可以：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-queried with the <a class="xref" href="query-dsl-nested-query.html" title="Nested query"><code class="literal">nested</code></a> query.
+使用<a class="xref" href="query-dsl-nested-query.html" title="Nested query"><code class="literal">nested</code></a>查询对其进行查询。
 </li>
 <li class="listitem">
-analyzed with the <a class="xref" href="search-aggregations-bucket-nested-aggregation.html" title="Nested Aggregation"><code class="literal">nested</code></a>
-and <a class="xref" href="search-aggregations-bucket-reverse-nested-aggregation.html" title="Reverse nested Aggregation"><code class="literal">reverse_nested</code></a>
-aggregations.
+使用<a class="xref" href="search-aggregations-bucket-nested-aggregation.html" title="嵌套聚合"><code class="literal">nested</code></a>和<a class="xref" href="search-aggregations-bucket-reverse-nested-aggregation.html" title="反向嵌套聚合"><code class="literal">reverse_nested</code></a>聚合对其进行分析
 </li>
 <li class="listitem">
-sorted with <a class="xref" href="search-request-body.html#nested-sorting" title="Sorting within nested objects.">nested sorting</a>.
+使用<a class="xref" href="search-request-body.html#nested-sorting" title="使用嵌套排序" rel="nofollow">嵌套排序</a>进行排序。
 </li>
 <li class="listitem">
-retrieved and highlighted with <a class="xref" href="search-request-body.html#nested-inner-hits" title="Nested inner hits">nested inner hits</a>.
+使用<a class="xref" href="search-request-body.html#nested-inner-hits" title="嵌套内部命中" rel="nofollow">嵌套内部命中</a>来获取并高亮。
 </li>
 </ul>
 </div>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Because nested documents are indexed as separate documents, they can only be
-accessed  within the scope of the <code class="literal">nested</code> query, the
-<code class="literal">nested</code>/<code class="literal">reverse_nested</code> aggregations, or <a class="xref" href="search-request-body.html#nested-inner-hits" title="Nested inner hits">nested inner hits</a>.</p>
-<p>For instance, if a string field within a nested document has
-<a class="xref" href="index-options.html" title="index_options"><code class="literal">index_options</code></a> set to <code class="literal">offsets</code> to allow use of the postings
-during the highlighting, these offsets will not be available during the main highlighting
-phase.  Instead, highlighting needs to be performed via
-<a class="xref" href="search-request-body.html#nested-inner-hits" title="Nested inner hits">nested inner hits</a>. The same consideration applies when loading
-fields during a search through <a class="xref" href="run-a-search.html#docvalue-fields" title="Doc value fields"><code class="literal">docvalue_fields</code></a> or <a class="xref" href="search-request-body.html#request-body-search-stored-fields" title="Stored Fields"><code class="literal">stored_fields</code></a>.</p>
+<p>
+因为嵌套文档是作为单独的文档进行索引的，所以只能在<code class="literal">nested</code>查询、<code class="literal">nested</code>/<code class="literal">reverse_nested</code>聚合或<a class="xref" href="search-request-body.html#nested-inner-hits" title="嵌套内部命中" rel="nofollow">嵌套内部命中</a>的范围内访问它们。
+</p>
+<p>
+例如，如果嵌套文档中的字符串字段将<a class="xref" href="index-options.html" title="index_options" rel="nofollow"><code class="literal">index_options</code></a>设置为<code class="literal">offsets</code>以允许在高亮阶段使用发布，则这些 offsets 在高亮阶段(主要阶段之一)将不可用。
+
+相反，高亮需要通过<a class="xref" href="search-request-body.html#nested-inner-hits" title="嵌套内部命中">嵌套内部命中</a>来执行。
+
+在通过<a class="xref" href="run-a-search.html#docvalue-fields" title="文档值字段" rel="nofollow"><code class="literal">docvalue_fields</code></a>或<a class="xref" href="search-request-body.html#request-body-search-stored-fields" title="存储字段" rel="nofollow"><code class="literal">stored_fields</code></a>进行搜索的过程中加载字段时，同样的注意事项也适用。
+</p>
 </div>
 </div>
 </div>
@@ -298,10 +297,12 @@ fields during a search through <a class="xref" href="run-a-search.html#docvalue-
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="nested-params"></a>Parameters for <code class="literal">nested</code> fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/nested.asciidoc">edit</a>
+<a id="nested-params"></a><code class="literal">nested</code>字段的参数
 </h3>
 </div></div></div>
-<p>The following parameters are accepted by <code class="literal">nested</code> fields:</p>
+<p>
+<code class="literal">nested</code>字段接受下列参数：
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -310,9 +311,10 @@ fields during a search through <a class="xref" href="run-a-search.html#docvalue-
 </span>
 </dt>
 <dd>
-(Optional, string)
-Whether or not new <code class="literal">properties</code> should be added dynamically to an existing
-nested object.  Accepts <code class="literal">true</code> (default), <code class="literal">false</code> and <code class="literal">strict</code>.
+(可选，字符串)
+新属性(<code class="literal">properties</code>)是否应该被动态的添加到一个已有的嵌套对象中。
+
+接受<code class="literal">true</code>(默认)，<code class="literal">false</code>及<code class="literal">strict</code>。
 </dd>
 <dt>
 <span class="term">
@@ -320,10 +322,10 @@ nested object.  Accepts <code class="literal">true</code> (default), <code class
 </span>
 </dt>
 <dd>
-(Optional, object)
-The fields within the nested object, which can be of any
-<a class="xref" href="mapping-types.html" title="Field datatypes">datatype</a>, including <code class="literal">nested</code>. New properties
-may be added to an existing nested object.
+(可选，对象)
+嵌套对象内的字段，可以认识任意一种<a class="xref" href="mapping-types.html" title="字段数据类型">数据类型</a>，包含<code class="literal">nested</code>。
+
+新属性可能会被添加到一个已有的嵌套对象。
 </dd>
 <dt>
 <span class="term">
@@ -331,9 +333,11 @@ may be added to an existing nested object.
 </span>
 </dt>
 <dd>
-(Optional, boolean)
-If <code class="literal">true</code>, all fields in the nested object are also added to the parent document
-as standard (flat) fields. Defaults to <code class="literal">false</code>.
+(可选，布尔)
+
+如果为<code class="literal">true</code>，嵌套对象中的所有字段也将作为标准(扁平的)字段添加到父文档中。
+
+默认为<code class="literal">false</code>。
 </dd>
 <dt>
 <span class="term">
@@ -341,20 +345,24 @@ as standard (flat) fields. Defaults to <code class="literal">false</code>.
 </span>
 </dt>
 <dd>
-(Optional, boolean)
-If <code class="literal">true</code>, all fields in the nested object are also added to the root
-document as standard (flat) fields. Defaults to <code class="literal">false</code>.
+(可选，布尔)
+
+如果为<code class="literal">true</code>，嵌套对象中的所有字段也将作为标准(扁平的)字段添加到根文档中。
+
+默认为<code class="literal">false</code>。
 </dd>
 </dl>
 </div>
 <h3>
-<a id="_limits_on_nested_mappings_and_objects"></a>Limits on <code class="literal">nested</code> mappings and objects<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/nested.asciidoc">edit</a>
+<a id="_limits_on_nested_mappings_and_objects"></a><code class="literal">nested</code>映射和对象的限制
 </h3>
-<p>As described earlier, each nested object is indexed as a separate Lucene document.
-Continuing with the previous example, if we indexed a single document containing 100 <code class="literal">user</code> objects,
-then 101 Lucene documents would be created: one for the parent document, and one for each
-nested object. Because of the expense associated with <code class="literal">nested</code> mappings, Elasticsearch puts
-settings in place to guard against performance problems:</p>
+<p>
+如前所述，每个嵌套对象都作为一个单独的 Lucene 文档进行索引。
+
+接着前面的例子，如果我们索引一个包含 100 个<code class="word">user</code>对象的文档，那么将会创建 101 个 Lucene 文档：父文档一个，每个嵌套对象一个。
+
+由于与<code class="literal">nested</code>映射相关的开销，Elasticsearch 进行了一些设置来防止性能问题:
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -363,12 +371,17 @@ settings in place to guard against performance problems:</p>
 </span>
 </dt>
 <dd>
-The maximum number of distinct <code class="literal">nested</code> mappings in an index. The <code class="literal">nested</code> type should only be used in special cases, when arrays of objects need to be queried independently of each other. To safeguard against poorly designed mappings, this setting
-limits the number of unique <code class="literal">nested</code> types per index. Default is <code class="literal">50</code>.
+一个索引中不同<code class="literal">nested</code>映射的最大数量。
+
+<code class="literal">nested</code>类型应该只在特殊情况下使用，即当对象数组需要彼此独立地查询时。
+
+为了防止映射设计不当，该设置限制了每个索引的唯一<code class="literal">nested</code>类型的数量。
+
+默认值为<code class="literal">50</code>。
 </dd>
 </dl>
 </div>
-<p>In the previous example, the <code class="literal">user</code> mapping would count as only 1 towards this limit.</p>
+<p>在前面的例子中，<code class="word">user</code>映射对这个限制只计为 1。</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -377,16 +390,20 @@ limits the number of unique <code class="literal">nested</code> types per index.
 </span>
 </dt>
 <dd>
-The maximum number of nested JSON objects that a single document can contain across all
-<code class="literal">nested</code> types. This limit helps to prevent out of memory errors when a document contains too many nested
-objects. Default is <code class="literal">10000</code>.
+单个文档在所有<code class="literal">nested</code>类型中可以包含的嵌套 JSON 对象的最大数量。
+
+当文档包含太多嵌套对象时，此限制有助于防止内存不足错误。
+
+默认值为<code class="literal">10000</code>。
 </dd>
 </dl>
 </div>
-<p>To illustrate how this setting works, consider adding another <code class="literal">nested</code> type called <code class="literal">comments</code>
-to the previous example mapping. For each document, the combined number of <code class="literal">user</code> and <code class="literal">comment</code>
-objects it contains must be below the limit.</p>
-<p>See <a class="xref" href="mapping.html#mapping-limit-settings" title="Settings to prevent mappings explosion">Settings to prevent mappings explosion</a> regarding additional settings for preventing mappings explosion.</p>
+<p>
+为了说明这个设置是如何工作的，考虑在前面的示例映射中添加另一个名为<code class="word">comments</code>的<code class="literal">nested</code>类型。
+
+对于每个文档，它包含的<code class="word">user</code>和<code class="word">comment</code>对象的总数必须低于该限制。
+</p>
+<p>有关防止映射爆炸的其他设置，请参考<a class="xref" href="mapping.html#mapping-limit-settings" title="Settings to prevent mappings explosion">防止映射爆炸的设置</a>。</p>
 </div>
 
 </div>

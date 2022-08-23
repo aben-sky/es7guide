@@ -1757,8 +1757,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "number.html",
-                        "text": "Numeric",
-                        "title": "Numeric"
+                        "text": "numeric(数值)",
+                        "title": "numeric(数值)"
                     },
                     {
                         "url": "object.html",

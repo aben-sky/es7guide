@@ -87,12 +87,12 @@ keyword 字段只能通过它们的确切值进行搜索。
 
 Elasticsearch 为<a class="xref" href="query-dsl-range-query.html" title="范围查询"><code class="literal">范围(range)</code></a>查询优化数值型字段，如<code class="literal">integer</code>或<code class="literal">long</code>。
 
-但是，<code class="literal">keyword</code>字段更适合于<a class="xref" href="query-dsl-term-query.html" title="Term query"><code class="literal">term</code></a>和其他<a class="xref" href="term-level-queries.html" title="词项级查询">词项级</a>的查询。
+但是，<code class="literal">keyword</code>字段更适合于<a class="xref" href="query-dsl-term-query.html" title="term 查询"><code class="literal">term</code></a>和其他<a class="xref" href="term-level-queries.html" title="词级查询">词级</a>查询。
 </p>
 <p>
 标识(identifier)，如 ISBN 或产品ID，很少在<code class="literal">范围(range)</code>查询中使用。
 
-但是，通常使用词项级查询来检索它们。
+但是，通常使用词级查询来检索它们。
 </p>
 <p>在以下情况下，考虑将数值型标识映射为<code class="literal">keyword</code>：</p>
 <div class="ulist itemizedlist">
@@ -129,7 +129,7 @@ Elasticsearch 为<a class="xref" href="query-dsl-range-query.html" title="范围
 <tr>
 <td valign="top">
 <p>
-<a class="xref" href="mapping-boost.html" title="boost"><code class="literal">boost</code></a>
+<a class="xref" href="mapping-boost.html" title="boost" rel="nofollow"><code class="literal">boost</code></a>
 </p>
 </td>
 <td valign="top">
@@ -139,19 +139,19 @@ Elasticsearch 为<a class="xref" href="query-dsl-range-query.html" title="范围
 <tr>
 <td valign="top">
 <p>
-<a class="xref" href="doc-values.html" title="doc_values"><code class="literal">doc_values</code></a>
+<a class="xref" href="doc-values.html" title="doc_values" rel="nofollow"><code class="literal">doc_values</code></a>
 </p>
 </td>
 <td valign="top">
 <p>
-是否应该以列步幅(column-stride)的方式将字段存储在磁盘上，以便以后用于排序、聚合或编写脚本? 接受<code class="literal">true</code>(默认) 或<code class="literal">false</code>.。
+是否应该以列跨度(column-stride)的方式将字段存储在磁盘上，以便以后用于排序、聚合或编写脚本? 接受<code class="literal">true</code>(默认) 或<code class="literal">false</code>。
 </p>
 </td>
 </tr>
 <tr>
 <td valign="top">
 <p>
-<a class="xref" href="eager-global-ordinals.html" title="eager_global_ordinals"><code class="literal">eager_global_ordinals</code></a>
+<a class="xref" href="eager-global-ordinals.html" title="eager_global_ordinals" rel="nofollow"><code class="literal">eager_global_ordinals</code></a>
 </p>
 </td>
 <td valign="top">
@@ -167,7 +167,7 @@ refresh 时应该急切地加载全局序号吗？
 <tr>
 <td valign="top">
 <p>
-<a class="xref" href="multi-fields.html" title="fields"><code class="literal">fields</code></a>
+<a class="xref" href="multi-fields.html" title="fields" rel="nofollow"><code class="literal">fields</code></a>
 </p>
 </td>
 <td valign="top">
@@ -177,7 +177,7 @@ refresh 时应该急切地加载全局序号吗？
 <tr>
 <td valign="top">
 <p>
-<a class="xref" href="ignore-above.html" title="ignore_above"><code class="literal">ignore_above</code></a>
+<a class="xref" href="ignore-above.html" title="ignore_above" rel="nofollow"><code class="literal">ignore_above</code></a>
 </p>
 </td>
 <td valign="top">
@@ -193,7 +193,7 @@ refresh 时应该急切地加载全局序号吗？
 <tr>
 <td valign="top">
 <p>
-<a class="xref" href="mapping-index.html" title="index"><code class="literal">index</code></a>
+<a class="xref" href="mapping-index.html" title="index" rel="nofollow"><code class="literal">index</code></a>
 </p>
 </td>
 <td valign="top">
@@ -205,7 +205,7 @@ refresh 时应该急切地加载全局序号吗？
 <tr>
 <td valign="top">
 <p>
-<a class="xref" href="index-options.html" title="index_options"><code class="literal">index_options</code></a>
+<a class="xref" href="index-options.html" title="index_options" rel="nofollow"><code class="literal">index_options</code></a>
 </p>
 </td>
 <td valign="top">
@@ -219,7 +219,7 @@ refresh 时应该急切地加载全局序号吗？
 <tr>
 <td valign="top">
 <p>
-<a class="xref" href="norms.html" title="norms"><code class="literal">norms</code></a>
+<a class="xref" href="norms.html" title="norms" rel="nofollow"><code class="literal">norms</code></a>
 </p>
 </td>
 <td valign="top">
@@ -233,7 +233,7 @@ refresh 时应该急切地加载全局序号吗？
 <tr>
 <td valign="top">
 <p>
-<a class="xref" href="null-value.html" title="null_value"><code class="literal">null_value</code></a>
+<a class="xref" href="null-value.html" title="null_value" rel="nofollow"><code class="literal">null_value</code></a>
 </p>
 </td>
 <td valign="top">
@@ -247,7 +247,7 @@ refresh 时应该急切地加载全局序号吗？
 <tr>
 <td valign="top">
 <p>
-<a class="xref" href="mapping-store.html" title="store"><code class="literal">store</code></a>
+<a class="xref" href="mapping-store.html" title="store" rel="nofollow"><code class="literal">store</code></a>
 </p>
 </td>
 <td valign="top">
@@ -261,7 +261,7 @@ refresh 时应该急切地加载全局序号吗？
 <tr>
 <td valign="top">
 <p>
-<a class="xref" href="similarity.html" title="similarity"><code class="literal">similarity</code></a>
+<a class="xref" href="similarity.html" title="similarity" rel="nofollow"><code class="literal">similarity</code></a>
 </p>
 </td>
 <td valign="top">
@@ -275,7 +275,7 @@ refresh 时应该急切地加载全局序号吗？
 <tr>
 <td valign="top">
 <p>
-<a class="xref" href="normalizer.html" title="normalizer"><code class="literal">normalizer</code></a>
+<a class="xref" href="normalizer.html" title="normalizer" rel="nofollow"><code class="literal">normalizer</code></a>
 </p>
 </td>
 <td valign="top">
@@ -303,7 +303,7 @@ refresh 时应该急切地加载全局序号吗？
 <tr>
 <td valign="top">
 <p>
-<a class="xref" href="mapping-field-meta.html" title="meta"><code class="literal">meta</code></a>
+<a class="xref" href="mapping-field-meta.html" title="meta" rel="nofollow"><code class="literal">meta</code></a>
 </p>
 </td>
 <td valign="top">

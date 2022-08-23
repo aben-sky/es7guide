@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Numeric datatypes | ElasticSearch 7.7 权威指南中文版</title>
+	<title>numeric(数值)数据类型 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,30 +32,30 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping.html">Mapping</a></span>
+<span class="breadcrumb-link"><a href="mapping.html">映射</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping-types.html">Field datatypes</a></span>
+<span class="breadcrumb-link"><a href="mapping-types.html">字段数据类型</a></span>
 »
-<span class="breadcrumb-node">Numeric datatypes</span>
+<span class="breadcrumb-node">numeric(数值)数据类型</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="nested.html">« Nested datatype</a>
+<a href="nested.html">« nested(嵌套)数据类型</a>
 </span>
 <span class="next">
-<a href="object.html">Object datatype »</a>
+<a href2="object.html">Object datatype »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="number"></a>Numeric datatypes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/numeric.asciidoc">edit</a>
+<a id="number"></a>numeric(数值)数据类型
 </h2>
 </div></div></div>
 
-<p>The following numeric types are supported:</p>
+<p>支持以下8种数字类型：</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -71,7 +71,7 @@
 </td>
 <td valign="top">
 <p>
-A signed 64-bit integer with a minimum value of <code class="literal">-2<sup>63</sup></code> and a maximum value of <code class="literal">2<sup>63</sup>-1</code>.
+带符号的64位整数，最小值为<code class="literal">-2<sup>63</sup></code>，最大值为<code class="literal">2<sup>63</sup>-1</code>。
 </p>
 </td>
 </tr>
@@ -83,7 +83,7 @@ A signed 64-bit integer with a minimum value of <code class="literal">-2<sup>63<
 </td>
 <td valign="top">
 <p>
-A signed 32-bit integer with a minimum value of <code class="literal">-2<sup>31</sup></code> and a maximum value of <code class="literal">2<sup>31</sup>-1</code>.
+带符号的32位整数，最小值为<code class="literal">-2<sup>31</sup></code>，最大值为<code class="literal">2<sup>31</sup>-1</code>。
 </p>
 </td>
 </tr>
@@ -95,7 +95,7 @@ A signed 32-bit integer with a minimum value of <code class="literal">-2<sup>31<
 </td>
 <td valign="top">
 <p>
-A signed 16-bit integer with a minimum value of <code class="literal">-32,768</code> and a maximum value of <code class="literal">32,767</code>.
+带符号的16位整数，最小值为<code class="literal">-32,768</code>，最大值为<code class="literal">32,767</code>。
 </p>
 </td>
 </tr>
@@ -107,7 +107,7 @@ A signed 16-bit integer with a minimum value of <code class="literal">-32,768</c
 </td>
 <td valign="top">
 <p>
-A signed 8-bit integer with a minimum value of <code class="literal">-128</code> and a maximum value of <code class="literal">127</code>.
+带符号的8位整数，最小值为<code class="literal">-128</code>，最大值为<code class="literal">127</code>。
 </p>
 </td>
 </tr>
@@ -119,7 +119,7 @@ A signed 8-bit integer with a minimum value of <code class="literal">-128</code>
 </td>
 <td valign="top">
 <p>
-A double-precision 64-bit IEEE 754 floating point number, restricted to finite values.
+双精度64位 IEEE 754 浮点数，仅限于有限值。
 </p>
 </td>
 </tr>
@@ -131,7 +131,7 @@ A double-precision 64-bit IEEE 754 floating point number, restricted to finite v
 </td>
 <td valign="top">
 <p>
-A single-precision 32-bit IEEE 754 floating point number, restricted to finite values.
+单精度32位 IEEE 754 浮点数，仅限于有限值。
 </p>
 </td>
 </tr>
@@ -143,7 +143,7 @@ A single-precision 32-bit IEEE 754 floating point number, restricted to finite v
 </td>
 <td valign="top">
 <p>
-A half-precision 16-bit IEEE 754 floating point number, restricted to finite values.
+半精度32位 IEEE 754 浮点数，仅限于有限值。
 </p>
 </td>
 </tr>
@@ -155,14 +155,14 @@ A half-precision 16-bit IEEE 754 floating point number, restricted to finite val
 </td>
 <td valign="top">
 <p>
-A floating point number that is backed by a <code class="literal">long</code>, scaled by a fixed <code class="literal">double</code> scaling factor.
+一个由<code class="literal">long</code>支持的浮点数，按固定的<code class="literal">double</code>缩放因子进行缩放。
 </p>
 </td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>Below is an example of configuring a mapping with numeric fields:</p>
+<p>下面是一个使用 numeric 字段配置映射的示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index
 {
@@ -186,41 +186,48 @@ A floating point number that is backed by a <code class="literal">long</code>, s
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>The <code class="literal">double</code>, <code class="literal">float</code> and <code class="literal">half_float</code> types consider that <code class="literal">-0.0</code> and
-<code class="literal">+0.0</code> are different values. As a consequence, doing a <code class="literal">term</code> query on
-<code class="literal">-0.0</code> will not match <code class="literal">+0.0</code> and vice-versa. Same is true for range queries:
-if the upper bound is <code class="literal">-0.0</code> then <code class="literal">+0.0</code> will not match, and if the lower
-bound is <code class="literal">+0.0</code> then <code class="literal">-0.0</code> will not match.</p>
+<p>
+<code class="literal">double</code>、<code class="literal">float</code>及<code class="literal">half_float</code>类型认为<code class="literal">-0.0</code>和<code class="literal">+0.0</code>的值是不同的。
+
+因此，在<code class="literal">-0.0</code>上进行<code class="literal">term</code>查询将与<code class="literal">+0.0</code>不匹配，反之亦然。
+
+对于 range 查询也是一样：如果上限是<code class="literal">-0.0</code>，则<code class="literal">+0.0</code>将不匹配，如果下限是<code class="literal">+0.0</code>，则<code class="literal">-0.0</code>将不匹配。
+</p>
 </div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="_which_type_should_i_use"></a>Which type should I use?<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/numeric.asciidoc">edit</a>
+<a id="_which_type_should_i_use"></a>应该使用哪一种类型？
 </h3>
 </div></div></div>
-<p>As far as integer types (<code class="literal">byte</code>, <code class="literal">short</code>, <code class="literal">integer</code> and <code class="literal">long</code>) are concerned,
-you should pick the smallest type which is enough for your use-case. This will
-help indexing and searching be more efficient. Note however that storage is
-optimized based on the actual values that are stored, so picking one type over
-another one will have no impact on storage requirements.</p>
-<p>For floating-point types, it is often more efficient to store floating-point
-data into an integer using a scaling factor, which is what the <code class="literal">scaled_float</code>
-type does under the hood. For instance, a <code class="literal">price</code> field could be stored in a
-<code class="literal">scaled_float</code> with a <code class="literal">scaling_factor</code> of <code class="literal">100</code>. All APIs would work as if
-the field was stored as a double, but under the hood Elasticsearch would be
-working with the number of cents, <code class="literal">price*100</code>, which is an integer. This is
-mostly helpful to save disk space since integers are way easier to compress
-than floating points. <code class="literal">scaled_float</code> is also fine to use in order to trade
-accuracy for disk space. For instance imagine that you are tracking cpu
-utilization as a number between <code class="literal">0</code> and <code class="literal">1</code>. It usually does not matter much
-whether cpu utilization is <code class="literal">12.7%</code> or <code class="literal">13%</code>, so you could use a <code class="literal">scaled_float</code>
-with a <code class="literal">scaling_factor</code> of <code class="literal">100</code> in order to round cpu utilization to the
-closest percent in order to save space.</p>
-<p>If <code class="literal">scaled_float</code> is not a good fit, then you should pick the smallest type
-that is enough for the use-case among the floating-point types: <code class="literal">double</code>,
-<code class="literal">float</code> and <code class="literal">half_float</code>. Here is a table that compares these types in order
-to help make a decision.</p>
+<p>
+就整数类型(<code class="literal">byte</code>、<code class="literal">short</code>、<code class="literal">integer</code>和<code class="literal">long</code>)而言，应该选择满足用例的最小类型。
+
+这将有助于提高编制索引和搜索的效率。
+
+但是请注意，存储是基于存储的实际值进行优化的，因此选择一种类型而不是另一种类型不会影响存储需求。
+</p>
+<p>
+对于浮点类型，使用缩放因子将浮点数据存储到整数中通常更有效，这就是<code class="literal">scaled_float</code>类型在底层所做的。 
+
+例如，<code class="literal">price</code>字段可以存储在<code class="literal">scaling_factor</code>值为<code class="literal">100</code>的<code class="literal">scaled_float</code>中。
+
+所有api的工作原理都是将字段存储为一个 double 类型，但实际上 Elasticsearch 的工作原理是使用一个美分的数值，<code class="literal">price*100</code>，这是一个整数。 
+
+这对于节省磁盘空间很有帮助，因为整数比浮点更容易压缩。
+
+<code class="literal">scaled_float</code>也可以用来以精度换取磁盘空间。
+
+例如，假设你正在跟踪一个<code class="word">0</code>到<code class="word">1</code>之间的数字的 cpu 利用率。
+
+cpu 利用率是<code class="word">12.7%</code>还是<code class="word">13%</code>通常没有多大关系，因此可以使用<code class="literal">scaling_factor</code> 值为<code class="word">100</code>的<code class="literal">scaled_float</code>，以便将 cpu 利用率四舍五入到最接近的百分比，从而节省空间。
+</p>
+<p>
+如果<code class="literal">scaled_float</code>不是一个很好的选择，那么ni 应该在浮点类型(<code class="literal">double</code>、<code class="literal">float</code>及<code class="literal">half_float</code>)中选择一个对用例来说足够的最小类型。
+
+下面这个表格对这些类型进行了比较，以帮助你做出决定。
+</p>
 <div class="informaltable">
 <table border="1" cellpadding="4px">
 <colgroup>
@@ -231,10 +238,10 @@ to help make a decision.</p>
 </colgroup>
 <thead>
 <tr>
-<th align="left" valign="top">Type</th>
-<th align="left" valign="top">Minimum value</th>
-<th align="left" valign="top">Maximum value</th>
-<th align="left" valign="top">Significant bits / digits</th>
+<th align="left" valign="top">类型</th>
+<th align="left" valign="top">最小值</th>
+<th align="left" valign="top">最大值</th>
+<th align="left" valign="top">有效位数/数字</th>
 </tr>
 </thead>
 <tbody>
@@ -262,29 +269,35 @@ to help make a decision.</p>
 <div class="tip admon">
 <div class="icon"></div>
 <div class="admon_content">
-<h3>Mapping numeric identifiers</h3>
-<p>Not all numeric data should be mapped as a <a class="xref" href="number.html" title="Numeric datatypes">numeric</a> field datatype.
-Elasticsearch optimizes numeric fields, such as <code class="literal">integer</code> or <code class="literal">long</code>, for
-<a class="xref" href="query-dsl-range-query.html" title="Range query"><code class="literal">range</code></a> queries. However, <a class="xref" href="keyword.html" title="Keyword datatype"><code class="literal">keyword</code></a> fields
-are better for <a class="xref" href="query-dsl-term-query.html" title="Term query"><code class="literal">term</code></a> and other
-<a class="xref" href="term-level-queries.html" title="Term-level queries">term-level</a> queries.</p>
-<p>Identifiers, such as an ISBN or a product ID, are rarely used in <code class="literal">range</code>
-queries. However, they are often retrieved using term-level queries.</p>
-<p>Consider mapping a numeric identifier as a <code class="literal">keyword</code> if:</p>
+<h3>映射数值型标识</h3>
+<p>
+并非所有数值数据都应映射为<a class="xref" href="number.html" title="numeric数据类型" rel="nofollow">数值型</a>字段数据类型。
+
+Elasticsearch 为<a class="xref" href="query-dsl-range-query.html" title="范围查询"><code class="literal">范围(range)</code></a>查询优化数值型字段，如<code class="literal">integer</code>或<code class="literal">long</code>。
+
+但是，<code class="literal">keyword</code>字段更适合于<a class="xref" href="query-dsl-term-query.html" title="term 查询"><code class="literal">term</code></a>和其他<a class="xref" href="term-level-queries.html" title="词级查询">词级</a>查询。
+</p>
+<p>
+标识(identifier)，如 ISBN 或产品ID，很少在<code class="literal">范围(range)</code>查询中使用。
+
+但是，通常使用词级查询来检索它们。
+</p>
+<p>在以下情况下，考虑将数值型标识映射为<code class="literal">keyword</code>：</p>
 <div class="ulist itemizedlist">
 <ul class="itemizedlist">
 <li class="listitem">
-You don’t plan to search for the identifier data using
-<a class="xref" href="query-dsl-range-query.html" title="Range query"><code class="literal">range</code></a> queries.
+你不打算使用<a class="xref" href="query-dsl-range-query.html" title="范围查询"><code class="literal">range</code></a>查询来搜索标识数据。
 </li>
 <li class="listitem">
-Fast retrieval is important. <code class="literal">term</code> query searches on <code class="literal">keyword</code> fields are
-often faster than <code class="literal">term</code> searches on numeric fields.
+快速检索很重要。
+
+<code class="literal">keyword</code>字段上的<code class="literal">term</code>查询搜索通常比数值型字段上的<code class="literal">term</code>搜索更快。
 </li>
 </ul>
 </div>
-<p>If you’re unsure which to use, you can use a <a class="xref" href="multi-fields.html" title="fields">multi-field</a> to map
-the data as both a <code class="literal">keyword</code> <em>and</em> a numeric datatype.</p>
+<p>
+如果你不确定应该使用哪一种，可以使用<a class="xref" href="multi-fields.html" title="fields">多字段(multi-field)</a>将数据映射为<code class="literal">keyword</code><em>和</em>数值型数据类型。
+</p>
 </div>
 </div>
 </div>
@@ -292,10 +305,10 @@ the data as both a <code class="literal">keyword</code> <em>and</em> a numeric d
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="number-params"></a>Parameters for numeric fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/numeric.asciidoc">edit</a>
+<a id="number-params"></a>数值字段的参数
 </h3>
 </div></div></div>
-<p>The following parameters are accepted by numeric types:</p>
+<p>数值类型接受以下参数:</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -310,10 +323,7 @@ the data as both a <code class="literal">keyword</code> <em>and</em> a numeric d
 </p>
 </td>
 <td valign="top">
-<p>
-Try to convert strings to numbers and truncate fractions for integers.
-Accepts <code class="literal">true</code> (default) and <code class="literal">false</code>.
-</p>
+<p>尝试将字符串转换为数字，并截断整数的小数部分。接受<code class="literal">true</code> (默认) 和<code class="literal">false</code>。</p>
 </td>
 </tr>
 <tr>
@@ -323,10 +333,7 @@ Accepts <code class="literal">true</code> (default) and <code class="literal">fa
 </p>
 </td>
 <td valign="top">
-<p>
-Mapping field-level query time boosting. Accepts a floating point number, defaults
-to <code class="literal">1.0</code>.
-</p>
+<p>映射字段级查询时提升。接受浮点数，默认值为<code class="literal">1.0</code>。</p>
 </td>
 </tr>
 <tr>
@@ -337,9 +344,7 @@ to <code class="literal">1.0</code>.
 </td>
 <td valign="top">
 <p>
-Should the field be stored on disk in a column-stride fashion, so that it
-can later be used for sorting, aggregations, or scripting? Accepts <code class="literal">true</code>
-(default) or <code class="literal">false</code>.
+是否应该以列跨度(column-stride)的方式将字段存储在磁盘上，以便以后用于排序、聚合或编写脚本? 接受<code class="literal">true</code>(默认) 或<code class="literal">false</code>。
 </p>
 </td>
 </tr>
@@ -351,8 +356,9 @@ can later be used for sorting, aggregations, or scripting? Accepts <code class="
 </td>
 <td valign="top">
 <p>
-If <code class="literal">true</code>, malformed numbers are ignored. If <code class="literal">false</code> (default), malformed
-numbers throw an exception and reject the whole document.
+如果为<code class="literal">true</code>，则忽略格式错误的数字。
+
+如果为<code class="literal">false</code>(默认值)，格式错误的数字会抛出异常并拒绝整个文档。
 </p>
 </td>
 </tr>
@@ -364,7 +370,7 @@ numbers throw an exception and reject the whole document.
 </td>
 <td valign="top">
 <p>
-Should the field be searchable? Accepts <code class="literal">true</code> (default) and <code class="literal">false</code>.
+该字段应该是可搜索的吗？接受<code class="literal">true</code> (默认) 和 <code class="literal">false</code>。
 </p>
 </td>
 </tr>
@@ -376,9 +382,9 @@ Should the field be searchable? Accepts <code class="literal">true</code> (defau
 </td>
 <td valign="top">
 <p>
-Accepts a numeric value of the same <code class="literal">type</code> as the field which is
-substituted for any explicit <code class="literal">null</code> values.  Defaults to <code class="literal">null</code>, which
-means the field is treated as missing.
+接受与字段<code class="literal">type</code>相同的数值，用于替换任何显式<code class="literal">null</code>值。
+
+默认值为<code class="literal">null</code>，这意味着该字段被视为缺失。
 </p>
 </td>
 </tr>
@@ -390,9 +396,9 @@ means the field is treated as missing.
 </td>
 <td valign="top">
 <p>
-Whether the field value should be stored and retrievable separately from
-the <a class="xref" href="mapping-source-field.html" title="_source field"><code class="literal">_source</code></a> field. Accepts <code class="literal">true</code> or <code class="literal">false</code>
-(default).
+字段值是否应该与<a class="xref" href="mapping-source-field.html" title="_source字段" rel="nofollow"><code class="literal">_source</code></a>字段分开存储和检索。
+
+接受<code class="literal">true</code>或<code class="literal">false</code> (默认)。
 </p>
 </td>
 </tr>
@@ -404,7 +410,7 @@ the <a class="xref" href="mapping-source-field.html" title="_source field"><code
 </td>
 <td valign="top">
 <p>
-Metadata about the field.
+字段的元数据。
 </p>
 </td>
 </tr>
@@ -416,10 +422,10 @@ Metadata about the field.
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="scaled-float-params"></a>Parameters for <code class="literal">scaled_float</code><a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/numeric.asciidoc">edit</a>
+<a id="scaled-float-params"></a><code class="literal">scaled_float</code>的参数
 </h3>
 </div></div></div>
-<p><code class="literal">scaled_float</code> accepts an additional parameter:</p>
+<p><code class="literal">scaled_float</code>接受一个额外的参数：</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -435,13 +441,15 @@ Metadata about the field.
 </td>
 <td valign="top">
 <p>
-The scaling factor to use when encoding values. Values will be multiplied
-by this factor at index time and rounded to the closest long value. For
-instance, a <code class="literal">scaled_float</code> with a <code class="literal">scaling_factor</code> of <code class="literal">10</code> would internally
-store <code class="literal">2.34</code> as <code class="literal">23</code> and all search-time operations (queries, aggregations,
-sorting) will behave as if the document had a value of <code class="literal">2.3</code>. High values
-of <code class="literal">scaling_factor</code> improve accuracy but also increase space requirements.
-This parameter is required.
+对值进行编码时使用的缩放因子。
+
+值将在编制索引时乘以该因子，并舍入到最接近的长整型(long)值。
+
+例如，<code class="literal">scaled_float</code>的<code class="literal">scaling_factor</code>为<code class="literal">10</code>，它会在内部将<code class="literal">2.34</code>存储为<code class="literal">23</code>，所有搜索时操作(查询、聚合、排序)都将表现为文档的值为<code class="literal">2.3</code>。
+
+较高的<code class="literal">scaling_factor</code>值提高了精度，但也增加了空间需求。
+
+此参数是必需的。
 </p>
 </td>
 </tr>
@@ -453,10 +461,10 @@ This parameter is required.
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="nested.html">« Nested datatype</a>
+<a href="nested.html">« nested(嵌套)数据类型</a>
 </span>
 <span class="next">
-<a href="object.html">Object datatype »</a>
+<a href2="object.html">Object datatype »</a>
 </span>
 </div>
 </div>

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Percolator type | ElasticSearch 7.7 权威指南中文版</title>
+	<title>percolator(渗透器)数据类型 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,38 +32,38 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping.html">Mapping</a></span>
+<span class="breadcrumb-link"><a href="mapping.html">映射</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping-types.html">Field datatypes</a></span>
+<span class="breadcrumb-link"><a href="mapping-types.html">字段数据类型</a></span>
 »
-<span class="breadcrumb-node">Percolator type</span>
+<span class="breadcrumb-node">percolator(渗透器)数据类型</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="object.html">« Object datatype</a>
+<a href="object.html">« object(对象)数据类型</a>
 </span>
 <span class="next">
-<a href="range.html">Range datatypes »</a>
+<a href2="range.html">Range datatypes »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="percolator"></a>Percolator type<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/percolator.asciidoc">edit</a>
+<a id="percolator"></a>percolator(渗透器)数据类型
 </h2>
 </div></div></div>
 
-<p>The <code class="literal">percolator</code> field type parses a json structure into a native query and
-stores that query, so that the <a class="xref" href="query-dsl-percolate-query.html" title="Percolate query">percolate query</a>
-can use it to match provided documents.</p>
-<p>Any field that contains a json object can be configured to be a percolator
-field. The percolator field type has no settings. Just configuring the <code class="literal">percolator</code>
-field type is sufficient to instruct Elasticsearch to treat a field as a
-query.</p>
-<p>If the following mapping configures the <code class="literal">percolator</code> field type for the
-<code class="literal">query</code> field:</p>
+<p>
+<code class="literal">percolator</code>字段类型将一个 json 结构解析成一个本地查询并存储该查询，以便<a class="xref" href="query-dsl-percolate-query.html" title="Percolate query">percolate查询</a>可以使用它来匹配提供的文档。
+</p>
+<p>
+任何包含 json 对象的字段都可以被配置为一个 percolator 字段。
+
+只需配置<code class="literal">percolator</code>字段类型就足以指示 Elasticsearch 将字段视为查询。
+</p>
+<p>如果下面这个映射将<code class="literal">query</code>字段配置为<code class="literal">percolator</code>字段类型：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index
 {
@@ -80,7 +80,7 @@ query.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/677.console"></div>
-<p>Then you can index a query:</p>
+<p>然后你就可以索引一个查询：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index/_doc/match_value
 {
@@ -95,20 +95,24 @@ query.</p>
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>Fields referred to in a percolator query must <span class="strong strong"><strong>already</strong></span> exist in the mapping
-associated with the index used for percolation. In order to make sure these fields exist,
-add or update a mapping via the <a class="xref" href="indices-create-index.html" title="Create index API">create index</a> or <a class="xref" href="indices-put-mapping.html" title="Put mapping API">put mapping</a> APIs.</p>
+<p>
+percolator 查询中引用的字段必须<span class="strong strong"><strong>已经</strong></span>存在于与用于渗透的索引相关联的映射中。
+
+为了确保这些字段存在，请通过<a class="xref" href="indices-create-index.html" title="创建索引 API" rel="nofollow">创建索引(create index)</a>或<a class="xref" href="indices-put-mapping.html" title="设置映射 API" rel="nofollow">设置映射(put mapping)</a> API添加或更新映射。
+</p>
 </div>
 </div>
 <h4>
-<a id="_reindexing_your_percolator_queries"></a>Reindexing your percolator queries<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/percolator.asciidoc">edit</a>
+<a id="_reindexing_your_percolator_queries"></a>重新索引 percolator 查询
 </h4>
-<p>Reindexing percolator queries is sometimes required to benefit from improvements made to the <code class="literal">percolator</code> field type in
-new releases.</p>
-<p>Reindexing percolator queries can be reindexed by using the <a class="xref" href="docs-reindex.html" title="Reindex API">reindex api</a>.
-Lets take a look at the following index with a percolator field type:</p>
+<p>有时需要重新索引 percolator 查询来从新版本中对<code class="literal">percolator</code>字段类型的改进中获益。</p>
+<p>
+重新索引 percolator 查询可以通过使用 <a class="xref" href="docs-reindex.html" title="Reindex API" rel="nofollow">reindex api</a> 来重新索引。
+
+让我们来看看下面的一个带有 percolator 类型字段的索引：
+</p>
 <div class="pre_wrapper lang-console">
-<pre class="programlisting prettyprint lang-console">PUT index
+<pre class="programlisting prettyprint lang-console">PUT /index
 {
   "mappings": {
     "properties": {
@@ -122,7 +126,7 @@ Lets take a look at the following index with a percolator field type:</p>
   }
 }
 
-POST _aliases
+POST /_aliases
 {
   "actions": [
     {
@@ -134,7 +138,7 @@ POST _aliases
   ]
 }
 
-PUT queries/_doc/1?refresh
+PUT /queries/_doc/1?refresh
 {
   "query" : {
     "match" : {
@@ -151,16 +155,14 @@ PUT queries/_doc/1?refresh
 <p><a href="#CO310-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>It is always recommended to define an alias for your index, so that in case of a reindex systems / applications
-don’t need to be changed to know that the percolator queries are now in a different index.</p>
+<p>总是建议为索引定义一个别名，这样在重新索引的情况下，系统/应用程序不需要改变就知道 percolator 查询现在是在一个不同的索引中。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>Lets say you’re going to upgrade to a new major version and in order for the new Elasticsearch version to still be able
-to read your queries you need to reindex your queries into a new index on the current Elasticsearch version:</p>
+<p>假设要升级到新的 Elasticsearch 主版本，为了让新版本仍然能够读取你的查询，你需要将你的查询重新索引到当前 Elasticsearch 版本的新索引中：</p>
 <div class="pre_wrapper lang-console">
-<pre class="programlisting prettyprint lang-console">PUT new_index
+<pre class="programlisting prettyprint lang-console">PUT /new_index
 {
   "mappings": {
     "properties": {
@@ -184,7 +186,7 @@ POST /_reindex?refresh
   }
 }
 
-POST _aliases
+POST /_aliases
 {
   "actions": [ <a id="CO311-1"></a><i class="conum" data-value="1"></i>
     {
@@ -210,12 +212,12 @@ POST _aliases
 <p><a href="#CO311-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>If you have an alias don’t forget to point it to the new index.</p>
+<p>如果有一个别名，不要忘记将它指向新的索引。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>Executing the <code class="literal">percolate</code> query via the <code class="literal">queries</code> alias:</p>
+<p>通过<code class="literal">queries</code>别名执行<code class="literal">percolate</code>查询：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /queries/_search
 {
@@ -230,7 +232,7 @@ POST _aliases
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/681.console"></div>
-<p>now returns matches from the new index:</p>
+<p>现在从新索引中返回了匹配的项：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   "took": 3,
@@ -275,29 +277,44 @@ POST _aliases
 <p><a href="#CO312-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Percolator query hit is now being presented from the new index.</p>
+<p>percolator 查询的命中现在呈现在新的索引中。</p>
 </td>
 </tr>
 </table>
 </div>
 <h4>
-<a id="_optimizing_query_time_text_analysis"></a>Optimizing query time text analysis<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/percolator.asciidoc">edit</a>
+<a id="_optimizing_query_time_text_analysis"></a>优化查询时的文本分析
 </h4>
-<p>When the percolator verifies a percolator candidate match it is going to parse, perform query time text analysis and actually run
-the percolator query on the document being percolated. This is done for each candidate match and every time the <code class="literal">percolate</code> query executes.
-If your query time text analysis is relatively expensive part of query parsing then text analysis can become the
-dominating factor time is being spent on when percolating. This query parsing overhead can become noticeable when the
-percolator ends up verifying many candidate percolator query matches.</p>
-<p>To avoid the most expensive part of text analysis at percolate time. One can choose to do the expensive part of text analysis
-when indexing the percolator query. This requires using two different analyzers. The first analyzer actually performs
-text analysis that needs be performed (expensive part). The second analyzer (usually whitespace) just splits the generated tokens
-that the first analyzer has produced. Then before indexing a percolator query, the analyze api should be used to analyze the query
-text with the more expensive analyzer. The result of the analyze api, the tokens, should be used to substitute the original query
-text in the percolator query. It is important that the query should now be configured to override the analyzer from the mapping and
-just the second analyzer. Most text based queries support an <code class="literal">analyzer</code> option (<code class="literal">match</code>, <code class="literal">query_string</code>, <code class="literal">simple_query_string</code>).
-Using this approach the expensive text analysis is performed once instead of many times.</p>
-<p>Lets demonstrate this workflow via a simplified example.</p>
-<p>Lets say we want to index the following percolator query:</p>
+<p>
+当 percolator 验证 percolator 候选匹配时，它将进行解析，执行查询时文本分析，并在被渗透的文档上实际运行 percolator 查询。
+
+每次执行<code class="literal">percolate</code>查询时，都会对每个候选匹配进行这样的操作。
+
+如果查询时的文本分析是查询解析中相对昂贵的部分，那么文本分析可能成为渗透时花费时间的主要因素。
+
+当 percolator 最终验证了许多候选 percolator 查询匹配时，这种查询解析开销会变得很明显。
+</p>
+<p>
+为了避免在渗透时进行最昂贵的文本分析，可以选择在索引 percolator 查询时进行高昂的文本分析。
+
+这个 requires 使用两个不同的分析器。
+
+第一个分析器实际上执行需要执行的文本分析(代价高的部分)。
+
+第二个分析器(通常是“空格”)只是拆分第一个分析器生成的词元(token)。
+
+然后，在索引 percolator 查询之前，应该使用 analyze api 通过更昂贵的分析器来分析查询文本。
+
+analyze api的结果，即词元(token)，应该用来替换 percolator 查询中的原始查询文本。
+
+现在应该配置查询以覆盖映射中的分析器，并且只覆盖第二个分析器，这一点很重要。
+
+大多数基于文本的查询支持一个<code class="literal">analyzer</code>选项(<code class="literal">match</code>、<code class="literal">query_string</code>、<code class="literal">simple_query_string</code>)。
+
+使用这种方法，昂贵的文本分析只需要执行一次，而不是多次。
+</p>
+<p>让我们通过一个简单的例子来演示这个工作流程。</p>
+<p>假设我们想要索引下面这个 percolator 查询：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
   "query" : {
@@ -309,7 +326,7 @@ Using this approach the expensive text analysis is performed once instead of man
   }
 }</pre>
 </div>
-<p>with these settings and mapping:</p>
+<p>使用这些设置和映射：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /test_index
 {
@@ -344,12 +361,12 @@ Using this approach the expensive text analysis is performed once instead of man
 <p><a href="#CO313-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>For the purpose of this example, this analyzer is considered expensive.</p>
+<p>出于这个例子的目的，这个分析器被认为是昂贵的。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>First we need to use the analyze api to perform the text analysis prior to indexing:</p>
+<p>首先，我们需要使用 analyze api 在编制索引之前执行文本分析：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">POST /test_index/_analyze
 {
@@ -358,7 +375,7 @@ Using this approach the expensive text analysis is performed once instead of man
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/683.console"></div>
-<p>This results the following response:</p>
+<p>这会导致以下响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   "tokens": [
@@ -379,7 +396,7 @@ Using this approach the expensive text analysis is performed once instead of man
   ]
 }</pre>
 </div>
-<p>All the tokens in the returned order need to replace the query text in the percolator query:</p>
+<p>所有词元(token)都需要以返回的顺序去替换 percolator 查询中的查询文本：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /test_index/_doc/1?refresh
 {
@@ -401,9 +418,11 @@ Using this approach the expensive text analysis is performed once instead of man
 <p><a href="#CO314-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>It is important to select a whitespace analyzer here, otherwise the analyzer defined in the mapping will be used,
-which defeats the point of using this workflow. Note that <code class="literal">whitespace</code> is a built-in analyzer, if a different analyzer
-needs to be used, it needs to be configured first in the index’s settings.</p>
+<p>
+在这里选择一个 空格(<code class="literal">whitespace</code>)分析器 是很重要的，否则将使用映射中定义的分析器，而这就失去了使用这个工作流的意义。
+
+请注意，<code class="literal">whitespace</code>是一个内置的分析器，如果需要使用不同的分析器，需要先在索引的设置中进行配置。
+</p>
 </td>
 </tr>
 </table>
@@ -799,10 +818,10 @@ the field alias, the percolator query must be explicitly reindexed.</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="object.html">« Object datatype</a>
+<a href="object.html">« object(对象)数据类型</a>
 </span>
 <span class="next">
-<a href="range.html">Range datatypes »</a>
+<a href2="range.html">Range datatypes »</a>
 </span>
 </div>
 </div>

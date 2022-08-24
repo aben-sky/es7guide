@@ -1767,8 +1767,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "percolator.html",
-                        "text": "Percolator",
-                        "title": "Percolator"
+                        "text": "percolator(渗透器)",
+                        "title": "percolator(渗透器)"
                     },
                     {
                         "url": "range.html",

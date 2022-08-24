@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Object datatype | ElasticSearch 7.7 权威指南中文版</title>
+	<title>object(对象)数据类型 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,31 +32,30 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping.html">Mapping</a></span>
+<span class="breadcrumb-link"><a href="mapping.html">映射</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping-types.html">Field datatypes</a></span>
+<span class="breadcrumb-link"><a href="mapping-types.html">字段数据类型</a></span>
 »
-<span class="breadcrumb-node">Object datatype</span>
+<span class="breadcrumb-node">object(对象)数据类型</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="number.html">« Numeric datatypes</a>
+<a href="number.html">« numeric(数值)数据类型</a>
 </span>
 <span class="next">
-<a href="percolator.html">Percolator type »</a>
+<a href2="percolator.html">Percolator type »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="object"></a>Object datatype<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/object.asciidoc">edit</a>
+<a id="object"></a>object(对象)数据类型
 </h2>
 </div></div></div>
 
-<p>JSON documents are hierarchical in nature: the document may contain inner
-objects which, in turn, may contain inner objects themselves:</p>
+<p>JSON文档本质上是分层的：文档可能包含内部对象，而内部对象本身又可能包含内部对象：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index/_doc/1
 { <a id="CO308-1"></a><i class="conum" data-value="1"></i>
@@ -78,7 +77,7 @@ objects which, in turn, may contain inner objects themselves:</p>
 <p><a href="#CO308-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The outer document is also a JSON object.</p>
+<p>外部文档也是一个JSON对象。</p>
 </td>
 </tr>
 <tr>
@@ -86,7 +85,7 @@ objects which, in turn, may contain inner objects themselves:</p>
 <p><a href="#CO308-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>It contains an inner object called <code class="literal">manager</code>.</p>
+<p>它包含一个名为<code class="word">manager</code>的内部对象。</p>
 </td>
 </tr>
 <tr>
@@ -94,13 +93,12 @@ objects which, in turn, may contain inner objects themselves:</p>
 <p><a href="#CO308-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Which in turn contains an inner object called <code class="literal">name</code>.</p>
+<p>它又包含一个名为<code class="word">name</code>的内部对象。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>Internally, this document is indexed as a simple, flat list of key-value
-pairs, something like this:</p>
+<p>在内部，这个文档被索引为一个简单的、扁平的键值对列表，比如下面这样：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
   "region":             "US",
@@ -109,7 +107,7 @@ pairs, something like this:</p>
   "manager.name.last":  "Smith"
 }</pre>
 </div>
-<p>An explicit mapping for the above document could look like this:</p>
+<p>上述文档的显式映射可能像下面这样：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index
 {
@@ -141,7 +139,7 @@ pairs, something like this:</p>
 <p><a href="#CO309-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Properties in the top-level mappings definition.</p>
+<p>顶级映射定义中的属性。</p>
 </td>
 </tr>
 <tr>
@@ -149,7 +147,7 @@ pairs, something like this:</p>
 <p><a href="#CO309-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">manager</code> field is an inner <code class="literal">object</code> field.</p>
+<p>字段<code class="literal">manager</code>是一个内部<code class="literal">object</code>字段。</p>
 </td>
 </tr>
 <tr>
@@ -157,19 +155,19 @@ pairs, something like this:</p>
 <p><a href="#CO309-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">manager.name</code> field is an inner <code class="literal">object</code> field within the <code class="literal">manager</code> field.</p>
+<p>字段<code class="literal">manager.name</code>是在字段<code class="literal">manager</code>内的一个内部<code class="literal">object</code>字段。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>You are not required to set the field <code class="literal">type</code> to <code class="literal">object</code> explicitly, as this is the default value.</p>
+<p>不需要将字段<code class="literal">type</code>显式设置为<code class="literal">object</code>，因为这是默认值。</p>
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="object-params"></a>Parameters for <code class="literal">object</code> fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/object.asciidoc">edit</a>
+<a id="object-params"></a><code class="literal">object</code>字段的参数
 </h3>
 </div></div></div>
-<p>The following parameters are accepted by <code class="literal">object</code> fields:</p>
+<p><code class="literal">object</code>字段接受以下参数：</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -185,9 +183,9 @@ pairs, something like this:</p>
 </td>
 <td valign="top">
 <p>
-Whether or not new <code class="literal">properties</code> should be added dynamically
-to an existing object.  Accepts <code class="literal">true</code> (default), <code class="literal">false</code>
-and <code class="literal">strict</code>.
+是否应该将新属性(<code class="literal">properties</code>)动态添加到现有对象中。
+
+接受<code class="literal">true</code>(默认)、<code class="literal">false</code>和<code class="literal">strict</code>。
 </p>
 </td>
 </tr>
@@ -199,8 +197,7 @@ and <code class="literal">strict</code>.
 </td>
 <td valign="top">
 <p>
-Whether the JSON value given for the object field should be
-parsed and indexed (<code class="literal">true</code>, default) or completely ignored (<code class="literal">false</code>).
+为对象字段提供的 JSON 值是应该被解析和索引(<code class="literal">true</code>，默认值)，还是完全忽略(<code class="literal">false</code>)。
 </p>
 </td>
 </tr>
@@ -212,9 +209,9 @@ parsed and indexed (<code class="literal">true</code>, default) or completely ig
 </td>
 <td valign="top">
 <p>
-The fields within the object, which can be of any
-<a class="xref" href="mapping-types.html" title="Field datatypes">datatype</a>, including <code class="literal">object</code>. New properties
-may be added to an existing object.
+对象中的字段，可以是任何数据类型(<a class="xref" href="mapping-types.html" title="字段数据类型">datatype</a>)，包括<code class="literal">object</code>。
+
+可以向现有对象添加新属性。
 </p>
 </td>
 </tr>
@@ -224,8 +221,7 @@ may be added to an existing object.
 <div class="important admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p>If you need to index arrays of objects instead of single objects,
-read <a class="xref" href="nested.html" title="Nested datatype">Nested</a> first.</p>
+<p>如果需要索引对象数组而不是单个对象，请先阅读<a class="xref" href="nested.html" title="nested 数据类型">嵌套(nested)数据类型</a>。</p>
 </div>
 </div>
 </div>
@@ -233,10 +229,10 @@ read <a class="xref" href="nested.html" title="Nested datatype">Nested</a> first
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="number.html">« Numeric datatypes</a>
+<a href="number.html">« numeric(数值)数据类型</a>
 </span>
 <span class="next">
-<a href="percolator.html">Percolator type »</a>
+<a href2="percolator.html">Percolator type »</a>
 </span>
 </div>
 </div>

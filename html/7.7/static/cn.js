@@ -1762,8 +1762,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "object.html",
-                        "text": "Object",
-                        "title": "Object"
+                        "text": "object(对象)",
+                        "title": "object(对象)"
                     },
                     {
                         "url": "percolator.html",

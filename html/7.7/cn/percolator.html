@@ -427,8 +427,8 @@ analyze api的结果，即词元(token)，应该用来替换 percolator 查询�
 </tr>
 </table>
 </div>
-<p>The analyze api prior to the indexing the percolator flow should be done for each percolator query.</p>
-<p>At percolate time nothing changes and the <code class="literal">percolate</code> query can be defined normally:</p>
+<p>在索引 percolator 流程之前，应该为每个 percolator 查询执行 analyze api。</p>
+<p>在渗透时没有任何变化，<code class="literal">percolate</code>查询可以正常定义：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /test_index/_search
 {
@@ -443,7 +443,7 @@ analyze api的结果，即词元(token)，应该用来替换 percolator 查询�
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/685.console"></div>
-<p>This results in a response like this:</p>
+<p>这将导致如下响应：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   "took": 6,
@@ -485,14 +485,13 @@ analyze api的结果，即词元(token)，应该用来替换 percolator 查询�
 }</pre>
 </div>
 <h4>
-<a id="_optimizing_wildcard_queries"></a>Optimizing wildcard queries.<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/percolator.asciidoc">edit</a>
+<a id="_optimizing_wildcard_queries"></a>优化通配符查询
 </h4>
-<p>Wildcard queries are  more expensive than other queries for the percolator,
-especially if the wildcard expressions are large.</p>
-<p>In the case of <code class="literal">wildcard</code> queries with prefix wildcard expressions or just the <code class="literal">prefix</code> query,
-the <code class="literal">edge_ngram</code> token filter can be used to replace these queries with regular <code class="literal">term</code>
-query on a field where the <code class="literal">edge_ngram</code> token filter is configured.</p>
-<p>Creating an index with custom analysis settings:</p>
+<p>对于 percolator 来说，通配符查询比其他查询开销更大，尤其是在通配符表达式很大的情况下。</p>
+<p>
+在使用前缀通配符表达式的 <code class="literal">wildcard</code>(通配符) 查询或仅使用 <code class="literal">prefix</code>(前缀) 查询的情况下，<code class="literal">edge_ngram</code>词元过滤器可用于在配置了<code class="literal">edge_ngram</code>词元过滤器的字段上将这些查询替换为常规<code class="literal">term</code>查询。
+</p>
+<p>使用自定义的 analysis 设置来创建一个索引：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_queries1
 {
@@ -544,7 +543,7 @@ query on a field where the <code class="literal">edge_ngram</code> token filter 
 <p><a href="#CO315-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The analyzer that generates the prefix tokens to be used at index time only.</p>
+<p>生成仅在索引时使用的前缀词元的分析器。</p>
 </td>
 </tr>
 <tr>
@@ -552,7 +551,7 @@ query on a field where the <code class="literal">edge_ngram</code> token filter 
 <p><a href="#CO315-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Increase the <code class="literal">min_gram</code> and decrease <code class="literal">max_gram</code> settings based on your prefix search needs.</p>
+<p>根据前缀搜索需求，增加<code class="literal">min_gram</code>，减少<code class="literal">max_gram</code>设置。</p>
 </td>
 </tr>
 <tr>
@@ -560,13 +559,12 @@ query on a field where the <code class="literal">edge_ngram</code> token filter 
 <p><a href="#CO315-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>This multifield should be used to do the prefix search
-with a <code class="literal">term</code> or <code class="literal">match</code> query instead of a <code class="literal">prefix</code> or <code class="literal">wildcard</code> query.</p>
+<p>此多字段应用于使用 <code class="literal">term</code> 或 <code class="literal">match</code> 查询进行前缀搜索，而不是<code class="literal">prefix</code>(前缀) 或 <code class="literal">wildcard</code>(通配符)查询。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>Then instead of indexing the following query:</p>
+<p>然后，不要索引以下查询：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
   "query": {
@@ -576,7 +574,7 @@ with a <code class="literal">term</code> or <code class="literal">match</code> q
   }
 }</pre>
 </div>
-<p>this query below should be indexed:</p>
+<p>而应该对以下查询进行索引：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /my_queries1/_doc/1?refresh
 {
@@ -588,9 +586,8 @@ with a <code class="literal">term</code> or <code class="literal">match</code> q
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/687.console"></div>
-<p>This way can handle the second query more efficiently than the first query.</p>
-<p>The following search request will match with the previously indexed
-percolator query:</p>
+<p>这种方式可以使得第二个查询的处理比第一个查询更有效。</p>
+<p>下面这个搜索请求将与先前索引的 percolator 查询相匹配：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /my_queries1/_search
 {
@@ -644,9 +641,11 @@ percolator query:</p>
   }
 }</pre>
 </div>
-<p>The same technique can also be used to speed up suffix
-wildcard searches. By using the <code class="literal">reverse</code> token filter
-before the <code class="literal">edge_ngram</code> token filter.</p>
+<p>
+同样的技术也可以用来加速后缀通配符搜索。
+
+通过在<code class="literal">edge_ngram</code>词元过滤器之前使用<code class="literal">reverse</code>词元过滤器：
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_queries2
 {
@@ -707,14 +706,12 @@ before the <code class="literal">edge_ngram</code> token filter.</p>
 <p><a href="#CO316-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>A custom analyzer is needed at search time too, because otherwise
-the query terms are not being reversed and would otherwise not match
-with the reserved suffix tokens.</p>
+<p>在搜索时也需要一个自定义的分析器，否则查询的词项不会被反转，也不会与保留的后缀词元匹配。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>Then instead of indexing the following query:</p>
+<p>然后，不要索引以下查询：</p>
 <div class="pre_wrapper lang-js">
 <pre class="programlisting prettyprint lang-js">{
   "query": {
@@ -724,7 +721,7 @@ with the reserved suffix tokens.</p>
   }
 }</pre>
 </div>
-<p>the following query below should be indexed:</p>
+<p>而应该要索引下面这个查询：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT /my_queries2/_doc/2?refresh
 {
@@ -743,14 +740,12 @@ with the reserved suffix tokens.</p>
 <p><a href="#CO317-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>The <code class="literal">match</code> query should be used instead of the <code class="literal">term</code> query,
-because text analysis needs to reverse the query terms.</p>
+<p>应该使用<code class="literal">match</code>查询而不是<code class="literal">term</code>查询，因为文本分析需要反转查询的词项。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>The following search request will match with the previously indexed
-percolator query:</p>
+<p>下面这个搜索请求将与先前索引的 percolator 查询相匹配：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET /my_queries2/_search
 {
@@ -766,55 +761,74 @@ percolator query:</p>
 </div>
 <div class="console_widget" data-snippet="snippets/691.console"></div>
 <h4>
-<a id="_dedicated_percolator_index"></a>Dedicated Percolator Index<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/percolator.asciidoc">edit</a>
+<a id="_dedicated_percolator_index"></a>专用的渗透器索引
 </h4>
-<p>Percolate queries can be added to any index. Instead of adding percolate queries to the index the data resides in,
-these queries can also be added to a dedicated index. The advantage of this is that this dedicated percolator index
-can have its own index settings (For example the number of primary and replica shards). If you choose to have a dedicated
-percolate index, you need to make sure that the mappings from the normal index are also available on the percolate index.
-Otherwise percolate queries can be parsed incorrectly.</p>
+<p>
+渗透查询可以添加到任何索引中。
+
+除了将渗透查询添加到数据所在的索引中，还可以将这些查询添加到专用的索引中。
+
+这样做的好处是，这个专用的 percolator 索引可以有自己的索引设置(例如主分片和副本分片的数量)。
+
+如果你选择使用专用的渗透索引，需要确保普通索引的映射在渗透索引上也是可用的。
+
+否则渗透查询可能会被错误地解析。
+</p>
 <h4>
-<a id="_forcing_unmapped_fields_to_be_handled_as_strings"></a>Forcing Unmapped Fields to be Handled as Strings<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/percolator.asciidoc">edit</a>
+<a id="_forcing_unmapped_fields_to_be_handled_as_strings"></a>强制将未映射的字段作为字符串处理
 </h4>
-<p>In certain cases it is unknown what kind of percolator queries do get registered, and if no field mapping exists for fields
-that are referred by percolator queries then adding a percolator query fails. This means the mapping needs to be updated
-to have the field with the appropriate settings, and then the percolator query can be added. But sometimes it is sufficient
-if all unmapped fields are handled as if these were default text fields. In those cases one can configure the
-<code class="literal">index.percolator.map_unmapped_fields_as_text</code> setting to <code class="literal">true</code> (default to <code class="literal">false</code>) and then if a field referred in
-a percolator query does not exist, it will be handled as a default text field so that adding the percolator query doesn’t
-fail.</p>
+<p>
+在某些情况下，不知道注册了哪种类型的 percolator 查询，如果 percolator 查询引用的字段没有映射，则添加 percolator 查询会失败。
+
+这意味着需要更新映射，使字段具有适当的设置，然后可以添加 percolator 查询。
+
+但有时，如果所有未映射的字段都被当做默认文本字段来处理，这就足够了。
+
+在这些情况下，可以将<code class="literal">index.percolator.map_unmapped_fields_as_text</code>设置配置为<code class="literal">true</code>(默认为<code class="literal">false</code>)，然后如果 percolator 查询中引用的字段不存在，它将被作为默认文本字段处理，以便添加 percolator 查询时不会失败。
+</p>
 <h4>
-<a id="_limitations_8"></a>Limitations<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/percolator.asciidoc">edit</a>
+<a id="_limitations_8"></a>局限性
 </h4>
 <h5>
-<a id="parent-child"></a>Parent/child<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/percolator.asciidoc">edit</a>
+<a id="parent-child"></a>父-子
 </h5>
-<p>Because the <code class="literal">percolate</code> query is processing one document at a time, it doesn’t support queries and filters that run
-against child documents such as <code class="literal">has_child</code> and <code class="literal">has_parent</code>.</p>
+<p>因为<code class="literal">percolate</code>查询一次处理一个文档，所以它不支持针对子文档(如<code class="literal">has_child</code>和<code class="literal">has_parent</code>)运行的查询和过滤器。</p>
 <h5>
-<a id="_fetching_queries"></a>Fetching queries<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/percolator.asciidoc">edit</a>
+<a id="_fetching_queries"></a>获取查询
 </h5>
-<p>There are a number of queries that fetch data via a get call during query parsing. For example the <code class="literal">terms</code> query when
-using terms lookup, <code class="literal">template</code> query when using indexed scripts and <code class="literal">geo_shape</code> when using pre-indexed shapes. When these
-queries are indexed by the <code class="literal">percolator</code> field type then the get call is executed once. So each time the <code class="literal">percolator</code>
-query evaluates these queries, the fetches terms, shapes etc. as the were upon index time will be used. Important to note
-is that fetching of terms that these queries do, happens both each time the percolator query gets indexed on both primary
-and replica shards, so the terms that are actually indexed can be different between shard copies, if the source index
-changed while indexing.</p>
+<p>
+有许多查询在查询解析期间通过 GET 调用获取数据。
+
+例如，使用词项查找时的<code class="literal">terms</code>查询、使用索引脚本时的<code class="literal">template</code>查询以及使用预索引形状时的<code class="literal">geo_shape</code>。
+
+当这些查询被<code class="literal">percolator</code>字段类型索引时，GET 调用执行一次。
+
+因此，每次<code class="literal">percolator</code>查询评估这些查询时，都会获取词项、形状等。
+
+需要注意的一个重要的点是，每次 percolator 查询在主分片和副本分片上被索引时，都会发生获取词项的查询，因此，如果在建立索引时源索引发生了变化，那么在分片副本之间实际建立索引的词项可能会有所不同。
+</p>
 <h5>
-<a id="_script_query"></a>Script query<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/percolator.asciidoc">edit</a>
+<a id="_script_query"></a>脚本查询
 </h5>
-<p>The script inside a <code class="literal">script</code> query can only access doc values fields. The <code class="literal">percolate</code> query indexes the provided document
-into an in-memory index. This in-memory index doesn’t support stored fields and because of that the <code class="literal">_source</code> field and
-other stored fields are not stored. This is the reason why in the <code class="literal">script</code> query the <code class="literal">_source</code> and other stored fields
-aren’t available.</p>
+<p>
+<code class="literal">script</code>查询中的脚本只能访问文档值字段。
+
+<code class="literal">percolate</code>查询将提供的文档编入内存索引。
+
+此内存索引不支持 存储字段，因此<code class="literal">_source</code>字段和其他存储字段不会被存储。
+
+这就是<code class="literal">script</code>查询中<code class="literal">_source</code>和其他存储字段不可用的原因。
+</p>
 <h5>
-<a id="_field_aliases"></a>Field aliases<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/percolator.asciidoc">edit</a>
+<a id="_field_aliases"></a>字段别名
 </h5>
-<p>Percolator queries that contain <a class="xref" href="alias.html" title="Alias datatype">field aliases</a> may not always behave as expected. In particular, if a
-percolator query is registered that contains a field alias, and then that alias is updated in the mappings to refer
-to a different field, the stored query will still refer to the original target field. To pick up the change to
-the field alias, the percolator query must be explicitly reindexed.</p>
+<p>
+包含<a class="xref" href="alias.html" title="alias 数据类型">字段别名</a>的渗透查询可能并不总是如预期的那样运行。
+
+特别是，如果注册了包含字段别名的 percolator 查询，然后在映射中更新该别名以引用不同的字段，则存储的查询仍将引用原始的目标字段。
+
+要获取字段别名的更改，必须显式地重新索引 percolator 查询。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">

@@ -1772,8 +1772,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "range.html",
-                        "text": "Range",
-                        "title": "Range"
+                        "text": "range(范围)",
+                        "title": "range(范围)"
                     },
                     {
                         "url": "rank-feature.html",

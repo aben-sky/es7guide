@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Range datatypes | ElasticSearch 7.7 权威指南中文版</title>
+	<title>range(范围)数据类型 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,30 +32,30 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping.html">Mapping</a></span>
+<span class="breadcrumb-link"><a href="mapping.html">映射</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping-types.html">Field datatypes</a></span>
+<span class="breadcrumb-link"><a href="mapping-types.html">字段数据类型</a></span>
 »
-<span class="breadcrumb-node">Range datatypes</span>
+<span class="breadcrumb-node">range(范围)数据类型</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="percolator.html">« Percolator type</a>
+<a href="percolator.html">« percolator(过滤器)数据类型</a>
 </span>
 <span class="next">
-<a href="rank-feature.html">Rank feature datatype »</a>
+<a href2="rank-feature.html">Rank feature datatype »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="range"></a>Range datatypes<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/range.asciidoc">edit</a>
+<a id="range"></a>range(范围)数据类型
 </h2>
 </div></div></div>
 
-<p>The following range types are supported:</p>
+<p>支持以下几种范围类型：</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -71,7 +71,7 @@
 </td>
 <td valign="top">
 <p>
-A range of signed 32-bit integers with a minimum value of <code class="literal">-2<sup>31</sup></code> and maximum of <code class="literal">2<sup>31</sup>-1</code>.
+32位整数范围，最小值为<code class="literal">-2<sup>31</sup></code>，最大值为<code class="literal">2<sup>31</sup>-1</code>。
 </p>
 </td>
 </tr>
@@ -83,7 +83,7 @@ A range of signed 32-bit integers with a minimum value of <code class="literal">
 </td>
 <td valign="top">
 <p>
-A range of single-precision 32-bit IEEE 754 floating point values.
+单精度32位 IEEE 754 浮点值范围。
 </p>
 </td>
 </tr>
@@ -95,7 +95,7 @@ A range of single-precision 32-bit IEEE 754 floating point values.
 </td>
 <td valign="top">
 <p>
-A range of signed 64-bit integers with a minimum value of <code class="literal">-2<sup>63</sup></code> and maximum of <code class="literal">2<sup>63</sup>-1</code>.
+64位有符号整数，最小值为<code class="literal">-2<sup>63</sup></code>，最大值为<code class="literal">2<sup>63</sup>-1</code>。
 </p>
 </td>
 </tr>
@@ -107,7 +107,7 @@ A range of signed 64-bit integers with a minimum value of <code class="literal">
 </td>
 <td valign="top">
 <p>
-A range of double-precision 64-bit IEEE 754 floating point values.
+64位双精度 IEEE 754 浮点值范围。
 </p>
 </td>
 </tr>
@@ -119,7 +119,7 @@ A range of double-precision 64-bit IEEE 754 floating point values.
 </td>
 <td valign="top">
 <p>
-A range of date values represented as unsigned 64-bit integer milliseconds elapsed since system epoch.
+自系统纪元以来，以无符号64位整数毫秒表示的日期值范围。
 </p>
 </td>
 </tr>
@@ -131,15 +131,14 @@ A range of date values represented as unsigned 64-bit integer milliseconds elaps
 </td>
 <td valign="top">
 <p>
-A range of ip values supporting either <a href="https://en.wikipedia.org/wiki/IPv4" class="ulink" target="_top">IPv4</a> or
-<a href="https://en.wikipedia.org/wiki/IPv6" class="ulink" target="_top">IPv6</a> (or mixed) addresses.
+支持<a href="https://en.wikipedia.org/wiki/IPv4" class="ulink" target="_top">IPv4</a>或<a href="https://en.wikipedia.org/wiki/IPv6" class="ulink" target="_top">IPv6</a>(或混合)地址的IP值范围。
 </p>
 </td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>Below is an example of configuring a mapping with various range fields followed by an example that indexes several range types.</p>
+<p>下面是一个使用各种范围字段配置映射的示例，后面是一个索引多个范围类型的示例。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT range_index
 {
@@ -179,7 +178,7 @@ PUT range_index/_doc/1?refresh
 <p><a href="#CO318-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p><code class="literal">date_range</code> types accept the same field parameters defined by the <a class="xref" href="date.html" title="Date datatype"><code class="literal">date</code></a> type.</p>
+<p><code class="literal">date_range</code>类型接受由<a class="xref" href="date.html" title="date 数据类型"><code class="literal">date</code></a>类型定义的相同的字段参数。</p>
 </td>
 </tr>
 <tr>
@@ -187,7 +186,7 @@ PUT range_index/_doc/1?refresh
 <p><a href="#CO318-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Example indexing a meeting with 10 to 20 attendees.</p>
+<p>为10~20名与会者的会议编制索引的示例。</p>
 </td>
 </tr>
 <tr>
@@ -195,7 +194,7 @@ PUT range_index/_doc/1?refresh
 <p><a href="#CO318-3"><i class="conum" data-value="3"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Date ranges accept the same format as described in <a class="xref" href="query-dsl-range-query.html#ranges-on-dates" title="Using the range query with date fields">date range queries</a>.</p>
+<p>日期范围接受与<a class="xref" href="query-dsl-range-query.html#ranges-on-dates" title="在日期字段是执行范围查询">日期范围查询</a>中所述相同的格式。</p>
 </td>
 </tr>
 <tr>
@@ -203,12 +202,18 @@ PUT range_index/_doc/1?refresh
 <p><a href="#CO318-4"><i class="conum" data-value="4"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Example date range using date time stamp. This also accepts <a class="xref" href="common-options.html#date-math" title="Date Math">date math</a> formatting. Note that "now" cannot be used at indexing time.</p>
+<p>
+使用日期时间戳的日期范围示例。
+
+还可以接受<a class="xref" href="common-options.html#date-math" title="Date Math" rel="nofollow">date math</a>格式。
+
+请注意，在索引时不能使用“now”。
+</p>
 </td>
 </tr>
 </table>
 </div>
-<p>The following is an example of a <a class="xref" href="query-dsl-term-query.html" title="Term query">term query</a> on the <code class="literal">integer_range</code> field named "expected_attendees".</p>
+<p>以下是对名为“expected_attendees”的<code class="word">integer_range</code>字段进行<a class="xref" href="query-dsl-term-query.html" title="term 查询">term 查询</a>的示例。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET range_index/_search
 {
@@ -222,7 +227,7 @@ PUT range_index/_doc/1?refresh
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/693.console"></div>
-<p>The result produced by the above query.</p>
+<p>上述查询产生的结果：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   "took": 13,
@@ -258,7 +263,7 @@ PUT range_index/_doc/1?refresh
   }
 }</pre>
 </div>
-<p>The following is an example of a <code class="literal">date_range</code> query over the <code class="literal">date_range</code> field named "time_frame".</p>
+<p>下面是对名为“time_frame”的<code class="literal">date_range</code>字段进行<code class="literal">date_range</code>查询的示例：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET range_index/_search
 {
@@ -281,7 +286,7 @@ PUT range_index/_doc/1?refresh
 <p><a href="#CO319-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Range queries work the same as described in <a class="xref" href="query-dsl-range-query.html" title="Range query">range query</a>.</p>
+<p>范围查询的工作方式与<a class="xref" href="query-dsl-range-query.html" title="范围查询">范围查询</a>中描述的相同。</p>
 </td>
 </tr>
 <tr>
@@ -289,13 +294,12 @@ PUT range_index/_doc/1?refresh
 <p><a href="#CO319-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Range queries over range <a class="xref" href="mapping-types.html" title="Field datatypes">fields</a> support a <code class="literal">relation</code> parameter which can be one of <code class="literal">WITHIN</code>, <code class="literal">CONTAINS</code>,
-<code class="literal">INTERSECTS</code> (default).</p>
+<p>range <a class="xref" href="mapping-types.html" title="字段数据类型">字段</a>上的范围查询支持参数<code class="literal">relation</code>，该参数可以是<code class="literal">WITHIN</code>、<code class="literal">CONTAINS</code>、<code class="literal">INTERSECTS</code>(默认)之一。</p>
 </td>
 </tr>
 </table>
 </div>
-<p>This query produces a similar result:</p>
+<p>该查询产生类似的结果：</p>
 <div class="pre_wrapper lang-console-result">
 <pre class="programlisting prettyprint lang-console-result">{
   "took": 13,
@@ -334,11 +338,10 @@ PUT range_index/_doc/1?refresh
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="ip-range"></a>IP Range<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/range.asciidoc">edit</a>
+<a id="ip-range"></a>IP 范围
 </h3>
 </div></div></div>
-<p>In addition to the range format above, IP ranges can be provided in
-<a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation" class="ulink" target="_top">CIDR</a> notation:</p>
+<p>除了上述范围格式，IP 范围还可以用<a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation" class="ulink" target="_top">CIDR</a>符号表示：</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT range_index/_mapping
 {
@@ -360,10 +363,10 @@ PUT range_index/_doc/2
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="range-params"></a>Parameters for range fields<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/range.asciidoc">edit</a>
+<a id="range-params"></a>range字段的参数
 </h3>
 </div></div></div>
-<p>The following parameters are accepted by range types:</p>
+<p>range类型接受以下参数：</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -379,8 +382,8 @@ PUT range_index/_doc/2
 </td>
 <td valign="top">
 <p>
-Try to convert strings to numbers and truncate fractions for integers.
-Accepts <code class="literal">true</code> (default) and <code class="literal">false</code>.
+尝试将字符串转换为数字，并截断整数的小数部分。
+接受<code class="literal">true</code>(默认) 和 <code class="literal">false</code>。
 </p>
 </td>
 </tr>
@@ -392,8 +395,7 @@ Accepts <code class="literal">true</code> (default) and <code class="literal">fa
 </td>
 <td valign="top">
 <p>
-Mapping field-level query time boosting. Accepts a floating point number, defaults
-to <code class="literal">1.0</code>.
+映射字段级查询时提升。接受一个浮点数，默认为<code class="literal">1.0</code>。
 </p>
 </td>
 </tr>
@@ -405,7 +407,7 @@ to <code class="literal">1.0</code>.
 </td>
 <td valign="top">
 <p>
-Should the field be searchable? Accepts <code class="literal">true</code> (default) and <code class="literal">false</code>.
+该字段应该是可搜索的吗？接受<code class="literal">true</code>(默认) 和 <code class="literal">false</code>。
 </p>
 </td>
 </tr>
@@ -417,9 +419,7 @@ Should the field be searchable? Accepts <code class="literal">true</code> (defau
 </td>
 <td valign="top">
 <p>
-Whether the field value should be stored and retrievable separately from
-the <a class="xref" href="mapping-source-field.html" title="_source field"><code class="literal">_source</code></a> field. Accepts <code class="literal">true</code> or <code class="literal">false</code>
-(default).
+字段值是否应该与<a class="xref" href="mapping-source-field.html" title="_source field"><code class="literal">_source</code></a>字段分开存储和检索。接受 <code class="literal">true</code> 或 <code class="literal">false</code>(默认)。
 </p>
 </td>
 </tr>
@@ -431,10 +431,10 @@ the <a class="xref" href="mapping-source-field.html" title="_source field"><code
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="percolator.html">« Percolator type</a>
+<a href="percolator.html">« percolator(过滤器)数据类型</a>
 </span>
 <span class="next">
-<a href="rank-feature.html">Rank feature datatype »</a>
+<a href2="rank-feature.html">Rank feature datatype »</a>
 </span>
 </div>
 </div>

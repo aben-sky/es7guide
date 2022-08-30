@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Rank feature datatype | ElasticSearch 7.7 权威指南中文版</title>
+	<title>rank_feature(特征排名)数据类型 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,31 +32,30 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping.html">Mapping</a></span>
+<span class="breadcrumb-link"><a href="mapping.html">映射</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping-types.html">Field datatypes</a></span>
+<span class="breadcrumb-link"><a href="mapping-types.html">字段数据类型</a></span>
 »
-<span class="breadcrumb-node">Rank feature datatype</span>
+<span class="breadcrumb-node">rank_feature(特征排名)数据类型</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="range.html">« Range datatypes</a>
+<a href="range.html">« range(范围)数据类型</a>
 </span>
 <span class="next">
-<a href="rank-features.html">Rank features datatype »</a>
+<a href2="rank-features.html">Rank features datatype »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="rank-feature"></a>Rank feature datatype<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/rank-feature.asciidoc">edit</a>
+<a id="rank-feature"></a>rank_feature(特征排名)数据类型
 </h2>
 </div></div></div>
 
-<p>A <code class="literal">rank_feature</code> field can index numbers so that they can later be used to boost
-documents in queries with a <a class="xref" href="query-dsl-rank-feature-query.html" title="Rank feature query"><code class="literal">rank_feature</code></a> query.</p>
+<p><code class="literal">rank_feature</code>字段可以对数字进行索引，以便以后可以使用它们来提升<a class="xref" href="query-dsl-rank-feature-query.html" title="排名特性查询"><code class="literal">rank_feature</code></a>查询中的文档的相关性评分。</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index
 {
@@ -96,7 +95,7 @@ GET my_index/_search
 <p><a href="#CO320-1"><i class="conum" data-value="1"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Rank feature fields must use the <code class="literal">rank_feature</code> field type</p>
+<p>特征排名字段必须使用<code class="literal">rank_feature</code>字段类型</p>
 </td>
 </tr>
 <tr>
@@ -104,7 +103,7 @@ GET my_index/_search
 <p><a href="#CO320-2"><i class="conum" data-value="2"></i></a></p>
 </td>
 <td align="left" valign="top">
-<p>Rank features that correlate negatively with the score need to declare it</p>
+<p>与分数负相关的等级特性需要声明它</p>
 </td>
 </tr>
 </table>
@@ -112,34 +111,40 @@ GET my_index/_search
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p><code class="literal">rank_feature</code> fields only support single-valued fields and strictly positive
-values. Multi-valued fields and negative values will be rejected.</p>
+<p>
+<code class="literal">rank_feature</code>字段仅支持单值字段和严格的正数值。
+
+多值字段及负数值会别拒绝。
+</p>
 </div>
 </div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p><code class="literal">rank_feature</code> fields do not support querying, sorting or aggregating. They may
-only be used within <a class="xref" href="query-dsl-rank-feature-query.html" title="Rank feature query"><code class="literal">rank_feature</code></a> queries.</p>
+<p>
+<code class="literal">rank_feature</code>字段不支持查询，排序或聚合。
+
+它们只能在<a class="xref" href="query-dsl-rank-feature-query.html" title="特征排名查询"><code class="literal">rank_feature</code></a>查询内部使用。
+</p>
 </div>
 </div>
 <div class="note admon">
 <div class="icon"></div>
 <div class="admon_content">
-<p><code class="literal">rank_feature</code> fields only preserve 9 significant bits for the precision, which
-translates to a relative error of about 0.4%.</p>
+<p><code class="literal">rank_feature</code>字段仅保留9个有效位的精度，这相当于大约0.4%的相对误差。</p>
 </div>
 </div>
-<p>Rank features that correlate negatively with the score should set
-<code class="literal">positive_score_impact</code> to <code class="literal">false</code> (defaults to <code class="literal">true</code>). This will be used by
-the <a class="xref" href="query-dsl-rank-feature-query.html" title="Rank feature query"><code class="literal">rank_feature</code></a> query to modify the scoring formula
-in such a way that the score decreases with the value of the feature instead of
-increasing. For instance in web search, the url length is a commonly used
-feature which correlates negatively with scores.</p>
+<p>
+与分数负相关的特征排名应将<code class="literal">positive_score_impact</code>设置为<code class="literal">false</code>(默认为<code class="literal">true</code>)。
+
+<a class="xref" href="query-dsl-rank-feature-query.html" title="特征排名查询"><code class="literal">rank_feature</code></a>查询将使用它来修改评分公式，使评分随着特征值的增加而减少，而不是增加。
+
+例如，在网络搜索中，url的长度是一个常用的特征，它与分数负相关。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="range.html">« Range datatypes</a>
+<a href2="range.html">« range(范围)数据类型</a>
 </span>
 <span class="next">
 <a href="rank-features.html">Rank features datatype »</a>

@@ -279,3 +279,5 @@ https://www.pipiho.com/es/7.7/cn/number.html
 https://www.pipiho.com/es/7.7/cn/object.html
 https://www.pipiho.com/es/7.7/cn/percolator.html
 https://www.pipiho.com/es/7.7/cn/range.html
+https://www.pipiho.com/es/7.7/cn/rank-feature.html
+https://www.pipiho.com/es/7.7/cn/rank-features.html

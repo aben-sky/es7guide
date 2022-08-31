@@ -1782,8 +1782,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "rank-features.html",
-                        "text": "Rank features",
-                        "title": "Rank features"
+                        "text": "rank_features(特征排名)",
+                        "title": "rank_features(特征排名)"
                     },
                     {
                         "url": "search-as-you-type.html",

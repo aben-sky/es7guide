@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Search-as-you-type datatype | ElasticSearch 7.7 权威指南中文版</title>
+	<title>search_as_you_type(输入即搜索)数据类型 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,37 +32,37 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping.html">Mapping</a></span>
+<span class="breadcrumb-link"><a href="mapping.html">映射</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping-types.html">Field datatypes</a></span>
+<span class="breadcrumb-link"><a href="mapping-types.html">字段数据类型</a></span>
 »
-<span class="breadcrumb-node">Search-as-you-type datatype</span>
+<span class="breadcrumb-node">search_as_you_type(输入即搜索)数据类型</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="rank-features.html">« Rank features datatype</a>
+<a href="rank-features.html">« rank_features(特征排名)数据类型</a>
 </span>
 <span class="next">
-<a href="sparse-vector.html">Sparse vector datatype »</a>
+<a href2="sparse-vector.html">Sparse vector datatype »</a>
 </span>
 </div>
 <div class="section">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="search-as-you-type"></a>Search-as-you-type datatype<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/search-as-you-type.asciidoc">edit</a>
+<a id="search-as-you-type"></a>search_as_you_type(输入即搜索)数据类型
 </h2>
 </div></div></div>
 
-<p>The <code class="literal">search_as_you_type</code> field type is a text-like field that is optimized to
-provide out-of-the-box support for queries that serve an as-you-type completion
-use case. It creates a series of subfields that are analyzed to index terms
-that can be efficiently matched by a query that partially matches the entire
-indexed text value. Both prefix completion (i.e matching terms starting at the
-beginning of the input) and infix completion (i.e. matching terms at any
-position within the input) are supported.</p>
-<p>When adding a field of this type to a mapping</p>
+<p>
+<code class="literal">search_as_you_type</code>字段类型是一种相似文本的字段，它经过优化，为服务于随输入补全用例的查询提供开箱即用的支持。
+
+它创建了一系列子字段，对这些子字段进行分析，以索引能够被部分匹配整个索引文本值的查询有效匹配的词项。
+
+前缀补全(即匹配输入开头的词项)和中缀补全(即匹配输入中任何位置的词项)都受支持。
+</p>
+<p>当将这种类型的字段添加到映射时</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index
 {
@@ -76,7 +76,7 @@ position within the input) are supported.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/698.console"></div>
-<p>This creates the following fields</p>
+<p>这将创建以下字段：</p>
 <div class="informaltable">
 <table border="0" cellpadding="4px">
 <colgroup>
@@ -92,8 +92,7 @@ position within the input) are supported.</p>
 </td>
 <td valign="top">
 <p>
-Analyzed as configured in the mapping. If an analyzer is not configured,
-the default analyzer for the index is used
+这个字段会按照映射中的配置进行分析。如果没有配置分析器，则使用索引的默认分析器
 </p>
 </td>
 </tr>
@@ -105,8 +104,7 @@ the default analyzer for the index is used
 </td>
 <td valign="top">
 <p>
-Wraps the analyzer of <code class="literal">my_field</code> with a shingle token filter of shingle
-size 2
+用瓦片<span class="remark">(shingle)</span>大小为 2 的瓦片词元过滤器包装<code class="literal">my_field</code>的分析器
 </p>
 </td>
 </tr>
@@ -118,8 +116,7 @@ size 2
 </td>
 <td valign="top">
 <p>
-Wraps the analyzer of <code class="literal">my_field</code> with a shingle token filter of shingle
-size 3
+用分块<span class="remark">(shingle)</span>大小为 3 的分块词元过滤器包装<code class="literal">my_field</code>的分析器
 </p>
 </td>
 </tr>
@@ -131,25 +128,30 @@ size 3
 </td>
 <td valign="top">
 <p>
-Wraps the analyzer of <code class="literal">my_field._3gram</code> with an edge ngram token filter
+使用一个 edge ngram 词元过滤器包装<code class="literal">my_field._3gram</code>的分析器
 </p>
 </td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>The size of shingles in subfields can be configured with the <code class="literal">max_shingle_size</code>
-mapping parameter. The default is 3, and valid values for this parameter are
-integer values 2 - 4 inclusive. Shingle subfields will be created for each
-shingle size from 2 up to and including the <code class="literal">max_shingle_size</code>. The
-<code class="literal">my_field._index_prefix</code> subfield will always use the analyzer from the shingle
-subfield with the <code class="literal">max_shingle_size</code> when constructing its own analyzer.</p>
-<p>Increasing the <code class="literal">max_shingle_size</code> will improve matches for queries with more
-consecutive terms, at the cost of larger index size. The default
-<code class="literal">max_shingle_size</code> should usually be sufficient.</p>
-<p>The same input text is indexed into each of these fields automatically, with
-their differing analysis chains, when an indexed document has a value for the
-root field <code class="literal">my_field</code>.</p>
+<p>
+子字段中分块的大小可以通过映射参数<code class="literal">max_shingle_size</code>来配置。
+
+默认值为 3，该参数的有效值为 2 - 4 之间的整数值。
+
+将为从 2 到 <code class="literal">max_shingle_size</code>(包括最大值)的每个分块大小创建分块子字段。
+
+<code class="literal">my_field._index_prefix</code>子字段在构建自己的分析器时，将始终使用具有<code class="literal">max_shingle_size</code>的分块子字段中的分析器。
+</p>
+<p>
+增加<code class="literal">max_shingle_size</code>的值，将提高具有更多连续词项的查询的匹配度，但代价是索引更大。
+
+默认的<code class="literal">max_shingle_size</code>通常就足够了。
+</p>
+<p>
+当被索引的文档具有根字段<code class="literal">my_field</code>的值时，相同的输入文本被自动索引到这些字段中的每一个中，具有各自不同的分析链。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index/_doc/1?refresh
 {
@@ -157,12 +159,11 @@ root field <code class="literal">my_field</code>.</p>
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/699.console"></div>
-<p>The most efficient way of querying to serve a search-as-you-type use case is
-usually a <a class="xref" href="query-dsl-multi-match-query.html" title="Multi-match query"><code class="literal">multi_match</code></a> query of type
-<a class="xref" href="query-dsl-match-bool-prefix-query.html" title="Match boolean prefix query"><code class="literal">bool_prefix</code></a> that targets the root
-<code class="literal">search_as_you_type</code> field and its shingle subfields. This can match the query
-terms in any order, but will score documents higher if they contain the terms
-in order in a shingle subfield.</p>
+<p>
+最有效的查询方式通常是<a class="xref" href="query-dsl-match-bool-prefix-query.html" title="匹配布尔前缀查询"><code class="literal">bool_prefix</code></a>类型的<a class="xref" href="query-dsl-multi-match-query.html" title="多匹配查询"><code class="literal">multi_match</code></a>查询，其目标是根<code class="literal">search_as_you_type</code>字段及其分块子字段。
+
+这可以以任何顺序匹配查询词项，但是如果文档在一个分块子字段中按顺序包含这些词项，那么文档的得分会更高。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_index/_search
 {
@@ -210,12 +211,13 @@ in order in a shingle subfield.</p>
   }
 }</pre>
 </div>
-<p>To search for documents that strictly match the query terms in order, or to
-search using other properties of phrase queries, use a
-<a class="xref" href="query-dsl-match-query-phrase-prefix.html" title="Match phrase prefix query"><code class="literal">match_phrase_prefix</code> query</a> on the root
-field. A <a class="xref" href="query-dsl-match-query-phrase.html" title="Match phrase query"><code class="literal">match_phrase</code> query</a> can also be used
-if the last term should be matched exactly, and not as a prefix. Using phrase
-queries may be less efficient than using the <code class="literal">match_bool_prefix</code> query.</p>
+<p>
+要按顺序搜索与查询词项严格匹配的文档，或使用短语查询的其他属性进行搜索，请在根字段上使用<a class="xref" href="query-dsl-match-query-phrase-prefix.html" title="匹配短语前缀查询"><code class="literal">match_phrase_prefix</code>查询</a>。
+
+如果最后一个词项应该完全匹配，而不是作为前缀，也可以使用<a class="xref" href="query-dsl-match-query-phrase.html" title="匹配短语查询"><code class="literal">match_phrase</code>查询</a>。
+
+使用短语查询的效率可能不如使用<code class="literal">match_bool_prefix</code>查询。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">GET my_index/_search
 {
@@ -230,11 +232,13 @@ queries may be less efficient than using the <code class="literal">match_bool_pr
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="specific-params"></a>Parameters specific to the <code class="literal">search_as_you_type</code> field<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/search-as-you-type.asciidoc">edit</a>
+<a id="specific-params"></a>Parameters specific to the <code class="literal">search_as_you_type</code> field
 </h3>
 </div></div></div>
-<p>The following parameters are accepted in a mapping for the <code class="literal">search_as_you_type</code>
-field and are specific to this field type</p>
+<p>
+
+The following parameters are accepted in a mapping for the <code class="literal">search_as_you_type</code> field and are specific to this field type
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -244,11 +248,16 @@ field and are specific to this field type</p>
 </dt>
 <dd>
 <p>(Optional, integer)
-Largest shingle size to create. Valid values are <code class="literal">2</code> (inclusive) to <code class="literal">4</code>
-(inclusive). Defaults to <code class="literal">3</code>.</p>
-<p>A subfield is created for each integer between <code class="literal">2</code> and this value. For example,
-a value of <code class="literal">3</code> creates two subfields: <code class="literal">my_field._2gram</code> and <code class="literal">my_field._3gram</code></p>
-<p>More subfields enables more specific queries but increases index size.</p>
+
+Largest shingle size to create. Valid values are <code class="literal">2</code> (inclusive) to <code class="literal">4</code> (inclusive). Defaults to <code class="literal">3</code>.
+</p>
+<p>
+
+A subfield is created for each integer between <code class="literal">2</code> and this value.
+
+For example, a value of <code class="literal">3</code> creates two subfields: <code class="literal">my_field._2gram</code> and <code class="literal">my_field._3gram</code>
+</p>
+<p> More subfields enables more specific queries but increases index size.</p>
 </dd>
 </dl>
 </div>
@@ -257,14 +266,15 @@ a value of <code class="literal">3</code> creates two subfields: <code class="li
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="general-params"></a>Parameters of the field type as a text field<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/search-as-you-type.asciidoc">edit</a>
+<a id="general-params"></a>Parameters of the field type as a text field
 </h3>
 </div></div></div>
-<p>The following parameters are accepted in a mapping for the <code class="literal">search_as_you_type</code>
-field due to its nature as a text-like field, and behave similarly to their
-behavior when configuring a field of the <a class="xref" href="text.html" title="Text datatype"><code class="literal">text</code></a> datatype. Unless
-otherwise noted, these options configure the root fields subfields in
-the same way.</p>
+<p>
+
+The following parameters are accepted in a mapping for the <code class="literal">search_as_you_type</code> field due to its nature as a text-like field, and behave similarly to their behavior when configuring a field of the <a class="xref" href="text.html" title="Text datatype"><code class="literal">text</code></a> datatype.
+
+Unless otherwise noted, these options configure the root fields subfields in the same way.
+</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -273,11 +283,11 @@ the same way.</p>
 </span>
 </dt>
 <dd>
-The <a class="xref" href="analysis.html" title="Text analysis">analyzer</a> which should be used for
-<code class="literal">text</code> fields, both at index-time and at
-search-time (unless overridden by the
-<a class="xref" href="search-analyzer.html" title="search_analyzer"><code class="literal">search_analyzer</code></a>). Defaults to the default index
-analyzer, or the <a class="xref" href="analysis-standard-analyzer.html" title="Standard Analyzer"><code class="literal">standard</code> analyzer</a>.
+
+The <a class="xref" href="analysis.html" title="Text analysis">analyzer</a> which should be used for <code class="literal">text</code> fields, both at index-time and at
+search-time (unless overridden by the <a class="xref" href="search-analyzer.html" title="search_analyzer"><code class="literal">search_analyzer</code></a>).
+
+Defaults to the default index analyzer, or the <a class="xref" href="analysis-standard-analyzer.html" title="Standard Analyzer"><code class="literal">standard</code> analyzer</a>.
 </dd>
 <dt>
 <span class="term">
@@ -285,6 +295,7 @@ analyzer, or the <a class="xref" href="analysis-standard-analyzer.html" title="S
 </span>
 </dt>
 <dd>
+
 Should the field be searchable? Accepts <code class="literal">true</code> (default) or <code class="literal">false</code>.
 </dd>
 <dt>
@@ -293,6 +304,7 @@ Should the field be searchable? Accepts <code class="literal">true</code> (defau
 </span>
 </dt>
 <dd>
+
 What information should be stored in the index, for search and highlighting
 purposes. Defaults to <code class="literal">positions</code>.
 </dd>
@@ -302,10 +314,14 @@ purposes. Defaults to <code class="literal">positions</code>.
 </span>
 </dt>
 <dd>
+
 Whether field-length should be taken into account when scoring queries.
-Accepts <code class="literal">true</code> or <code class="literal">false</code>. This option configures the root field
-and shingle subfields, where its default is <code class="literal">true</code>. It does not configure
-the prefix subfield, where it it <code class="literal">false</code>.
+
+Accepts <code class="literal">true</code> or <code class="literal">false</code>.
+
+This option configures the root field and shingle subfields, where its default is <code class="literal">true</code>.
+
+It does not configure the prefix subfield, where it it <code class="literal">false</code>.
 </dd>
 <dt>
 <span class="term">
@@ -313,10 +329,13 @@ the prefix subfield, where it it <code class="literal">false</code>.
 </span>
 </dt>
 <dd>
-Whether the field value should be stored and retrievable separately from
-the <a class="xref" href="mapping-source-field.html" title="_source field"><code class="literal">_source</code></a> field. Accepts <code class="literal">true</code> or <code class="literal">false</code>
-(default). This option only configures the root field, and does not
-configure any subfields.
+
+
+Whether the field value should be stored and retrievable separately from the <a class="xref" href="mapping-source-field.html" title="_source field"><code class="literal">_source</code></a> field.
+
+Accepts <code class="literal">true</code> or <code class="literal">false</code> (default).
+
+This option only configures the root field, and does not configure any subfields.
 </dd>
 <dt>
 <span class="term">
@@ -324,8 +343,10 @@ configure any subfields.
 </span>
 </dt>
 <dd>
-The <a class="xref" href="analyzer.html" title="analyzer"><code class="literal">analyzer</code></a> that should be used at search time on
-<a class="xref" href="text.html" title="Text datatype"><code class="literal">text</code></a> fields. Defaults to the <code class="literal">analyzer</code> setting.
+
+The <a class="xref" href="analyzer.html" title="analyzer"><code class="literal">analyzer</code></a> that should be used at search time on <a class="xref" href="text.html" title="Text datatype"><code class="literal">text</code></a> fields.
+
+Defaults to the <code class="literal">analyzer</code> setting.
 </dd>
 <dt>
 <span class="term">
@@ -333,8 +354,10 @@ The <a class="xref" href="analyzer.html" title="analyzer"><code class="literal">
 </span>
 </dt>
 <dd>
-The <a class="xref" href="analyzer.html" title="analyzer"><code class="literal">analyzer</code></a> that should be used at search time when a
-phrase is encountered. Defaults to the <code class="literal">search_analyzer</code> setting.
+
+The <a class="xref" href="analyzer.html" title="analyzer"><code class="literal">analyzer</code></a> that should be used at search time when a phrase is encountered.
+
+Defaults to the <code class="literal">search_analyzer</code> setting.
 </dd>
 <dt>
 <span class="term">
@@ -342,8 +365,10 @@ phrase is encountered. Defaults to the <code class="literal">search_analyzer</co
 </span>
 </dt>
 <dd>
-Which scoring algorithm or <em>similarity</em> should be used. Defaults
-to <code class="literal">BM25</code>.
+
+Which scoring algorithm or <em>similarity</em> should be used.
+
+Defaults to <code class="literal">BM25</code>.
 </dd>
 <dt>
 <span class="term">
@@ -351,8 +376,12 @@ to <code class="literal">BM25</code>.
 </span>
 </dt>
 <dd>
-Whether term vectors should be stored for the field. Defaults to <code class="literal">no</code>. This option configures the root field and shingle
-subfields, but not the prefix subfield.
+
+Whether term vectors should be stored for the field.
+
+Defaults to <code class="literal">no</code>.
+
+This option configures the root field and shingle subfields, but not the prefix subfield.
 </dd>
 </dl>
 </div>
@@ -361,32 +390,34 @@ subfields, but not the prefix subfield.
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="prefix-queries"></a>Optimization of prefix queries<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/search-as-you-type.asciidoc">edit</a>
+<a id="prefix-queries"></a>Optimization of prefix queries
 </h3>
 </div></div></div>
-<p>When making a <a class="xref" href="query-dsl-prefix-query.html" title="Prefix query"><code class="literal">prefix</code></a> query to the root field or
-any of its subfields, the query will be rewritten to a
-<a class="xref" href="query-dsl-term-query.html" title="Term query"><code class="literal">term</code></a> query on the <code class="literal">._index_prefix</code> subfield. This
-matches more efficiently than is typical of <code class="literal">prefix</code> queries on text fields,
-as prefixes up to a certain length of each shingle are indexed directly as
-terms in the <code class="literal">._index_prefix</code> subfield.</p>
-<p>The analyzer of the <code class="literal">._index_prefix</code> subfield slightly modifies the
-shingle-building behavior to also index prefixes of the terms at the end of the
-field’s value that normally would not be produced as shingles. For example, if
-the value <code class="literal">quick brown fox</code> is indexed into a <code class="literal">search_as_you_type</code> field with
-<code class="literal">max_shingle_size</code> of 3, prefixes for <code class="literal">brown fox</code> and <code class="literal">fox</code> are also indexed
-into the <code class="literal">._index_prefix</code> subfield even though they do not appear as terms in
-the <code class="literal">._3gram</code> subfield. This allows for completion of all the terms in the
-field’s input.</p>
+<p>
+
+When making a <a class="xref" href="query-dsl-prefix-query.html" title="Prefix query"><code class="literal">prefix</code></a> query to the root field or any of its subfields, the query will be rewritten to a <a class="xref" href="query-dsl-term-query.html" title="Term query"><code class="literal">term</code></a> query on the <code class="literal">._index_prefix</code> subfield.
+
+This matches more efficiently than is typical of <code class="literal">prefix</code> queries on text fields, as prefixes up to a certain length of each shingle are indexed directly as terms in the <code class="literal">._index_prefix</code> subfield.
+</p>
+<p>
+
+The analyzer of the <code class="literal">._index_prefix</code> subfield slightly modifies the shingle-building behavior to also index prefixes of the terms at the end of the field’s value that normally would not be produced as shingles.
+
+For example, if the value <code class="literal">quick brown fox</code> is indexed into a <code class="literal">search_as_you_type</code> field with <code class="literal">max_shingle_size</code> of 3, prefixes for <code class="literal">brown fox</code> and <code class="literal">fox</code> are also indexed into the <code class="literal">._index_prefix</code> subfield even though they do not appear as terms in the <code class="literal">._3gram</code> subfield.
+
+This allows for completion of all the terms in the
+field’s input.
+
+</p>
 </div>
 
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="rank-features.html">« Rank features datatype</a>
+<a href="rank-features.html">« rank_features(特征排名)数据类型</a>
 </span>
 <span class="next">
-<a href="sparse-vector.html">Sparse vector datatype »</a>
+<a href2="sparse-vector.html">Sparse vector datatype »</a>
 </span>
 </div>
 </div>

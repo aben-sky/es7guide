@@ -1787,8 +1787,8 @@ var esNavLinks = [
                     },
                     {
                         "url": "search-as-you-type.html",
-                        "text": "Search-as-you-type",
-                        "title": "Search-as-you-type"
+                        "text": "search_as_you_type(输入即搜索)",
+                        "title": "search_as_you_type(输入即搜索)"
                     },
                     {
                         "url": "sparse-vector.html",

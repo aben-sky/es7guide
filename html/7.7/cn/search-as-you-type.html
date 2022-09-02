@@ -56,7 +56,7 @@
 </div></div></div>
 
 <p>
-<code class="literal">search_as_you_type</code>字段类型是一种相似文本的字段，它经过优化，为服务于随输入补全用例的查询提供开箱即用的支持。
+<code class="literal">search_as_you_type</code>字段类型是一种类似文本的字段，它经过优化，为服务于随输入补全用例的查询提供开箱即用的支持。
 
 它创建了一系列子字段，对这些子字段进行分析，以索引能够被部分匹配整个索引文本值的查询有效匹配的词项。
 
@@ -232,13 +232,10 @@
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="specific-params"></a>Parameters specific to the <code class="literal">search_as_you_type</code> field
+<a id="specific-params"></a><code class="literal">search_as_you_type</code>字段的特定参数
 </h3>
 </div></div></div>
-<p>
-
-The following parameters are accepted in a mapping for the <code class="literal">search_as_you_type</code> field and are specific to this field type
-</p>
+<p><code class="literal">search_as_you_type</code>字段的映射中接受以下参数，且这些参数是特定于该字段类型的</p>
 <div class="variablelist">
 <dl class="variablelist">
 <dt>
@@ -247,17 +244,13 @@ The following parameters are accepted in a mapping for the <code class="literal"
 </span>
 </dt>
 <dd>
-<p>(Optional, integer)
-
-Largest shingle size to create. Valid values are <code class="literal">2</code> (inclusive) to <code class="literal">4</code> (inclusive). Defaults to <code class="literal">3</code>.
-</p>
+<p>(可选, 整型) 要创建的最大分块尺寸。 有效值是<code class="literal">2</code> (含) 到 <code class="literal">4</code> (含)。默认值为 <code class="literal">3</code>。</p>
 <p>
+为 <code class="literal">2</code> 和该值之间的每个整数创建一个子字段。
 
-A subfield is created for each integer between <code class="literal">2</code> and this value.
-
-For example, a value of <code class="literal">3</code> creates two subfields: <code class="literal">my_field._2gram</code> and <code class="literal">my_field._3gram</code>
+例如，值<code class="literal">3</code>创建两个子字段：<code class="literal">my_field._2gram</code>和<code class="literal">my_field._3gram</code>
 </p>
-<p> More subfields enables more specific queries but increases index size.</p>
+<p>更多的子字段支持更具体的查询，但会增加索引大小。</p>
 </dd>
 </dl>
 </div>
@@ -266,14 +259,13 @@ For example, a value of <code class="literal">3</code> creates two subfields: <c
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="general-params"></a>Parameters of the field type as a text field
+<a id="general-params"></a>作为文本字段的字段类型的参数
 </h3>
 </div></div></div>
 <p>
+由于<code class="literal">search_as_you_type</code>字段本质上是一个类似文本的字段，因此在该字段的映射中接受以下参数，这些参数的行为与配置<a class="xref" href="text.html" title="文本数据类型"><code class="literal">text</code></a>数据类型的字段时的行为类似。
 
-The following parameters are accepted in a mapping for the <code class="literal">search_as_you_type</code> field due to its nature as a text-like field, and behave similarly to their behavior when configuring a field of the <a class="xref" href="text.html" title="Text datatype"><code class="literal">text</code></a> datatype.
-
-Unless otherwise noted, these options configure the root fields subfields in the same way.
+除非另有说明，否则这些选项以相同的方式配置根字段子字段。
 </p>
 <div class="variablelist">
 <dl class="variablelist">
@@ -283,11 +275,9 @@ Unless otherwise noted, these options configure the root fields subfields in the
 </span>
 </dt>
 <dd>
+应该在索引时和搜索时用于文本字段的<a class="xref" href="analysis.html" title="文本分析">analyzer(分析器)</a>分析器(除非被<a class="xref" href="search-analyzer.html" title="search_analyzer"><code class="literal">search_analyzer</code></a>覆盖)。
 
-The <a class="xref" href="analysis.html" title="Text analysis">analyzer</a> which should be used for <code class="literal">text</code> fields, both at index-time and at
-search-time (unless overridden by the <a class="xref" href="search-analyzer.html" title="search_analyzer"><code class="literal">search_analyzer</code></a>).
-
-Defaults to the default index analyzer, or the <a class="xref" href="analysis-standard-analyzer.html" title="Standard Analyzer"><code class="literal">standard</code> analyzer</a>.
+默认值为默认的索引分析器，或者<a class="xref" href="analysis-standard-analyzer.html" title="标准分析器"><code class="literal">standard</code>分析器</a>。
 </dd>
 <dt>
 <span class="term">
@@ -295,8 +285,7 @@ Defaults to the default index analyzer, or the <a class="xref" href="analysis-st
 </span>
 </dt>
 <dd>
-
-Should the field be searchable? Accepts <code class="literal">true</code> (default) or <code class="literal">false</code>.
+字段应该是可搜索的吗？接受<code class="literal">true</code> (默认) 或 <code class="literal">false</code>。
 </dd>
 <dt>
 <span class="term">
@@ -304,9 +293,7 @@ Should the field be searchable? Accepts <code class="literal">true</code> (defau
 </span>
 </dt>
 <dd>
-
-What information should be stored in the index, for search and highlighting
-purposes. Defaults to <code class="literal">positions</code>.
+为了搜索和高亮显示，应该在索引中存储什么信息。默认为<code class="literal">positions</code>。
 </dd>
 <dt>
 <span class="term">
@@ -314,14 +301,13 @@ purposes. Defaults to <code class="literal">positions</code>.
 </span>
 </dt>
 <dd>
+查询评分时是否应考虑字段长度。
 
-Whether field-length should be taken into account when scoring queries.
+接受<code class="literal">true</code> 或 <code class="literal">false</code>。
 
-Accepts <code class="literal">true</code> or <code class="literal">false</code>.
+该选项配置根字段和分块子字段，其默认值为<code class="literal">true</code>。
 
-This option configures the root field and shingle subfields, where its default is <code class="literal">true</code>.
-
-It does not configure the prefix subfield, where it it <code class="literal">false</code>.
+当它为<code class="literal">false</code>时，不配置前缀子字段。
 </dd>
 <dt>
 <span class="term">
@@ -329,13 +315,11 @@ It does not configure the prefix subfield, where it it <code class="literal">fal
 </span>
 </dt>
 <dd>
+字段值是否应该与<a class="xref" href="mapping-source-field.html" title="_source field"><code class="literal">_source</code></a>字段分开存储和检索。
 
+接受<code class="literal">true</code> 或 <code class="literal">false</code> (默认)。
 
-Whether the field value should be stored and retrievable separately from the <a class="xref" href="mapping-source-field.html" title="_source field"><code class="literal">_source</code></a> field.
-
-Accepts <code class="literal">true</code> or <code class="literal">false</code> (default).
-
-This option only configures the root field, and does not configure any subfields.
+此选项仅配置根字段，不配置任何子字段。
 </dd>
 <dt>
 <span class="term">
@@ -343,10 +327,9 @@ This option only configures the root field, and does not configure any subfields
 </span>
 </dt>
 <dd>
+应该在搜索<a class="xref" href="text.html" title="文本数据类型"><code class="literal">text</code></a>字段时使用的<a class="xref" href="analyzer.html" title="分析器"><code class="literal">analyzer(分析器)</code></a>。
 
-The <a class="xref" href="analyzer.html" title="analyzer"><code class="literal">analyzer</code></a> that should be used at search time on <a class="xref" href="text.html" title="Text datatype"><code class="literal">text</code></a> fields.
-
-Defaults to the <code class="literal">analyzer</code> setting.
+默认为<code class="literal">analyzer</code>设置。
 </dd>
 <dt>
 <span class="term">
@@ -354,10 +337,9 @@ Defaults to the <code class="literal">analyzer</code> setting.
 </span>
 </dt>
 <dd>
+当遇到短语时，在搜索时应该使用的<a class="xref" href="analyzer.html" title="分析器"><code class="literal">analyzer(分析器)</code></a>。
 
-The <a class="xref" href="analyzer.html" title="analyzer"><code class="literal">analyzer</code></a> that should be used at search time when a phrase is encountered.
-
-Defaults to the <code class="literal">search_analyzer</code> setting.
+默认为<code class="literal">search_analyzer</code>设置。
 </dd>
 <dt>
 <span class="term">
@@ -365,10 +347,7 @@ Defaults to the <code class="literal">search_analyzer</code> setting.
 </span>
 </dt>
 <dd>
-
-Which scoring algorithm or <em>similarity</em> should be used.
-
-Defaults to <code class="literal">BM25</code>.
+应该使用哪种评分或<em>相似度</em>算法。默认为<code class="literal">BM25</code>。
 </dd>
 <dt>
 <span class="term">
@@ -376,12 +355,11 @@ Defaults to <code class="literal">BM25</code>.
 </span>
 </dt>
 <dd>
+是否应为字段存储词项向量。
 
-Whether term vectors should be stored for the field.
+默认为<code class="literal">no</code>。
 
-Defaults to <code class="literal">no</code>.
-
-This option configures the root field and shingle subfields, but not the prefix subfield.
+此选项配置根字段和分块子字段，但不配置前缀子字段。
 </dd>
 </dl>
 </div>
@@ -390,24 +368,20 @@ This option configures the root field and shingle subfields, but not the prefix 
 <div class="section">
 <div class="titlepage"><div><div>
 <h3 class="title">
-<a id="prefix-queries"></a>Optimization of prefix queries
+<a id="prefix-queries"></a>前缀查询优化
 </h3>
 </div></div></div>
 <p>
+当对根字段或它的任何子字段进行<a class="xref" href="query-dsl-prefix-query.html" title="前缀查询"><code class="literal">prefix(前缀)</code></a>查询时，查询将被重写为对<code class="literal">._index_prefix</code>子字段的<a class="xref" href="query-dsl-term-query.html" title="词项查询"><code class="literal">term</code></a>查询。
 
-When making a <a class="xref" href="query-dsl-prefix-query.html" title="Prefix query"><code class="literal">prefix</code></a> query to the root field or any of its subfields, the query will be rewritten to a <a class="xref" href="query-dsl-term-query.html" title="Term query"><code class="literal">term</code></a> query on the <code class="literal">._index_prefix</code> subfield.
-
-This matches more efficiently than is typical of <code class="literal">prefix</code> queries on text fields, as prefixes up to a certain length of each shingle are indexed directly as terms in the <code class="literal">._index_prefix</code> subfield.
+这比典型的对文本字段的<code class="literal">prefix</code>查询更有效，因为每个分块的特定长度的前缀被直接索引为<code class="literal">._index_prefix</code>子字段。
 </p>
 <p>
+<code class="literal">._index_prefix</code>子字段的分析器稍微修改了分块构建的行为，以便在字段值的末尾也索引通常不会作为分块产生的词项的前缀。
 
-The analyzer of the <code class="literal">._index_prefix</code> subfield slightly modifies the shingle-building behavior to also index prefixes of the terms at the end of the field’s value that normally would not be produced as shingles.
+例如，如果值<code class="literal">quick brown fox</code>被索引到<code class="literal">max_shingle_size</code>为3的<code class="literal">search_as_you_type</code>字段中，则<code class="literal">brown fox</code>和<code class="literal">fox</code>的前缀也被索引到<code class="literal">._index_prefix</code>子字段，即使它们不会以词项的形式出现在<code class="literal">._3gram</code>子字段中。
 
-For example, if the value <code class="literal">quick brown fox</code> is indexed into a <code class="literal">search_as_you_type</code> field with <code class="literal">max_shingle_size</code> of 3, prefixes for <code class="literal">brown fox</code> and <code class="literal">fox</code> are also indexed into the <code class="literal">._index_prefix</code> subfield even though they do not appear as terms in the <code class="literal">._3gram</code> subfield.
-
-This allows for completion of all the terms in the
-field’s input.
-
+这允许字段输入中的所有词项的自动完成。
 </p>
 </div>
 

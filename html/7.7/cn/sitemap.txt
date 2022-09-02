@@ -281,3 +281,4 @@ https://www.pipiho.com/es/7.7/cn/percolator.html
 https://www.pipiho.com/es/7.7/cn/range.html
 https://www.pipiho.com/es/7.7/cn/rank-feature.html
 https://www.pipiho.com/es/7.7/cn/rank-features.html
+https://www.pipiho.com/es/7.7/cn/search-as-you-type.html

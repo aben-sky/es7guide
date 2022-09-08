@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Sparse vector datatype | ElasticSearch 7.7 权威指南中文版</title>
+	<title>sparse_vector(稀疏向量)数据类型 | ElasticSearch 7.7 权威指南中文版</title>
 	<meta name="keywords" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <meta name="description" content="ElasticSearch 权威指南中文版, elasticsearch 7, es7, 实时数据分析，实时数据检索" />
     <!-- Give IE8 a fighting chance -->
@@ -32,48 +32,57 @@
 </div>
 <div id="content">
 <div class="breadcrumbs">
-<span class="breadcrumb-link"><a href="index.html">Elasticsearch Guide [7.7]</a></span>
+<span class="breadcrumb-link"><a href="index.html">Elasticsearch 权威指南 [7.7]</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping.html">Mapping</a></span>
+<span class="breadcrumb-link"><a href="mapping.html">映射</a></span>
 »
-<span class="breadcrumb-link"><a href="mapping-types.html">Field datatypes</a></span>
+<span class="breadcrumb-link"><a href="mapping-types.html">字段数据类型</a></span>
 »
-<span class="breadcrumb-node">Sparse vector datatype</span>
+<span class="breadcrumb-node">sparse_vector(稀疏向量)数据类型</span>
 </div>
 <div class="navheader">
 <span class="prev">
-<a href="search-as-you-type.html">« Search-as-you-type datatype</a>
+<a href="search-as-you-type.html">« search_as_you_type(输入即搜索)数据类型</a>
 </span>
 <span class="next">
-<a href="text.html">Text datatype »</a>
+<a href2="text.html">Text datatype »</a>
 </span>
 </div>
 <div class="section xpack">
 <div class="titlepage"><div><div>
 <h2 class="title">
-<a id="sparse-vector"></a>Sparse vector datatype<a class="edit_me edit_me_private" rel="nofollow" title="Editing on GitHub is available to Elastic" href="https://github.com/elastic/elasticsearch/edit/7.7/docs/reference/mapping/types/sparse-vector.asciidoc">edit</a><a class="xpack_tag" href="https://www.elastic.co/subscriptions"></a>
+<a id="sparse-vector"></a>sparse_vector(稀疏向量)数据类型
 </h2>
 </div></div></div>
 
 <div class="warning admon">
 <div class="icon"></div>
 <div class="admon_content">
-<h3>Deprecated in 7.6.</h3>
-<p>The <code class="literal">sparse_vector</code> type is deprecated and will be removed in 8.0.</p>
+<h3>于7.6版本废弃。</h3>
+<p><code class="literal">sparse_vector</code>类型已废弃，将在8.0中移除。</p>
 </div>
 </div>
-<p>A <code class="literal">sparse_vector</code> field stores sparse vectors of float values.
-The maximum number of dimensions that can be in a vector should
-not exceed 1024. The number of dimensions can be
-different across documents. A <code class="literal">sparse_vector</code> field is
-a single-valued field.</p>
-<p>These vectors can be used for <a class="xref" href="query-dsl-script-score-query.html#vector-functions" title="Functions for vector fields">document scoring</a>.
-For example, a document score can represent a distance between
-a given query vector and the indexed document vector.</p>
-<p>You represent a sparse vector as an object, where object fields
-are dimensions, and fields values are values for these dimensions.
-Dimensions are integer values from <code class="literal">0</code> to <code class="literal">65535</code> encoded as strings.
-Dimensions don’t need to be in order.</p>
+<p>
+<code class="literal">sparse_vector</code>类型的字段存储浮点值的稀疏向量。
+
+向量中的最大维数不应超过1024。
+
+不同文档的维度的数量可以不同。
+
+<code class="literal">sparse_vector</code>字段是单值字段。
+</p>
+<p>
+这些向量可用于<a class="xref" href="query-dsl-script-score-query.html#vector-functions" title="用于向量字段的函数">文档评分</a>。
+
+例如，文档的得分可以表示给定查询向量和索引文档向量之间的距离。
+</p>
+<p>
+将稀疏向量表示为对象，其中对象字段是维度，字段值是这些维度的值。
+
+维度是以字符串编码的从<code class="literal">0</code>到<code class="literal">65535</code>的整数值。
+
+维度不需要按顺序排列。
+</p>
 <div class="pre_wrapper lang-console">
 <pre class="programlisting prettyprint lang-console">PUT my_index
 {
@@ -104,17 +113,18 @@ PUT my_index/_doc/2
 }</pre>
 </div>
 <div class="console_widget" data-snippet="snippets/703.console"></div>
-<p>Internally, each document’s sparse vector is encoded as a binary
-doc value. Its size in bytes is equal to
-<code class="literal">6 * NUMBER_OF_DIMENSIONS + 4</code>, where <code class="literal">NUMBER_OF_DIMENSIONS</code> -
-number of the vector’s dimensions.</p>
+<p>
+在内部，每个文档的稀疏向量被编码为二进制文档值。
+
+大小等于<code class="literal">6 * NUMBER_OF_DIMENSIONS + 4</code>个字节，其中<code class="literal">NUMBER_OF_DIMENSIONS</code>是向量维度的数值。
+</p>
 </div>
 <div class="navfooter">
 <span class="prev">
-<a href="search-as-you-type.html">« Search-as-you-type datatype</a>
+<a href="search-as-you-type.html">« search_as_you_type(输入即搜索)数据类型</a>
 </span>
 <span class="next">
-<a href="text.html">Text datatype »</a>
+<a href2="text.html">Text datatype »</a>
 </span>
 </div>
 </div>
